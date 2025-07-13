@@ -1,121 +1,122 @@
-"use client"
+"use client";
 
-import { useState, useEffect, useRef } from "react"
-import { Button } from "@/components/ui/button"
-import { Container } from "@/components/ui/container"
-import { ArrowRight, ChevronLeft, ChevronRight } from "lucide-react"
+import { useState, useEffect, useRef } from "react";
+import { Button } from "@/components/ui/button";
+import { Container } from "@/components/ui/container";
+import { ArrowRight, ChevronLeft, ChevronRight } from "lucide-react";
 
 const heroSlides = [
   {
     id: 1,
-    title: "50 KWp Solar Hybrid Mini-Grid at Jacani Community, Kauru LGA, Kaduna State",
-    image: "/images/hero1.JPG?height=800&width=1400",
-    description: "Transforming rural communities with sustainable energy solutions",
+    title: "Olooji Community 100kw Solar Hybrid Mini Grid",
+    image: "/images/olooji-community.jpg?height=800&width=1400",
+    description: "Ijebu-East LGA, Ogun State",
   },
   {
     id: 2,
-    title: "Advanced Solar Installation at Lagos Industrial Complex",
-    image: "/images/hero2.JPG?height=800&width=1400",
-    description: "Powering Nigeria's industrial growth with clean energy",
+    title: "40kw Solar Mini-Grid Obadore Community",
+    image: "/images/obadore-ondo.jpg?height=800&width=1400",
+    description: "Obadore LGA, Ondo State",
   },
   {
     id: 3,
-    title: "Community Solar Project in Kano State Rural Areas",
-    image: "/images/hero3.JPG?height=800&width=1400",
-    description: "Bringing electricity to underserved communities",
+    title: "100kWp Solar Hybrid Mini-Grid at Adebayo Community",
+    image: "/images/adebayo-community.jpg?height=800&width=1400",
+    description: "Ovia-South LGA, Edo State",
   },
   {
     id: 4,
-    title: "Commercial Solar Solutions for Abuja Business District",
-    image: "/images/hero4.JPG?height=800&width=1400",
-    description: "Sustainable power for modern businesses",
+    title: "50 kWp Solar Hybrid Mini-Grid at Makami Community",
+    image: "/images/makami-kaduna.jpg?height=800&width=1400",
+    description: "Kauru LGA, Kaduna State",
   },
   {
     id: 5,
-    title: "Mini-Grid Development in Cross River State",
-    image: "/images/hero5.JPG?height=800&width=1400",
-    description: "Expanding access to reliable renewable energy",
+    title: "Routine Maintenance on Streetlight Infrastructure",
+    image: "/images/airport-road-abuja.jpg?height=800&width=1400",
+    description: "Airport Road LGA, Abuja",
   },
   {
     id: 6,
     title: "Solar Farm Installation in Northern Nigeria",
-    image: "/images/hero1.JPG?height=800&width=1400",
-    description: "Large-scale solar solutions for regional power needs",
+    image: "/images/olooji-community.jpg?height=800&width=1400",
+    description: "Northern Region, Nigeria",
   },
-]
+];
+
 
 export function HeroSection() {
-  const [currentSlide, setCurrentSlide] = useState(0)
-  const [isTransitioning, setIsTransitioning] = useState(false)
-  const [showContent, setShowContent] = useState(true)
-  const [isPaused, setIsPaused] = useState(false)
-  const [slideStartTime, setSlideStartTime] = useState(Date.now())
-  const intervalRef = useRef<NodeJS.Timeout | null>(null)
+  const [currentSlide, setCurrentSlide] = useState(0);
+  const [isTransitioning, setIsTransitioning] = useState(false);
+  const [showContent, setShowContent] = useState(true);
+  const [isPaused, setIsPaused] = useState(false);
+  const [slideStartTime, setSlideStartTime] = useState(Date.now());
+  const intervalRef = useRef<NodeJS.Timeout | null>(null);
 
   const changeSlide = (newIndex: number) => {
-    if (isTransitioning || newIndex === currentSlide) return
+    if (isTransitioning || newIndex === currentSlide) return;
 
-    setIsTransitioning(true)
-    setShowContent(false)
+    setIsTransitioning(true);
+    setShowContent(false);
 
     setTimeout(() => {
-      setCurrentSlide(newIndex)
-      setSlideStartTime(Date.now())
+      setCurrentSlide(newIndex);
+      setSlideStartTime(Date.now());
       setTimeout(() => {
-        setShowContent(true)
-        setIsTransitioning(false)
-      }, 200)
-    }, 800)
-  }
+        setShowContent(true);
+        setIsTransitioning(false);
+      }, 200);
+    }, 800);
+  };
 
   const nextSlide = () => {
-    changeSlide((currentSlide + 1) % heroSlides.length)
-  }
+    changeSlide((currentSlide + 1) % heroSlides.length);
+  };
 
   const prevSlide = () => {
-    changeSlide((currentSlide - 1 + heroSlides.length) % heroSlides.length)
-  }
+    changeSlide((currentSlide - 1 + heroSlides.length) % heroSlides.length);
+  };
 
   const goToSlide = (index: number) => {
-    changeSlide(index)
-  }
+    changeSlide(index);
+  };
 
   // Auto-play functionality with pause on hover
   useEffect(() => {
     const startAutoPlay = () => {
       if (intervalRef.current) {
-        clearInterval(intervalRef.current)
+        clearInterval(intervalRef.current);
       }
-      
+
       intervalRef.current = setInterval(() => {
         if (!isPaused && !isTransitioning) {
-          nextSlide()
+          nextSlide();
         }
-      }, 10000) // 10 seconds
-    }
+      }, 10000); // 10 seconds
+    };
 
-    startAutoPlay()
+    startAutoPlay();
 
     return () => {
       if (intervalRef.current) {
-        clearInterval(intervalRef.current)
+        clearInterval(intervalRef.current);
       }
-    }
-  }, [currentSlide, isPaused, isTransitioning])
+    };
+  }, [currentSlide, isPaused, isTransitioning]);
 
   const handleMouseEnter = () => {
-    setIsPaused(true)
-  }
+    setIsPaused(true);
+  };
 
   const handleMouseLeave = () => {
-    setIsPaused(false)
-    setSlideStartTime(Date.now()) // Reset the slide timer
-  }
+    setIsPaused(false);
+    setSlideStartTime(Date.now()); // Reset the slide timer
+  };
 
-  const currentSlideData = heroSlides[currentSlide]
+  const currentSlideData = heroSlides[currentSlide];
 
   return (
-    <section 
+    <section
       className="relative min-h-[700px] overflow-hidden"
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
@@ -131,12 +132,12 @@ export function HeroSection() {
           >
             <div
               className={`w-full h-full bg-cover bg-center bg-no-repeat ${
-                index === currentSlide && !isPaused ? 'ken-burns-zoom' : ''
+                index === currentSlide && !isPaused ? "ken-burns-zoom" : ""
               }`}
               style={{
                 backgroundImage: `url('${slide.image}')`,
-                transform: 'scale(1.05)',
-                transformOrigin: 'center center',
+                transform: "scale(1.05)",
+                transformOrigin: "center center",
               }}
             />
           </div>
@@ -150,7 +151,7 @@ export function HeroSection() {
       <button
         onClick={prevSlide}
         disabled={isTransitioning}
-        className="absolute left-8 top-1/2 -translate-y-1/2 z-20 w-12 h-12 rounded-full bg-white/20 border border-white/30 text-white hover:bg-white/30 hover:scale-110 backdrop-blur-sm transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center group"
+        className="absolute left-0 top-1/2 -translate-y-1/2 z-20 w-12 h-12 rounded-full  text-white hover:bg-white/30 hover:scale-110  transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center group"
       >
         <ChevronLeft className="h-6 w-6 group-hover:scale-110 transition-transform duration-200" />
       </button>
@@ -158,37 +159,21 @@ export function HeroSection() {
       <button
         onClick={nextSlide}
         disabled={isTransitioning}
-        className="absolute right-8 top-1/2 -translate-y-1/2 z-20 w-12 h-12 rounded-full bg-white/20 border border-white/30 text-white hover:bg-white/30 hover:scale-110 backdrop-blur-sm transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center group"
+        className="absolute right-0 top-1/2 -translate-y-1/2 z-20 w-12 h-12 rounded-full  text-white hover:bg-white/30 hover:scale-110  transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center group"
       >
         <ChevronRight className="h-6 w-6 group-hover:scale-110 transition-transform duration-200" />
       </button>
 
       {/* Content with smooth animations */}
-      <div className="relative z-10 text-white max-w-6xl h-full flex items-center min-h-[700px]">
+      <div className="relative z-10 text-white max-w-6xl h-full flex items-end pb-12 min-h-[700px]">
         <Container className="px-8">
           <div className="w-full max-w-4xl">
-            {/* Custom Indicators - directly above title */}
-            <div className="flex space-x-2 mb-4">
-              {heroSlides.map((_, index) => (
-                <button
-                  key={index}
-                  onClick={() => goToSlide(index)}
-                  disabled={isTransitioning}
-                  className={`transition-all duration-500 rounded-full cursor-pointer hover:opacity-80 disabled:cursor-not-allowed ${
-                    currentSlide === index 
-                      ? "w-8 h-1 bg-primary shadow-lg" 
-                      : "w-6 h-0.5 bg-white/50 hover:bg-white/70 hover:w-7"
-                  }`}
-                />
-              ))}
-            </div>
-
             {/* Animated Title */}
             <div className="overflow-hidden mb-6">
               <h1
-                className={`text-4xl md:text-6xl font-bold leading-tight text-left transition-all duration-1000 ease-out ${
-                  showContent 
-                    ? "transform translate-x-0 opacity-100 blur-0" 
+                className={`text-4xl md:text-7xl font-extrabold leading-tight text-left transition-all duration-1000 ease-out ${
+                  showContent
+                    ? "transform translate-x-0 opacity-100 blur-0"
                     : "transform -translate-x-full opacity-0 blur-sm"
                 }`}
                 style={{ transitionDelay: showContent ? "400ms" : "0ms" }}
@@ -201,8 +186,8 @@ export function HeroSection() {
             <div className="overflow-hidden mb-8">
               <p
                 className={`text-lg md:text-xl opacity-90 text-left max-w-3xl transition-all duration-1000 ease-out ${
-                  showContent 
-                    ? "transform translate-x-0 opacity-90 blur-0" 
+                  showContent
+                    ? "transform translate-x-0 opacity-90 blur-0"
                     : "transform -translate-x-full opacity-0 blur-sm"
                 }`}
                 style={{ transitionDelay: showContent ? "600ms" : "0ms" }}
@@ -216,9 +201,9 @@ export function HeroSection() {
               {/* Read More - slides in from left */}
               <Button
                 size="lg"
-                className={`bg-primary hover:bg-primary/90 text-white transition-all duration-1000 ease-out hover:scale-105 ${
-                  showContent 
-                    ? "transform translate-x-0 opacity-100 blur-0" 
+                className={`bg-primary hover:bg-primary/90 text-lg py-6 text-white transition-all duration-1000 ease-out hover:scale-105 ${
+                  showContent
+                    ? "transform translate-x-0 opacity-100 blur-0"
                     : "transform -translate-x-full opacity-0 blur-sm"
                 }`}
                 style={{ transitionDelay: showContent ? "800ms" : "0ms" }}
@@ -231,15 +216,30 @@ export function HeroSection() {
               <Button
                 size="lg"
                 variant="outline"
-                className={`border-white text-white hover:bg-white hover:text-black bg-transparent transition-all duration-1000 ease-out hover:scale-105 ${
-                  showContent 
-                    ? "transform translate-x-0 opacity-100 blur-0" 
+                className={`border-white text-white hover:bg-white text-lg py-6 hover:text-black bg-transparent transition-all duration-1000 ease-out hover:scale-105 ${
+                  showContent
+                    ? "transform translate-x-0 opacity-100 blur-0"
                     : "transform translate-x-full opacity-0 blur-sm"
                 }`}
                 style={{ transitionDelay: showContent ? "1000ms" : "0ms" }}
               >
                 Our Services
               </Button>
+            </div>
+            {/* Custom Indicators - directly above title */}
+            <div className="flex space-x-2 mt-8">
+              {heroSlides.map((_, index) => (
+                <button
+                  key={index}
+                  onClick={() => goToSlide(index)}
+                  disabled={isTransitioning}
+                  className={`transition-all duration-500 rounded-full cursor-pointer hover:opacity-80 disabled:cursor-not-allowed ${
+                    currentSlide === index
+                      ? "w-8 h-1 bg-primary shadow-lg"
+                      : "w-6 h-0.5 bg-white/50 hover:bg-white/70 hover:w-7"
+                  }`}
+                />
+              ))}
             </div>
           </div>
         </Container>
@@ -266,5 +266,5 @@ export function HeroSection() {
         }
       `}</style>
     </section>
-  )
+  );
 }

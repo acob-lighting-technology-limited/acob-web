@@ -86,15 +86,20 @@ const navigationItems = [
 const DropdownMenu: React.FC<DropdownMenuProps> = ({ item, isOpen, onClose }) => {
   return (
     <div className={`
-      absolute top-full left-0 mt-2 w-[600px] bg-white rounded-lg shadow-2xl border border-gray-100 
+      absolute top-full left-0 mt-2 w-full max-w-[600px] min-w-[400px] bg-white rounded-lg shadow-2xl border border-gray-100 
       transform transition-all duration-300 ease-out origin-top
       ${isOpen 
         ? 'opacity-100 scale-100 translate-y-0' 
         : 'opacity-0 scale-95 -translate-y-2 pointer-events-none'
       }
-    `}>
+    `}
+    style={{
+      left: '50%',
+      transform: 'translateX(-50%)',
+    }}
+    >
       <div className="p-6">
-        <div className="grid grid-cols-2 gap-4">
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
           {item.subItems.map((subItem, index) => (
             <Link
               key={subItem.name}
@@ -110,10 +115,10 @@ const DropdownMenu: React.FC<DropdownMenuProps> = ({ item, isOpen, onClose }) =>
                 animationFillMode: 'both'
               }}
             >
-              <div className="font-medium text-gray-900 group-hover:text-primary transition-colors duration-200">
+              <div className="font-medium text-gray-900 group-hover:text-primary transition-colors duration-200 break-words">
                 {subItem.name}
               </div>
-              <div className="text-sm text-gray-500 mt-1 group-hover:text-gray-700 transition-colors duration-200">
+              <div className="text-sm text-gray-500 mt-1 group-hover:text-gray-700 transition-colors duration-200 break-words">
                 {subItem.description}
               </div>
             </Link>
@@ -156,7 +161,7 @@ const MobileMenu: React.FC<MobileMenuProps> = ({ isOpen, onClose }) => {
         transform transition-transform duration-300 ease-out
         ${isOpen ? 'translate-x-0' : 'translate-x-full'}
       `}>
-        <div className="p-6">
+        <div className="p-6 h-full overflow-y-auto">
           <div className="flex items-center justify-between mb-8">
             <div className="flex items-center space-x-2">
               <div className="flex h-8 w-8 items-center justify-center rounded bg-primary text-white font-bold">
@@ -300,12 +305,10 @@ export function Header() {
           <div className="flex items-center justify-between h-16">
             {/* Logo */}
             <Link href="/" className="flex items-center space-x-2 group">
-              <div className="flex h-8 w-8 items-center justify-center rounded bg-primary text-white font-bold transition-all duration-200 group-hover:scale-110 group-hover:rotate-12">
-                A
-              </div>
-              <span className="font-bold text-lg text-gray-900 group-hover:text-primary transition-colors duration-200">
-                ACOB LIGHTING
-              </span>
+              <img
+                src="/images/ACOB-Black-Logo.jpg"
+                alt="ACOB Lighting Logo"
+                className="h-8 w-auto transition-transform duration-200 group-hover:scale-105"/>
             </Link>
 
             {/* Desktop Navigation */}
