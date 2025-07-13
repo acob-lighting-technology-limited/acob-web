@@ -69,12 +69,19 @@ export function TransitionSection() {
   const isInView = useInView(ref, { once: true, margin: "-50px" })
 
   return (
-    <section className="py-16" ref={ref}>
-      <Container className="px-4">
+    <section
+    ref={ref}
+    className="relative py-16 bg-cover bg-center bg-no-repeat "
+    style={{
+      backgroundImage: "url('/images/transition-bg.jpg')",
+    }}
+  >
+    <div className="absolute inset-0 bg-black/70 z-0"></div>
+      <Container className="relative px-4">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
           <div>
             <motion.h2 
-              className="text-3xl md:text-4xl font-bold mb-6"
+              className="text-3xl md:text-4xl font-bold mb-6 text-white"
               initial={{ opacity: 0, y: 30 }}
               animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
               transition={{ duration: 0.8, ease: "easeOut" }}
@@ -115,7 +122,7 @@ export function TransitionSection() {
             transition={{ duration: 0.8, delay: 0.2, ease: "easeOut" }}
           >
             <motion.img
-              src="/placeholder.svg?height=250&width=300"
+              src="/images/obadore-ondo.jpg?height=250&width=300"
               alt="Solar Installation"
               className="rounded-lg shadow-lg w-full h-[250px] object-cover"
               initial={{ opacity: 0, scale: 0.8 }}
@@ -123,7 +130,7 @@ export function TransitionSection() {
               transition={{ duration: 0.6, delay: 0.4 }}
             />
             <motion.img
-              src="/placeholder.svg?height=250&width=300"
+              src="/images/makami-kaduna.jpg?height=250&width=300"
               alt="Team at Work"
               className="rounded-lg shadow-lg w-full h-[250px] object-cover mt-8"
               initial={{ opacity: 0, scale: 0.8 }}
@@ -131,7 +138,7 @@ export function TransitionSection() {
               transition={{ duration: 0.6, delay: 0.6 }}
             />
             <motion.img
-              src="/placeholder.svg?height=250&width=300"
+              src="/images/olooji-community.jpg?height=250&width=300"
               alt="Solar Panels"
               className="rounded-lg shadow-lg w-full h-[250px] object-cover -mt-8"
               initial={{ opacity: 0, scale: 0.8 }}
@@ -139,7 +146,7 @@ export function TransitionSection() {
               transition={{ duration: 0.6, delay: 0.8 }}
             />
             <motion.img
-              src="/placeholder.svg?height=250&width=300"
+              src="/images/adebayo-community.jpg?height=250&width=300"
               alt="Community Impact"
               className="rounded-lg shadow-lg w-full h-[250px] object-cover"
               initial={{ opacity: 0, scale: 0.8 }}

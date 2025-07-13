@@ -121,7 +121,7 @@ export function HeroSection() {
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
     >
-      {/* Background Images with iPhone-Style Ken Burns Effect */}
+   
       <div className="absolute inset-0 bg-black">
         {heroSlides.map((slide, index) => (
           <div

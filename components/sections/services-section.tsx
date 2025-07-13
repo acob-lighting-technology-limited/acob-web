@@ -1,3 +1,4 @@
+"use client"
 import { Button } from "@/components/ui/button"
 import { Container } from "@/components/ui/container"
 import { Card, CardContent } from "@/components/ui/card"
@@ -7,13 +8,37 @@ import {
   CarouselItem,
   CarouselNext,
   CarouselPrevious,
+  type CarouselApi,
 } from "@/components/ui/carousel"
 import { ArrowRight } from "lucide-react"
-
+import { useState, useEffect } from "react"
 import Link from "next/link"
 import { servicesData } from "@/lib/data/services"
 
 export function ServicesSection() {
+  const [currentSlide, setCurrentSlide] = useState(0)
+  const [isTransitioning, setIsTransitioning] = useState(false)
+  const [carouselApi, setCarouselApi] = useState<CarouselApi>()
+
+  useEffect(() => {
+    if (!carouselApi) return
+
+    carouselApi.on("select", () => {
+      setCurrentSlide(carouselApi.selectedScrollSnap())
+    })
+  }, [carouselApi])
+
+  const goToSlide = (index: number) => {
+    if (!carouselApi || isTransitioning) return
+    
+    setIsTransitioning(true)
+    carouselApi.scrollTo(index)
+    
+    setTimeout(() => {
+      setIsTransitioning(false)
+    }, 500)
+  }
+
   return (
     <section className="py-16 bg-gray-50">
       <Container className="px-4">
@@ -31,13 +56,13 @@ export function ServicesSection() {
               infrastructure. We ensure quality control of indoor installations and safety training for customers.
             </p>
             <div className="flex flex-col sm:flex-row gap-4">
-              <Button className="bg-primary hover:bg-primary/90 text-white px-8 py-3">
+              <Button className="bg-primary text-lg hover:bg-primary/90 text-white px-8 py-6">
                 Read More
                 <ArrowRight className="ml-2 h-4 w-4" />
               </Button>
               <Button
                 variant="outline"
-                className="border-gray-400 text-gray-700 hover:bg-gray-100 px-8 py-3 bg-transparent"
+                className="border-gray-400 text-lg shadow-md text-gray-700 hover:bg-gray-500 px-8 py-6 bg-transparent"
               >
                 Find Your Solution
               </Button>
@@ -52,11 +77,12 @@ export function ServicesSection() {
             loop: true,
           }}
           className="w-full custom-shadow"
+          setApi={setCarouselApi}
         >
           <CarouselContent className="-ml-2 md:-ml-4">
             {servicesData.map((service, index) => (
               <CarouselItem key={index} className="pl-2 md:pl-4 basis-full md:basis-1/2 lg:basis-1/3">
-                <Card className="bg-white shadow-xl hover:shadow-2xl transition-shadow duration-300 border-0 relative overflow-hidden h-full">
+                <Card className="bg-white custom-shadow  transition-shadow duration-300 border-0 relative overflow-hidden h-full">
                   <CardContent className="p-8 flex flex-col h-full">
                     <div className="mb-6 w-fit transition-transform duration-500 hover:scale-x-[-1]">
                       <span>
@@ -85,9 +111,25 @@ export function ServicesSection() {
               </CarouselItem>
             ))}
           </CarouselContent>
-          <CarouselPrevious className="hidden sm:flex -left-12 lg:-left-16" />
-          <CarouselNext className="hidden sm:flex -right-12 lg:-right-16" />
+          <CarouselPrevious className="hidden sm:flex -left-12 lg:-left-16 !bg-white" />
+          <CarouselNext className="hidden sm:flex -right-12 lg:-right-16 !bg-white" />
         </Carousel>
+
+        {/* Custom Indicators */}
+        <div className="flex justify-center space-x-2 mt-8">
+          {servicesData.map((_, index) => (
+            <button
+              key={index}
+              onClick={() => goToSlide(index)}
+              disabled={isTransitioning}
+              className={`transition-all duration-500 rounded-full cursor-pointer hover:opacity-80 disabled:cursor-not-allowed ${
+                currentSlide === index
+                  ? "w-8 h-1 bg-primary shadow-lg"
+                  : "w-6 h-0.5 bg-gray-400 hover:bg-gray-600 hover:w-7"
+              }`}
+            />
+          ))}
+        </div>
       </Container>
     </section>
   )

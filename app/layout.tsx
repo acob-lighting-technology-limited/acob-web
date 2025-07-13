@@ -1,7 +1,7 @@
 import type React from "react";
 import type { Metadata } from "next";
 import "./globals.css";
-
+import "../styles/customShadow.css";
 import { Header } from "@/components/layout/header";
 import { Footer } from "@/components/layout/footer";
 

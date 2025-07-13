@@ -3,7 +3,7 @@ import { Container } from "@/components/ui/container"
 
 export function AboutSection() {
   return (
-    <section className="py-16 bg-primary text-black">
+    <section className="py-24 bg-primary text-black">
       <Container className="px-4">
         <div className="flex flex-col lg:flex-row items-center justify-center gap-8">
           <h2 className="text-3xl md:text-4xl  font-bold text-center lg:text-left">

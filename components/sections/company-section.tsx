@@ -17,14 +17,19 @@ export function CompanySection() {
               With years of experience in the renewable energy sector, we continue to innovate and deliver cutting-edge
               solutions that meet the growing energy demands of our clients.
             </p>
-            <Button className="bg-primary hover:bg-primary/90">Learn More About Us</Button>
+            <Button className="bg-primary hover:bg-primary/90 text-lg py-5">Learn More About Us</Button>
           </div>
-          <div className="relative">
-            <img
-              src="/placeholder.svg?height=400&width=600"
-              alt="ACOB Lighting Team"
-              className="rounded-lg shadow-lg w-full h-[400px] object-cover"
-            />
+          <div className="relative w-full h-[400px] rounded-lg shadow-lg overflow-hidden">
+            <iframe
+              width="100%"
+              height="100%"
+              src="https://www.youtube.com/embed/izxpZMcdWsg"
+              title="ACOB Lighting Video"
+              frameBorder="0"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+              allowFullScreen
+              className="rounded-lg"
+            ></iframe>
           </div>
         </div>
       </Container>
