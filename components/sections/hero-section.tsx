@@ -1,0 +1,270 @@
+"use client"
+
+import { useState, useEffect, useRef } from "react"
+import { Button } from "@/components/ui/button"
+import { Container } from "@/components/ui/container"
+import { ArrowRight, ChevronLeft, ChevronRight } from "lucide-react"
+
+const heroSlides = [
+  {
+    id: 1,
+    title: "50 KWp Solar Hybrid Mini-Grid at Jacani Community, Kauru LGA, Kaduna State",
+    image: "/images/hero1.JPG?height=800&width=1400",
+    description: "Transforming rural communities with sustainable energy solutions",
+  },
+  {
+    id: 2,
+    title: "Advanced Solar Installation at Lagos Industrial Complex",
+    image: "/images/hero2.JPG?height=800&width=1400",
+    description: "Powering Nigeria's industrial growth with clean energy",
+  },
+  {
+    id: 3,
+    title: "Community Solar Project in Kano State Rural Areas",
+    image: "/images/hero3.JPG?height=800&width=1400",
+    description: "Bringing electricity to underserved communities",
+  },
+  {
+    id: 4,
+    title: "Commercial Solar Solutions for Abuja Business District",
+    image: "/images/hero4.JPG?height=800&width=1400",
+    description: "Sustainable power for modern businesses",
+  },
+  {
+    id: 5,
+    title: "Mini-Grid Development in Cross River State",
+    image: "/images/hero5.JPG?height=800&width=1400",
+    description: "Expanding access to reliable renewable energy",
+  },
+  {
+    id: 6,
+    title: "Solar Farm Installation in Northern Nigeria",
+    image: "/images/hero1.JPG?height=800&width=1400",
+    description: "Large-scale solar solutions for regional power needs",
+  },
+]
+
+export function HeroSection() {
+  const [currentSlide, setCurrentSlide] = useState(0)
+  const [isTransitioning, setIsTransitioning] = useState(false)
+  const [showContent, setShowContent] = useState(true)
+  const [isPaused, setIsPaused] = useState(false)
+  const [slideStartTime, setSlideStartTime] = useState(Date.now())
+  const intervalRef = useRef<NodeJS.Timeout | null>(null)
+
+  const changeSlide = (newIndex: number) => {
+    if (isTransitioning || newIndex === currentSlide) return
+
+    setIsTransitioning(true)
+    setShowContent(false)
+
+    setTimeout(() => {
+      setCurrentSlide(newIndex)
+      setSlideStartTime(Date.now())
+      setTimeout(() => {
+        setShowContent(true)
+        setIsTransitioning(false)
+      }, 200)
+    }, 800)
+  }
+
+  const nextSlide = () => {
+    changeSlide((currentSlide + 1) % heroSlides.length)
+  }
+
+  const prevSlide = () => {
+    changeSlide((currentSlide - 1 + heroSlides.length) % heroSlides.length)
+  }
+
+  const goToSlide = (index: number) => {
+    changeSlide(index)
+  }
+
+  // Auto-play functionality with pause on hover
+  useEffect(() => {
+    const startAutoPlay = () => {
+      if (intervalRef.current) {
+        clearInterval(intervalRef.current)
+      }
+      
+      intervalRef.current = setInterval(() => {
+        if (!isPaused && !isTransitioning) {
+          nextSlide()
+        }
+      }, 10000) // 10 seconds
+    }
+
+    startAutoPlay()
+
+    return () => {
+      if (intervalRef.current) {
+        clearInterval(intervalRef.current)
+      }
+    }
+  }, [currentSlide, isPaused, isTransitioning])
+
+  const handleMouseEnter = () => {
+    setIsPaused(true)
+  }
+
+  const handleMouseLeave = () => {
+    setIsPaused(false)
+    setSlideStartTime(Date.now()) // Reset the slide timer
+  }
+
+  const currentSlideData = heroSlides[currentSlide]
+
+  return (
+    <section 
+      className="relative min-h-[700px] overflow-hidden"
+      onMouseEnter={handleMouseEnter}
+      onMouseLeave={handleMouseLeave}
+    >
+      {/* Background Images with iPhone-Style Ken Burns Effect */}
+      <div className="absolute inset-0 bg-black">
+        {heroSlides.map((slide, index) => (
+          <div
+            key={`${slide.id}-${index}`}
+            className={`absolute inset-0 ${
+              index === currentSlide ? "opacity-100" : "opacity-0"
+            }`}
+          >
+            <div
+              className={`w-full h-full bg-cover bg-center bg-no-repeat ${
+                index === currentSlide && !isPaused ? 'ken-burns-zoom' : ''
+              }`}
+              style={{
+                backgroundImage: `url('${slide.image}')`,
+                transform: 'scale(1.05)',
+                transformOrigin: 'center center',
+              }}
+            />
+          </div>
+        ))}
+      </div>
+
+      {/* Dark Overlay */}
+      <div className="absolute inset-0 bg-black/50" />
+
+      {/* Navigation Arrows */}
+      <button
+        onClick={prevSlide}
+        disabled={isTransitioning}
+        className="absolute left-8 top-1/2 -translate-y-1/2 z-20 w-12 h-12 rounded-full bg-white/20 border border-white/30 text-white hover:bg-white/30 hover:scale-110 backdrop-blur-sm transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center group"
+      >
+        <ChevronLeft className="h-6 w-6 group-hover:scale-110 transition-transform duration-200" />
+      </button>
+
+      <button
+        onClick={nextSlide}
+        disabled={isTransitioning}
+        className="absolute right-8 top-1/2 -translate-y-1/2 z-20 w-12 h-12 rounded-full bg-white/20 border border-white/30 text-white hover:bg-white/30 hover:scale-110 backdrop-blur-sm transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center group"
+      >
+        <ChevronRight className="h-6 w-6 group-hover:scale-110 transition-transform duration-200" />
+      </button>
+
+      {/* Content with smooth animations */}
+      <div className="relative z-10 text-white max-w-6xl h-full flex items-center min-h-[700px]">
+        <Container className="px-8">
+          <div className="w-full max-w-4xl">
+            {/* Custom Indicators - directly above title */}
+            <div className="flex space-x-2 mb-4">
+              {heroSlides.map((_, index) => (
+                <button
+                  key={index}
+                  onClick={() => goToSlide(index)}
+                  disabled={isTransitioning}
+                  className={`transition-all duration-500 rounded-full cursor-pointer hover:opacity-80 disabled:cursor-not-allowed ${
+                    currentSlide === index 
+                      ? "w-8 h-1 bg-primary shadow-lg" 
+                      : "w-6 h-0.5 bg-white/50 hover:bg-white/70 hover:w-7"
+                  }`}
+                />
+              ))}
+            </div>
+
+            {/* Animated Title */}
+            <div className="overflow-hidden mb-6">
+              <h1
+                className={`text-4xl md:text-6xl font-bold leading-tight text-left transition-all duration-1000 ease-out ${
+                  showContent 
+                    ? "transform translate-x-0 opacity-100 blur-0" 
+                    : "transform -translate-x-full opacity-0 blur-sm"
+                }`}
+                style={{ transitionDelay: showContent ? "400ms" : "0ms" }}
+              >
+                {currentSlideData.title}
+              </h1>
+            </div>
+
+            {/* Animated Description */}
+            <div className="overflow-hidden mb-8">
+              <p
+                className={`text-lg md:text-xl opacity-90 text-left max-w-3xl transition-all duration-1000 ease-out ${
+                  showContent 
+                    ? "transform translate-x-0 opacity-90 blur-0" 
+                    : "transform -translate-x-full opacity-0 blur-sm"
+                }`}
+                style={{ transitionDelay: showContent ? "600ms" : "0ms" }}
+              >
+                {currentSlideData.description}
+              </p>
+            </div>
+
+            {/* Animated Buttons */}
+            <div className="flex flex-col sm:flex-row gap-4 justify-start">
+              {/* Read More - slides in from left */}
+              <Button
+                size="lg"
+                className={`bg-primary hover:bg-primary/90 text-white transition-all duration-1000 ease-out hover:scale-105 ${
+                  showContent 
+                    ? "transform translate-x-0 opacity-100 blur-0" 
+                    : "transform -translate-x-full opacity-0 blur-sm"
+                }`}
+                style={{ transitionDelay: showContent ? "800ms" : "0ms" }}
+              >
+                Read More
+                <ArrowRight className="ml-2 h-4 w-4" />
+              </Button>
+
+              {/* Our Services - slides in from right */}
+              <Button
+                size="lg"
+                variant="outline"
+                className={`border-white text-white hover:bg-white hover:text-black bg-transparent transition-all duration-1000 ease-out hover:scale-105 ${
+                  showContent 
+                    ? "transform translate-x-0 opacity-100 blur-0" 
+                    : "transform translate-x-full opacity-0 blur-sm"
+                }`}
+                style={{ transitionDelay: showContent ? "1000ms" : "0ms" }}
+              >
+                Our Services
+              </Button>
+            </div>
+          </div>
+        </Container>
+      </div>
+
+      {/* Custom CSS for iPhone-style Ken Burns effect */}
+      <style jsx>{`
+        .ken-burns-zoom {
+          animation: kenBurnsZoom 10s ease-out forwards;
+        }
+
+        @keyframes kenBurnsZoom {
+          0% {
+            transform: scale(1.05);
+          }
+          100% {
+            transform: scale(1.18);
+          }
+        }
+
+        /* Pause animation on hover */
+        .ken-burns-zoom:hover {
+          animation-play-state: paused;
+        }
+      `}</style>
+    </section>
+  )
+}
