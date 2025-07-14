@@ -43,7 +43,7 @@ const navigationItems = [
     name: "Services",
     href: "/services",
     subItems: [
-      { name: "Mini-Grid Solutions", href: "/services/mini-grid", description: "Scalable power solutions for communities" },
+      { name: "Mini-Grid Solutions", href: "/services/mini-grid-solutions", description: "Scalable power solutions for communities" },
       { name: "Captive Power Solutions", href: "/services/captive-power", description: "Dedicated power systems for businesses" },
       { name: "Professional Energy Audit", href: "/services/energy-audit", description: "Comprehensive energy efficiency analysis" },
       { name: "Installation Services", href: "/services/installation", description: "Professional setup and configuration" },

@@ -4,6 +4,7 @@ import "./globals.css";
 import "../styles/customShadow.css";
 import { Header } from "@/components/layout/header";
 import { Footer } from "@/components/layout/footer";
+import { ScrollToTop } from "@/components/ui/scroll-to-top";
 
 export const metadata: Metadata = {
   title: "ACOB Lighting Technology Limited - Solar Energy Solutions",
@@ -33,6 +34,7 @@ export default function RootLayout({
           <Header />
           <main className="flex-1">{children}</main>
           <Footer />
+          <ScrollToTop />
         </div>
       </body>
     </html>

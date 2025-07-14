@@ -191,7 +191,9 @@ export function Footer() {
             {/* Get Directions */}
             <div>
               <Link
-                href="#"
+                href="https://www.google.com/maps/dir/?api=1&destination=ACOB+LIGHTING+TECHNOLOGY+LIMITED,+Plot+2,+Ministry+of+Works+And+Housing+Sites+and+Service+Scheme,+Setraco+Gate,+behind+Clifford+Mall,+Gwarinpa,+Federal+Capital+Territory"
+                target="_blank"
+                rel="noopener noreferrer"
                 className="inline-flex items-center text-white hover:text-primary transition-colors"
               >
                 <MapPin className="h-4 w-4 mr-2" />

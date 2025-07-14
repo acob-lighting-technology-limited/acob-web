@@ -4,27 +4,44 @@ import { Container } from "@/components/ui/container"
 import { Input } from "@/components/ui/input"
 import { Textarea } from "@/components/ui/textarea"
 import { Label } from "@/components/ui/label"
+import { MaskText } from "../animations/MaskText"
 
 export function ContactSection() {
   return (
     <section className="py-16 bg-primary text-white">
       <Container className="px-4">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-          <div>
-            <h2 className="text-3xl md:text-4xl font-bold mb-6 italic">
-              ....Lighting Up Nigeria, Request For Professional Energy Audit
-            </h2>
-            <p className="text-lg opacity-90 mb-8">
-              Get a comprehensive energy assessment for your facility. Our experts will analyze your current energy
-              usage and provide recommendations for optimal solar solutions.
-            </p>
-            <ul className="space-y-3 text-sm opacity-90">
-              <li>✓ Comprehensive energy analysis</li>
-              <li>✓ Cost-benefit assessment</li>
-              <li>✓ Custom solar solution design</li>
-              <li>✓ ROI calculations and projections</li>
-            </ul>
-          </div>
+        <div>
+      <MaskText
+        phrases={[
+          "Lighting Up Nigeria,",
+          "Request For Professional Energy Audit"
+        ]}
+        className="text-3xl md:text-4xl font-bold mb-6 italic"
+      />
+
+      <MaskText
+        phrases={[
+          "Get a comprehensive energy assessment for your facility.",
+          "Our experts will analyze your current energy usage",
+          "and provide recommendations for optimal solar solutions."
+        ]}
+        className="text-lg opacity-90 mb-8"
+      />
+
+      <ul className="space-y-3 text-sm opacity-90">
+        {[
+          "✓ Comprehensive energy analysis",
+          "✓ Cost-benefit assessment",
+          "✓ Custom solar solution design",
+          "✓ ROI calculations and projections"
+        ].map((line, index) => (
+          <li key={index}>
+            <MaskText phrases={[line]} className="" />
+          </li>
+        ))}
+      </ul>
+    </div>
 
           <Card className="bg-white text-gray-900">
             <CardHeader>

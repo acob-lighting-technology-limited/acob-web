@@ -1,7 +1,7 @@
 @import "tailwindcss";
 
 @theme {
-  --color-primary: #22c55e;
+  --color-primary: #08913F;
   --color-primary-foreground: #ffffff;
   --color-secondary: #f1f5f9;
   --color-secondary-foreground: #0f172a;
@@ -27,11 +27,7 @@
     sans-serif;
 }
 
-html, body {
-  overflow-x: hidden;
-  width: 100%;
-  max-width: 100vw;
-}
+
 /* Custom scrollbar */
 ::-webkit-scrollbar {
   width: 8px;

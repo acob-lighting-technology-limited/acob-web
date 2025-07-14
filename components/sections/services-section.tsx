@@ -14,6 +14,7 @@ import { ArrowRight } from "lucide-react"
 import { useState, useEffect } from "react"
 import Link from "next/link"
 import { servicesData } from "@/lib/data/services"
+import { MaskText } from "../animations/MaskText"
 
 export function ServicesSection() {
   const [currentSlide, setCurrentSlide] = useState(0)
@@ -44,31 +45,44 @@ export function ServicesSection() {
       <Container className="px-4">
         {/* Header Section */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 mb-16">
-          <div>
-            <h2 className="text-4xl md:text-5xl font-bold text-gray-900 leading-tight mb-8">
-              A Leading Supplier Of Solar Materials For Manufacturers Installers & Contractors, Mini-Grid Solutions.
-            </h2>
-          </div>
-          <div>
-            <p className="text-gray-600 text-lg leading-relaxed mb-8">
-              Together with experienced technical team, ACOB Lighting provides emergency response to electricity outages
-              for customers, standard technical O&M activities, design and installation of streetlighting
-              infrastructure. We ensure quality control of indoor installations and safety training for customers.
-            </p>
-            <div className="flex flex-col sm:flex-row gap-4">
-              <Button className="bg-primary text-lg hover:bg-primary/90 text-white px-8 py-6">
-                Read More
-                <ArrowRight className="ml-2 h-4 w-4" />
-              </Button>
-              <Button
-                variant="outline"
-                className="border-gray-400 text-lg shadow-md text-gray-700 hover:bg-gray-500 px-8 py-6 bg-transparent"
-              >
-                Find Your Solution
-              </Button>
-            </div>
-          </div>
+      <div>
+        <MaskText
+          phrases={[
+            "A Leading Supplier Of Solar Materials",
+            "For Manufacturers Installers & Contractors,",
+            "Mini-Grid Solutions."
+          ]}
+          className="text-4xl md:text-5xl font-bold text-gray-900 leading-tight mb-8"
+        />
+      </div>
+
+      <div>
+        <MaskText
+          phrases={[
+            "Together with experienced technical team,",
+            "ACOB Lighting provides emergency response to electricity outages",
+            "for customers, standard technical O&M activities,",
+            "design and installation of streetlighting infrastructure.",
+            "We ensure quality control of indoor installations",
+            "and safety training for customers."
+          ]}
+          className="text-gray-600 text-lg leading-relaxed mb-8"
+        />
+
+        <div className="flex flex-col sm:flex-row gap-4">
+          <Button className="bg-primary text-lg hover:bg-primary/90 text-white px-8 py-6">
+            Read More
+            <ArrowRight className="ml-2 h-4 w-4" />
+          </Button>
+          <Button
+            variant="outline"
+            className="border-gray-400 text-lg shadow-md text-gray-700 hover:bg-gray-500 px-8 py-6 bg-transparent"
+          >
+            Find Your Solution
+          </Button>
         </div>
+      </div>
+    </div>
 
         {/* Services Carousel */}
         <Carousel

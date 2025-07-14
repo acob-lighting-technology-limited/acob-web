@@ -117,7 +117,7 @@ export function HeroSection() {
 
   return (
     <section
-      className="relative min-h-[700px] overflow-hidden"
+      className="relative min-h-[700px] overflow-hidden w-full"
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
     >
@@ -151,22 +151,22 @@ export function HeroSection() {
       <button
         onClick={prevSlide}
         disabled={isTransitioning}
-        className="absolute left-0 top-1/2 -translate-y-1/2 z-20 w-12 h-12 rounded-full  text-white hover:bg-white/30 hover:scale-110  transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center group"
+        className="absolute left-0 top-1/2 -translate-y-1/2 z-20 w-12 h-12 rounded-full  text-white  hover:scale-110  transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center group"
       >
-        <ChevronLeft className="h-6 w-6 group-hover:scale-110 transition-transform duration-200" />
+        <ChevronLeft className="h-24 w-24 text-white opacity-30 hover:opacity-70 hover:text-white group-hover:scale-110 transition-transform duration-200" />
       </button>
 
       <button
         onClick={nextSlide}
         disabled={isTransitioning}
-        className="absolute right-0 top-1/2 -translate-y-1/2 z-20 w-12 h-12 rounded-full  text-white hover:bg-white/30 hover:scale-110  transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center group"
+        className="absolute right-0 top-1/2 -translate-y-1/2 z-20 w-12 h-12 rounded-full  text-white  hover:scale-110  transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center group"
       >
-        <ChevronRight className="h-6 w-6 group-hover:scale-110 transition-transform duration-200" />
+        <ChevronRight className="h-24 w-24 text-white opacity-30 hover:opacity-70 hover:text-white group-hover:scale-110 transition-transform duration-200" />
       </button>
 
       {/* Content with smooth animations */}
-      <div className="relative z-10 text-white max-w-6xl h-full flex items-end pb-12 min-h-[700px]">
-        <Container className="px-8">
+      <div className="relative z-10 2xl:max-w-6xl text-white h-full flex items-end pb-12 min-h-[700px] w-full">
+        <Container className="2xl:px-8">
           <div className="w-full max-w-4xl">
             {/* Animated Title */}
             <div className="overflow-hidden mb-6">
@@ -174,7 +174,7 @@ export function HeroSection() {
                 className={`text-4xl md:text-7xl font-extrabold leading-tight text-left transition-all duration-1000 ease-out ${
                   showContent
                     ? "transform translate-x-0 opacity-100 blur-0"
-                    : "transform -translate-x-full opacity-0 blur-sm"
+                    : "transform -translate-x-full opacity-0 "
                 }`}
                 style={{ transitionDelay: showContent ? "400ms" : "0ms" }}
               >
@@ -188,7 +188,7 @@ export function HeroSection() {
                 className={`text-lg md:text-xl opacity-90 text-left max-w-3xl transition-all duration-1000 ease-out ${
                   showContent
                     ? "transform translate-x-0 opacity-90 blur-0"
-                    : "transform -translate-x-full opacity-0 blur-sm"
+                    : "transform -translate-x-full opacity-0 "
                 }`}
                 style={{ transitionDelay: showContent ? "600ms" : "0ms" }}
               >
@@ -199,18 +199,20 @@ export function HeroSection() {
             {/* Animated Buttons */}
             <div className="flex flex-col sm:flex-row gap-4 justify-start">
               {/* Read More - slides in from left */}
-              <Button
+             <div className="overflow-hidden">
+             <Button
                 size="lg"
                 className={`bg-primary hover:bg-primary/90 text-lg py-6 text-white transition-all duration-1000 ease-out hover:scale-105 ${
                   showContent
                     ? "transform translate-x-0 opacity-100 blur-0"
-                    : "transform -translate-x-full opacity-0 blur-sm"
+                    : "transform -translate-x-full opacity-0 "
                 }`}
                 style={{ transitionDelay: showContent ? "800ms" : "0ms" }}
               >
                 Read More
                 <ArrowRight className="ml-2 h-4 w-4" />
               </Button>
+             </div>
 
               {/* Our Services - slides in from right */}
               <Button
@@ -219,7 +221,7 @@ export function HeroSection() {
                 className={`border-white text-white hover:bg-white text-lg py-6 hover:text-black bg-transparent transition-all duration-1000 ease-out hover:scale-105 ${
                   showContent
                     ? "transform translate-x-0 opacity-100 blur-0"
-                    : "transform translate-x-full opacity-0 blur-sm"
+                    : "transform translate-x-full opacity-0 "
                 }`}
                 style={{ transitionDelay: showContent ? "1000ms" : "0ms" }}
               >
