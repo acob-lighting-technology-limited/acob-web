@@ -10,7 +10,7 @@ const news = [
     author: "ACOB LIGHTING",
     excerpt:
       "We're hiring for multiple roles across different departments! If you are passionate about JOIN OUR TEAM AT ACOB LIGHTING TECHNOLOGY LIMITED! We are expanding our workforce and looking...",
-    image: "/placeholder.svg?height=200&width=400",
+    image: "/images/job-vacancy.webp?height=200&width=400",
     category: "Careers",
     categoryColor: "bg-primary",
     buttonStyle: "outline",
@@ -22,7 +22,7 @@ const news = [
     author: "ACOB LIGHTING",
     excerpt:
       "Wrapped Up the ACOB Staff Retreat 2024! The end of our retreat marks the beginning of a renewed commitment to innovation, excellence, and sustainability. Equipped with actionable strategies,...",
-    image: "/placeholder.svg?height=200&width=400",
+    image: "/images/acob-team.webp?height=200&width=400",
     category: "Retreats",
     categoryColor: "bg-primary",
     buttonStyle: "outline",
@@ -34,7 +34,7 @@ const news = [
     author: "ACOB LIGHTING",
     excerpt:
       "Rewarding Excellence and Hard-work is at the Heart of ACOB Management. As management awards staff who have Exceptionally contributed in no small measures to the growth of the...",
-    image: "/placeholder.svg?height=200&width=400",
+    image: "/images/acob-award.webp?height=200&width=400",
     category: "Retreats, Staff Award",
     categoryColor: "bg-primary",
     buttonStyle: "solid",
@@ -59,7 +59,7 @@ export function NewsSection() {
           {news.map((article, index) => (
             <Card
               key={index}
-              className={`overflow-hidden hover:shadow-lg transition-shadow relative ${article.hasAccent ? "border-b-4 border-b-primary" : ""}`}
+              className={`overflow-hidden hover:shadow-lg border-0 custom-shadow transition-shadow relative py-0 ${article.hasAccent ? "border-b-4 border-b-primary" : ""}`}
             >
               {/* Image */}
               <div className="aspect-[4/3] overflow-hidden relative">

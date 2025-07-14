@@ -11,8 +11,8 @@ export function ContactSection() {
       <Container className="px-4">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
           <div>
-            <h2 className="text-3xl md:text-4xl font-bold mb-6">
-              Lighting Up Nigeria, Request For Professional Energy Audit
+            <h2 className="text-3xl md:text-4xl font-bold mb-6 italic">
+              ....Lighting Up Nigeria, Request For Professional Energy Audit
             </h2>
             <p className="text-lg opacity-90 mb-8">
               Get a comprehensive energy assessment for your facility. Our experts will analyze your current energy

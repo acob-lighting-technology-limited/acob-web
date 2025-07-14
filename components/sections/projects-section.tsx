@@ -5,7 +5,7 @@ import { Button } from "@/components/ui/button"
 import { Container } from "@/components/ui/container"
 import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from "@/components/ui/carousel"
 
-const projects = [
+const projectsww = [
   {
     title: "Rural Electrification Project",
     location: "Kaduna State",
@@ -89,7 +89,7 @@ export function ProjectsSection() {
             className="w-full"
           >
             <CarouselContent className="-ml-2 md:-ml-4">
-              {projects.map((project, index) => (
+              {projectsww.map((project, index) => (
                 <CarouselItem key={index} className="pl-2 md:pl-4 basis-full sm:basis-1/2 lg:basis-1/3 xl:basis-1/4">
                   <Card className="overflow-hidden hover:shadow-lg transition-shadow">
                     <div className="aspect-[4/3] overflow-hidden">
