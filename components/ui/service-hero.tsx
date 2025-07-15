@@ -11,7 +11,7 @@ interface ServiceHeroProps {
 
 export function ServiceHero({ title, description, backgroundImage, className = "" }: ServiceHeroProps) {
   return (
-    <section className={`relative h-[500px] flex items-center justify-center ${className}`}>
+    <section className={`relative h-[400px] flex items-center justify-center ${className}`}>
       {/* Background Image */}
       <div
         className="absolute inset-0 bg-cover bg-center bg-no-repeat"

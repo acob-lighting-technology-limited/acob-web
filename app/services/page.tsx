@@ -27,16 +27,16 @@ export default function ServicesPage() {
 
   return (
     <>
-      <PageHero title="Services" backgroundImage="/placeholder.svg?height=400&width=1200" />
+      <PageHero title="Archive: Services" backgroundImage="/images/services/header.jpg?height=400&width=1200" />
 
       <Container className="px-4 py-8">
         <Breadcrumb items={breadcrumbItems} className="mb-8" />
 
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 items-start">
           {/* Main Content */}
           <div className="lg:col-span-2 space-y-8">
             {servicesData.map((service) => (
-              <Card key={service.id} className="overflow-hidden hover:shadow-lg transition-shadow">
+              <Card key={service.id} className="overflow-hidden border-0 custom-shadow shadow-none p-0 hover:shadow-lg transition-shadow">
                 <div className="aspect-[16/9] overflow-hidden">
                   <img
                     src={service.image || "/placeholder.svg"}
@@ -59,21 +59,21 @@ export default function ServicesPage() {
           </div>
 
           {/* Sidebar */}
-          <div className="space-y-6">
+          <div className="space-y-6 sticky top-20 self-start">
             {/* Search */}
-            <Card>
+            <Card className="border-0 custom-shadow shadow-none">
               <CardContent className="p-6">
                 <h3 className="font-semibold mb-4">Search</h3>
-                <div className="relative">
+                <div className="relative border-[0.5px] rounded-md border-primary">
                   <Input placeholder="Search services..." className="pr-10" />
-                  <Search className="absolute right-3 top-1/2 -translate-y-1/2 h-4 w-4 text-gray-400" />
+                  <Search className="absolute right-3 top-1/2 -translate-y-1/2 h-4 w-4 text-gray-400 " />
                 </div>
               </CardContent>
             </Card>
 
             {/* Categories */}
-            <Card>
-              <CardContent className="p-6">
+            <Card className="border-0 custom-shadow shadow-none">
+              <CardContent className="p-6 border-0">
                 <h3 className="font-semibold mb-4">Categories</h3>
                 <ul className="space-y-2">
                   {categories.map((category) => (
@@ -92,7 +92,7 @@ export default function ServicesPage() {
             </Card>
 
             {/* Tags */}
-            <Card>
+            <Card className="border-0 custom-shadow  shadow-none">
               <CardContent className="p-6">
                 <h3 className="font-semibold mb-4">Tags</h3>
                 <div className="flex flex-wrap gap-2">

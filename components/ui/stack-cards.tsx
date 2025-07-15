@@ -3,15 +3,20 @@
 import Image from "next/image";
 import { useTransform, motion, useScroll } from "framer-motion";
 import { useRef } from "react";
+import Link from "next/link";
+import { Button } from "./button";
+import { ArrowRight, MapPin } from "lucide-react";
 
 interface CardProps {
   i: number;
   title: string;
   description: string;
-  src: string;
-  link: string;
+  images: string[];
+  location: string;
   url?: string;
-  color: string;
+  color?: string;
+  gradientFrom: string;
+  gradientTo: string;
   progress: any;
   range: number[];
   targetScale: number;
@@ -21,9 +26,12 @@ const Card: React.FC<CardProps> = ({
   i = 0,
   title = "",
   description = "",
-  src = "placeholder.jpg",
+  images = ["image1.jpg", "image2.jpg", "image3.jpg"],
+  location = "Nigeria",
   url = "#",
-  color =  "#ffffff",
+  color = "#ffffff",
+  gradientFrom = "#000000",
+  gradientTo = "#000000",
   progress = { get: () => 0 }, // Mocked for safety
   range = [0, 1],
   targetScale = 1,
@@ -42,60 +50,67 @@ const Card: React.FC<CardProps> = ({
       ref={container}
       className="h-screen flex items-center text-white  justify-center sticky top-0"
     >
-
       <motion.div
         style={{
-          backgroundColor: color,
+          backgroundImage: `linear-gradient(to bottom, ${gradientFrom}, ${gradientTo})`,
+
           scale,
           top: `calc(-1vh + ${i * 25}px)`,
         }}
-        className="relative -top-1/4 h-[600px] w-[1300px] rounded-[12px] p-5 flex flex-col transform origin-top"
+        className="relative -top-1/4 h-[600px] w-[1300px] rounded-[20px] p-16 flex flex-col transform origin-top"
       >
-        <h2 className="  text-[28px] font-bold mb-0 text-left">{title}</h2>
-
-        <div className="flex flex-row-reverse h-full mt-6 gap-12">
+        <div className="flex justify-between h-full gap-16">
           {/* Description Section */}
-          <div className="w-1/5 relative top-[10%]">
-            <p className="text-[16px] leading-relaxed">
-              <span className="text-[28px] font-serif float-left mr-1 leading-none">
-                {description.charAt(0)}
-              </span>
-              {description.slice(1)}
-            </p>
-            <span className="flex items-center gap-2 mt-4">
-              <a
-                href={url}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-xs underline cursor-pointer"
-              >
-                See more
-              </a>
-              <svg
-                width="22"
-                height="12"
-                viewBox="0 0 22 12"
-                fill="none"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  d="M21.5303 6.53033C21.8232 6.23744 21.8232 5.76256 21.5303 5.46967L16.7574 0.696699C16.4645 0.403806 15.9896 0.403806 15.6967 0.696699C15.4038 0.989592 15.4038 1.46447 15.6967 1.75736L19.9393 6L15.6967 10.2426C15.4038 10.5355 15.4038 11.0104 15.6967 11.3033C15.9896 11.5962 16.4645 11.5962 16.7574 11.3033L21.5303 6.53033ZM0 6.75L21 6.75V5.25L0 5.25L0 6.75Z"
-                  fill="black"
-                />
-              </svg>
-            </span>
+
+          <div className="w-1/2 flex flex-col h-full max-w-md">
+            <div className="space-y-6">
+              <h2 className="text-5xl font-extrabold text-left">
+                {title.length > 50 ? `${title.slice(0, 50)}...` : title}
+              </h2>
+
+              <p className="text-xl leading-relaxed">{description}</p>
+              <p className="flex gap-2 text-lg items-center">
+                <MapPin />
+                {location}
+              </p>
+            </div>
+
+            <div className="mt-auto pt-6">
+              <Link href="#">
+                <Button className="bg-[#07F507]/70 text-lg py-6 !px-8 hover:bg-[#07F507]/60 text-white">
+                  View Project
+                  <ArrowRight className="ml-2 h-4 w-4" />
+                </Button>
+              </Link>
+            </div>
           </div>
 
           {/* Image Section */}
-          <div className="relative w-4/5 h-full rounded-[12px] overflow-hidden">
-            <motion.div className="w-full h-full" >
+          <div className="w-1/2 h-full grid grid-rows-2 grid-cols-2 gap-4 rounded-[20px] overflow-hidden">
+            <div className="row-span-1 col-span-2 relative rounded-[16px] overflow-hidden">
               <Image
-                src={`/images/projects/${src}`}
-                alt="image"
+                src={`/images/projects/${images[0]}`}
+                alt="image-1"
                 fill
                 className="object-cover"
               />
-            </motion.div>
+            </div>
+            <div className="relative rounded-[16px] overflow-hidden">
+              <Image
+                src={`/images/projects/${images[1]}`}
+                alt="image-2"
+                fill
+                className="object-cover"
+              />
+            </div>
+            <div className="relative rounded-[16px] overflow-hidden">
+              <Image
+                src={`/images/projects/${images[2]}`}
+                alt="image-3"
+                fill
+                className="object-cover"
+              />
+            </div>
           </div>
         </div>
       </motion.div>

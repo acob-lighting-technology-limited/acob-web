@@ -69,7 +69,7 @@ export interface ServiceData {
         "ACOB provides Solar and Inverter system to residential customers, commercial customers and for public driven projects. For example, gas stations, banks, schools, business offices and other type of facilities/buildings that require reliable power.",
       fullDescription:
         "Our captive power solutions are tailored for businesses and institutions that require dedicated, reliable power supply. These systems are designed to reduce dependency on the national grid while providing cost-effective and sustainable energy solutions.",
-      image: "/images/captive-power-solutions.webp",
+      image: "/images/services/captive-power-solutions.webp",
       icon: "/images/captive-power-solutions.webp",
       features: [
         "Dedicated power systems for businesses",
@@ -114,7 +114,7 @@ export interface ServiceData {
         "Over the years, ACOB has built competence in Energy Audit for industries, residential buildings, offices and public lighting facilities.",
       fullDescription:
         "Our professional energy audit services help organizations identify energy inefficiencies and opportunities for cost savings. We provide comprehensive assessments and actionable recommendations to optimize energy consumption and reduce operational costs.",
-      image: "/images/professional-energy-audit.webp",
+      image: "/images/services/professional-energy-audit.webp",
       icon: "/images/professional-energy-audit.webp",
       features: [
         "Comprehensive energy assessments",
@@ -155,7 +155,7 @@ export interface ServiceData {
         "Complete EPC services for solar power projects, from initial design through construction and commissioning.",
       fullDescription:
         "Our Engineering, Procurement, and Construction (EPC) services provide end-to-end solutions for solar power projects. We handle everything from initial feasibility studies and design through procurement, construction, and commissioning.",
-      image: "/placeholder.svg?height=400&width=600",
+      image: "/images/services/engineering-procurement-construction.webp?height=400&width=600",
       icon: "/placeholder.svg?height=80&width=80",
       features: [
         "Complete project management",
@@ -200,7 +200,7 @@ export interface ServiceData {
         "Development and implementation of solar-powered streetlighting infrastructure for urban and rural areas.",
       fullDescription:
         "We specialize in the development of sustainable streetlighting infrastructure using solar technology. Our solutions improve public safety, reduce municipal costs, and contribute to environmental sustainability.",
-      image: "/placeholder.svg?height=400&width=600",
+      image: "/images/services/streetlighting-infrastructure-project-development.webp?height=400&width=600",
       icon: "/placeholder.svg?height=80&width=80",
       features: [
         "Solar-powered LED streetlights",
