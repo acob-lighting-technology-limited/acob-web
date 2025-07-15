@@ -306,7 +306,7 @@ export function Header() {
             {/* Logo */}
             <Link href="/" className="flex items-center space-x-2 group">
               <img
-                src="/images/ACOB-Black-Logo.jpg"
+                src="/images/ACOB.png"
                 alt="ACOB Lighting Logo"
                 className="h-8 w-auto transition-transform duration-200 group-hover:scale-105"/>
             </Link>

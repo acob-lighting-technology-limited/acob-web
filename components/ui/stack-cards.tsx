@@ -40,18 +40,18 @@ const Card: React.FC<CardProps> = ({
   return (
     <div
       ref={container}
-      className="h-screen flex items-center  justify-center sticky top-0"
+      className="h-screen flex items-center text-white  justify-center sticky top-0"
     >
-      
+
       <motion.div
         style={{
           backgroundColor: color,
           scale,
           top: `calc(-1vh + ${i * 25}px)`,
         }}
-        className="relative -top-1/4 h-[600px] w-[1300px] rounded-[12px] p-10 flex flex-col transform origin-top"
+        className="relative -top-1/4 h-[600px] w-[1300px] rounded-[12px] p-5 flex flex-col transform origin-top"
       >
-        <h2 className="text-center  text-[28px] font-bold mb-0">{title}</h2>
+        <h2 className="  text-[28px] font-bold mb-0 text-left">{title}</h2>
 
         <div className="flex flex-row-reverse h-full mt-6 gap-12">
           {/* Description Section */}
