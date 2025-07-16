@@ -51,4 +51,17 @@ export const projectscard = [
     gradientFrom: "#616161",
     gradientTo: "#000000",
   },
+  {
+    title: "Solar Pump distribution",
+    description:
+      "This project involved the distribution of solar-powered water pumps to rural communities, providing sustainable and reliable access to clean water. The solar pumps are designed to operate efficiently in remote areas, reducing dependence on traditional power sources.",
+    images: [
+      "solar-pump-distribution-1.webp",
+      "solar-pump-distribution-2.webp",
+      "solar-pump-distribution-3.webp",
+    ],
+    location: "Delta, Edo and Rivers State",
+    gradientFrom: "#08913F",
+    gradientTo: "#003808",
+  },
 ];

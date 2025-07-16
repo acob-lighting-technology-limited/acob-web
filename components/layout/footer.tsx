@@ -1,6 +1,13 @@
 import Link from "next/link";
 import { Container } from "@/components/ui/container";
-import { MapPin, Facebook, Twitter, Youtube } from "lucide-react";
+import {
+  MapPin,
+  Facebook,
+  Twitter,
+  Youtube,
+  Linkedin,
+  Instagram,
+} from "lucide-react";
 
 export function Footer() {
   return (
@@ -215,25 +222,38 @@ export function Footer() {
           {/* Social Media Icons */}
           <div className="flex space-x-4">
             <Link
-              href="#"
+              href="https://www.facebook.com/acoblightingtechltd"
+              target="_blank"
               className="text-gray-400 hover:text-white transition-colors"
             >
               <Facebook className="h-5 w-5" />
               <span className="sr-only">Facebook</span>
             </Link>
             <Link
-              href="#"
+              href="https://x.com/acoblimited?s=21&t=NMnANy7CG_nzCYaBcUg6gw"
+              target="_blank"
               className="text-gray-400 hover:text-white transition-colors"
             >
               <Twitter className="h-5 w-5" />
-              <span className="sr-only">Twitter</span>
+              <span className="sr-only">X</span>
             </Link>
             <Link
-              href="#"
+              href="https://www.linkedin.com/company/acob-lighting-technology-limited/"
+              target="_blank"
               className="text-gray-400 hover:text-white transition-colors"
             >
-              <Youtube className="h-5 w-5" />
-              <span className="sr-only">YouTube</span>
+              <Linkedin className="h-5 w-5" />
+
+              <span className="sr-only">Linkedin</span>
+            </Link>
+
+            <Link
+              href="https://www.instagram.com/acob_lighting/?hl=en"
+              target="_blank"
+              className="text-gray-400 hover:text-white transition-colors"
+            >
+              <Instagram className="h-5 w-5" />
+              <span className="sr-only">Twitter</span>
             </Link>
           </div>
         </div>

@@ -1,7 +1,7 @@
-import { Card, CardContent } from "@/components/ui/card"
-import { Button } from "@/components/ui/button"
-import { Container } from "@/components/ui/container"
-import { ArrowRight } from "lucide-react"
+import { Card, CardContent } from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
+import { Container } from "@/components/ui/container";
+import { ArrowRight } from "lucide-react";
 
 const news = [
   {
@@ -40,7 +40,7 @@ const news = [
     buttonStyle: "solid",
     hasAccent: true,
   },
-]
+];
 
 export function NewsSection() {
   return (
@@ -51,7 +51,9 @@ export function NewsSection() {
           <div className="inline-block bg-primary/10 text-primary px-4 py-2 rounded-full text-sm font-medium mb-4">
             News & Announcements
           </div>
-          <h2 className="text-4xl md:text-5xl font-bold text-gray-900">Recent Updates</h2>
+          <h2 className="text-4xl md:text-5xl font-bold text-gray-900">
+            Recent Updates
+          </h2>
         </div>
 
         {/* News Cards */}
@@ -59,7 +61,9 @@ export function NewsSection() {
           {news.map((article, index) => (
             <Card
               key={index}
-              className={`overflow-hidden hover:shadow-lg border-0 custom-shadow transition-shadow relative py-0 ${article.hasAccent ? "border-b-4 border-b-primary" : ""}`}
+              className={`overflow-hidden hover:shadow-lg border-0 custom-shadow transition-shadow relative py-0 flex flex-col ${
+                article.hasAccent ? "border-b-4 border-b-primary" : ""
+              }`}
             >
               {/* Image */}
               <div className="aspect-[4/3] overflow-hidden relative">
@@ -76,37 +80,38 @@ export function NewsSection() {
                 </div>
               </div>
 
-              <CardContent className="p-6">
-                {/* Title */}
-                <h3 className="text-lg font-bold text-gray-900 mb-3 leading-tight">{article.title}</h3>
+              <CardContent className="p-6 flex flex-col flex-1 h-full">
+                <div>
+                  {/* Title */}
+                  <h3 className="text-lg font-bold text-gray-900 mb-3 leading-tight">
+                    {article.title}
+                  </h3>
 
-                {/* Date and Author */}
-                <div className="flex items-center text-sm text-gray-600 mb-4">
-                  <span>{article.date}</span>
-                  <span className="mx-2">•</span>
-                  <span>{article.author}</span>
+                  {/* Date and Author */}
+                  <div className="flex items-center text-sm text-gray-600 mb-4">
+                    <span>{article.date}</span>
+                    <span className="mx-2">•</span>
+                    <span>{article.author}</span>
+                  </div>
+
+                  {/* Excerpt */}
+                  <p className="text-gray-600 text-sm leading-relaxed">
+                    {article.excerpt}
+                  </p>
                 </div>
 
-                {/* Excerpt */}
-                <p className="text-gray-600 text-sm leading-relaxed mb-6">{article.excerpt}</p>
-
                 {/* Read More Button */}
-                {article.buttonStyle === "outline" ? (
-                  <Button variant="outline" className="bg-transparent border-gray-400 text-gray-700 hover:bg-gray-50">
+                <div className="mt-auto pt-6">
+                  <Button className="bg-transparent border-[0.5px] border-primary text-gray-700 hover:bg-primary hover:text-white transition-colors duration-500">
                     Read more
                     <ArrowRight className="ml-2 h-4 w-4" />
                   </Button>
-                ) : (
-                  <Button className="bg-black hover:bg-gray-800 text-white">
-                    Read more
-                    <ArrowRight className="ml-2 h-4 w-4" />
-                  </Button>
-                )}
+                </div>
               </CardContent>
             </Card>
           ))}
         </div>
       </Container>
     </section>
-  )
+  );
 }

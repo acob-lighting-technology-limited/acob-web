@@ -104,22 +104,21 @@ export function HeroSection() {
     };
   }, [currentSlide, isPaused, isTransitioning]);
 
-  const handleMouseEnter = () => {
-    setIsPaused(true);
-  };
+  // const handleMouseEnter = () => {
+  //   setIsPaused(true);
+  // };
 
-  const handleMouseLeave = () => {
-    setIsPaused(false);
-    setSlideStartTime(Date.now()); // Reset the slide timer
-  };
+  // const handleMouseLeave = () => {
+  //   setIsPaused(false);
+  //   setSlideStartTime(Date.now()); // Reset the slide timer
+  // };
 
   const currentSlideData = heroSlides[currentSlide];
 
   return (
     <section
       className="relative min-h-[700px] overflow-hidden w-full"
-      onMouseEnter={handleMouseEnter}
-      onMouseLeave={handleMouseLeave}
+    
     >
    
       <div className="absolute inset-0 bg-black">

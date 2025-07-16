@@ -1,38 +1,15 @@
-'use client';
-
-
-import { useScroll } from 'framer-motion';
-import { useEffect, useRef } from 'react';
-import Lenis from '@studio-freight/lenis'
-import { projectscard } from '@/lib/data/projectcard';
-import Card from '@/components/ui/stack-cards';
-
-export default function Home() {
-  const container = useRef(null);
-  const { scrollYProgress } = useScroll({
-    target: container,
-    offset: ['start start', 'end end']
-  })
-
-  useEffect( () => {
-    const lenis = new Lenis()
-
-    function raf(time: any ) {
-      lenis.raf(time)
-      requestAnimationFrame(raf)
-    }
-
-    requestAnimationFrame(raf)
-  })
-
+export default function ContactMap() {
   return (
-    <main ref={container} className="relative mt-[20vh]">
-      {
-        projectscard.map( (project, i) => {
-          const targetScale = 1 - ( (projectscard.length - i) * 0.05);
-          return <Card key={`p_${i}`} i={i} {...project} progress={scrollYProgress} range={[i * .25, 1]} targetScale={targetScale}/>
-        })
-      }
-    </main>
-  )
+    <div className="w-full h-screen rounded-lg overflow-hidden">
+      <iframe
+        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d4042.0004937198446!2d7.418824175135592!3d9.11723979094763!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x104e0b1e73987599%3A0xd8a3ed0c898644c5!2sACOB%20LIGHTING%20TECHNOLOGY%20LIMITED!5e1!3m2!1sen!2sng!4v1752592656509!5m2!1sen!2sng&maptype=satellite"
+        width="100%"
+        height="100%"
+        style={{ border: 0 }}
+        allowFullScreen
+        loading="lazy"
+        referrerPolicy="no-referrer-when-downgrade"
+      ></iframe>
+    </div>
+  );
 }
