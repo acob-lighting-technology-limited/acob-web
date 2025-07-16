@@ -4,11 +4,11 @@ import { Breadcrumb } from "@/components/ui/breadcrumb"
 import { Card, CardContent } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
-import { getBlogPost, getBlogPosts, urlFor, getApprovedCommentsForPost } from "@/sanity/lib/client" // Import getApprovedCommentsForPost
+import { getBlogPost, getBlogPosts, urlFor, getApprovedCommentsForPost } from "@/sanity/lib/client"
 import { PortableText } from "@portabletext/react"
 import { notFound } from "next/navigation"
-import Image from "next/image" // Import next/image
-import { CommentForm } from "@/components/blog/comment-form" // Import the new CommentForm component
+import Image from "next/image"
+import { CommentForm } from "@/components/blog/comment-form"
 
 interface BlogPostPageProps {
   params: {
@@ -65,7 +65,11 @@ const components = {
 }
 
 export default async function BlogPostPage({ params }: BlogPostPageProps) {
-  const post = await getBlogPost(params.slug)
+  // Await params explicitly as suggested by the error message
+  // Although params is typically a plain object, this might be a Next.js internal requirement
+  const { slug } = await params // Destructure after awaiting
+
+  const post = await getBlogPost(slug) // Use the awaited slug
 
   if (!post) {
     notFound()
