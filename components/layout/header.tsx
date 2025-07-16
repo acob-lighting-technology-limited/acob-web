@@ -1,6 +1,7 @@
 "use client"
 
-import React, { useState, useEffect, useRef } from "react"
+import type React from "react"
+import { useState, useEffect, useRef } from "react"
 
 // Types
 interface SubItem {
@@ -36,17 +37,37 @@ const navigationItems = [
       { name: "Our Story", href: "/about/story", description: "Learn about our journey and how we started" },
       { name: "Mission & Vision", href: "/about/mission", description: "Our commitment to sustainable energy" },
       { name: "Our Team", href: "/about/team", description: "Meet the experts behind our success" },
-      { name: "Certifications", href: "/about/certifications", description: "Our industry certifications and standards" },
+      {
+        name: "Certifications",
+        href: "/about/certifications",
+        description: "Our industry certifications and standards",
+      },
     ],
   },
   {
     name: "Services",
     href: "/services",
     subItems: [
-      { name: "Mini-Grid Solutions", href: "/services/mini-grid-solutions", description: "Scalable power solutions for communities" },
-      { name: "Captive Power Solutions", href: "/services/captive-power", description: "Dedicated power systems for businesses" },
-      { name: "Professional Energy Audit", href: "/services/energy-audit", description: "Comprehensive energy efficiency analysis" },
-      { name: "Installation Services", href: "/services/installation", description: "Professional setup and configuration" },
+      {
+        name: "Mini-Grid Solutions",
+        href: "/services/mini-grid-solutions",
+        description: "Scalable power solutions for communities",
+      },
+      {
+        name: "Captive Power Solutions",
+        href: "/services/captive-power",
+        description: "Dedicated power systems for businesses",
+      },
+      {
+        name: "Professional Energy Audit",
+        href: "/services/energy-audit",
+        description: "Comprehensive energy efficiency analysis",
+      },
+      {
+        name: "Installation Services",
+        href: "/services/installation",
+        description: "Professional setup and configuration",
+      },
       { name: "Maintenance & Support", href: "/services/maintenance", description: "Ongoing support and maintenance" },
     ],
   },
@@ -85,18 +106,16 @@ const navigationItems = [
 
 const DropdownMenu: React.FC<DropdownMenuProps> = ({ item, isOpen, onClose }) => {
   return (
-    <div className={`
+    <div
+      className={`
       absolute top-full left-0 mt-2 w-full max-w-[600px] min-w-[400px] bg-white rounded-lg shadow-2xl border border-gray-100 
       transform transition-all duration-300 ease-out origin-top
-      ${isOpen 
-        ? 'opacity-100 scale-100 translate-y-0' 
-        : 'opacity-0 scale-95 -translate-y-2 pointer-events-none'
-      }
+      ${isOpen ? "opacity-100 scale-100 translate-y-0" : "opacity-0 scale-95 -translate-y-2 pointer-events-none"}
     `}
-    style={{
-      left: '50%',
-      transform: 'translateX(-50%)',
-    }}
+      style={{
+        left: "50%",
+        transform: "translateX(-50%)",
+      }}
     >
       <div className="p-6">
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
@@ -112,7 +131,7 @@ const DropdownMenu: React.FC<DropdownMenuProps> = ({ item, isOpen, onClose }) =>
               `}
               style={{
                 animationDelay: `${index * 50}ms`,
-                animationFillMode: 'both'
+                animationFillMode: "both",
               }}
             >
               <div className="font-medium text-gray-900 group-hover:text-primary transition-colors duration-200 break-words">
@@ -133,46 +152,45 @@ const MobileMenu: React.FC<MobileMenuProps> = ({ isOpen, onClose }) => {
   const [expandedItems, setExpandedItems] = useState<Record<string, boolean>>({})
 
   const toggleExpanded = (itemName: string) => {
-    setExpandedItems(prev => ({
+    setExpandedItems((prev) => ({
       ...prev,
-      [itemName]: !prev[itemName]
+      [itemName]: !prev[itemName],
     }))
   }
 
   return (
-    <div className={`
+    <div
+      className={`
       fixed inset-0 z-50 lg:hidden
       transition-all duration-300 ease-out
-      ${isOpen ? 'opacity-100 visible' : 'opacity-0 invisible'}
-    `}>
+      ${isOpen ? "opacity-100 visible" : "opacity-0 invisible"}
+    `}
+    >
       {/* Backdrop */}
-      <div 
+      <div
         className={`
           absolute inset-0 bg-black/50 backdrop-blur-sm
           transition-opacity duration-300
-          ${isOpen ? 'opacity-100' : 'opacity-0'}
+          ${isOpen ? "opacity-100" : "opacity-0"}
         `}
         onClick={onClose}
       />
-      
+
       {/* Menu Panel */}
-      <div className={`
+      <div
+        className={`
         absolute right-0 top-0 h-full w-80 bg-white shadow-2xl
         transform transition-transform duration-300 ease-out
-        ${isOpen ? 'translate-x-0' : 'translate-x-full'}
-      `}>
+        ${isOpen ? "translate-x-0" : "translate-x-full"}
+      `}
+      >
         <div className="p-6 h-full overflow-y-auto">
           <div className="flex items-center justify-between mb-8">
             <div className="flex items-center space-x-2">
-              <div className="flex h-8 w-8 items-center justify-center rounded bg-primary text-white font-bold">
-                A
-              </div>
+              <div className="flex h-8 w-8 items-center justify-center rounded bg-primary text-white font-bold">A</div>
               <span className="font-bold text-lg text-gray-900">ACOB LIGHTING</span>
             </div>
-            <button
-              onClick={onClose}
-              className="p-2 hover:bg-gray-100 rounded-lg transition-colors duration-200"
-            >
+            <button onClick={onClose} className="p-2 hover:bg-gray-100 rounded-lg transition-colors duration-200">
               <X className="h-5 w-5" />
             </button>
           </div>
@@ -185,13 +203,17 @@ const MobileMenu: React.FC<MobileMenuProps> = ({ isOpen, onClose }) => {
                   className="w-full flex items-center justify-between p-3 text-left hover:bg-gray-50 rounded-lg transition-colors duration-200"
                 >
                   <span className="font-medium text-gray-900">{item.name}</span>
-                  <ChevronDown className={`h-4 w-4 transition-transform duration-200 ${expandedItems[item.name] ? 'rotate-180' : ''}`} />
+                  <ChevronDown
+                    className={`h-4 w-4 transition-transform duration-200 ${expandedItems[item.name] ? "rotate-180" : ""}`}
+                  />
                 </button>
-                
-                <div className={`
+
+                <div
+                  className={`
                   overflow-hidden transition-all duration-300 ease-out
-                  ${expandedItems[item.name] ? 'max-h-96 opacity-100' : 'max-h-0 opacity-0'}
-                `}>
+                  ${expandedItems[item.name] ? "max-h-96 opacity-100" : "max-h-0 opacity-0"}
+                `}
+                >
                   <div className="pl-4 pt-2 space-y-2">
                     {item.subItems.map((subItem, subIndex) => (
                       <Link
@@ -204,7 +226,7 @@ const MobileMenu: React.FC<MobileMenuProps> = ({ isOpen, onClose }) => {
                         `}
                         style={{
                           animationDelay: `${subIndex * 50}ms`,
-                          animationFillMode: 'both'
+                          animationFillMode: "both",
                         }}
                       >
                         {subItem.name}
@@ -238,8 +260,8 @@ export function Header() {
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 20)
     }
-    window.addEventListener('scroll', handleScroll)
-    return () => window.removeEventListener('scroll', handleScroll)
+    window.addEventListener("scroll", handleScroll)
+    return () => window.removeEventListener("scroll", handleScroll)
   }, [])
 
   const handleMouseEnter = (itemName: string) => {
@@ -261,46 +283,16 @@ export function Header() {
 
   return (
     <>
-      <style jsx>{`
-        @keyframes fadeInUp {
-          from {
-            opacity: 0;
-            transform: translateY(20px);
-          }
-          to {
-            opacity: 1;
-            transform: translateY(0);
-          }
-        }
-        
-        @keyframes slideInRight {
-          from {
-            opacity: 0;
-            transform: translateX(30px);
-          }
-          to {
-            opacity: 1;
-            transform: translateX(0);
-          }
-        }
-        
-        .animate-fadeInUp {
-          animation: fadeInUp 0.5s ease-out;
-        }
-        
-        .animate-slideInRight {
-          animation: slideInRight 0.5s ease-out;
-          animation-fill-mode: both;
-        }
-      `}</style>
-
-      <header className={`
+      <header
+        className={`
         sticky top-0 z-40 w-full transition-all duration-500 ease-out
-        ${isScrolled 
-          ? 'bg-white/75 backdrop-blur-3xl shadow-lg border-b border-gray-200/50' 
-          : 'bg-white/95 backdrop-blur-sm border-b border-gray-100/30'
+        ${
+          isScrolled
+            ? "bg-white/75 backdrop-blur-3xl shadow-lg border-b border-gray-200/50"
+            : "bg-white/95 backdrop-blur-sm border-b border-gray-100/30"
         }
-      `}>
+      `}
+      >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between h-16">
             {/* Logo */}
@@ -308,7 +300,8 @@ export function Header() {
               <img
                 src="/images/ACOB.png"
                 alt="ACOB Lighting Logo"
-                className="h-8 w-auto transition-transform duration-200 group-hover:scale-105"/>
+                className="h-8 w-auto transition-transform duration-200 group-hover:scale-105"
+              />
             </Link>
 
             {/* Desktop Navigation */}
@@ -325,14 +318,12 @@ export function Header() {
                     className="flex items-center space-x-1 text-gray-700 hover:text-primary font-medium transition-all duration-200 hover:scale-105"
                   >
                     <span>{item.name}</span>
-                    <ChevronDown className={`h-4 w-4 transition-transform duration-200 ${activeDropdown === item.name ? 'rotate-180' : ''}`} />
+                    <ChevronDown
+                      className={`h-4 w-4 transition-transform duration-200 ${activeDropdown === item.name ? "rotate-180" : ""}`}
+                    />
                   </Link>
-                  
-                  <DropdownMenu
-                    item={item}
-                    isOpen={activeDropdown === item.name}
-                    onClose={handleDropdownClose}
-                  />
+
+                  <DropdownMenu item={item} isOpen={activeDropdown === item.name} onClose={handleDropdownClose} />
                 </div>
               ))}
             </nav>

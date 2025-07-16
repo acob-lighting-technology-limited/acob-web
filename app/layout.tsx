@@ -1,17 +1,17 @@
-import type React from "react";
-import type { Metadata } from "next";
-import "./globals.css";
-import "../styles/customShadow.css";
-import { Header } from "@/components/layout/header";
-import { Footer } from "@/components/layout/footer";
-import { ScrollToTop } from "@/components/ui/scroll-to-top";
+import type React from "react"
+import type { Metadata } from "next"
+import "./globals.css"
+import "../styles/customShadow.css"
+import { Header } from "@/components/layout/header"
+import { Footer } from "@/components/layout/footer"
+import { ScrollToTop } from "@/components/ui/scroll-to-top"
+import { Providers } from "@/components/providers/session-provider"
 
 export const metadata: Metadata = {
   title: "ACOB Lighting Technology Limited - Solar Energy Solutions",
   description:
     "Leading supplier of solar materials for manufacturers, installers & contractors. Mini-grid solutions, captive power systems, and professional energy audits.",
-  keywords:
-    "solar energy, mini-grid solutions, renewable energy, Nigeria, solar panels, energy audit",
+  keywords: "solar energy, mini-grid solutions, renewable energy, Nigeria, solar panels, energy audit",
   authors: [{ name: "ACOB Lighting Technology Limited" }],
 
   openGraph: {
@@ -20,23 +20,25 @@ export const metadata: Metadata = {
     type: "website",
     locale: "en_US",
   },
-};
+}
 
 export default function RootLayout({
   children,
 }: {
-  children: React.ReactNode;
+  children: React.ReactNode
 }) {
   return (
     <html lang="en">
       <body className="font-sans antialiased bg-white">
-        <div className="flex min-h-screen flex-col w-full">
-          <Header />
-          <main className="flex-1">{children}</main>
-          <Footer />
-          <ScrollToTop />
-        </div>
+        <Providers>
+          <div className="flex min-h-screen flex-col w-full">
+            <Header />
+            <main className="flex-1">{children}</main>
+            <Footer />
+            <ScrollToTop />
+          </div>
+        </Providers>
       </body>
     </html>
-  );
+  )
 }

@@ -1,48 +1,14 @@
-import { Card, CardContent } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
-import { Container } from "@/components/ui/container";
-import { ArrowRight } from "lucide-react";
+import { Card, CardContent } from "@/components/ui/card"
+import { Button } from "@/components/ui/button"
+import { Container } from "@/components/ui/container"
+import { ArrowRight } from "lucide-react"
+import Link from "next/link"
+import { getBlogPosts } from "@/sanity/lib/client" 
 
-const news = [
-  {
-    title: "JOB OPPORTUNITIES AT ACOB LIGHTING TECHNOLOGY LIMITED!",
-    date: "February 6, 2025",
-    author: "ACOB LIGHTING",
-    excerpt:
-      "We're hiring for multiple roles across different departments! If you are passionate about JOIN OUR TEAM AT ACOB LIGHTING TECHNOLOGY LIMITED! We are expanding our workforce and looking...",
-    image: "/images/job-vacancy.webp?height=200&width=400",
-    category: "Careers",
-    categoryColor: "bg-primary",
-    buttonStyle: "outline",
-    hasAccent: false,
-  },
-  {
-    title: "ACOB Staff Retreat 2024!",
-    date: "December 23, 2024",
-    author: "ACOB LIGHTING",
-    excerpt:
-      "Wrapped Up the ACOB Staff Retreat 2024! The end of our retreat marks the beginning of a renewed commitment to innovation, excellence, and sustainability. Equipped with actionable strategies,...",
-    image: "/images/acob-team.webp?height=200&width=400",
-    category: "Retreats",
-    categoryColor: "bg-primary",
-    buttonStyle: "outline",
-    hasAccent: false,
-  },
-  {
-    title: "CEO Award of Excellence",
-    date: "December 22, 2024",
-    author: "ACOB LIGHTING",
-    excerpt:
-      "Rewarding Excellence and Hard-work is at the Heart of ACOB Management. As management awards staff who have Exceptionally contributed in no small measures to the growth of the...",
-    image: "/images/acob-award.webp?height=200&width=400",
-    category: "Retreats, Staff Award",
-    categoryColor: "bg-primary",
-    buttonStyle: "solid",
-    hasAccent: true,
-  },
-];
+export async function NewsSection() {
+  const posts = await getBlogPosts()
+  const latestPosts = posts.slice(0, 3) // Get only the latest 3 posts
 
-export function NewsSection() {
   return (
     <section className="py-16 bg-white">
       <Container className="px-4">
@@ -51,67 +17,71 @@ export function NewsSection() {
           <div className="inline-block bg-primary/10 text-primary px-4 py-2 rounded-full text-sm font-medium mb-4">
             News & Announcements
           </div>
-          <h2 className="text-4xl md:text-5xl font-bold text-gray-900">
-            Recent Updates
-          </h2>
+          <h2 className="text-4xl md:text-5xl font-bold text-gray-900">Recent Updates</h2>
         </div>
 
         {/* News Cards */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-          {news.map((article, index) => (
+          {latestPosts.map((post: any, index: number) => (
             <Card
-              key={index}
+              key={post._id}
               className={`overflow-hidden hover:shadow-lg border-0 custom-shadow transition-shadow relative py-0 flex flex-col ${
-                article.hasAccent ? "border-b-4 border-b-primary" : ""
+                index === 2 ? "border-b-4 border-b-primary" : ""
               }`}
             >
               {/* Image */}
               <div className="aspect-[4/3] overflow-hidden relative">
                 <img
-                  src={article.image || "/placeholder.svg"}
-                  alt={article.title}
+                  src={post.featuredImage || "/placeholder.svg"}
+                  alt={post.title}
                   className="w-full h-full object-cover"
                 />
                 {/* Category Tag */}
-                <div
-                  className={`absolute top-4 left-4 ${article.categoryColor} text-white px-3 py-1 rounded text-sm font-medium`}
-                >
-                  {article.category}
+                <div className="absolute top-4 left-4 bg-primary text-white px-3 py-1 rounded text-sm font-medium">
+                  {post.category?.name || "News"}
                 </div>
               </div>
 
               <CardContent className="p-6 flex flex-col flex-1 h-full">
                 <div>
                   {/* Title */}
-                  <h3 className="text-lg font-bold text-gray-900 mb-3 leading-tight">
-                    {article.title}
-                  </h3>
+                  <h3 className="text-lg font-bold text-gray-900 mb-3 leading-tight">{post.title}</h3>
 
                   {/* Date and Author */}
                   <div className="flex items-center text-sm text-gray-600 mb-4">
-                    <span>{article.date}</span>
+                    <span>{new Date(post.publishedAt).toLocaleDateString()}</span>
                     <span className="mx-2">•</span>
-                    <span>{article.author}</span>
+                    <span>{post.author}</span>
                   </div>
 
                   {/* Excerpt */}
-                  <p className="text-gray-600 text-sm leading-relaxed">
-                    {article.excerpt}
-                  </p>
+                  <p className="text-gray-600 text-sm leading-relaxed">{post.excerpt}</p>
                 </div>
 
                 {/* Read More Button */}
                 <div className="mt-auto pt-6">
-                  <Button className="bg-transparent border-[0.5px] border-primary text-gray-700 hover:bg-primary hover:text-white transition-colors duration-500">
-                    Read more
-                    <ArrowRight className="ml-2 h-4 w-4" />
-                  </Button>
+                  <Link href={`/blog/${post.slug.current}`}>
+                    <Button className="bg-transparent border-[0.5px] border-primary text-gray-700 hover:bg-primary hover:text-white transition-colors duration-500">
+                      Read more
+                      <ArrowRight className="ml-2 h-4 w-4" />
+                    </Button>
+                  </Link>
                 </div>
               </CardContent>
             </Card>
           ))}
         </div>
+
+        {/* View All Button */}
+        <div className="text-center mt-12">
+          <Link href="/blog">
+            <Button className="bg-primary hover:bg-primary/90 text-white px-8 py-3">
+              View All Posts
+              <ArrowRight className="ml-2 h-4 w-4" />
+            </Button>
+          </Link>
+        </div>
       </Container>
     </section>
-  );
+  )
 }

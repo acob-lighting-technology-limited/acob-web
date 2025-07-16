@@ -18,36 +18,20 @@ export function PageHero({ title, backgroundImage, className = "", children }: P
         className="absolute inset-0 bg-cover bg-center bg-no-repeat animate-slow-zoom"
         style={{ backgroundImage: `url('${backgroundImage}')` }}
       />
-      
+
       {/* Dark Overlay */}
       <div className="absolute inset-0 bg-black/50" />
-      
+
       {/* Content */}
       <Container className="relative z-10 px-4">
         <div className="text-left text-white">
-        <MaskText
+          <MaskText
             phrases={[title]} // or split into lines if desired
             className="text-4xl md:text-7xl font-bold mb-4"
           />
           {children}
         </div>
       </Container>
-      
-      {/* Custom CSS for animation */}
-      <style jsx>{`
-        @keyframes slow-zoom {
-          0% {
-            transform: scale(1);
-          }
-          100% {
-            transform: scale(1.1);
-          }
-        }
-        
-        .animate-slow-zoom {
-          animation: slow-zoom 15s ease-in-out infinite alternate;
-        }
-      `}</style>
     </section>
   )
 }
