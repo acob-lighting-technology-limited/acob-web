@@ -1,7 +1,7 @@
 import { type NextRequest, NextResponse } from "next/server"
 import { getServerSession } from "next-auth"
 import { authOptions } from "@/lib/auth"
-import { getBlogPosts, client } from "@/sanity/lib/client"
+import { getUpdatePosts, client } from "@/sanity/lib/client" // Changed to getUpdatePosts
 
 export async function GET(request: NextRequest) {
   const session = await getServerSession(authOptions)
@@ -19,7 +19,7 @@ export async function GET(request: NextRequest) {
       // Fetch a single post by ID
       posts = await client.fetch(
         `
-        *[_type == "blogPost" && _id == $id][0] {
+        *[_type == "updatePost" && _id == $id][0] { // Changed to updatePost
           _id,
           title,
           slug,
@@ -36,7 +36,7 @@ export async function GET(request: NextRequest) {
       )
     } else {
       // Fetch all posts
-      posts = await getBlogPosts()
+      posts = await getUpdatePosts() // Changed to getUpdatePosts
     }
     return NextResponse.json(posts)
   } catch (error) {
@@ -56,7 +56,7 @@ export async function POST(request: NextRequest) {
     const body = await request.json()
 
     const doc = {
-      _type: "blogPost",
+      _type: "updatePost", // Changed to updatePost
       title: body.title,
       slug: {
         _type: "slug",

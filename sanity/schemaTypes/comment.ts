@@ -31,10 +31,10 @@ export default defineType({
       validation: (Rule) => Rule.required(),
     }),
     defineField({
-      name: "blogPost",
-      title: "Blog Post",
+      name: "updatePost", // Renamed from blogPost
+      title: "Update Post", // Renamed from Blog Post
       type: "reference",
-      to: [{ type: "blogPost" }],
+      to: [{ type: "updatePost" }], // Reference the new updatePost schema
       validation: (Rule) => Rule.required(),
     }),
     defineField({
@@ -56,7 +56,7 @@ export default defineType({
     select: {
       name: "name",
       comment: "comment",
-      postTitle: "blogPost.title",
+      postTitle: "updatePost.title", // Renamed from blogPost.title
       approved: "approved",
     },
     prepare(selection) {

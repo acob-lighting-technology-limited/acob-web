@@ -1,5 +1,6 @@
-import blogPost from "./blogPost"
+import { updatePostType } from "./updatePost" 
 import category from "./category"
-import comment from "./comment" // Import the new comment schema
+import comment from "./comment"
+import { projectType } from "./project" 
 
-export const schemaTypes = [blogPost, category, comment] // Add comment to the array
+export const schemaTypes = [updatePostType, category, comment, projectType] // Add projectType to the array

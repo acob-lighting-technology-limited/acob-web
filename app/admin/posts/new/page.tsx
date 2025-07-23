@@ -15,7 +15,8 @@ import Link from "next/link"
 
 const EXCERPT_MAX_LENGTH = 200
 
-export default function NewBlogPostPage() {
+export default function NewUpdatePostPage() {
+  // Renamed component
   const { data: session, status } = useSession()
   const router = useRouter()
   const [title, setTitle] = useState("")
@@ -124,7 +125,7 @@ export default function NewBlogPostPage() {
         throw new Error(errorData.error || "Failed to create post")
       }
 
-      setSuccess("Blog post created successfully!")
+      setSuccess("Update post created successfully!") // Renamed success message
       setTitle("")
       setSlug("")
       setExcerpt("")
@@ -148,7 +149,7 @@ export default function NewBlogPostPage() {
             <ArrowLeft className="h-4 w-4" />
           </Button>
         </Link>
-        <h1 className="text-3xl font-bold">Create New Blog Post</h1>
+        <h1 className="text-3xl font-bold">Create New Update Post</h1> {/* Renamed title */}
       </div>
 
       <Card>

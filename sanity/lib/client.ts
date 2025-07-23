@@ -1,57 +1,62 @@
-import { createClient } from "@sanity/client"
-import imageUrlBuilder from "@sanity/image-url"
+import { createClient } from "@sanity/client";
+import imageUrlBuilder from "@sanity/image-url";
+const projectId =
+  process.env.SANITY_STUDIO_PROJECT_ID ||
+  process.env.NEXT_PUBLIC_SANITY_PROJECT_ID;
+const dataset =
+  process.env.SANITY_STUDIO_DATASET || process.env.NEXT_PUBLIC_SANITY_DATASET;
 
 export const client = createClient({
-  projectId: process.env.SANITY_STUDIO_PROJECT_ID!,
-  dataset: process.env.SANITY_STUDIO_DATASET!,
+  projectId,
+  dataset,
   useCdn: true,
   apiVersion: "2024-01-01",
   token: process.env.SANITY_API_TOKEN,
-})
+});
 
-const builder = imageUrlBuilder(client)
+const builder = imageUrlBuilder(client);
 
 export function urlFor(source: any) {
-  return builder.image(source)
+  return builder.image(source);
 }
 
-// Helper function to get blog posts
-export async function getBlogPosts() {
+// Helper function to get update posts (formerly blog posts)
+export async function getUpdatePosts() {
   return await client.fetch(`
-    *[_type == "blogPost"] | order(publishedAt desc) {
+    *[_type == "updatePost"] | order(publishedAt desc) {
       _id,
       title,
       slug,
       excerpt,
       publishedAt,
       author,
-      category->{name, slug}, // Fetch category name and slug
+      category->{name, slug},
       tags,
       "featuredImage": featuredImage.asset->url,
       content
     }
-  `)
+  `);
 }
 
-// Helper function to get single blog post
-export async function getBlogPost(slug: string) {
+// Helper function to get single update post (formerly single blog post)
+export async function getUpdatePost(slug: string) {
   return await client.fetch(
     `
-    *[_type == "blogPost" && slug.current == $slug][0] {
+    *[_type == "updatePost" && slug.current == $slug][0] {
       _id,
       title,
       slug,
       excerpt,
       publishedAt,
       author,
-      category->{name, slug}, // Fetch category name and slug
+      category->{name, slug},
       tags,
       "featuredImage": featuredImage.asset->url,
       content
     }
   `,
-    { slug },
-  )
+    { slug }
+  );
 }
 
 // Helper function to get categories
@@ -63,14 +68,14 @@ export async function getCategories() {
       slug,
       description
     }
-  `)
+  `);
 }
 
-// NEW: Helper function to get approved comments for a blog post
+// Helper function to get approved comments for an update post
 export async function getApprovedCommentsForPost(postId: string) {
   return await client.fetch(
     `
-    *[_type == "comment" && blogPost._ref == $postId && approved == true] | order(createdAt desc) {
+    *[_type == "comment" && updatePost._ref == $postId && approved == true] | order(createdAt desc) {
       _id,
       name,
       comment,
@@ -78,6 +83,45 @@ export async function getApprovedCommentsForPost(postId: string) {
       website
     }
   `,
-    { postId },
-  )
+    { postId }
+  );
+}
+
+// NEW: Helper function to get projects
+export async function getProjects() {
+  return await client.fetch(`
+    *[_type == "project"] | order(_createdAt desc) {
+      _id,
+      title,
+      slug,
+      description,
+      location,
+      gradientFrom,
+      gradientTo,
+      images[]{
+        asset->{url}
+      }
+    }
+  `);
+}
+
+// NEW: Helper function to get single project
+export async function getProject(slug: string) {
+  return await client.fetch(
+    `
+    *[_type == "project" && slug.current == $slug][0] {
+      _id,
+      title,
+      slug,
+      description,
+      location,
+      gradientFrom,
+      gradientTo,
+      images[]{
+        asset->{url}
+      }
+    }
+  `,
+    { slug }
+  );
 }

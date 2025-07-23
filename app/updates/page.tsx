@@ -1,22 +1,29 @@
-import { Container } from "@/components/ui/container"
-import { PageHero } from "@/components/ui/page-hero"
-import { Breadcrumb } from "@/components/ui/breadcrumb"
-import { Card, CardContent } from "@/components/ui/card"
-import { Button } from "@/components/ui/button"
-import { Input } from "@/components/ui/input"
-import { ArrowRight, Search } from "lucide-react"
-import Link from "next/link"
-import { getBlogPosts, getCategories } from "@/sanity/lib/client"
+import { Container } from "@/components/ui/container";
+import { PageHero } from "@/components/ui/page-hero";
+import { Breadcrumb } from "@/components/ui/breadcrumb";
+import { Card, CardContent } from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { ArrowRight, Search } from "lucide-react";
+import Link from "next/link";
+import { getUpdatePosts, getCategories } from "@/sanity/lib/client"; // Changed to getUpdatePosts
 
-export default async function BlogPage() {
-  const [posts, categories] = await Promise.all([getBlogPosts(), getCategories()])
+export default async function UpdatesPage() {
+  // Renamed component
+  const [posts, categories] = await Promise.all([
+    getUpdatePosts(),
+    getCategories(),
+  ]); // Fetches update posts
 
-  const breadcrumbItems = [{ label: "Home", href: "/" }, { label: "Blog" }]
+  const breadcrumbItems = [{ label: "Home", href: "/" }, { label: "Updates" }]; // Renamed breadcrumb
 
   return (
     <>
-      <PageHero title="Latest News & Updates" backgroundImage="/images/services/header.jpg?height=400&width=1200" />
-
+      <PageHero
+        title="Latest Updates & News"
+        backgroundImage="/images/services/header.jpg?height=400&width=1200"
+      />{" "}
+      {/* Renamed title */}
       <Container className="px-4 py-8">
         <Breadcrumb items={breadcrumbItems} className="mb-8" />
 
@@ -37,13 +44,21 @@ export default async function BlogPage() {
                 </div>
                 <CardContent className="p-6">
                   <div className="flex items-center text-sm text-gray-600 mb-4">
-                    <span>{new Date(post.publishedAt).toLocaleDateString()}</span>
+                    <span>
+                      {new Date(post.publishedAt).toLocaleDateString()}
+                    </span>
                     <span className="mx-2">•</span>
                     <span>{post.author}</span>
                   </div>
-                  <h2 className="text-2xl font-bold mb-4 text-gray-900">{post.title}</h2>
-                  <p className="text-gray-600 mb-6 leading-relaxed">{post.excerpt}</p>
-                  <Link href={`/blog/${post.slug.current}`}>
+                  <h2 className="text-2xl font-bold mb-4 text-gray-900">
+                    {post.title}
+                  </h2>
+                  <p className="text-gray-600 mb-6 leading-relaxed">
+                    {post.excerpt}
+                  </p>
+                  <Link href={`/updates/${post.slug.current}`}>
+                    {" "}
+                    {/* Changed link to /updates */}
                     <Button className="bg-primary hover:bg-primary/90 text-white">
                       Read More
                       <ArrowRight className="ml-2 h-4 w-4" />
@@ -61,7 +76,8 @@ export default async function BlogPage() {
               <CardContent className="p-6">
                 <h3 className="font-semibold mb-4">Search</h3>
                 <div className="relative border-[0.5px] rounded-md border-primary">
-                  <Input placeholder="Search posts..." className="pr-10" />
+                  <Input placeholder="Search updates..." className="pr-10" />{" "}
+                  {/* Renamed placeholder */}
                   <Search className="absolute right-3 top-1/2 -translate-y-1/2 h-4 w-4 text-gray-400" />
                 </div>
               </CardContent>
@@ -75,7 +91,7 @@ export default async function BlogPage() {
                   {categories.map((category: any) => (
                     <li key={category._id}>
                       <Link
-                        href={`/blog/category/${category.slug.current}`}
+                        href={`/updates/category/${category.slug.current}`}
                         className="text-gray-600 hover:text-primary transition-colors duration-200 flex items-center justify-between"
                       >
                         <span>{category.name}</span>
@@ -89,5 +105,5 @@ export default async function BlogPage() {
         </div>
       </Container>
     </>
-  )
+  );
 }

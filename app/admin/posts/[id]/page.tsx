@@ -15,7 +15,8 @@ import Link from "next/link"
 import Image from "next/image"
 import { urlFor } from "@/sanity/lib/client" // Import urlFor to display images
 
-interface EditBlogPostPageProps {
+interface EditUpdatePostPageProps {
+  // Renamed interface
   params: {
     id: string
   }
@@ -23,7 +24,8 @@ interface EditBlogPostPageProps {
 
 const EXCERPT_MAX_LENGTH = 200
 
-export default function EditBlogPostPage({ params }: EditBlogPostPageProps) {
+export default function EditUpdatePostPage({ params }: EditUpdatePostPageProps) {
+  // Renamed component
   const { id } = params
   const { data: session, status } = useSession()
   const router = useRouter()
@@ -170,7 +172,7 @@ export default function EditBlogPostPage({ params }: EditBlogPostPageProps) {
         throw new Error(errorData.error || "Failed to update post")
       }
 
-      setSuccess("Blog post updated successfully!")
+      setSuccess("Update post updated successfully!") // Renamed success message
       router.push("/admin") // Redirect to admin dashboard after update
     } catch (err: any) {
       setError(err.message || "An unexpected error occurred.")
@@ -195,7 +197,7 @@ export default function EditBlogPostPage({ params }: EditBlogPostPageProps) {
             <ArrowLeft className="h-4 w-4" />
           </Button>
         </Link>
-        <h1 className="text-3xl font-bold">Edit Blog Post</h1>
+        <h1 className="text-3xl font-bold">Edit Update Post</h1> {/* Renamed title */}
       </div>
 
       <Card>

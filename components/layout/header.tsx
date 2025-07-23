@@ -83,13 +83,39 @@ const navigationItems = [
     ],
   },
   {
-    name: "News & Media",
-    href: "/news",
+    name: "Projects", // Added Projects
+    href: "/projects",
     subItems: [
-      { name: "Latest News", href: "/news/latest", description: "Stay updated with our recent developments" },
-      { name: "Press Releases", href: "/news/press", description: "Official announcements and updates" },
-      { name: "Case Studies", href: "/news/case-studies", description: "Real-world implementation stories" },
-      { name: "Media Gallery", href: "/news/gallery", description: "Photos and videos from our projects" },
+      {
+        name: "Rural Electrification",
+        href: "/projects/rural-electrification",
+        description: "Projects bringing power to remote areas",
+      },
+      {
+        name: "Commercial Installations",
+        href: "/projects/commercial-installations",
+        description: "Solar solutions for businesses",
+      },
+      {
+        name: "Street Lighting",
+        href: "/projects/street-lighting",
+        description: "Public lighting infrastructure projects",
+      },
+      {
+        name: "Healthcare Projects",
+        href: "/projects/healthcare-projects",
+        description: "Powering hospitals and clinics",
+      },
+    ],
+  },
+  {
+    name: "Updates & Media", // Renamed from News & Media
+    href: "/updates", // Changed from /news
+    subItems: [
+      { name: "Latest Updates", href: "/updates/latest", description: "Stay updated with our recent developments" }, // Changed from Latest News
+      { name: "Press Releases", href: "/updates/press", description: "Official announcements and updates" }, // Changed from News
+      { name: "Case Studies", href: "/updates/case-studies", description: "Real-world implementation stories" }, // Changed from News
+      { name: "Media Gallery", href: "/updates/gallery", description: "Photos and videos from our projects" }, // Changed from News
     ],
   },
   {

@@ -1,3 +1,7 @@
+// This file is now deprecated as project data will be fetched from Sanity.
+// Its content has been moved to Sanity schema and client functions.
+// You can safely delete this file after verifying the changes.
+
 export const projectscard = [
   {
     title: "Covid-19 Roof Top Installation",
@@ -29,11 +33,7 @@ export const projectscard = [
     title: "Keffi Nasarawa Hospital Survey",
     description:
       "A comprehensive survey conducted at Keffi Nasarawa Hospital to assess infrastructure, energy needs, and opportunities for improvement in healthcare delivery through sustainable energy and modern facilities.",
-    images: [
-      "keffi-nassarawa-hospital-1.webp",
-      "keffi-nassarawa-hospital-2.webp",
-      "keffi-nassarawa-hospital-3.webp",
-    ],
+    images: ["keffi-nassarawa-hospital-1.webp", "keffi-nassarawa-hospital-2.webp", "keffi-nassarawa-hospital-3.webp"],
     location: "Nasarawa State",
     gradientFrom: "#08913F",
     gradientTo: "#003808",
@@ -55,13 +55,9 @@ export const projectscard = [
     title: "Solar Pump distribution",
     description:
       "This project involved the distribution of solar-powered water pumps to rural communities, providing sustainable and reliable access to clean water. The solar pumps are designed to operate efficiently in remote areas, reducing dependence on traditional power sources.",
-    images: [
-      "solar-pump-distribution-1.webp",
-      "solar-pump-distribution-2.webp",
-      "solar-pump-distribution-3.webp",
-    ],
+    images: ["solar-pump-distribution-1.webp", "solar-pump-distribution-2.webp", "solar-pump-distribution-3.webp"],
     location: "Delta, Edo and Rivers State",
     gradientFrom: "#08913F",
     gradientTo: "#003808",
   },
-];
+]

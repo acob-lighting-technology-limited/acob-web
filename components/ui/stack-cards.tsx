@@ -1,32 +1,34 @@
-"use client";
+"use client"
 
-import Image from "next/image";
-import { useTransform, motion, useScroll } from "framer-motion";
-import { useRef } from "react";
-import Link from "next/link";
-import { Button } from "./button";
-import { ArrowRight, MapPin } from "lucide-react";
+import type React from "react"
+
+import Image from "next/image"
+import { useTransform, motion, useScroll } from "framer-motion"
+import { useRef } from "react"
+import Link from "next/link"
+import { Button } from "./button"
+import { ArrowRight, MapPin } from "lucide-react"
 
 interface CardProps {
-  i: number;
-  title: string;
-  description: string;
-  images: string[];
-  location: string;
-  url?: string;
-  color?: string;
-  gradientFrom: string;
-  gradientTo: string;
-  progress: any;
-  range: number[];
-  targetScale: number;
+  i: number
+  title: string
+  description: string
+  images: { asset: { url: string } }[] // Updated to match Sanity image asset structure
+  location: string
+  url?: string
+  color?: string
+  gradientFrom: string
+  gradientTo: string
+  progress: any
+  range: number[]
+  targetScale: number
 }
 
 const Card: React.FC<CardProps> = ({
   i = 0,
   title = "",
   description = "",
-  images = ["image1.jpg", "image2.jpg", "image3.jpg"],
+  images = [], // Default to empty array
   location = "Nigeria",
   url = "#",
   color = "#ffffff",
@@ -36,20 +38,17 @@ const Card: React.FC<CardProps> = ({
   range = [0, 1],
   targetScale = 1,
 }) => {
-  const container = useRef(null);
+  const container = useRef(null)
   const { scrollYProgress } = useScroll({
     target: container,
     offset: ["start end", "start start"],
-  });
+  })
 
-  const imageScale = useTransform(scrollYProgress, [0, 1], [2, 1]);
-  const scale = useTransform(progress, range, [1, targetScale]);
+  const imageScale = useTransform(scrollYProgress, [0, 1], [2, 1])
+  const scale = useTransform(progress, range, [1, targetScale])
 
   return (
-    <div
-      ref={container}
-      className="h-screen flex items-center text-white  justify-center sticky top-0"
-    >
+    <div ref={container} className="h-screen flex items-center text-white  justify-center sticky top-0">
       <motion.div
         style={{
           backgroundImage: `linear-gradient(to bottom, ${gradientFrom}, ${gradientTo})`,
@@ -76,7 +75,9 @@ const Card: React.FC<CardProps> = ({
             </div>
 
             <div className="mt-auto pt-6">
-              <Link href="#">
+              <Link href={url}>
+                {" "}
+                {/* Use the passed URL */}
                 <Button className="bg-[#07F507]/70 text-lg py-6 !px-8 hover:bg-[#07F507]/60 text-white">
                   View Project
                   <ArrowRight className="ml-2 h-4 w-4" />
@@ -87,35 +88,41 @@ const Card: React.FC<CardProps> = ({
 
           {/* Image Section */}
           <div className="w-1/2 h-full grid grid-rows-2 grid-cols-2 gap-4 rounded-[20px] overflow-hidden">
-            <div className="row-span-1 col-span-2 relative rounded-[16px] overflow-hidden">
-              <Image
-                src={`/images/projects/${images[0]}`}
-                alt="image-1"
-                fill
-                className="object-cover"
-              />
-            </div>
-            <div className="relative rounded-[16px] overflow-hidden">
-              <Image
-                src={`/images/projects/${images[1]}`}
-                alt="image-2"
-                fill
-                className="object-cover"
-              />
-            </div>
-            <div className="relative rounded-[16px] overflow-hidden">
-              <Image
-                src={`/images/projects/${images[2]}`}
-                alt="image-3"
-                fill
-                className="object-cover"
-              />
-            </div>
+            {images[0] && (
+              <div className="row-span-1 col-span-2 relative rounded-[16px] overflow-hidden">
+                <Image
+                  src={images[0].asset.url || "/placeholder.svg"} // Use Sanity image URL
+                  alt={title}
+                  fill
+                  className="object-cover"
+                />
+              </div>
+            )}
+            {images[1] && (
+              <div className="relative rounded-[16px] overflow-hidden">
+                <Image
+                  src={images[1].asset.url || "/placeholder.svg"} // Use Sanity image URL
+                  alt={title}
+                  fill
+                  className="object-cover"
+                />
+              </div>
+            )}
+            {images[2] && (
+              <div className="relative rounded-[16px] overflow-hidden">
+                <Image
+                  src={images[2].asset.url || "/placeholder.svg"} // Use Sanity image URL
+                  alt={title}
+                  fill
+                  className="object-cover"
+                />
+              </div>
+            )}
           </div>
         </div>
       </motion.div>
     </div>
-  );
-};
+  )
+}
 
-export default Card;
+export default Card

@@ -42,6 +42,11 @@ export async function PUT(request: NextRequest, { params }: { params: { id: stri
       patchOperations.featuredImage = body.featuredImage
     }
 
+    // Ensure the slug is not updated directly via PUT if it's meant to be immutable
+    // For Sanity, slug is part of the document, but often not changed after creation.
+    // If you need to change it, you'd typically handle it in the Sanity Studio or a specific API.
+    // For this example, we'll assume slug is not updated via this PUT.
+
     const result = await client.patch(params.id).set(patchOperations).commit()
 
     return NextResponse.json(result)

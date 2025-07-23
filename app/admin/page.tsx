@@ -84,18 +84,18 @@ export default function AdminDashboard() {
   return (
     <Container className="py-8 px-4">
       <div className="flex justify-between items-center mb-8">
-        <h1 className="text-3xl font-bold">Blog Management</h1>
+        <h1 className="text-3xl font-bold">Updates Management</h1> {/* Renamed title */}
         <Link href="/admin/posts/new">
           <Button className="bg-primary hover:bg-primary/90">
             <Plus className="mr-2 h-4 w-4" />
-            New Post
+            New Update {/* Renamed button text */}
           </Button>
         </Link>
       </div>
 
       <Card>
         <CardHeader>
-          <CardTitle>All Posts</CardTitle>
+          <CardTitle>All Updates</CardTitle> {/* Renamed title */}
         </CardHeader>
         <CardContent>
           {fetchError && <p className="text-red-500 text-center mb-4">{fetchError}</p>}
@@ -110,24 +110,35 @@ export default function AdminDashboard() {
                       </p>
                     </div>
                     <div className="flex gap-2">
-                      <Link href={`/blog/${post.slug.current}`}>
-                        <Button size="sm" variant="outline" title="View Post">
+                      <Link href={`/updates/${post.slug.current}`}>
+                        {" "}
+                        {/* Changed link to /updates */}
+                        <Button size="sm" variant="outline" title="View Update">
+                          {" "}
+                          {/* Renamed title */}
                           <Eye className="h-4 w-4" />
                         </Button>
                       </Link>
                       <Link href={`/admin/posts/${post._id}`}>
-                        <Button size="sm" variant="outline" title="Edit Post">
+                        <Button size="sm" variant="outline" title="Edit Update">
+                          {" "}
+                          {/* Renamed title */}
                           <Edit className="h-4 w-4" />
                         </Button>
                       </Link>
-                      <Button size="sm" variant="outline" onClick={() => handleDelete(post._id)} title="Delete Post">
+                      <Button size="sm" variant="outline" onClick={() => handleDelete(post._id)} title="Delete Update">
+                        {" "}
+                        {/* Renamed title */}
                         <Trash2 className="h-4 w-4" />
                       </Button>
                     </div>
                   </div>
                 ))
               : !loading &&
-                !fetchError && <p className="text-center text-gray-500">No blog posts found. Create a new one!</p>}
+                !fetchError && (
+                  <p className="text-center text-gray-500">No update posts found. Create a new one!</p>
+                )}{" "}
+            {/* Renamed message */}
           </div>
         </CardContent>
       </Card>

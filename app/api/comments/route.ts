@@ -15,7 +15,8 @@ export async function POST(request: NextRequest) {
       email,
       website,
       comment,
-      blogPost: {
+      updatePost: {
+        // Changed from blogPost
         _type: "reference",
         _ref: postId,
       },
