@@ -9,6 +9,7 @@ import { NewsSection } from "@/components/sections/news-section";
 import { PartnersSection } from "@/components/sections/partners-section";
 import { MapSection } from "@/components/sections/map-section";
 import { ProjectsSection } from "@/components/sections/projects-section";
+import { ChatBot } from "@/components/chat-box";
 
 export default function HomePage() {
   return (
@@ -22,6 +23,7 @@ export default function HomePage() {
       <ContactSection />
       <NewsSection />
       <PartnersSection />
+      <ChatBot />
       <MapSection />
     </>
   );
