@@ -39,7 +39,7 @@ export default function AboutPage() {
 
   return (
     <>
-      <PageHero title="About ACOB Lighting" backgroundImage="/images/about/about-hero.jpg?height=400&width=1200">
+      <PageHero title="About ACOB Lighting" backgroundImage="/images/about/acob-team.webp?height=400&width=1200">
         <MaskText
           phrases={[
             "Lighting Up Nigeria with Advanced Solar Solutions.",

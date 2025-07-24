@@ -34,7 +34,7 @@ const navigationItems = [
     name: "About Us",
     href: "/about",
     subItems: [
-      { name: "Our Story", href: "/about/story", description: "Learn about our journey and how we started" },
+      { name: "Our Story", href: "/about/our-story", description: "Learn about our journey and how we started" },
       { name: "Mission & Vision", href: "/about/mission", description: "Our commitment to sustainable energy" },
       { name: "Our Team", href: "/about/team", description: "Meet the experts behind our success" },
       {
