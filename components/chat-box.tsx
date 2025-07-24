@@ -21,7 +21,7 @@ const suggestedMessages = [
   //   "How can I contact ACOB?",
   //   "Can you respond in Yoruba?",
   // //   "Tell me about your mini-grid solutions.",
-  //   "What are your office hours?",
+    "What are your office hours?",
 ];
 
 // Custom hook to format text with basic markdown-like formatting
@@ -121,7 +121,7 @@ export function ChatBot() {
           </SheetTrigger>
           <SheetContent
             side="right"
-            className="w-full sm:w-[380px] h-[calc(100vh-4rem)] sm:h-[90vh] fixed bottom-4 right-4 rounded-2xl overflow-hidden shadow-2xl border border-gray-100 bg-white flex flex-col"
+            className="w-full sm:w-[380px] h-[calc(100vh-4rem)] mt-16 sm:h-[80vh] fixed bottom-4 right-4 rounded-lg overflow-hidden shadow-2xl  bg-white flex flex-col"
           >
             {/* Header */}
             <motion.div
@@ -129,7 +129,7 @@ export function ChatBot() {
               animate={{ y: 0, opacity: 1 }}
               transition={{ duration: 0.4 }}
             >
-              <SheetHeader className="bg-primary text-primary-foreground px-5 py-2 rounded-t-2xl shadow-md flex items-center justify-between">
+              <SheetHeader className="bg-primary text-primary-foreground px-5 py-2 rounded-t-lg shadow-md flex items-center justify-between">
                 <div className="flex items-center gap-3">
                   <motion.div
                     animate={{ rotate: [0, 10, -10, 0] }}

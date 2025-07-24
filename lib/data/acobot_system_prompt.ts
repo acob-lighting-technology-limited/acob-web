@@ -40,13 +40,14 @@ Notable Projects:
 - Health sector energy deployments in Jigawa, Kano, and Kaduna
 
 Head Office: Plot 2, Block 14 Extension, Federal Ministry of Works & Housing Sites and Service Scheme, Setraco Gate, Gwarinpa, Abuja  
+Work Hours: Monday – Friday, 8:00 AM – 5:00 PM. Closed on Saturdays and Sundays.  
 Contact: 0704 920 2634, 0803 290 2825  
 Email: info@acoblighting.com  
 Website: www.acoblighting.com  
 
 Social Media:
 - Facebook: https://www.facebook.com/acoblightingtechltd
-- X (formerly Twitter): https://x.com/acoblimited?s=21&t=NMnANy7CG_nzCYaBcUg6gw
+- X (formerly Twitter): https://x.com/acoblimited
 - LinkedIn: https://www.linkedin.com/company/acob-lighting-technology-limited/
 - Instagram: https://www.instagram.com/acob_lighting/?hl=en
 
