@@ -66,7 +66,7 @@ export default function OurStoryPage() {
                       <Lightbulb className="w-3 h-3 text-white" />
                     </span>
                     <h3 className="flex items-center mb-1 text-lg font-semibold text-gray-900">
-                      2010: Company Founding
+                      2016: Company Founding
                     </h3>
                     <time className="block mb-2 text-sm font-normal leading-none text-gray-500">
                       Established with a vision for sustainable energy in Nigeria.
@@ -80,7 +80,7 @@ export default function OurStoryPage() {
                       <Zap className="w-3 h-3 text-white" />
                     </span>
                     <h3 className="flex items-center mb-1 text-lg font-semibold text-gray-900">
-                      2015: First Major Mini-Grid Project
+                      2019: First Major Mini-Grid Project
                     </h3>
                     <time className="block mb-2 text-sm font-normal leading-none text-gray-500">
                       Successfully deployed our first large-scale mini-grid, electrifying a rural community.

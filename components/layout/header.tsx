@@ -1,46 +1,64 @@
-"use client"
+"use client";
 
-import type React from "react"
-import { useState, useEffect, useRef } from "react"
+import type React from "react";
+import { useState, useEffect, useRef } from "react";
+import Link from "next/link";
+import Image from "next/image";
+import { Menu, Phone, ChevronDown, X } from "lucide-react";
 
 // Types
 interface SubItem {
-  name: string
-  href: string
-  description: string
+  name: string;
+  href: string;
+  description: string;
+  icon: string; // Added icon property
 }
 
 interface NavigationItem {
-  name: string
-  href: string
-  subItems: SubItem[]
+  name: string;
+  href: string;
+  subItems: SubItem[];
 }
 
 interface DropdownMenuProps {
-  item: NavigationItem
-  isOpen: boolean
-  onClose: () => void
+  item: NavigationItem;
+  isOpen: boolean;
+  onClose: () => void;
 }
 
 interface MobileMenuProps {
-  isOpen: boolean
-  onClose: () => void
+  isOpen: boolean;
+  onClose: () => void;
 }
-import Link from "next/link"
-import { Menu, Phone, ChevronDown, X } from "lucide-react"
 
-const navigationItems = [
+const navigationItems: NavigationItem[] = [
   {
     name: "About Us",
     href: "/about",
     subItems: [
-      { name: "Our Story", href: "/about/our-story", description: "Learn about our journey and how we started" },
-      { name: "Mission & Vision", href: "/about/mission", description: "Our commitment to sustainable energy" },
-      { name: "Our Team", href: "/about/team", description: "Meet the experts behind our success" },
+      {
+        name: "Our Story",
+        href: "/about/our-story",
+        description: "Learn about our journey and how we started",
+        icon: "https://www.svgrepo.com/download/522469/book.svg",
+      },
+      {
+        name: "Mission & Vision",
+        href: "/about/mission",
+        description: "Our commitment to sustainable energy",
+        icon: "https://www.svgrepo.com/download/384034/dart-mission-goal-success.svg",
+      },
+      {
+        name: "Our Team",
+        href: "/about/team",
+        description: "Meet the experts behind our success",
+        icon: "https://www.svgrepo.com/download/60828/team.svg",
+      },
       {
         name: "Certifications",
         href: "/about/certifications",
         description: "Our industry certifications and standards",
+        icon: "https://www.svgrepo.com/download/121332/certification-file.svg",
       },
     ],
   },
@@ -52,85 +70,167 @@ const navigationItems = [
         name: "Mini-Grid Solutions",
         href: "/services/mini-grid-solutions",
         description: "Scalable power solutions for communities",
+        icon: "https://www.svgrepo.com/download/477730/solar-battery-4.svg",
       },
       {
         name: "Captive Power Solutions",
         href: "/services/captive-power",
         description: "Dedicated power systems for businesses",
+        icon: "https://www.svgrepo.com/download/490592/bulb-lighting.svg",
       },
       {
         name: "Professional Energy Audit",
         href: "/services/energy-audit",
         description: "Comprehensive energy efficiency analysis",
+        icon: "https://www.svgrepo.com/download/140671/seo-monitoring.svg",
       },
       {
         name: "Installation Services",
         href: "/services/installation",
         description: "Professional setup and configuration",
+        icon: "https://www.svgrepo.com/download/435849/energy-distribution.svg",
       },
-      { name: "Maintenance & Support", href: "/services/maintenance", description: "Ongoing support and maintenance" },
+      {
+        name: "Maintenance & Support",
+        href: "/services/maintenance",
+        description: "Ongoing support and maintenance",
+        icon: "https://www.svgrepo.com/download/340556/license-maintenance-draft.svg",
+      },
     ],
   },
   {
     name: "Products",
     href: "/products",
     subItems: [
-      { name: "Solar Panels", href: "/products/solar-panels", description: "High-efficiency photovoltaic panels" },
-      { name: "Inverters", href: "/products/inverters", description: "Power conversion systems" },
-      { name: "Batteries", href: "/products/batteries", description: "Energy storage solutions" },
-      { name: "Accessories", href: "/products/accessories", description: "Supporting components and tools" },
-      { name: "Complete Systems", href: "/products/systems", description: "Integrated solar power solutions" },
+      {
+        name: "Solar Panels",
+        href: "/products/solar-panels",
+        description: "High-efficiency photovoltaic panels",
+        icon: "https://www.svgrepo.com/download/533289/sun.svg",
+      },
+      {
+        name: "Inverters",
+        href: "/products/inverters",
+        description: "Power conversion systems",
+        icon: "https://www.svgrepo.com/download/533263/cpu.svg",
+      },
+      {
+        name: "Batteries",
+        href: "/products/batteries",
+        description: "Energy storage solutions",
+        icon: "https://www.svgrepo.com/download/533252/battery.svg",
+      },
+      {
+        name: "Accessories",
+        href: "/products/accessories",
+        description: "Supporting components and tools",
+        icon: "https://www.svgrepo.com/download/533283/plug.svg",
+      },
+      {
+        name: "Complete Systems",
+        href: "/products/systems",
+        description: "Integrated solar power solutions",
+        icon: "https://www.svgrepo.com/download/533258/layers.svg",
+      },
     ],
   },
   {
-    name: "Projects", // Added Projects
+    name: "Projects",
     href: "/projects",
     subItems: [
       {
         name: "Rural Electrification",
         href: "/projects/rural-electrification",
         description: "Projects bringing power to remote areas",
+        icon: "https://www.svgrepo.com/download/533270/home.svg",
       },
       {
         name: "Commercial Installations",
         href: "/projects/commercial-installations",
         description: "Solar solutions for businesses",
+        icon: "https://www.svgrepo.com/download/533254/building.svg",
       },
       {
         name: "Street Lighting",
         href: "/projects/street-lighting",
         description: "Public lighting infrastructure projects",
+        icon: "https://www.svgrepo.com/download/533274/lightbulb.svg",
       },
       {
         name: "Healthcare Projects",
         href: "/projects/healthcare-projects",
         description: "Powering hospitals and clinics",
+        icon: "https://www.svgrepo.com/download/533268/heart.svg",
       },
     ],
   },
   {
-    name: "Updates & Media", // Renamed from News & Media
-    href: "/updates", // Changed from /news
+    name: "Updates & Media",
+    href: "/updates",
     subItems: [
-      { name: "Latest Updates", href: "/updates/latest", description: "Stay updated with our recent developments" }, // Changed from Latest News
-      { name: "Press Releases", href: "/updates/press", description: "Official announcements and updates" }, // Changed from News
-      { name: "Case Studies", href: "/updates/case-studies", description: "Real-world implementation stories" }, // Changed from News
-      { name: "Media Gallery", href: "/updates/gallery", description: "Photos and videos from our projects" }, // Changed from News
+      {
+        name: "Latest Updates",
+        href: "/updates/latest",
+        description: "Stay updated with our recent developments",
+        icon: "https://www.svgrepo.com/download/533279/news.svg",
+      },
+      {
+        name: "Press Releases",
+        href: "/updates/press",
+        description: "Official announcements and updates",
+        icon: "https://www.svgrepo.com/download/533280/megaphone.svg",
+      },
+      {
+        name: "Case Studies",
+        href: "/updates/case-studies",
+        description: "Real-world implementation stories",
+        icon: "https://www.svgrepo.com/download/533265/document.svg",
+      },
+      {
+        name: "Media Gallery",
+        href: "/updates/gallery",
+        description: "Photos and videos from our projects",
+        icon: "https://www.svgrepo.com/download/533271/image.svg",
+      },
     ],
   },
   {
     name: "Contact Us",
     href: "/contact",
     subItems: [
-      { name: "Get Quote", href: "/contact/quote", description: "Request a personalized quote" },
-      { name: "Office Locations", href: "/contact/locations", description: "Find our offices near you" },
-      { name: "Support", href: "/contact/support", description: "Technical support and assistance" },
-      { name: "Careers", href: "/contact/careers", description: "Join our growing team" },
+      {
+        name: "Get Quote",
+        href: "/contact/quote",
+        description: "Request a personalized quote",
+        icon: "https://www.svgrepo.com/download/437309/text-quote.svg",
+      },
+      {
+        name: "Office Locations",
+        href: "/contact/locations",
+        description: "Find our offices near you",
+        icon: "https://www.svgrepo.com/download/532539/location-pin.svg",
+      },
+      {
+        name: "Support",
+        href: "/contact/support",
+        description: "Technical support and assistance",
+        icon: "https://www.svgrepo.com/download/486865/support.svg",
+      },
+      {
+        name: "Careers",
+        href: "/contact/careers",
+        description: "Join our growing team",
+        icon: "https://www.svgrepo.com/download/483991/career-2.svg",
+      },
     ],
   },
-]
+];
 
-const DropdownMenu: React.FC<DropdownMenuProps> = ({ item, isOpen, onClose }) => {
+const DropdownMenu: React.FC<DropdownMenuProps> = ({
+  item,
+  isOpen,
+  onClose,
+}) => {
   return (
     <div
       className={`
@@ -160,29 +260,44 @@ const DropdownMenu: React.FC<DropdownMenuProps> = ({ item, isOpen, onClose }) =>
                 animationFillMode: "both",
               }}
             >
-              <div className="font-medium text-gray-900 group-hover:text-primary transition-colors duration-200 break-words">
-                {subItem.name}
-              </div>
-              <div className="text-sm text-gray-500 mt-1 group-hover:text-gray-700 transition-colors duration-200 break-words">
-                {subItem.description}
+              <div className="flex flex-col items-start ">
+                {/* Icon Container */}
+                <div className="mt-1 gap-2 ">
+                  <Image
+                    src={subItem.icon}
+                    alt={`${subItem.name} Icon`}
+                    width={32}
+                    height={32}
+                    className="transition-transform duration-200 group-hover:scale-110"
+                  />
+                  <div className="font-medium text-gray-900 group-hover:text-primary transition-colors duration-200 break-words">
+                    {subItem.name}
+                  </div>
+                </div>
+
+                <div className="text-sm text-left text-gray-500 mt-1 group-hover:text-gray-700 transition-colors duration-200 break-words">
+                  {subItem.description}
+                </div>
               </div>
             </Link>
           ))}
         </div>
       </div>
     </div>
-  )
-}
+  );
+};
 
 const MobileMenu: React.FC<MobileMenuProps> = ({ isOpen, onClose }) => {
-  const [expandedItems, setExpandedItems] = useState<Record<string, boolean>>({})
+  const [expandedItems, setExpandedItems] = useState<Record<string, boolean>>(
+    {}
+  );
 
   const toggleExpanded = (itemName: string) => {
     setExpandedItems((prev) => ({
       ...prev,
       [itemName]: !prev[itemName],
-    }))
-  }
+    }));
+  };
 
   return (
     <div
@@ -213,17 +328,28 @@ const MobileMenu: React.FC<MobileMenuProps> = ({ isOpen, onClose }) => {
         <div className="p-6 h-full overflow-y-auto">
           <div className="flex items-center justify-between mb-8">
             <div className="flex items-center space-x-2">
-              <div className="flex h-8 w-8 items-center justify-center rounded bg-primary text-white font-bold">A</div>
-              <span className="font-bold text-lg text-gray-900">ACOB LIGHTING</span>
+              <div className="flex h-8 w-8 items-center justify-center rounded bg-primary text-white font-bold">
+                A
+              </div>
+              <span className="font-bold text-lg text-gray-900">
+                ACOB LIGHTING
+              </span>
             </div>
-            <button onClick={onClose} className="p-2 hover:bg-gray-100 rounded-lg transition-colors duration-200">
+            <button
+              onClick={onClose}
+              className="p-2 hover:bg-gray-100 rounded-lg transition-colors duration-200"
+            >
               <X className="h-5 w-5" />
             </button>
           </div>
 
           <nav className="space-y-2">
             {navigationItems.map((item, index) => (
-              <div key={item.name} className="animate-slideInRight" style={{ animationDelay: `${index * 100}ms` }}>
+              <div
+                key={item.name}
+                className="animate-slideInRight"
+                style={{ animationDelay: `${index * 100}ms` }}
+              >
                 <button
                   onClick={() => toggleExpanded(item.name)}
                   className="w-full flex items-center justify-between p-3 text-left hover:bg-gray-50 rounded-lg transition-colors duration-200"
@@ -247,7 +373,7 @@ const MobileMenu: React.FC<MobileMenuProps> = ({ isOpen, onClose }) => {
                         href={subItem.href}
                         onClick={onClose}
                         className={`
-                          block p-2 text-sm text-gray-600 hover:text-primary hover:bg-primary/10 rounded-md 
+                          flex items-center space-x-3 p-2 text-sm text-gray-600 hover:text-primary hover:bg-primary/10 rounded-md 
                           transition-all duration-200 animate-fadeInUp
                         `}
                         style={{
@@ -255,7 +381,13 @@ const MobileMenu: React.FC<MobileMenuProps> = ({ isOpen, onClose }) => {
                           animationFillMode: "both",
                         }}
                       >
-                        {subItem.name}
+                        <Image
+                          src={subItem.icon}
+                          alt={`${subItem.name} Icon`}
+                          width={16}
+                          height={16}
+                        />
+                        <span>{subItem.name}</span>
                       </Link>
                     ))}
                   </div>
@@ -273,39 +405,39 @@ const MobileMenu: React.FC<MobileMenuProps> = ({ isOpen, onClose }) => {
         </div>
       </div>
     </div>
-  )
-}
+  );
+};
 
 export function Header() {
-  const [isScrolled, setIsScrolled] = useState(false)
-  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
-  const [activeDropdown, setActiveDropdown] = useState<string | null>(null)
-  const timeoutRef = useRef<NodeJS.Timeout | null>(null)
+  const [isScrolled, setIsScrolled] = useState(false);
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [activeDropdown, setActiveDropdown] = useState<string | null>(null);
+  const timeoutRef = useRef<NodeJS.Timeout | null>(null);
 
   useEffect(() => {
     const handleScroll = () => {
-      setIsScrolled(window.scrollY > 20)
-    }
-    window.addEventListener("scroll", handleScroll)
-    return () => window.removeEventListener("scroll", handleScroll)
-  }, [])
+      setIsScrolled(window.scrollY > 20);
+    };
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
 
   const handleMouseEnter = (itemName: string) => {
     if (timeoutRef.current) {
-      clearTimeout(timeoutRef.current)
+      clearTimeout(timeoutRef.current);
     }
-    setActiveDropdown(itemName)
-  }
+    setActiveDropdown(itemName);
+  };
 
   const handleMouseLeave = () => {
     timeoutRef.current = setTimeout(() => {
-      setActiveDropdown(null)
-    }, 150)
-  }
+      setActiveDropdown(null);
+    }, 150);
+  };
 
   const handleDropdownClose = () => {
-    setActiveDropdown(null)
-  }
+    setActiveDropdown(null);
+  };
 
   return (
     <>
@@ -349,7 +481,11 @@ export function Header() {
                     />
                   </Link>
 
-                  <DropdownMenu item={item} isOpen={activeDropdown === item.name} onClose={handleDropdownClose} />
+                  <DropdownMenu
+                    item={item}
+                    isOpen={activeDropdown === item.name}
+                    onClose={handleDropdownClose}
+                  />
                 </div>
               ))}
             </nav>
@@ -374,7 +510,10 @@ export function Header() {
       </header>
 
       {/* Mobile Menu */}
-      <MobileMenu isOpen={isMobileMenuOpen} onClose={() => setIsMobileMenuOpen(false)} />
+      <MobileMenu
+        isOpen={isMobileMenuOpen}
+        onClose={() => setIsMobileMenuOpen(false)}
+      />
     </>
-  )
+  );
 }

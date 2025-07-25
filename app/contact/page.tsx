@@ -19,7 +19,7 @@ const contactSections = [
     title: "Office Locations",
     description: "Find our head office and branch locations, and get directions.",
     href: "/contact/locations",
-    image: "/images/contact/locations.png?height=200&width=300",
+    image: "/images/contact/office-location.jpg?height=200&width=300",
     icon: MapPin,
   },
   {
