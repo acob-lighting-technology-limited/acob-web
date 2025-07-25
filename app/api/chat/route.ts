@@ -8,7 +8,7 @@ function getErrorMessage(error: unknown): string {
   return JSON.stringify(error);
 }
 
-// Remove <Thinking>...</Thinking> tags and their contents (preserve surrounding whitespace)
+// Remove <Thinking>...</Thinking> tags and their contents
 function filterThinkTags(text: string): string {
   return text.replace(/<Thinking>[\s\S]*?<\/Thinking>/gi, "");
 }
@@ -38,6 +38,7 @@ export async function POST(req: NextRequest) {
       });
     }
 
+    // Make non-streaming request to OpenRouter
     const openRouterResponse = await fetch("https://openrouter.ai/api/v1/chat/completions", {
       method: "POST",
       headers: {
@@ -49,7 +50,7 @@ export async function POST(req: NextRequest) {
       body: JSON.stringify({
         model: "deepseek/deepseek-r1-0528:free",
         messages,
-        stream: true,
+        stream: false, // Changed to false for non-streaming
       }),
     });
 
@@ -62,121 +63,32 @@ export async function POST(req: NextRequest) {
       });
     }
 
+    const data = await openRouterResponse.json();
+    const content = data.choices?.[0]?.message?.content || "";
+    
+    // Filter out thinking tags
+    const filteredContent = filterThinkTags(content);
+
+    // Return the complete message in the format expected by Vercel AI SDK
+    const encoder = new TextEncoder();
     const stream = new ReadableStream({
-      async start(controller) {
-        const reader = openRouterResponse.body?.getReader();
-        const decoder = new TextDecoder();
-        const encoder = new TextEncoder();
-        let buffer = "";
-        let isInsideThinkTag = false;
-        let thinkTagBuffer = "";
-
-        if (!reader) {
-          console.error("No readable stream from OpenRouter response.");
-          controller.enqueue(encoder.encode('3:"No readable stream from OpenRouter response."\n'));
-          controller.close();
-          return;
+      start(controller) {
+        // Send the complete message at once
+        if (filteredContent) {
+          const messageChunk = `0:${JSON.stringify(filteredContent)}\n`;
+          controller.enqueue(encoder.encode(messageChunk));
         }
 
-        try {
-          while (true) {
-            const { done, value } = await reader.read();
-            if (done) break;
-
-            buffer += decoder.decode(value, { stream: true });
-            const lines = buffer.split(/\r?\n/);
-            buffer = lines.pop() || "";
-
-            for (const line of lines) {
-              if (!line.startsWith("data: ")) continue;
-
-              const jsonStr = line.substring(6).trim();
-              if (jsonStr === "[DONE]") {
-                controller.enqueue(
-                  encoder.encode('d:{"finishReason":"stop","usage":{"promptTokens":0,"completionTokens":0}}\n')
-                );
-                controller.close();
-                return;
-              }
-
-              try {
-                const data = JSON.parse(jsonStr);
-                const content = data.choices?.[0]?.delta?.content;
-                const finishReason = data.choices?.[0]?.finish_reason;
-
-                if (content !== undefined && content !== null) {
-                  let processedContent = content;
-
-                  const thinkStartIndex = processedContent.toLowerCase().indexOf("<thinking>");
-                  const thinkEndIndex = processedContent.toLowerCase().indexOf("</thinking>");
-
-                  if (thinkStartIndex !== -1) {
-                    isInsideThinkTag = true;
-                    thinkTagBuffer = processedContent.substring(thinkStartIndex);
-                    processedContent = processedContent.substring(0, thinkStartIndex);
-                  }
-
-                  if (isInsideThinkTag) {
-                    thinkTagBuffer += processedContent;
-                    if (thinkEndIndex !== -1) {
-                      isInsideThinkTag = false;
-                      const endTagIndex = thinkTagBuffer.toLowerCase().indexOf("</thinking>");
-                      if (endTagIndex !== -1) {
-                        processedContent = thinkTagBuffer.substring(endTagIndex + "</thinking>".length);
-                      } else {
-                        processedContent = "";
-                      }
-                      thinkTagBuffer = "";
-                    } else {
-                      continue;
-                    }
-                  }
-
-                  // Final cleanup
-                  processedContent = filterThinkTags(processedContent);
-
-                  if (processedContent) {
-                    const encodedChunk = `0:${JSON.stringify(processedContent)}\n`;
-                    controller.enqueue(encoder.encode(encodedChunk));
-                  }
-                }
-
-                if (finishReason) {
-                  controller.enqueue(
-                    encoder.encode(
-                      `d:${JSON.stringify({
-                        finishReason: finishReason === "stop" ? "stop" : "other",
-                        usage: {
-                          promptTokens: data.usage?.prompt_tokens || 0,
-                          completionTokens: data.usage?.completion_tokens || 0,
-                        },
-                      })}\n`
-                    )
-                  );
-                  controller.close();
-                  return;
-                }
-              } catch (parseError) {
-                console.error("Error parsing JSON:", parseError);
-                controller.enqueue(
-                  encoder.encode(`3:${JSON.stringify(`Parse error: ${getErrorMessage(parseError)}`)}\n`)
-                );
-              }
-            }
-          }
-
-          // End of stream reached without [DONE]
-          controller.enqueue(
-            encoder.encode('d:{"finishReason":"stop","usage":{"promptTokens":0,"completionTokens":0}}\n')
-          );
-          controller.close();
-        } catch (streamError) {
-          console.error("Stream error:", streamError);
-          controller.enqueue(encoder.encode(`3:${JSON.stringify(`Stream error: ${getErrorMessage(streamError)}`)}\n`));
-          controller.close();
-        } finally {
-          reader.releaseLock();
-        }
+        // Send finish signal
+        const finishChunk = `d:${JSON.stringify({
+          finishReason: "stop",
+          usage: {
+            promptTokens: data.usage?.prompt_tokens || 0,
+            completionTokens: data.usage?.completion_tokens || 0,
+          },
+        })}\n`;
+        controller.enqueue(encoder.encode(finishChunk));
+        controller.close();
       },
     });
 
