@@ -26,7 +26,7 @@ const contactSections = [
     title: "Support",
     description: "Access our support resources or get assistance with your ACOB Lighting products and services.",
     href: "/contact/support",
-    image: "/images/contact/support.png?height=200&width=300",
+    image: "/images/contact/support.jpg?height=200&width=300",
     icon: LifeBuoy,
   },
   {
@@ -43,7 +43,7 @@ export default function ContactPage() {
 
   return (
     <>
-      <PageHero title="Contact Us" backgroundImage="/images/contact/contact-hero.png?height=400&width=1200">
+      <PageHero title="Contact Us" backgroundImage="/images/contact/contact-us.jpg?height=400&width=1200">
         <MaskText
           phrases={[
             "We're here to help you with all your clean energy needs.",

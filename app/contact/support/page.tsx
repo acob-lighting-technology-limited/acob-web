@@ -16,7 +16,7 @@ export default function SupportPage() {
 
   return (
     <>
-      <PageHero title="Customer Support" backgroundImage="/images/contact/support-hero.jpg?height=400&width=1200">
+      <PageHero title="Customer Support" backgroundImage="/images/contact/support.jpg?height=400&width=1200">
         <MaskText
           phrases={[
             "Our dedicated support team is here to assist you.",

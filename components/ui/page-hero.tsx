@@ -20,10 +20,10 @@ export function PageHero({ title, backgroundImage, className = "", children }: P
       />
 
       {/* Dark Overlay */}
-      <div className="absolute inset-0 bg-black/50" />
+      <div className="absolute inset-0 bg-black/60" />
 
       {/* Content */}
-      <Container className="relative z-10 px-4">
+      <Container className="relative z-10  h-full flex items-end pb-12 px-4">
         <div className="text-left text-white">
           <MaskText
             phrases={[title]} // or split into lines if desired
