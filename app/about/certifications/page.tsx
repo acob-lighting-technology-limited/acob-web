@@ -42,7 +42,7 @@ export default function CertificationsPage() {
         backgroundImage="/images/about/certifications-hero.jpg?height=400&width=1200"
       />
 
-      <Container className="px-4 py-8">
+      <Container className="px-4 py-8 bg-gray-50">
         <Breadcrumb items={breadcrumbItems} className="mb-8" />
 
         <div className="text-center mb-12">
@@ -61,7 +61,7 @@ export default function CertificationsPage() {
             return (
               <Card
                 key={index}
-                className="border-0 custom-shadow shadow-none p-6 text-center flex flex-col items-center"
+                className="border shadow-md border-gray-200 bg-white p-6 text-center flex flex-col items-center"
               >
                 <div className="mb-4 p-3 rounded-full bg-primary/10 text-primary">
                   <Icon className="h-10 w-10" />

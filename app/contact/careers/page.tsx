@@ -63,7 +63,7 @@ export default function CareersPage() {
 
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-12 items-start">
           <div className="lg:col-span-2 space-y-8">
-            <Card className="border shadow-lg border-[#eaeaea] ">
+            <Card className="border shadow-lg border-gray-200 ">
               <CardContent className="p-8">
                 <h2 className="text-3xl font-bold mb-6 text-gray-900">
                   <MaskText phrases={["Shape the Future of Energy with Us"]} />
@@ -83,7 +83,7 @@ export default function CareersPage() {
               </CardContent>
             </Card>
 
-            <Card className="border shadow-lg border-[#eaeaea] ">
+            <Card className="border shadow-lg border-gray-200 ">
               <CardContent className="p-8">
                 <h2 className="text-3xl font-bold mb-6 text-gray-900 ">
                   <MaskText phrases={["Why Work at ACOB Lighting?"]} />
@@ -102,7 +102,7 @@ export default function CareersPage() {
               </CardContent>
             </Card>
 
-            <Card className="border shadow-lg border-[#eaeaea] ">
+            <Card className="border shadow-lg border-gray-200 ">
               <CardContent className="p-8 text-center ">
                 <h2 className="text-3xl font-bold mb-6 text-gray-900 ">
                   <MaskText phrases={["Current Openings"]} />
@@ -128,7 +128,7 @@ export default function CareersPage() {
           </div>
 
           <div className="space-y-6 sticky top-20 self-start ">
-            <Card className="border shadow-lg border-[#eaeaea]  bg-primary text-white">
+            <Card className="border shadow-lg border-gray-200  bg-primary text-white">
               <CardContent className="p-6">
                 <h3 className="font-semibold mb-4 text-lg">More Contact Options</h3>
                 <ul className="space-y-2">

@@ -84,14 +84,14 @@ export default function SupportPage() {
         />
       </PageHero>
 
-      <Container className="px-4 py-8">
+      <Container className="px-4 py-8 bg-gray-50">
         <Breadcrumb items={breadcrumbItems} className="mb-8" />
 
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-12 items-start">
           {/* Main Content */}
           <div className="lg:col-span-2 space-y-8">
             {/* Help Overview */}
-            <Card className="border-0 custom-shadow shadow-none">
+            <Card className="border shadow-lg border-gray-200   text-white">
               <CardContent className="p-8">
                 <h2 className="text-3xl font-bold mb-6 text-gray-900">
                   <MaskText phrases={["How Can We Help You?"]} />
@@ -113,7 +113,7 @@ export default function SupportPage() {
             </Card>
 
             {/* Contact Methods */}
-            <Card className="border-0 custom-shadow shadow-none">
+            <Card className="border shadow-lg border-gray-200 text-white">
               <CardContent className="p-8">
                 <h2 className="text-3xl font-bold mb-6 text-gray-900">
                   <MaskText phrases={["Contact Our Support Team"]} />
@@ -121,7 +121,10 @@ export default function SupportPage() {
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                   {supportMethods.map(
                     ({ icon: Icon, title, description, contacts }) => (
-                      <div key={title} className="flex items-start gap-4 border border-gray-200 p-2 bg-gray-50 rounded-lg">
+                      <div
+                        key={title}
+                        className="flex items-start gap-4 border border-gray-200 p-2 bg-gray-50 rounded-lg"
+                      >
                         <Icon className="h-8 w-8 text-primary flex-shrink-0 mt-1" />
                         <div>
                           <h3 className="text-xl font-semibold text-gray-900 mb-2">
@@ -142,15 +145,19 @@ export default function SupportPage() {
             </Card>
 
             {/* FAQs */}
-            <Card className="border-0 custom-shadow shadow-none">
+            <Card className="border shadow-lg border-gray-200 text-white">
               <CardContent className="p-8">
                 <h2 className="text-3xl font-bold mb-6 text-gray-900">
                   <MaskText phrases={["Frequently Asked Questions"]} />
                 </h2>
-                <Accordion type="single" collapsible className="w-full space-y-4">
+                <Accordion
+                  type="single"
+                  collapsible
+                  className="w-full space-y-4"
+                >
                   {faqItems.map(({ question, answer }, index) => (
-                    <AccordionItem 
-                      key={question} 
+                    <AccordionItem
+                      key={question}
                       value={`item-${index}`}
                       className="border border-gray-200 rounded-lg px-4 bg-gray-50/50"
                     >
@@ -177,7 +184,7 @@ export default function SupportPage() {
 
           {/* Sidebar */}
           <div className="space-y-6 sticky top-20 self-start">
-            <Card className="border-0 custom-shadow shadow-none">
+            <Card className="border shadow-lg border-gray-200  bg-primary text-white">
               <CardContent className="p-6">
                 <h3 className="font-semibold mb-4">More Contact Options</h3>
                 <ul className="space-y-2">
@@ -185,7 +192,7 @@ export default function SupportPage() {
                     <li key={href}>
                       <Link
                         href={href}
-                        className="text-gray-600 hover:text-primary transition-colors duration-200 flex items-center justify-between"
+                        className="text-gray-200 border-b pb-1 border-white hover:text-white transition-colors duration-200 flex items-center justify-between"
                       >
                         <span>{label}</span>
                       </Link>

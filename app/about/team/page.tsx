@@ -74,7 +74,7 @@ export default function OurTeamPage() {
     <>
       <PageHero title="Meet Our Team" backgroundImage="/images/about/our-team-hero.jpg?height=400&width=1200" />
 
-      <Container className="px-4 py-8">
+      <Container className="px-4 py-8 bg-gray-50">
         <Breadcrumb items={breadcrumbItems} className="mb-8" />
 
         <div className="text-center mb-12">
@@ -91,7 +91,7 @@ export default function OurTeamPage() {
           {teamMembers.map((member) => (
             <Card
               key={member.id}
-              className="border-0 custom-shadow shadow-none text-center p-6 flex flex-col items-center"
+              className="border shadow-md border-gray-200 bg-white text-center p-6 flex flex-col items-center"
             >
               <img
                 src={member.image || "/placeholder.svg"}

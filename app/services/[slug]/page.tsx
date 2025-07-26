@@ -37,14 +37,14 @@ export default function ServicePage({ params }: ServicePageProps) {
     <>
       <ServiceHero title={service.title} description={service.fullDescription} backgroundImage={service.image} />
 
-      <Container className="px-4 py-8 relative">
+      <Container className="px-4 py-8 relative bg-gray-50">
         <Breadcrumb items={breadcrumbItems} className="mb-8" />
 
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 items-start">
           {/* Main Content */}
           <div className="lg:col-span-2 space-y-8">
             {/* Overview */}
-            <Card className="border-0 custom-shadow  shadow-none">
+            <Card className="border shadow-md border-gray-200 bg-white">
               <CardContent className="p-8">
                 <h2 className="text-3xl font-bold mb-6">Overview</h2>
                 <p className="text-gray-600 leading-relaxed text-lg">{service.fullDescription}</p>
@@ -53,7 +53,7 @@ export default function ServicePage({ params }: ServicePageProps) {
 
             {/* Gallery */}
             {service.gallery.length > 0 && (
-             <Card className="border-0 custom-shadow  shadow-none">
+             <Card className="border shadow-md border-gray-200 bg-white">
                 <CardContent className="p-8">
                   <h2 className="text-3xl font-bold mb-6">Project Gallery</h2>
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -72,7 +72,7 @@ export default function ServicePage({ params }: ServicePageProps) {
             )}
 
             {/* Features */}
-            <Card className="border-0 custom-shadow  shadow-none">
+            <Card className="border shadow-md border-gray-200 bg-white">
               <CardContent className="p-8">
                 <h2 className="text-3xl font-bold mb-6">Key Features</h2>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -87,7 +87,7 @@ export default function ServicePage({ params }: ServicePageProps) {
             </Card>
 
             {/* Applications */}
-            <Card className="border-0 custom-shadow  shadow-none">
+            <Card className="border shadow-md border-gray-200 bg-white">
               <CardContent className="p-8">
                 <h2 className="text-3xl font-bold mb-6">Applications</h2>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -102,7 +102,7 @@ export default function ServicePage({ params }: ServicePageProps) {
             </Card>
 
             {/* Why Choose Us */}
-            <Card className="border-0 custom-shadow  shadow-none">
+            <Card className="border shadow-md border-gray-200 bg-white">
               <CardContent className="p-8">
                 <h2 className="text-3xl font-bold mb-6">Why Choose Us?</h2>
                 <div className="space-y-4">
@@ -120,7 +120,7 @@ export default function ServicePage({ params }: ServicePageProps) {
           {/* Sidebar */}
           <div className="space-y-6 sticky top-20 self-start">
             {/* Quick Contact */}
-            <Card className="bg-primary text-white border-0 custom-shadow  shadow-none">
+            <Card className="bg-primary text-white border shadow-md border-gray-200 bg-primary">
               <CardContent className="p-6">
                 <h3 className="font-semibold mb-4">Get a Quote</h3>
                 <p className="text-sm opacity-90 mb-4">Ready to get started? Contact us for a personalized quote.</p>
@@ -135,7 +135,7 @@ export default function ServicePage({ params }: ServicePageProps) {
             </Card>
 
             {/* Service Benefits */}
-            <Card className="border-0 custom-shadow  shadow-none">
+            <Card className="border shadow-md border-gray-200 bg-white">
               <CardContent className="p-6">
                 <h3 className="font-semibold mb-4">Service Benefits</h3>
                 <ul className="space-y-3">
@@ -150,7 +150,7 @@ export default function ServicePage({ params }: ServicePageProps) {
             </Card>
 
             {/* Related Services */}
-            <Card className="border-0 custom-shadow  shadow-none">
+            <Card className="border shadow-md border-gray-200 bg-white">
               <CardContent className="p-6">
                 <h3 className="font-semibold mb-4">Related Services</h3>
                 <div className="space-y-3">
