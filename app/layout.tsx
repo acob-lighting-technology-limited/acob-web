@@ -7,10 +7,11 @@ import { Header } from "@/components/layout/header";
 import { Footer } from "@/components/layout/footer";
 import { ScrollToTop } from "@/components/ui/scroll-to-top";
 import { Providers } from "@/components/providers/session-provider";
+import { Toaster, toast } from "sonner";
 
-const inter = Inter({ 
-  subsets: ['latin'],
-  display: 'swap',
+const inter = Inter({
+  subsets: ["latin"],
+  display: "swap",
 });
 
 export const metadata: Metadata = {
@@ -36,13 +37,16 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className={`${inter.className} antialiased bg-white selection:bg-primary selection:text-white`}>
+      <body
+        className={`${inter.className} antialiased bg-white selection:bg-primary selection:text-white`}
+      >
         <Providers>
+          <Toaster closeButton position="top-right" />
           <div className="flex min-h-screen flex-col w-full">
             <Header />
             <main className="flex-1">{children}</main>
             <Footer />
-       
+
             <ScrollToTop />
           </div>
         </Providers>

@@ -46,27 +46,100 @@ export async function POST(request: NextRequest) {
         to: ["chibuikemichaelilonze@gmail.com"], // Replace with your business email
         subject: `New Energy Audit Request from ${formData.firstName} ${formData.lastName}`,
         html: `
-        <div style="font-family: Arial, sans-serif; color: #333; line-height: 1.6; max-width: 600px; margin: auto; padding: 20px; border: 1px solid #ddd; border-radius: 6px;">
-          <h2 style="color: #2c3e50; border-bottom: 1px solid #eee; padding-bottom: 10px;">🔋 New Energy Audit Request</h2>
-          
-          <p><strong>👤 Name:</strong> ${formData.firstName} ${formData.lastName}</p>
-          <p><strong>📧 Email:</strong> <a href="mailto:${formData.email}" style="color: #1e88e5;">${formData.email}</a></p>
-          <p><strong>📞 Phone:</strong> ${formData.phone}</p>
-          <p><strong>🏢 Company:</strong> ${formData.company || "Not provided"}</p>
-      
-          <hr style="margin: 20px 0;" />
-      
-          <p style="margin-bottom: 5px;"><strong>📋 Project Details:</strong></p>
-          <div style="background-color: #f9f9f9; padding: 15px; border-left: 4px solid #1e88e5; white-space: pre-line;">
-            ${formData.message.replace(/\n/g, "<br>")}
+        <!DOCTYPE html>
+        <html lang="en">
+        <head>
+          <meta charset="UTF-8">
+          <meta name="viewport" content="width=device-width, initial-scale=1.0">
+          <title>Energy Audit Request</title>
+        </head>
+        <body style="margin: 0; padding: 0; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif; background-color: #f8fafc;">
+          <div style="max-width: 600px; margin: 0 auto; background-color: #ffffff;">
+            
+            <!-- Header -->
+            <div style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); padding: 40px 30px; text-align: center;">
+              <div style="background-color: rgba(255,255,255,0.1); width: 80px; height: 80px; border-radius: 50%; margin: 0 auto 20px; display: flex; align-items: center; justify-content: center;">
+                <span style="font-size: 40px;">⚡</span>
+              </div>
+              <h1 style="color: #ffffff; margin: 0; font-size: 28px; font-weight: 600; letter-spacing: -0.5px;">New Energy Audit Request</h1>
+              <p style="color: rgba(255,255,255,0.9); margin: 10px 0 0; font-size: 16px;">You have received a new inquiry</p>
+            </div>
+
+            <!-- Content -->
+            <div style="padding: 40px 30px;">
+              
+              <!-- Client Information Card -->
+              <div style="background-color: #f8fafc; border-radius: 12px; padding: 25px; margin-bottom: 30px; border-left: 4px solid #667eea;">
+                <h2 style="color: #1e293b; margin: 0 0 20px; font-size: 20px; font-weight: 600; display: flex; align-items: center;">
+                  <span style="margin-right: 10px;">👤</span>Client Information
+                </h2>
+                
+                <div style="display: grid; gap: 15px;">
+                  <div style="display: flex; align-items: center;">
+                    <span style="font-weight: 600; color: #475569; min-width: 80px; margin-right: 15px;">Name:</span>
+                    <span style="color: #1e293b; font-size: 16px;">${formData.firstName} ${formData.lastName}</span>
+                  </div>
+                  
+                  <div style="display: flex; align-items: center;">
+                    <span style="font-weight: 600; color: #475569; min-width: 80px; margin-right: 15px;">Email:</span>
+                    <a href="mailto:${formData.email}" style="color: #667eea; text-decoration: none; font-size: 16px; border-bottom: 1px solid transparent; transition: border-color 0.2s;">${formData.email}</a>
+                  </div>
+                  
+                  <div style="display: flex; align-items: center;">
+                    <span style="font-weight: 600; color: #475569; min-width: 80px; margin-right: 15px;">Phone:</span>
+                    <a href="tel:${formData.phone}" style="color: #1e293b; text-decoration: none; font-size: 16px;">${formData.phone}</a>
+                  </div>
+                  
+                  <div style="display: flex; align-items: center;">
+                    <span style="font-weight: 600; color: #475569; min-width: 80px; margin-right: 15px;">Company:</span>
+                    <span style="color: #1e293b; font-size: 16px;">${formData.company || '<em style="color: #64748b;">Not provided</em>'}</span>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Project Details Card -->
+              <div style="background-color: #ffffff; border-radius: 12px; padding: 25px; border: 1px solid #e2e8f0; box-shadow: 0 1px 3px rgba(0,0,0,0.1);">
+                <h2 style="color: #1e293b; margin: 0 0 20px; font-size: 20px; font-weight: 600; display: flex; align-items: center;">
+                  <span style="margin-right: 10px;">📋</span>Project Details
+                </h2>
+                
+                <div style="background-color: #f1f5f9; border-radius: 8px; padding: 20px; border-left: 4px solid #10b981; line-height: 1.6;">
+                  <p style="margin: 0; color: #374151; font-size: 15px; white-space: pre-line;">${formData.message.replace(/\n/g, "<br>")}</p>
+                </div>
+              </div>
+
+              <!-- Action Buttons -->
+              <div style="margin-top: 30px; text-align: center;">
+                <a href="mailto:${formData.email}" style="display: inline-block; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: #ffffff; text-decoration: none; padding: 12px 30px; border-radius: 8px; font-weight: 600; margin: 0 10px; transition: transform 0.2s;">
+                  Reply to Client
+                </a>
+                <a href="tel:${formData.phone}" style="display: inline-block; background-color: #10b981; color: #ffffff; text-decoration: none; padding: 12px 30px; border-radius: 8px; font-weight: 600; margin: 0 10px; transition: transform 0.2s;">
+                  Call Client
+                </a>
+              </div>
+            </div>
+
+            <!-- Footer -->
+            <div style="background-color: #f8fafc; padding: 25px 30px; text-align: center; border-top: 1px solid #e2e8f0;">
+              <p style="margin: 0; color: #64748b; font-size: 14px; line-height: 1.5;">
+                This message was sent from your website contact form.<br>
+                <span style="color: #94a3b8;">Received on ${new Date().toLocaleDateString(
+                  "en-US",
+                  {
+                    weekday: "long",
+                    year: "numeric",
+                    month: "long",
+                    day: "numeric",
+                    hour: "2-digit",
+                    minute: "2-digit",
+                  }
+                )}</span>
+              </p>
+            </div>
           </div>
-      
-          <hr style="margin: 30px 0;" />
-          <footer style="font-size: 12px; color: #777;">
-            This message was sent from your website contact form.
-          </footer>
-        </div>
-      `,
+        </body>
+        </html>
+        `,
         reply_to: formData.email,
       }),
     });

@@ -5,6 +5,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
+import { toast } from "sonner";
 
 // Types
 interface MaskTextProps {
@@ -34,8 +35,6 @@ interface FormData {
   company: string;
   message: string;
 }
-
-type SubmitStatus = "success" | "error" | null;
 
 // Mock MaskText component for the artifact
 const MaskText: React.FC<MaskTextProps> = ({ phrases, className }) => (
@@ -110,7 +109,6 @@ export function ContactSection() {
     message: "",
   });
   const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
-  const [submitStatus, setSubmitStatus] = useState<SubmitStatus>(null);
 
   const handleInputChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
@@ -122,33 +120,31 @@ export function ContactSection() {
     }));
   };
 
-// Update just the sendEmail function in your component:
+  const sendEmail = async (formData: FormData): Promise<any> => {
+    try {
+      const response = await fetch('/api/send-email', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formData),
+      })
 
-const sendEmail = async (formData: FormData): Promise<any> => {
-  try {
-    const response = await fetch('/api/send-email', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(formData),
-    })
+      if (!response.ok) {
+        const errorData = await response.json()
+        throw new Error(errorData.error || `HTTP error! status: ${response.status}`)
+      }
 
-    if (!response.ok) {
-      const errorData = await response.json()
-      throw new Error(errorData.error || `HTTP error! status: ${response.status}`)
+      const result = await response.json()
+      return result
+    } catch (error) {
+      console.error('Error sending email:', error)
+      throw error
     }
-
-    const result = await response.json()
-    return result
-  } catch (error) {
-    console.error('Error sending email:', error)
-    throw error
   }
-}
+
   const handleSubmit = async (): Promise<void> => {
     setIsSubmitting(true);
-    setSubmitStatus(null);
 
     // Basic form validation
     const requiredFields: (keyof FormData)[] = [
@@ -163,14 +159,40 @@ const sendEmail = async (formData: FormData): Promise<any> => {
     );
 
     if (missingFields.length > 0) {
-      setSubmitStatus("error");
+      toast.error("Please fill in all required fields", {
+        description: `Missing: ${missingFields
+          .map(field => formFields.find(f => f.id === field)?.label)
+          .join(", ")}`,
+        duration: 4000,
+      });
+      setIsSubmitting(false);
+      return;
+    }
+
+    // Email validation
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(formData.email)) {
+      toast.error("Invalid email address", {
+        description: "Please enter a valid email address",
+        duration: 4000,
+      });
       setIsSubmitting(false);
       return;
     }
 
     try {
+      const loadingToast = toast.loading("Submitting your request...", {
+        description: "Please wait while we process your energy audit request",
+      });
+
       await sendEmail(formData);
-      setSubmitStatus("success");
+      
+      toast.dismiss(loadingToast);
+      toast.success("Request submitted successfully! 🎉", {
+        description: "Thank you for your interest. We'll get back to you within 24 hours with your energy audit details.",
+        duration: 6000,
+      });
+
       // Reset form
       setFormData({
         firstName: "",
@@ -181,7 +203,14 @@ const sendEmail = async (formData: FormData): Promise<any> => {
         message: "",
       });
     } catch (error) {
-      setSubmitStatus("error");
+      toast.error("Failed to submit request", {
+        description: "Something went wrong. Please try again or contact us directly.",
+        duration: 5000,
+        action: {
+          label: "Retry",
+          onClick: () => handleSubmit(),
+        },
+      });
     } finally {
       setIsSubmitting(false);
     }
@@ -223,20 +252,6 @@ const sendEmail = async (formData: FormData): Promise<any> => {
               <CardTitle className="text-2xl">Request A Quote</CardTitle>
             </CardHeader>
             <CardContent className="space-y-4">
-              {submitStatus === "success" && (
-                <div className="p-4 bg-green-100 border border-green-400 text-green-700 rounded">
-                  Thank you! Your request has been submitted successfully. We'll
-                  get back to you soon.
-                </div>
-              )}
-
-              {submitStatus === "error" && (
-                <div className="p-4 bg-red-100 border border-red-400 text-red-700 rounded">
-                  There was an error submitting your request. Please check all
-                  fields and try again.
-                </div>
-              )}
-
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
                 {formFields
                   .filter((field) => field.half)
