@@ -7,6 +7,35 @@ import { ArrowRight, Lightbulb, Users, TrendingUp, ShieldCheck } from "lucide-re
 import Link from "next/link"
 import { MaskText } from "@/components/animations/MaskText"
 
+const whyWorkItems = [
+  {
+    icon: Lightbulb,
+    title: "Impactful Work",
+    description: "Contribute directly to electrifying communities and driving sustainable development in Nigeria.",
+  },
+  {
+    icon: Users,
+    title: "Collaborative Culture",
+    description: "Work alongside passionate experts in a supportive and innovative environment.",
+  },
+  {
+    icon: TrendingUp,
+    title: "Growth Opportunities",
+    description: "Benefit from continuous learning, professional development, and career advancement.",
+  },
+  {
+    icon: ShieldCheck,
+    title: "Competitive Benefits",
+    description: "Enjoy a comprehensive benefits package designed to support your well-being.",
+  },
+]
+
+const contactLinks = [
+  { href: "/contact/get-quote", label: "Get a Quote" },
+  { href: "/contact/locations", label: "Office Locations" },
+  { href: "/contact/support", label: "Support" },
+]
+
 export default function CareersPage() {
   const breadcrumbItems = [
     { label: "Home", href: "/" },
@@ -18,7 +47,7 @@ export default function CareersPage() {
     <>
       <PageHero
         title="Careers at ACOB Lighting"
-        backgroundImage="/images/contact/careers-hero.jpg?height=400&width=1200"
+        backgroundImage="/images/contact/careers.webp?height=400&width=1200"
       >
         <MaskText
           phrases={[
@@ -29,13 +58,12 @@ export default function CareersPage() {
         />
       </PageHero>
 
-      <Container className="px-4 py-8">
+      <Container className="px-4 py-8 bg-gray-50 ">
         <Breadcrumb items={breadcrumbItems} className="mb-8" />
 
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-12 items-start">
-          {/* Main Content */}
           <div className="lg:col-span-2 space-y-8">
-            <Card className="border-0 custom-shadow shadow-none">
+            <Card className="border shadow-lg border-[#eaeaea] ">
               <CardContent className="p-8">
                 <h2 className="text-3xl font-bold mb-6 text-gray-900">
                   <MaskText phrases={["Shape the Future of Energy with Us"]} />
@@ -55,55 +83,28 @@ export default function CareersPage() {
               </CardContent>
             </Card>
 
-            <Card className="border-0 custom-shadow shadow-none">
+            <Card className="border shadow-lg border-[#eaeaea] ">
               <CardContent className="p-8">
-                <h2 className="text-3xl font-bold mb-6 text-gray-900">
+                <h2 className="text-3xl font-bold mb-6 text-gray-900 ">
                   <MaskText phrases={["Why Work at ACOB Lighting?"]} />
                 </h2>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6 text-gray-700 leading-relaxed">
-                  <div className="flex items-start gap-3">
-                    <Lightbulb className="h-6 w-6 text-primary flex-shrink-0 mt-1" />
-                    <div>
-                      <h4 className="font-semibold text-lg mb-1">Impactful Work</h4>
-                      <p className="text-sm">
-                        Contribute directly to electrifying communities and driving sustainable development in Nigeria.
-                      </p>
+                  {whyWorkItems.map(({ icon: Icon, title, description }) => (
+                    <div key={title} className="flex items-start gap-3 border p-2 rounded-lg bg-gray-50">
+                      <Icon className="h-6 w-6 text-primary flex-shrink-0 mt-1" />
+                      <div>
+                        <h4 className="font-semibold text-lg mb-1">{title}</h4>
+                        <p className="text-sm">{description}</p>
+                      </div>
                     </div>
-                  </div>
-                  <div className="flex items-start gap-3">
-                    <Users className="h-6 w-6 text-primary flex-shrink-0 mt-1" />
-                    <div>
-                      <h4 className="font-semibold text-lg mb-1">Collaborative Culture</h4>
-                      <p className="text-sm">
-                        Work alongside passionate experts in a supportive and innovative environment.
-                      </p>
-                    </div>
-                  </div>
-                  <div className="flex items-start gap-3">
-                    <TrendingUp className="h-6 w-6 text-primary flex-shrink-0 mt-1" />
-                    <div>
-                      <h4 className="font-semibold text-lg mb-1">Growth Opportunities</h4>
-                      <p className="text-sm">
-                        Benefit from continuous learning, professional development, and career advancement.
-                      </p>
-                    </div>
-                  </div>
-                  <div className="flex items-start gap-3">
-                    <ShieldCheck className="h-6 w-6 text-primary flex-shrink-0 mt-1" />
-                    <div>
-                      <h4 className="font-semibold text-lg mb-1">Competitive Benefits</h4>
-                      <p className="text-sm">
-                        Enjoy a comprehensive benefits package designed to support your well-being.
-                      </p>
-                    </div>
-                  </div>
+                  ))}
                 </div>
               </CardContent>
             </Card>
 
-            <Card className="border-0 custom-shadow shadow-none">
-              <CardContent className="p-8 text-center">
-                <h2 className="text-3xl font-bold mb-6 text-gray-900">
+            <Card className="border shadow-lg border-[#eaeaea] ">
+              <CardContent className="p-8 text-center ">
+                <h2 className="text-3xl font-bold mb-6 text-gray-900 ">
                   <MaskText phrases={["Current Openings"]} />
                 </h2>
                 <p className="text-gray-700 leading-relaxed mb-6">
@@ -126,36 +127,21 @@ export default function CareersPage() {
             </Card>
           </div>
 
-          {/* Sidebar - Quick Links to other Contact sections */}
-          <div className="space-y-6 sticky top-20 self-start">
-            <Card className="border-0 custom-shadow shadow-none">
+          <div className="space-y-6 sticky top-20 self-start ">
+            <Card className="border shadow-lg border-[#eaeaea]  bg-primary text-white">
               <CardContent className="p-6">
-                <h3 className="font-semibold mb-4">More Contact Options</h3>
+                <h3 className="font-semibold mb-4 text-lg">More Contact Options</h3>
                 <ul className="space-y-2">
-                  <li>
-                    <Link
-                      href="/contact/get-quote"
-                      className="text-gray-600 hover:text-primary transition-colors duration-200 flex items-center justify-between"
-                    >
-                      <span>Get a Quote</span>
-                    </Link>
-                  </li>
-                  <li>
-                    <Link
-                      href="/contact/locations"
-                      className="text-gray-600 hover:text-primary transition-colors duration-200 flex items-center justify-between"
-                    >
-                      <span>Office Locations</span>
-                    </Link>
-                  </li>
-                  <li>
-                    <Link
-                      href="/contact/support"
-                      className="text-gray-600 hover:text-primary transition-colors duration-200 flex items-center justify-between"
-                    >
-                      <span>Support</span>
-                    </Link>
-                  </li>
+                  {contactLinks.map(({ href, label }) => (
+                    <li key={href}>
+                      <Link
+                        href={href}
+                        className="text-gray-200 border-b pb-1 border-white hover:text-white transition-colors duration-200 flex items-center justify-between"
+                      >
+                        <span>{label}</span>
+                      </Link>
+                    </li>
+                  ))}
                 </ul>
               </CardContent>
             </Card>

@@ -1,5 +1,6 @@
 import type React from "react";
 import type { Metadata } from "next";
+import { Inter } from "next/font/google";
 import "./globals.css";
 import "../styles/customShadow.css";
 import { Header } from "@/components/layout/header";
@@ -7,6 +8,10 @@ import { Footer } from "@/components/layout/footer";
 import { ScrollToTop } from "@/components/ui/scroll-to-top";
 import { Providers } from "@/components/providers/session-provider";
 
+const inter = Inter({ 
+  subsets: ['latin'],
+  display: 'swap',
+});
 
 export const metadata: Metadata = {
   title: "ACOB Lighting Technology Limited - Solar Energy Solutions",
@@ -31,7 +36,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className="font-sans antialiased bg-white">
+      <body className={`${inter.className} antialiased bg-white selection:bg-primary selection:text-white`}>
         <Providers>
           <div className="flex min-h-screen flex-col w-full">
             <Header />
