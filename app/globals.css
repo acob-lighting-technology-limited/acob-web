@@ -60,7 +60,7 @@
 
 /* Custom scrollbar */
 ::-webkit-scrollbar {
-  width: 8px;
+  width: 4px;
 }
 
 ::-webkit-scrollbar-track {
@@ -115,3 +115,4 @@
 .animate-smooth-zoom {
   animation: smoothZoom 12s ease-out infinite alternate;
 }
+

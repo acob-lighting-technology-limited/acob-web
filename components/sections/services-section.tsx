@@ -1,7 +1,7 @@
-"use client"
-import { Button } from "@/components/ui/button"
-import { Container } from "@/components/ui/container"
-import { Card, CardContent } from "@/components/ui/card"
+"use client";
+import { Button } from "@/components/ui/button";
+import { Container } from "@/components/ui/container";
+import { Card, CardContent } from "@/components/ui/card";
 import {
   Carousel,
   CarouselContent,
@@ -9,94 +9,104 @@ import {
   CarouselNext,
   CarouselPrevious,
   type CarouselApi,
-} from "@/components/ui/carousel"
-import { ArrowRight } from "lucide-react"
-import { useState, useEffect } from "react"
-import Link from "next/link"
-import { servicesData } from "@/lib/data/services"
-import { MaskText } from "../animations/MaskText"
+} from "@/components/ui/carousel";
+import Autoplay from "embla-carousel-autoplay";
+import { ArrowRight } from "lucide-react";
+import React, { useState, useEffect } from "react";
+import Link from "next/link";
+import { servicesData } from "@/lib/data/services";
+import { MaskText } from "../animations/MaskText";
 
 export function ServicesSection() {
-  const [currentSlide, setCurrentSlide] = useState(0)
-  const [isTransitioning, setIsTransitioning] = useState(false)
-  const [carouselApi, setCarouselApi] = useState<CarouselApi>()
+  const [currentSlide, setCurrentSlide] = useState(0);
+  const [isTransitioning, setIsTransitioning] = useState(false);
+  const [carouselApi, setCarouselApi] = useState<CarouselApi>();
 
+  const plugin = React.useRef(
+    Autoplay({ delay: 4000, stopOnInteraction: true })
+  );
   useEffect(() => {
-    if (!carouselApi) return
+    if (!carouselApi) return;
 
     carouselApi.on("select", () => {
-      setCurrentSlide(carouselApi.selectedScrollSnap())
-    })
-  }, [carouselApi])
+      setCurrentSlide(carouselApi.selectedScrollSnap());
+    });
+  }, [carouselApi]);
 
   const goToSlide = (index: number) => {
-    if (!carouselApi || isTransitioning) return
-    
-    setIsTransitioning(true)
-    carouselApi.scrollTo(index)
-    
+    if (!carouselApi || isTransitioning) return;
+
+    setIsTransitioning(true);
+    carouselApi.scrollTo(index);
+
     setTimeout(() => {
-      setIsTransitioning(false)
-    }, 500)
-  }
+      setIsTransitioning(false);
+    }, 500);
+  };
 
   return (
-    <section className="py-16 bg-gray-50">
+    <section className="py-16 bg-gray-50 overflow-hidden">
       <Container className="px-4">
         {/* Header Section */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 mb-16">
-      <div>
-        <MaskText
-          phrases={[
-            "A Leading Supplier Of Solar Materials",
-            "For Manufacturers Installers & Contractors,",
-            "Mini-Grid Solutions."
-          ]}
-          className="text-4xl md:text-5xl font-bold text-gray-900 leading-tight mb-8"
-        />
-      </div>
+          <div>
+            <MaskText
+              phrases={[
+                "A Leading Supplier Of Solar Materials",
+                "For Manufacturers Installers & Contractors,",
+                "Mini-Grid Solutions.",
+              ]}
+              className="text-4xl md:text-5xl font-bold text-gray-900 leading-tight mb-8"
+            />
+          </div>
 
-      <div>
-        <MaskText
-          phrases={[
-            "Together with experienced technical team,",
-            "ACOB Lighting provides emergency response to electricity outages",
-            "for customers, standard technical O&M activities,",
-            "design and installation of streetlighting infrastructure.",
-            "We ensure quality control of indoor installations",
-            "and safety training for customers."
-          ]}
-          className="text-gray-600 text-lg leading-relaxed mb-8"
-        />
+          <div>
+            <MaskText
+              phrases={[
+                "Together with experienced technical team,",
+                "ACOB Lighting provides emergency response to electricity outages",
+                "for customers, standard technical O&M activities,",
+                "design and installation of streetlighting infrastructure.",
+                "We ensure quality control of indoor installations",
+                "and safety training for customers.",
+              ]}
+              className="text-gray-600 text-lg leading-relaxed mb-8"
+            />
 
-        <div className="flex flex-col sm:flex-row gap-4">
-          <Button className="bg-primary text-lg hover:bg-primary/90 text-white px-8 py-6">
-            Read More
-            <ArrowRight className="ml-2 h-4 w-4" />
-          </Button>
-          <Button
-            variant="outline"
-            className="border-gray-400 text-lg shadow-md text-gray-700 hover:bg-gray-500 px-8 py-6 bg-transparent"
-          >
-            Find Your Solution
-          </Button>
+            <div className="flex flex-col sm:flex-row gap-4">
+              <Button className="bg-primary text-lg hover:bg-primary/90 text-white px-8 py-6">
+                Read More
+                <ArrowRight className="ml-2 h-4 w-4" />
+              </Button>
+              <Button
+                variant="outline"
+                className="border-gray-400 text-lg shadow-md text-gray-700 hover:bg-gray-500 px-8 py-6 bg-transparent"
+              >
+                Find Your Solution
+              </Button>
+            </div>
+          </div>
         </div>
-      </div>
-    </div>
 
         {/* Services Carousel */}
         <Carousel
+         plugins={[plugin.current]}
           opts={{
             align: "start",
             loop: true,
           }}
-          className="w-full custom-shadow"
+          className=""
           setApi={setCarouselApi}
+          onMouseEnter={plugin.current.stop}
+          onMouseLeave={plugin.current.reset}
         >
-          <CarouselContent className="-ml-2 md:-ml-4">
+          <CarouselContent className=" pt-10">
             {servicesData.map((service, index) => (
-              <CarouselItem key={index} className="pl-2 md:pl-4 basis-full md:basis-1/2 lg:basis-1/3">
-                <Card className="bg-white custom-shadow  transition-shadow duration-300 border-0 relative overflow-hidden h-full">
+              <CarouselItem
+                key={index}
+                className="pl-2 md:pl-4 basis-full md:basis-1/2 lg:basis-1/3"
+              >
+                <Card className="border shadow-lg border-gray-200 transition-shadow duration-300  relative overflow-hidden h-full !py-0">
                   <CardContent className="p-8 flex flex-col h-full">
                     <div className="mb-6 w-fit transition-transform duration-500 hover:scale-x-[-1]">
                       <span>
@@ -107,8 +117,12 @@ export function ServicesSection() {
                         />
                       </span>
                     </div>
-                    <h3 className="text-xl font-bold text-gray-900 mb-4">{service.title}</h3>
-                    <p className="text-gray-600 text-sm leading-relaxed mb-8">{service.shortDescription}</p>
+                    <h3 className="text-xl font-bold text-gray-900 mb-4">
+                      {service.title}
+                    </h3>
+                    <p className="text-gray-600 text-sm leading-relaxed mb-8">
+                      {service.shortDescription}
+                    </p>
                     <div className="mt-auto">
                       <Link href={`/services/${service.slug}`}>
                         <Button className="bg-black hover:bg-primary duration-500 transition-colors text-white px-6 py-2 text-sm">
@@ -125,8 +139,8 @@ export function ServicesSection() {
               </CarouselItem>
             ))}
           </CarouselContent>
-          <CarouselPrevious className="hidden sm:flex -left-12 lg:-left-16 !bg-white" />
-          <CarouselNext className="hidden sm:flex -right-12 lg:-right-16 !bg-white" />
+          {/* <CarouselPrevious className="hidden sm:flex -left-8  !bg-white" />
+          <CarouselNext className="hidden sm:flex -right-8  !bg-white" /> */}
         </Carousel>
 
         {/* Custom Indicators */}
@@ -146,5 +160,5 @@ export function ServicesSection() {
         </div>
       </Container>
     </section>
-  )
+  );
 }

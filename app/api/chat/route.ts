@@ -1,4 +1,6 @@
 import { NextRequest } from "next/server";
+import { groq } from '@ai-sdk/groq';
+import { streamText } from 'ai';
 
 // Helper function to get a more detailed error message
 function getErrorMessage(error: unknown): string {
@@ -8,95 +10,132 @@ function getErrorMessage(error: unknown): string {
   return JSON.stringify(error);
 }
 
-// Remove <Thinking>...</Thinking> tags and their contents
-function filterThinkTags(text: string): string {
-  return text.replace(/<Thinking>[\s\S]*?<\/Thinking>/gi, "");
-}
-
 export async function POST(req: NextRequest) {
+  console.log("=== API ROUTE CALLED ===");
+  
   try {
-    const OPENROUTER_API_KEY = process.env.OPENROUTER_API_KEY;
-    const OPENROUTER_SITE_URL = process.env.VERCEL_URL || "http://localhost:3000";
-    const OPENROUTER_SITE_NAME = "ACOB Lighting";
+    const GROQ_API_KEY = process.env.GROQ_API_KEY;
+    
+    console.log("GROQ_API_KEY exists:", !!GROQ_API_KEY);
 
-    if (!OPENROUTER_API_KEY) {
-      console.error("OPENROUTER_API_KEY is not set.");
-      return new Response(JSON.stringify({ error: "Server configuration error: OpenRouter API key is missing." }), {
+    if (!GROQ_API_KEY) {
+      console.error("GROQ_API_KEY is not set.");
+      return new Response(JSON.stringify({ error: "Server configuration error: Groq API key is missing." }), {
         status: 500,
         headers: { "Content-Type": "application/json" },
       });
     }
 
+    console.log("=== PARSING REQUEST BODY ===");
     const body = await req.json();
     const messages = body.messages;
 
+    console.log("Messages received:", messages?.length, "messages");
+    console.log("Full request body:", JSON.stringify(body, null, 2));
+
     if (!Array.isArray(messages)) {
-      console.error("Invalid messages:", body);
-      return new Response(JSON.stringify({ error: "Invalid messages format" }), {
+      console.error("Invalid messages - not an array:", body);
+      return new Response(JSON.stringify({ error: "Invalid messages format: must be an array" }), {
         status: 400,
         headers: { "Content-Type": "application/json" },
       });
     }
 
-    // Make non-streaming request to OpenRouter
-    const openRouterResponse = await fetch("https://openrouter.ai/api/v1/chat/completions", {
-      method: "POST",
-      headers: {
-        Authorization: `Bearer ${OPENROUTER_API_KEY}`,
-        "HTTP-Referer": OPENROUTER_SITE_URL,
-        "X-Title": OPENROUTER_SITE_NAME,
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        model: "deepseek/deepseek-r1-0528:free",
-        messages,
-        stream: false, // Changed to false for non-streaming
-      }),
-    });
-
-    if (!openRouterResponse.ok) {
-      const errorData = await openRouterResponse.json().catch(() => ({ message: "Unknown error" }));
-      console.error("OpenRouter API error:", errorData);
-      return new Response(JSON.stringify({ error: errorData.message || "Failed to get response from OpenRouter" }), {
-        status: openRouterResponse.status,
+    if (messages.length === 0) {
+      console.error("Empty messages array");
+      return new Response(JSON.stringify({ error: "Messages array cannot be empty" }), {
+        status: 400,
         headers: { "Content-Type": "application/json" },
       });
     }
 
-    const data = await openRouterResponse.json();
-    const content = data.choices?.[0]?.message?.content || "";
-    
-    // Filter out thinking tags
-    const filteredContent = filterThinkTags(content);
+    console.log("=== VALIDATING MESSAGES ===");
+    // Validate messages
+    for (let i = 0; i < messages.length; i++) {
+      const msg = messages[i];
+      console.log(`Message ${i}:`, JSON.stringify(msg, null, 2));
+      
+      if (!msg.role || !msg.content) {
+        console.error(`Invalid message at index ${i}:`, msg);
+        return new Response(JSON.stringify({ 
+          error: `Invalid message format at index ${i}: must have 'role' and 'content'` 
+        }), {
+          status: 400,
+          headers: { "Content-Type": "application/json" },
+        });
+      }
+    }
 
-    // Return the complete message in the format expected by Vercel AI SDK
-    const encoder = new TextEncoder();
-    const stream = new ReadableStream({
-      start(controller) {
-        // Send the complete message at once
-        if (filteredContent) {
-          const messageChunk = `0:${JSON.stringify(filteredContent)}\n`;
-          controller.enqueue(encoder.encode(messageChunk));
+    // Clean messages to remove unsupported properties
+    const cleanMessages = messages.map((msg: any) => ({
+      role: msg.role,
+      content: msg.content
+    }));
+
+    console.log("=== CLEANED MESSAGES ===");
+    console.log("Clean messages count:", cleanMessages.length);
+
+    console.log("=== CALLING GROQ VIA AI SDK (STREAMING) ===");
+    // Use Vercel AI SDK with Groq (streaming for useChat compatibility)
+    const result = await streamText({
+      model: groq('llama3-8b-8192'),
+      messages: cleanMessages,
+      maxTokens: 4096, // Optional: set max tokens
+      temperature: 0.7, // Optional: set temperature
+    });
+
+    console.log("=== AI SDK STREAM CREATED ===");
+
+    // Create a slower typing effect by adding delays
+    const slowTypingStream = new ReadableStream({
+      async start(controller) {
+        const encoder = new TextEncoder();
+        let fullText = '';
+        
+        // Get the full text first
+        for await (const textPart of result.textStream) {
+          fullText += textPart;
         }
-
-        // Send finish signal
+        
+        console.log("=== STARTING SLOW TYPING EFFECT ===");
+        console.log("Full text length:", fullText.length);
+        
+        // Now stream it slowly word by word
+        const words = fullText.split(' ');
+        
+        for (let i = 0; i < words.length; i++) {
+          const word = words[i];
+          const wordToSend = i === 0 ? word : ' ' + word;
+          
+          // Send just the new word/part (not accumulated text)
+          const chunk = `0:${JSON.stringify(wordToSend)}\n`;
+          controller.enqueue(encoder.encode(chunk));
+          
+          // Add delay between words (adjust this to control speed)
+          await new Promise(resolve => setTimeout(resolve, 150)); // 150ms delay between words
+        }
+        
+        // Send the final completion signal
         const finishChunk = `d:${JSON.stringify({
           finishReason: "stop",
           usage: {
-            promptTokens: data.usage?.prompt_tokens || 0,
-            completionTokens: data.usage?.completion_tokens || 0,
-          },
+            promptTokens: 0,
+            completionTokens: words.length
+          }
         })}\n`;
         controller.enqueue(encoder.encode(finishChunk));
         controller.close();
+        
+        console.log("=== SLOW TYPING EFFECT COMPLETED ===");
       },
     });
 
-    return new Response(stream, {
+    // Return the slowed-down stream
+    return new Response(slowTypingStream, {
       headers: {
         "Content-Type": "text/plain; charset=utf-8",
-        "Cache-Control": "no-cache",
-        Connection: "keep-alive",
+        "Cache-Control": "no-cache", 
+        "Connection": "keep-alive",
         "x-vercel-ai-data-stream": "v1",
         "Access-Control-Allow-Origin": "*",
         "Access-Control-Allow-Methods": "GET, POST, PUT, DELETE, OPTIONS",
@@ -104,8 +143,17 @@ export async function POST(req: NextRequest) {
       },
     });
   } catch (err: any) {
-    console.error("ACOBot API route error:", err);
-    return new Response(JSON.stringify({ error: getErrorMessage(err) }), {
+    console.error("=== CATCH BLOCK ERROR ===");
+    console.error("Error type:", typeof err);
+    console.error("Error message:", err?.message);
+    console.error("Full error:", err);
+    console.error("Stack trace:", err?.stack);
+    
+    return new Response(JSON.stringify({ 
+      error: getErrorMessage(err),
+      errorType: typeof err,
+      stack: err?.stack
+    }), {
       status: 500,
       headers: { "Content-Type": "application/json" },
     });

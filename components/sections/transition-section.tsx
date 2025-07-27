@@ -71,7 +71,7 @@ export function TransitionSection() {
   return (
     <section
     ref={ref}
-    className="relative py-16 bg-cover bg-center bg-no-repeat "
+    className="relative py-16 bg-cover bg-center bg-no-repeat overflow-hidden"
     style={{
       backgroundImage: "url('/images/transition-bg.jpg')",
     }}
