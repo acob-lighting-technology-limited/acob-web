@@ -3,8 +3,8 @@ import { Container } from "../ui/container";
 
 export function MapSection() {
   return (
-    <footer className="bg-slate-800 text-white">
-      <Container className="flex justify-between px-4 py-12 pt-20">
+    <footer className="bg-zinc-900 text-white">
+      <Container className="flex justify-between px-4 py-16 pt-20">
         <div className=" w-1/2 flex flex-col gap-8 max-w-md">
           {" "}
           <Link href="/" className="flex items-center space-x-2 group">

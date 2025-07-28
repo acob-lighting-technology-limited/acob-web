@@ -1,4 +1,4 @@
-"use client"
+"use client";
 import { useState } from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -6,6 +6,7 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
 import { toast } from "sonner";
+import { Dot } from "lucide-react";
 
 // Types
 interface MaskTextProps {
@@ -51,10 +52,10 @@ const Container: React.FC<ContainerProps> = ({ children, className }) => (
 );
 
 const infoPoints = [
-  "✓ Comprehensive energy analysis",
-  "✓ Cost-benefit assessment",
-  "✓ Custom solar solution design",
-  "✓ ROI calculations and projections",
+  "Comprehensive energy analysis",
+  "Cost-benefit assessment",
+  "Custom solar solution design",
+  "ROI calculations and projections",
 ];
 
 const formFields: FormField[] = [
@@ -122,26 +123,28 @@ export function ContactSection() {
 
   const sendEmail = async (formData: FormData): Promise<any> => {
     try {
-      const response = await fetch('/api/send-email', {
-        method: 'POST',
+      const response = await fetch("/api/send-email", {
+        method: "POST",
         headers: {
-          'Content-Type': 'application/json',
+          "Content-Type": "application/json",
         },
         body: JSON.stringify(formData),
-      })
+      });
 
       if (!response.ok) {
-        const errorData = await response.json()
-        throw new Error(errorData.error || `HTTP error! status: ${response.status}`)
+        const errorData = await response.json();
+        throw new Error(
+          errorData.error || `HTTP error! status: ${response.status}`
+        );
       }
 
-      const result = await response.json()
-      return result
+      const result = await response.json();
+      return result;
     } catch (error) {
-      console.error('Error sending email:', error)
-      throw error
+      console.error("Error sending email:", error);
+      throw error;
     }
-  }
+  };
 
   const handleSubmit = async (): Promise<void> => {
     setIsSubmitting(true);
@@ -161,7 +164,7 @@ export function ContactSection() {
     if (missingFields.length > 0) {
       toast.error("Please fill in all required fields", {
         description: `Missing: ${missingFields
-          .map(field => formFields.find(f => f.id === field)?.label)
+          .map((field) => formFields.find((f) => f.id === field)?.label)
           .join(", ")}`,
         duration: 4000,
       });
@@ -186,10 +189,11 @@ export function ContactSection() {
       });
 
       await sendEmail(formData);
-      
+
       toast.dismiss(loadingToast);
       toast.success("Request submitted successfully! 🎉", {
-        description: "Thank you for your interest. We'll get back to you within 24 hours with your energy audit details.",
+        description:
+          "Thank you for your interest. We'll get back to you within 24 hours with your energy audit details.",
         duration: 6000,
       });
 
@@ -204,7 +208,8 @@ export function ContactSection() {
       });
     } catch (error) {
       toast.error("Failed to submit request", {
-        description: "Something went wrong. Please try again or contact us directly.",
+        description:
+          "Something went wrong. Please try again or contact us directly.",
         duration: 5000,
         action: {
           label: "Retry",
@@ -240,7 +245,9 @@ export function ContactSection() {
 
             <ul className="space-y-3 text-sm opacity-90">
               {infoPoints.map((line, index) => (
-                <li key={index}>
+                <li key={index} className="flex">
+                  {" "}
+                  <Dot />
                   <MaskText phrases={[line]} />
                 </li>
               ))}

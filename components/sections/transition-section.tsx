@@ -76,7 +76,7 @@ export function TransitionSection() {
       backgroundImage: "url('/images/transition-bg.jpg')",
     }}
   >
-    <div className="absolute inset-0 bg-black/70 z-0"></div>
+    <div className="absolute inset-0 bg-black/90 z-0"></div>
       <Container className="relative px-4">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
           <div>
@@ -118,38 +118,50 @@ export function TransitionSection() {
             animate={isInView ? { opacity: 1, x: 0 } : { opacity: 0, x: 50 }}
             transition={{ duration: 0.8, delay: 0.2, ease: "easeOut" }}
           >
-            <motion.img
-              src="/images/obadore-ondo.jpg?height=250&width=300"
-              alt="Solar Installation"
-              className="rounded-lg shadow-lg w-full h-[250px] object-cover"
-              initial={{ opacity: 0, scale: 0.8 }}
-              animate={isInView ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0.8 }}
-              transition={{ duration: 0.6, delay: 0.4 }}
-            />
-            <motion.img
-              src="/images/makami-kaduna.jpg?height=250&width=300"
-              alt="Team at Work"
-              className="rounded-lg shadow-lg w-full h-[250px] object-cover mt-8"
-              initial={{ opacity: 0, scale: 0.8 }}
-              animate={isInView ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0.8 }}
-              transition={{ duration: 0.6, delay: 0.6 }}
-            />
-            <motion.img
-              src="/images/olooji-community.jpg?height=250&width=300"
-              alt="Solar Panels"
-              className="rounded-lg shadow-lg w-full h-[250px] object-cover -mt-8"
-              initial={{ opacity: 0, scale: 0.8 }}
-              animate={isInView ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0.8 }}
-              transition={{ duration: 0.6, delay: 0.8 }}
-            />
-            <motion.img
-              src="/images/adebayo-community.jpg?height=250&width=300"
-              alt="Community Impact"
-              className="rounded-lg shadow-lg w-full h-[250px] object-cover"
-              initial={{ opacity: 0, scale: 0.8 }}
-              animate={isInView ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0.8 }}
-              transition={{ duration: 0.6, delay: 1.0 }}
-            />
+            <div className="relative rounded-lg overflow-hidden shadow-lg">
+              <motion.img
+                src="/images/obadore-ondo.jpg?height=250&width=300"
+                alt="Solar Installation"
+                className="w-full h-[250px] object-cover"
+                initial={{ opacity: 0, scale: 0.8 }}
+                animate={isInView ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0.8 }}
+                transition={{ duration: 0.6, delay: 0.4 }}
+              />
+              <div className="absolute inset-0 bg-black/30 rounded-lg"></div>
+            </div>
+            <div className="relative rounded-lg overflow-hidden shadow-lg mt-8">
+              <motion.img
+                src="/images/makami-kaduna.jpg?height=250&width=300"
+                alt="Team at Work"
+                className="w-full h-[250px] object-cover"
+                initial={{ opacity: 0, scale: 0.8 }}
+                animate={isInView ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0.8 }}
+                transition={{ duration: 0.6, delay: 0.6 }}
+              />
+              <div className="absolute inset-0 bg-black/30 rounded-lg"></div>
+            </div>
+            <div className="relative rounded-lg overflow-hidden shadow-lg -mt-8">
+              <motion.img
+                src="/images/olooji-community.jpg?height=250&width=300"
+                alt="Solar Panels"
+                className="w-full h-[250px] object-cover"
+                initial={{ opacity: 0, scale: 0.8 }}
+                animate={isInView ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0.8 }}
+                transition={{ duration: 0.6, delay: 0.8 }}
+              />
+              <div className="absolute inset-0 bg-black/30 rounded-lg"></div>
+            </div>
+            <div className="relative rounded-lg overflow-hidden shadow-lg">
+              <motion.img
+                src="/images/adebayo-community.jpg?height=250&width=300"
+                alt="Community Impact"
+                className="w-full h-[250px] object-cover"
+                initial={{ opacity: 0, scale: 0.8 }}
+                animate={isInView ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0.8 }}
+                transition={{ duration: 0.6, delay: 1.0 }}
+              />
+              <div className="absolute inset-0 bg-black/30 rounded-lg"></div>
+            </div>
           </motion.div>
         </div>
       </Container>
