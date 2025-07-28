@@ -223,9 +223,9 @@ Notable Projects:
 
 Head Office: Plot 2, Block 14 Extension, Federal Ministry of Works & Housing Sites and Service Scheme, Setraco Gate, Gwarinpa, Abuja  
 Work Hours: Monday – Friday, 8:00 AM – 5:00 PM. Closed on Saturdays and Sundays.  
-Contact: [0704 920 2634](tel:07049202634), [0803 290 2825](tel:08032902825)  
-Email: [info@acoblighting.com](mailto:info@acoblighting.com)  
-Website: [www.acoblighting.com](https://www.acoblighting.com)  
+Contact: 0704 920 2634, 0803 290 2825
+Email: info@acoblighting.com  
+Website: www.acoblighting.com  
 
 Social Media:  
 - **Facebook:** https://www.facebook.com/acoblightingtechltd  
