@@ -80,7 +80,7 @@ export function ServicesSection() {
               </Button>
               <Button
                 variant="outline"
-                className="border-gray-400 text-lg shadow-md text-gray-700 hover:bg-gray-500 px-8 py-6 bg-transparent"
+                className="border-gray-400 text-lg shadow-md text-gray-700 hover:bg-gray-200 px-8 py-6 bg-transparent"
               >
                 Find Your Solution
               </Button>

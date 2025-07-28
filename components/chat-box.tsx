@@ -471,14 +471,14 @@ export function ChatBot() {
                 <form
                   id="chat-form"
                   onSubmit={handleSubmit}
-                  className="flex items-end gap-3"
+                  className="flex items-stretch gap-3 "
                 >
-                  <div className="flex-1 relative bg-gray-50 rounded-full flex items-center px-4 py-2">
+                  <div className="flex-1 relative  bg-gray-50 rounded-full flex items-center px-4 py-2">
                     <Textarea
                       value={input}
                       onChange={handleInputChange}
                       placeholder="Type a message..."
-                      className="flex-1 min-h-[36px] max-h-[120px] resize-none border-0 bg-transparent focus:ring-0 focus:outline-none text-sm placeholder:text-gray-500 outline-none py-1"
+                      className="flex-1 flex justify-end items-end min-h-[36px] max-h-[120px] resize-none border-0 bg-transparent focus:ring-0 focus:outline-none text-sm focus-visible:!ring-0 placeholder:text-gray-500 outline-none py-1"
                       rows={1}
                       onKeyDown={(e) => {
                         if (e.key === "Enter" && !e.shiftKey) {
@@ -499,7 +499,7 @@ export function ChatBot() {
                       type="button"
                       size="icon"
                       onClick={stop}
-                      className="h-10 w-10 rounded-full bg-destructive hover:bg-destructive/90 text-destructive-foreground transition-all duration-200 flex-shrink-0"
+                      className="self-stretch w-10 rounded-full bg-destructive hover:bg-destructive/90 text-destructive-foreground transition-all duration-200 flex-shrink-0"
                       disabled={!isChatting}
                     >
                       <StopCircle className="h-4 w-4" />
@@ -510,7 +510,7 @@ export function ChatBot() {
                       type="submit"
                       size="icon"
                       disabled={!input.trim()}
-                      className="h-10 w-10 rounded-full bg-primary hover:bg-primary/90 text-primary-foreground transition-all duration-200 flex-shrink-0 disabled:opacity-50"
+                      className="self-stretch min-h-12 w-12 rounded-full bg-primary hover:bg-primary/90 text-primary-foreground transition-all duration-200 flex-shrink-0 disabled:opacity-50"
                     >
                       <Send className="h-4 w-4" />
                       <span className="sr-only">Send message</span>

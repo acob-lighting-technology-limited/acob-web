@@ -16,7 +16,7 @@ export function AboutSection() {
           <Button
             variant="outline"
             size="sm"
-            className="border-2 border-black text-white hover:bg-black hover:text-primary bg-transparent px-8 py-5 text-lg font-medium whitespace-nowrap"
+            className="border-2 border-white bg-white text-primary hover:bg-primary hover:text-white duration-500 transition-colors   px-8 py-5 text-lg font-medium whitespace-nowrap"
           >
             Explore Our Plans
           </Button>
