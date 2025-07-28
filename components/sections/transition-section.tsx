@@ -58,7 +58,7 @@ function CounterAnimation({
   }, [isInView, end, duration])
 
   return (
-    <div ref={countRef} className="text-2xl font-bold text-primary mb-2">
+    <div ref={countRef} className="text-2xl font-bold text-white mb-2">
       {count}{suffix}
     </div>
   )
@@ -100,17 +100,14 @@ export function TransitionSection() {
                     delay: index * 0.1 + 0.3,
                     ease: "easeOut" 
                   }}
+                  className="bg-white/5 backdrop-blur-md p-6 rounded-2xl border border-white/10 hover:bg-white/10 transition-all duration-300 hover:scale-[1.02] hover:shadow-2xl hover:shadow-white/5 text-center"
                 >
-                  <Card className="text-center hover:shadow-lg transition-shadow duration-300">
-                    <CardContent className="p-6">
-                      <CounterAnimation 
-                        end={stat.number} 
-                        suffix={stat.suffix}
-                        duration={2.5}
-                      />
-                      <div className="text-sm text-gray-600">{stat.label}</div>
-                    </CardContent>
-                  </Card>
+                  <CounterAnimation 
+                    end={stat.number} 
+                    suffix={stat.suffix}
+                    duration={2.5}
+                  />
+                  <div className="text-sm text-gray-300">{stat.label}</div>
                 </motion.div>
               ))}
             </div>
