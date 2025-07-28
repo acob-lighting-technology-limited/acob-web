@@ -90,12 +90,12 @@ export function ServicesSection() {
 
         {/* Services Carousel */}
         <Carousel
-         plugins={[plugin.current]}
+          plugins={[plugin.current]}
           opts={{
             align: "start",
             loop: true,
           }}
-          className=""
+          className=" lg:px-20"
           setApi={setCarouselApi}
           onMouseEnter={plugin.current.stop}
           onMouseLeave={plugin.current.reset}
@@ -106,9 +106,9 @@ export function ServicesSection() {
                 key={index}
                 className="pl-2 md:pl-4 basis-full md:basis-1/2 lg:basis-1/3"
               >
-                <Card className="border shadow-lg border-gray-200 transition-shadow duration-300  relative overflow-hidden h-full !py-0">
-                  <CardContent className="p-8 flex flex-col h-full">
-                    <div className="mb-6 w-fit transition-transform duration-500 hover:scale-x-[-1]">
+                <Card className="aspect-[3/4]  shadow-lg  transition-shadow duration-300 group  relative overflow-hidden h-full !py-0">
+                  <CardContent className="relative p-10 flex flex-col h-full  border-0  ">
+                    <div className="mb-6 w-fit transition-transform duration-700 group-hover:scale-x-[-1]">
                       <span>
                         <img
                           src={service.icon || "/placeholder.svg"}
@@ -117,24 +117,32 @@ export function ServicesSection() {
                         />
                       </span>
                     </div>
-                    <h3 className="text-xl font-bold text-gray-900 mb-4">
+                    <h3 className="text-2xl font-bold text-gray-900 mb-4">
                       {service.title}
                     </h3>
-                    <p className="text-gray-600 text-sm leading-relaxed mb-8">
-                      {service.shortDescription}
+                    <p className="text-gray-500 text-base leading-relaxed mb-8">
+                      {service.shortDescription
+                        .split(" ")
+                        .slice(0, 25)
+                        .join(" ")}
+                      {service.shortDescription.split(" ").length > 36 && "..."}
                     </p>
+
                     <div className="mt-auto">
                       <Link href={`/services/${service.slug}`}>
-                        <Button className="bg-black hover:bg-primary duration-500 transition-colors text-white px-6 py-2 text-sm">
+                        <Button
+                          size="lg"
+                          className="bg-black/90 !h-12 hover:bg-primary duration-500 transition-colors text-white px-6 py-4 text-sm"
+                        >
                           Read More
                           <ArrowRight className="ml-2 h-3 w-3" />
                         </Button>
                       </Link>
                     </div>
                   </CardContent>
-
                   {/* Green accent line at bottom */}
-                  <div className="absolute bottom-0 left-0 right-0 h-1 bg-primary"></div>
+                  <div className="!ml-0 !pl-0 absolute bottom-0 group-hover:h-2 h-1 w-full bg-primary transition-all duration-700 ease-in-out"></div>{" "}
+                  {/* <div className="absolute bottom-0 left-0 right-0 h-1 group-hover:!h-6 bg-primary"></div> */}
                 </Card>
               </CarouselItem>
             ))}
@@ -152,8 +160,8 @@ export function ServicesSection() {
               disabled={isTransitioning}
               className={`transition-all duration-500 rounded-full cursor-pointer hover:opacity-80 disabled:cursor-not-allowed ${
                 currentSlide === index
-                  ? "w-8 h-1 bg-primary shadow-lg"
-                  : "w-6 h-0.5 bg-gray-400 hover:bg-gray-600 hover:w-7"
+                  ? "w-8 h-1.5 bg-primary shadow-lg"
+                  : "w-6 h-1 bg-gray-400 hover:bg-gray-600 hover:w-7"
               }`}
             />
           ))}
