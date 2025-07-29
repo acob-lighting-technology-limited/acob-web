@@ -5,6 +5,8 @@ import { useState, useEffect, useRef } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { Menu, Phone, ChevronDown, X } from "lucide-react";
+import { ThemeToggle } from "@/components/ui/theme-toggle";
+import { useTheme } from "next-themes";
 
 // Types
 interface SubItem {
@@ -234,7 +236,7 @@ const DropdownMenu: React.FC<DropdownMenuProps> = ({
   return (
     <div
       className={`
-      absolute top-full left-0 mt-2 w-full max-w-[600px] min-w-[400px] bg-white rounded-lg shadow-2xl border border-gray-100 
+      absolute top-full left-0 mt-2 w-full max-w-[600px] min-w-[400px] bg-white dark:bg-black rounded-lg shadow-2xl border-[0.5px] border-gray-700 
       transform transition-all duration-300 ease-out origin-top
       ${isOpen ? "opacity-100 scale-100 translate-y-0" : "opacity-0 scale-95 -translate-y-2 pointer-events-none"}
     `}
@@ -251,7 +253,7 @@ const DropdownMenu: React.FC<DropdownMenuProps> = ({
               href={subItem.href}
               onClick={onClose}
               className={`
-                group block p-3 rounded-lg transition-all duration-200 hover:bg-gradient-to-r hover:from-primary/5 hover:to-primary/10 hover:shadow-md
+                group block p-3 rounded-lg transition-all duration-200 hover:bg-gradient-to-r hover:from-primary/5 dark:hover:from-zinc-700 hover:to-primary/10 dark:hover:to-zinc-500 hover:shadow-md
                 transform hover:scale-105 hover:-translate-y-1
                 animate-fadeInUp
               `}
@@ -270,7 +272,7 @@ const DropdownMenu: React.FC<DropdownMenuProps> = ({
                     height={32}
                     className="transition-transform duration-200 group-hover:scale-110"
                   />
-                  <div className="font-medium text-gray-900 group-hover:text-primary transition-colors duration-200 break-words">
+                  <div className="font-medium  dark:text-zinc-300 text-zinc-900 group-hover:text-primary transition-colors duration-200 break-words">
                     {subItem.name}
                   </div>
                 </div>
@@ -402,6 +404,9 @@ const MobileMenu: React.FC<MobileMenuProps> = ({ isOpen, onClose }) => {
               Get Quote
             </button>
           </div>
+          <div className="mt-6 flex justify-center">
+            <ThemeToggle />
+          </div>
         </div>
       </div>
     </div>
@@ -413,7 +418,8 @@ export function Header() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [activeDropdown, setActiveDropdown] = useState<string | null>(null);
   const timeoutRef = useRef<NodeJS.Timeout | null>(null);
-
+  const [mounted, setMounted] = useState(false);
+  const { theme } = useTheme();
   useEffect(() => {
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 20);
@@ -439,15 +445,19 @@ export function Header() {
     setActiveDropdown(null);
   };
 
+  const logoSrc =
+    theme === "dark" ? "/images/ACOB-logo.png" : "/images/ACOB.png";
   return (
     <>
       <header
         className={`
         sticky top-0 z-40 w-full transition-all duration-500 ease-out
+        bg-white/95 backdrop-blur-sm border-b border-gray-100/30
+        dark:bg-black transition-colors duration-700
         ${
           isScrolled
-            ? "bg-white/75 backdrop-blur-3xl shadow-lg border-b border-gray-200/50"
-            : "bg-white/95 backdrop-blur-sm border-b border-gray-100/30"
+            ? "bg-white/75 backdrop-blur-3xl shadow-lg border-b-[1px] border-zinc-700 dark:bg-black"
+            : "bg-white/95 backdrop-blur-sm border-b border-gray-100/30 dark:bg-black"
         }
       `}
       >
@@ -455,9 +465,12 @@ export function Header() {
           <div className="flex items-center justify-between h-16">
             {/* Logo */}
             <Link href="/" className="flex items-center space-x-2 group">
-              <img
-                src="/images/ACOB.png"
+              <Image
+                src={logoSrc}
                 alt="ACOB Lighting Logo"
+                width={120}
+                height={32}
+                priority
                 className="h-8 w-auto transition-transform duration-200 group-hover:scale-105"
               />
             </Link>
@@ -473,7 +486,7 @@ export function Header() {
                 >
                   <Link
                     href={item.href}
-                    className="flex items-center space-x-1 text-gray-700 hover:text-primary font-medium transition-all duration-200 hover:scale-105"
+                    className="flex items-center space-x-1 text-zinc-700 dark:text-zinc-300 hover:text-primary font-medium transition-all duration-200 hover:scale-105"
                   >
                     <span>{item.name}</span>
                     <ChevronDown
@@ -492,10 +505,11 @@ export function Header() {
 
             {/* Desktop CTA */}
             <div className="hidden lg:flex items-center space-x-4">
-              <button className="bg-primary hover:bg-primary/90 text-white font-medium py-2 px-4 rounded-lg transition-all duration-200 hover:shadow-lg hover:scale-105 flex items-center">
+              <button className="bg-primary hover:bg-primary-dark text-white font-medium py-2 px-4 rounded-lg transition-all duration-200 hover:shadow-lg hover:scale-105 flex items-center">
                 <Phone className="mr-2 h-4 w-4" />
                 Get Quote
               </button>
+              <ThemeToggle />
             </div>
 
             {/* Mobile Menu Button */}

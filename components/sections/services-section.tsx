@@ -45,7 +45,7 @@ export function ServicesSection() {
   };
 
   return (
-    <section className="py-16 bg-gray-50 overflow-hidden">
+    <section className="py-16 bg-gray-50 dark:bg-zinc-950 transition-colors duration-700 overflow-hidden">
       <Container className="px-4">
         {/* Header Section */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 mb-16">
@@ -56,7 +56,7 @@ export function ServicesSection() {
                 "For Manufacturers Installers & Contractors,",
                 "Mini-Grid Solutions.",
               ]}
-              className="text-4xl md:text-5xl font-bold text-gray-900 leading-tight mb-8"
+              className="text-4xl md:text-5xl font-bold text-gray-900 dark:text-white leading-tight mb-8 transition-colors duration-700"
             />
           </div>
 
@@ -70,17 +70,17 @@ export function ServicesSection() {
                 "We ensure quality control of indoor installations",
                 "and safety training for customers.",
               ]}
-              className="text-gray-600 text-lg leading-relaxed mb-8"
+              className="text-gray-600 dark:text-gray-300 text-lg leading-relaxed mb-8 transition-colors duration-700"
             />
 
             <div className="flex flex-col sm:flex-row gap-4">
-              <Button className="bg-primary text-lg hover:bg-primary/90 text-white px-8 py-6">
+              <Button className="bg-primary dark:bg-primary-dark text-lg hover:bg-primary-dark text-white px-8 py-6 transition-colors duration-700">
                 Read More
                 <ArrowRight className="ml-2 h-4 w-4" />
               </Button>
               <Button
                 variant="outline"
-                className="border-gray-400 text-lg shadow-md text-gray-700 hover:bg-gray-200 px-8 py-6 bg-transparent"
+                className="border-gray-400 text-lg shadow-md text-gray-700 dark:text-gray-200 hover:bg-gray-200 dark:hover:bg-gray-800 px-8 py-6 bg-transparent transition-colors duration-700"
               >
                 Find Your Solution
               </Button>
@@ -106,7 +106,7 @@ export function ServicesSection() {
                 key={index}
                 className="pl-2 md:pl-4 basis-full md:basis-1/2 lg:basis-1/3"
               >
-                <Card className="aspect-[3/4]  shadow-lg  transition-shadow duration-300 group  relative overflow-hidden h-full !py-0">
+                <Card className="aspect-[3/4]   shadow-lg  transition-shadow duration-300 group  relative overflow-hidden h-full !py-0">
                   <CardContent className="relative p-10 flex flex-col h-full  border-0  ">
                     <div className="mb-6 w-fit transition-transform duration-700 group-hover:scale-x-[-1]">
                       <span>
@@ -117,7 +117,7 @@ export function ServicesSection() {
                         />
                       </span>
                     </div>
-                    <h3 className="text-2xl font-bold text-gray-900 mb-4">
+                    <h3 className="text-2xl font-bold dark:text-zinc-300 text-zinc-900 mb-4">
                       {service.title}
                     </h3>
                     <p className="text-gray-500 text-base leading-relaxed mb-8">
@@ -132,7 +132,7 @@ export function ServicesSection() {
                       <Link href={`/services/${service.slug}`}>
                         <Button
                           size="lg"
-                          className="bg-black/90 !h-12 hover:bg-primary duration-500 transition-colors text-white px-6 py-4 text-sm"
+                          className="bg-zinc-950 dark:!bg-primary !h-12 hover:bg-primary duration-500 transition-colors text-white px-6 py-4 text-sm"
                         >
                           Read More
                           <ArrowRight className="ml-2 h-3 w-3" />
@@ -141,7 +141,7 @@ export function ServicesSection() {
                     </div>
                   </CardContent>
                   {/* Green accent line at bottom */}
-                  <div className="!ml-0 !pl-0 absolute bottom-0 group-hover:h-2 h-1 w-full bg-primary transition-all duration-700 ease-in-out"></div>{" "}
+                  <div className="!ml-0 !pl-0 absolute bottom-0 group-hover:h-2 h-1 w-full bg-primary dark:bg-primary-dark transition-all duration-700 ease-in-out"></div>{" "}
                   {/* <div className="absolute bottom-0 left-0 right-0 h-1 group-hover:!h-6 bg-primary"></div> */}
                 </Card>
               </CarouselItem>
@@ -160,7 +160,7 @@ export function ServicesSection() {
               disabled={isTransitioning}
               className={`transition-all duration-500 rounded-full cursor-pointer hover:opacity-80 disabled:cursor-not-allowed ${
                 currentSlide === index
-                  ? "w-8 h-1.5 bg-primary shadow-lg"
+                  ? "w-8 h-1.5 bg-primary dark:bg-primary-dark shadow-lg"
                   : "w-6 h-1 bg-gray-400 hover:bg-gray-600 hover:w-7"
               }`}
             />

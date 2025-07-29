@@ -222,7 +222,7 @@ export function ContactSection() {
   };
 
   return (
-    <section className="py-16 bg-primary text-white">
+    <section className="py-16 bg-primary text-white dark:bg-primary-dark dark:text-white transition-colors duration-700">
       <Container className="px-4">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
           <div>
@@ -254,7 +254,7 @@ export function ContactSection() {
             </ul>
           </div>
 
-          <Card className="bg-white text-gray-900">
+          <Card className="bg-white text-zinc-900 dark:ring-zinc-100">
             <CardHeader>
               <CardTitle className="text-2xl">Request A Quote</CardTitle>
             </CardHeader>
@@ -271,7 +271,7 @@ export function ContactSection() {
                         type={type}
                         value={formData[id]}
                         onChange={handleInputChange}
-                        className="focus-visible:!ring-[0.5px] ring-[0.5px] ring-gray-200"
+                        className="focus-visible:!ring-[0.5px] dark:bg-white ring-[0.5px] ring-zinc-200 dark:!ring-zinc-100"
                       />
                     </div>
                   ))}
@@ -291,7 +291,7 @@ export function ContactSection() {
                         rows={rows}
                         value={formData[id]}
                         onChange={handleInputChange}
-                        className="focus-visible:!ring-[0.5px] ring-[0.5px] ring-gray-200"
+                        className="focus-visible:!ring-[0.5px] dark:bg-white ring-[0.5px] ring-zinc-200 dark:!ring-zinc-100"
                       />
                     ) : (
                       <Input
@@ -300,7 +300,7 @@ export function ContactSection() {
                         type={type}
                         value={formData[id]}
                         onChange={handleInputChange}
-                        className="focus-visible:!ring-[0.5px] ring-[0.5px] ring-gray-200"
+                        className="focus-visible:!ring-[0.5px] dark:bg-white ring-[0.5px] ring-zinc-200 dark:ring-zinc-100"
                       />
                     )}
                   </div>

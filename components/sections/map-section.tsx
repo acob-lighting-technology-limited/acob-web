@@ -3,7 +3,7 @@ import { Container } from "../ui/container";
 
 export function MapSection() {
   return (
-    <footer className="bg-zinc-900 text-white">
+    <footer className="bg-zinc-900 dark:bg-zinc-950 text-white transition-colors duration-700">
       <Container className="flex justify-between px-4 py-16 pt-20">
         <div className=" w-1/2 flex flex-col gap-8 max-w-md">
           {" "}
@@ -14,7 +14,7 @@ export function MapSection() {
               className="h-12 w-auto transition-transform duration-200 group-hover:scale-105"
             />
           </Link>
-          <p className="text-lg">ACOB provides mini grid solutions that
+          <p className="text-lg dark:text-white transition-colors duration-700">ACOB provides mini grid solutions that
 serve a wide range of customers which
 include private households, commercial
 businesses such as shops, ice makers

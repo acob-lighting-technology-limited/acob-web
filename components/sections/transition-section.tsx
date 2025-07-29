@@ -70,18 +70,18 @@ export function TransitionSection() {
 
   return (
     <section
-    ref={ref}
-    className="relative py-16 bg-cover bg-center bg-no-repeat overflow-hidden"
-    style={{
-      backgroundImage: "url('/images/transition-bg.jpg')",
-    }}
-  >
-    <div className="absolute inset-0 bg-black/90 z-0"></div>
+      ref={ref}
+      className="relative py-16 bg-cover bg-center bg-no-repeat overflow-hidden transition-colors duration-700"
+      style={{
+        backgroundImage: "url('/images/transition-bg.jpg')",
+      }}
+    >
+      <div className="absolute inset-0 bg-black/90 dark:bg-gradient-to-b dark:from-zinc-950 from-0% dark:to-black/5 to-80%  z-0 transition-colors duration-700"></div>
       <Container className="relative px-4">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
           <div>
             <motion.h2 
-              className="text-3xl md:text-4xl font-bold mb-6 text-white"
+              className="text-3xl md:text-4xl font-bold mb-6 text-white dark:text-white transition-colors duration-700"
               initial={{ opacity: 0, y: 30 }}
               animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
               transition={{ duration: 0.8, ease: "easeOut" }}

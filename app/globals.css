@@ -5,6 +5,7 @@
 @layer base {
   :root {
     --primary: 120 100% 30%; /* #08913f converted to HSL */
+    --primary-dark: 138 95% 20%; /* #046524 in HSL */
     --primary-foreground: 0 0% 100%;
     --secondary: 214 32% 91%;
     --secondary-foreground: 222 84% 5%;
@@ -27,24 +28,25 @@
   }
 
   .dark {
-    --primary: 120 100% 30%;
+    --primary: var(--primary-dark);
+    --primary-dark: 138 95% 20%; /* #046524 in HSL */
     --primary-foreground: 0 0% 100%;
-    --secondary: 217 33% 17%;
+    --secondary: 240 5% 20%; /* zinc-800 */
     --secondary-foreground: 210 40% 98%;
-    --muted: 217 33% 17%;
+    --muted: 240 5% 16%; /* zinc-900 */
     --muted-foreground: 215 20% 65%;
-    --accent: 217 33% 17%;
+    --accent: 240 5% 26%; /* zinc-700 */
     --accent-foreground: 210 40% 98%;
     --destructive: 0 63% 31%;
     --destructive-foreground: 210 40% 98%;
-    --border: 217 33% 17%;
-    --input: 217 33% 17%;
+    --border: 240 5% 26%; /* zinc-700 */
+    --input: 240 5% 16%; /* zinc-900 */
     --ring: 142 76% 36%;
-    --background: 222 84% 5%;
+    --background: 240 6% 10%; /* zinc-950 */
     --foreground: 210 40% 98%;
-    --card: 222 84% 5%;
+    --card: 240 6% 10%; /* zinc-950 */
     --card-foreground: 210 40% 98%;
-    --popover: 222 84% 5%;
+    --popover: 240 6% 10%; /* zinc-950 */
     --popover-foreground: 210 40% 98%;
   }
 }

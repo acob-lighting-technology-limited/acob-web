@@ -10,14 +10,14 @@ export async function NewsSection() {
   const latestPosts = posts.slice(0, 3) // Get only the latest 3 posts
 
   return (
-    <section className="py-16 bg-white">
+    <section className="py-16 bg-white dark:bg-zinc-950 transition-colors duration-700">
       <Container className="px-4">
         {/* Header */}
         <div className="text-center mb-12">
-          <div className="inline-block bg-primary/10 text-primary px-4 py-2 rounded-full text-sm font-medium mb-4">
+          <div className="inline-block bg-primary/10 text-primary px-4 py-2 rounded-full text-sm font-medium mb-4 dark:bg-primary/20 dark:text-primary transition-colors duration-700">
             News & Announcements
           </div>
-          <h2 className="text-4xl md:text-5xl font-bold text-gray-900">Recent Updates</h2> {/* Renamed title */}
+          <h2 className="text-4xl md:text-5xl font-bold  text-zinc-900 dark:text-white transition-colors duration-700">Recent Updates</h2> {/* Renamed title */}
         </div>
 
         {/* News Cards */}
@@ -45,17 +45,17 @@ export async function NewsSection() {
               <CardContent className="p-6 flex flex-col flex-1 h-full">
                 <div>
                   {/* Title */}
-                  <h3 className="text-lg font-bold text-gray-900 mb-3 leading-tight">{post.title}</h3>
+                  <h3 className="text-lg font-bold dark:text-zinc-300 text-zinc-900 mb-3 leading-tight">{post.title}</h3>
 
                   {/* Date and Author */}
-                  <div className="flex items-center text-sm text-gray-600 mb-4">
+                  <div className="flex items-center text-sm dark:text-zinc-400 text-zinc-600 mb-4">
                     <span>{new Date(post.publishedAt).toLocaleDateString()}</span>
                     <span className="mx-2">•</span>
                     <span>{post.author}</span>
                   </div>
 
                   {/* Excerpt */}
-                  <p className="text-gray-600 text-sm leading-relaxed">{post.excerpt}</p>
+                  <p className="dark:text-zinc-400 text-zinc-600 text-sm leading-relaxed">{post.excerpt}</p>
                 </div>
 
                 {/* Read More Button */}
@@ -63,7 +63,7 @@ export async function NewsSection() {
                   <Link href={`/updates/${post.slug.current}`}>
                     {" "}
                     {/* Changed link to /updates */}
-                    <Button className="bg-transparent border-[0.5px] border-primary text-gray-700 hover:bg-primary hover:text-white transition-colors duration-500">
+                    <Button className="bg-transparent dark:bg-primary  border-[0.5px] border-primary dark:text-zinc-300 text-zinc-700 hover:bg-primary hover:text-white transition-colors duration-500">
                       Read more
                       <ArrowRight className="ml-2 h-4 w-4" />
                     </Button>

@@ -78,9 +78,9 @@ export function CompanySection() {
   }, [isInView]);
 
   return (
-    <section className="relative min-h-screen bg-black overflow-hidden">
+    <section className="relative min-h-screen bg-black dark:bg-zinc-950 overflow-hidden transition-colors duration-700">
       {/* Gradient background from bottom left corner */}
-      <div className="absolute inset-0 bg-gradient-to-t from-zinc-900 from-0% to-black to-80%" />
+      <div className="absolute inset-0 bg-gradient-to-t from-zinc-900 from-0% to-black to-80% dark:bg-gradient-to-t dark:from-zinc-950 dark:to-black transition-colors duration-700" />
       
       {/* Subtle background texture */}
       <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(255,255,255,0.02)_1px,transparent_1px)] bg-[length:50px_50px]" />
