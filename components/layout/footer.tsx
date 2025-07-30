@@ -27,7 +27,7 @@ export function Footer() {
                   <li>
                     <Link
                       href="/about"
-                      className="text-gray-300 hover:text-white transition-colors"
+                      className="text-zinc-300 hover:text-white transition-colors"
                     >
                       About Us
                     </Link>
@@ -35,7 +35,7 @@ export function Footer() {
                   <li>
                     <Link
                       href="/team"
-                      className="text-gray-300 hover:text-white transition-colors"
+                      className="text-zinc-300 hover:text-white transition-colors"
                     >
                       Meet Our Team
                     </Link>
@@ -43,7 +43,7 @@ export function Footer() {
                   <li>
                     <Link
                       href="/updates" // Changed from /news
-                      className="text-gray-300 hover:text-white transition-colors"
+                      className="text-zinc-300 hover:text-white transition-colors"
                     >
                       Updates & Media {/* Changed from News & Media */}
                     </Link>
@@ -51,7 +51,7 @@ export function Footer() {
                   <li>
                     <Link
                       href="/projects"
-                      className="text-gray-300 hover:text-white transition-colors"
+                      className="text-zinc-300 hover:text-white transition-colors"
                     >
                       Our Projects
                     </Link>
@@ -59,7 +59,7 @@ export function Footer() {
                   <li>
                     <Link
                       href="/contact"
-                      className="text-gray-300 hover:text-white transition-colors"
+                      className="text-zinc-300 hover:text-white transition-colors"
                     >
                       Contacts
                     </Link>
@@ -67,7 +67,7 @@ export function Footer() {
                   <li>
                     <Link
                       href="/shop"
-                      className="text-gray-300 hover:text-white transition-colors"
+                      className="text-zinc-300 hover:text-white transition-colors"
                     >
                       Shop
                     </Link>
@@ -82,7 +82,7 @@ export function Footer() {
                   <li>
                     <Link
                       href="/services/mini-grid"
-                      className="text-gray-300 hover:text-white transition-colors"
+                      className="text-zinc-300 hover:text-white transition-colors"
                     >
                       Mini-Grid Solutions
                     </Link>
@@ -90,7 +90,7 @@ export function Footer() {
                   <li>
                     <Link
                       href="/services/captive-power"
-                      className="text-gray-300 hover:text-white transition-colors"
+                      className="text-zinc-300 hover:text-white transition-colors"
                     >
                       Captive Power Solutions
                     </Link>
@@ -98,7 +98,7 @@ export function Footer() {
                   <li>
                     <Link
                       href="/services/energy-audit"
-                      className="text-gray-300 hover:text-white transition-colors"
+                      className="text-zinc-300 hover:text-white transition-colors"
                     >
                       Professional Energy Audit
                     </Link>
@@ -106,7 +106,7 @@ export function Footer() {
                   <li>
                     <Link
                       href="/services/engineering"
-                      className="text-gray-300 hover:text-white transition-colors"
+                      className="text-zinc-300 hover:text-white transition-colors"
                     >
                       Engineering Procurement & Construction
                     </Link>
@@ -121,7 +121,7 @@ export function Footer() {
                   <li>
                     <Link
                       href="/terms"
-                      className="text-gray-300 hover:text-white transition-colors"
+                      className="text-zinc-300 hover:text-white transition-colors"
                     >
                       Terms & Conditions
                     </Link>
@@ -129,7 +129,7 @@ export function Footer() {
                   <li>
                     <Link
                       href="/shipping"
-                      className="text-gray-300 hover:text-white transition-colors"
+                      className="text-zinc-300 hover:text-white transition-colors"
                     >
                       Shipping Policy
                     </Link>
@@ -137,7 +137,7 @@ export function Footer() {
                   <li>
                     <Link
                       href="/delivery"
-                      className="text-gray-300 hover:text-white transition-colors"
+                      className="text-zinc-300 hover:text-white transition-colors"
                     >
                       Delivery Tips
                     </Link>
@@ -145,7 +145,7 @@ export function Footer() {
                   <li>
                     <Link
                       href="/returns"
-                      className="text-gray-300 hover:text-white transition-colors"
+                      className="text-zinc-300 hover:text-white transition-colors"
                     >
                       Returns
                     </Link>
@@ -167,7 +167,7 @@ export function Footer() {
 
                 {/* Email */}
                 <div>
-                  <p className="text-sm text-gray-400">Email:</p>
+                  <p className="text-sm text-zinc-400">Email:</p>
                   <Link
                     href="mailto:info@acoblighting.com"
                     className="text-primary hover:text-primary/80 transition-colors"
@@ -177,9 +177,9 @@ export function Footer() {
                 </div>
 
                 {/* Addresses */}
-                <div className="space-y-4 text-sm text-gray-300">
+                <div className="space-y-4 text-sm text-zinc-300">
                   <div>
-                    <p className="text-gray-400 font-medium mb-1">
+                    <p className="text-zinc-400 font-medium mb-1">
                       HEAD OFFICE:
                     </p>
                     <p>
@@ -189,7 +189,7 @@ export function Footer() {
                   </div>
 
                   <div>
-                    <p className="text-gray-400 font-medium mb-1">
+                    <p className="text-zinc-400 font-medium mb-1">
                       BRANCH OFFICE:
                     </p>
                     <p>
@@ -215,8 +215,8 @@ export function Footer() {
             </div>
 
             {/* Bottom Section */}
-            <div className="border-t border-gray-600 mt-12 pt-8 flex flex-col md:flex-row justify-between items-center">
-              <div className="text-sm text-gray-400 mb-4 md:mb-0">
+            <div className="border-t border-zinc-600 mt-12 pt-8 flex flex-col md:flex-row justify-between items-center">
+              <div className="text-sm text-zinc-400 mb-4 md:mb-0">
                 <p>
                   ©{new Date().getFullYear()} ACOB LIGHTING TECHNOLOGY LIMITED
                   All Rights Reserved
@@ -228,7 +228,7 @@ export function Footer() {
                 <Link
                   href="https://www.facebook.com/acoblightingtechltd"
                   target="_blank"
-                  className="text-gray-400 hover:text-white transition-colors"
+                  className="text-zinc-400 hover:text-white transition-colors"
                 >
                   <Facebook className="h-5 w-5" />
                   <span className="sr-only">Facebook</span>
@@ -236,7 +236,7 @@ export function Footer() {
                 <Link
                   href="https://x.com/acoblimited?s=21&t=NMnANy7CG_nzCYaBcUg6gw"
                   target="_blank"
-                  className="text-gray-400 hover:text-white transition-colors"
+                  className="text-zinc-400 hover:text-white transition-colors"
                 >
                   <Twitter className="h-5 w-5" />
                   <span className="sr-only">X</span>
@@ -244,7 +244,7 @@ export function Footer() {
                 <Link
                   href="https://www.linkedin.com/company/acob-lighting-technology-limited/"
                   target="_blank"
-                  className="text-gray-400 hover:text-white transition-colors"
+                  className="text-zinc-400 hover:text-white transition-colors"
                 >
                   <Linkedin className="h-5 w-5" />
 
@@ -254,7 +254,7 @@ export function Footer() {
                 <Link
                   href="https://www.instagram.com/acob_lighting/?hl=en"
                   target="_blank"
-                  className="text-gray-400 hover:text-white transition-colors"
+                  className="text-zinc-400 hover:text-white transition-colors"
                 >
                   <Instagram className="h-5 w-5" />
                   <span className="sr-only">Twitter</span>

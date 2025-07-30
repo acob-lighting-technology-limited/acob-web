@@ -107,7 +107,7 @@ export function TransitionSection() {
                     suffix={stat.suffix}
                     duration={2.5}
                   />
-                  <div className="text-sm text-gray-300">{stat.label}</div>
+                  <div className="text-sm text-zinc-300">{stat.label}</div>
                 </motion.div>
               ))}
             </div>

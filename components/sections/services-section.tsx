@@ -45,7 +45,7 @@ export function ServicesSection() {
   };
 
   return (
-    <section className="py-16 bg-gray-50 dark:bg-zinc-950 transition-colors duration-700 overflow-hidden">
+    <section className="py-16 bg-zinc-50 dark:bg-zinc-950 transition-colors duration-700 overflow-hidden">
       <Container className="px-4">
         {/* Header Section */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 mb-16">
@@ -56,7 +56,7 @@ export function ServicesSection() {
                 "For Manufacturers Installers & Contractors,",
                 "Mini-Grid Solutions.",
               ]}
-              className="text-4xl md:text-5xl font-bold text-gray-900 dark:text-white leading-tight mb-8 transition-colors duration-700"
+              className="text-4xl md:text-5xl font-bold text-zinc-900 dark:text-white leading-tight mb-8 transition-colors duration-700"
             />
           </div>
 
@@ -70,7 +70,7 @@ export function ServicesSection() {
                 "We ensure quality control of indoor installations",
                 "and safety training for customers.",
               ]}
-              className="text-gray-600 dark:text-gray-300 text-lg leading-relaxed mb-8 transition-colors duration-700"
+              className="text-zinc-600 dark:text-zinc-300 text-lg leading-relaxed mb-8 transition-colors duration-700"
             />
 
             <div className="flex flex-col sm:flex-row gap-4">
@@ -80,7 +80,7 @@ export function ServicesSection() {
               </Button>
               <Button
                 variant="outline"
-                className="border-gray-400 text-lg shadow-md text-gray-700 dark:text-gray-200 hover:bg-gray-200 dark:hover:bg-gray-800 px-8 py-6 bg-transparent transition-colors duration-700"
+                className="border-zinc-400 text-lg shadow-md text-zinc-700 dark:text-zinc-200 hover:bg-zinc-200 dark:hover:bg-zinc-800 px-8 py-6 bg-transparent transition-colors duration-700"
               >
                 Find Your Solution
               </Button>
@@ -120,7 +120,7 @@ export function ServicesSection() {
                     <h3 className="text-2xl font-bold dark:text-zinc-300 text-zinc-900 mb-4">
                       {service.title}
                     </h3>
-                    <p className="text-gray-500 text-base leading-relaxed mb-8">
+                    <p className="text-zinc-500 text-base leading-relaxed mb-8">
                       {service.shortDescription
                         .split(" ")
                         .slice(0, 25)
@@ -161,7 +161,7 @@ export function ServicesSection() {
               className={`transition-all duration-500 rounded-full cursor-pointer hover:opacity-80 disabled:cursor-not-allowed ${
                 currentSlide === index
                   ? "w-8 h-1.5 bg-primary dark:bg-primary-dark shadow-lg"
-                  : "w-6 h-1 bg-gray-400 hover:bg-gray-600 hover:w-7"
+                  : "w-6 h-1 bg-zinc-400 hover:bg-zinc-600 hover:w-7"
               }`}
             />
           ))}

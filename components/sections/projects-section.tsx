@@ -56,7 +56,7 @@ export function ProjectsSection() {
 
   if (loading) {
     return (
-      <section className="py-16 bg-gray-50 dark:bg-zinc-950 text-center transition-colors duration-700">
+      <section className="py-16 bg-zinc-50 dark:bg-zinc-950 text-center transition-colors duration-700">
         <p>Loading projects...</p>
       </section>
     )
@@ -64,14 +64,14 @@ export function ProjectsSection() {
 
   if (error) {
     return (
-      <section className="py-16 bg-gray-50 dark:bg-zinc-950 text-center transition-colors duration-700">
+      <section className="py-16 bg-zinc-50 dark:bg-zinc-950 text-center transition-colors duration-700">
         <p className="text-red-500">{error}</p>
       </section>
     )
   }
 
   return (
-    <main ref={container} className="relative py-16 bg-gray-50 dark:bg-zinc-950 transition-colors duration-700">
+    <main ref={container} className="relative py-16 bg-zinc-50 dark:bg-zinc-950 transition-colors duration-700">
       <div className="text-center mb-12">
         <h2 className="text-3xl md:text-4xl font-bold dark:text-white transition-colors duration-700">
           Latest Rural Electrification Projects,

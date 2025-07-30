@@ -102,7 +102,7 @@ export function CompanySection() {
                   "has made us a trusted partner for rural electrification projects",
                   "and commercial solar installations.",
                 ]}
-                className="text-gray-100 mb-8 leading-relaxed text-base drop-shadow-lg"
+                className="text-zinc-100 mb-8 leading-relaxed text-base drop-shadow-lg"
               />
               <MaskText
                 phrases={[
@@ -110,7 +110,7 @@ export function CompanySection() {
                   "we continue to innovate and deliver cutting-edge solutions",
                   "that meet the growing energy demands of our clients.",
                 ]}
-                className="text-gray-200 mb-10 leading-relaxed drop-shadow-lg"
+                className="text-zinc-200 mb-10 leading-relaxed drop-shadow-lg"
               />
               <Button className="bg-white/10 hover:bg-white/20 text-white border border-white/20 text-lg py-6 px-8 rounded-xl font-semibold backdrop-blur-md transition-all duration-300 hover:scale-105 hover:shadow-2xl hover:shadow-white/10">
                 Learn More About Us
@@ -174,7 +174,7 @@ export function CompanySection() {
                   </div>
 
                   {/* Subtle glow effect that blends with dark background */}
-                  <div className="absolute -inset-1 bg-gradient-to-r from-gray-800/20 via-gray-700/20 to-gray-800/20 rounded-2xl blur-xl opacity-50 -z-10" />
+                  <div className="absolute -inset-1 bg-gradient-to-r from-zinc-800/20 via-zinc-700/20 to-zinc-800/20 rounded-2xl blur-xl opacity-50 -z-10" />
                 </div>
               </div>
 
@@ -185,7 +185,7 @@ export function CompanySection() {
                     <div className="w-2 h-2 bg-blue-400 rounded-full mr-3"></div>
                     Solar Solutions
                   </h3>
-                  <p className="text-gray-300 leading-relaxed">
+                  <p className="text-zinc-300 leading-relaxed">
                     Advanced photovoltaic systems for residential and commercial
                     applications.
                   </p>
@@ -196,7 +196,7 @@ export function CompanySection() {
                     <div className="w-2 h-2 bg-green-400 rounded-full mr-3"></div>
                     Mini-Grid Systems
                   </h3>
-                  <p className="text-gray-300 leading-relaxed">
+                  <p className="text-zinc-300 leading-relaxed">
                     Comprehensive off-grid solutions for rural electrification
                     projects.
                   </p>
@@ -207,7 +207,7 @@ export function CompanySection() {
                     <div className="w-2 h-2 bg-purple-400 rounded-full mr-3"></div>
                     Energy Storage
                   </h3>
-                  <p className="text-gray-300 leading-relaxed">
+                  <p className="text-zinc-300 leading-relaxed">
                     Cutting-edge battery technology for reliable power
                     management.
                   </p>
