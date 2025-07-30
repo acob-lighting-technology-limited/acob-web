@@ -74,7 +74,7 @@ export function ServicesSection() {
             />
 
             <div className="flex flex-col sm:flex-row gap-4">
-              <Button className="bg-primary dark:bg-primary-dark text-lg hover:bg-primary-dark text-white px-8 py-6 transition-colors duration-700">
+              <Button className="bg-primary dark:bg-primary text-lg hover:bg-primary text-white px-8 py-6 transition-colors duration-700">
                 Read More
                 <ArrowRight className="ml-2 h-4 w-4" />
               </Button>
@@ -141,7 +141,7 @@ export function ServicesSection() {
                     </div>
                   </CardContent>
                   {/* Green accent line at bottom */}
-                  <div className="!ml-0 !pl-0 absolute bottom-0 group-hover:h-2 h-1 w-full bg-primary dark:bg-primary-dark transition-all duration-700 ease-in-out"></div>{" "}
+                  <div className="!ml-0 !pl-0 absolute bottom-0 group-hover:h-2 h-1 w-full bg-primary dark:bg-primary transition-all duration-700 ease-in-out"></div>{" "}
                   {/* <div className="absolute bottom-0 left-0 right-0 h-1 group-hover:!h-6 bg-primary"></div> */}
                 </Card>
               </CarouselItem>
@@ -160,7 +160,7 @@ export function ServicesSection() {
               disabled={isTransitioning}
               className={`transition-all duration-500 rounded-full cursor-pointer hover:opacity-80 disabled:cursor-not-allowed ${
                 currentSlide === index
-                  ? "w-8 h-1.5 bg-primary dark:bg-primary-dark shadow-lg"
+                  ? "w-8 h-1.5 bg-primary dark:bg-primary shadow-lg"
                   : "w-6 h-1 bg-zinc-400 hover:bg-zinc-600 hover:w-7"
               }`}
             />

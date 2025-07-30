@@ -4,8 +4,7 @@
 
 @layer base {
   :root {
-    --primary: 120 100% 30%; /* #08913f converted to HSL */
-    --primary-dark: 138 95% 20%; /* #046524 in HSL */
+    --primary: 120 100% 30%;
     --primary-foreground: 0 0% 100%;
     --secondary: 214 32% 91%;
     --secondary-foreground: 222 84% 5%;
@@ -28,8 +27,7 @@
   }
 
   .dark {
-    --primary: var(--primary-dark);
-    --primary-dark: 138 95% 20%; /* #046524 in HSL */
+    --primary: 138 95% 20%;
     --primary-foreground: 0 0% 100%;
     --secondary: 240 5% 20%; /* zinc-800 */
     --secondary-foreground: 210 40% 98%;
@@ -67,6 +65,9 @@
 
 ::-webkit-scrollbar-track {
   background-color: #f1f5f9;
+}
+.dark ::-webkit-scrollbar-track {
+  background-color: #09090b; /* zinc-950 */
 }
 
 ::-webkit-scrollbar-thumb {
@@ -117,4 +118,3 @@
 .animate-smooth-zoom {
   animation: smoothZoom 12s ease-out infinite alternate;
 }
-

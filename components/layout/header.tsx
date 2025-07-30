@@ -505,7 +505,7 @@ export function Header() {
 
             {/* Desktop CTA */}
             <div className="hidden lg:flex items-center space-x-4">
-              <button className="bg-primary hover:bg-primary-dark text-white font-medium py-2 px-4 rounded-lg transition-all duration-200 hover:shadow-lg hover:scale-105 flex items-center">
+              <button className="bg-primary hover:bg-primary text-white font-medium py-2 px-4 rounded-lg transition-all duration-200 hover:shadow-lg hover:scale-105 flex items-center">
                 <Phone className="mr-2 h-4 w-4" />
                 Get Quote
               </button>

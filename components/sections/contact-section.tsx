@@ -222,7 +222,7 @@ export function ContactSection() {
   };
 
   return (
-    <section className="py-16 bg-primary text-white dark:bg-primary-dark dark:text-white transition-colors duration-700">
+    <section className="py-16 bg-primary text-white dark:bg-primary dark:text-white transition-colors duration-700">
       <Container className="px-4">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
           <div>

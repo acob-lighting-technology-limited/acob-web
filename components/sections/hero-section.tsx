@@ -217,7 +217,7 @@ export function HeroSection() {
               <Button
                 size="lg"
                 variant="outline"
-                className={`border-white text-white hover:bg-white text-lg py-6 hover:text-black bg-transparent transition-all duration-1000 ease-out hover:scale-105 ${
+                className={`border-white text-white dark:border-black dark:bg-black/60 hover:bg-white text-lg py-6 hover:text-black bg-transparent transition-all duration-1000 ease-out hover:scale-105 ${
                   showContent
                     ? "transform translate-x-0 opacity-100 blur-0"
                     : "transform translate-x-full opacity-0 "
