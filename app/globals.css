@@ -3,118 +3,121 @@
 @tailwind utilities;
 
 @layer base {
-  :root {
-    --primary: 120 100% 30%;
-    --primary-foreground: 0 0% 100%;
-    --secondary: 214 32% 91%;
-    --secondary-foreground: 222 84% 5%;
-    --muted: 210 40% 98%;
-    --muted-foreground: 215 16% 47%;
-    --accent: 210 40% 96%;
-    --accent-foreground: 222 84% 5%;
-    --destructive: 0 84% 60%;
-    --destructive-foreground: 0 0% 100%;
-    --border: 214 32% 91%;
-    --input: 0 0% 100%;
-    --ring: 142 76% 36%;
-    --background: 0 0% 100%;
-    --foreground: 222 84% 5%;
-    --card: 0 0% 100%;
-    --card-foreground: 222 84% 5%;
-    --popover: 0 0% 100%;
-    --popover-foreground: 222 84% 5%;
-    --radius: 0.5rem;
-  }
+ :root {
+   --primary: 120 100% 30%; /* green-700 */
+   --primary-foreground: 0 0% 100%; /* white */
+   --secondary: 214 32% 91%; /* blue-100 */
+   --secondary-foreground: 240 5% 4%; /* zinc-950 */
+   --muted: 240 4% 96%; /* zinc-50 */
+   --muted-foreground: 240 4% 46%; /* zinc-500 */
+   --accent: 240 5% 96%; /* zinc-100 */
+   --accent-foreground: 240 5% 4%; /* zinc-950 */
+   --destructive: 0 84% 60%; /* red-500 */
+   --destructive-foreground: 0 0% 100%; /* white */
+   --border: 214 32% 91%; /* blue-100 */
+   --input: 0 0% 100%; /* white */
+   --ring: 142 76% 36%; /* green-600 */
+   --background: 0 0% 100%; /* white */
+   --foreground: 240 5% 4%; /* zinc-950 */
+   --foreground-2: 240 13% 70%; /* zinc-300 */
+   --card: 0 0% 100%; /* white */
+   --card-foreground: 240 5% 4%; /* zinc-950 */
+   --popover: 0 0% 100%; /* white */
+   --popover-foreground: 240 5% 4%; /* zinc-950 */
+   --radius: 0.5rem;
+ }
 
-  .dark {
-    --primary: 138 95% 20%;
-    --primary-foreground: 0 0% 100%;
-    --secondary: 240 5% 20%; /* zinc-800 */
-    --secondary-foreground: 210 40% 98%;
-    --muted: 240 5% 16%; /* zinc-900 */
-    --muted-foreground: 215 20% 65%;
-    --accent: 240 5% 26%; /* zinc-700 */
-    --accent-foreground: 210 40% 98%;
-    --destructive: 0 63% 31%;
-    --destructive-foreground: 210 40% 98%;
-    --border: 240 5% 26%; /* zinc-700 */
-    --input: 240 5% 16%; /* zinc-900 */
-    --ring: 142 76% 36%;
-    --background: 240 6% 10%; /* zinc-950 */
-    --foreground: 210 40% 98%;
-    --card: 240 6% 10%; /* zinc-950 */
-    --card-foreground: 210 40% 98%;
-    --popover: 240 6% 10%; /* zinc-950 */
-    --popover-foreground: 210 40% 98%;
-  }
+ .dark {
+   --primary: 138 95% 20%; /* green-800 */
+   --primary-foreground: 0 0% 100%; /* white */
+   --secondary: 240 5% 20%; /* zinc-800 */
+   --secondary-foreground: 240 4% 96%; /* zinc-50 */
+   --muted: 240 5% 16%; /* zinc-900 */
+   --muted-foreground: 240 5% 64%; /* zinc-400 */
+   --accent: 240 5% 26%; /* zinc-700 */
+   --accent-foreground: 240 4% 96%; /* zinc-50 */
+   --destructive: 0 63% 31%; /* red-800 */
+   --destructive-foreground: 240 4% 96%; /* zinc-50 */
+   --border: 240 13% 70%; /* zinc-300 */
+   --input: 240 5% 16%; /* zinc-900 */
+   --ring: 142 76% 36%; /* green-600 */
+   --background: 240 5% 4%; /* zinc-950 */
+   --foreground: 240 4% 96%; /* zinc-400 */
+   --foreground-2: 240 5% 64%; /* zinc-400 */
+   --card: 240 5% 11%; /* zinc-900 */
+   --card-foreground: 240 4% 96%; /* zinc-50 */
+   --popover: 240 6% 10%; /* zinc-950 */
+   --popover-foreground: 240 4% 96%; /* zinc-50 */
+ }
 }
 
 @layer base {
-  * {
-    @apply border-border;
-  }
-  body {
-    @apply bg-background text-foreground;
-  }
+ * {
+   @apply border-border;
+ }
+ body {
+   @apply bg-background text-foreground;
+ }
 }
 
 /* Custom scrollbar */
 ::-webkit-scrollbar {
-  width: 4px;
+ width: 4px;
 }
 
 ::-webkit-scrollbar-track {
-  background-color: #f1f5f9;
+ background-color: #f4f4f5; /* zinc-100 */
 }
 .dark ::-webkit-scrollbar-track {
-  background-color: #09090b; /* zinc-950 */
+ background-color: #09090b; /* zinc-950 */
 }
 
 ::-webkit-scrollbar-thumb {
-  background-color: #cbd5e1;
-  border-radius: 9999px;
+ background-color: #d4d4d8; /* zinc-300 */
+ border-radius: 9999px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background-color: #94a3b8;
+ background-color: #a1a1aa; /* zinc-400 */
 }
 
 /* Custom animations */
 @keyframes smoothZoom {
-  0% {
-    transform: scale(1);
-  }
-  100% {
-    transform: scale(1.08);
-  }
+ 0% {
+   transform: scale(1);
+ }
+ 100% {
+   transform: scale(1.08);
+ }
 }
 
 @keyframes accordion-down {
-  from {
-    height: 0;
-  }
-  to {
-    height: var(--radix-accordion-content-height);
-  }
+ from {
+   height: 0;
+ }
+ to {
+   height: var(--radix-accordion-content-height);
+ }
 }
 
 @keyframes accordion-up {
-  from {
-    height: var(--radix-accordion-content-height);
-  }
-  to {
-    height: 0;
-  }
+ from {
+   height: var(--radix-accordion-content-height);
+ }
+ to {
+   height: 0;
+ }
 }
 
 .animate-accordion-down {
-  animation: accordion-down 0.2s ease-out;
+ animation: accordion-down 0.2s ease-out;
 }
 
 .animate-accordion-up {
-  animation: accordion-up 0.2s ease-out;
+ animation: accordion-up 0.2s ease-out;
 }
 
 .animate-smooth-zoom {
-  animation: smoothZoom 12s ease-out infinite alternate;
+ animation: smoothZoom 12s ease-out infinite alternate;
 }
+

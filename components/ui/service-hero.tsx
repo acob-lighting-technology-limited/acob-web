@@ -4,14 +4,14 @@ import { ArrowRight, Phone } from "lucide-react"
 
 interface ServiceHeroProps {
   title: string
-  description: string
+  // description: string
   backgroundImage: string
   className?: string
 }
 
-export function ServiceHero({ title, description, backgroundImage, className = "" }: ServiceHeroProps) {
+export function ServiceHero({ title, backgroundImage, className = "" }: ServiceHeroProps) {
   return (
-    <section className={`relative h-[400px] flex items-center justify-center ${className}`}>
+    <section className={`relative h-[400px] flex items-end justify-left w-full ${className}`}>
       {/* Background Image */}
       <div
         className="absolute inset-0 bg-cover bg-center bg-no-repeat"
@@ -25,7 +25,7 @@ export function ServiceHero({ title, description, backgroundImage, className = "
       <Container className="relative z-10 px-4">
         <div className="max-w-4xl text-white">
           <h1 className="text-4xl md:text-6xl font-bold mb-6 leading-tight">{title}</h1>
-          <p className="text-lg md:text-xl opacity-90 mb-8 max-w-3xl leading-relaxed">{description}</p>
+          {/* <p className="text-lg md:text-xl opacity-90 mb-8 max-w-3xl leading-relaxed">{description}</p> */}
 
           {/* Action Buttons */}
           <div className="flex flex-col sm:flex-row gap-4">

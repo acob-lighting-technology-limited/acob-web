@@ -4,7 +4,7 @@ import { PageHero } from "@/components/ui/page-hero";
 import { Breadcrumb } from "@/components/ui/breadcrumb";
 import { Card, CardContent } from "@/components/ui/card";
 import { MaskText } from "@/components/animations/MaskText";
-import { Lightbulb, Zap, Sun } from "lucide-react";
+import { Lightbulb, Zap, Sun, Phone, Settings, Leaf } from "lucide-react";
 
 export default function OurStoryPage() {
   const breadcrumbItems = [
@@ -40,9 +40,10 @@ export default function OurStoryPage() {
   ];
 
   const sidebarLinks = [
-    { label: "Mission & Vision", href: "/about/mission" },
-    { label: "Meet Our Team", href: "/about/team" },
-    { label: "Certifications", href: "/about/certifications" },
+    { label: "Our Story", href: "/about/our-story", isActive: true },
+    { label: "Mission & Vision", href: "/about/mission", isActive: false },
+    { label: "Meet Our Team", href: "/about/team", isActive: false },
+    { label: "Certifications", href: "/about/certifications", isActive: false },
   ];
 
   return (
@@ -52,7 +53,7 @@ export default function OurStoryPage() {
         backgroundImage="/images/about/our-story-hero.jpg?height=400&width=1200"
       />
 
-      <Container className="px-4 py-8 bg-gray-50">
+      <Container>
         <Breadcrumb items={breadcrumbItems} className="mb-8" />
 
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-12 items-start">
@@ -111,24 +112,65 @@ export default function OurStoryPage() {
           </div>
 
           {/* Sidebar */}
-          <div className="space-y-6 sticky top-20 self-start">
-            <Card className="bg-primary text-white border shadow-md border-primary">
-              <CardContent className="p-6">
-                <h3 className="font-semibold mb-4">More About Us</h3>
-                <ul className="space-y-2">
-                  {sidebarLinks.map((link, idx) => (
-                    <li key={idx}>
-                      <Link
-                        href={link.href}
-                        className="flex justify-between items-center text-gray-50 hover:text-white transition-colors duration-200"
-                      >
-                        {link.label}
-                      </Link>
-                    </li>
-                  ))}
-                </ul>
-              </CardContent>
-            </Card>
+          <div className="space-y-6 sticky top-20 self-start ">
+            <div className="bg-zinc-200 p-6 rounded-lg  border-t-4 border-t-primary">
+              {/* <h3 className="text-2xl font-bold text-black mb-6">More About Us</h3> */}
+              <div className="space-y-3">
+                {sidebarLinks.map((link, idx) => (
+                  <Link
+                    key={idx}
+                    href={link.href}
+                    className={`
+                      block p-4 rounded-lg flex items-center justify-between transition-colors duration-200
+                      ${link.isActive ? "bg-primary text-white" : "bg-white text-black hover:bg-gren-300 hover:text-foreground"}
+                    `}
+                  >
+                    <span className="font-semibold text-lg">{link.label}</span>
+                    {link.isActive && (
+                      <div className="w-6 h-6 bg-white rounded-full flex-shrink-0"></div>
+                    )}
+                  </Link>
+                ))}
+              </div>
+            </div>
+            {/* Call to Action Widget */}
+            <div className="bg-primary aspect-[3/4] p-8 rounded-lg text-white text-center">
+              {/* Icon */}
+              <div className="mb-6 flex justify-center">
+                <div className="relative">
+                  <Settings
+                    className="w-16 h-16 text-white"
+                    strokeWidth={1.5}
+                  />
+                  <div className="absolute inset-0 flex items-center justify-center">
+                    <Leaf className="w-8 h-8 text-white" strokeWidth={2} />
+                  </div>
+                </div>
+              </div>
+
+              {/* Text */}
+              <p className="text-lg mb-8 leading-relaxed">
+                As a world wide distributor of supplies we endeavor provide fast
+                and knowledgeable service, we can get all the materials.
+              </p>
+
+              {/* Button */}
+              <Link
+                href="/contact/get-quote"
+                className="inline-block border-2 border-white text-white px-8 py-3 rounded-lg font-semibold text-lg hover:bg-white hover:text-green-500 transition-colors duration-200 mb-8"
+              >
+                Schedule An Appointment
+              </Link>
+
+              {/* Phone Numbers */}
+              <div className="flex items-center justify-center space-x-2 text-xl font-semibold">
+                <Phone className="w-6 h-6" />
+                <div>
+                  <div>0704 920 2634,</div>
+                  <div>0803 290 2825</div>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </Container>

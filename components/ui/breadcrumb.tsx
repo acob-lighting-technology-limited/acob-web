@@ -26,7 +26,7 @@ const Breadcrumb = React.forwardRef<HTMLElement, React.ComponentPropsWithoutRef<
               {item.label}
             </Link>
           ) : (
-            <span className="text-gray-900 font-medium">{item.label}</span>
+            <span className="text-foreground-2 font-medium">{item.label}</span>
           )}
         </div>
       ))}

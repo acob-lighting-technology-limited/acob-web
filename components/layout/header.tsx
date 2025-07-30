@@ -100,42 +100,42 @@ const navigationItems: NavigationItem[] = [
       },
     ],
   },
-  {
-    name: "Products",
-    href: "/products",
-    subItems: [
-      {
-        name: "Solar Panels",
-        href: "/products/solar-panels",
-        description: "High-efficiency photovoltaic panels",
-        icon: "https://www.svgrepo.com/download/533289/sun.svg",
-      },
-      {
-        name: "Inverters",
-        href: "/products/inverters",
-        description: "Power conversion systems",
-        icon: "https://www.svgrepo.com/download/533263/cpu.svg",
-      },
-      {
-        name: "Batteries",
-        href: "/products/batteries",
-        description: "Energy storage solutions",
-        icon: "https://www.svgrepo.com/download/533252/battery.svg",
-      },
-      {
-        name: "Accessories",
-        href: "/products/accessories",
-        description: "Supporting components and tools",
-        icon: "https://www.svgrepo.com/download/533283/plug.svg",
-      },
-      {
-        name: "Complete Systems",
-        href: "/products/systems",
-        description: "Integrated solar power solutions",
-        icon: "https://www.svgrepo.com/download/533258/layers.svg",
-      },
-    ],
-  },
+  // {
+  //   name: "Products",
+  //   href: "/products",
+  //   subItems: [
+  //     {
+  //       name: "Solar Panels",
+  //       href: "/products/solar-panels",
+  //       description: "High-efficiency photovoltaic panels",
+  //       icon: "https://www.svgrepo.com/download/533289/sun.svg",
+  //     },
+  //     {
+  //       name: "Inverters",
+  //       href: "/products/inverters",
+  //       description: "Power conversion systems",
+  //       icon: "https://www.svgrepo.com/download/533263/cpu.svg",
+  //     },
+  //     {
+  //       name: "Batteries",
+  //       href: "/products/batteries",
+  //       description: "Energy storage solutions",
+  //       icon: "https://www.svgrepo.com/download/533252/battery.svg",
+  //     },
+  //     {
+  //       name: "Accessories",
+  //       href: "/products/accessories",
+  //       description: "Supporting components and tools",
+  //       icon: "https://www.svgrepo.com/download/533283/plug.svg",
+  //     },
+  //     {
+  //       name: "Complete Systems",
+  //       href: "/products/systems",
+  //       description: "Integrated solar power solutions",
+  //       icon: "https://www.svgrepo.com/download/533258/layers.svg",
+  //     },
+  //   ],
+  // },
   {
     name: "Projects",
     href: "/projects",
@@ -262,23 +262,27 @@ const DropdownMenu: React.FC<DropdownMenuProps> = ({
                 animationFillMode: "both",
               }}
             >
-              <div className="flex flex-col items-start ">
+              <div className="flex gap-2 items-start ">
                 {/* Icon Container */}
                 <div className="mt-1 gap-2 ">
-                  <Image
-                    src={subItem.icon}
-                    alt={`${subItem.name} Icon`}
-                    width={32}
-                    height={32}
-                    className="transition-transform duration-200 group-hover:scale-110"
-                  />
+                  <div className="w-8 h-8 bg-zinc-200 dark:bg-zinc-600 group-hover:bg-primary transition-colors duration-200 rounded p-1">
+                    <Image
+                      src={subItem.icon}
+                      alt={`${subItem.name} Icon`}
+                      width={32}
+                      height={32}
+                      className="w-full h-full object-contain"
+                    />
+                  </div>
+                </div>
+                <div>
+                  {" "}
                   <div className="font-medium  dark:text-zinc-300 text-zinc-900 group-hover:text-primary transition-colors duration-200 break-words">
                     {subItem.name}
                   </div>
-                </div>
-
-                <div className="text-sm text-left text-zinc-500 mt-1 group-hover:text-zinc-700 transition-colors duration-200 break-words">
-                  {subItem.description}
+                  <div className="text-sm text-left text-zinc-500 mt-1 group-hover:text-zinc-700 transition-colors duration-200 break-words">
+                    {subItem.description}
+                  </div>
                 </div>
               </div>
             </Link>
@@ -399,10 +403,13 @@ const MobileMenu: React.FC<MobileMenuProps> = ({ isOpen, onClose }) => {
           </nav>
 
           <div className="mt-8 pt-8 border-t">
-            <button className="w-full bg-primary hover:bg-primary/90 text-white font-medium py-3 px-4 rounded-lg transition-all duration-200 hover:shadow-lg hover:scale-105 flex items-center justify-center">
+            <Link
+              href="/contact/quote"
+              className="w-full bg-primary hover:bg-primary/90 text-white font-medium py-3 px-4 rounded-lg transition-all duration-200 hover:shadow-lg hover:scale-105 flex items-center justify-center"
+            >
               <Phone className="mr-2 h-4 w-4" />
               Get Quote
-            </button>
+            </Link>
           </div>
           <div className="mt-6 flex justify-center">
             <ThemeToggle />
@@ -446,7 +453,7 @@ export function Header() {
   };
 
   const logoSrc =
-    theme === "dark" ? "/images/ACOB-logo.png" : "/images/ACOB.png";
+    mounted && theme === "dark" ? "/images/ACOB-logo.png" : "/images/ACOB.png";
   return (
     <>
       <header
@@ -505,10 +512,12 @@ export function Header() {
 
             {/* Desktop CTA */}
             <div className="hidden lg:flex items-center space-x-4">
-              <button className="bg-primary hover:bg-primary text-white font-medium py-2 px-4 rounded-lg transition-all duration-200 hover:shadow-lg hover:scale-105 flex items-center">
-                <Phone className="mr-2 h-4 w-4" />
-                Get Quote
-              </button>
+              <Link href="/contact/quote">
+                <button className="bg-primary hover:bg-primary text-white font-medium py-2 px-4 rounded-lg transition-all duration-200 hover:shadow-lg hover:scale-105 flex items-center">
+                  <Phone className="mr-2 h-4 w-4" />
+                  Get Quote
+                </button>
+              </Link>
               <ThemeToggle />
             </div>
 

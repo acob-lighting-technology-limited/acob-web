@@ -53,10 +53,10 @@ export default function AboutPage() {
         <Breadcrumb items={breadcrumbItems} className="mb-8" />
 
         <div className="text-center mb-12">
-          <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
+          <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">
             <MaskText phrases={["Our Commitment to a Brighter Future"]} />
           </h2>
-          <p className="text-lg text-gray-600 max-w-3xl mx-auto">
+          <p className="text-lg text-foreground-2 max-w-3xl mx-auto">
             At ACOB Lighting, we are more than just an energy company; we are pioneers in sustainable development,
             dedicated to illuminating lives across Nigeria with innovative solar solutions.
           </p>
@@ -74,8 +74,8 @@ export default function AboutPage() {
                   />
                 </div>
                 <CardContent className="p-6 flex flex-col flex-1">
-                  <h3 className="text-xl font-bold mb-3 text-gray-900">{section.title}</h3>
-                  <p className="text-gray-600 text-sm leading-relaxed mb-4 flex-1">{section.description}</p>
+                  <h3 className="text-xl font-bold mb-3 text-foreground">{section.title}</h3>
+                  <p className="text-foreground-2 text-sm leading-relaxed mb-4 flex-1">{section.description}</p>
                   <Button
                     variant="link"
                     className="text-primary hover:text-primary/80 p-0 h-auto justify-start mt-auto"

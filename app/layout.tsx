@@ -38,7 +38,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${inter.className} antialiased bg-white selection:bg-primary selection:text-white`}
+        className={`${inter.className} antialiased bg-background text-foreground selection:bg-primary selection:text-white`}
       >
         <Providers>
           <Toaster closeButton position="top-right" />

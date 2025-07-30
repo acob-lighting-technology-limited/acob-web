@@ -1,43 +1,50 @@
-import { Breadcrumb } from "@/components/ui/breadcrumb"
-import { Container } from "@/components/ui/container"
-import { Card, CardContent } from "@/components/ui/card"
-import { Button } from "@/components/ui/button"
-import { ArrowRight, CheckCircle } from "lucide-react"
-import { notFound } from "next/navigation"
-import { getServiceBySlug, servicesData } from "@/lib/data/services"
-import { ServiceHero } from "@/components/ui/service-hero"
-
+import { Breadcrumb } from "@/components/ui/breadcrumb";
+import { Container } from "@/components/ui/container";
+import { Card, CardContent } from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
+import { CheckCircle, Settings, Leaf, Phone } from "lucide-react";
+import { notFound } from "next/navigation";
+import { getServiceBySlug, servicesData } from "@/lib/data/services";
+import { ServiceHero } from "@/components/ui/service-hero";
+import Link from "next/link";
+import { PageHero } from "@/components/ui/page-hero";
 
 interface ServicePageProps {
   params: {
-    slug: string
-  }
+    slug: string;
+  };
 }
 
 export async function generateStaticParams() {
   return servicesData.map((service) => ({
     slug: service.slug,
-  }))
+  }));
 }
 
 export default function ServicePage({ params }: ServicePageProps) {
-  const service = getServiceBySlug(params.slug)
+  const service = getServiceBySlug(params.slug);
 
   if (!service) {
-    notFound()
+    notFound();
   }
 
   const breadcrumbItems = [
     { label: "Home", href: "/" },
     { label: "Services", href: "/services" },
     { label: service.title },
-  ]
+  ];
+
+  // Create sidebar links with current service marked as active
+  const sidebarLinks = servicesData.map((s) => ({
+    label: s.title,
+    href: `/services/${s.slug}`,
+    isActive: s.slug === params.slug,
+  }));
 
   return (
     <>
-      <ServiceHero title={service.title} description={service.fullDescription} backgroundImage={service.image} />
-
-      <Container className="px-4 py-8 relative bg-gray-50">
+      <PageHero title={service.title} backgroundImage={service.image} />
+      <Container className="px-4 py-8 relative">
         <Breadcrumb items={breadcrumbItems} className="mb-8" />
 
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 items-start">
@@ -47,18 +54,23 @@ export default function ServicePage({ params }: ServicePageProps) {
             <Card className="border shadow-md border-gray-200 bg-white">
               <CardContent className="p-8">
                 <h2 className="text-3xl font-bold mb-6">Overview</h2>
-                <p className="text-gray-600 leading-relaxed text-lg">{service.fullDescription}</p>
+                <p className="text-gray-600 leading-relaxed text-lg">
+                  {service.fullDescription}
+                </p>
               </CardContent>
             </Card>
 
             {/* Gallery */}
             {service.gallery.length > 0 && (
-             <Card className="border shadow-md border-gray-200 bg-white">
+              <Card className="border shadow-md border-gray-200 bg-white">
                 <CardContent className="p-8">
                   <h2 className="text-3xl font-bold mb-6">Project Gallery</h2>
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                     {service.gallery.map((image, index) => (
-                      <div key={index} className="aspect-[4/3] overflow-hidden rounded-lg">
+                      <div
+                        key={index}
+                        className="aspect-[4/3] overflow-hidden rounded-lg"
+                      >
                         <img
                           src={image || "/placeholder.svg"}
                           alt={`${service.title} project ${index + 1}`}
@@ -119,20 +131,58 @@ export default function ServicePage({ params }: ServicePageProps) {
 
           {/* Sidebar */}
           <div className="space-y-6 sticky top-20 self-start">
-            {/* Quick Contact */}
-            <Card className="bg-primary text-white border shadow-md border-gray-200 bg-primary">
-              <CardContent className="p-6">
-                <h3 className="font-semibold mb-4">Get a Quote</h3>
-                <p className="text-sm opacity-90 mb-4">Ready to get started? Contact us for a personalized quote.</p>
+            {/* Services Navigation */}
+            <div className="bg-green-100 p-6 rounded-lg">
+              <h3 className="text-2xl font-bold text-black mb-6">
+                Our Services
+              </h3>
+              <div className="space-y-3">
+                {sidebarLinks.map((link, idx) => (
+                  <Link
+                    key={idx}
+                    href={link.href}
+                    className={`
+                      block p-4 rounded-lg flex items-center justify-between transition-colors duration-200
+                      ${link.isActive ? "bg-green-600 text-white" : "bg-white text-black hover:bg-gray-50"}
+                    `}
+                  >
+                    <span className="font-semibold text-lg">{link.label}</span>
+                    {link.isActive && (
+                      <div className="w-6 h-6 bg-white rounded-full flex-shrink-0"></div>
+                    )}
+                  </Link>
+                ))}
+              </div>
+            </div>
+
+            {/* Call to Action Widget */}
+            <div className="bg-green-500 p-6 rounded-lg text-white">
+              <div className="flex justify-center mb-4">
+                <div className="relative">
+                  <Settings className="h-12 w-12 text-white" />
+                  <Leaf className="h-6 w-6 text-white absolute top-3 left-3" />
+                </div>
+              </div>
+              <p className="text-white text-center mb-6 leading-relaxed">
+                As a world wide distributor of supplies we endeavor provide fast
+                and knowledgeable service, we can get all the materials.
+              </p>
+              <Link href="/contact/get-quote">
                 <Button
                   variant="outline"
-                  className="w-full border-white text-white hover:bg-white hover:text-primary bg-transparent"
+                  className="w-full border-white text-white hover:bg-white hover:text-green-500 bg-transparent mb-6"
                 >
-                  Request Quote
-                  <ArrowRight className="ml-2 h-4 w-4" />
+                  Schedule An Appointment
                 </Button>
-              </CardContent>
-            </Card>
+              </Link>
+              <div className="flex items-center justify-center space-x-2 text-white">
+                <Phone className="h-5 w-5" />
+                <div className="text-center">
+                  <div>0704 920 2634,</div>
+                  <div>0803 290 2825</div>
+                </div>
+              </div>
+            </div>
 
             {/* Service Benefits */}
             <Card className="border shadow-md border-gray-200 bg-white">
@@ -148,31 +198,9 @@ export default function ServicePage({ params }: ServicePageProps) {
                 </ul>
               </CardContent>
             </Card>
-
-            {/* Related Services */}
-            <Card className="border shadow-md border-gray-200 bg-white">
-              <CardContent className="p-6">
-                <h3 className="font-semibold mb-4">Related Services</h3>
-                <div className="space-y-3">
-                  {servicesData
-                    .filter((s) => s.id !== service.id)
-                    .slice(0, 3)
-                    .map((relatedService) => (
-                      <div key={relatedService.id}>
-                        <a
-                          href={`/services/${relatedService.slug}`}
-                          className="text-sm text-gray-600 hover:text-primary transition-colors duration-200"
-                        >
-                          {relatedService.title}
-                        </a>
-                      </div>
-                    ))}
-                </div>
-              </CardContent>
-            </Card>
           </div>
         </div>
       </Container>
     </>
-  )
+  );
 }
