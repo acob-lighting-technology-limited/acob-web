@@ -73,7 +73,7 @@ export default function AboutPage() {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
           {aboutSections.map((section, index) => (
             <Link key={section.href} href={section.href}>
-              <Card className="overflow-hidden border-0 custom-shadow shadow-none p-0 hover:shadow-lg transition-shadow duration-300 h-full flex flex-col bg-surface">
+              <Card className="overflow-hidden shadow-lg border-[1px] border-border p-0 hover:shadow-lg transition-shadow duration-300 h-full flex flex-col bg-surface">
                 <div className="aspect-[4/3] overflow-hidden">
                   <img
                     src={section.image || "/placeholder.svg"}

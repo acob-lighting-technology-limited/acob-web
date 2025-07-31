@@ -164,8 +164,8 @@ export function HeroSection() {
       </button>
 
       {/* Content with smooth animations */}
-              <div className="relative z-10 2xl:max-w-6xl text-primary-foreground h-full flex items-end pb-12 min-h-[700px] w-full">
-        <Container className="2xl:px-8">
+              <div className="relative z-10 2xl:max-w-6xl text-primary-foreground h-full flex items-end p-12 min-h-[700px] w-full">
+        <div className="2xl:px-8 max-w-7xl ">
           <div className="w-full max-w-4xl">
             {/* Animated Title */}
             <div className="overflow-hidden mb-6">
@@ -217,7 +217,7 @@ export function HeroSection() {
               <Button
                 size="lg"
                 variant="outline"
-                className={`border-primary-foreground text-primary-foreground dark:border-foreground dark:bg-foreground/60 hover:bg-primary-foreground text-lg py-6 hover:text-primary bg-transparent transition-all duration-1000 ease-out hover:scale-105 ${
+                className={`border-primary-foreground text-primary-foreground dark:border-foreground dark:bg-foreground/10 hover:bg-primary-foreground text-lg py-6 hover:text-primary bg-transparent transition-all duration-1000 ease-out hover:scale-105 ${
                   showContent
                     ? "transform translate-x-0 opacity-100 blur-0"
                     : "transform translate-x-full opacity-0 "
@@ -243,7 +243,7 @@ export function HeroSection() {
               ))}
             </div>
           </div>
-        </Container>
+        </div>
       </div>
 
       {/* Custom CSS for iPhone-style Ken Burns effect */}

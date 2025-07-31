@@ -7,6 +7,7 @@ import Image from "next/image";
 import { Menu, Phone, ChevronDown, X } from "lucide-react";
 import { ThemeToggle } from "@/components/ui/theme-toggle";
 import { useTheme } from "next-themes";
+import { Container } from "../ui/container";
 
 // Types
 interface SubItem {
@@ -263,7 +264,7 @@ const DropdownMenu: React.FC<DropdownMenuProps> = ({
               }}
             >
               <div className="flex gap-2 items-start ">
-                {/* Icon Container */}
+          
                 <div className="mt-1 gap-2 ">
                   <div className="w-8 h-8 bg-muted dark:bg-muted group-hover:bg-primary transition-colors duration-200 rounded p-1">
                     <Image
@@ -452,23 +453,22 @@ export function Header() {
     setActiveDropdown(null);
   };
 
-  const logoSrc =
-    mounted && theme === "dark" ? "/images/ACOB-logo.png" : "/images/ACOB.png";
+  const logoSrc = theme === "dark" ? "/images/ACOB-logo.png" : "/images/ACOB.png";
   return (
     <>
       <header
         className={`
         sticky top-0 z-40 w-full transition-all duration-500 ease-out
-        bg-background/95 backdrop-blur-sm border-b border-border/30
+        bg-background/95 backdrop-blur-sm border-b-[2px] border-border
         dark:bg-black transition-colors duration-700
         ${
           isScrolled
                     ? "bg-background/75 backdrop-blur-3xl shadow-lg border-b-[1px] border-border dark:bg-background"
-        : "bg-background/95 backdrop-blur-sm border-b border-border/30 dark:bg-background"
+        : "bg-background/95 backdrop-blur-sm border-b border-border dark:bg-background"
         }
       `}
       >
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <Container noPadding className="px-4">
           <div className="flex items-center justify-between h-16">
             {/* Logo */}
             <Link href="/" className="flex items-center space-x-2 group">
@@ -529,7 +529,7 @@ export function Header() {
               <Menu className="h-6 w-6" />
             </button>
           </div>
-        </div>
+        </Container>
       </header>
 
       {/* Mobile Menu */}

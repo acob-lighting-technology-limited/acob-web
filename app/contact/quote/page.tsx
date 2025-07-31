@@ -23,7 +23,7 @@ export default function GetQuotePage() {
         />
       </PageHero>
 
-      <Container className="px-4 py-8">
+      <Container className="px-4 py-8 ">
         <Breadcrumb items={breadcrumbItems} className="mb-8" />
         {/* Reusing the existing ContactSection component */}
         <ContactSection />

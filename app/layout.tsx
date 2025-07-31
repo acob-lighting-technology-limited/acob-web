@@ -38,13 +38,13 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${inter.className} antialiased bg-background text-foreground selection:bg-primary selection:text-white`}
+        className={`${inter.className} antialiased bg-background text-foreground selection:bg-primary selection:text-primary-foreground transition-colors duration-700`}
       >
         <Providers>
           <Toaster closeButton position="top-right" />
           <div className="flex min-h-screen flex-col w-full">
             <Header />
-            <main className="flex-1 border-b border-b-border/50">{children}</main>
+            <main className="flex-1 border-b border-b-border">{children}</main>
          
             <Footer />
 

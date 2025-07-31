@@ -240,7 +240,7 @@ export function ChatBot() {
               animate={{ opacity: 1, scale: 1, y: 0 }}
               exit={{ opacity: 0, scale: 0.95, y: 20 }}
               transition={{ duration: 0.3, ease: "easeOut" }}
-              className="fixed bottom-4 right-4 w-full sm:w-[380px] h-[calc(100vh-4rem)] sm:h-[80vh] max-h-[600px] rounded-lg overflow-hidden shadow-2xl bg-[#e5e7eb]  flex flex-col z-50 transition-colors duration-700 dark:border-[1px] border-zinc-700"
+              className="fixed bottom-4 right-4 w-full sm:w-[380px] h-[calc(100vh-4rem)] sm:h-[80vh] max-h-[600px] rounded-lg overflow-hidden shadow-2xl dark:bg-[#27272a] bg-[#e5e7eb]  flex flex-col z-50 transition-colors duration-700 dark:border-[1px] border-zinc-700"
               onTouchStart={(e) => e.stopPropagation()}
               onTouchMove={(e) => e.stopPropagation()}
             >
@@ -440,7 +440,7 @@ export function ChatBot() {
 
               {/* Suggested Messages */}
               {displayMessages.length === 0 && (
-                <div className="px-4 py-2 bg-[#e5e7eb] dark:bg-zinc-800">
+                <div className="px-4 py-2 bg-transparent">
                   <div className="flex flex-wrap gap-2">
                     {suggestedMessages.map((msg, index) => (
                       <motion.div
@@ -453,7 +453,7 @@ export function ChatBot() {
                           variant="outline"
                           size="sm"
                           onClick={() => handleQuickReply(msg)}
-                          className="rounded-full text-xs px-3 py-1 h-auto bg-surface !border border-border text-foreground hover:bg-muted transition-all duration-200 disabled:opacity-50"
+                          className="rounded-full text-xs px-3 py-1 h-auto bg-surface !border border-white text-foreground hover:bg-muted transition-all duration-200 disabled:opacity-50"
                           disabled={isChatting}
                         >
                           {msg}
@@ -469,19 +469,19 @@ export function ChatBot() {
                 initial={{ y: 50, opacity: 0 }}
                 animate={{ y: 0, opacity: 1 }}
                 transition={{ duration: 0.4, delay: 0.2 }}
-                className="px-4 py-2 border-t border-zinc-200"
+                className="px-4 py-2 "
               >
                 <form
                   id="chat-form"
                   onSubmit={handleSubmit}
                   className="flex items-stretch gap-3 "
                 >
-                  <div className="flex-1 relative  bg-zinc-50 rounded-full flex items-center px-4 py-2">
+                  <div className="flex-1 relative bg-white dark:bg-zinc-200 rounded-full flex items-center px-4 py-2">
                     <Textarea
                       value={input}
                       onChange={handleInputChange}
                       placeholder="Type a message..."
-                      className="flex-1 flex justify-end items-end min-h-[36px] max-h-[120px] resize-none border-0 bg-transparent focus:ring-0 focus:outline-none text-sm focus-visible:!ring-0 placeholder:text-zinc-500 outline-none py-1"
+                      className="flex-1 flex justify-end !bg-transparent items-end min-h-[36px] max-h-[120px] resize-none border-0  focus:ring-0 focus:outline-none text-sm focus-visible:!ring-0 placeholder:text-zinc-500 outline-none py-1"
                       rows={1}
                       onKeyDown={(e) => {
                         if (e.key === "Enter" && !e.shiftKey) {

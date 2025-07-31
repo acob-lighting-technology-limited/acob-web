@@ -13,7 +13,7 @@ const partners = [
 
 export function PartnersSection() {
   return (
-    <section className="py-12 bg-zinc-50 dark:bg-zinc-900 transition-colors duration-700">
+    <section className=" bg-muted dark:bg-muted/20  transition-colors duration-700">
       <Container className="px-4">
         <div className="text-center mb-8">
           <h2 className="text-2xl font-bold mb-4 text-foreground transition-colors duration-700">Our Partners & Clients</h2>

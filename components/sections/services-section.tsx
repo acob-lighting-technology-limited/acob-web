@@ -45,7 +45,7 @@ export function ServicesSection() {
   };
 
   return (
-    <section className="py-16 bg-zinc-50 dark:bg-zinc-950 transition-colors duration-700 overflow-hidden">
+    <section className="py-10 bg-zinc-50 dark:bg-zinc-950 transition-colors duration-700 overflow-hidden">
       <Container className="px-4">
         {/* Header Section */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 mb-16">
@@ -106,7 +106,7 @@ export function ServicesSection() {
                 key={index}
                 className="pl-2 md:pl-4 basis-full md:basis-1/2 lg:basis-1/3"
               >
-                <Card className="aspect-[3/4]   shadow-lg  transition-shadow duration-300 group  relative overflow-hidden h-full !py-0">
+                <Card className="   shadow-lg  transition-shadow duration-300 group  relative overflow-hidden h-full !py-0">
                   <CardContent className="relative p-10 flex flex-col h-full  border-0  ">
                     <div className="mb-6 w-fit transition-transform duration-700 group-hover:scale-x-[-1]">
                       <span>

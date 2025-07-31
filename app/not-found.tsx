@@ -16,7 +16,7 @@ export default function NotFound() {
   const router = useRouter()
 
   return (
-    <div className="h-screen bg-gradient-to-br from-primary/5 via-white to-primary/10 relative overflow-hidden">
+    <div className="h-screen bg-gradient-to-br from-primary/5 via-surface to-primary/10 relative overflow-hidden">
       {/* Animated Background Elements */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
         {floatingElements.map((element, index) => {
@@ -47,10 +47,10 @@ export default function NotFound() {
         </div>
       </div>
 
-      <Container className="px-4 h-full flex items-center justify-center relative z-10">
+      <Container noPadding className="px-4 h-full flex items-center justify-center relative z-10">
         <div className="max-w-4xl mx-auto text-center">
           {/* Main 404 Display */}
-          <div className="mb-12">
+          <div className="mb-10">
             <div className="relative inline-block">
               <h1 className="text-[12rem] md:text-[16rem] font-bold text-primary leading-none select-none">404</h1>
               <div className="absolute inset-0 flex items-center justify-center">
@@ -62,7 +62,7 @@ export default function NotFound() {
           </div>
 
           {/* Error Message */}
-          <div className="mb-12 space-y-4">
+          <div className="mb-10 space-y-4">
                     <h2 className="text-4xl md:text-5xl font-bold text-foreground mb-4">Oops! Page Not Found</h2>
         <p className="text-xl text-muted-foreground max-w-2xl mx-auto leading-relaxed">
               It seems like the page you're looking for has gone off-grid! Don't worry, we'll help you find your way
@@ -71,7 +71,7 @@ export default function NotFound() {
           </div>
 
           {/* Action Buttons */}
-          <div className="flex flex-col sm:flex-row gap-4 justify-center mb-12">
+          <div className="flex flex-col sm:flex-row gap-4 justify-center mb-10">
             <Link href="/">
               <Button size="lg" className="bg-primary hover:bg-primary/90 text-white px-8 py-3">
                 <Home className="mr-2 w-5 h-5" />
