@@ -36,8 +36,8 @@ export default function SimpleSpinnerExit({
       <div className="min-h-screen bg-gradient-to-br from-green-50 to-indigo-100 flex items-center justify-center">
         <div className="text-center">
           <div className="animate-spin rounded-full h-16 w-16 border-b-4 border-green-600 mx-auto mb-8"></div>
-          {/* <h2 className="text-2xl font-semibold text-slate-800 mb-2">Loading...</h2>
-          <p className="text-slate-600">Please wait while we prepare your content</p> */}
+                  {/* <h2 className="text-2xl font-semibold text-foreground mb-2">Loading...</h2>
+        <p className="text-muted-foreground">Please wait while we prepare your content</p> */}
         </div>
       </div>
     )
@@ -59,8 +59,8 @@ export default function SimpleSpinnerExit({
           </Button>
           <div className="text-center">
             <div className="animate-spin rounded-full h-16 w-16 border-b-4 border-green-600 mx-auto mb-8"></div>
-            <h2 className="text-2xl font-semibold text-slate-800 mb-2">Loading...</h2>
-            <p className="text-slate-600">Please wait while we prepare your content</p>
+                    <h2 className="text-2xl font-semibold text-foreground mb-2">Loading...</h2>
+        <p className="text-muted-foreground">Please wait while we prepare your content</p>
           </div>
         </motion.div>
       ) : (

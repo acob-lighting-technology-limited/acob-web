@@ -150,21 +150,21 @@ export function HeroSection() {
       <button
         onClick={prevSlide}
         disabled={isTransitioning}
-        className="absolute left-0 top-1/2 -translate-y-1/2 z-20 w-12 h-12 rounded-full  text-white  hover:scale-110  transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center group"
+        className="absolute left-0 top-1/2 -translate-y-1/2 z-20 w-12 h-12 rounded-full text-primary-foreground hover:scale-110 transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center group"
       >
-        <ChevronLeft className="h-24 w-24 text-white opacity-30 hover:opacity-70 hover:text-white group-hover:scale-110 transition-transform duration-200" />
+                  <ChevronLeft className="h-24 w-24 text-primary-foreground opacity-30 hover:opacity-70 hover:text-primary-foreground group-hover:scale-110 transition-transform duration-200" />
       </button>
 
       <button
         onClick={nextSlide}
         disabled={isTransitioning}
-        className="absolute right-0 top-1/2 -translate-y-1/2 z-20 w-12 h-12 rounded-full  text-white  hover:scale-110  transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center group"
+        className="absolute right-0 top-1/2 -translate-y-1/2 z-20 w-12 h-12 rounded-full text-primary-foreground hover:scale-110 transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center group"
       >
-        <ChevronRight className="h-24 w-24 text-white opacity-30 hover:opacity-70 hover:text-white group-hover:scale-110 transition-transform duration-200" />
+                  <ChevronRight className="h-24 w-24 text-primary-foreground opacity-30 hover:opacity-70 hover:text-primary-foreground group-hover:scale-110 transition-transform duration-200" />
       </button>
 
       {/* Content with smooth animations */}
-      <div className="relative z-10 2xl:max-w-6xl text-white h-full flex items-end pb-12 min-h-[700px] w-full">
+              <div className="relative z-10 2xl:max-w-6xl text-primary-foreground h-full flex items-end pb-12 min-h-[700px] w-full">
         <Container className="2xl:px-8">
           <div className="w-full max-w-4xl">
             {/* Animated Title */}
@@ -201,7 +201,7 @@ export function HeroSection() {
              <div className="overflow-hidden">
              <Button
                 size="lg"
-                className={`bg-primary hover:bg-primary/90 text-lg py-6 text-white transition-all duration-1000 ease-out hover:scale-105 ${
+                className={`bg-primary hover:bg-primary/90 text-lg py-6 text-primary-foreground transition-all duration-1000 ease-out hover:scale-105 ${
                   showContent
                     ? "transform translate-x-0 opacity-100 blur-0"
                     : "transform -translate-x-full opacity-0 "
@@ -217,7 +217,7 @@ export function HeroSection() {
               <Button
                 size="lg"
                 variant="outline"
-                className={`border-white text-white dark:border-black dark:bg-black/60 hover:bg-white text-lg py-6 hover:text-black bg-transparent transition-all duration-1000 ease-out hover:scale-105 ${
+                className={`border-primary-foreground text-primary-foreground dark:border-foreground dark:bg-foreground/60 hover:bg-primary-foreground text-lg py-6 hover:text-primary bg-transparent transition-all duration-1000 ease-out hover:scale-105 ${
                   showContent
                     ? "transform translate-x-0 opacity-100 blur-0"
                     : "transform translate-x-full opacity-0 "
@@ -237,7 +237,7 @@ export function HeroSection() {
                   className={`transition-all duration-500 rounded-full cursor-pointer hover:opacity-80 disabled:cursor-not-allowed ${
                     currentSlide === index
                       ? "w-8 h-1 bg-primary shadow-lg"
-                      : "w-6 h-0.5 bg-white/50 hover:bg-white/70 hover:w-7"
+                      : "w-6 h-0.5 bg-primary-foreground/50 hover:bg-primary-foreground/70 hover:w-7"
                   }`}
                 />
               ))}

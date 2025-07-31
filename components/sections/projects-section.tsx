@@ -73,7 +73,7 @@ export function ProjectsSection() {
   return (
     <main ref={container} className="relative py-16 bg-zinc-50 dark:bg-zinc-950 transition-colors duration-700">
       <div className="text-center mb-12">
-        <h2 className="text-3xl md:text-4xl font-bold dark:text-white transition-colors duration-700">
+        <h2 className="text-3xl md:text-4xl font-bold text-foreground transition-colors duration-700">
           Latest Rural Electrification Projects,
           <br />
           Mini-Grid Solutions & Energizing Supplies

@@ -8,6 +8,7 @@ import { getServiceBySlug, servicesData } from "@/lib/data/services";
 import { ServiceHero } from "@/components/ui/service-hero";
 import Link from "next/link";
 import { PageHero } from "@/components/ui/page-hero";
+import CallToAction from "@/components/layout/call-to-action";
 
 interface ServicePageProps {
   params: {
@@ -44,17 +45,17 @@ export default function ServicePage({ params }: ServicePageProps) {
   return (
     <>
       <PageHero title={service.title} backgroundImage={service.image} />
-      <Container className="px-4 py-8 relative">
+      <Container >
         <Breadcrumb items={breadcrumbItems} className="mb-8" />
 
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 items-start">
           {/* Main Content */}
           <div className="lg:col-span-2 space-y-8">
             {/* Overview */}
-            <Card className="border shadow-md border-gray-200 bg-white">
+            <Card className="border shadow-md border-border bg-surface">
               <CardContent className="p-8">
-                <h2 className="text-3xl font-bold mb-6">Overview</h2>
-                <p className="text-gray-600 leading-relaxed text-lg">
+                <h2 className="text-3xl font-bold mb-6 text-foreground">Overview</h2>
+                <p className="text-muted-foreground leading-relaxed text-lg">
                   {service.fullDescription}
                 </p>
               </CardContent>
@@ -62,9 +63,9 @@ export default function ServicePage({ params }: ServicePageProps) {
 
             {/* Gallery */}
             {service.gallery.length > 0 && (
-              <Card className="border shadow-md border-gray-200 bg-white">
+              <Card className="border shadow-md border-border bg-surface">
                 <CardContent className="p-8">
-                  <h2 className="text-3xl font-bold mb-6">Project Gallery</h2>
+                  <h2 className="text-3xl font-bold mb-6 text-foreground">Project Gallery</h2>
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                     {service.gallery.map((image, index) => (
                       <div
@@ -84,14 +85,14 @@ export default function ServicePage({ params }: ServicePageProps) {
             )}
 
             {/* Features */}
-            <Card className="border shadow-md border-gray-200 bg-white">
+            <Card className="border shadow-md border-border bg-surface">
               <CardContent className="p-8">
-                <h2 className="text-3xl font-bold mb-6">Key Features</h2>
+                <h2 className="text-3xl font-bold mb-6 text-foreground">Key Features</h2>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   {service.features.map((feature, index) => (
                     <div key={index} className="flex items-start space-x-3">
                       <CheckCircle className="h-5 w-5 text-primary mt-0.5 flex-shrink-0" />
-                      <span className="text-gray-700">{feature}</span>
+                      <span className="text-foreground">{feature}</span>
                     </div>
                   ))}
                 </div>
@@ -99,14 +100,14 @@ export default function ServicePage({ params }: ServicePageProps) {
             </Card>
 
             {/* Applications */}
-            <Card className="border shadow-md border-gray-200 bg-white">
+            <Card className="border shadow-md border-border bg-surface">
               <CardContent className="p-8">
-                <h2 className="text-3xl font-bold mb-6">Applications</h2>
+                <h2 className="text-3xl font-bold mb-6 text-foreground">Applications</h2>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   {service.applications.map((application, index) => (
                     <div key={index} className="flex items-start space-x-3">
                       <CheckCircle className="h-5 w-5 text-primary mt-0.5 flex-shrink-0" />
-                      <span className="text-gray-700">{application}</span>
+                      <span className="text-foreground">{application}</span>
                     </div>
                   ))}
                 </div>
@@ -114,14 +115,14 @@ export default function ServicePage({ params }: ServicePageProps) {
             </Card>
 
             {/* Why Choose Us */}
-            <Card className="border shadow-md border-gray-200 bg-white">
+            <Card className="border shadow-md border-border bg-surface">
               <CardContent className="p-8">
-                <h2 className="text-3xl font-bold mb-6">Why Choose Us?</h2>
+                <h2 className="text-3xl font-bold mb-6 text-foreground">Why Choose Us?</h2>
                 <div className="space-y-4">
                   {service.whyChooseUs.map((reason, index) => (
                     <div key={index} className="flex items-start space-x-3">
                       <CheckCircle className="h-5 w-5 text-primary mt-0.5 flex-shrink-0" />
-                      <span className="text-gray-700">{reason}</span>
+                      <span className="text-foreground">{reason}</span>
                     </div>
                   ))}
                 </div>
@@ -132,8 +133,8 @@ export default function ServicePage({ params }: ServicePageProps) {
           {/* Sidebar */}
           <div className="space-y-6 sticky top-20 self-start">
             {/* Services Navigation */}
-            <div className="bg-green-100 p-6 rounded-lg">
-              <h3 className="text-2xl font-bold text-black mb-6">
+            <div className="bg-muted border-[1px] border-t-2 border-t-primary p-6 rounded-lg">
+              <h3 className="text-2xl font-bold text-foreground mb-6">
                 Our Services
               </h3>
               <div className="space-y-3">
@@ -143,12 +144,12 @@ export default function ServicePage({ params }: ServicePageProps) {
                     href={link.href}
                     className={`
                       block p-4 rounded-lg flex items-center justify-between transition-colors duration-200
-                      ${link.isActive ? "bg-green-600 text-white" : "bg-white text-black hover:bg-gray-50"}
+                      ${link.isActive ? "bg-primary text-primary-foreground" : "bg-surface text-foreground hover:bg-muted"}
                     `}
                   >
-                    <span className="font-semibold text-lg">{link.label}</span>
+                    <span className="font-semibold text-sm">{link.label}</span>
                     {link.isActive && (
-                      <div className="w-6 h-6 bg-white rounded-full flex-shrink-0"></div>
+                      <div className="w-6 h-6 bg-primary-foreground rounded-full flex-shrink-0"></div>
                     )}
                   </Link>
                 ))}
@@ -156,36 +157,10 @@ export default function ServicePage({ params }: ServicePageProps) {
             </div>
 
             {/* Call to Action Widget */}
-            <div className="bg-green-500 p-6 rounded-lg text-white">
-              <div className="flex justify-center mb-4">
-                <div className="relative">
-                  <Settings className="h-12 w-12 text-white" />
-                  <Leaf className="h-6 w-6 text-white absolute top-3 left-3" />
-                </div>
-              </div>
-              <p className="text-white text-center mb-6 leading-relaxed">
-                As a world wide distributor of supplies we endeavor provide fast
-                and knowledgeable service, we can get all the materials.
-              </p>
-              <Link href="/contact/get-quote">
-                <Button
-                  variant="outline"
-                  className="w-full border-white text-white hover:bg-white hover:text-green-500 bg-transparent mb-6"
-                >
-                  Schedule An Appointment
-                </Button>
-              </Link>
-              <div className="flex items-center justify-center space-x-2 text-white">
-                <Phone className="h-5 w-5" />
-                <div className="text-center">
-                  <div>0704 920 2634,</div>
-                  <div>0803 290 2825</div>
-                </div>
-              </div>
-            </div>
+            <CallToAction/>
 
             {/* Service Benefits */}
-            <Card className="border shadow-md border-gray-200 bg-white">
+            {/* <Card className="border shadow-md border-gray-200 bg-white">
               <CardContent className="p-6">
                 <h3 className="font-semibold mb-4">Service Benefits</h3>
                 <ul className="space-y-3">
@@ -197,7 +172,7 @@ export default function ServicePage({ params }: ServicePageProps) {
                   ))}
                 </ul>
               </CardContent>
-            </Card>
+            </Card> */}
           </div>
         </div>
       </Container>

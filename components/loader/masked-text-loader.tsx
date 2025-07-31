@@ -7,7 +7,7 @@ export function MaskedTextLoader() {
   const phrases = ["ACOB Lighting", "Technology Limited", "Loading Your Future..."]
 
   return (
-    <div className="flex flex-col items-center justify-center h-screen bg-white text-gray-900">
+          <div className="flex flex-col items-center justify-center h-screen bg-background text-foreground">
       <div className="text-center">
         <MaskText phrases={phrases} className="text-5xl md:text-7xl font-extrabold leading-tight" />
       </div>
@@ -20,7 +20,7 @@ export function MaskedTextLoader() {
           repeat: Number.POSITIVE_INFINITY,
           repeatType: "reverse",
         }}
-        className="mt-8 text-lg text-gray-600"
+        className="mt-8 text-lg text-muted-foreground"
       >
         Please wait...
       </motion.div>

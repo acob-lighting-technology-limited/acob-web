@@ -15,7 +15,7 @@ export function PulsingDotsLoader() {
   }
 
   return (
-    <div className="flex flex-col items-center justify-center h-screen bg-white text-gray-800">
+          <div className="flex flex-col items-center justify-center h-screen bg-background text-foreground">
       <motion.div
         initial={{ opacity: 0, scale: 0.9 }}
         animate={{ opacity: 1, scale: 1 }}
@@ -36,7 +36,7 @@ export function PulsingDotsLoader() {
           transition={{ delay: 0.4, ...dotVariants.animate.transition }}
         />
       </motion.div>
-      <p className="mt-6 text-lg font-medium text-gray-700">Loading...</p>
+              <p className="mt-6 text-lg font-medium text-muted-foreground">Loading...</p>
     </div>
   )
 }

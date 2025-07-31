@@ -18,7 +18,7 @@ export function KenBurnsImageLoader() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, ease: "easeOut" }}
-          className="text-white text-center"
+          className="text-primary-foreground text-center"
         >
           <h1 className="text-4xl md:text-6xl font-bold mb-4">ACOB Lighting</h1>
           <p className="text-lg md:text-xl opacity-90 mb-8">Powering a brighter future...</p>

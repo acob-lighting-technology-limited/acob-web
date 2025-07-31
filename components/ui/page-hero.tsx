@@ -12,7 +12,7 @@ interface PageHeroProps {
 
 export function PageHero({ title, backgroundImage, className = "", children }: PageHeroProps) {
   return (
-    <section className={`relative h-[400px] flex items-center justify-center overflow-hidden ${className}`}>
+    <section className={`relative h-[400px] flex items-end justify-start overflow-hidden ${className}`}>
       {/* Background Image with Animation */}
       <div
         className="absolute inset-0 bg-cover bg-center bg-no-repeat animate-slow-zoom"

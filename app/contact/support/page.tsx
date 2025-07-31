@@ -84,19 +84,19 @@ export default function SupportPage() {
         />
       </PageHero>
 
-      <Container className="px-4 py-8 bg-gray-50">
+      <Container className="px-4 py-8 bg-muted">
         <Breadcrumb items={breadcrumbItems} className="mb-8" />
 
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-12 items-start">
           {/* Main Content */}
           <div className="lg:col-span-2 space-y-8">
             {/* Help Overview */}
-            <Card className="border shadow-lg border-gray-200   text-white">
+            <Card className="border shadow-lg border-border bg-surface">
               <CardContent className="p-8">
-                <h2 className="text-3xl font-bold mb-6 text-gray-900">
+                <h2 className="text-3xl font-bold mb-6 text-foreground">
                   <MaskText phrases={["How Can We Help You?"]} />
                 </h2>
-                <div className="text-gray-700 leading-relaxed space-y-6 text-lg">
+                <div className="text-foreground leading-relaxed space-y-6 text-lg">
                   <p>
                     At ACOB Lighting, we are committed to providing excellent
                     support for all our products and services. Whether you have
@@ -113,9 +113,9 @@ export default function SupportPage() {
             </Card>
 
             {/* Contact Methods */}
-            <Card className="border shadow-lg border-gray-200 text-white">
+            <Card className="border shadow-lg border-border bg-surface">
               <CardContent className="p-8">
-                <h2 className="text-3xl font-bold mb-6 text-gray-900">
+                <h2 className="text-3xl font-bold mb-6 text-foreground">
                   <MaskText phrases={["Contact Our Support Team"]} />
                 </h2>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -123,14 +123,14 @@ export default function SupportPage() {
                     ({ icon: Icon, title, description, contacts }) => (
                       <div
                         key={title}
-                        className="flex items-start gap-4 border border-gray-200 p-2 bg-gray-50 rounded-lg"
+                        className="flex items-start gap-4 border border-border p-2 bg-muted rounded-lg"
                       >
                         <Icon className="h-8 w-8 text-primary flex-shrink-0 mt-1" />
                         <div>
-                          <h3 className="text-xl font-semibold text-gray-900 mb-2">
+                          <h3 className="text-xl font-semibold text-foreground mb-2">
                             {title}
                           </h3>
-                          <p className="text-gray-700">{description}</p>
+                          <p className="text-muted-foreground">{description}</p>
                           <div className="mt-2 space-y-1 text-lg font-bold text-primary">
                             {contacts.map((item, i) => (
                               <div key={i}>{item}</div>
@@ -145,9 +145,9 @@ export default function SupportPage() {
             </Card>
 
             {/* FAQs */}
-            <Card className="border shadow-lg border-gray-200 text-white">
+            <Card className="border shadow-lg border-border bg-surface">
               <CardContent className="p-8">
-                <h2 className="text-3xl font-bold mb-6 text-gray-900">
+                <h2 className="text-3xl font-bold mb-6 text-foreground">
                   <MaskText phrases={["Frequently Asked Questions"]} />
                 </h2>
                 <Accordion
@@ -159,12 +159,12 @@ export default function SupportPage() {
                     <AccordionItem
                       key={question}
                       value={`item-${index}`}
-                      className="border border-gray-200 rounded-lg px-4 bg-gray-50/50"
+                      className="border border-border rounded-lg px-4 bg-muted/50"
                     >
-                      <AccordionTrigger className="text-left font-semibold text-gray-900 hover:text-primary hover:no-underline">
+                      <AccordionTrigger className="text-left font-semibold text-foreground hover:text-primary hover:no-underline">
                         {question}
                       </AccordionTrigger>
-                      <AccordionContent className="text-gray-700 leading-relaxed pt-2">
+                      <AccordionContent className="text-muted-foreground leading-relaxed pt-2">
                         {answer}
                       </AccordionContent>
                     </AccordionItem>
@@ -173,7 +173,7 @@ export default function SupportPage() {
                 <div className="mt-6 text-center">
                   <Button
                     variant="outline"
-                    className="border-primary text-primary hover:bg-primary hover:text-white bg-transparent"
+                    className="border-primary text-primary hover:bg-primary hover:text-primary-foreground bg-transparent"
                   >
                     View All FAQs
                   </Button>
@@ -184,7 +184,7 @@ export default function SupportPage() {
 
           {/* Sidebar */}
           <div className="space-y-6 sticky top-20 self-start">
-            <Card className="border shadow-lg border-gray-200  bg-primary text-white">
+            <Card className="border shadow-lg border-primary bg-primary text-primary-foreground">
               <CardContent className="p-6">
                 <h3 className="font-semibold mb-4">More Contact Options</h3>
                 <ul className="space-y-2">
@@ -192,7 +192,7 @@ export default function SupportPage() {
                     <li key={href}>
                       <Link
                         href={href}
-                        className="text-gray-200 border-b pb-1 border-white hover:text-white transition-colors duration-200 flex items-center justify-between"
+                        className="text-primary-foreground border-b pb-1 border-primary-foreground hover:text-primary transition-colors duration-200 flex items-center justify-between"
                       >
                         <span>{label}</span>
                       </Link>

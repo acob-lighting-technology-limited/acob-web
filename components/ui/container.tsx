@@ -8,7 +8,7 @@ interface ContainerProps {
 
 export function Container({ children, className }: ContainerProps) {
   return (
-    <div className={cn("2xl:container max-w-7xl mx-auto px-4 py-8", className)}>
+    <div className={cn("2xl:container max-w-7xl mx-auto px-4 py-16 relative", className)}>
       <div className="">{children}</div>
     </div>
   );

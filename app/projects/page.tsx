@@ -1,21 +1,24 @@
-import { Container } from "@/components/ui/container"
-import { PageHero } from "@/components/ui/page-hero"
-import { Breadcrumb } from "@/components/ui/breadcrumb"
-import { Card, CardContent } from "@/components/ui/card"
-import { Button } from "@/components/ui/button"
-import { Input } from "@/components/ui/input"
-import { ArrowRight, Search, MapPin } from "lucide-react"
-import Link from "next/link"
-import { getProjects } from "@/sanity/lib/client" // Import getProjects
+import { Container } from "@/components/ui/container";
+import { PageHero } from "@/components/ui/page-hero";
+import { Breadcrumb } from "@/components/ui/breadcrumb";
+import { Card, CardContent } from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { ArrowRight, Search, MapPin } from "lucide-react";
+import Link from "next/link";
+import { getProjects } from "@/sanity/lib/client"; // Import getProjects
 
 export default async function ProjectsPage() {
-  const projects = await getProjects()
+  const projects = await getProjects();
 
-  const breadcrumbItems = [{ label: "Home", href: "/" }, { label: "Projects" }]
+  const breadcrumbItems = [{ label: "Home", href: "/" }, { label: "Projects" }];
 
   return (
     <>
-      <PageHero title="Our Projects" backgroundImage="/images/services/header.jpg?height=400&width=1200" />
+      <PageHero
+        title="Our Projects"
+        backgroundImage="/images/services/header.jpg?height=400&width=1200"
+      />
 
       <Container className="px-4 py-8">
         <Breadcrumb items={breadcrumbItems} className="mb-8" />
@@ -38,14 +41,18 @@ export default async function ProjectsPage() {
                   )}
                 </div>
                 <CardContent className="p-6">
-                  <h2 className="text-2xl font-bold mb-4 text-gray-900">{project.title}</h2>
-                  <p className="text-gray-600 mb-4 leading-relaxed">{project.description}</p>
-                  <div className="flex items-center text-sm text-gray-600 mb-6">
+                  <h2 className="text-2xl font-bold mb-4 text-foreground">
+                    {project.title}
+                  </h2>
+                  <p className="text-muted-foreground mb-4 leading-relaxed">
+                    {project.description}
+                  </p>
+                  <div className="flex items-center text-sm text-muted-foreground mb-6">
                     <MapPin className="h-4 w-4 mr-1" />
                     <span>{project.location}</span>
                   </div>
                   <Link href={`/projects/${project.slug.current}`}>
-                    <Button className="bg-primary hover:bg-primary/90 text-white">
+                    <Button className="bg-primary hover:bg-primary/90 text-primary-foreground">
                       View Project
                       <ArrowRight className="ml-2 h-4 w-4" />
                     </Button>
@@ -58,51 +65,38 @@ export default async function ProjectsPage() {
           {/* Sidebar */}
           <div className="space-y-6 sticky top-20 self-start">
             {/* Search */}
-            <Card className="border-0 custom-shadow shadow-none">
-              <CardContent className="p-6">
-                <h3 className="font-semibold mb-4">Search Projects</h3>
-                <div className="relative border-[0.5px] rounded-md border-primary">
-                  <Input placeholder="Search projects..." className="pr-10" />
-                  <Search className="absolute right-3 top-1/2 -translate-y-1/2 h-4 w-4 text-gray-400" />
-                </div>
-              </CardContent>
-            </Card>
 
+            <div className="bg-muted border-t-2  border-t-primary p-6 rounded-lg border-[1px]">
+              <h3 className="text-xl font-bold text-foreground mb-4">
+                Search Projects
+              </h3>
+              <div className="relative border-[0.5px] rounded-md border-primary">
+                <Input
+                  placeholder="Search projects..."
+                  className="pr-10 bg-surface border-primary !border-[0.5px] focus:border-primary focus:ring-primary text-foreground"
+                />
+                <Search className="absolute right-3 top-1/2 -translate-y-1/2 h-4 w-4 text-primary" />
+              </div>
+            </div>
             {/* Categories (Example - you might want to fetch these from Sanity too) */}
-            <Card className="border-0 custom-shadow shadow-none">
-              <CardContent className="p-6">
-                <h3 className="font-semibold mb-4">Project Categories</h3>
-                <ul className="space-y-2">
-                  <li>
+            <div className="border-t-2 bg-muted border-t-primary p-6 rounded-lg border-[1px]">
+              <h3 className="text-xl font-bold text-foreground mb-4">Categories</h3>
+              <ul className="space-y-2">
+                {projects.map((project: any) => (
+                  <li key={project.id}>
                     <Link
-                      href="#"
-                      className="text-gray-600 hover:text-primary transition-colors duration-200 flex items-center justify-between"
+                      href={`/projects/${project.slug.current}`}
+                      className="block p-2 border-primary border-[0.5px] rounded-lg bg-surface text-foreground hover:bg-primary hover:text-primary-foreground transition-colors duration-200 flex items-center justify-between"
                     >
-                      <span>Rural Electrification</span>
+                      <span className="font-medium text-sm">{project.title}</span>
                     </Link>
                   </li>
-                  <li>
-                    <Link
-                      href="#"
-                      className="text-gray-600 hover:text-primary transition-colors duration-200 flex items-center justify-between"
-                    >
-                      <span>Commercial Installations</span>
-                    </Link>
-                  </li>
-                  <li>
-                    <Link
-                      href="#"
-                      className="text-gray-600 hover:text-primary transition-colors duration-200 flex items-center justify-between"
-                    >
-                      <span>Street Lighting</span>
-                    </Link>
-                  </li>
-                </ul>
-              </CardContent>
-            </Card>
+                ))}
+              </ul>
+            </div>
           </div>
         </div>
       </Container>
     </>
-  )
+  );
 }

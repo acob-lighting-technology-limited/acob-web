@@ -86,7 +86,7 @@ export function CommentForm({ postId }: CommentFormProps) {
           {error && <p className="text-red-500 text-sm">{error}</p>}
           {success && <p className="text-green-500 text-sm">{success}</p>}
 
-          <Button type="submit" className="bg-primary hover:bg-primary/90 text-white" disabled={loading}>
+          <Button type="submit" className="bg-primary hover:bg-primary/90 text-primary-foreground" disabled={loading}>
             {loading ? "Submitting..." : "Post Comment"}
           </Button>
         </form>

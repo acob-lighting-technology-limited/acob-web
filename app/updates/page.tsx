@@ -43,14 +43,14 @@ export default async function UpdatesPage() {
                   />
                 </div>
                 <CardContent className="p-6">
-                  <div className="flex items-center text-sm text-gray-600 mb-4">
+                  <div className="flex items-center text-sm text-muted-foreground mb-4">
                     <span>
                       {new Date(post.publishedAt).toLocaleDateString()}
                     </span>
                     <span className="mx-2">•</span>
                     <span>{post.author}</span>
                   </div>
-                  <h2 className="text-2xl font-bold mb-4 text-gray-900">
+                  <h2 className="text-2xl font-bold mb-4 text-foreground">
                     {post.title}
                   </h2>
                   <p className="text-gray-600 mb-6 leading-relaxed">

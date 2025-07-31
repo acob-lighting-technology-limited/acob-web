@@ -4,50 +4,99 @@
 
 @layer base {
  :root {
+   /* Primary Colors */
    --primary: 120 100% 30%; /* green-700 */
    --primary-foreground: 0 0% 100%; /* white */
+   --primary-dark: 120 100% 25%; /* green-800 */
+   
+   /* Secondary Colors */
    --secondary: 214 32% 91%; /* blue-100 */
    --secondary-foreground: 240 5% 4%; /* zinc-950 */
+   
+   /* Muted Colors */
    --muted: 240 4% 96%; /* zinc-50 */
    --muted-foreground: 240 4% 46%; /* zinc-500 */
+   
+   /* Accent Colors */
    --accent: 240 5% 96%; /* zinc-100 */
    --accent-foreground: 240 5% 4%; /* zinc-950 */
+   
+   /* Destructive Colors */
    --destructive: 0 84% 60%; /* red-500 */
    --destructive-foreground: 0 0% 100%; /* white */
+   
+   /* Border & Input Colors */
    --border: 214 32% 91%; /* blue-100 */
    --input: 0 0% 100%; /* white */
    --ring: 142 76% 36%; /* green-600 */
+   
+   /* Background Colors */
    --background: 0 0% 100%; /* white */
    --foreground: 240 5% 4%; /* zinc-950 */
    --foreground-2: 240 13% 70%; /* zinc-300 */
+   
+   /* Card Colors */
    --card: 0 0% 100%; /* white */
    --card-foreground: 240 5% 4%; /* zinc-950 */
+   
+   /* Popover Colors */
    --popover: 0 0% 100%; /* white */
    --popover-foreground: 240 5% 4%; /* zinc-950 */
+   
+   /* Additional Semantic Colors */
+   --surface: 0 0% 100%; /* white */
+   --surface-foreground: 240 5% 4%; /* zinc-950 */
+   --surface-muted: 240 4% 96%; /* zinc-50 */
+   --surface-muted-foreground: 240 4% 46%; /* zinc-500 */
+   
    --radius: 0.5rem;
  }
 
  .dark {
+   /* Primary Colors */
    --primary: 138 95% 20%; /* green-800 */
    --primary-foreground: 0 0% 100%; /* white */
+   --primary-dark: 138 95% 15%; /* green-900 */
+   
+   /* Secondary Colors */
    --secondary: 240 5% 20%; /* zinc-800 */
    --secondary-foreground: 240 4% 96%; /* zinc-50 */
+   
+   /* Muted Colors */
    --muted: 240 5% 16%; /* zinc-900 */
    --muted-foreground: 240 5% 64%; /* zinc-400 */
+   
+   /* Accent Colors */
    --accent: 240 5% 26%; /* zinc-700 */
    --accent-foreground: 240 4% 96%; /* zinc-50 */
+   
+   /* Destructive Colors */
    --destructive: 0 63% 31%; /* red-800 */
    --destructive-foreground: 240 4% 96%; /* zinc-50 */
+   
+   /* Border & Input Colors */
    --border: 240 13% 70%; /* zinc-300 */
    --input: 240 5% 16%; /* zinc-900 */
    --ring: 142 76% 36%; /* green-600 */
+   
+   /* Background Colors */
    --background: 240 5% 4%; /* zinc-950 */
-   --foreground: 240 4% 96%; /* zinc-400 */
+   --foreground: 240 4% 96%; /* zinc-50 */
    --foreground-2: 240 5% 64%; /* zinc-400 */
+   
+   /* Card Colors */
    --card: 240 5% 11%; /* zinc-900 */
    --card-foreground: 240 4% 96%; /* zinc-50 */
+   
+   /* Popover Colors */
    --popover: 240 6% 10%; /* zinc-950 */
    --popover-foreground: 240 4% 96%; /* zinc-50 */
+   
+   /* Additional Semantic Colors */
+   --surface: 240 5% 11%; /* zinc-900 */
+   --surface-foreground: 240 4% 96%; /* zinc-50 */
+   --surface-muted: 240 5% 16%; /* zinc-900 */
+   --surface-muted-foreground: 240 5% 64%; /* zinc-400 */
  }
 }
 
@@ -66,19 +115,19 @@
 }
 
 ::-webkit-scrollbar-track {
- background-color: #f4f4f5; /* zinc-100 */
+ background-color: hsl(var(--muted));
 }
 .dark ::-webkit-scrollbar-track {
- background-color: #09090b; /* zinc-950 */
+ background-color: hsl(var(--muted));
 }
 
 ::-webkit-scrollbar-thumb {
- background-color: #d4d4d8; /* zinc-300 */
+ background-color: hsl(var(--muted-foreground));
  border-radius: 9999px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
- background-color: #a1a1aa; /* zinc-400 */
+ background-color: hsl(var(--foreground-2));
 }
 
 /* Custom animations */

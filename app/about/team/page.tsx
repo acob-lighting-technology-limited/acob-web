@@ -9,7 +9,7 @@ import Link from "next/link"
 const teamMembers = [
   {
     id: "1",
-    name: "Dr. Aminu Bello",
+    name: "Mr. Alex Obiechina",
     position: "CEO & Founder",
     image: "/placeholder.svg?height=200&width=200",
     bio: "A visionary leader with over 20 years of experience in renewable energy and sustainable development.",
@@ -74,14 +74,14 @@ export default function OurTeamPage() {
     <>
       <PageHero title="Meet Our Team" backgroundImage="/images/about/our-team-hero.jpg?height=400&width=1200" />
 
-      <Container className="px-4 py-8 bg-gray-50">
+      <Container className="px-4 py-8 bg-muted">
         <Breadcrumb items={breadcrumbItems} className="mb-8" />
 
         <div className="text-center mb-12">
-          <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
+          <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">
             <MaskText phrases={["The Driving Force Behind Our Success"]} />
           </h2>
-          <p className="text-lg text-gray-600 max-w-3xl mx-auto">
+          <p className="text-lg text-muted-foreground max-w-3xl mx-auto">
             Our team comprises dedicated professionals, engineers, and community specialists committed to delivering
             excellence in every aspect of clean energy solutions.
           </p>
@@ -91,26 +91,26 @@ export default function OurTeamPage() {
           {teamMembers.map((member) => (
             <Card
               key={member.id}
-              className="border shadow-md border-gray-200 bg-white text-center p-6 flex flex-col items-center"
+              className="border shadow-md border-border bg-surface text-center p-6 flex flex-col items-center"
             >
               <img
                 src={member.image || "/placeholder.svg"}
                 alt={member.name}
                 className="w-32 h-32 rounded-full object-cover mb-4 border-4 border-primary/20 shadow-md"
               />
-              <h3 className="text-xl font-bold text-gray-900 mb-1">{member.name}</h3>
+              <h3 className="text-xl font-bold text-foreground mb-1">{member.name}</h3>
               <p className="text-primary font-medium mb-3">{member.position}</p>
-              <p className="text-gray-600 text-sm leading-relaxed mb-4 flex-1">{member.bio}</p>
+              <p className="text-muted-foreground text-sm leading-relaxed mb-4 flex-1">{member.bio}</p>
               <div className="flex gap-3 mt-auto">
                 {member.linkedin && (
                   <Link href={member.linkedin} target="_blank" rel="noopener noreferrer">
-                    <Linkedin className="h-6 w-6 text-gray-500 hover:text-primary transition-colors" />
+                    <Linkedin className="h-6 w-6 text-muted-foreground hover:text-primary transition-colors" />
                     <span className="sr-only">LinkedIn</span>
                   </Link>
                 )}
                 {member.email && (
                   <Link href={`mailto:${member.email}`}>
-                    <Mail className="h-6 w-6 text-gray-500 hover:text-primary transition-colors" />
+                    <Mail className="h-6 w-6 text-muted-foreground hover:text-primary transition-colors" />
                     <span className="sr-only">Email</span>
                   </Link>
                 )}

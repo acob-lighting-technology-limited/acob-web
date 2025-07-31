@@ -56,7 +56,7 @@ export function ServicesSection() {
                 "For Manufacturers Installers & Contractors,",
                 "Mini-Grid Solutions.",
               ]}
-              className="text-4xl md:text-5xl font-bold text-zinc-900 dark:text-white leading-tight mb-8 transition-colors duration-700"
+              className="text-4xl md:text-5xl font-bold text-foreground leading-tight mb-8 transition-colors duration-700"
             />
           </div>
 
@@ -70,17 +70,17 @@ export function ServicesSection() {
                 "We ensure quality control of indoor installations",
                 "and safety training for customers.",
               ]}
-              className="text-zinc-600 dark:text-zinc-300 text-lg leading-relaxed mb-8 transition-colors duration-700"
+              className="text-muted-foreground text-lg leading-relaxed mb-8 transition-colors duration-700"
             />
 
             <div className="flex flex-col sm:flex-row gap-4">
-              <Button className="bg-primary dark:bg-primary text-lg hover:bg-primary text-white px-8 py-6 transition-colors duration-700">
+              <Button className="bg-primary dark:bg-primary text-lg hover:bg-primary text-primary-foreground px-8 py-6 transition-colors duration-700">
                 Read More
                 <ArrowRight className="ml-2 h-4 w-4" />
               </Button>
               <Button
                 variant="outline"
-                className="border-zinc-400 text-lg shadow-md text-zinc-700 dark:text-zinc-200 hover:bg-zinc-200 dark:hover:bg-zinc-800 px-8 py-6 bg-transparent transition-colors duration-700"
+                className="border-border text-lg shadow-md text-foreground hover:bg-muted px-8 py-6 bg-transparent transition-colors duration-700"
               >
                 Find Your Solution
               </Button>
@@ -117,10 +117,10 @@ export function ServicesSection() {
                         />
                       </span>
                     </div>
-                    <h3 className="text-2xl font-bold dark:text-zinc-300 text-zinc-900 mb-4">
+                    <h3 className="text-2xl font-bold text-foreground mb-4">
                       {service.title}
                     </h3>
-                    <p className="text-zinc-500 text-base leading-relaxed mb-8">
+                    <p className="text-muted-foreground text-base leading-relaxed mb-8">
                       {service.shortDescription
                         .split(" ")
                         .slice(0, 25)
@@ -132,7 +132,7 @@ export function ServicesSection() {
                       <Link href={`/services/${service.slug}`}>
                         <Button
                           size="lg"
-                          className="bg-zinc-950 dark:!bg-primary !h-12 hover:bg-primary duration-500 transition-colors text-white px-6 py-4 text-sm"
+                          className="bg-foreground dark:!bg-primary !h-12 hover:bg-primary duration-500 transition-colors text-primary-foreground px-6 py-4 text-sm"
                         >
                           Read More
                           <ArrowRight className="ml-2 h-3 w-3" />

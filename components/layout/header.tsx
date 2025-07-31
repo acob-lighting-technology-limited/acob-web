@@ -236,7 +236,7 @@ const DropdownMenu: React.FC<DropdownMenuProps> = ({
   return (
     <div
       className={`
-      absolute top-full left-0 mt-2 w-full max-w-[600px] min-w-[400px] bg-white dark:bg-black rounded-lg shadow-2xl border-[0.5px] border-zinc-700 
+              absolute top-full left-0 mt-2 w-full max-w-[600px] min-w-[400px] bg-popover dark:bg-popover rounded-lg shadow-2xl border-[0.5px] border-border 
       transform transition-all duration-300 ease-out origin-top
       ${isOpen ? "opacity-100 scale-100 translate-y-0" : "opacity-0 scale-95 -translate-y-2 pointer-events-none"}
     `}
@@ -265,7 +265,7 @@ const DropdownMenu: React.FC<DropdownMenuProps> = ({
               <div className="flex gap-2 items-start ">
                 {/* Icon Container */}
                 <div className="mt-1 gap-2 ">
-                  <div className="w-8 h-8 bg-zinc-200 dark:bg-zinc-600 group-hover:bg-primary transition-colors duration-200 rounded p-1">
+                  <div className="w-8 h-8 bg-muted dark:bg-muted group-hover:bg-primary transition-colors duration-200 rounded p-1">
                     <Image
                       src={subItem.icon}
                       alt={`${subItem.name} Icon`}
@@ -277,10 +277,10 @@ const DropdownMenu: React.FC<DropdownMenuProps> = ({
                 </div>
                 <div>
                   {" "}
-                  <div className="font-medium  dark:text-zinc-300 text-zinc-900 group-hover:text-primary transition-colors duration-200 break-words">
+                  <div className="font-medium text-foreground group-hover:text-primary transition-colors duration-200 break-words">
                     {subItem.name}
                   </div>
-                  <div className="text-sm text-left text-zinc-500 mt-1 group-hover:text-zinc-700 transition-colors duration-200 break-words">
+                  <div className="text-sm text-left text-muted-foreground mt-1 group-hover:text-foreground transition-colors duration-200 break-words">
                     {subItem.description}
                   </div>
                 </div>
@@ -326,7 +326,7 @@ const MobileMenu: React.FC<MobileMenuProps> = ({ isOpen, onClose }) => {
       {/* Menu Panel */}
       <div
         className={`
-        absolute right-0 top-0 h-full w-80 bg-white shadow-2xl
+        absolute right-0 top-0 h-full w-80 bg-popover shadow-2xl
         transform transition-transform duration-300 ease-out
         ${isOpen ? "translate-x-0" : "translate-x-full"}
       `}
@@ -337,13 +337,13 @@ const MobileMenu: React.FC<MobileMenuProps> = ({ isOpen, onClose }) => {
               <div className="flex h-8 w-8 items-center justify-center rounded bg-primary text-white font-bold">
                 A
               </div>
-              <span className="font-bold text-lg text-zinc-900">
+              <span className="font-bold text-lg text-foreground">
                 ACOB LIGHTING
               </span>
             </div>
             <button
               onClick={onClose}
-              className="p-2 hover:bg-zinc-100 rounded-lg transition-colors duration-200"
+              className="p-2 hover:bg-muted rounded-lg transition-colors duration-200"
             >
               <X className="h-5 w-5" />
             </button>
@@ -358,9 +358,9 @@ const MobileMenu: React.FC<MobileMenuProps> = ({ isOpen, onClose }) => {
               >
                 <button
                   onClick={() => toggleExpanded(item.name)}
-                  className="w-full flex items-center justify-between p-3 text-left hover:bg-zinc-50 rounded-lg transition-colors duration-200"
+                  className="w-full flex items-center justify-between p-3 text-left hover:bg-muted rounded-lg transition-colors duration-200"
                 >
-                  <span className="font-medium text-zinc-900">{item.name}</span>
+                  <span className="font-medium text-foreground">{item.name}</span>
                   <ChevronDown
                     className={`h-4 w-4 transition-transform duration-200 ${expandedItems[item.name] ? "rotate-180" : ""}`}
                   />
@@ -379,7 +379,7 @@ const MobileMenu: React.FC<MobileMenuProps> = ({ isOpen, onClose }) => {
                         href={subItem.href}
                         onClick={onClose}
                         className={`
-                          flex items-center space-x-3 p-2 text-sm text-zinc-600 hover:text-primary hover:bg-primary/10 rounded-md 
+                          flex items-center space-x-3 p-2 text-sm text-muted-foreground hover:text-primary hover:bg-primary/10 rounded-md 
                           transition-all duration-200 animate-fadeInUp
                         `}
                         style={{
@@ -459,12 +459,12 @@ export function Header() {
       <header
         className={`
         sticky top-0 z-40 w-full transition-all duration-500 ease-out
-        bg-white/95 backdrop-blur-sm border-b border-zinc-100/30
+        bg-background/95 backdrop-blur-sm border-b border-border/30
         dark:bg-black transition-colors duration-700
         ${
           isScrolled
-            ? "bg-white/75 backdrop-blur-3xl shadow-lg border-b-[1px] border-zinc-700 dark:bg-black"
-            : "bg-white/95 backdrop-blur-sm border-b border-zinc-100/30 dark:bg-black"
+                    ? "bg-background/75 backdrop-blur-3xl shadow-lg border-b-[1px] border-border dark:bg-background"
+        : "bg-background/95 backdrop-blur-sm border-b border-border/30 dark:bg-background"
         }
       `}
       >
@@ -493,7 +493,7 @@ export function Header() {
                 >
                   <Link
                     href={item.href}
-                    className="flex items-center space-x-1 text-zinc-700 dark:text-zinc-300 hover:text-primary font-medium transition-all duration-200 hover:scale-105"
+                    className="flex items-center space-x-1 text-foreground hover:text-primary font-medium transition-all duration-200 hover:scale-105"
                   >
                     <span>{item.name}</span>
                     <ChevronDown
@@ -524,7 +524,7 @@ export function Header() {
             {/* Mobile Menu Button */}
             <button
               onClick={() => setIsMobileMenuOpen(true)}
-              className="lg:hidden p-2 hover:bg-zinc-100 rounded-lg transition-all duration-200 hover:scale-105"
+              className="lg:hidden p-2 hover:bg-muted rounded-lg transition-all duration-200 hover:scale-105"
             >
               <Menu className="h-6 w-6" />
             </button>

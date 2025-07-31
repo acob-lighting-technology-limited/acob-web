@@ -33,10 +33,10 @@ export default function LocationsPage() {
           <div className="space-y-8">
             <Card className="border-0 custom-shadow shadow-none">
               <CardContent className="p-8">
-                <h2 className="text-3xl font-bold mb-6 text-gray-900">
+                <h2 className="text-3xl font-bold mb-6 text-foreground">
                   <MaskText phrases={["Head Office"]} />
                 </h2>
-                <div className="space-y-4 text-gray-700 text-lg">
+                <div className="space-y-4 text-muted-foreground text-lg">
                   <p className="flex items-start gap-3">
                     <MapPin className="h-6 w-6 text-primary flex-shrink-0 mt-1" />
                     <span>
@@ -71,10 +71,10 @@ export default function LocationsPage() {
 
             <Card className="border-0 custom-shadow shadow-none">
               <CardContent className="p-8">
-                <h2 className="text-3xl font-bold mb-6 text-gray-900">
+                <h2 className="text-3xl font-bold mb-6 text-foreground">
                   <MaskText phrases={["Branch Office"]} />
                 </h2>
-                <div className="space-y-4 text-gray-700 text-lg">
+                <div className="space-y-4 text-muted-foreground text-lg">
                   <p className="flex items-start gap-3">
                     <MapPin className="h-6 w-6 text-primary flex-shrink-0 mt-1" />
                     <span>1st Floor, Rochas Plaza, 26 Herbert Macaulay Way, Abuja, Nigeria</span>

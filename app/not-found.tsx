@@ -63,8 +63,8 @@ export default function NotFound() {
 
           {/* Error Message */}
           <div className="mb-12 space-y-4">
-            <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4">Oops! Page Not Found</h2>
-            <p className="text-xl text-gray-600 max-w-2xl mx-auto leading-relaxed">
+                    <h2 className="text-4xl md:text-5xl font-bold text-foreground mb-4">Oops! Page Not Found</h2>
+        <p className="text-xl text-muted-foreground max-w-2xl mx-auto leading-relaxed">
               It seems like the page you're looking for has gone off-grid! Don't worry, we'll help you find your way
               back to the light.
             </p>
@@ -86,7 +86,7 @@ export default function NotFound() {
 
           {/* Fun Fact */}
           <div className="p-6 bg-primary/5 rounded-lg border border-primary/20">
-            <p className="text-gray-600 italic">
+            <p className="text-muted-foreground italic">
               💡 <strong>Did you know?</strong> Solar panels can still generate electricity on cloudy days, just like
               how we're still here to help even when things don't go as planned!
             </p>

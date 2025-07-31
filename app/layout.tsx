@@ -44,7 +44,8 @@ export default function RootLayout({
           <Toaster closeButton position="top-right" />
           <div className="flex min-h-screen flex-col w-full">
             <Header />
-            <main className="flex-1">{children}</main>
+            <main className="flex-1 border-b border-b-border/50">{children}</main>
+         
             <Footer />
 
             <ScrollToTop />

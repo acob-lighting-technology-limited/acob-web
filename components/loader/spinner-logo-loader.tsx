@@ -6,7 +6,7 @@ import { Loader2 } from "lucide-react"
 
 export function SpinnerLogoLoader() {
   return (
-    <div className="flex flex-col items-center justify-center h-screen bg-white text-gray-800">
+          <div className="flex flex-col items-center justify-center h-screen bg-background text-foreground">
       <motion.div
         initial={{ opacity: 0, scale: 0.8 }}
         animate={{ opacity: 1, scale: 1 }}

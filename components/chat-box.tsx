@@ -252,7 +252,7 @@ export function ChatBot() {
               >
                 <div className="bg-primary text-primary-foreground px-4 py-3 flex items-center justify-between shadow-sm outline-none">
                   <div className="flex items-center gap-3">
-                    <div className="w-10 h-10 bg-white/20 rounded-full flex items-center justify-center backdrop-blur-sm">
+                    <div className="w-10 h-10 bg-primary-foreground/20 rounded-full flex items-center justify-center backdrop-blur-sm">
                       <Bot className="h-6 w-6 text-primary-foreground" />
                     </div>
                     <div className="flex-1">
@@ -268,7 +268,7 @@ export function ChatBot() {
                     variant="ghost"
                     size="icon"
                     onClick={() => setIsOpen(false)}
-                    className="h-8 w-8 text-primary-foreground hover:bg-white/20"
+                    className="h-8 w-8 text-primary-foreground hover:bg-primary-foreground/20"
                   >
                     <X className="h-4 w-4" />
                   </Button>
@@ -316,7 +316,7 @@ export function ChatBot() {
                       className={`max-w-[85%] relative group ${
                         m.role === "user"
                           ? "bg-primary/10 rounded-t-2xl rounded-bl-2xl rounded-br-md"
-                          : "bg-white rounded-t-2xl rounded-br-2xl rounded-bl-md"
+                          : "bg-surface rounded-t-2xl rounded-br-2xl rounded-bl-md"
                       } shadow-sm`}
                     >
                       <div className="px-3 py-2">
@@ -369,7 +369,7 @@ export function ChatBot() {
                         className={`absolute top-0 ${
                           m.role === "user" ? "-right-1" : "-left-1"
                         } w-3 h-3 transform rotate-45 ${
-                          m.role === "user" ? "bg-primary/10" : "bg-white"
+                          m.role === "user" ? "bg-primary/10" : "bg-surface"
                         }`}
                       />
                     </div>
@@ -385,7 +385,7 @@ export function ChatBot() {
                       animate={{ opacity: 1, y: 0 }}
                       className="flex justify-start mb-2"
                     >
-                      <div className="bg-white rounded-t-2xl rounded-br-2xl rounded-bl-md shadow-sm px-4 py-3 relative">
+                      <div className="bg-surface rounded-t-2xl rounded-br-2xl rounded-bl-md shadow-sm px-4 py-3 relative">
                         <div className="flex items-center gap-1">
                           <motion.div
                             animate={{ scale: [1, 1.2, 1] }}
@@ -415,7 +415,7 @@ export function ChatBot() {
                             className="w-2 h-2 bg-primary rounded-full"
                           />
                         </div>
-                        <div className="absolute top-0 -left-1 w-3 h-3 transform rotate-45 bg-white" />
+                        <div className="absolute top-0 -left-1 w-3 h-3 transform rotate-45 bg-surface" />
                       </div>
                     </motion.div>
                   )}
@@ -453,7 +453,7 @@ export function ChatBot() {
                           variant="outline"
                           size="sm"
                           onClick={() => handleQuickReply(msg)}
-                          className="rounded-full text-xs px-3 py-1 h-auto bg-white !border border-blue-200 dark:text-zinc-300 text-zinc-600 hover:bg-zinc-50 transition-all duration-200 disabled:opacity-50"
+                          className="rounded-full text-xs px-3 py-1 h-auto bg-surface !border border-border text-foreground hover:bg-muted transition-all duration-200 disabled:opacity-50"
                           disabled={isChatting}
                         >
                           {msg}
