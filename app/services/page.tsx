@@ -53,7 +53,7 @@ export default function ServicesPage() {
                   <img
                     src={service.image || "/placeholder.svg"}
                     alt={service.title}
-                    className="w-full h-full object-cover hover:scale-105 transition-transform duration-300"
+                    className="w-full h-full object-cover hover:scale-105 "
                   />
                 </div>
                 <CardContent className="p-6">
@@ -96,7 +96,7 @@ export default function ServicesPage() {
                   <li key={category}>
                     <Link
                       href="#"
-                      className="block p-2 border-primary border-[0.5px] rounded-lg bg-surface text-foreground hover:bg-primary hover:text-primary-foreground transition-colors duration-200 flex items-center justify-between"
+                      className=" p-2 border-primary border-[0.5px] rounded-lg bg-surface text-foreground hover:bg-primary hover:text-primary-foreground  flex items-center justify-between"
                     >
                       <span className="font-medium">{category}</span>
                       <span className="text-sm opacity-70">(5)</span>
@@ -114,7 +114,7 @@ export default function ServicesPage() {
                   <Link
                     key={tag}
                     href="#"
-                    className="px-3 py-2 bg-surface border-[0.5px] border-primary text-foreground text-sm rounded-lg hover:bg-primary hover:text-primary-foreground transition-colors duration-200 font-medium"
+                    className="px-3 py-2 bg-surface border-[0.5px] border-primary text-foreground text-sm rounded-lg hover:bg-primary hover:text-primary-foreground  font-medium"
                   >
                     {tag}
                   </Link>

@@ -36,7 +36,7 @@ export default async function ProjectsPage() {
                     <img
                       src={project.images[0].asset.url || "/placeholder.svg"}
                       alt={project.title}
-                      className="w-full h-full object-cover hover:scale-105 transition-transform duration-300"
+                      className="w-full h-full object-cover hover:scale-105 "
                     />
                   )}
                 </div>
@@ -86,7 +86,7 @@ export default async function ProjectsPage() {
                   <li key={project.id}>
                     <Link
                       href={`/projects/${project.slug.current}`}
-                      className="block p-2 border-primary border-[0.5px] rounded-lg bg-surface text-foreground hover:bg-primary hover:text-primary-foreground transition-colors duration-200 flex items-center justify-between"
+                      className="p-2 border-primary border-[0.5px] rounded-lg bg-surface text-foreground hover:bg-primary hover:text-primary-foreground  flex items-center justify-between"
                     >
                       <span className="font-medium text-sm">{project.title}</span>
                     </Link>

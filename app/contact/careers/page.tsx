@@ -136,7 +136,7 @@ export default function CareersPage() {
                     <li key={href}>
                       <Link
                         href={href}
-                        className="text-primary-foreground border-b pb-1 border-primary-foreground hover:text-primary transition-colors duration-200 flex items-center justify-between"
+                        className="text-primary-foreground border-b pb-1 border-primary-foreground hover:text-primary  flex items-center justify-between"
                       >
                         <span>{label}</span>
                       </Link>

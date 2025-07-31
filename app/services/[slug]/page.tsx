@@ -75,7 +75,7 @@ export default function ServicePage({ params }: ServicePageProps) {
                         <img
                           src={image || "/placeholder.svg"}
                           alt={`${service.title} project ${index + 1}`}
-                          className="w-full h-full object-cover hover:scale-105 transition-transform duration-300"
+                          className="w-full h-full object-cover hover:scale-105 "
                         />
                       </div>
                     ))}
@@ -143,7 +143,7 @@ export default function ServicePage({ params }: ServicePageProps) {
                     key={idx}
                     href={link.href}
                     className={`
-                      block p-4 rounded-lg flex items-center justify-between transition-colors duration-200
+                       p-4 rounded-lg flex items-center justify-between 
                       ${link.isActive ? "bg-primary text-primary-foreground" : "bg-surface text-foreground hover:bg-muted"}
                     `}
                   >

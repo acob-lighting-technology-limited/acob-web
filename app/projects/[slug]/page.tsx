@@ -89,7 +89,7 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
                           alt={`${project.title} image ${index + 1}`}
                           width={800}
                           height={600}
-                          className="w-full h-full object-cover hover:scale-105 transition-transform duration-300"
+                          className="w-full h-full object-cover hover:scale-105 "
                         />
                       </div>
                     ))}
@@ -137,7 +137,7 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
                           href={`/projects/${relatedProject.slug.current}`}
                           className="block group"
                         >
-                          <h4 className="text-sm font-medium text-foreground group-hover:text-primary transition-colors duration-200 mb-1">
+                          <h4 className="text-sm font-medium text-foreground group-hover:text-primary  mb-1">
                             {relatedProject.title}
                           </h4>
                           {/* {relatedProject.location && (
@@ -155,7 +155,7 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
                   <div className="pt-4">
                     <Link
                       href="/projects"
-                      className="text-sm text-primary hover:text-primary/80 transition-colors duration-200 flex items-center"
+                      className="text-sm text-primary hover:text-primary/80  flex items-center"
                     >
                       View All Projects
                       <ArrowRight className="ml-1 h-3 w-3" />

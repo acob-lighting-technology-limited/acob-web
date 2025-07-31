@@ -36,9 +36,9 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en">
+    <html lang="en" suppressHydrationWarning>
       <body
-        className={`${inter.className} antialiased bg-background text-foreground selection:bg-primary selection:text-primary-foreground transition-colors duration-700`}
+        className={`${inter.className} antialiased bg-background text-foreground selection:bg-primary selection:text-primary-foreground transition-all duration-700`}
       >
         <Providers>
           <Toaster closeButton position="top-right" />

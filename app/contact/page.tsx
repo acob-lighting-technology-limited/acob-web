@@ -76,12 +76,12 @@ export default function ContactPage() {
           {contactSections.map((section, index) => {
             return (
               <Link key={section.href} href={section.href}>
-                <Card className="overflow-hidden bg-surface border-0 custom-shadow  p-0 hover:shadow-lg transition-shadow duration-300 h-full flex flex-col">
+                <Card className="overflow-hidden bg-surface border-0 custom-shadow  p-0 hover:shadow-lg  h-full flex flex-col">
                   <div className="aspect-[4/3] overflow-hidden flex items-center justify-center bg-primary/5">
                     <img
                       src={section.image || "/placeholder.svg"}
                       alt={section.title}
-                      className="w-full h-full object-cover hover:scale-105 transition-transform duration-300"
+                      className="w-full h-full object-cover hover:scale-105 "
                     />
                   </div>
                   <CardContent className="p-4 flex flex-col flex-1">

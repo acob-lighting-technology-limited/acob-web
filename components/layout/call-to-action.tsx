@@ -24,7 +24,7 @@ const CallToAction = () => {
       {/* Button */}
       <Link
         href="/contact/get-quote"
-        className="inline-block border-2 border-primary-foreground text-primary-foreground px-6 py-2 rounded-lg font-semibold text-base hover:bg-primary-foreground hover:text-primary transition-colors duration-200 mb-8"
+        className="inline-block border-2 border-primary-foreground text-primary-foreground px-6 py-2 rounded-lg font-semibold text-base hover:bg-primary-foreground hover:text-primary  mb-8"
       >
         Schedule An Appointment
       </Link>

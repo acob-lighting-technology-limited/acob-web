@@ -238,7 +238,7 @@ const DropdownMenu: React.FC<DropdownMenuProps> = ({
     <div
       className={`
               absolute top-full left-0 mt-2 w-full max-w-[600px] min-w-[400px] bg-popover dark:bg-popover rounded-lg shadow-2xl border-[0.5px] border-border 
-      transform transition-all duration-300 ease-out origin-top
+      transform  origin-top
       ${isOpen ? "opacity-100 scale-100 translate-y-0" : "opacity-0 scale-95 -translate-y-2 pointer-events-none"}
     `}
       style={{
@@ -254,7 +254,7 @@ const DropdownMenu: React.FC<DropdownMenuProps> = ({
               href={subItem.href}
               onClick={onClose}
               className={`
-                group block p-3 rounded-lg transition-all duration-200 hover:bg-gradient-to-r hover:from-primary/5 dark:hover:from-zinc-700 hover:to-primary/10 dark:hover:to-zinc-500 hover:shadow-md
+                group block p-3 rounded-lg hover:bg-gradient-to-r hover:from-primary/5 dark:hover:from-zinc-700 hover:to-primary/10 dark:hover:to-zinc-500 hover:shadow-md
                 transform hover:scale-105 hover:-translate-y-1
                 animate-fadeInUp
               `}
@@ -264,9 +264,8 @@ const DropdownMenu: React.FC<DropdownMenuProps> = ({
               }}
             >
               <div className="flex gap-2 items-start ">
-          
                 <div className="mt-1 gap-2 ">
-                  <div className="w-8 h-8 bg-muted dark:bg-muted group-hover:bg-primary transition-colors duration-200 rounded p-1">
+                  <div className="w-8 h-8 bg-muted dark:bg-muted group-hover:bg-primary  rounded p-1">
                     <Image
                       src={subItem.icon}
                       alt={`${subItem.name} Icon`}
@@ -278,10 +277,10 @@ const DropdownMenu: React.FC<DropdownMenuProps> = ({
                 </div>
                 <div>
                   {" "}
-                  <div className="font-medium text-foreground group-hover:text-primary transition-colors duration-200 break-words">
+                  <div className="font-medium text-foreground group-hover:text-primary  break-words">
                     {subItem.name}
                   </div>
-                  <div className="text-sm text-left text-muted-foreground mt-1 group-hover:text-foreground transition-colors duration-200 break-words">
+                  <div className="text-sm text-left text-muted-foreground mt-1 group-hover:text-foreground  break-words">
                     {subItem.description}
                   </div>
                 </div>
@@ -310,7 +309,7 @@ const MobileMenu: React.FC<MobileMenuProps> = ({ isOpen, onClose }) => {
     <div
       className={`
       fixed inset-0 z-50 lg:hidden
-      transition-all duration-300 ease-out
+      
       ${isOpen ? "opacity-100 visible" : "opacity-0 invisible"}
     `}
     >
@@ -318,7 +317,7 @@ const MobileMenu: React.FC<MobileMenuProps> = ({ isOpen, onClose }) => {
       <div
         className={`
           absolute inset-0 bg-black/50 backdrop-blur-sm
-          transition-opacity duration-300
+         =
           ${isOpen ? "opacity-100" : "opacity-0"}
         `}
         onClick={onClose}
@@ -328,7 +327,7 @@ const MobileMenu: React.FC<MobileMenuProps> = ({ isOpen, onClose }) => {
       <div
         className={`
         absolute right-0 top-0 h-full w-80 bg-popover shadow-2xl
-        transform transition-transform duration-300 ease-out
+        transform 
         ${isOpen ? "translate-x-0" : "translate-x-full"}
       `}
       >
@@ -344,7 +343,7 @@ const MobileMenu: React.FC<MobileMenuProps> = ({ isOpen, onClose }) => {
             </div>
             <button
               onClick={onClose}
-              className="p-2 hover:bg-muted rounded-lg transition-colors duration-200"
+              className="p-2 hover:bg-muted rounded-lg "
             >
               <X className="h-5 w-5" />
             </button>
@@ -359,17 +358,19 @@ const MobileMenu: React.FC<MobileMenuProps> = ({ isOpen, onClose }) => {
               >
                 <button
                   onClick={() => toggleExpanded(item.name)}
-                  className="w-full flex items-center justify-between p-3 text-left hover:bg-muted rounded-lg transition-colors duration-200"
+                  className="w-full flex items-center justify-between p-3 text-left hover:bg-muted rounded-lg "
                 >
-                  <span className="font-medium text-foreground">{item.name}</span>
+                  <span className="font-medium text-foreground">
+                    {item.name}
+                  </span>
                   <ChevronDown
-                    className={`h-4 w-4 transition-transform duration-200 ${expandedItems[item.name] ? "rotate-180" : ""}`}
+                    className={`h-4 w-4  ${expandedItems[item.name] ? "rotate-180" : ""}`}
                   />
                 </button>
 
                 <div
                   className={`
-                  overflow-hidden transition-all duration-300 ease-out
+                  overflow-hidden 
                   ${expandedItems[item.name] ? "max-h-96 opacity-100" : "max-h-0 opacity-0"}
                 `}
                 >
@@ -381,7 +382,7 @@ const MobileMenu: React.FC<MobileMenuProps> = ({ isOpen, onClose }) => {
                         onClick={onClose}
                         className={`
                           flex items-center space-x-3 p-2 text-sm text-muted-foreground hover:text-primary hover:bg-primary/10 rounded-md 
-                          transition-all duration-200 animate-fadeInUp
+                           animate-fadeInUp
                         `}
                         style={{
                           animationDelay: `${subIndex * 50}ms`,
@@ -406,7 +407,7 @@ const MobileMenu: React.FC<MobileMenuProps> = ({ isOpen, onClose }) => {
           <div className="mt-8 pt-8 border-t">
             <Link
               href="/contact/quote"
-              className="w-full bg-primary hover:bg-primary/90 text-white font-medium py-3 px-4 rounded-lg transition-all duration-200 hover:shadow-lg hover:scale-105 flex items-center justify-center"
+              className="w-full bg-primary hover:bg-primary/90 text-white font-medium py-3 px-4 rounded-lg  hover:shadow-lg hover:scale-105 flex items-center justify-center"
             >
               <Phone className="mr-2 h-4 w-4" />
               Get Quote
@@ -427,7 +428,21 @@ export function Header() {
   const [activeDropdown, setActiveDropdown] = useState<string | null>(null);
   const timeoutRef = useRef<NodeJS.Timeout | null>(null);
   const [mounted, setMounted] = useState(false);
-  const { theme } = useTheme();
+  const [logoSrc, setLogoSrc] = useState("/images/ACOB.png"); // Default logo
+  const { theme, resolvedTheme } = useTheme();
+
+  // Wait for theme to be resolved on client side
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  // Update logo when theme changes
+  useEffect(() => {
+    if (mounted && resolvedTheme) {
+      const newLogoSrc = resolvedTheme === "dark" ? "/images/ACOB-logo.png" : "/images/ACOB.png";
+      setLogoSrc(newLogoSrc);
+    }
+  }, [mounted, resolvedTheme]);
   useEffect(() => {
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 20);
@@ -453,18 +468,17 @@ export function Header() {
     setActiveDropdown(null);
   };
 
-  const logoSrc = theme === "dark" ? "/images/ACOB-logo.png" : "/images/ACOB.png";
   return (
     <>
       <header
         className={`
-        sticky top-0 z-40 w-full transition-all duration-500 ease-out
+        sticky top-0 z-40 w-full  ease-out
         bg-background/95 backdrop-blur-sm border-b-[2px] border-border
-        dark:bg-black transition-colors duration-700
+        dark:bg-black 
         ${
           isScrolled
-                    ? "bg-background/75 backdrop-blur-3xl shadow-lg border-b-[1px] border-border dark:bg-background"
-        : "bg-background/95 backdrop-blur-sm border-b border-border dark:bg-background"
+            ? "bg-background/75 backdrop-blur-3xl shadow-lg border-b-[1px] border-border dark:bg-background"
+            : "bg-background/95 backdrop-blur-sm border-b border-border dark:bg-background"
         }
       `}
       >
@@ -473,12 +487,12 @@ export function Header() {
             {/* Logo */}
             <Link href="/" className="flex items-center space-x-2 group">
               <Image
-                src={logoSrc}
+                  src={logoSrc}
                 alt="ACOB Lighting Logo"
                 width={120}
                 height={32}
                 priority
-                className="h-8 w-auto transition-transform duration-200 group-hover:scale-105"
+                className="h-8 w-auto  group-hover:scale-105"
               />
             </Link>
 
@@ -493,11 +507,11 @@ export function Header() {
                 >
                   <Link
                     href={item.href}
-                    className="flex items-center space-x-1 text-foreground hover:text-primary font-medium transition-all duration-200 hover:scale-105"
+                    className="flex items-center space-x-1 text-foreground hover:text-primary font-medium  hover:scale-105"
                   >
                     <span>{item.name}</span>
                     <ChevronDown
-                      className={`h-4 w-4 transition-transform duration-200 ${activeDropdown === item.name ? "rotate-180" : ""}`}
+                      className={`h-4 w-4  ${activeDropdown === item.name ? "rotate-180" : ""}`}
                     />
                   </Link>
 
@@ -513,7 +527,7 @@ export function Header() {
             {/* Desktop CTA */}
             <div className="hidden lg:flex items-center space-x-4">
               <Link href="/contact/quote">
-                <button className="bg-primary hover:bg-primary text-white font-medium py-2 px-4 rounded-lg transition-all duration-200 hover:shadow-lg hover:scale-105 flex items-center">
+                <button className="bg-primary hover:bg-primary text-white font-medium py-2 px-4 rounded-lg  hover:shadow-lg hover:scale-105 flex items-center">
                   <Phone className="mr-2 h-4 w-4" />
                   Get Quote
                 </button>
@@ -524,7 +538,7 @@ export function Header() {
             {/* Mobile Menu Button */}
             <button
               onClick={() => setIsMobileMenuOpen(true)}
-              className="lg:hidden p-2 hover:bg-muted rounded-lg transition-all duration-200 hover:scale-105"
+              className="lg:hidden p-2 hover:bg-muted rounded-lg  hover:scale-105"
             >
               <Menu className="h-6 w-6" />
             </button>

@@ -49,6 +49,10 @@
     --surface-muted: 240 4% 96%; /* zinc-50 */
     --surface-muted-foreground: 240 4% 46%; /* zinc-500 */
 
+    /* Scrollbar colors for light mode */
+    --scroll-track: 240 4% 96%; /* zinc-50 */
+    --scroll-thumb: 240 5% 4%; /* zinc-950 */
+
     --radius: 0.5rem;
   }
 
@@ -82,7 +86,7 @@
     /* Background Colors */
     --background: 240 5% 4%; /* zinc-950 */
     --foreground: 240 4% 96%; /* zinc-50 */
-    --foreground-2: 240 5% 64%; /* zinc-400 */
+    --foreground-2: ; /* zinc-400 */
 
     /* Card Colors */
     --card: 240 5% 11%; /* zinc-900 */
@@ -97,6 +101,10 @@
     --surface-foreground: 240 4% 96%; /* zinc-50 */
     --surface-muted: 240 5% 16%; /* zinc-900 */
     --surface-muted-foreground: 240 5% 64%; /* zinc-400 */
+
+    /* Scrollbar colors for dark mode */
+    --scroll-track: 240 5% 4%; /* zinc-950 */
+    --scroll-thumb: 240 4% 96%; /* zinc-50 */
   }
 }
 
@@ -109,27 +117,22 @@
   }
 }
 
-/* Custom scrollbar */
 ::-webkit-scrollbar {
   width: 4px;
 }
 
 ::-webkit-scrollbar-track {
-  background-color: hsl(var(--muted));
-}
-.dark ::-webkit-scrollbar-track {
-  background-color: hsl(var(--muted));
+  background-color: hsl(var(--scroll-track));
 }
 
 ::-webkit-scrollbar-thumb {
-  background-color: hsl(var(--muted-foreground));
+  background-color: hsl(var(--scroll-thumb));
   border-radius: 9999px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background-color: hsl(var(--foreground-2));
+  filter: brightness(0.9);
 }
-
 /* Custom animations */
 @keyframes smoothZoom {
   0% {
