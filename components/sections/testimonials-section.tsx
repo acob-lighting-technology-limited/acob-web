@@ -111,9 +111,9 @@ export function TestimonialsSection() {
             What Our Clients Say
           </h2>
           <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-            Don't just take our word for it. Here's what our satisfied clients
-            have to say about their experience with ACOB Lighting Technology
-            Limited.
+            Don&apos;t just take our word for it. Here&apos;s what our satisfied
+            clients have to say about their experience with ACOB Lighting
+            Technology Limited.
           </p>
         </div>
 
@@ -128,7 +128,7 @@ export function TestimonialsSection() {
               {/* Testimonial Content */}
               <div className="mb-6">
                 <p className="text-lg text-muted-foreground leading-relaxed italic">
-                  "{currentTestimonial.content}"
+                  &quot;{currentTestimonial.content}&quot;
                 </p>
               </div>
 

@@ -72,8 +72,9 @@ export default function NotFound() {
               Oops! Page Not Found
             </h2>
             <p className="text-xl text-muted-foreground max-w-2xl mx-auto leading-relaxed">
-              It seems like the page you're looking for has gone off-grid! Don't
-              worry, we'll help you find your way back to the light.
+              It seems like the page you&apos;re looking for has gone off-grid!
+              Don&apos;t worry, we&apos;ll help you find your way back to the
+              light.
             </p>
           </div>
 
@@ -103,8 +104,8 @@ export default function NotFound() {
           <div className="p-6 bg-primary/5 rounded-lg border border-primary/20">
             <p className="text-muted-foreground italic">
               💡 <strong>Did you know?</strong> Solar panels can still generate
-              electricity on cloudy days, just like how we're still here to help
-              even when things don't go as planned!
+              electricity on cloudy days, just like how we&apos;re still here to
+              help even when things don&apos;t go as planned!
             </p>
           </div>
         </div>

@@ -76,8 +76,8 @@ export default function OurStoryPage() {
                     In our early years, we focused on laying the groundwork...
                   </p>
                   <p>
-                    Over the years, we've grown from a nascent startup into a
-                    trusted leader...
+                    Over the years, we&apos;ve grown from a nascent startup into
+                    a trusted leader...
                   </p>
                   <p>Today, ACOB Lighting continues to innovate...</p>
                 </div>

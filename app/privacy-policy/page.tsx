@@ -38,10 +38,11 @@ export default function PrivacyPolicyPage() {
               <section>
                 <h2 className="text-xl font-semibold mb-3">1. Introduction</h2>
                 <p className="text-muted-foreground leading-relaxed">
-                  ACOB Lighting Technology Limited ("we," "our," or "us") is
-                  committed to protecting your privacy. This Privacy Policy
-                  explains how we collect, use, disclose, and safeguard your
-                  information when you visit our website or use our services.
+                  ACOB Lighting Technology Limited (&quot;we,&quot;
+                  &quot;our,&quot; or &quot;us&quot;) is committed to protecting
+                  your privacy. This Privacy Policy explains how we collect,
+                  use, disclose, and safeguard your information when you visit
+                  our website or use our services.
                 </p>
               </section>
 
@@ -213,7 +214,7 @@ export default function PrivacyPolicyPage() {
 
               <section>
                 <h2 className="text-xl font-semibold mb-3">
-                  10. Children's Privacy
+                  10. Children&apos;s Privacy
                 </h2>
                 <p className="text-muted-foreground">
                   Our website is not intended for children under 13 years of
@@ -231,7 +232,7 @@ export default function PrivacyPolicyPage() {
                 <p className="text-muted-foreground">
                   We may update this Privacy Policy from time to time. We will
                   notify you of any changes by posting the new Privacy Policy on
-                  this page and updating the "Last updated" date.
+                  this page and updating the &quot;Last updated&quot; date.
                 </p>
               </section>
 

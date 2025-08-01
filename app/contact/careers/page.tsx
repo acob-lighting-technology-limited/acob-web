@@ -82,10 +82,10 @@ export default function CareersPage() {
                   <p>
                     At ACOB Lighting, we believe that our people are our
                     greatest asset. We are a dynamic and growing company at the
-                    forefront of Nigeria's clean energy revolution. Joining our
-                    team means becoming part of a mission-driven organization
-                    dedicated to innovation, sustainability, and community
-                    empowerment.
+                    forefront of Nigeria&apos;s clean energy revolution. Joining
+                    our team means becoming part of a mission-driven
+                    organization dedicated to innovation, sustainability, and
+                    community empowerment.
                   </p>
                   <p>
                     We offer a collaborative work environment where creativity
@@ -138,7 +138,7 @@ export default function CareersPage() {
                   </Button>
                 </Link>
                 <p className="text-muted-foreground text-sm mt-4">
-                  Don't see a suitable role? Send your resume to{' '}
+                  Don&apos;t see a suitable role? Send your resume to{' '}
                   <Link
                     href="mailto:careers@acoblighting.com"
                     className="text-primary hover:underline"

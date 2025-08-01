@@ -69,7 +69,7 @@ export default function ContactPage() {
           </h2>
           <p className="text-lg text-muted-foreground max-w-3xl mx-auto">
             Whether you have a question, need support, or are looking for a
-            career opportunity, we're ready to connect.
+            career opportunity, we&apos;re ready to connect.
           </p>
         </div>
 
