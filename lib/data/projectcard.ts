@@ -1,42 +1,71 @@
+// This file is now deprecated as project data will be fetched from Sanity.
+// Its content has been moved to Sanity schema and client functions.
+// You can safely delete this file after verifying the changes.
+
 export const projectscard = [
-  // {
-  //   title: "Matthias Leidinger",
-  //   description:
-  //     "Originally hailing from Austria, Berlin-based photographer Matthias Leindinger is a young creative brimming with talent and ideas.",
-  //   src: "adebayo-palm-oil-milling.webp",
-  //   link: "https://www.ignant.com/2023/03/25/ad2186-matthias-leidingers-photographic-exploration-of-awe-and-wonder/",
-  //   color: "#78e5a1", // starting green
-  // },
   {
-    title: "Covid-19 Roof Top Installation",
+    title: 'Covid-19 Roof Top Installation',
     description:
-      "This is a story on the border between reality and imaginary, about the contradictory feelings that the insularity of a rocky, arid, and wild territory provokes”—so French photographer Clément Chapillon describes his latest highly captivating project Les rochers fauves (French for ‘The tawny rocks’).",
-    src: "covid-19-roof-top-installation.webp",
-    link: "https://www.ignant.com/2022/09/30/clement-chapillon-questions-geographical-and-mental-isolation-with-les-rochers-fauves/",
-    color: "#5ed88d", // slightly deeper green
+      'This project involved the strategic installation of solar energy systems on rooftops to support healthcare operations during the Covid-19 pandemic. It ensured uninterrupted power supply for critical medical equipment and improved energy efficiency.',
+    images: [
+      'covid-19-roof-top-installation-1.webp',
+      'covid-19-roof-top-installation-2.webp',
+      'covid-19-roof-top-installation-3.webp',
+    ],
+    location: 'Kaduna State',
+    gradientFrom: '#08913F',
+    gradientTo: '#003808',
   },
   {
-    title: "Installation of High Density LED Streetlights in Kogi state Government House Lokoja and Environs in 2016",
+    title: 'Installation of High Density LED Streetlights ',
     description:
-      "Though he views photography as a medium for storytelling, Zissou’s images don’t insist on a narrative. Both crisp and ethereal, they’re encoded with an ambiguity—a certain tension—that lets the viewer find their own story within them.",
-    src: "installation-high-density-streetlight.webp",
-    link: "https://www.ignant.com/2023/10/28/capturing-balis-many-faces-zissou-documents-the-sacred-and-the-mundane-of-a-fragile-island/",
-    color: "#43cb79", // medium green
+      'This installation project enhanced public lighting by deploying high-density LED streetlights across the Kogi State Government House and surrounding areas, improving security, visibility, and energy savings.',
+    images: [
+      'installation-high-density-streetlight-1.webp',
+      'installation-high-density-streetlight-2.webp',
+      'installation-high-density-streetlight-3.webp',
+    ],
+    location: 'Kogi State',
+    gradientFrom: '#616161',
+    gradientTo: '#000000',
   },
   {
-    title: "Keffi Nassarawa Hospital Survey",
+    title: 'Keffi Nasarawa Hospital Survey',
     description:
-      "The coastlines of Denmark are documented in tonal colors in a pensive new series by Danish photographers Ulrik Hasemann and Mathias Svold; an ongoing project investigating how humans interact with and disrupt the Danish coast.",
-    src: "keffi-nassarawa-hospital.webp",
-    link: "https://www.ignant.com/2019/03/13/a-photographic-series-depicting-the-uncertain-future-of-denmarks-treasured-coastlines/",
-    color: "#25b45d", // dark green
+      'A comprehensive survey conducted at Keffi Nasarawa Hospital to assess infrastructure, energy needs, and opportunities for improvement in healthcare delivery through sustainable energy and modern facilities.',
+    images: [
+      'keffi-nassarawa-hospital-1.webp',
+      'keffi-nassarawa-hospital-2.webp',
+      'keffi-nassarawa-hospital-3.webp',
+    ],
+    location: 'Nasarawa State',
+    gradientFrom: '#08913F',
+    gradientTo: '#003808',
   },
-  // {
-  //   title: "Mark Rammers",
-  //   description:
-  //     "Dutch photographer Mark Rammers has shared with IGNANT the first chapter of his latest photographic project, ‘all over again’—captured while in residency at Hektor, an old farm in Los Valles, Lanzarote. Titled ‘Beginnings’, the mesmerizing collection of images is a visual and meditative journey into the origins of regrets and the uncertainty of stepping into new unknowns.",
-  //   src: "routine-maintenance-streetlight-abuja.webp",
-  //   link: "https://www.ignant.com/2023/04/12/mark-rammers-all-over-again-is-a-study-of-regret-and-the-willingness-to-move-forward/",
-  //   color: "#08913F", // ending deep green
-  // },
+  {
+    title: 'Adebayo Palm Oil Milling Station',
+    description:
+      'This project involved the installation of a solar-powered palm oil milling station, enhancing the efficiency and sustainability of palm oil production in the region. It provided reliable energy for milling operations, reducing reliance on fossil fuels.',
+    images: [
+      'adebayo-palm-oil-milling-station-1.webp',
+      'adebayo-palm-oil-milling-station-2.webp',
+      'adebayo-palm-oil-milling-station-3.webp',
+    ],
+    location: 'Edo State',
+    gradientFrom: '#616161',
+    gradientTo: '#000000',
+  },
+  {
+    title: 'Solar Pump distribution',
+    description:
+      'This project involved the distribution of solar-powered water pumps to rural communities, providing sustainable and reliable access to clean water. The solar pumps are designed to operate efficiently in remote areas, reducing dependence on traditional power sources.',
+    images: [
+      'solar-pump-distribution-1.webp',
+      'solar-pump-distribution-2.webp',
+      'solar-pump-distribution-3.webp',
+    ],
+    location: 'Delta, Edo and Rivers State',
+    gradientFrom: '#08913F',
+    gradientTo: '#003808',
+  },
 ];

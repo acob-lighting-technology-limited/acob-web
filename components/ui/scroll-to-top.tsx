@@ -1,44 +1,44 @@
-"use client"
+'use client';
 
-import { useState, useEffect } from "react"
-import { ChevronUp } from "lucide-react"
-import { Button } from "@/components/ui/button"
+import { useState, useEffect } from 'react';
+import { ChevronUp } from 'lucide-react';
+import { Button } from '@/components/ui/button';
 
 export function ScrollToTop() {
-  const [isVisible, setIsVisible] = useState(false)
+  const [isVisible, setIsVisible] = useState(false);
 
   useEffect(() => {
     const toggleVisibility = () => {
       // Show button when page is scrolled down 300px
       if (window.pageYOffset > 300) {
-        setIsVisible(true)
+        setIsVisible(true);
       } else {
-        setIsVisible(false)
+        setIsVisible(false);
       }
-    }
+    };
 
-    window.addEventListener("scroll", toggleVisibility)
+    window.addEventListener('scroll', toggleVisibility);
 
     return () => {
-      window.removeEventListener("scroll", toggleVisibility)
-    }
-  }, [])
+      window.removeEventListener('scroll', toggleVisibility);
+    };
+  }, []);
 
   const scrollToTop = () => {
-    const scrollDuration = 1000 // 1 second duration
-    const scrollStep = -window.scrollY / (scrollDuration / 15)
+    const scrollDuration = 1000; // 1 second duration
+    const scrollStep = -window.scrollY / (scrollDuration / 15);
 
     const scrollInterval = setInterval(() => {
       if (window.scrollY !== 0) {
-        window.scrollBy(0, scrollStep)
+        window.scrollBy(0, scrollStep);
       } else {
-        clearInterval(scrollInterval)
+        clearInterval(scrollInterval);
       }
-    }, 15)
-  }
+    }, 15);
+  };
 
   if (!isVisible) {
-    return null
+    return null;
   }
 
   return (
@@ -50,5 +50,5 @@ export function ScrollToTop() {
     >
       <ChevronUp className="h-5 w-5" />
     </Button>
-  )
+  );
 }
