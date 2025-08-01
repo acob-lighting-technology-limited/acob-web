@@ -8,13 +8,14 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Plus, Edit, Trash2, Eye } from 'lucide-react';
 import Link from 'next/link';
+import { AdminPost } from '@/lib/types';
 
 export default function AdminDashboard() {
   const { data: session, status } = useSession();
   const router = useRouter();
-  const [posts, setPosts] = useState([]);
+  const [posts, setPosts] = useState<AdminPost[]>([]);
   const [loading, setLoading] = useState(true);
-  const [fetchError, setFetchError] = useState<string | null>(null); // New state for fetch errors
+  const [fetchError, setFetchError] = useState<string | null>(null);
 
   useEffect(() => {
     if (status === 'loading') return; // Still loading session
@@ -38,9 +39,11 @@ export default function AdminDashboard() {
       }
       const data = await response.json();
       setPosts(data);
-    } catch (error: any) {
+    } catch (error: unknown) {
       console.error('Error fetching posts:', error);
-      setFetchError(error.message || 'Could not load posts.');
+      const errorMessage =
+        error instanceof Error ? error.message : 'Could not load posts.';
+      setFetchError(errorMessage);
     } finally {
       setLoading(false);
     }
@@ -58,9 +61,11 @@ export default function AdminDashboard() {
         throw new Error(errorData.error || 'Failed to delete post');
       }
       fetchPosts(); // Re-fetch posts after successful deletion
-    } catch (error: any) {
+    } catch (error: unknown) {
       console.error('Error deleting post:', error);
-      alert(`Error deleting post: ${error.message}`); // Show alert for deletion error
+      const errorMessage =
+        error instanceof Error ? error.message : 'Unknown error occurred';
+      alert(`Error deleting post: ${errorMessage}`);
     }
   };
 
@@ -106,7 +111,7 @@ export default function AdminDashboard() {
           )}
           <div className="space-y-4">
             {Array.isArray(posts) && posts.length > 0
-              ? posts.map((post: any) => (
+              ? posts.map((post: AdminPost) => (
                   <div
                     key={post._id}
                     className="flex items-center justify-between p-4 border rounded-lg"
