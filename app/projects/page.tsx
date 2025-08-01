@@ -6,7 +6,8 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { ArrowRight, Search, MapPin } from 'lucide-react';
 import Link from 'next/link';
-import { getProjects } from '@/sanity/lib/client'; // Import getProjects
+import { getProjects } from '@/sanity/lib/client';
+import { OptimizedImage } from '@/components/ui/optimized-image';
 
 export default async function ProjectsPage() {
   const projects = await getProjects();
@@ -33,10 +34,12 @@ export default async function ProjectsPage() {
               >
                 <div className="aspect-[16/9] overflow-hidden">
                   {project.images && project.images.length > 0 && (
-                    <img
+                    <OptimizedImage
                       src={project.images[0].asset.url || '/placeholder.svg'}
                       alt={project.title}
-                      className="w-full h-full object-cover hover:scale-105 "
+                      fill
+                      className="hover:scale-105"
+                      sizes="(max-width: 768px) 100vw, (max-width: 1200px) 66vw, 50vw"
                     />
                   )}
                 </div>

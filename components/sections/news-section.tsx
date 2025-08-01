@@ -3,7 +3,8 @@ import { Button } from '@/components/ui/button';
 import { Container } from '@/components/ui/container';
 import { ArrowRight } from 'lucide-react';
 import Link from 'next/link';
-import { getUpdatePosts } from '@/sanity/lib/client'; // Changed to getUpdatePosts
+import { getUpdatePosts } from '@/sanity/lib/client';
+import { OptimizedImage } from '@/components/ui/optimized-image';
 
 export async function NewsSection() {
   const posts = await getUpdatePosts(); // Fetches update posts
@@ -34,10 +35,12 @@ export async function NewsSection() {
             >
               {/* Image */}
               <div className="aspect-[4/3] overflow-hidden relative">
-                <img
+                <OptimizedImage
                   src={post.featuredImage || '/placeholder.svg'}
                   alt={post.title}
-                  className="w-full h-full object-cover"
+                  fill
+                  className="object-cover"
+                  sizes="(max-width: 768px) 100vw, (max-width: 1200px) 33vw, 25vw"
                 />
                 {/* Category Tag */}
                 <div className="absolute top-4 left-4 bg-primary text-white px-3 py-1 rounded text-sm font-medium">
