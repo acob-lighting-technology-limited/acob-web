@@ -5,6 +5,7 @@ import { Card } from '@/components/ui/card';
 import { MaskText } from '@/components/animations/MaskText';
 import { Linkedin, Mail } from 'lucide-react';
 import Link from 'next/link';
+import { OptimizedImage } from '@/components/ui/optimized-image';
 
 const teamMembers = [
   {
@@ -97,10 +98,12 @@ export default function OurTeamPage() {
               key={member.id}
               className="border shadow-md border-border bg-surface text-center p-6 flex flex-col items-center"
             >
-              <img
+              <OptimizedImage
                 src={member.image || '/placeholder.svg'}
                 alt={member.name}
-                className="w-32 h-32 rounded-full object-cover mb-4 border-4 border-primary/20 shadow-md"
+                width={128}
+                height={128}
+                className="w-32 h-32 rounded-full mb-4 border-4 border-primary/20 shadow-md"
               />
               <h3 className="text-xl font-bold text-foreground mb-1">
                 {member.name}

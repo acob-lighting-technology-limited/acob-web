@@ -8,6 +8,7 @@ import { Input } from '@/components/ui/input';
 import Link from 'next/link';
 import { servicesData } from '@/lib/data/services';
 import CallToAction from '@/components/layout/call-to-action';
+import { OptimizedImage } from '@/components/ui/optimized-image';
 
 const categories = [
   'All Services',
@@ -50,10 +51,12 @@ export default function ServicesPage() {
                 className="overflow-hidden border-0 custom-shadow shadow-none p-0 hover:shadow-lg transition-shadow"
               >
                 <div className="aspect-[16/9] overflow-hidden">
-                  <img
+                  <OptimizedImage
                     src={service.image || '/placeholder.svg'}
                     alt={service.title}
-                    className="w-full h-full object-cover hover:scale-105 "
+                    fill
+                    className="hover:scale-105"
+                    sizes="(max-width: 768px) 100vw, (max-width: 1200px) 66vw, 50vw"
                   />
                 </div>
                 <CardContent className="p-6">
