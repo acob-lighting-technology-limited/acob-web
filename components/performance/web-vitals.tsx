@@ -25,12 +25,11 @@ export function WebVitals() {
     };
 
     // Import and initialize web-vitals
-    import('web-vitals').then(({ getCLS, getFID, getFCP, getLCP, getTTFB }) => {
-      getCLS(sendToAnalytics);
-      getFID(sendToAnalytics);
-      getFCP(sendToAnalytics);
-      getLCP(sendToAnalytics);
-      getTTFB(sendToAnalytics);
+    import('web-vitals').then(({ onCLS, onFCP, onLCP, onTTFB }) => {
+      onCLS(sendToAnalytics);
+      onFCP(sendToAnalytics);
+      onLCP(sendToAnalytics);
+      onTTFB(sendToAnalytics);
     });
   }, []);
 

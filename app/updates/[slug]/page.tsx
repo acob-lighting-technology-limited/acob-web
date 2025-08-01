@@ -19,9 +19,9 @@ import Image from 'next/image';
 import { CommentForm } from '@/components/updates/comment-form';
 
 interface UpdatePostPageProps {
-  params: {
+  params: Promise<{
     slug: string;
-  };
+  }>;
 }
 
 export async function generateStaticParams() {
@@ -92,7 +92,7 @@ const components = {
 };
 
 export default async function UpdatePostPage({ params }: UpdatePostPageProps) {
-  const { slug } = params;
+  const { slug } = await params;
 
   const post = await getUpdatePost(slug);
 

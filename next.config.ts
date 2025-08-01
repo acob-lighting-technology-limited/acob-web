@@ -2,10 +2,10 @@ import type { NextConfig } from 'next';
 
 const nextConfig: NextConfig = {
   eslint: {
-    ignoreDuringBuilds: true, // Temporarily disable for build, will fix ESLint issues
+    ignoreDuringBuilds: false, // Enable ESLint checking
   },
   typescript: {
-    ignoreBuildErrors: true, // Temporarily disable for build, will fix TypeScript issues
+    ignoreBuildErrors: false, // Enable TypeScript checking
   },
   images: {
     domains: ['cdn.sanity.io'],

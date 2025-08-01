@@ -11,9 +11,9 @@ import { PageHero } from '@/components/ui/page-hero';
 import CallToAction from '@/components/layout/call-to-action';
 
 interface ServicePageProps {
-  params: {
+  params: Promise<{
     slug: string;
-  };
+  }>;
 }
 
 export async function generateStaticParams() {
@@ -22,8 +22,9 @@ export async function generateStaticParams() {
   }));
 }
 
-export default function ServicePage({ params }: ServicePageProps) {
-  const service = getServiceBySlug(params.slug);
+export default async function ServicePage({ params }: ServicePageProps) {
+  const { slug } = await params;
+  const service = getServiceBySlug(slug);
 
   if (!service) {
     notFound();
@@ -39,7 +40,7 @@ export default function ServicePage({ params }: ServicePageProps) {
   const sidebarLinks = servicesData.map(s => ({
     label: s.title,
     href: `/services/${s.slug}`,
-    isActive: s.slug === params.slug,
+    isActive: s.slug === slug,
   }));
 
   return (

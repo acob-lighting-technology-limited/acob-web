@@ -5,7 +5,7 @@ import { client } from '@/sanity/lib/client';
 
 export async function DELETE(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   const session = await getServerSession(authOptions);
 
@@ -14,7 +14,8 @@ export async function DELETE(
   }
 
   try {
-    await client.delete(params.id);
+    const { id } = await params;
+    await client.delete(id);
     return NextResponse.json({ success: true });
   } catch (error) {
     console.error('Error deleting post:', error);
@@ -27,7 +28,7 @@ export async function DELETE(
 
 export async function PUT(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   const session = await getServerSession(authOptions);
 
@@ -36,6 +37,7 @@ export async function PUT(
   }
 
   try {
+    const { id } = await params;
     const body = await request.json();
 
     const patchOperations: Record<string, any> = {
@@ -56,7 +58,7 @@ export async function PUT(
     // If you need to change it, you'd typically handle it in the Sanity Studio or a specific API.
     // For this example, we'll assume slug is not updated via this PUT.
 
-    const result = await client.patch(params.id).set(patchOperations).commit();
+    const result = await client.patch(id).set(patchOperations).commit();
 
     return NextResponse.json(result);
   } catch (error) {

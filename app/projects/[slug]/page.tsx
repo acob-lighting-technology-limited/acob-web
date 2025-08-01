@@ -10,9 +10,9 @@ import Link from 'next/link';
 import { PageHero } from '@/components/ui/page-hero';
 
 interface ProjectPageProps {
-  params: {
+  params: Promise<{
     slug: string;
-  };
+  }>;
 }
 
 export async function generateStaticParams() {
@@ -23,7 +23,7 @@ export async function generateStaticParams() {
 }
 
 export default async function ProjectPage({ params }: ProjectPageProps) {
-  const { slug } = params;
+  const { slug } = await params;
   const project = await getProject(slug);
 
   if (!project) {
