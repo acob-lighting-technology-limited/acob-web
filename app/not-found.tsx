@@ -4,13 +4,8 @@ import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { Button } from '@/components/ui/button';
 import { Container } from '@/components/ui/container';
-import { Home, ArrowLeft, Lightbulb, Zap, Sun } from 'lucide-react';
-
-const floatingElements = [
-  { icon: Sun, delay: 0, duration: 3 },
-  { icon: Zap, delay: 1, duration: 4 },
-  { icon: Lightbulb, delay: 2, duration: 3.5 },
-];
+import { Home, ArrowLeft, Lightbulb } from 'lucide-react';
+import { floatingElements } from '@/lib/data/not-found-data';
 
 export default function NotFound() {
   const router = useRouter();

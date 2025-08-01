@@ -3,48 +3,10 @@ import { PageHero } from '@/components/ui/page-hero';
 import { Breadcrumb } from '@/components/ui/breadcrumb';
 import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
-import {
-  ArrowRight,
-  Lightbulb,
-  Users,
-  TrendingUp,
-  ShieldCheck,
-} from 'lucide-react';
+import { ArrowRight } from 'lucide-react';
 import Link from 'next/link';
 import { MaskText } from '@/components/animations/MaskText';
-
-const whyWorkItems = [
-  {
-    icon: Lightbulb,
-    title: 'Impactful Work',
-    description:
-      'Contribute directly to electrifying communities and driving sustainable development in Nigeria.',
-  },
-  {
-    icon: Users,
-    title: 'Collaborative Culture',
-    description:
-      'Work alongside passionate experts in a supportive and innovative environment.',
-  },
-  {
-    icon: TrendingUp,
-    title: 'Growth Opportunities',
-    description:
-      'Benefit from continuous learning, professional development, and career advancement.',
-  },
-  {
-    icon: ShieldCheck,
-    title: 'Competitive Benefits',
-    description:
-      'Enjoy a comprehensive benefits package designed to support your well-being.',
-  },
-];
-
-const contactLinks = [
-  { href: '/contact/get-quote', label: 'Get a Quote' },
-  { href: '/contact/locations', label: 'Office Locations' },
-  { href: '/contact/support', label: 'Support' },
-];
+import { whyWorkItems, contactLinks } from '@/lib/data/contact-data';
 
 export default function CareersPage() {
   const breadcrumbItems = [

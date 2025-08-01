@@ -7,7 +7,7 @@ import { Header } from '@/components/layout/header';
 import { Footer } from '@/components/layout/footer';
 import { ScrollToTop } from '@/components/ui/scroll-to-top';
 import { Providers } from '@/components/providers/session-provider';
-import { Toaster, toast } from 'sonner';
+import { Toaster } from 'sonner';
 import { StructuredData } from '@/components/seo/structured-data';
 import { WebVitals } from '@/components/performance/web-vitals';
 import { GoogleAnalytics } from '@/components/analytics/google-analytics';

@@ -4,17 +4,7 @@ import { PageHero } from '@/components/ui/page-hero';
 import { Breadcrumb } from '@/components/ui/breadcrumb';
 import { Card, CardContent } from '@/components/ui/card';
 import { MaskText } from '@/components/animations/MaskText';
-import {
-  Target,
-  Eye,
-  Handshake,
-  Sun,
-  Zap,
-  Lightbulb,
-  Phone,
-  Leaf,
-  Settings,
-} from 'lucide-react';
+import { Target, Eye, Handshake, Sun, Zap, Lightbulb } from 'lucide-react';
 import CallToAction from '@/components/layout/call-to-action';
 
 const missionVisionData = [
@@ -57,12 +47,6 @@ const coreValues = [
     description:
       'Our solutions are designed to protect the environment and promote long-term energy security.',
   },
-];
-
-const aboutLinks = [
-  { label: 'Our Story', href: '/about/our-story' },
-  { label: 'Meet Our Team', href: '/about/team' },
-  { label: 'Certifications', href: '/about/certifications' },
 ];
 
 export default function MissionVisionPage() {
