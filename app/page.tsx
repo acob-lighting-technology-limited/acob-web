@@ -9,6 +9,7 @@ import { NewsSection } from '@/components/sections/news-section';
 import { PartnersSection } from '@/components/sections/partners-section';
 import { MapSection } from '@/components/sections/map-section';
 import { ProjectsSection } from '@/components/sections/projects-section';
+import { TestimonialsSection } from '@/components/sections/testimonials-section';
 import { ChatBot } from '@/components/chat-box';
 
 export default function HomePage() {
@@ -19,6 +20,7 @@ export default function HomePage() {
       <ServicesSection />
       <CompanySection />
       <ProjectsSection />
+      <TestimonialsSection />
       <TransitionSection />
       <div id="get-quote">
         {' '}

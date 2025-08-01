@@ -11,6 +11,7 @@ import { Toaster, toast } from 'sonner';
 import { StructuredData } from '@/components/seo/structured-data';
 import { WebVitals } from '@/components/performance/web-vitals';
 import { GoogleAnalytics } from '@/components/analytics/google-analytics';
+import { CookieConsent } from '@/components/business/cookie-consent';
 
 const inter = Inter({
   subsets: ['latin'],
@@ -125,6 +126,7 @@ export default function RootLayout({
             <Footer />
 
             <ScrollToTop />
+            <CookieConsent />
           </div>
         </Providers>
       </body>
