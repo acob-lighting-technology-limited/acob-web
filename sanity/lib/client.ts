@@ -7,8 +7,8 @@ const dataset =
   process.env.SANITY_STUDIO_DATASET || process.env.NEXT_PUBLIC_SANITY_DATASET;
 
 export const client = createClient({
-  projectId,
-  dataset,
+  projectId: projectId || 'x16t7huo',
+  dataset: dataset || 'production',
   useCdn: true,
   apiVersion: '2024-01-01',
   token: process.env.SANITY_API_TOKEN,
@@ -89,39 +89,49 @@ export async function getApprovedCommentsForPost(postId: string) {
 
 // NEW: Helper function to get projects
 export async function getProjects() {
-  return await client.fetch(`
-    *[_type == "project"] | order(_createdAt desc) {
-      _id,
-      title,
-      slug,
-      description,
-      location,
-      gradientFrom,
-      gradientTo,
-      images[]{
-        asset->{url}
+  try {
+    return await client.fetch(`
+      *[_type == "project"] | order(_createdAt desc) {
+        _id,
+        title,
+        slug,
+        description,
+        location,
+        gradientFrom,
+        gradientTo,
+        images[]{
+          asset->{url}
+        }
       }
-    }
-  `);
+    `);
+  } catch (error) {
+    console.error('Error fetching projects from Sanity:', error);
+    return [];
+  }
 }
 
 // NEW: Helper function to get single project
 export async function getProject(slug: string) {
-  return await client.fetch(
-    `
-    *[_type == "project" && slug.current == $slug][0] {
-      _id,
-      title,
-      slug,
-      description,
-      location,
-      gradientFrom,
-      gradientTo,
-      images[]{
-        asset->{url}
+  try {
+    return await client.fetch(
+      `
+      *[_type == "project" && slug.current == $slug][0] {
+        _id,
+        title,
+        slug,
+        description,
+        location,
+        gradientFrom,
+        gradientTo,
+        images[]{
+          asset->{url}
+        }
       }
-    }
-  `,
-    { slug }
-  );
+    `,
+      { slug }
+    );
+  } catch (error) {
+    console.error('Error fetching project from Sanity:', error);
+    return null;
+  }
 }
