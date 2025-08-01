@@ -40,7 +40,7 @@ export async function PUT(
     const { id } = await params;
     const body = await request.json();
 
-    const patchOperations: Record<string, any> = {
+    const patchOperations: Record<string, unknown> = {
       title: body.title,
       excerpt: body.excerpt,
       content: body.content,

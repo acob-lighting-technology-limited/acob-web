@@ -13,7 +13,8 @@ import { Button } from '@/components/ui/button';
 import { ArrowLeft } from 'lucide-react';
 import Link from 'next/link';
 import Image from 'next/image';
-import { urlFor } from '@/sanity/lib/client'; // Import urlFor to display images
+import { urlFor } from '@/sanity/lib/client';
+import { AdminPost, SanityImageUrl } from '@/lib/types';
 
 interface EditUpdatePostClientProps {
   id: string;
@@ -62,8 +63,8 @@ export function EditUpdatePostClient({ id }: EditUpdatePostClientProps) {
         // PortableText content needs to be converted back to plain string for textarea
         setContent(
           post.content
-            .map((block: any) =>
-              block.children.map((span: any) => span.text).join('')
+            .map((block: { children: { text: string }[] }) =>
+              block.children.map((span: { text: string }) => span.text).join('')
             )
             .join('\n\n')
         );
@@ -72,8 +73,10 @@ export function EditUpdatePostClient({ id }: EditUpdatePostClientProps) {
         if (post.featuredImage) {
           setCurrentFeaturedImageUrl(urlFor(post.featuredImage).url());
         }
-      } catch (err: any) {
-        setError(err.message || 'Failed to load post data.');
+      } catch (err: unknown) {
+        const errorMessage =
+          err instanceof Error ? err.message : 'Failed to load post data.';
+        setError(errorMessage);
       } finally {
         setLoading(false);
       }
@@ -148,10 +151,12 @@ export function EditUpdatePostClient({ id }: EditUpdatePostClientProps) {
             _type: 'reference',
           },
         };
-      } catch (uploadError: any) {
-        setError(
-          uploadError.message || 'An error occurred during image upload.'
-        );
+      } catch (uploadError: unknown) {
+        const errorMessage =
+          uploadError instanceof Error
+            ? uploadError.message
+            : 'An error occurred during image upload.';
+        setError(errorMessage);
         setLoading(false);
         return;
       }
@@ -183,8 +188,10 @@ export function EditUpdatePostClient({ id }: EditUpdatePostClientProps) {
 
       setSuccess('Update post updated successfully!'); // Renamed success message
       router.push('/admin'); // Redirect to admin dashboard after update
-    } catch (err: any) {
-      setError(err.message || 'An unexpected error occurred.');
+    } catch (err: unknown) {
+      const errorMessage =
+        err instanceof Error ? err.message : 'An unexpected error occurred.';
+      setError(errorMessage);
     } finally {
       setLoading(false);
     }

@@ -7,7 +7,11 @@ export function WebVitals() {
     // Only run in production
     if (process.env.NODE_ENV !== 'production') return;
 
-    const sendToAnalytics = (metric: any) => {
+    const sendToAnalytics = (metric: {
+      name: string;
+      value: number;
+      id: string;
+    }) => {
       // Send to Google Analytics or your analytics service
       if (typeof window !== 'undefined' && window.gtag) {
         window.gtag('event', metric.name, {

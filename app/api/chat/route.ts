@@ -81,10 +81,12 @@ export async function POST(req: NextRequest) {
     }
 
     // Clean messages to remove unsupported properties
-    const cleanMessages = messages.map((msg: any) => ({
-      role: msg.role,
-      content: msg.content,
-    }));
+    const cleanMessages = messages.map(
+      (msg: { role: string; content: string }) => ({
+        role: msg.role,
+        content: msg.content,
+      })
+    );
 
     console.log('=== CLEANED MESSAGES ===');
     console.log('Clean messages count:', cleanMessages.length);
@@ -156,7 +158,7 @@ export async function POST(req: NextRequest) {
         'Access-Control-Allow-Headers': 'Content-Type, Authorization',
       },
     });
-  } catch (err: any) {
+  } catch (err: unknown) {
     console.error('=== CATCH BLOCK ERROR ===');
     console.error('Error type:', typeof err);
     console.error('Error message:', err?.message);
