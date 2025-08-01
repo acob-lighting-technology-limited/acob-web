@@ -1,47 +1,47 @@
-import { Button } from "@/components/ui/button";
-import { Container } from "@/components/ui/container";
-import { PageHero } from "@/components/ui/page-hero";
-import { Breadcrumb } from "@/components/ui/breadcrumb";
-import { Card, CardContent } from "@/components/ui/card";
-import { ArrowRight, Phone, MapPin, LifeBuoy, Briefcase } from "lucide-react";
-import Link from "next/link";
-import { MaskText } from "@/components/animations/MaskText";
+import { Button } from '@/components/ui/button';
+import { Container } from '@/components/ui/container';
+import { PageHero } from '@/components/ui/page-hero';
+import { Breadcrumb } from '@/components/ui/breadcrumb';
+import { Card, CardContent } from '@/components/ui/card';
+import { ArrowRight, Phone, MapPin, LifeBuoy, Briefcase } from 'lucide-react';
+import Link from 'next/link';
+import { MaskText } from '@/components/animations/MaskText';
 
 const contactSections = [
   {
-    title: "Get a Quote",
+    title: 'Get a Quote',
     description:
-      "Request a personalized energy audit or project quotation for your needs.",
-    href: "/contact/get-quote",
-    image: "/images/contact/get-quote.png?height=200&width=300",
+      'Request a personalized energy audit or project quotation for your needs.',
+    href: '/contact/get-quote',
+    image: '/images/contact/get-quote.png?height=200&width=300',
   },
   {
-    title: "Office Locations",
+    title: 'Office Locations',
     description:
-      "Find our head office and branch locations, and get directions.",
-    href: "/contact/locations",
-    image: "/images/contact/office-location.jpg?height=200&width=300",
+      'Find our head office and branch locations, and get directions.',
+    href: '/contact/locations',
+    image: '/images/contact/office-location.jpg?height=200&width=300',
   },
   {
-    title: "Support",
+    title: 'Support',
     description:
-      "Access our support resources or get assistance with your ACOB Lighting products and services.",
-    href: "/contact/support",
-    image: "/images/contact/support.jpg?height=200&width=300",
+      'Access our support resources or get assistance with your ACOB Lighting products and services.',
+    href: '/contact/support',
+    image: '/images/contact/support.jpg?height=200&width=300',
   },
   {
-    title: "Careers",
+    title: 'Careers',
     description:
-      "Explore career opportunities and join our growing team of energy innovators.",
-    href: "/contact/careers",
-    image: "/images/contact/careers.webp?height=200&width=300",
+      'Explore career opportunities and join our growing team of energy innovators.',
+    href: '/contact/careers',
+    image: '/images/contact/careers.webp?height=200&width=300',
   },
 ];
 
 export default function ContactPage() {
   const breadcrumbItems = [
-    { label: "Home", href: "/" },
-    { label: "Contact Us" },
+    { label: 'Home', href: '/' },
+    { label: 'Contact Us' },
   ];
 
   return (
@@ -53,7 +53,7 @@ export default function ContactPage() {
         <MaskText
           phrases={[
             "We're here to help you with all your clean energy needs.",
-            "Reach out to us through our various channels.",
+            'Reach out to us through our various channels.',
           ]}
           className="text-lg md:text-xl opacity-90 max-w-3xl leading-relaxed"
         />
@@ -64,7 +64,7 @@ export default function ContactPage() {
 
         <div className="text-center mb-12">
           <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-foreground mb-4">
-            <MaskText phrases={["How Can We Assist You?"]} />
+            <MaskText phrases={['How Can We Assist You?']} />
           </h2>
           <p className="text-lg text-muted-foreground max-w-3xl mx-auto">
             Whether you have a question, need support, or are looking for a
@@ -79,7 +79,7 @@ export default function ContactPage() {
                 <Card className="overflow-hidden bg-surface border-0 custom-shadow  p-0 hover:shadow-lg  h-full flex flex-col">
                   <div className="aspect-[4/3] overflow-hidden flex items-center justify-center bg-primary/5">
                     <img
-                      src={section.image || "/placeholder.svg"}
+                      src={section.image || '/placeholder.svg'}
                       alt={section.title}
                       className="w-full h-full object-cover hover:scale-105 "
                     />

@@ -1,4 +1,5 @@
+import SimpleSpinnerExit from '@/components/loader/simple-spinner-exit';
+
 export default function Loading() {
-    return null
-  }
-  
+  return <SimpleSpinnerExit preview={true} />;
+}

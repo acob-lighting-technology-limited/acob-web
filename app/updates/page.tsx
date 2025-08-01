@@ -1,12 +1,12 @@
-import { Container } from "@/components/ui/container";
-import { PageHero } from "@/components/ui/page-hero";
-import { Breadcrumb } from "@/components/ui/breadcrumb";
-import { Card, CardContent } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { ArrowRight, Search } from "lucide-react";
-import Link from "next/link";
-import { getUpdatePosts, getCategories } from "@/sanity/lib/client"; // Changed to getUpdatePosts
+import { Container } from '@/components/ui/container';
+import { PageHero } from '@/components/ui/page-hero';
+import { Breadcrumb } from '@/components/ui/breadcrumb';
+import { Card, CardContent } from '@/components/ui/card';
+import { Button } from '@/components/ui/button';
+import { Input } from '@/components/ui/input';
+import { ArrowRight, Search } from 'lucide-react';
+import Link from 'next/link';
+import { getUpdatePosts, getCategories } from '@/sanity/lib/client'; // Changed to getUpdatePosts
 
 export default async function UpdatesPage() {
   // Renamed component
@@ -15,14 +15,14 @@ export default async function UpdatesPage() {
     getCategories(),
   ]); // Fetches update posts
 
-  const breadcrumbItems = [{ label: "Home", href: "/" }, { label: "Updates" }]; // Renamed breadcrumb
+  const breadcrumbItems = [{ label: 'Home', href: '/' }, { label: 'Updates' }]; // Renamed breadcrumb
 
   return (
     <>
       <PageHero
         title="Latest Updates & News"
         backgroundImage="/images/services/header.jpg?height=400&width=1200"
-      />{" "}
+      />{' '}
       {/* Renamed title */}
       <Container className="px-4 py-8">
         <Breadcrumb items={breadcrumbItems} className="mb-8" />
@@ -37,7 +37,7 @@ export default async function UpdatesPage() {
               >
                 <div className="aspect-[16/9] overflow-hidden">
                   <img
-                    src={post.featuredImage || "/placeholder.svg"}
+                    src={post.featuredImage || '/placeholder.svg'}
                     alt={post.title}
                     className="w-full h-full object-cover hover:scale-105 transition-transform duration-300"
                   />
@@ -57,7 +57,7 @@ export default async function UpdatesPage() {
                     {post.excerpt}
                   </p>
                   <Link href={`/updates/${post.slug.current}`}>
-                    {" "}
+                    {' '}
                     {/* Changed link to /updates */}
                     <Button className="bg-primary hover:bg-primary/90 text-white">
                       Read More
@@ -76,7 +76,7 @@ export default async function UpdatesPage() {
               <CardContent className="p-6">
                 <h3 className="font-semibold mb-4">Search</h3>
                 <div className="relative border-[0.5px] rounded-md border-primary">
-                  <Input placeholder="Search updates..." className="pr-10" />{" "}
+                  <Input placeholder="Search updates..." className="pr-10" />{' '}
                   {/* Renamed placeholder */}
                   <Search className="absolute right-3 top-1/2 -translate-y-1/2 h-4 w-4 text-gray-400" />
                 </div>

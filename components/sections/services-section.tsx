@@ -1,7 +1,7 @@
-"use client";
-import { Button } from "@/components/ui/button";
-import { Container } from "@/components/ui/container";
-import { Card, CardContent } from "@/components/ui/card";
+'use client';
+import { Button } from '@/components/ui/button';
+import { Container } from '@/components/ui/container';
+import { Card, CardContent } from '@/components/ui/card';
 import {
   Carousel,
   CarouselContent,
@@ -9,13 +9,13 @@ import {
   CarouselNext,
   CarouselPrevious,
   type CarouselApi,
-} from "@/components/ui/carousel";
-import Autoplay from "embla-carousel-autoplay";
-import { ArrowRight } from "lucide-react";
-import React, { useState, useEffect } from "react";
-import Link from "next/link";
-import { servicesData } from "@/lib/data/services";
-import { MaskText } from "../animations/MaskText";
+} from '@/components/ui/carousel';
+import Autoplay from 'embla-carousel-autoplay';
+import { ArrowRight } from 'lucide-react';
+import React, { useState, useEffect } from 'react';
+import Link from 'next/link';
+import { servicesData } from '@/lib/data/services';
+import { MaskText } from '../animations/MaskText';
 
 export function ServicesSection() {
   const [currentSlide, setCurrentSlide] = useState(0);
@@ -28,7 +28,7 @@ export function ServicesSection() {
   useEffect(() => {
     if (!carouselApi) return;
 
-    carouselApi.on("select", () => {
+    carouselApi.on('select', () => {
       setCurrentSlide(carouselApi.selectedScrollSnap());
     });
   }, [carouselApi]);
@@ -52,9 +52,9 @@ export function ServicesSection() {
           <div>
             <MaskText
               phrases={[
-                "A Leading Supplier Of Solar Materials",
-                "For Manufacturers Installers & Contractors,",
-                "Mini-Grid Solutions.",
+                'A Leading Supplier Of Solar Materials',
+                'For Manufacturers Installers & Contractors,',
+                'Mini-Grid Solutions.',
               ]}
               className="text-4xl md:text-5xl font-bold text-foreground leading-tight mb-8 transition-colors duration-700"
             />
@@ -63,12 +63,12 @@ export function ServicesSection() {
           <div>
             <MaskText
               phrases={[
-                "Together with experienced technical team,",
-                "ACOB Lighting provides emergency response to electricity outages",
-                "for customers, standard technical O&M activities,",
-                "design and installation of streetlighting infrastructure.",
-                "We ensure quality control of indoor installations",
-                "and safety training for customers.",
+                'Together with experienced technical team,',
+                'ACOB Lighting provides emergency response to electricity outages',
+                'for customers, standard technical O&M activities,',
+                'design and installation of streetlighting infrastructure.',
+                'We ensure quality control of indoor installations',
+                'and safety training for customers.',
               ]}
               className="text-muted-foreground text-lg leading-relaxed mb-8 transition-colors duration-700"
             />
@@ -92,7 +92,7 @@ export function ServicesSection() {
         <Carousel
           plugins={[plugin.current]}
           opts={{
-            align: "start",
+            align: 'start',
             loop: true,
           }}
           className=" lg:px-20"
@@ -111,7 +111,7 @@ export function ServicesSection() {
                     <div className="mb-6 w-fit transition-transform duration-700 group-hover:scale-x-[-1]">
                       <span>
                         <img
-                          src={service.icon || "/placeholder.svg"}
+                          src={service.icon || '/placeholder.svg'}
                           alt={service.title}
                           className="w-20 h-20 object-contain"
                         />
@@ -122,10 +122,10 @@ export function ServicesSection() {
                     </h3>
                     <p className="text-muted-foreground text-base leading-relaxed mb-8">
                       {service.shortDescription
-                        .split(" ")
+                        .split(' ')
                         .slice(0, 25)
-                        .join(" ")}
-                      {service.shortDescription.split(" ").length > 36 && "..."}
+                        .join(' ')}
+                      {service.shortDescription.split(' ').length > 36 && '...'}
                     </p>
 
                     <div className="mt-auto">
@@ -141,7 +141,7 @@ export function ServicesSection() {
                     </div>
                   </CardContent>
                   {/* Green accent line at bottom */}
-                  <div className="!ml-0 !pl-0 absolute bottom-0 group-hover:h-2 h-1 w-full bg-primary dark:bg-primary transition-all duration-700 ease-in-out"></div>{" "}
+                  <div className="!ml-0 !pl-0 absolute bottom-0 group-hover:h-2 h-1 w-full bg-primary dark:bg-primary transition-all duration-700 ease-in-out"></div>{' '}
                   {/* <div className="absolute bottom-0 left-0 right-0 h-1 group-hover:!h-6 bg-primary"></div> */}
                 </Card>
               </CarouselItem>
@@ -160,8 +160,8 @@ export function ServicesSection() {
               disabled={isTransitioning}
               className={`transition-all duration-500 rounded-full cursor-pointer hover:opacity-80 disabled:cursor-not-allowed ${
                 currentSlide === index
-                  ? "w-8 h-1.5 bg-primary dark:bg-primary shadow-lg"
-                  : "w-6 h-1 bg-zinc-400 hover:bg-zinc-600 hover:w-7"
+                  ? 'w-8 h-1.5 bg-primary dark:bg-primary shadow-lg'
+                  : 'w-6 h-1 bg-zinc-400 hover:bg-zinc-600 hover:w-7'
               }`}
             />
           ))}
@@ -170,8 +170,6 @@ export function ServicesSection() {
     </section>
   );
 }
-
-
 
 // "use client";
 // import { Button } from "@/components/ui/button";

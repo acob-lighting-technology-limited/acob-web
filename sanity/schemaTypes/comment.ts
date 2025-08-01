@@ -1,70 +1,70 @@
-import { defineField, defineType } from "sanity"
+import { defineField, defineType } from 'sanity';
 
 export default defineType({
-  name: "comment",
-  title: "Comment",
-  type: "document",
+  name: 'comment',
+  title: 'Comment',
+  type: 'document',
   fields: [
     defineField({
-      name: "name",
-      title: "Name",
-      type: "string",
-      validation: (Rule) => Rule.required(),
+      name: 'name',
+      title: 'Name',
+      type: 'string',
+      validation: Rule => Rule.required(),
     }),
     defineField({
-      name: "email",
-      title: "Email",
-      type: "string",
-      validation: (Rule) => Rule.required().email(),
+      name: 'email',
+      title: 'Email',
+      type: 'string',
+      validation: Rule => Rule.required().email(),
     }),
     defineField({
-      name: "website",
-      title: "Website",
-      type: "url",
+      name: 'website',
+      title: 'Website',
+      type: 'url',
       description: "Optional: User's website URL",
     }),
     defineField({
-      name: "comment",
-      title: "Comment",
-      type: "text",
+      name: 'comment',
+      title: 'Comment',
+      type: 'text',
       rows: 5,
-      validation: (Rule) => Rule.required(),
+      validation: Rule => Rule.required(),
     }),
     defineField({
-      name: "updatePost", // Renamed from blogPost
-      title: "Update Post", // Renamed from Blog Post
-      type: "reference",
-      to: [{ type: "updatePost" }], // Reference the new updatePost schema
-      validation: (Rule) => Rule.required(),
+      name: 'updatePost', // Renamed from blogPost
+      title: 'Update Post', // Renamed from Blog Post
+      type: 'reference',
+      to: [{ type: 'updatePost' }], // Reference the new updatePost schema
+      validation: Rule => Rule.required(),
     }),
     defineField({
-      name: "approved",
-      title: "Approved",
-      type: "boolean",
-      description: "Set to true to show comment on the website",
+      name: 'approved',
+      title: 'Approved',
+      type: 'boolean',
+      description: 'Set to true to show comment on the website',
       initialValue: false, // Comments require moderation by default
     }),
     defineField({
-      name: "createdAt",
-      title: "Created At",
-      type: "datetime",
+      name: 'createdAt',
+      title: 'Created At',
+      type: 'datetime',
       initialValue: () => new Date().toISOString(),
       readOnly: true,
     }),
   ],
   preview: {
     select: {
-      name: "name",
-      comment: "comment",
-      postTitle: "updatePost.title", // Renamed from blogPost.title
-      approved: "approved",
+      name: 'name',
+      comment: 'comment',
+      postTitle: 'updatePost.title', // Renamed from blogPost.title
+      approved: 'approved',
     },
     prepare(selection) {
-      const { name, comment, postTitle, approved } = selection
+      const { name, comment, postTitle, approved } = selection;
       return {
-        title: `${name} on ${postTitle || "No Post"}`,
+        title: `${name} on ${postTitle || 'No Post'}`,
         subtitle: approved ? comment : `[PENDING] ${comment}`,
-      }
+      };
     },
   },
-})
+});

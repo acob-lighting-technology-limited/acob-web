@@ -1,35 +1,35 @@
-import { PageHero } from "@/components/ui/page-hero";
-import { Breadcrumb } from "@/components/ui/breadcrumb";
-import { Container } from "@/components/ui/container";
-import { Card, CardContent } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
-import { ArrowRight, Search, Settings, Leaf, Phone } from "lucide-react";
-import { Input } from "@/components/ui/input";
-import Link from "next/link";
-import { servicesData } from "@/lib/data/services";
-import CallToAction from "@/components/layout/call-to-action";
+import { PageHero } from '@/components/ui/page-hero';
+import { Breadcrumb } from '@/components/ui/breadcrumb';
+import { Container } from '@/components/ui/container';
+import { Card, CardContent } from '@/components/ui/card';
+import { Button } from '@/components/ui/button';
+import { ArrowRight, Search, Settings, Leaf, Phone } from 'lucide-react';
+import { Input } from '@/components/ui/input';
+import Link from 'next/link';
+import { servicesData } from '@/lib/data/services';
+import CallToAction from '@/components/layout/call-to-action';
 
 const categories = [
-  "All Services",
-  "Power Solutions",
-  "Consulting",
-  "Construction",
-  "Infrastructure",
+  'All Services',
+  'Power Solutions',
+  'Consulting',
+  'Construction',
+  'Infrastructure',
 ];
 
 const tags = [
-  "Solar Energy",
-  "Mini-Grid",
-  "Energy Audit",
-  "Installation",
-  "Maintenance",
-  "Consulting",
-  "EPC",
-  "Streetlighting",
+  'Solar Energy',
+  'Mini-Grid',
+  'Energy Audit',
+  'Installation',
+  'Maintenance',
+  'Consulting',
+  'EPC',
+  'Streetlighting',
 ];
 
 export default function ServicesPage() {
-  const breadcrumbItems = [{ label: "Home", href: "/" }, { label: "Services" }];
+  const breadcrumbItems = [{ label: 'Home', href: '/' }, { label: 'Services' }];
 
   return (
     <>
@@ -44,14 +44,14 @@ export default function ServicesPage() {
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 items-start">
           {/* Main Content */}
           <div className="lg:col-span-2 space-y-8">
-            {servicesData.map((service) => (
+            {servicesData.map(service => (
               <Card
                 key={service.id}
                 className="overflow-hidden border-0 custom-shadow shadow-none p-0 hover:shadow-lg transition-shadow"
               >
                 <div className="aspect-[16/9] overflow-hidden">
                   <img
-                    src={service.image || "/placeholder.svg"}
+                    src={service.image || '/placeholder.svg'}
                     alt={service.title}
                     className="w-full h-full object-cover hover:scale-105 "
                   />
@@ -90,9 +90,11 @@ export default function ServicesPage() {
 
             {/* Categories */}
             <div className="border-t-2 bg-muted border-t-primary p-6 rounded-lg border-[1px]">
-              <h3 className="text-xl font-bold text-foreground mb-4">Categories</h3>
+              <h3 className="text-xl font-bold text-foreground mb-4">
+                Categories
+              </h3>
               <ul className="space-y-2">
-                {categories.map((category) => (
+                {categories.map(category => (
                   <li key={category}>
                     <Link
                       href="#"
@@ -110,7 +112,7 @@ export default function ServicesPage() {
             <div className="bg-muted border-t-2 border-t-primary p-6 rounded-lg border-[1px]">
               <h3 className="text-xl font-bold text-foreground mb-4">Tags</h3>
               <div className="flex flex-wrap gap-2">
-                {tags.map((tag) => (
+                {tags.map(tag => (
                   <Link
                     key={tag}
                     href="#"

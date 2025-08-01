@@ -1,12 +1,12 @@
-"use client";
-import { useState } from "react";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Textarea } from "@/components/ui/textarea";
-import { Label } from "@/components/ui/label";
-import { toast } from "sonner";
-import { Dot } from "lucide-react";
+'use client';
+import { useState } from 'react';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { Button } from '@/components/ui/button';
+import { Input } from '@/components/ui/input';
+import { Textarea } from '@/components/ui/textarea';
+import { Label } from '@/components/ui/label';
+import { toast } from 'sonner';
+import { Dot } from 'lucide-react';
 
 // Types
 interface MaskTextProps {
@@ -52,62 +52,62 @@ const Container: React.FC<ContainerProps> = ({ children, className }) => (
 );
 
 const infoPoints = [
-  "Comprehensive energy analysis",
-  "Cost-benefit assessment",
-  "Custom solar solution design",
-  "ROI calculations and projections",
+  'Comprehensive energy analysis',
+  'Cost-benefit assessment',
+  'Custom solar solution design',
+  'ROI calculations and projections',
 ];
 
 const formFields: FormField[] = [
   {
-    id: "firstName",
-    label: "First Name",
-    placeholder: "Enter your first name",
-    type: "text",
+    id: 'firstName',
+    label: 'First Name',
+    placeholder: 'Enter your first name',
+    type: 'text',
     half: true,
   },
   {
-    id: "lastName",
-    label: "Last Name",
-    placeholder: "Enter your last name",
-    type: "text",
+    id: 'lastName',
+    label: 'Last Name',
+    placeholder: 'Enter your last name',
+    type: 'text',
     half: true,
   },
   {
-    id: "email",
-    label: "Email Address",
-    placeholder: "Enter your email",
-    type: "email",
+    id: 'email',
+    label: 'Email Address',
+    placeholder: 'Enter your email',
+    type: 'email',
   },
   {
-    id: "phone",
-    label: "Phone Number",
-    placeholder: "Enter your phone number",
-    type: "tel",
+    id: 'phone',
+    label: 'Phone Number',
+    placeholder: 'Enter your phone number',
+    type: 'tel',
   },
   {
-    id: "company",
-    label: "Company Name",
-    placeholder: "Enter your company name",
-    type: "text",
+    id: 'company',
+    label: 'Company Name',
+    placeholder: 'Enter your company name',
+    type: 'text',
   },
   {
-    id: "message",
-    label: "Project Details",
-    placeholder: "Tell us about your energy needs and project requirements",
-    type: "textarea",
+    id: 'message',
+    label: 'Project Details',
+    placeholder: 'Tell us about your energy needs and project requirements',
+    type: 'textarea',
     rows: 4,
   },
 ];
 
 export function ContactSection() {
   const [formData, setFormData] = useState<FormData>({
-    firstName: "",
-    lastName: "",
-    email: "",
-    phone: "",
-    company: "",
-    message: "",
+    firstName: '',
+    lastName: '',
+    email: '',
+    phone: '',
+    company: '',
+    message: '',
   });
   const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
 
@@ -115,7 +115,7 @@ export function ContactSection() {
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ): void => {
     const { id, value } = e.target;
-    setFormData((prev) => ({
+    setFormData(prev => ({
       ...prev,
       [id]: value,
     }));
@@ -123,10 +123,10 @@ export function ContactSection() {
 
   const sendEmail = async (formData: FormData): Promise<any> => {
     try {
-      const response = await fetch("/api/send-email", {
-        method: "POST",
+      const response = await fetch('/api/send-email', {
+        method: 'POST',
         headers: {
-          "Content-Type": "application/json",
+          'Content-Type': 'application/json',
         },
         body: JSON.stringify(formData),
       });
@@ -141,7 +141,7 @@ export function ContactSection() {
       const result = await response.json();
       return result;
     } catch (error) {
-      console.error("Error sending email:", error);
+      console.error('Error sending email:', error);
       throw error;
     }
   };
@@ -151,21 +151,21 @@ export function ContactSection() {
 
     // Basic form validation
     const requiredFields: (keyof FormData)[] = [
-      "firstName",
-      "lastName",
-      "email",
-      "phone",
-      "message",
+      'firstName',
+      'lastName',
+      'email',
+      'phone',
+      'message',
     ];
     const missingFields = requiredFields.filter(
-      (field) => !formData[field].trim()
+      field => !formData[field].trim()
     );
 
     if (missingFields.length > 0) {
-      toast.error("Please fill in all required fields", {
+      toast.error('Please fill in all required fields', {
         description: `Missing: ${missingFields
-          .map((field) => formFields.find((f) => f.id === field)?.label)
-          .join(", ")}`,
+          .map(field => formFields.find(f => f.id === field)?.label)
+          .join(', ')}`,
         duration: 4000,
       });
       setIsSubmitting(false);
@@ -175,8 +175,8 @@ export function ContactSection() {
     // Email validation
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!emailRegex.test(formData.email)) {
-      toast.error("Invalid email address", {
-        description: "Please enter a valid email address",
+      toast.error('Invalid email address', {
+        description: 'Please enter a valid email address',
         duration: 4000,
       });
       setIsSubmitting(false);
@@ -184,14 +184,14 @@ export function ContactSection() {
     }
 
     try {
-      const loadingToast = toast.loading("Submitting your request...", {
-        description: "Please wait while we process your energy audit request",
+      const loadingToast = toast.loading('Submitting your request...', {
+        description: 'Please wait while we process your energy audit request',
       });
 
       await sendEmail(formData);
 
       toast.dismiss(loadingToast);
-      toast.success("Request submitted successfully! 🎉", {
+      toast.success('Request submitted successfully! 🎉', {
         description:
           "Thank you for your interest. We'll get back to you within 24 hours with your energy audit details.",
         duration: 6000,
@@ -199,20 +199,20 @@ export function ContactSection() {
 
       // Reset form
       setFormData({
-        firstName: "",
-        lastName: "",
-        email: "",
-        phone: "",
-        company: "",
-        message: "",
+        firstName: '',
+        lastName: '',
+        email: '',
+        phone: '',
+        company: '',
+        message: '',
       });
     } catch (error) {
-      toast.error("Failed to submit request", {
+      toast.error('Failed to submit request', {
         description:
-          "Something went wrong. Please try again or contact us directly.",
+          'Something went wrong. Please try again or contact us directly.',
         duration: 5000,
         action: {
-          label: "Retry",
+          label: 'Retry',
           onClick: () => handleSubmit(),
         },
       });
@@ -228,17 +228,17 @@ export function ContactSection() {
           <div>
             <MaskText
               phrases={[
-                "Lighting Up Nigeria,",
-                "Request For Professional Energy Audit",
+                'Lighting Up Nigeria,',
+                'Request For Professional Energy Audit',
               ]}
               className="text-3xl md:text-4xl font-bold mb-6 italic"
             />
 
             <MaskText
               phrases={[
-                "Get a comprehensive energy assessment for your facility.",
-                "Our experts will analyze your current energy usage",
-                "and provide recommendations for optimal solar solutions.",
+                'Get a comprehensive energy assessment for your facility.',
+                'Our experts will analyze your current energy usage',
+                'and provide recommendations for optimal solar solutions.',
               ]}
               className="text-lg opacity-90 mb-8"
             />
@@ -255,15 +255,19 @@ export function ContactSection() {
 
           <Card className="bg-surface text-foreground border-border border-[1px]">
             <CardHeader>
-              <CardTitle className="text-2xl text-foreground">Request A Quote</CardTitle>
+              <CardTitle className="text-2xl text-foreground">
+                Request A Quote
+              </CardTitle>
             </CardHeader>
             <CardContent className="space-y-4">
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
                 {formFields
-                  .filter((field) => field.half)
+                  .filter(field => field.half)
                   .map(({ id, label, placeholder, type }) => (
                     <div key={id}>
-                      <Label htmlFor={id} className="text-foreground">{label} *</Label>
+                      <Label htmlFor={id} className="text-foreground">
+                        {label} *
+                      </Label>
                       <Input
                         id={id}
                         placeholder={placeholder}
@@ -277,13 +281,13 @@ export function ContactSection() {
               </div>
 
               {formFields
-                .filter((field) => !field.half)
+                .filter(field => !field.half)
                 .map(({ id, label, placeholder, type, rows }) => (
                   <div key={id} className="mb-4">
                     <Label htmlFor={id} className="text-foreground">
-                      {label} {id !== "company" ? "*" : ""}
+                      {label} {id !== 'company' ? '*' : ''}
                     </Label>
-                    {type === "textarea" ? (
+                    {type === 'textarea' ? (
                       <Textarea
                         id={id}
                         placeholder={placeholder}
@@ -310,7 +314,7 @@ export function ContactSection() {
                 disabled={isSubmitting}
                 className="w-full bg-primary hover:bg-primary/90 text-primary-foreground"
               >
-                {isSubmitting ? "Submitting..." : "Submit Request"}
+                {isSubmitting ? 'Submitting...' : 'Submit Request'}
               </Button>
             </CardContent>
           </Card>

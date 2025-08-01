@@ -1,9 +1,9 @@
-import Link from "next/link";
-import { Container } from "@/components/ui/container";
-import { PageHero } from "@/components/ui/page-hero";
-import { Breadcrumb } from "@/components/ui/breadcrumb";
-import { Card, CardContent } from "@/components/ui/card";
-import { MaskText } from "@/components/animations/MaskText";
+import Link from 'next/link';
+import { Container } from '@/components/ui/container';
+import { PageHero } from '@/components/ui/page-hero';
+import { Breadcrumb } from '@/components/ui/breadcrumb';
+import { Card, CardContent } from '@/components/ui/card';
+import { MaskText } from '@/components/animations/MaskText';
 import {
   Target,
   Eye,
@@ -14,68 +14,68 @@ import {
   Phone,
   Leaf,
   Settings,
-} from "lucide-react";
-import CallToAction from "@/components/layout/call-to-action";
+} from 'lucide-react';
+import CallToAction from '@/components/layout/call-to-action';
 
 const missionVisionData = [
   {
     icon: Target,
-    title: "Our Mission",
+    title: 'Our Mission',
     content:
-      "To provide innovative, sustainable, and reliable clean energy solutions that empower communities, drive economic growth, and enhance the quality of life across Nigeria. We are committed to delivering excellence in every project, fostering energy independence, and contributing to a greener future.",
+      'To provide innovative, sustainable, and reliable clean energy solutions that empower communities, drive economic growth, and enhance the quality of life across Nigeria. We are committed to delivering excellence in every project, fostering energy independence, and contributing to a greener future.',
   },
   {
     icon: Eye,
-    title: "Our Vision",
+    title: 'Our Vision',
     content:
-      "To be the leading provider of integrated clean energy solutions in Nigeria and West Africa, recognized for our technological innovation, operational excellence, and unwavering commitment to customer satisfaction and environmental stewardship. We envision a future where every home and business has access to affordable, clean, and reliable power.",
+      'To be the leading provider of integrated clean energy solutions in Nigeria and West Africa, recognized for our technological innovation, operational excellence, and unwavering commitment to customer satisfaction and environmental stewardship. We envision a future where every home and business has access to affordable, clean, and reliable power.',
   },
 ];
 
 const coreValues = [
   {
     icon: Handshake,
-    title: "Integrity",
+    title: 'Integrity',
     description:
-      "We operate with the highest ethical standards, ensuring transparency and honesty in all our dealings.",
+      'We operate with the highest ethical standards, ensuring transparency and honesty in all our dealings.',
   },
   {
     icon: Lightbulb,
-    title: "Innovation",
+    title: 'Innovation',
     description:
-      "We continuously seek and implement cutting-edge technologies to deliver superior energy solutions.",
+      'We continuously seek and implement cutting-edge technologies to deliver superior energy solutions.',
   },
   {
     icon: Zap,
-    title: "Excellence",
+    title: 'Excellence',
     description:
-      "We are committed to delivering exceptional quality in our products, services, and customer experience.",
+      'We are committed to delivering exceptional quality in our products, services, and customer experience.',
   },
   {
     icon: Sun,
-    title: "Sustainability",
+    title: 'Sustainability',
     description:
-      "Our solutions are designed to protect the environment and promote long-term energy security.",
+      'Our solutions are designed to protect the environment and promote long-term energy security.',
   },
 ];
 
 const aboutLinks = [
-  { label: "Our Story", href: "/about/our-story" },
-  { label: "Meet Our Team", href: "/about/team" },
-  { label: "Certifications", href: "/about/certifications" },
+  { label: 'Our Story', href: '/about/our-story' },
+  { label: 'Meet Our Team', href: '/about/team' },
+  { label: 'Certifications', href: '/about/certifications' },
 ];
 
 export default function MissionVisionPage() {
   const breadcrumbItems = [
-    { label: "Home", href: "/" },
-    { label: "About Us", href: "/about" },
-    { label: "Mission & Vision" },
+    { label: 'Home', href: '/' },
+    { label: 'About Us', href: '/about' },
+    { label: 'Mission & Vision' },
   ];
   const sidebarLinks = [
-    { label: "Our Story", href: "/about/our-story", isActive: false },
-    { label: "Mission & Vision", href: "/about/mission", isActive: true },
-    { label: "Meet Our Team", href: "/about/team", isActive: false },
-    { label: "Certifications", href: "/about/certifications", isActive: false },
+    { label: 'Our Story', href: '/about/our-story', isActive: false },
+    { label: 'Mission & Vision', href: '/about/mission', isActive: true },
+    { label: 'Meet Our Team', href: '/about/team', isActive: false },
+    { label: 'Certifications', href: '/about/certifications', isActive: false },
   ];
   return (
     <>
@@ -94,7 +94,7 @@ export default function MissionVisionPage() {
               <CardContent className="p-8">
                 <h2 className="text-3xl font-bold mb-6 text-foreground">
                   <MaskText
-                    phrases={["Our Driving Purpose: Illuminating Lives"]}
+                    phrases={['Our Driving Purpose: Illuminating Lives']}
                   />
                 </h2>
                 <div className="text-foreground leading-relaxed space-y-6 text-lg">
@@ -119,7 +119,7 @@ export default function MissionVisionPage() {
             <Card className="border shadow-lg border-border bg-surface">
               <CardContent className="p-8">
                 <h2 className="text-3xl font-bold mb-6 text-foreground">
-                  <MaskText phrases={["Our Core Values"]} />
+                  <MaskText phrases={['Our Core Values']} />
                 </h2>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6 text-foreground leading-relaxed">
                   {coreValues.map(({ icon: Icon, title, description }) => (
@@ -152,7 +152,7 @@ export default function MissionVisionPage() {
                     href={link.href}
                     className={`
                     p-3 rounded-lg flex items-center justify-between
-                      ${link.isActive ? "bg-primary text-primary-foreground" : "bg-surface text-foreground hover:bg-muted"}
+                      ${link.isActive ? 'bg-primary text-primary-foreground' : 'bg-surface text-foreground hover:bg-muted'}
                     `}
                   >
                     <span className="font-semibold text-sm">{link.label}</span>

@@ -1,14 +1,14 @@
-import { Breadcrumb } from "@/components/ui/breadcrumb";
-import { Container } from "@/components/ui/container";
-import { Card, CardContent } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
-import { CheckCircle, Settings, Leaf, Phone } from "lucide-react";
-import { notFound } from "next/navigation";
-import { getServiceBySlug, servicesData } from "@/lib/data/services";
-import { ServiceHero } from "@/components/ui/service-hero";
-import Link from "next/link";
-import { PageHero } from "@/components/ui/page-hero";
-import CallToAction from "@/components/layout/call-to-action";
+import { Breadcrumb } from '@/components/ui/breadcrumb';
+import { Container } from '@/components/ui/container';
+import { Card, CardContent } from '@/components/ui/card';
+import { Button } from '@/components/ui/button';
+import { CheckCircle, Settings, Leaf, Phone } from 'lucide-react';
+import { notFound } from 'next/navigation';
+import { getServiceBySlug, servicesData } from '@/lib/data/services';
+import { ServiceHero } from '@/components/ui/service-hero';
+import Link from 'next/link';
+import { PageHero } from '@/components/ui/page-hero';
+import CallToAction from '@/components/layout/call-to-action';
 
 interface ServicePageProps {
   params: {
@@ -17,7 +17,7 @@ interface ServicePageProps {
 }
 
 export async function generateStaticParams() {
-  return servicesData.map((service) => ({
+  return servicesData.map(service => ({
     slug: service.slug,
   }));
 }
@@ -30,13 +30,13 @@ export default function ServicePage({ params }: ServicePageProps) {
   }
 
   const breadcrumbItems = [
-    { label: "Home", href: "/" },
-    { label: "Services", href: "/services" },
+    { label: 'Home', href: '/' },
+    { label: 'Services', href: '/services' },
     { label: service.title },
   ];
 
   // Create sidebar links with current service marked as active
-  const sidebarLinks = servicesData.map((s) => ({
+  const sidebarLinks = servicesData.map(s => ({
     label: s.title,
     href: `/services/${s.slug}`,
     isActive: s.slug === params.slug,
@@ -45,7 +45,7 @@ export default function ServicePage({ params }: ServicePageProps) {
   return (
     <>
       <PageHero title={service.title} backgroundImage={service.image} />
-      <Container >
+      <Container>
         <Breadcrumb items={breadcrumbItems} className="mb-8" />
 
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 items-start">
@@ -54,7 +54,9 @@ export default function ServicePage({ params }: ServicePageProps) {
             {/* Overview */}
             <Card className="border shadow-md border-border bg-surface">
               <CardContent className="p-8">
-                <h2 className="text-3xl font-bold mb-6 text-foreground">Overview</h2>
+                <h2 className="text-3xl font-bold mb-6 text-foreground">
+                  Overview
+                </h2>
                 <p className="text-muted-foreground leading-relaxed text-lg">
                   {service.fullDescription}
                 </p>
@@ -65,7 +67,9 @@ export default function ServicePage({ params }: ServicePageProps) {
             {service.gallery.length > 0 && (
               <Card className="border shadow-md border-border bg-surface">
                 <CardContent className="p-8">
-                  <h2 className="text-3xl font-bold mb-6 text-foreground">Project Gallery</h2>
+                  <h2 className="text-3xl font-bold mb-6 text-foreground">
+                    Project Gallery
+                  </h2>
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                     {service.gallery.map((image, index) => (
                       <div
@@ -73,7 +77,7 @@ export default function ServicePage({ params }: ServicePageProps) {
                         className="aspect-[4/3] overflow-hidden rounded-lg"
                       >
                         <img
-                          src={image || "/placeholder.svg"}
+                          src={image || '/placeholder.svg'}
                           alt={`${service.title} project ${index + 1}`}
                           className="w-full h-full object-cover hover:scale-105 "
                         />
@@ -87,7 +91,9 @@ export default function ServicePage({ params }: ServicePageProps) {
             {/* Features */}
             <Card className="border shadow-md border-border bg-surface">
               <CardContent className="p-8">
-                <h2 className="text-3xl font-bold mb-6 text-foreground">Key Features</h2>
+                <h2 className="text-3xl font-bold mb-6 text-foreground">
+                  Key Features
+                </h2>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   {service.features.map((feature, index) => (
                     <div key={index} className="flex items-start space-x-3">
@@ -102,7 +108,9 @@ export default function ServicePage({ params }: ServicePageProps) {
             {/* Applications */}
             <Card className="border shadow-md border-border bg-surface">
               <CardContent className="p-8">
-                <h2 className="text-3xl font-bold mb-6 text-foreground">Applications</h2>
+                <h2 className="text-3xl font-bold mb-6 text-foreground">
+                  Applications
+                </h2>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   {service.applications.map((application, index) => (
                     <div key={index} className="flex items-start space-x-3">
@@ -117,7 +125,9 @@ export default function ServicePage({ params }: ServicePageProps) {
             {/* Why Choose Us */}
             <Card className="border shadow-md border-border bg-surface">
               <CardContent className="p-8">
-                <h2 className="text-3xl font-bold mb-6 text-foreground">Why Choose Us?</h2>
+                <h2 className="text-3xl font-bold mb-6 text-foreground">
+                  Why Choose Us?
+                </h2>
                 <div className="space-y-4">
                   {service.whyChooseUs.map((reason, index) => (
                     <div key={index} className="flex items-start space-x-3">
@@ -144,7 +154,7 @@ export default function ServicePage({ params }: ServicePageProps) {
                     href={link.href}
                     className={`
                        p-4 rounded-lg flex items-center justify-between 
-                      ${link.isActive ? "bg-primary text-primary-foreground" : "bg-surface text-foreground hover:bg-muted"}
+                      ${link.isActive ? 'bg-primary text-primary-foreground' : 'bg-surface text-foreground hover:bg-muted'}
                     `}
                   >
                     <span className="font-semibold text-sm">{link.label}</span>
@@ -157,7 +167,7 @@ export default function ServicePage({ params }: ServicePageProps) {
             </div>
 
             {/* Call to Action Widget */}
-            <CallToAction/>
+            <CallToAction />
 
             {/* Service Benefits */}
             {/* <Card className="border shadow-md border-gray-200 bg-white">

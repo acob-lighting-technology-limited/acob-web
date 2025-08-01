@@ -1,5 +1,5 @@
 // app/api/send-email/route.ts (App Router)
-import { NextRequest, NextResponse } from "next/server";
+import { NextRequest, NextResponse } from 'next/server';
 
 export async function POST(request: NextRequest) {
   try {
@@ -7,19 +7,19 @@ export async function POST(request: NextRequest) {
 
     // Validate required fields
     const requiredFields = [
-      "firstName",
-      "lastName",
-      "email",
-      "phone",
-      "message",
+      'firstName',
+      'lastName',
+      'email',
+      'phone',
+      'message',
     ];
     const missingFields = requiredFields.filter(
-      (field) => !formData[field]?.trim()
+      field => !formData[field]?.trim()
     );
 
     if (missingFields.length > 0) {
       return NextResponse.json(
-        { error: "Missing required fields", fields: missingFields },
+        { error: 'Missing required fields', fields: missingFields },
         { status: 400 }
       );
     }
@@ -28,22 +28,22 @@ export async function POST(request: NextRequest) {
     const RESEND_API_KEY = process.env.RESEND_API_KEY;
 
     if (!RESEND_API_KEY) {
-      console.error("RESEND_API_KEY is not configured");
+      console.error('RESEND_API_KEY is not configured');
       return NextResponse.json(
-        { error: "Server configuration error" },
+        { error: 'Server configuration error' },
         { status: 500 }
       );
     }
 
-    const response = await fetch("https://api.resend.com/emails", {
-      method: "POST",
+    const response = await fetch('https://api.resend.com/emails', {
+      method: 'POST',
       headers: {
         Authorization: `Bearer ${RESEND_API_KEY}`,
-        "Content-Type": "application/json",
+        'Content-Type': 'application/json',
       },
       body: JSON.stringify({
-        from: "onboarding@resend.dev",
-        to: ["chibuikemichaelilonze@gmail.com"], // Replace with your business email
+        from: 'onboarding@resend.dev',
+        to: ['chibuikemichaelilonze@gmail.com'], // Replace with your business email
         subject: `New Energy Audit Request from ${formData.firstName} ${formData.lastName}`,
         html: `
         <!DOCTYPE html>
@@ -104,7 +104,7 @@ export async function POST(request: NextRequest) {
                 </h2>
                 
                 <div style="background-color: #f1f5f9; border-radius: 8px; padding: 20px; border-left: 4px solid #10b981; line-height: 1.6;">
-                  <p style="margin: 0; color: #374151; font-size: 15px; white-space: pre-line;">${formData.message.replace(/\n/g, "<br>")}</p>
+                  <p style="margin: 0; color: #374151; font-size: 15px; white-space: pre-line;">${formData.message.replace(/\n/g, '<br>')}</p>
                 </div>
               </div>
 
@@ -124,14 +124,14 @@ export async function POST(request: NextRequest) {
               <p style="margin: 0; color: #64748b; font-size: 14px; line-height: 1.5;">
                 This message was sent from your website contact form.<br>
                 <span style="color: #94a3b8;">Received on ${new Date().toLocaleDateString(
-                  "en-US",
+                  'en-US',
                   {
-                    weekday: "long",
-                    year: "numeric",
-                    month: "long",
-                    day: "numeric",
-                    hour: "2-digit",
-                    minute: "2-digit",
+                    weekday: 'long',
+                    year: 'numeric',
+                    month: 'long',
+                    day: 'numeric',
+                    hour: '2-digit',
+                    minute: '2-digit',
                   }
                 )}</span>
               </p>
@@ -146,9 +146,9 @@ export async function POST(request: NextRequest) {
 
     if (!response.ok) {
       const errorData = await response.text();
-      console.error("Resend API error:", errorData);
+      console.error('Resend API error:', errorData);
       return NextResponse.json(
-        { error: "Failed to send email" },
+        { error: 'Failed to send email' },
         { status: 500 }
       );
     }
@@ -156,9 +156,9 @@ export async function POST(request: NextRequest) {
     const result = await response.json();
     return NextResponse.json({ success: true, messageId: result.id });
   } catch (error) {
-    console.error("Error in send-email API:", error);
+    console.error('Error in send-email API:', error);
     return NextResponse.json(
-      { error: "Internal server error" },
+      { error: 'Internal server error' },
       { status: 500 }
     );
   }

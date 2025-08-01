@@ -1,4 +1,4 @@
-import type { NextConfig } from "next"
+import type { NextConfig } from 'next';
 
 const nextConfig: NextConfig = {
   eslint: {
@@ -8,10 +8,10 @@ const nextConfig: NextConfig = {
     ignoreBuildErrors: true,
   },
   images: {
-    domains: ["cdn.sanity.io"],
+    domains: ['cdn.sanity.io'],
     unoptimized: true,
   },
   /* config options here */
-}
+};
 
-export default nextConfig
+export default nextConfig;

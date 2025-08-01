@@ -1,49 +1,48 @@
-"use client";
+'use client';
 
-import { useState, useEffect, useRef } from "react";
-import { Button } from "@/components/ui/button";
-import { Container } from "@/components/ui/container";
-import { ArrowRight, ChevronLeft, ChevronRight } from "lucide-react";
+import { useState, useEffect, useRef } from 'react';
+import { Button } from '@/components/ui/button';
+import { Container } from '@/components/ui/container';
+import { ArrowRight, ChevronLeft, ChevronRight } from 'lucide-react';
 
 const heroSlides = [
   {
     id: 1,
-    title: "Olooji Community 100kw Solar Hybrid Mini Grid",
-    image: "/images/olooji-community.jpg?height=800&width=1400",
-    description: "Ijebu-East LGA, Ogun State",
+    title: 'Olooji Community 100kw Solar Hybrid Mini Grid',
+    image: '/images/olooji-community.jpg?height=800&width=1400',
+    description: 'Ijebu-East LGA, Ogun State',
   },
   {
     id: 2,
-    title: "40kw Solar Mini-Grid Obadore Community",
-    image: "/images/obadore-ondo.jpg?height=800&width=1400",
-    description: "Obadore LGA, Ondo State",
+    title: '40kw Solar Mini-Grid Obadore Community',
+    image: '/images/obadore-ondo.jpg?height=800&width=1400',
+    description: 'Obadore LGA, Ondo State',
   },
   {
     id: 3,
-    title: "100kWp Solar Hybrid Mini-Grid at Adebayo Community",
-    image: "/images/adebayo-community.jpg?height=800&width=1400",
-    description: "Ovia-South LGA, Edo State",
+    title: '100kWp Solar Hybrid Mini-Grid at Adebayo Community',
+    image: '/images/adebayo-community.jpg?height=800&width=1400',
+    description: 'Ovia-South LGA, Edo State',
   },
   {
     id: 4,
-    title: "50 kWp Solar Hybrid Mini-Grid at Makami Community",
-    image: "/images/makami-kaduna.jpg?height=800&width=1400",
-    description: "Kauru LGA, Kaduna State",
+    title: '50 kWp Solar Hybrid Mini-Grid at Makami Community',
+    image: '/images/makami-kaduna.jpg?height=800&width=1400',
+    description: 'Kauru LGA, Kaduna State',
   },
   {
     id: 5,
-    title: "Routine Maintenance on Streetlight Infrastructure",
-    image: "/images/airport-road-abuja.jpg?height=800&width=1400",
-    description: "Airport Road LGA, Abuja",
+    title: 'Routine Maintenance on Streetlight Infrastructure',
+    image: '/images/airport-road-abuja.jpg?height=800&width=1400',
+    description: 'Airport Road LGA, Abuja',
   },
   {
     id: 6,
-    title: "Solar Farm Installation in Northern Nigeria",
-    image: "/images/olooji-community.jpg?height=800&width=1400",
-    description: "Northern Region, Nigeria",
+    title: 'Solar Farm Installation in Northern Nigeria',
+    image: '/images/olooji-community.jpg?height=800&width=1400',
+    description: 'Northern Region, Nigeria',
   },
 ];
-
 
 export function HeroSection() {
   const [currentSlide, setCurrentSlide] = useState(0);
@@ -116,27 +115,23 @@ export function HeroSection() {
   const currentSlideData = heroSlides[currentSlide];
 
   return (
-    <section
-      className="relative min-h-[700px] overflow-hidden w-full"
-    
-    >
-   
+    <section className="relative min-h-[700px] overflow-hidden w-full">
       <div className="absolute inset-0 bg-black">
         {heroSlides.map((slide, index) => (
           <div
             key={`${slide.id}-${index}`}
             className={`absolute inset-0 ${
-              index === currentSlide ? "opacity-100" : "opacity-0"
+              index === currentSlide ? 'opacity-100' : 'opacity-0'
             }`}
           >
             <div
               className={`w-full h-full bg-cover bg-center bg-no-repeat ${
-                index === currentSlide && !isPaused ? "ken-burns-zoom" : ""
+                index === currentSlide && !isPaused ? 'ken-burns-zoom' : ''
               }`}
               style={{
                 backgroundImage: `url('${slide.image}')`,
-                transform: "scale(1.05)",
-                transformOrigin: "center center",
+                transform: 'scale(1.05)',
+                transformOrigin: 'center center',
               }}
             />
           </div>
@@ -152,7 +147,7 @@ export function HeroSection() {
         disabled={isTransitioning}
         className="absolute left-0 top-1/2 -translate-y-1/2 z-20 w-12 h-12 rounded-full text-primary-foreground hover:scale-110 transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center group"
       >
-                  <ChevronLeft className="h-24 w-24 text-primary-foreground opacity-30 hover:opacity-70 hover:text-primary-foreground group-hover:scale-110 transition-transform duration-200" />
+        <ChevronLeft className="h-24 w-24 text-primary-foreground opacity-30 hover:opacity-70 hover:text-primary-foreground group-hover:scale-110 transition-transform duration-200" />
       </button>
 
       <button
@@ -160,11 +155,11 @@ export function HeroSection() {
         disabled={isTransitioning}
         className="absolute right-0 top-1/2 -translate-y-1/2 z-20 w-12 h-12 rounded-full text-primary-foreground hover:scale-110 transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center group"
       >
-                  <ChevronRight className="h-24 w-24 text-primary-foreground opacity-30 hover:opacity-70 hover:text-primary-foreground group-hover:scale-110 transition-transform duration-200" />
+        <ChevronRight className="h-24 w-24 text-primary-foreground opacity-30 hover:opacity-70 hover:text-primary-foreground group-hover:scale-110 transition-transform duration-200" />
       </button>
 
       {/* Content with smooth animations */}
-              <div className="relative z-10 2xl:max-w-6xl text-primary-foreground h-full flex items-end p-12 min-h-[700px] w-full">
+      <div className="relative z-10 2xl:max-w-6xl text-primary-foreground h-full flex items-end p-12 min-h-[700px] w-full">
         <div className="2xl:px-8 max-w-7xl ">
           <div className="w-full max-w-4xl">
             {/* Animated Title */}
@@ -172,10 +167,10 @@ export function HeroSection() {
               <h1
                 className={`text-4xl md:text-7xl font-extrabold leading-tight text-left transition-all duration-1000 ease-out ${
                   showContent
-                    ? "transform translate-x-0 opacity-100 blur-0"
-                    : "transform -translate-x-full opacity-0 "
+                    ? 'transform translate-x-0 opacity-100 blur-0'
+                    : 'transform -translate-x-full opacity-0 '
                 }`}
-                style={{ transitionDelay: showContent ? "400ms" : "0ms" }}
+                style={{ transitionDelay: showContent ? '400ms' : '0ms' }}
               >
                 {currentSlideData.title}
               </h1>
@@ -186,10 +181,10 @@ export function HeroSection() {
               <p
                 className={`text-lg md:text-xl opacity-90 text-left max-w-3xl transition-all duration-1000 ease-out ${
                   showContent
-                    ? "transform translate-x-0 opacity-90 blur-0"
-                    : "transform -translate-x-full opacity-0 "
+                    ? 'transform translate-x-0 opacity-90 blur-0'
+                    : 'transform -translate-x-full opacity-0 '
                 }`}
-                style={{ transitionDelay: showContent ? "600ms" : "0ms" }}
+                style={{ transitionDelay: showContent ? '600ms' : '0ms' }}
               >
                 {currentSlideData.description}
               </p>
@@ -198,20 +193,20 @@ export function HeroSection() {
             {/* Animated Buttons */}
             <div className="flex flex-col sm:flex-row gap-4 justify-start">
               {/* Read More - slides in from left */}
-             <div className="overflow-hidden">
-             <Button
-                size="lg"
-                className={`bg-primary hover:bg-primary/90 text-lg py-6 text-primary-foreground transition-all duration-1000 ease-out hover:scale-105 ${
-                  showContent
-                    ? "transform translate-x-0 opacity-100 blur-0"
-                    : "transform -translate-x-full opacity-0 "
-                }`}
-                style={{ transitionDelay: showContent ? "800ms" : "0ms" }}
-              >
-                Read More
-                <ArrowRight className="ml-2 h-4 w-4" />
-              </Button>
-             </div>
+              <div className="overflow-hidden">
+                <Button
+                  size="lg"
+                  className={`bg-primary hover:bg-primary/90 text-lg py-6 text-primary-foreground transition-all duration-1000 ease-out hover:scale-105 ${
+                    showContent
+                      ? 'transform translate-x-0 opacity-100 blur-0'
+                      : 'transform -translate-x-full opacity-0 '
+                  }`}
+                  style={{ transitionDelay: showContent ? '800ms' : '0ms' }}
+                >
+                  Read More
+                  <ArrowRight className="ml-2 h-4 w-4" />
+                </Button>
+              </div>
 
               {/* Our Services - slides in from right */}
               <Button
@@ -219,10 +214,10 @@ export function HeroSection() {
                 variant="outline"
                 className={`border-primary-foreground text-primary-foreground dark:border-foreground dark:bg-foreground/10 hover:bg-primary-foreground text-lg py-6 hover:text-primary bg-transparent transition-all duration-1000 ease-out hover:scale-105 ${
                   showContent
-                    ? "transform translate-x-0 opacity-100 blur-0"
-                    : "transform translate-x-full opacity-0 "
+                    ? 'transform translate-x-0 opacity-100 blur-0'
+                    : 'transform translate-x-full opacity-0 '
                 }`}
-                style={{ transitionDelay: showContent ? "1000ms" : "0ms" }}
+                style={{ transitionDelay: showContent ? '1000ms' : '0ms' }}
               >
                 Our Services
               </Button>
@@ -236,8 +231,8 @@ export function HeroSection() {
                   disabled={isTransitioning}
                   className={`transition-all duration-500 rounded-full cursor-pointer hover:opacity-80 disabled:cursor-not-allowed ${
                     currentSlide === index
-                      ? "w-8 h-1 bg-primary shadow-lg"
-                      : "w-6 h-0.5 bg-primary-foreground/50 hover:bg-primary-foreground/70 hover:w-7"
+                      ? 'w-8 h-1 bg-primary shadow-lg'
+                      : 'w-6 h-0.5 bg-primary-foreground/50 hover:bg-primary-foreground/70 hover:w-7'
                   }`}
                 />
               ))}

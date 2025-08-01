@@ -1,22 +1,22 @@
-import { Container } from "@/components/ui/container";
-import { Breadcrumb } from "@/components/ui/breadcrumb";
-import { Card, CardContent } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
+import { Container } from '@/components/ui/container';
+import { Breadcrumb } from '@/components/ui/breadcrumb';
+import { Card, CardContent } from '@/components/ui/card';
+import { Button } from '@/components/ui/button';
+import { Input } from '@/components/ui/input';
 import {
   getUpdatePost,
   getUpdatePosts,
   urlFor,
   getApprovedCommentsForPost,
-} from "@/sanity/lib/client";
-import { PortableText } from "@portabletext/react";
+} from '@/sanity/lib/client';
+import { PortableText } from '@portabletext/react';
 import type {
   PortableTextComponentProps,
   PortableTextBlock,
-} from "@portabletext/react";
-import { notFound } from "next/navigation";
-import Image from "next/image";
-import { CommentForm } from "@/components/updates/comment-form";
+} from '@portabletext/react';
+import { notFound } from 'next/navigation';
+import Image from 'next/image';
+import { CommentForm } from '@/components/updates/comment-form';
 
 interface UpdatePostPageProps {
   params: {
@@ -39,11 +39,11 @@ const components = {
       const imageUrl = urlFor(value).url();
       return (
         <div className="w-full md:w-1/2 px-2 my-4">
-          {" "}
+          {' '}
           {/* Each image takes half width, with horizontal padding */}
           <Image
-            src={imageUrl || "/placeholder.svg"}
-            alt={value.alt || "Update post image"}
+            src={imageUrl || '/placeholder.svg'}
+            alt={value.alt || 'Update post image'}
             width={800} // Provide a default width/height, ideally from image metadata
             height={600} // Provide a default width/height
             className="rounded-lg object-cover w-full h-auto"
@@ -103,8 +103,8 @@ export default async function UpdatePostPage({ params }: UpdatePostPageProps) {
   const comments = await getApprovedCommentsForPost(post._id);
 
   const breadcrumbItems = [
-    { label: "Home", href: "/" },
-    { label: "Updates", href: "/updates" },
+    { label: 'Home', href: '/' },
+    { label: 'Updates', href: '/updates' },
     { label: post.title },
   ];
 
@@ -120,7 +120,7 @@ export default async function UpdatePostPage({ params }: UpdatePostPageProps) {
             {post.featuredImage && (
               <div className="aspect-[16/9] overflow-hidden rounded-lg">
                 <img
-                  src={post.featuredImage || "/placeholder.svg"}
+                  src={post.featuredImage || '/placeholder.svg'}
                   alt={post.title}
                   className="w-full h-full object-cover"
                 />
@@ -137,7 +137,7 @@ export default async function UpdatePostPage({ params }: UpdatePostPageProps) {
                   <>
                     <span className="mx-2">•</span>
                     <span className="bg-primary text-white px-2 py-1 rounded text-xs">
-                      {post.category.name || "News"}
+                      {post.category.name || 'News'}
                     </span>
                   </>
                 )}

@@ -1,8 +1,8 @@
-'use client'
+'use client';
 
-import { Button } from "@/components/ui/button"
-import { Container } from "@/components/ui/container"
-import { MaskText } from "@/components/animations/MaskText" 
+import { Button } from '@/components/ui/button';
+import { Container } from '@/components/ui/container';
+import { MaskText } from '@/components/animations/MaskText';
 
 export function AboutSection() {
   return (
@@ -10,7 +10,7 @@ export function AboutSection() {
       <Container className="px-4">
         <div className="flex flex-col lg:flex-row items-center justify-center gap-8">
           <MaskText
-            phrases={["Lighting Up Nigeria with Advanced Solar Solutions."]}
+            phrases={['Lighting Up Nigeria with Advanced Solar Solutions.']}
             className="text-3xl md:text-4xl font-bold text-center lg:text-left"
           />
           <Button
@@ -23,5 +23,5 @@ export function AboutSection() {
         </div>
       </Container>
     </section>
-  )
+  );
 }

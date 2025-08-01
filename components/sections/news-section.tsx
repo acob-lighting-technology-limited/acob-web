@@ -1,13 +1,13 @@
-import { Card, CardContent } from "@/components/ui/card"
-import { Button } from "@/components/ui/button"
-import { Container } from "@/components/ui/container"
-import { ArrowRight } from "lucide-react"
-import Link from "next/link"
-import { getUpdatePosts } from "@/sanity/lib/client" // Changed to getUpdatePosts
+import { Card, CardContent } from '@/components/ui/card';
+import { Button } from '@/components/ui/button';
+import { Container } from '@/components/ui/container';
+import { ArrowRight } from 'lucide-react';
+import Link from 'next/link';
+import { getUpdatePosts } from '@/sanity/lib/client'; // Changed to getUpdatePosts
 
 export async function NewsSection() {
-  const posts = await getUpdatePosts() // Fetches update posts
-  const latestPosts = posts.slice(0, 3) // Get only the latest 3 posts
+  const posts = await getUpdatePosts(); // Fetches update posts
+  const latestPosts = posts.slice(0, 3); // Get only the latest 3 posts
 
   return (
     <section className="py-16 bg-white dark:bg-zinc-950 transition-colors duration-700">
@@ -17,7 +17,10 @@ export async function NewsSection() {
           <div className="inline-block bg-primary/10 text-primary px-4 py-2 rounded-full text-sm font-medium mb-4 dark:bg-primary/20 dark:text-primary transition-colors duration-700">
             News & Announcements
           </div>
-          <h2 className="text-4xl md:text-5xl font-bold  text-zinc-900 dark:text-white transition-colors duration-700">Recent Updates</h2> {/* Renamed title */}
+          <h2 className="text-4xl md:text-5xl font-bold  text-zinc-900 dark:text-white transition-colors duration-700">
+            Recent Updates
+          </h2>{' '}
+          {/* Renamed title */}
         </div>
 
         {/* News Cards */}
@@ -26,42 +29,48 @@ export async function NewsSection() {
             <Card
               key={post._id}
               className={`overflow-hidden hover:shadow-lg border-0 custom-shadow transition-shadow relative py-0 flex flex-col ${
-                index === 2 ? "border-b-4 border-b-primary" : ""
+                index === 2 ? 'border-b-4 border-b-primary' : ''
               }`}
             >
               {/* Image */}
               <div className="aspect-[4/3] overflow-hidden relative">
                 <img
-                  src={post.featuredImage || "/placeholder.svg"}
+                  src={post.featuredImage || '/placeholder.svg'}
                   alt={post.title}
                   className="w-full h-full object-cover"
                 />
                 {/* Category Tag */}
                 <div className="absolute top-4 left-4 bg-primary text-white px-3 py-1 rounded text-sm font-medium">
-                  {post.category?.name || "News"}
+                  {post.category?.name || 'News'}
                 </div>
               </div>
 
               <CardContent className="p-6 flex flex-col flex-1 h-full">
                 <div>
                   {/* Title */}
-                  <h3 className="text-lg font-bold dark:text-zinc-300 text-zinc-900 mb-3 leading-tight">{post.title}</h3>
+                  <h3 className="text-lg font-bold dark:text-zinc-300 text-zinc-900 mb-3 leading-tight">
+                    {post.title}
+                  </h3>
 
                   {/* Date and Author */}
                   <div className="flex items-center text-sm dark:text-zinc-400 text-zinc-600 mb-4">
-                    <span>{new Date(post.publishedAt).toLocaleDateString()}</span>
+                    <span>
+                      {new Date(post.publishedAt).toLocaleDateString()}
+                    </span>
                     <span className="mx-2">•</span>
                     <span>{post.author}</span>
                   </div>
 
                   {/* Excerpt */}
-                  <p className="dark:text-zinc-400 text-zinc-600 text-sm leading-relaxed">{post.excerpt}</p>
+                  <p className="dark:text-zinc-400 text-zinc-600 text-sm leading-relaxed">
+                    {post.excerpt}
+                  </p>
                 </div>
 
                 {/* Read More Button */}
                 <div className="mt-auto pt-6">
                   <Link href={`/updates/${post.slug.current}`}>
-                    {" "}
+                    {' '}
                     {/* Changed link to /updates */}
                     <Button className="bg-transparent dark:bg-primary  border-[0.5px] border-primary dark:text-zinc-300 text-zinc-700 hover:bg-primary hover:text-white transition-colors duration-500">
                       Read more
@@ -77,7 +86,7 @@ export async function NewsSection() {
         {/* View All Button */}
         <div className="text-center mt-12">
           <Link href="/updates">
-            {" "}
+            {' '}
             {/* Changed link to /updates */}
             <Button className="bg-primary hover:bg-primary/90 text-white px-8 py-3">
               View All Updates
@@ -87,5 +96,5 @@ export async function NewsSection() {
         </div>
       </Container>
     </section>
-  )
+  );
 }

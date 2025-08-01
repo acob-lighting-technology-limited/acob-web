@@ -1,12 +1,11 @@
 .custom-shadow {
-    box-shadow: 
-      0 12px 40px -8px rgba(0, 0, 0, 0.15),   /* bigger and darker */
-      0 15px 15px -8px rgba(0, 0, 0, 0.06);
-  }
-  
-  .custom-shadow-hover:hover {
-    box-shadow: 
-      0 30px 60px -15px rgba(0, 0, 0, 0.25),  /* more intense on hover */
-      0 20px 40px -10px rgba(0, 0, 0, 0.15);
-  }
-  
+  box-shadow:
+    0 12px 40px -8px rgba(0, 0, 0, 0.15),
+    /* bigger and darker */ 0 15px 15px -8px rgba(0, 0, 0, 0.06);
+}
+
+.custom-shadow-hover:hover {
+  box-shadow:
+    0 30px 60px -15px rgba(0, 0, 0, 0.25),
+    /* more intense on hover */ 0 20px 40px -10px rgba(0, 0, 0, 0.15);
+}

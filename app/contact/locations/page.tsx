@@ -1,24 +1,27 @@
-import { Container } from "@/components/ui/container"
-import { PageHero } from "@/components/ui/page-hero"
-import { Breadcrumb } from "@/components/ui/breadcrumb"
-import { Card, CardContent } from "@/components/ui/card"
-import { MapPin, Phone, Mail } from "lucide-react"
-import Link from "next/link"
-import { MaskText } from "@/components/animations/MaskText"
+import { Container } from '@/components/ui/container';
+import { PageHero } from '@/components/ui/page-hero';
+import { Breadcrumb } from '@/components/ui/breadcrumb';
+import { Card, CardContent } from '@/components/ui/card';
+import { MapPin, Phone, Mail } from 'lucide-react';
+import Link from 'next/link';
+import { MaskText } from '@/components/animations/MaskText';
 
 export default function LocationsPage() {
   const breadcrumbItems = [
-    { label: "Home", href: "/" },
-    { label: "Contact Us", href: "/contact" },
-    { label: "Office Locations" },
-  ]
+    { label: 'Home', href: '/' },
+    { label: 'Contact Us', href: '/contact' },
+    { label: 'Office Locations' },
+  ];
 
   return (
     <>
-      <PageHero title="Our Office Locations" backgroundImage="/images/contact/office-location-hero.jpg?height=400&width=1200">
+      <PageHero
+        title="Our Office Locations"
+        backgroundImage="/images/contact/office-location-hero.jpg?height=400&width=1200"
+      >
         <MaskText
           phrases={[
-            "Visit us at our offices or reach out through our contact details.",
+            'Visit us at our offices or reach out through our contact details.',
             "We're always happy to welcome you.",
           ]}
           className="text-lg md:text-xl opacity-90 max-w-3xl leading-relaxed"
@@ -34,14 +37,15 @@ export default function LocationsPage() {
             <Card className="border-0 custom-shadow shadow-none">
               <CardContent className="p-8">
                 <h2 className="text-3xl font-bold mb-6 text-foreground">
-                  <MaskText phrases={["Head Office"]} />
+                  <MaskText phrases={['Head Office']} />
                 </h2>
                 <div className="space-y-4 text-muted-foreground text-lg">
                   <p className="flex items-start gap-3">
                     <MapPin className="h-6 w-6 text-primary flex-shrink-0 mt-1" />
                     <span>
-                      Plot 2. Block 14 Extension, Federal Ministry of Works And Housing Sites and Service Scheme,
-                      Setraco Gate Gwarinpa, Abuja, Nigeria.
+                      Plot 2. Block 14 Extension, Federal Ministry of Works And
+                      Housing Sites and Service Scheme, Setraco Gate Gwarinpa,
+                      Abuja, Nigeria.
                     </span>
                   </p>
                   <p className="flex items-center gap-3">
@@ -50,7 +54,10 @@ export default function LocationsPage() {
                   </p>
                   <p className="flex items-center gap-3">
                     <Mail className="h-6 w-6 text-primary flex-shrink-0" />
-                    <Link href="mailto:info@acoblighting.com" className="hover:underline text-primary">
+                    <Link
+                      href="mailto:info@acoblighting.com"
+                      className="hover:underline text-primary"
+                    >
                       info@acoblighting.com
                     </Link>
                   </p>
@@ -72,12 +79,15 @@ export default function LocationsPage() {
             <Card className="border-0 custom-shadow shadow-none">
               <CardContent className="p-8">
                 <h2 className="text-3xl font-bold mb-6 text-foreground">
-                  <MaskText phrases={["Branch Office"]} />
+                  <MaskText phrases={['Branch Office']} />
                 </h2>
                 <div className="space-y-4 text-muted-foreground text-lg">
                   <p className="flex items-start gap-3">
                     <MapPin className="h-6 w-6 text-primary flex-shrink-0 mt-1" />
-                    <span>1st Floor, Rochas Plaza, 26 Herbert Macaulay Way, Abuja, Nigeria</span>
+                    <span>
+                      1st Floor, Rochas Plaza, 26 Herbert Macaulay Way, Abuja,
+                      Nigeria
+                    </span>
                   </p>
                   <p className="flex items-center gap-3">
                     <Phone className="h-6 w-6 text-primary flex-shrink-0" />
@@ -85,7 +95,10 @@ export default function LocationsPage() {
                   </p>
                   <p className="flex items-center gap-3">
                     <Mail className="h-6 w-6 text-primary flex-shrink-0" />
-                    <Link href="mailto:info@acoblighting.com" className="hover:underline text-primary">
+                    <Link
+                      href="mailto:info@acoblighting.com"
+                      className="hover:underline text-primary"
+                    >
                       info@acoblighting.com
                     </Link>
                   </p>
@@ -120,5 +133,5 @@ export default function LocationsPage() {
         </div>
       </Container>
     </>
-  )
+  );
 }

@@ -1,12 +1,12 @@
-import Link from "next/link";
-import { Container } from "@/components/ui/container";
-import { MapPin, Facebook, Twitter, Linkedin, Instagram } from "lucide-react";
+import Link from 'next/link';
+import { Container } from '@/components/ui/container';
+import { MapPin, Facebook, Twitter, Linkedin, Instagram } from 'lucide-react';
 
 export function Footer() {
   return (
     <div
       className="relative h-[65vh] "
-      style={{ clipPath: "polygon(0% 0, 100% 0%, 100% 100%, 0 100%)" }}
+      style={{ clipPath: 'polygon(0% 0, 100% 0%, 100% 100%, 0 100%)' }}
     >
       <div className="fixed bottom-0 h-[65vh] w-full">
         <footer className="bg-black text-white">

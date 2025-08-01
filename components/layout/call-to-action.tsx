@@ -1,6 +1,6 @@
-import { Leaf, Phone, Settings } from "lucide-react";
-import Link from "next/link";
-import React from "react";
+import { Leaf, Phone, Settings } from 'lucide-react';
+import Link from 'next/link';
+import React from 'react';
 
 const CallToAction = () => {
   return (
@@ -8,9 +8,12 @@ const CallToAction = () => {
       {/* Icon */}
       <div className="mb-6 flex justify-center">
         <div className="relative">
-          <Settings className="w-16 h-16 text-primary-foreground" strokeWidth={1.5} />
+          <Settings
+            className="w-16 h-16 text-primary-foreground"
+            strokeWidth={1.5}
+          />
           <div className="absolute inset-0 flex items-center justify-center">
-                          <Leaf className="w-8 h-8 text-primary-foreground" strokeWidth={2} />
+            <Leaf className="w-8 h-8 text-primary-foreground" strokeWidth={2} />
           </div>
         </div>
       </div>

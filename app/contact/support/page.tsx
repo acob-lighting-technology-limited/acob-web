@@ -1,29 +1,29 @@
-import { Container } from "@/components/ui/container";
-import { PageHero } from "@/components/ui/page-hero";
-import { Breadcrumb } from "@/components/ui/breadcrumb";
-import { Card, CardContent } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
+import { Container } from '@/components/ui/container';
+import { PageHero } from '@/components/ui/page-hero';
+import { Breadcrumb } from '@/components/ui/breadcrumb';
+import { Card, CardContent } from '@/components/ui/card';
+import { Button } from '@/components/ui/button';
 import {
   Accordion,
   AccordionContent,
   AccordionItem,
   AccordionTrigger,
-} from "@/components/ui/accordion";
-import { Phone, Mail } from "lucide-react";
-import Link from "next/link";
-import { MaskText } from "@/components/animations/MaskText";
+} from '@/components/ui/accordion';
+import { Phone, Mail } from 'lucide-react';
+import Link from 'next/link';
+import { MaskText } from '@/components/animations/MaskText';
 
 const supportMethods = [
   {
     icon: Phone,
-    title: "Call Us",
+    title: 'Call Us',
     description:
-      "For immediate assistance, please call our support lines during business hours.",
-    contacts: ["0704 920 2634", "0803 290 2825"],
+      'For immediate assistance, please call our support lines during business hours.',
+    contacts: ['0704 920 2634', '0803 290 2825'],
   },
   {
     icon: Mail,
-    title: "Email Us",
+    title: 'Email Us',
     description:
       "Send us an email with your detailed query, and we'll get back to you within 24-48 hours.",
     contacts: [
@@ -40,33 +40,33 @@ const supportMethods = [
 
 const faqItems = [
   {
-    question: "How long do solar panels last?",
+    question: 'How long do solar panels last?',
     answer:
-      "Solar panels typically last between 25 to 30 years, often with a performance warranty guaranteeing a certain output percentage after that period.",
+      'Solar panels typically last between 25 to 30 years, often with a performance warranty guaranteeing a certain output percentage after that period.',
   },
   {
-    question: "What is a mini-grid?",
+    question: 'What is a mini-grid?',
     answer:
-      "A mini-grid is an independent electricity distribution network, typically powered by renewable energy, serving a localized group of consumers.",
+      'A mini-grid is an independent electricity distribution network, typically powered by renewable energy, serving a localized group of consumers.',
   },
   {
-    question: "Do you offer installation services?",
+    question: 'Do you offer installation services?',
     answer:
-      "Yes, we provide comprehensive installation services for all our solar and energy solutions.",
+      'Yes, we provide comprehensive installation services for all our solar and energy solutions.',
   },
 ];
 
 const contactLinks = [
-  { label: "Get a Quote", href: "/contact/get-quote" },
-  { label: "Office Locations", href: "/contact/locations" },
-  { label: "Careers", href: "/contact/careers" },
+  { label: 'Get a Quote', href: '/contact/get-quote' },
+  { label: 'Office Locations', href: '/contact/locations' },
+  { label: 'Careers', href: '/contact/careers' },
 ];
 
 export default function SupportPage() {
   const breadcrumbItems = [
-    { label: "Home", href: "/" },
-    { label: "Contact Us", href: "/contact" },
-    { label: "Support" },
+    { label: 'Home', href: '/' },
+    { label: 'Contact Us', href: '/contact' },
+    { label: 'Support' },
   ];
 
   return (
@@ -77,8 +77,8 @@ export default function SupportPage() {
       >
         <MaskText
           phrases={[
-            "Our dedicated support team is here to assist you.",
-            "Find answers to your questions or get in touch directly.",
+            'Our dedicated support team is here to assist you.',
+            'Find answers to your questions or get in touch directly.',
           ]}
           className="text-lg md:text-xl opacity-90 max-w-3xl leading-relaxed"
         />
@@ -94,7 +94,7 @@ export default function SupportPage() {
             <Card className="border shadow-lg border-border bg-surface">
               <CardContent className="p-8">
                 <h2 className="text-3xl font-bold mb-6 text-foreground">
-                  <MaskText phrases={["How Can We Help You?"]} />
+                  <MaskText phrases={['How Can We Help You?']} />
                 </h2>
                 <div className="text-foreground leading-relaxed space-y-6 text-lg">
                   <p>
@@ -116,7 +116,7 @@ export default function SupportPage() {
             <Card className="border shadow-lg border-border bg-surface">
               <CardContent className="p-8">
                 <h2 className="text-3xl font-bold mb-6 text-foreground">
-                  <MaskText phrases={["Contact Our Support Team"]} />
+                  <MaskText phrases={['Contact Our Support Team']} />
                 </h2>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                   {supportMethods.map(
@@ -148,7 +148,7 @@ export default function SupportPage() {
             <Card className="border shadow-lg border-border bg-surface">
               <CardContent className="p-8">
                 <h2 className="text-3xl font-bold mb-6 text-foreground">
-                  <MaskText phrases={["Frequently Asked Questions"]} />
+                  <MaskText phrases={['Frequently Asked Questions']} />
                 </h2>
                 <Accordion
                   type="single"

@@ -1,13 +1,13 @@
-import { Breadcrumb } from "@/components/ui/breadcrumb";
-import { Container } from "@/components/ui/container";
+import { Breadcrumb } from '@/components/ui/breadcrumb';
+import { Container } from '@/components/ui/container';
 
-import { Button } from "@/components/ui/button";
-import { ArrowRight, MapPin } from "lucide-react";
-import { notFound } from "next/navigation";
-import { getProject, getProjects } from "@/sanity/lib/client";
-import Image from "next/image";
-import Link from "next/link";
-import { PageHero } from "@/components/ui/page-hero";
+import { Button } from '@/components/ui/button';
+import { ArrowRight, MapPin } from 'lucide-react';
+import { notFound } from 'next/navigation';
+import { getProject, getProjects } from '@/sanity/lib/client';
+import Image from 'next/image';
+import Link from 'next/link';
+import { PageHero } from '@/components/ui/page-hero';
 
 interface ProjectPageProps {
   params: {
@@ -37,8 +37,8 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
     .slice(0, 5); // Show only 5 related projects
 
   const breadcrumbItems = [
-    { label: "Home", href: "/" },
-    { label: "Projects", href: "/projects" },
+    { label: 'Home', href: '/' },
+    { label: 'Projects', href: '/projects' },
     { label: project.title },
   ];
 
@@ -46,7 +46,7 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
     <>
       <PageHero
         title={project.title}
-        backgroundImage={project.images[0]?.asset.url || "/placeholder.svg"}
+        backgroundImage={project.images[0]?.asset.url || '/placeholder.svg'}
       />
 
       <Container className="px-4 py-8 relative">
@@ -58,7 +58,9 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
             {/* Overview */}
             <div className="border-0 custom-shadow shadow-none">
               <div className="p-8">
-                <h2 className="text-3xl font-bold mb-6 text-foreground">Project Overview</h2>
+                <h2 className="text-3xl font-bold mb-6 text-foreground">
+                  Project Overview
+                </h2>
                 <p className="text-muted-foreground leading-relaxed text-lg">
                   {project.description}
                 </p>
@@ -85,7 +87,7 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
                         className="aspect-[4/3] overflow-hidden rounded-lg"
                       >
                         <Image
-                          src={img.asset.url || "/placeholder.svg"}
+                          src={img.asset.url || '/placeholder.svg'}
                           alt={`${project.title} image ${index + 1}`}
                           width={800}
                           height={600}

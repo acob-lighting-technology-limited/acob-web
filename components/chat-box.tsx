@@ -1,33 +1,33 @@
-"use client";
+'use client';
 
-import { useState, useRef, useEffect } from "react";
-import { useChat } from "ai/react";
-import type { Message } from "ai";
-import { Button } from "@/components/ui/button";
-import { Textarea } from "@/components/ui/textarea";
-import { Send, MessageSquare, X, StopCircle, Bot, User } from "lucide-react";
-import { motion, AnimatePresence } from "framer-motion";
-import { ACOB_SYSTEM_PROMPT } from "@/lib/data/acobot_system_prompt";
+import { useState, useRef, useEffect } from 'react';
+import { useChat } from 'ai/react';
+import type { Message } from 'ai';
+import { Button } from '@/components/ui/button';
+import { Textarea } from '@/components/ui/textarea';
+import { Send, MessageSquare, X, StopCircle, Bot, User } from 'lucide-react';
+import { motion, AnimatePresence } from 'framer-motion';
+import { ACOB_SYSTEM_PROMPT } from '@/lib/data/acobot_system_prompt';
 
 const suggestedMessages = [
-  "What are your office hours?",
-  "Tell me about your services",
-  "How can I contact you?",
+  'What are your office hours?',
+  'Tell me about your services',
+  'How can I contact you?',
 ];
 
 const formatMessage = (content: string) => {
   if (!content) return content;
 
-  console.log("Raw message content:", content);
+  console.log('Raw message content:', content);
 
   // Remove stray '/>' if any
-  content = content.replace(/\/>/g, "");
+  content = content.replace(/\/>/g, '');
 
   // Convert special characters to HTML-safe
   let formatted = content
-    .replace(/&/g, "&amp;")
-    .replace(/</g, "&lt;")
-    .replace(/>/g, "&gt;");
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;');
 
   // Convert URLs to clickable links
   formatted = formatted.replace(
@@ -48,20 +48,20 @@ const formatMessage = (content: string) => {
   );
 
   // Convert line breaks
-  formatted = formatted.replace(/\n/g, "<br />");
+  formatted = formatted.replace(/\n/g, '<br />');
 
   // Now convert markdown-style bold/italic
-  formatted = formatted.replace(/\*\*(.*?)\*\*/g, "<strong>$1</strong>");
-  formatted = formatted.replace(/\*(.*?)\*/g, "<em>$1</em>");
+  formatted = formatted.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
+  formatted = formatted.replace(/\*(.*?)\*/g, '<em>$1</em>');
 
   return formatted;
 };
 
 // Get current time in WhatsApp format
 const getCurrentTime = () => {
-  return new Date().toLocaleTimeString("en-US", {
-    hour: "numeric",
-    minute: "2-digit",
+  return new Date().toLocaleTimeString('en-US', {
+    hour: 'numeric',
+    minute: '2-digit',
     hour12: true,
   });
 };
@@ -81,15 +81,15 @@ export function ChatBot() {
     error,
     stop,
   } = useChat({
-    api: "/api/chat",
+    api: '/api/chat',
     initialMessages: [ACOB_SYSTEM_PROMPT],
-    onFinish: (message) => {
-      console.log("AI Response:", message);
+    onFinish: message => {
+      console.log('AI Response:', message);
     },
   });
 
   const scrollToBottom = () => {
-    messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
+    messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
   };
 
   useEffect(() => {
@@ -99,14 +99,14 @@ export function ChatBot() {
   // Handle ESC key to close modal
   useEffect(() => {
     const handleEscapeKey = (event: KeyboardEvent) => {
-      if (event.key === "Escape" && isOpen) {
+      if (event.key === 'Escape' && isOpen) {
         setIsOpen(false);
       }
     };
 
-    document.addEventListener("keydown", handleEscapeKey);
+    document.addEventListener('keydown', handleEscapeKey);
     return () => {
-      document.removeEventListener("keydown", handleEscapeKey);
+      document.removeEventListener('keydown', handleEscapeKey);
     };
   }, [isOpen]);
 
@@ -115,11 +115,11 @@ export function ChatBot() {
     if (isOpen) {
       const scrollY = window.scrollY;
 
-      document.body.style.position = "fixed";
+      document.body.style.position = 'fixed';
       document.body.style.top = `-${scrollY}px`;
-      document.body.style.left = "0";
-      document.body.style.right = "0";
-      document.body.style.overflow = "hidden";
+      document.body.style.left = '0';
+      document.body.style.right = '0';
+      document.body.style.overflow = 'hidden';
 
       const preventTouch = (e: TouchEvent) => {
         const messagesContainer = messagesContainerRef.current;
@@ -129,21 +129,21 @@ export function ChatBot() {
         e.preventDefault();
       };
 
-      document.addEventListener("touchmove", preventTouch, { passive: false });
+      document.addEventListener('touchmove', preventTouch, { passive: false });
 
       return () => {
         const scrollY = document.body.style.top;
-        document.body.style.position = "";
-        document.body.style.top = "";
-        document.body.style.left = "";
-        document.body.style.right = "";
-        document.body.style.overflow = "";
+        document.body.style.position = '';
+        document.body.style.top = '';
+        document.body.style.left = '';
+        document.body.style.right = '';
+        document.body.style.overflow = '';
 
         if (scrollY) {
-          window.scrollTo(0, parseInt(scrollY || "0") * -1);
+          window.scrollTo(0, parseInt(scrollY || '0') * -1);
         }
 
-        document.removeEventListener("touchmove", preventTouch);
+        document.removeEventListener('touchmove', preventTouch);
       };
     }
   }, [isOpen]);
@@ -165,32 +165,32 @@ export function ChatBot() {
       e.stopPropagation();
     };
 
-    messagesContainer.addEventListener("touchstart", handleTouchStart, {
+    messagesContainer.addEventListener('touchstart', handleTouchStart, {
       passive: true,
     });
-    messagesContainer.addEventListener("touchmove", handleTouchMove, {
+    messagesContainer.addEventListener('touchmove', handleTouchMove, {
       passive: true,
     });
-    messagesContainer.addEventListener("wheel", handleWheel, { passive: true });
+    messagesContainer.addEventListener('wheel', handleWheel, { passive: true });
 
     return () => {
-      messagesContainer.removeEventListener("touchstart", handleTouchStart);
-      messagesContainer.removeEventListener("touchmove", handleTouchMove);
-      messagesContainer.removeEventListener("wheel", handleWheel);
+      messagesContainer.removeEventListener('touchstart', handleTouchStart);
+      messagesContainer.removeEventListener('touchmove', handleTouchMove);
+      messagesContainer.removeEventListener('wheel', handleWheel);
     };
   }, [isOpen]);
 
   const handleQuickReply = (message: string) => {
     setInput(message);
     setTimeout(() => {
-      const form = document.getElementById("chat-form") as HTMLFormElement;
+      const form = document.getElementById('chat-form') as HTMLFormElement;
       if (form) {
         form.requestSubmit();
       }
     }, 0);
   };
 
-  const displayMessages = messages.filter((m) => m.role !== "system");
+  const displayMessages = messages.filter(m => m.role !== 'system');
   const isChatting = isLoading;
 
   return (
@@ -199,7 +199,7 @@ export function ChatBot() {
       <motion.div
         initial={{ scale: 0 }}
         animate={{ scale: 1 }}
-        transition={{ delay: 1, type: "spring", stiffness: 300 }}
+        transition={{ delay: 1, type: 'spring', stiffness: 300 }}
         className="fixed bottom-6 right-6 z-50"
       >
         <Button
@@ -239,10 +239,10 @@ export function ChatBot() {
               initial={{ opacity: 0, scale: 0.95, y: 20 }}
               animate={{ opacity: 1, scale: 1, y: 0 }}
               exit={{ opacity: 0, scale: 0.95, y: 20 }}
-              transition={{ duration: 0.3, ease: "easeOut" }}
+              transition={{ duration: 0.3, ease: 'easeOut' }}
               className="fixed bottom-4 right-4 w-full sm:w-[380px] h-[calc(100vh-4rem)] sm:h-[80vh] max-h-[600px] rounded-lg overflow-hidden shadow-2xl dark:bg-[#27272a] bg-[#e5e7eb]  flex flex-col z-50 transition-colors duration-700 dark:border-[1px] border-zinc-700"
-              onTouchStart={(e) => e.stopPropagation()}
-              onTouchMove={(e) => e.stopPropagation()}
+              onTouchStart={e => e.stopPropagation()}
+              onTouchMove={e => e.stopPropagation()}
             >
               {/* WhatsApp Header */}
               <motion.div
@@ -260,7 +260,7 @@ export function ChatBot() {
                         ACOBot
                       </h3>
                       <p className="text-xs text-primary-foreground/80">
-                        {isChatting ? "typing..." : "online"}
+                        {isChatting ? 'typing...' : 'online'}
                       </p>
                     </div>
                   </div>
@@ -282,16 +282,16 @@ export function ChatBot() {
                 style={{
                   backgroundImage: `url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23000000' fill-opacity='0.02'%3E%3Cpath d='m36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm-16-16v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")`,
                   backgroundColor:
-                    typeof document !== "undefined" &&
-                    document.documentElement.classList.contains("dark")
-                      ? "#27272a" // zinc-800
-                      : "#e5e7eb", // zinc-200,
-                  touchAction: "pan-y",
-                  WebkitOverflowScrolling: "touch",
-                  overscrollBehavior: "contain",
+                    typeof document !== 'undefined' &&
+                    document.documentElement.classList.contains('dark')
+                      ? '#27272a' // zinc-800
+                      : '#e5e7eb', // zinc-200,
+                  touchAction: 'pan-y',
+                  WebkitOverflowScrolling: 'touch',
+                  overscrollBehavior: 'contain',
                 }}
-                onTouchStart={(e) => e.stopPropagation()}
-                onTouchMove={(e) => e.stopPropagation()}
+                onTouchStart={e => e.stopPropagation()}
+                onTouchMove={e => e.stopPropagation()}
               >
                 {/* Welcome Message */}
                 {displayMessages.length === 0 && (
@@ -310,27 +310,27 @@ export function ChatBot() {
                 {displayMessages.map((m: Message, index: number) => (
                   <div
                     key={m.id}
-                    className={`flex ${m.role === "user" ? "justify-end" : "justify-start"} mb-2`}
+                    className={`flex ${m.role === 'user' ? 'justify-end' : 'justify-start'} mb-2`}
                   >
                     <div
                       className={`max-w-[85%] relative group ${
-                        m.role === "user"
-                          ? "bg-primary/10 rounded-t-2xl rounded-bl-2xl rounded-br-md"
-                          : "bg-surface rounded-t-2xl rounded-br-2xl rounded-bl-md"
+                        m.role === 'user'
+                          ? 'bg-primary/10 rounded-t-2xl rounded-bl-2xl rounded-br-md'
+                          : 'bg-surface rounded-t-2xl rounded-br-2xl rounded-bl-md'
                       } shadow-sm`}
                     >
                       <div className="px-3 py-2">
                         <div
                           className={`text-sm leading-relaxed ${
-                            m.role === "user"
-                              ? "text-zinc-800"
-                              : "text-zinc-800"
+                            m.role === 'user'
+                              ? 'text-zinc-800'
+                              : 'text-zinc-800'
                           }`}
                           style={{
-                            overflowWrap: "break-word",
-                            wordBreak: "break-word",
+                            overflowWrap: 'break-word',
+                            wordBreak: 'break-word',
                             minWidth: 0,
-                            width: "100%",
+                            width: '100%',
                           }}
                           dangerouslySetInnerHTML={{
                             __html: formatMessage(m.content),
@@ -338,13 +338,13 @@ export function ChatBot() {
                         />
                         <div
                           className={`flex items-center justify-end gap-1 mt-1 ${
-                            m.role === "user"
-                              ? "text-zinc-500"
-                              : "text-zinc-400"
+                            m.role === 'user'
+                              ? 'text-zinc-500'
+                              : 'text-zinc-400'
                           }`}
                         >
                           <span className="text-xs">{getCurrentTime()}</span>
-                          {m.role === "user" && (
+                          {m.role === 'user' && (
                             <div className="flex">
                               <div className="w-4 h-3 flex items-end justify-end">
                                 <svg
@@ -367,9 +367,9 @@ export function ChatBot() {
                       {/* WhatsApp-style message tail */}
                       <div
                         className={`absolute top-0 ${
-                          m.role === "user" ? "-right-1" : "-left-1"
+                          m.role === 'user' ? '-right-1' : '-left-1'
                         } w-3 h-3 transform rotate-45 ${
-                          m.role === "user" ? "bg-primary/10" : "bg-surface"
+                          m.role === 'user' ? 'bg-primary/10' : 'bg-surface'
                         }`}
                       />
                     </div>
@@ -379,7 +379,7 @@ export function ChatBot() {
                 {/* WhatsApp Typing Indicator */}
                 {isLoading &&
                   displayMessages[displayMessages.length - 1]?.role ===
-                    "user" && (
+                    'user' && (
                     <motion.div
                       initial={{ opacity: 0, y: 20 }}
                       animate={{ opacity: 1, y: 0 }}
@@ -483,16 +483,16 @@ export function ChatBot() {
                       placeholder="Type a message..."
                       className="flex-1 flex justify-end !bg-transparent items-end min-h-[36px] max-h-[120px] resize-none border-0  focus:ring-0 focus:outline-none text-sm focus-visible:!ring-0 placeholder:text-zinc-500 outline-none py-1"
                       rows={1}
-                      onKeyDown={(e) => {
-                        if (e.key === "Enter" && !e.shiftKey) {
+                      onKeyDown={e => {
+                        if (e.key === 'Enter' && !e.shiftKey) {
                           e.preventDefault();
                           handleSubmit(e as any);
                         }
                       }}
                       disabled={isChatting}
                       style={{
-                        scrollbarWidth: "none",
-                        msOverflowStyle: "none",
+                        scrollbarWidth: 'none',
+                        msOverflowStyle: 'none',
                       }}
                     />
                   </div>

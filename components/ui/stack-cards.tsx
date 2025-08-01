@@ -1,54 +1,57 @@
-"use client"
+'use client';
 
-import type React from "react"
+import type React from 'react';
 
-import Image from "next/image"
-import { useTransform, motion, useScroll } from "framer-motion"
-import { useRef } from "react"
-import Link from "next/link"
-import { Button } from "./button"
-import { ArrowRight, MapPin } from "lucide-react"
+import Image from 'next/image';
+import { useTransform, motion, useScroll } from 'framer-motion';
+import { useRef } from 'react';
+import Link from 'next/link';
+import { Button } from './button';
+import { ArrowRight, MapPin } from 'lucide-react';
 
 interface CardProps {
-  i: number
-  title: string
-  description: string
-  images: { asset: { url: string } }[] // Updated to match Sanity image asset structure
-  location: string
-  url?: string
-  color?: string
-  gradientFrom: string
-  gradientTo: string
-  progress: any
-  range: number[]
-  targetScale: number
+  i: number;
+  title: string;
+  description: string;
+  images: { asset: { url: string } }[]; // Updated to match Sanity image asset structure
+  location: string;
+  url?: string;
+  color?: string;
+  gradientFrom: string;
+  gradientTo: string;
+  progress: any;
+  range: number[];
+  targetScale: number;
 }
 
 const Card: React.FC<CardProps> = ({
   i = 0,
-  title = "",
-  description = "",
+  title = '',
+  description = '',
   images = [], // Default to empty array
-  location = "Nigeria",
-  url = "#",
-  color = "#ffffff",
-  gradientFrom = "#000000",
-  gradientTo = "#000000",
+  location = 'Nigeria',
+  url = '#',
+  color = '#ffffff',
+  gradientFrom = '#000000',
+  gradientTo = '#000000',
   progress = { get: () => 0 }, // Mocked for safety
   range = [0, 1],
   targetScale = 1,
 }) => {
-  const container = useRef(null)
+  const container = useRef(null);
   const { scrollYProgress } = useScroll({
     target: container,
-    offset: ["start end", "start start"],
-  })
+    offset: ['start end', 'start start'],
+  });
 
-  const imageScale = useTransform(scrollYProgress, [0, 1], [2, 1])
-  const scale = useTransform(progress, range, [1, targetScale])
+  const imageScale = useTransform(scrollYProgress, [0, 1], [2, 1]);
+  const scale = useTransform(progress, range, [1, targetScale]);
 
   return (
-    <div ref={container} className="h-screen flex items-center text-white  justify-center sticky top-0">
+    <div
+      ref={container}
+      className="h-screen flex items-center text-white  justify-center sticky top-0"
+    >
       <motion.div
         style={{
           backgroundImage: `linear-gradient(to bottom, ${gradientFrom}, ${gradientTo})`,
@@ -76,7 +79,7 @@ const Card: React.FC<CardProps> = ({
 
             <div className="mt-auto pt-6">
               <Link href={url}>
-                {" "}
+                {' '}
                 {/* Use the passed URL */}
                 <Button className="bg-[#07F507]/70 text-lg py-6 !px-8 hover:bg-[#07F507]/60 text-white">
                   View Project
@@ -91,7 +94,7 @@ const Card: React.FC<CardProps> = ({
             {images[0] && (
               <div className="row-span-1 col-span-2 relative rounded-[16px] overflow-hidden">
                 <Image
-                  src={images[0].asset.url || "/placeholder.svg"} // Use Sanity image URL
+                  src={images[0].asset.url || '/placeholder.svg'} // Use Sanity image URL
                   alt={title}
                   fill
                   className="object-cover"
@@ -101,7 +104,7 @@ const Card: React.FC<CardProps> = ({
             {images[1] && (
               <div className="relative rounded-[16px] overflow-hidden">
                 <Image
-                  src={images[1].asset.url || "/placeholder.svg"} // Use Sanity image URL
+                  src={images[1].asset.url || '/placeholder.svg'} // Use Sanity image URL
                   alt={title}
                   fill
                   className="object-cover"
@@ -111,7 +114,7 @@ const Card: React.FC<CardProps> = ({
             {images[2] && (
               <div className="relative rounded-[16px] overflow-hidden">
                 <Image
-                  src={images[2].asset.url || "/placeholder.svg"} // Use Sanity image URL
+                  src={images[2].asset.url || '/placeholder.svg'} // Use Sanity image URL
                   alt={title}
                   fill
                   className="object-cover"
@@ -122,7 +125,7 @@ const Card: React.FC<CardProps> = ({
         </div>
       </motion.div>
     </div>
-  )
-}
+  );
+};
 
-export default Card
+export default Card;

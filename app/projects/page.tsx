@@ -1,17 +1,17 @@
-import { Container } from "@/components/ui/container";
-import { PageHero } from "@/components/ui/page-hero";
-import { Breadcrumb } from "@/components/ui/breadcrumb";
-import { Card, CardContent } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { ArrowRight, Search, MapPin } from "lucide-react";
-import Link from "next/link";
-import { getProjects } from "@/sanity/lib/client"; // Import getProjects
+import { Container } from '@/components/ui/container';
+import { PageHero } from '@/components/ui/page-hero';
+import { Breadcrumb } from '@/components/ui/breadcrumb';
+import { Card, CardContent } from '@/components/ui/card';
+import { Button } from '@/components/ui/button';
+import { Input } from '@/components/ui/input';
+import { ArrowRight, Search, MapPin } from 'lucide-react';
+import Link from 'next/link';
+import { getProjects } from '@/sanity/lib/client'; // Import getProjects
 
 export default async function ProjectsPage() {
   const projects = await getProjects();
 
-  const breadcrumbItems = [{ label: "Home", href: "/" }, { label: "Projects" }];
+  const breadcrumbItems = [{ label: 'Home', href: '/' }, { label: 'Projects' }];
 
   return (
     <>
@@ -34,7 +34,7 @@ export default async function ProjectsPage() {
                 <div className="aspect-[16/9] overflow-hidden">
                   {project.images && project.images.length > 0 && (
                     <img
-                      src={project.images[0].asset.url || "/placeholder.svg"}
+                      src={project.images[0].asset.url || '/placeholder.svg'}
                       alt={project.title}
                       className="w-full h-full object-cover hover:scale-105 "
                     />
@@ -80,7 +80,9 @@ export default async function ProjectsPage() {
             </div>
             {/* Categories (Example - you might want to fetch these from Sanity too) */}
             <div className="border-t-2 bg-muted border-t-primary p-6 rounded-lg border-[1px]">
-              <h3 className="text-xl font-bold text-foreground mb-4">Categories</h3>
+              <h3 className="text-xl font-bold text-foreground mb-4">
+                Categories
+              </h3>
               <ul className="space-y-2">
                 {projects.map((project: any) => (
                   <li key={project.id}>
@@ -88,7 +90,9 @@ export default async function ProjectsPage() {
                       href={`/projects/${project.slug.current}`}
                       className="p-2 border-primary border-[0.5px] rounded-lg bg-surface text-foreground hover:bg-primary hover:text-primary-foreground  flex items-center justify-between"
                     >
-                      <span className="font-medium text-sm">{project.title}</span>
+                      <span className="font-medium text-sm">
+                        {project.title}
+                      </span>
                     </Link>
                   </li>
                 ))}

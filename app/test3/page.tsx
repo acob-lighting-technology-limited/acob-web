@@ -1,14 +1,14 @@
-'use client'
+'use client';
 
-import { motion } from 'framer-motion'
-import { useInView } from 'react-intersection-observer'
+import { motion } from 'framer-motion';
+import { useInView } from 'react-intersection-observer';
 
 const phrases = [
-  "It is a long established fact",
-  "that a reader will be distracted",
-  "by the readable content of a page",
-  "when looking at its layout."
-]
+  'It is a long established fact',
+  'that a reader will be distracted',
+  'by the readable content of a page',
+  'when looking at its layout.',
+];
 
 export default function Home() {
   return (
@@ -18,25 +18,25 @@ export default function Home() {
       <MaskText />
       <MaskText />
     </div>
-  )
+  );
 }
 
 export function MaskText() {
   const { ref, inView } = useInView({
     threshold: 0.75,
     triggerOnce: true,
-  })
+  });
 
   return (
     <div ref={ref} className="text-[5vw] font-bold">
       {phrases.map((phrase, index) => (
         <div key={index} className="overflow-hidden">
           <motion.p
-            initial={{ y: "100%" }}
+            initial={{ y: '100%' }}
             animate={
               inView
                 ? {
-                    y: "0",
+                    y: '0',
                     transition: {
                       duration: 0.75,
                       ease: [0.33, 1, 0.68, 1],
@@ -52,5 +52,5 @@ export function MaskText() {
         </div>
       ))}
     </div>
-  )
+  );
 }

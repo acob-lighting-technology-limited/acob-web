@@ -1,72 +1,79 @@
-"use client"
+'use client';
 
-import { Card, CardContent } from "@/components/ui/card"
-import { Container } from "@/components/ui/container"
-import { motion, useInView } from "framer-motion"
-import { useRef, useEffect, useState } from "react"
+import { Card, CardContent } from '@/components/ui/card';
+import { Container } from '@/components/ui/container';
+import { motion, useInView } from 'framer-motion';
+import { useRef, useEffect, useState } from 'react';
 
 const stats = [
-  { number: 100, suffix: "+", label: "Mini-Grid Projects" },
-  { number: 50, suffix: "MW+", label: "Total Capacity Installed" },
-  { number: 200, suffix: "+", label: "Communities Served" },
-  { number: 10, suffix: "+", label: "Years Experience" },
-]
+  { number: 100, suffix: '+', label: 'Mini-Grid Projects' },
+  { number: 50, suffix: 'MW+', label: 'Total Capacity Installed' },
+  { number: 200, suffix: '+', label: 'Communities Served' },
+  { number: 10, suffix: '+', label: 'Years Experience' },
+];
 
-function CounterAnimation({ 
-  end, 
-  suffix, 
-  duration = 2.5 
-}: { 
-  end: number; 
-  suffix: string; 
-  duration?: number 
+function CounterAnimation({
+  end,
+  suffix,
+  duration = 2.5,
+}: {
+  end: number;
+  suffix: string;
+  duration?: number;
 }) {
-  const [count, setCount] = useState(0)
-  const countRef = useRef<HTMLDivElement>(null)
-  const isInView = useInView(countRef, { once: true, margin: "-100px" })
+  const [count, setCount] = useState(0);
+  const countRef = useRef<HTMLDivElement>(null);
+  const isInView = useInView(countRef, { once: true, margin: '-100px' });
 
   useEffect(() => {
-    if (!isInView) return
+    if (!isInView) return;
 
-    let startTime: number
-    let animationFrame: number
+    let startTime: number;
+    let animationFrame: number;
 
     const animate = (currentTime: number) => {
-      if (!startTime) startTime = currentTime
-      const progress = Math.min((currentTime - startTime) / (duration * 1000), 1)
-      
+      if (!startTime) startTime = currentTime;
+      const progress = Math.min(
+        (currentTime - startTime) / (duration * 1000),
+        1
+      );
+
       // Easing function for smooth animation
-      const easeOutQuart = 1 - Math.pow(1 - progress, 4)
-      const currentCount = Math.floor(easeOutQuart * end)
-      
-      setCount(currentCount)
+      const easeOutQuart = 1 - Math.pow(1 - progress, 4);
+      const currentCount = Math.floor(easeOutQuart * end);
+
+      setCount(currentCount);
 
       if (progress < 1) {
-        animationFrame = requestAnimationFrame(animate)
+        animationFrame = requestAnimationFrame(animate);
       } else {
-        setCount(end)
+        setCount(end);
       }
-    }
+    };
 
-    animationFrame = requestAnimationFrame(animate)
+    animationFrame = requestAnimationFrame(animate);
 
     return () => {
       if (animationFrame) {
-        cancelAnimationFrame(animationFrame)
+        cancelAnimationFrame(animationFrame);
       }
-    }
-  }, [isInView, end, duration])
+    };
+  }, [isInView, end, duration]);
 
   return (
-            <div ref={countRef} className="text-2xl font-bold text-primary-foreground mb-2">
-      {count}{suffix}
+    <div
+      ref={countRef}
+      className="text-2xl font-bold text-primary-foreground mb-2"
+    >
+      {count}
+      {suffix}
     </div>
-  )
+  );
 }
 
 export function TransitionSection() {
-  const ref = useRef(null)
-  const isInView = useInView(ref, { once: true, margin: "-50px" })
+  const ref = useRef(null);
+  const isInView = useInView(ref, { once: true, margin: '-50px' });
 
   return (
     <section
@@ -80,30 +87,32 @@ export function TransitionSection() {
       <Container className="relative px-4">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
           <div>
-            <motion.h2 
+            <motion.h2
               className="text-3xl md:text-4xl font-bold mb-6 text-primary-foreground transition-colors duration-700"
               initial={{ opacity: 0, y: 30 }}
               animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
-              transition={{ duration: 0.8, ease: "easeOut" }}
+              transition={{ duration: 0.8, ease: 'easeOut' }}
             >
-              Feeling The Transition To Renewable Power, To deploy 100 micro-grids impacting the lives of over ten
-              Nigerians by 2030.
+              Feeling The Transition To Renewable Power, To deploy 100
+              micro-grids impacting the lives of over ten Nigerians by 2030.
             </motion.h2>
             <div className="grid grid-cols-2 gap-6">
               {stats.map((stat, index) => (
                 <motion.div
                   key={index}
                   initial={{ opacity: 0, y: 20 }}
-                  animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
-                  transition={{ 
-                    duration: 0.6, 
+                  animate={
+                    isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }
+                  }
+                  transition={{
+                    duration: 0.6,
                     delay: index * 0.1 + 0.3,
-                    ease: "easeOut" 
+                    ease: 'easeOut',
                   }}
                   className="bg-white/5 backdrop-blur-md p-6 rounded-2xl border border-white/10 hover:bg-white/10 transition-all duration-300 hover:scale-[1.02] hover:shadow-2xl hover:shadow-white/5 text-center"
                 >
-                  <CounterAnimation 
-                    end={stat.number} 
+                  <CounterAnimation
+                    end={stat.number}
                     suffix={stat.suffix}
                     duration={2.5}
                   />
@@ -112,11 +121,11 @@ export function TransitionSection() {
               ))}
             </div>
           </div>
-          <motion.div 
+          <motion.div
             className="grid grid-cols-2 gap-4"
             initial={{ opacity: 0, x: 50 }}
             animate={isInView ? { opacity: 1, x: 0 } : { opacity: 0, x: 50 }}
-            transition={{ duration: 0.8, delay: 0.2, ease: "easeOut" }}
+            transition={{ duration: 0.8, delay: 0.2, ease: 'easeOut' }}
           >
             <div className="relative rounded-lg overflow-hidden shadow-lg">
               <motion.img
@@ -124,7 +133,11 @@ export function TransitionSection() {
                 alt="Solar Installation"
                 className="w-full h-[250px] object-cover"
                 initial={{ opacity: 0, scale: 0.8 }}
-                animate={isInView ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0.8 }}
+                animate={
+                  isInView
+                    ? { opacity: 1, scale: 1 }
+                    : { opacity: 0, scale: 0.8 }
+                }
                 transition={{ duration: 0.6, delay: 0.4 }}
               />
               <div className="absolute inset-0 bg-black/30 rounded-lg"></div>
@@ -135,7 +148,11 @@ export function TransitionSection() {
                 alt="Team at Work"
                 className="w-full h-[250px] object-cover"
                 initial={{ opacity: 0, scale: 0.8 }}
-                animate={isInView ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0.8 }}
+                animate={
+                  isInView
+                    ? { opacity: 1, scale: 1 }
+                    : { opacity: 0, scale: 0.8 }
+                }
                 transition={{ duration: 0.6, delay: 0.6 }}
               />
               <div className="absolute inset-0 bg-black/30 rounded-lg"></div>
@@ -146,7 +163,11 @@ export function TransitionSection() {
                 alt="Solar Panels"
                 className="w-full h-[250px] object-cover"
                 initial={{ opacity: 0, scale: 0.8 }}
-                animate={isInView ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0.8 }}
+                animate={
+                  isInView
+                    ? { opacity: 1, scale: 1 }
+                    : { opacity: 0, scale: 0.8 }
+                }
                 transition={{ duration: 0.6, delay: 0.8 }}
               />
               <div className="absolute inset-0 bg-black/30 rounded-lg"></div>
@@ -157,7 +178,11 @@ export function TransitionSection() {
                 alt="Community Impact"
                 className="w-full h-[250px] object-cover"
                 initial={{ opacity: 0, scale: 0.8 }}
-                animate={isInView ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0.8 }}
+                animate={
+                  isInView
+                    ? { opacity: 1, scale: 1 }
+                    : { opacity: 0, scale: 0.8 }
+                }
                 transition={{ duration: 0.6, delay: 1.0 }}
               />
               <div className="absolute inset-0 bg-black/30 rounded-lg"></div>
@@ -166,5 +191,5 @@ export function TransitionSection() {
         </div>
       </Container>
     </section>
-  )
+  );
 }

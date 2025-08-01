@@ -1,17 +1,23 @@
-import { Button } from "@/components/ui/button"
-import { Container } from "@/components/ui/container"
-import { ArrowRight, Phone } from "lucide-react"
+import { Button } from '@/components/ui/button';
+import { Container } from '@/components/ui/container';
+import { ArrowRight, Phone } from 'lucide-react';
 
 interface ServiceHeroProps {
-  title: string
+  title: string;
   // description: string
-  backgroundImage: string
-  className?: string
+  backgroundImage: string;
+  className?: string;
 }
 
-export function ServiceHero({ title, backgroundImage, className = "" }: ServiceHeroProps) {
+export function ServiceHero({
+  title,
+  backgroundImage,
+  className = '',
+}: ServiceHeroProps) {
   return (
-    <section className={`relative h-[400px] flex items-end justify-left w-full ${className}`}>
+    <section
+      className={`relative h-[400px] flex items-end justify-left w-full ${className}`}
+    >
       {/* Background Image */}
       <div
         className="absolute inset-0 bg-cover bg-center bg-no-repeat"
@@ -24,12 +30,17 @@ export function ServiceHero({ title, backgroundImage, className = "" }: ServiceH
       {/* Content */}
       <Container className="relative z-10 px-4">
         <div className="max-w-4xl text-white">
-          <h1 className="text-4xl md:text-6xl font-bold mb-6 leading-tight">{title}</h1>
+          <h1 className="text-4xl md:text-6xl font-bold mb-6 leading-tight">
+            {title}
+          </h1>
           {/* <p className="text-lg md:text-xl opacity-90 mb-8 max-w-3xl leading-relaxed">{description}</p> */}
 
           {/* Action Buttons */}
           <div className="flex flex-col sm:flex-row gap-4">
-            <Button size="lg" className="bg-primary hover:bg-primary/90 text-white px-8 py-3">
+            <Button
+              size="lg"
+              className="bg-primary hover:bg-primary/90 text-white px-8 py-3"
+            >
               Get Quote
               <ArrowRight className="ml-2 h-4 w-4" />
             </Button>
@@ -46,5 +57,5 @@ export function ServiceHero({ title, backgroundImage, className = "" }: ServiceH
         </div>
       </Container>
     </section>
-  )
+  );
 }

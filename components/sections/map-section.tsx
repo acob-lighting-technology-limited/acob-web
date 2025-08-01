@@ -1,12 +1,12 @@
-import Link from "next/link";
-import { Container } from "../ui/container";
+import Link from 'next/link';
+import { Container } from '../ui/container';
 
 export function MapSection() {
   return (
     <footer className="  transition-colors duration-700">
       <Container className="flex justify-between px-4 py-16 pt-20 w-full">
         <div className=" w-1/2 flex flex-col gap-8 max-w-md">
-          {" "}
+          {' '}
           <Link href="/" className="flex items-center space-x-2 group">
             <img
               src="/images/ACOB-Logo.png"
@@ -14,15 +14,14 @@ export function MapSection() {
               className="h-12 w-auto transition-transform duration-200 group-hover:scale-105"
             />
           </Link>
-          <p className="text-lg dark:text-white transition-colors duration-700">ACOB provides mini grid solutions that
-serve a wide range of customers which
-include private households, commercial
-businesses such as shops, ice makers
-and mobile phone chargers, agricultural
-loads such as cold storage, productive
-loads such as grind mills, food
-processing and wood or metal working
-shops, and semi-industrials such as telecom towers.</p>
+          <p className="text-lg dark:text-white transition-colors duration-700">
+            ACOB provides mini grid solutions that serve a wide range of
+            customers which include private households, commercial businesses
+            such as shops, ice makers and mobile phone chargers, agricultural
+            loads such as cold storage, productive loads such as grind mills,
+            food processing and wood or metal working shops, and
+            semi-industrials such as telecom towers.
+          </p>
         </div>
         <div className=" w-1/2  aspect-video rounded-lg overflow-hidden">
           <iframe

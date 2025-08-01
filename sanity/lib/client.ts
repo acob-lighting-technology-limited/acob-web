@@ -1,5 +1,5 @@
-import { createClient } from "@sanity/client";
-import imageUrlBuilder from "@sanity/image-url";
+import { createClient } from '@sanity/client';
+import imageUrlBuilder from '@sanity/image-url';
 const projectId =
   process.env.SANITY_STUDIO_PROJECT_ID ||
   process.env.NEXT_PUBLIC_SANITY_PROJECT_ID;
@@ -10,7 +10,7 @@ export const client = createClient({
   projectId,
   dataset,
   useCdn: true,
-  apiVersion: "2024-01-01",
+  apiVersion: '2024-01-01',
   token: process.env.SANITY_API_TOKEN,
 });
 
