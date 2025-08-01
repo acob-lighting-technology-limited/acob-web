@@ -298,9 +298,9 @@ export function ChatBot() {
                   <div className="flex justify-center my-4">
                     <div className="bg-green-50 dark:bg-zinc-900 px-4 py-2 rounded-lg shadow-sm">
                       <p className="text-xs text-green-600 text-center">
-                        You're chatting with <strong>ACOBot</strong> — your
+                        You&apos;re chatting with <strong>ACOBot</strong> — your
                         virtual assistant from ACOB Lighting. Have a question?
-                        Just ask — I'm here to help!
+                        Just ask — I&apos;m here to help!
                       </p>
                     </div>
                   </div>

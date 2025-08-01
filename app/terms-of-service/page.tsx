@@ -41,10 +41,10 @@ export default function TermsOfServicePage() {
                 </h2>
                 <p className="text-muted-foreground leading-relaxed">
                   By accessing and using the website of ACOB Lighting Technology
-                  Limited ("we," "our," or "us"), you accept and agree to be
-                  bound by the terms and provision of this agreement. If you do
-                  not agree to abide by the above, please do not use this
-                  service.
+                  Limited (&quot;we,&quot; &quot;our,&quot; or &quot;us&quot;),
+                  you accept and agree to be bound by the terms and provision of
+                  this agreement. If you do not agree to abide by the above,
+                  please do not use this service.
                 </p>
               </section>
 
@@ -163,9 +163,9 @@ export default function TermsOfServicePage() {
               <section>
                 <h2 className="text-xl font-semibold mb-3">9. Disclaimers</h2>
                 <p className="text-muted-foreground mb-3">
-                  Our services are provided "as is" and "as available" without
-                  warranties of any kind, either express or implied, including
-                  but not limited to:
+                  Our services are provided &quot;as is&quot; and &quot;as
+                  available&quot; without warranties of any kind, either express
+                  or implied, including but not limited to:
                 </p>
                 <ul className="list-disc list-inside text-muted-foreground space-y-1">
                   <li>Warranties of merchantability</li>
@@ -194,9 +194,9 @@ export default function TermsOfServicePage() {
                 <p className="text-muted-foreground">
                   We reserve the right to modify these terms at any time. We
                   will notify users of any material changes by posting the new
-                  terms on this page and updating the "Last updated" date. Your
-                  continued use of our services after such changes constitutes
-                  acceptance of the new terms.
+                  terms on this page and updating the &quot;Last updated&quot;
+                  date. Your continued use of our services after such changes
+                  constitutes acceptance of the new terms.
                 </p>
               </section>
 
