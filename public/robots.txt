@@ -1,0 +1,26 @@
+User-agent: *
+Allow: /
+
+# Sitemap
+Sitemap: https://acoblighting.com/sitemap.xml
+
+# Disallow admin and private areas
+Disallow: /admin/
+Disallow: /studio/
+Disallow: /api/
+Disallow: /_next/
+Disallow: /test/
+Disallow: /test2/
+Disallow: /test3/
+Disallow: /test5/
+
+# Allow important pages
+Allow: /
+Allow: /about/
+Allow: /services/
+Allow: /projects/
+Allow: /contact/
+Allow: /updates/
+
+# Crawl delay (optional)
+Crawl-delay: 1 
