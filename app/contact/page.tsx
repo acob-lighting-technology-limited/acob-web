@@ -3,41 +3,11 @@ import { Container } from '@/components/ui/container';
 import { PageHero } from '@/components/ui/page-hero';
 import { Breadcrumb } from '@/components/ui/breadcrumb';
 import { Card, CardContent } from '@/components/ui/card';
-import { ArrowRight, Phone, MapPin, LifeBuoy, Briefcase } from 'lucide-react';
+import { ArrowRight } from 'lucide-react';
 import Link from 'next/link';
 import { MaskText } from '@/components/animations/MaskText';
 import { OptimizedImage } from '@/components/ui/optimized-image';
-
-const contactSections = [
-  {
-    title: 'Get a Quote',
-    description:
-      'Request a personalized energy audit or project quotation for your needs.',
-    href: '/contact/get-quote',
-    image: '/images/contact/get-quote.png?height=200&width=300',
-  },
-  {
-    title: 'Office Locations',
-    description:
-      'Find our head office and branch locations, and get directions.',
-    href: '/contact/locations',
-    image: '/images/contact/office-location.jpg?height=200&width=300',
-  },
-  {
-    title: 'Support',
-    description:
-      'Access our support resources or get assistance with your ACOB Lighting products and services.',
-    href: '/contact/support',
-    image: '/images/contact/support.jpg?height=200&width=300',
-  },
-  {
-    title: 'Careers',
-    description:
-      'Explore career opportunities and join our growing team of energy innovators.',
-    href: '/contact/careers',
-    image: '/images/contact/careers.webp?height=200&width=300',
-  },
-];
+import { contactSections } from '@/lib/data/contact-data';
 
 export default function ContactPage() {
   const breadcrumbItems = [
@@ -74,7 +44,7 @@ export default function ContactPage() {
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-          {contactSections.map((section, index) => {
+          {contactSections.map(section => {
             return (
               <Link key={section.href} href={section.href}>
                 <Card className="overflow-hidden bg-surface border-0 custom-shadow  p-0 hover:shadow-lg  h-full flex flex-col">

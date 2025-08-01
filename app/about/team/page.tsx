@@ -6,63 +6,7 @@ import { MaskText } from '@/components/animations/MaskText';
 import { Linkedin, Mail } from 'lucide-react';
 import Link from 'next/link';
 import { OptimizedImage } from '@/components/ui/optimized-image';
-
-const teamMembers = [
-  {
-    id: '1',
-    name: 'Mr. Alex Obiechina',
-    position: 'CEO & Founder',
-    image: '/placeholder.svg?height=200&width=200',
-    bio: 'A visionary leader with over 20 years of experience in renewable energy and sustainable development.',
-    linkedin: '#',
-    email: 'aminu.bello@acoblighting.com',
-  },
-  {
-    id: '2',
-    name: 'Fatima Yusuf',
-    position: 'Chief Operations Officer',
-    image: '/placeholder.svg?height=200&width=200',
-    bio: 'Oversees all operational aspects, ensuring efficiency and project success.',
-    linkedin: '#',
-    email: 'fatima.yusuf@acoblighting.com',
-  },
-  {
-    id: '3',
-    name: 'Engr. David Okoro',
-    position: 'Head of Engineering',
-    image: '/placeholder.svg?height=200&width=200',
-    bio: 'Leads our engineering team, specializing in solar system design and implementation.',
-    linkedin: '#',
-    email: 'david.okoro@acoblighting.com',
-  },
-  {
-    id: '4',
-    name: 'Aisha Mohammed',
-    position: 'Community Engagement Manager',
-    image: '/placeholder.svg?height=200&width=200',
-    bio: 'Connects with communities, ensuring our projects meet local needs and foster empowerment.',
-    linkedin: '#',
-    email: 'aisha.mohammed@acoblighting.com',
-  },
-  {
-    id: '5',
-    name: 'Chukwudi Eze',
-    position: 'Project Manager',
-    image: '/placeholder.svg?height=200&width=200',
-    bio: 'Manages project lifecycles from conception to completion, ensuring timely delivery.',
-    linkedin: '#',
-    email: 'chukwudi.eze@acoblighting.com',
-  },
-  {
-    id: '6',
-    name: 'Grace Adebayo',
-    position: 'Head of Finance',
-    image: '/placeholder.svg?height=200&width=200',
-    bio: 'Manages financial strategies and ensures fiscal responsibility.',
-    linkedin: '#',
-    email: 'grace.adebayo@acoblighting.com',
-  },
-];
+import { teamMembers } from '@/lib/data/about-data';
 
 export default function OurTeamPage() {
   const breadcrumbItems = [

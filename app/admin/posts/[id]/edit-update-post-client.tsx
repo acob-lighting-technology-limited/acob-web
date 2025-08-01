@@ -14,7 +14,6 @@ import { ArrowLeft } from 'lucide-react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { urlFor } from '@/sanity/lib/client';
-import { AdminPost, SanityImageUrl } from '@/lib/types';
 
 interface EditUpdatePostClientProps {
   id: string;

@@ -7,7 +7,7 @@ import { TransitionSection } from '@/components/sections/transition-section';
 import { ContactSection } from '@/components/sections/contact-section';
 import { NewsSection } from '@/components/sections/news-section';
 import { PartnersSection } from '@/components/sections/partners-section';
-import { MapSection } from '@/components/sections/map-section';
+
 import { ProjectsSection } from '@/components/sections/projects-section';
 import { TestimonialsSection } from '@/components/sections/testimonials-section';
 import { ChatBot } from '@/components/chat-box';

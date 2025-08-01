@@ -6,76 +6,7 @@ import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { Star, Quote, ChevronLeft, ChevronRight } from 'lucide-react';
-
-interface Testimonial {
-  id: number;
-  name: string;
-  position: string;
-  company: string;
-  content: string;
-  rating: number;
-  project: string;
-  image?: string;
-  verified: boolean;
-}
-
-const testimonials: Testimonial[] = [
-  {
-    id: 1,
-    name: 'Dr. Sarah Johnson',
-    position: 'CEO',
-    company: 'Green Energy Solutions Ltd',
-    content:
-      'ACOB Lighting transformed our energy infrastructure with their innovative mini-grid solution. The project was completed on time and exceeded our expectations. Our energy costs have reduced by 60% since implementation.',
-    rating: 5,
-    project: 'Mini-Grid Installation',
-    verified: true,
-  },
-  {
-    id: 2,
-    name: 'Michael Chen',
-    position: 'Operations Manager',
-    company: 'Nigerian Manufacturing Co.',
-    content:
-      'The captive power system installed by ACOB has been running flawlessly for over 18 months. Their professional energy audit helped us identify significant savings opportunities. Highly recommended!',
-    rating: 5,
-    project: 'Captive Power System',
-    verified: true,
-  },
-  {
-    id: 3,
-    name: 'Aisha Mohammed',
-    position: 'Director',
-    company: 'Community Development Initiative',
-    content:
-      'ACOB Lighting brought reliable electricity to our rural community for the first time. Their commitment to sustainable development and community engagement is outstanding. The impact has been life-changing.',
-    rating: 5,
-    project: 'Community Solar Project',
-    verified: true,
-  },
-  {
-    id: 4,
-    name: 'David Okonkwo',
-    position: 'Facility Manager',
-    company: 'Lagos Industrial Complex',
-    content:
-      'The energy audit conducted by ACOB revealed inefficiencies we never knew existed. Their recommendations saved us ₦15 million annually. The team is professional, knowledgeable, and reliable.',
-    rating: 5,
-    project: 'Energy Audit & Optimization',
-    verified: true,
-  },
-  {
-    id: 5,
-    name: 'Grace Williams',
-    position: 'Project Coordinator',
-    company: 'Sustainable Development NGO',
-    content:
-      'Working with ACOB Lighting on our solar street lighting project was a pleasure. They delivered quality work, maintained excellent communication, and completed the project under budget.',
-    rating: 5,
-    project: 'Solar Street Lighting',
-    verified: true,
-  },
-];
+import { testimonials } from '@/lib/data/testimonials-data';
 
 export function TestimonialsSection() {
   const [currentIndex, setCurrentIndex] = useState(0);

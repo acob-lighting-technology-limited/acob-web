@@ -4,47 +4,14 @@ import { PageHero } from '@/components/ui/page-hero';
 import { Breadcrumb } from '@/components/ui/breadcrumb';
 import { Card, CardContent } from '@/components/ui/card';
 import { MaskText } from '@/components/animations/MaskText';
-import { Lightbulb, Zap, Sun, Phone, Settings, Leaf } from 'lucide-react';
 import CallToAction from '@/components/layout/call-to-action';
+import { milestones, sidebarLinks } from '@/lib/data/about-data';
 
 export default function OurStoryPage() {
   const breadcrumbItems = [
     { label: 'Home', href: '/' },
     { label: 'About Us', href: '/about' },
     { label: 'Our Story' },
-  ];
-
-  const milestones = [
-    {
-      icon: Lightbulb,
-      year: '2016: Company Founding',
-      title: 'Established with a vision for sustainable energy in Nigeria.',
-      description:
-        'Began operations with a focus on solar solutions and energy consulting.',
-    },
-    {
-      icon: Zap,
-      year: '2019: First Major Mini-Grid Project',
-      title:
-        'Successfully deployed our first large-scale mini-grid, electrifying a rural community.',
-      description:
-        'Marked a significant step in our commitment to rural electrification.',
-    },
-    {
-      icon: Sun,
-      year: '2020-Present: Expansion & Innovation',
-      title:
-        'Expanded services to include captive power, advanced energy audits, and smart solutions.',
-      description:
-        'Continuing to lead with cutting-edge technology and a growing impact across Nigeria.',
-    },
-  ];
-
-  const sidebarLinks = [
-    { label: 'Our Story', href: '/about/our-story', isActive: true },
-    { label: 'Mission & Vision', href: '/about/mission', isActive: false },
-    { label: 'Meet Our Team', href: '/about/team', isActive: false },
-    { label: 'Certifications', href: '/about/certifications', isActive: false },
   ];
 
   return (
