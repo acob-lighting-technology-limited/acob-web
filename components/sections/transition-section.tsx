@@ -1,16 +1,10 @@
 'use client';
 
-import { Card, CardContent } from '@/components/ui/card';
 import { Container } from '@/components/ui/container';
 import { motion, useInView } from 'framer-motion';
 import { useRef, useEffect, useState } from 'react';
 
-const stats = [
-  { number: 100, suffix: '+', label: 'Mini-Grid Projects' },
-  { number: 50, suffix: 'MW+', label: 'Total Capacity Installed' },
-  { number: 200, suffix: '+', label: 'Communities Served' },
-  { number: 10, suffix: '+', label: 'Years Experience' },
-];
+import { stats } from '@/lib/data/transition-data';
 
 function CounterAnimation({
   end,

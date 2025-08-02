@@ -9,11 +9,7 @@ import { Send, MessageSquare, X, StopCircle, Bot, User } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { ACOB_SYSTEM_PROMPT } from '@/lib/data/acobot_system_prompt';
 
-const suggestedMessages = [
-  'What are your office hours?',
-  'Tell me about your services',
-  'How can I contact you?',
-];
+import { suggestedMessages } from '@/lib/data/chat-data';
 
 const formatMessage = (content: string) => {
   if (!content) return content;
