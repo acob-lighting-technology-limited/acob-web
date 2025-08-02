@@ -10,24 +10,7 @@ import { servicesData } from '@/lib/data/services';
 import CallToAction from '@/components/layout/call-to-action';
 import { OptimizedImage } from '@/components/ui/optimized-image';
 
-const categories = [
-  'All Services',
-  'Power Solutions',
-  'Consulting',
-  'Construction',
-  'Infrastructure',
-];
-
-const tags = [
-  'Solar Energy',
-  'Mini-Grid',
-  'Energy Audit',
-  'Installation',
-  'Maintenance',
-  'Consulting',
-  'EPC',
-  'Streetlighting',
-];
+import { categories, tags } from '@/lib/data/services-data';
 
 export default function ServicesPage() {
   const breadcrumbItems = [{ label: 'Home', href: '/' }, { label: 'Services' }];

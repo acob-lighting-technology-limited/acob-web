@@ -20,7 +20,7 @@ interface ContainerProps {
 }
 
 interface FormField {
-  id: keyof FormData;
+  id: keyof ContactFormData;
   label: string;
   placeholder: string;
   type: string;
@@ -28,13 +28,14 @@ interface FormField {
   rows?: number;
 }
 
-interface FormData {
+interface ContactFormData {
   firstName: string;
   lastName: string;
   email: string;
   phone: string;
   company: string;
   message: string;
+  [key: string]: string;
 }
 
 // Mock MaskText component for the artifact
@@ -51,57 +52,10 @@ const Container: React.FC<ContainerProps> = ({ children, className }) => (
   <div className={`max-w-7xl mx-auto ${className}`}>{children}</div>
 );
 
-const infoPoints = [
-  'Comprehensive energy analysis',
-  'Cost-benefit assessment',
-  'Custom solar solution design',
-  'ROI calculations and projections',
-];
-
-const formFields: FormField[] = [
-  {
-    id: 'firstName',
-    label: 'First Name',
-    placeholder: 'Enter your first name',
-    type: 'text',
-    half: true,
-  },
-  {
-    id: 'lastName',
-    label: 'Last Name',
-    placeholder: 'Enter your last name',
-    type: 'text',
-    half: true,
-  },
-  {
-    id: 'email',
-    label: 'Email Address',
-    placeholder: 'Enter your email',
-    type: 'email',
-  },
-  {
-    id: 'phone',
-    label: 'Phone Number',
-    placeholder: 'Enter your phone number',
-    type: 'tel',
-  },
-  {
-    id: 'company',
-    label: 'Company Name',
-    placeholder: 'Enter your company name',
-    type: 'text',
-  },
-  {
-    id: 'message',
-    label: 'Project Details',
-    placeholder: 'Tell us about your energy needs and project requirements',
-    type: 'textarea',
-    rows: 4,
-  },
-];
+import { infoPoints, formFields } from '@/lib/data/contact-section-data';
 
 export function ContactSection() {
-  const [formData, setFormData] = useState<FormData>({
+  const [formData, setFormData] = useState<ContactFormData>({
     firstName: '',
     lastName: '',
     email: '',
@@ -121,7 +75,7 @@ export function ContactSection() {
     }));
   };
 
-  const sendEmail = async (formData: FormData): Promise<any> => {
+  const sendEmail = async (formData: ContactFormData): Promise<unknown> => {
     try {
       const response = await fetch('/api/send-email', {
         method: 'POST',
@@ -140,7 +94,7 @@ export function ContactSection() {
 
       const result = await response.json();
       return result;
-    } catch (error) {
+    } catch (error: unknown) {
       console.error('Error sending email:', error);
       throw error;
     }
@@ -150,7 +104,7 @@ export function ContactSection() {
     setIsSubmitting(true);
 
     // Basic form validation
-    const requiredFields: (keyof FormData)[] = [
+    const requiredFields: (keyof ContactFormData)[] = [
       'firstName',
       'lastName',
       'email',
@@ -206,7 +160,7 @@ export function ContactSection() {
         company: '',
         message: '',
       });
-    } catch (error) {
+    } catch (error: unknown) {
       toast.error('Failed to submit request', {
         description:
           'Something went wrong. Please try again or contact us directly.',

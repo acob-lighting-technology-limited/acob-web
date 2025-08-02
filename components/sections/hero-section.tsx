@@ -2,54 +2,17 @@
 
 import { useState, useEffect, useRef } from 'react';
 import { Button } from '@/components/ui/button';
-import { Container } from '@/components/ui/container';
+
 import { ArrowRight, ChevronLeft, ChevronRight } from 'lucide-react';
 
-const heroSlides = [
-  {
-    id: 1,
-    title: 'Olooji Community 100kw Solar Hybrid Mini Grid',
-    image: '/images/olooji-community.jpg?height=800&width=1400',
-    description: 'Ijebu-East LGA, Ogun State',
-  },
-  {
-    id: 2,
-    title: '40kw Solar Mini-Grid Obadore Community',
-    image: '/images/obadore-ondo.jpg?height=800&width=1400',
-    description: 'Obadore LGA, Ondo State',
-  },
-  {
-    id: 3,
-    title: '100kWp Solar Hybrid Mini-Grid at Adebayo Community',
-    image: '/images/adebayo-community.jpg?height=800&width=1400',
-    description: 'Ovia-South LGA, Edo State',
-  },
-  {
-    id: 4,
-    title: '50 kWp Solar Hybrid Mini-Grid at Makami Community',
-    image: '/images/makami-kaduna.jpg?height=800&width=1400',
-    description: 'Kauru LGA, Kaduna State',
-  },
-  {
-    id: 5,
-    title: 'Routine Maintenance on Streetlight Infrastructure',
-    image: '/images/airport-road-abuja.jpg?height=800&width=1400',
-    description: 'Airport Road LGA, Abuja',
-  },
-  {
-    id: 6,
-    title: 'Solar Farm Installation in Northern Nigeria',
-    image: '/images/olooji-community.jpg?height=800&width=1400',
-    description: 'Northern Region, Nigeria',
-  },
-];
+import { heroSlides } from '@/lib/data/hero-data';
 
 export function HeroSection() {
   const [currentSlide, setCurrentSlide] = useState(0);
   const [isTransitioning, setIsTransitioning] = useState(false);
   const [showContent, setShowContent] = useState(true);
-  const [isPaused, setIsPaused] = useState(false);
-  const [slideStartTime, setSlideStartTime] = useState(Date.now());
+  const [isPaused] = useState(false);
+  const [slideStartTime] = useState(Date.now());
   const intervalRef = useRef<NodeJS.Timeout | null>(null);
 
   const changeSlide = (newIndex: number) => {
@@ -60,7 +23,6 @@ export function HeroSection() {
 
     setTimeout(() => {
       setCurrentSlide(newIndex);
-      setSlideStartTime(Date.now());
       setTimeout(() => {
         setShowContent(true);
         setIsTransitioning(false);
@@ -101,7 +63,7 @@ export function HeroSection() {
         clearInterval(intervalRef.current);
       }
     };
-  }, [currentSlide, isPaused, isTransitioning]);
+  }, [currentSlide, isPaused, isTransitioning, nextSlide]);
 
   // const handleMouseEnter = () => {
   //   setIsPaused(true);

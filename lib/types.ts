@@ -42,7 +42,7 @@ export interface UpdatePost {
   _id: string;
   title: string;
   slug: string;
-  content: any[]; // Portable Text
+  content: unknown[]; // Portable Text
   excerpt: string;
   publishedAt: string;
   author: {
@@ -58,7 +58,7 @@ export interface BlogPost {
   _id: string;
   title: string;
   slug: string;
-  content: any[]; // Portable Text
+  content: unknown[]; // Portable Text
   excerpt: string;
   publishedAt: string;
   author: {
@@ -115,7 +115,7 @@ export interface ChatResponse {
 }
 
 // API Response Types
-export interface ApiResponse<T = any> {
+export interface ApiResponse<T = unknown> {
   success: boolean;
   data?: T;
   error?: string;
@@ -123,7 +123,7 @@ export interface ApiResponse<T = any> {
 }
 
 export interface SanityApiResponse {
-  result: any[];
+  result: unknown[];
   error?: {
     description: string;
     type: string;
@@ -173,7 +173,7 @@ export interface AdminPost {
   _id: string;
   title: string;
   slug: string;
-  content: any[]; // Portable Text
+  content: unknown[]; // Portable Text
   excerpt: string;
   publishedAt: string;
   author: {
@@ -188,7 +188,7 @@ export interface AdminPost {
 export interface AdminPostFormData {
   title: string;
   slug: string;
-  content: any[]; // Portable Text
+  content: unknown[]; // Portable Text
   excerpt: string;
   publishedAt: string;
   author: {
@@ -222,7 +222,7 @@ export interface AppError {
   message: string;
   code?: string;
   status?: number;
-  details?: any;
+  details?: unknown;
 }
 
 // Utility Types
