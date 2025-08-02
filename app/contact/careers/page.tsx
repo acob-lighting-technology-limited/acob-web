@@ -3,15 +3,23 @@ import { PageHero } from '@/components/ui/page-hero';
 import { Breadcrumb } from '@/components/ui/breadcrumb';
 import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
-import { ArrowRight } from 'lucide-react';
+import { ArrowRight, Lightbulb, Users, Award, Heart } from 'lucide-react';
 import Link from 'next/link';
 import { MaskText } from '@/components/animations/MaskText';
 import { whyWorkItems, contactLinks } from '@/lib/data/contact-data';
 
+// Icon mapping
+const iconMap = {
+  Lightbulb,
+  Users,
+  Award,
+  Heart,
+};
+
 export default function CareersPage() {
   const breadcrumbItems = [
     { label: 'Home', href: '/' },
-    { label: 'Contact Us', href: '/contact' },
+    { label: 'Contact', href: '/contact' },
     { label: 'Careers' },
   ];
 
@@ -66,20 +74,25 @@ export default function CareersPage() {
                   <MaskText phrases={['Why Work at ACOB Lighting?']} />
                 </h2>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6 text-foreground leading-relaxed">
-                  {whyWorkItems.map(({ icon: Icon, title, description }) => (
-                    <div
-                      key={title}
-                      className="flex items-start gap-3 border p-2 rounded-lg bg-muted"
-                    >
-                      <Icon className="h-6 w-6 text-primary flex-shrink-0 mt-1" />
-                      <div>
-                        <h4 className="font-semibold text-lg mb-1">{title}</h4>
-                        <p className="text-sm text-muted-foreground">
-                          {description}
-                        </p>
+                  {whyWorkItems.map(({ icon, title, description }) => {
+                    const IconComponent = iconMap[icon as keyof typeof iconMap];
+                    return (
+                      <div
+                        key={title}
+                        className="flex items-start gap-3 border p-2 rounded-lg bg-muted"
+                      >
+                        <IconComponent className="h-6 w-6 text-primary flex-shrink-0 mt-1" />
+                        <div>
+                          <h4 className="font-semibold text-lg mb-1">
+                            {title}
+                          </h4>
+                          <p className="text-sm text-muted-foreground">
+                            {description}
+                          </p>
+                        </div>
                       </div>
-                    </div>
-                  ))}
+                    );
+                  })}
                 </div>
               </CardContent>
             </Card>

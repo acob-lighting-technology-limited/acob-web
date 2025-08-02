@@ -8,6 +8,7 @@ import { getProject, getProjects } from '@/sanity/lib/client';
 import Image from 'next/image';
 import Link from 'next/link';
 import { PageHero } from '@/components/ui/page-hero';
+import type { Project, SanityImageUrl } from '@/lib/types';
 
 interface ProjectPageProps {
   params: Promise<{
@@ -17,7 +18,7 @@ interface ProjectPageProps {
 
 export async function generateStaticParams() {
   const projects = await getProjects();
-  return projects.map((project: any) => ({
+  return projects.map((project: Project) => ({
     slug: project.slug.current,
   }));
 }
@@ -33,7 +34,7 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
   // Fetch all projects and filter out the current one to show related projects
   const allProjects = await getProjects();
   const relatedProjects = allProjects
-    .filter((p: any) => p.slug.current !== slug)
+    .filter((p: Project) => p.slug.current !== slug)
     .slice(0, 5); // Show only 5 related projects
 
   const breadcrumbItems = [
@@ -81,20 +82,22 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
                 <div className="p-8">
                   <h2 className="text-3xl font-bold mb-6">Project Gallery</h2>
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                    {project.images.map((img: any, index: number) => (
-                      <div
-                        key={index}
-                        className="aspect-[4/3] overflow-hidden rounded-lg"
-                      >
-                        <Image
-                          src={img.asset.url || '/placeholder.svg'}
-                          alt={`${project.title} image ${index + 1}`}
-                          width={800}
-                          height={600}
-                          className="w-full h-full object-cover hover:scale-105 "
-                        />
-                      </div>
-                    ))}
+                    {project.images.map(
+                      (img: SanityImageUrl, index: number) => (
+                        <div
+                          key={index}
+                          className="aspect-[4/3] overflow-hidden rounded-lg"
+                        >
+                          <Image
+                            src={img.asset.url || '/placeholder.svg'}
+                            alt={`${project.title} image ${index + 1}`}
+                            width={800}
+                            height={600}
+                            className="w-full h-full object-cover hover:scale-105 "
+                          />
+                        </div>
+                      )
+                    )}
                   </div>
                 </div>
               </div>
@@ -130,7 +133,7 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
                 <div className="p-6">
                   <h3 className="font-semibold mb-4">More Projects</h3>
                   <div className="space-y-3">
-                    {relatedProjects.map((relatedProject: any) => (
+                    {relatedProjects.map((relatedProject: Project) => (
                       <div
                         key={relatedProject._id}
                         className="border border-primary p-2 bg-surface rounded-lg "

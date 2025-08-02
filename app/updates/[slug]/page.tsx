@@ -1,20 +1,25 @@
 import { Container } from '@/components/ui/container';
 import { Breadcrumb } from '@/components/ui/breadcrumb';
-import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
+import { Card, CardContent } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
-import {
-  getUpdatePost,
-  getUpdatePosts,
-  urlFor,
-  getApprovedCommentsForPost,
-} from '@/sanity/lib/client';
+import { Textarea } from '@/components/ui/textarea';
+import { Label } from '@/components/ui/label';
+import { OptimizedImage } from '@/components/ui/optimized-image';
+import { Calendar, User, MessageSquare, ArrowRight } from 'lucide-react';
 import { PortableText } from '@portabletext/react';
 import type {
   PortableTextComponentProps,
   PortableTextBlock,
 } from '@portabletext/react';
+import { urlFor } from '@/sanity/lib/client';
+import {
+  getUpdatePost,
+  getUpdatePosts,
+  getApprovedCommentsForPost,
+} from '@/sanity/lib/client';
 import { notFound } from 'next/navigation';
+import type { UpdatePost, Comment } from '@/lib/types';
 import Image from 'next/image';
 import { CommentForm } from '@/components/updates/comment-form';
 
@@ -26,7 +31,7 @@ interface UpdatePostPageProps {
 
 export async function generateStaticParams() {
   const posts = await getUpdatePosts();
-  return posts.map((post: any) => ({
+  return posts.map((post: UpdatePost) => ({
     slug: post.slug.current,
   }));
 }
@@ -34,7 +39,11 @@ export async function generateStaticParams() {
 // Custom Portable Text Components
 const components = {
   types: {
-    image: ({ value }: { value: any }) => {
+    image: ({
+      value,
+    }: {
+      value: { asset: { _ref: string }; alt?: string };
+    }) => {
       if (!value.asset) return null;
       const imageUrl = urlFor(value).url();
       return (
@@ -204,7 +213,7 @@ export default async function UpdatePostPage({ params }: UpdatePostPageProps) {
               </h3>
               {comments.length > 0 ? (
                 <div className="space-y-6">
-                  {comments.map((comment: any) => (
+                  {comments.map((comment: Comment) => (
                     <div
                       key={comment._id}
                       className="border-b pb-4 last:border-b-0 last:pb-0"

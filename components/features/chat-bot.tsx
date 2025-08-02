@@ -492,7 +492,17 @@ export function ChatBot() {
                       onKeyDown={e => {
                         if (e.key === 'Enter' && !e.shiftKey) {
                           e.preventDefault();
-                          handleSubmit(e as any);
+                          // Trigger form submission manually
+                          const form = document.getElementById(
+                            'chat-form'
+                          ) as HTMLFormElement;
+                          if (form) {
+                            const submitEvent = new Event('submit', {
+                              bubbles: true,
+                              cancelable: true,
+                            });
+                            form.dispatchEvent(submitEvent);
+                          }
                         }
                       }}
                       disabled={isChatting}

@@ -57,7 +57,9 @@ export function useCache<T>(
       // Remove oldest items if cache is full
       if (cacheRef.current.size >= maxSize) {
         const oldestKey = cacheRef.current.keys().next().value;
-        cacheRef.current.delete(oldestKey);
+        if (oldestKey) {
+          cacheRef.current.delete(oldestKey);
+        }
       }
 
       cacheRef.current.set(cacheKey, {

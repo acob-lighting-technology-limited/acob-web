@@ -4,10 +4,11 @@ import { Breadcrumb } from '@/components/ui/breadcrumb';
 import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
-import { ArrowRight, Search, MapPin } from 'lucide-react';
+import { OptimizedImage } from '@/components/ui/optimized-image';
+import { MapPin, ArrowRight, Search } from 'lucide-react';
 import Link from 'next/link';
 import { getProjects } from '@/sanity/lib/client';
-import { OptimizedImage } from '@/components/ui/optimized-image';
+import type { Project } from '@/lib/types';
 
 export default async function ProjectsPage() {
   const projects = await getProjects();
@@ -27,7 +28,7 @@ export default async function ProjectsPage() {
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 items-start">
           {/* Main Content */}
           <div className="lg:col-span-2 space-y-8">
-            {projects.map((project: any) => (
+            {projects.map((project: Project) => (
               <Card
                 key={project._id}
                 className="overflow-hidden border-0 custom-shadow shadow-none p-0 hover:shadow-lg transition-shadow"
@@ -87,8 +88,8 @@ export default async function ProjectsPage() {
                 Categories
               </h3>
               <ul className="space-y-2">
-                {projects.map((project: any) => (
-                  <li key={project.id}>
+                {projects.map((project: Project) => (
+                  <li key={project._id}>
                     <Link
                       href={`/projects/${project.slug.current}`}
                       className="p-2 border-primary border-[0.5px] rounded-lg bg-surface text-foreground hover:bg-primary hover:text-primary-foreground  flex items-center justify-between"
