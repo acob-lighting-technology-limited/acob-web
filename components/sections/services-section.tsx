@@ -1,7 +1,9 @@
 'use client';
 
 // React and Next.js imports
-import React, { useState, useEffect } from 'react';
+
+import React, { useState, useEffect, useMemo } from 'react';
+
 import Link from 'next/link';
 
 // Third-party library imports
@@ -26,7 +28,9 @@ import { MaskText } from '../animations/MaskText';
 // Data imports
 import { servicesData } from '@/lib/data';
 
-export function ServicesSection() {
+
+const ServicesSection = React.memo(function ServicesSection() {
+
   const [currentSlide, setCurrentSlide] = useState(0);
   const [isTransitioning, setIsTransitioning] = useState(false);
   const [carouselApi, setCarouselApi] = useState<CarouselApi>();
@@ -178,7 +182,9 @@ export function ServicesSection() {
       </Container>
     </section>
   );
-}
+});
+
+export { ServicesSection };
 
 // "use client";
 // import { Button } from "@/components/ui/button";

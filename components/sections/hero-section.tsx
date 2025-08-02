@@ -1,13 +1,17 @@
 'use client';
 
-import { useState, useEffect, useRef, useCallback } from 'react';
+import React, {
+  useState,
+  useEffect,
+  useRef,
+  useCallback,
+  useMemo,
+} from 'react';
 import { Button } from '@/components/ui/button';
-
 import { ArrowRight, ChevronLeft, ChevronRight } from 'lucide-react';
-
 import { heroSlides } from '@/lib/data/hero-data';
 
-export function HeroSection() {
+const HeroSection = React.memo(function HeroSection() {
   const [currentSlide, setCurrentSlide] = useState(0);
   const [isTransitioning, setIsTransitioning] = useState(false);
   const [showContent, setShowContent] = useState(true);
@@ -73,7 +77,10 @@ export function HeroSection() {
   //   setSlideStartTime(Date.now()); // Reset the slide timer
   // };
 
-  const currentSlideData = heroSlides[currentSlide];
+  const currentSlideData = useMemo(
+    () => heroSlides[currentSlide],
+    [currentSlide]
+  );
 
   return (
     <section className="relative min-h-[700px] overflow-hidden w-full">
@@ -224,4 +231,6 @@ export function HeroSection() {
       `}</style>
     </section>
   );
-}
+});
+
+export { HeroSection };

@@ -1,7 +1,7 @@
 'use client';
 
+import React, { useState, useMemo } from 'react';
 import Image from 'next/image';
-import { useState } from 'react';
 import { Skeleton } from './skeleton';
 
 interface OptimizedImageProps {
@@ -16,7 +16,7 @@ interface OptimizedImageProps {
   quality?: number;
 }
 
-export function OptimizedImage({
+const OptimizedImage = React.memo(function OptimizedImage({
   src,
   alt,
   width,
@@ -30,15 +30,21 @@ export function OptimizedImage({
   const [isLoading, setIsLoading] = useState(true);
   const [hasError, setHasError] = useState(false);
 
-  if (hasError) {
-    return (
+  // Memoize the error fallback component
+  const errorFallback = useMemo(
+    () => (
       <div
         className={`flex items-center justify-center bg-muted text-muted-foreground ${className}`}
         style={fill ? {} : { width, height }}
       >
         <span className="text-sm">Image not available</span>
       </div>
-    );
+    ),
+    [className, fill, width, height]
+  );
+
+  if (hasError) {
+    return errorFallback;
   }
 
   return (
@@ -70,4 +76,6 @@ export function OptimizedImage({
       />
     </div>
   );
-}
+});
+
+export { OptimizedImage };

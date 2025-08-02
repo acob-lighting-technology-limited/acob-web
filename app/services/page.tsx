@@ -6,11 +6,9 @@ import { Button } from '@/components/ui/button';
 import { ArrowRight, Search, Settings, Leaf, Phone } from 'lucide-react';
 import { Input } from '@/components/ui/input';
 import Link from 'next/link';
-import { servicesData } from '@/lib/data/services';
+import { servicesData, categories, tags } from '@/lib/data';
 import CallToAction from '@/components/layout/call-to-action';
 import { OptimizedImage } from '@/components/ui/optimized-image';
-
-import { categories, tags } from '@/lib/data/services-data';
 
 export default function ServicesPage() {
   const breadcrumbItems = [{ label: 'Home', href: '/' }, { label: 'Services' }];

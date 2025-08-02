@@ -4,7 +4,7 @@ import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { CheckCircle, Settings, Leaf, Phone } from 'lucide-react';
 import { notFound } from 'next/navigation';
-import { getServiceBySlug, servicesData } from '@/lib/data/services';
+import { getServiceBySlug, servicesData } from '@/lib/data';
 import { ServiceHero } from '@/components/ui/service-hero';
 import Link from 'next/link';
 import { PageHero } from '@/components/ui/page-hero';
