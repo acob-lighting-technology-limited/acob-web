@@ -25,7 +25,11 @@ function isNextJSInternal(url: string): boolean {
     url.includes('__nextjs_original-stack-frames') ||
     url.includes('__nextjs_original-stack-frame') ||
     url.startsWith('/_next/') ||
-    url.includes('webpack-internal')
+    url.includes('webpack-internal') ||
+    url.includes('react-server-dom-webpack') ||
+    url.includes('app-pages-browser') ||
+    url.includes('next/dist/') ||
+    url.includes('compiled/react-server-dom-webpack')
   );
 }
 
