@@ -16,7 +16,7 @@ import Link from 'next/link';
 import { getUpdatePosts, getCategories } from '@/sanity/lib/client';
 
 export default async function MediaGalleryPage() {
-  const [posts, categories] = await Promise.all([
+  const [posts, sanityCategories] = await Promise.all([
     getUpdatePosts(),
     getCategories(),
   ]);
@@ -85,7 +85,7 @@ export default async function MediaGalleryPage() {
     { label: 'Media Gallery' },
   ];
 
-  const categories = [
+  const galleryCategories = [
     'All',
     'Projects',
     'Infrastructure',
@@ -131,7 +131,7 @@ export default async function MediaGalleryPage() {
 
                 {/* Category Filters */}
                 <div className="flex flex-wrap gap-2 mt-4">
-                  {categories.map(category => (
+                  {galleryCategories.map(category => (
                     <Button
                       key={category}
                       variant="outline"
