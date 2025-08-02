@@ -7,6 +7,7 @@ import { Header } from '@/components/layout/header';
 import { Footer } from '@/components/layout/footer';
 import { ScrollToTop } from '@/components/ui/scroll-to-top';
 import { Providers } from '@/components/providers/session-provider';
+import { NProgressProvider } from '@/components/providers/nprogress-provider';
 import { Toaster } from 'sonner';
 import { StructuredData } from '@/components/seo/structured-data';
 import { WebVitals } from '@/components/performance/web-vitals';
@@ -118,16 +119,20 @@ export default function RootLayout({
         className={`${inter.className} antialiased bg-background text-foreground selection:bg-primary selection:text-primary-foreground transition-all duration-700`}
       >
         <Providers>
-          <Toaster closeButton position="top-right" />
-          <div className="flex min-h-screen flex-col w-full">
-            <Header />
-            <main className="flex-1 border-b border-b-border">{children}</main>
+          <NProgressProvider>
+            <Toaster closeButton position="top-right" />
+            <div className="flex min-h-screen flex-col w-full">
+              <Header />
+              <main className="flex-1 border-b border-b-border">
+                {children}
+              </main>
 
-            <Footer />
+              <Footer />
 
-            <ScrollToTop />
-            <CookieConsent />
-          </div>
+              <ScrollToTop />
+              <CookieConsent />
+            </div>
+          </NProgressProvider>
         </Providers>
       </body>
     </html>
