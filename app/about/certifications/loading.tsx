@@ -1,5 +1,10 @@
-import SimpleSpinnerExit from '@/components/loader/simple-spinner-exit';
+import { PageHeroSkeleton, ContentSkeleton } from '@/components/ui/skeleton';
 
 export default function Loading() {
-  return <SimpleSpinnerExit preview={true} />;
+  return (
+    <>
+      <PageHeroSkeleton />
+      <ContentSkeleton />
+    </>
+  );
 }
