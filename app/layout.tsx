@@ -8,7 +8,7 @@ import { Footer } from '@/components/layout/footer';
 import { ScrollToTop } from '@/components/ui/scroll-to-top';
 import { Providers } from '@/components/providers/session-provider';
 import { NProgressProvider } from '@/components/providers/nprogress-provider';
-import { NetworkErrorBoundary } from '@/components/error-boundary/network-error-boundary';
+import { GlobalErrorBoundary } from '@/components/error-boundary/global-error-boundary';
 import { Toaster } from 'sonner';
 import { StructuredData } from '@/components/seo/structured-data';
 import { OfflineSafeWebVitals } from '@/components/performance/offline-safe-web-vitals';
@@ -121,7 +121,7 @@ export default function RootLayout({
       >
         <Providers>
           <NProgressProvider>
-            <NetworkErrorBoundary>
+            <GlobalErrorBoundary>
               <Toaster closeButton position="top-right" />
               <div className="flex min-h-screen flex-col w-full">
                 <Header />
@@ -134,7 +134,7 @@ export default function RootLayout({
                 <ScrollToTop />
                 <CookieConsent />
               </div>
-            </NetworkErrorBoundary>
+            </GlobalErrorBoundary>
           </NProgressProvider>
         </Providers>
       </body>
