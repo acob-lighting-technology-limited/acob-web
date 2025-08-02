@@ -8,10 +8,11 @@ import { Footer } from '@/components/layout/footer';
 import { ScrollToTop } from '@/components/ui/scroll-to-top';
 import { Providers } from '@/components/providers/session-provider';
 import { NProgressProvider } from '@/components/providers/nprogress-provider';
+import { NetworkErrorBoundary } from '@/components/error-boundary/network-error-boundary';
 import { Toaster } from 'sonner';
 import { StructuredData } from '@/components/seo/structured-data';
-import { WebVitals } from '@/components/performance/web-vitals';
-import { GoogleAnalytics } from '@/components/analytics/google-analytics';
+import { OfflineSafeWebVitals } from '@/components/performance/offline-safe-web-vitals';
+import { OfflineSafeGoogleAnalytics } from '@/components/analytics/offline-safe-google-analytics';
 import { CookieConsent } from '@/components/business/cookie-consent';
 
 const inter = Inter({
@@ -112,26 +113,28 @@ export default function RootLayout({
     <html lang="en" suppressHydrationWarning>
       <head>
         <StructuredData />
-        <WebVitals />
-        <GoogleAnalytics />
+        <OfflineSafeWebVitals />
+        <OfflineSafeGoogleAnalytics />
       </head>
       <body
         className={`${inter.className} antialiased bg-background text-foreground selection:bg-primary selection:text-primary-foreground transition-all duration-700`}
       >
         <Providers>
           <NProgressProvider>
-            <Toaster closeButton position="top-right" />
-            <div className="flex min-h-screen flex-col w-full">
-              <Header />
-              <main className="flex-1 border-b border-b-border">
-                {children}
-              </main>
+            <NetworkErrorBoundary>
+              <Toaster closeButton position="top-right" />
+              <div className="flex min-h-screen flex-col w-full">
+                <Header />
+                <main className="flex-1 border-b border-b-border">
+                  {children}
+                </main>
 
-              <Footer />
+                <Footer />
 
-              <ScrollToTop />
-              <CookieConsent />
-            </div>
+                <ScrollToTop />
+                <CookieConsent />
+              </div>
+            </NetworkErrorBoundary>
           </NProgressProvider>
         </Providers>
       </body>
