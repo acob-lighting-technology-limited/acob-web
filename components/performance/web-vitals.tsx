@@ -24,8 +24,10 @@ export function WebVitals() {
         });
       }
 
-      // Log to console for development
-      console.log('Web Vital:', metric);
+      // Log to console for development (only in non-production)
+      if (process.env.NODE_ENV !== 'production') {
+        console.log('Web Vital:', metric);
+      }
     };
 
     // Import and initialize web-vitals

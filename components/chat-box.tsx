@@ -14,7 +14,10 @@ import { suggestedMessages } from '@/lib/data/chat-data';
 const formatMessage = (content: string) => {
   if (!content) return content;
 
-  console.log('Raw message content:', content);
+  // Debug logging (only in development)
+  if (process.env.NODE_ENV !== 'production') {
+    console.log('Raw message content:', content);
+  }
 
   // Remove stray '/>' if any
   content = content.replace(/\/>/g, '');
@@ -80,7 +83,10 @@ export function ChatBot() {
     api: '/api/chat',
     initialMessages: [ACOB_SYSTEM_PROMPT],
     onFinish: message => {
-      console.log('AI Response:', message);
+      // Debug logging (only in development)
+      if (process.env.NODE_ENV !== 'production') {
+        console.log('AI Response:', message);
+      }
     },
   });
 
