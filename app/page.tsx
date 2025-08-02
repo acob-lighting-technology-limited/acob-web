@@ -10,7 +10,7 @@ import { PartnersSection } from '@/components/sections/partners-section';
 
 import { ProjectsSection } from '@/components/sections/projects-section';
 import { TestimonialsSection } from '@/components/sections/testimonials-section';
-import { ChatBot } from '@/components/chat-box';
+import { ChatBot } from '@/components/features/chat-bot';
 
 export default function HomePage() {
   return (
