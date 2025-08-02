@@ -51,6 +51,20 @@ export function customFetch(
     // For Next.js internal requests, return empty response
     if (isNextJSInternal(url)) {
       console.log('🔄 Offline: Intercepted Next.js internal request:', url);
+
+      // Check if it's a Next.js internal request that expects JSON
+      if (
+        url.includes('__nextjs_original-stack-frames') ||
+        url.includes('__nextjs_original-stack-frame')
+      ) {
+        return Promise.resolve(
+          new Response(JSON.stringify([]), {
+            status: 200,
+            headers: { 'Content-Type': 'application/json' },
+          })
+        );
+      }
+
       return Promise.resolve(new Response('', { status: 200 }));
     }
 
@@ -95,6 +109,17 @@ export function customFetch(
 
     // For Next.js internal requests, return empty response
     if (isNextJSInternal(url)) {
+      // Check if it's a Next.js internal request that expects JSON
+      if (
+        url.includes('__nextjs_original-stack-frames') ||
+        url.includes('__nextjs_original-stack-frame')
+      ) {
+        return new Response(JSON.stringify([]), {
+          status: 200,
+          headers: { 'Content-Type': 'application/json' },
+        });
+      }
+
       return new Response('', { status: 200 });
     }
 
