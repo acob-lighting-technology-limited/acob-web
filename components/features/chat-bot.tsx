@@ -1,15 +1,19 @@
 'use client';
 
+// React imports
 import { useState, useRef, useEffect } from 'react';
+
+// Third-party library imports
 import { useChat } from 'ai/react';
 import type { Message } from 'ai';
-import { Button } from '@/components/ui/button';
-import { Textarea } from '@/components/ui/textarea';
 import { Send, MessageSquare, X, StopCircle, Bot } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { ACOB_SYSTEM_PROMPT } from '@/lib/data/acobot_system_prompt';
 
-import { suggestedMessages } from '@/lib/data/chat-data';
+// UI component imports
+import { Button, Textarea } from '@/components/ui';
+
+// Data imports
+import { ACOB_SYSTEM_PROMPT, suggestedMessages } from '@/lib/data';
 
 const formatMessage = (content: string) => {
   if (!content) return content;
