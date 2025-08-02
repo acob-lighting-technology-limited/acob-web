@@ -3,11 +3,14 @@ import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
 import './globals.css';
 import '../styles/customShadow.css';
+// Import fetch interceptor early to prevent offline fetch errors
+import '@/lib/utils/fetch-interceptor';
 import { Header } from '@/components/layout/header';
 import { Footer } from '@/components/layout/footer';
 import { ScrollToTop } from '@/components/ui/scroll-to-top';
 import { Providers } from '@/components/providers/session-provider';
 import { NProgressProvider } from '@/components/providers/nprogress-provider';
+import { FetchInterceptorProvider } from '@/components/providers/fetch-interceptor-provider';
 import { GlobalErrorBoundary } from '@/components/error-boundary/global-error-boundary';
 import { Toaster } from 'sonner';
 import { StructuredData } from '@/components/seo/structured-data';
@@ -121,20 +124,22 @@ export default function RootLayout({
       >
         <Providers>
           <NProgressProvider>
-            <GlobalErrorBoundary>
-              <Toaster closeButton position="top-right" />
-              <div className="flex min-h-screen flex-col w-full">
-                <Header />
-                <main className="flex-1 border-b border-b-border">
-                  {children}
-                </main>
+            <FetchInterceptorProvider>
+              <GlobalErrorBoundary>
+                <Toaster closeButton position="top-right" />
+                <div className="flex min-h-screen flex-col w-full">
+                  <Header />
+                  <main className="flex-1 border-b border-b-border">
+                    {children}
+                  </main>
 
-                <Footer />
+                  <Footer />
 
-                <ScrollToTop />
-                <CookieConsent />
-              </div>
-            </GlobalErrorBoundary>
+                  <ScrollToTop />
+                  <CookieConsent />
+                </div>
+              </GlobalErrorBoundary>
+            </FetchInterceptorProvider>
           </NProgressProvider>
         </Providers>
       </body>
