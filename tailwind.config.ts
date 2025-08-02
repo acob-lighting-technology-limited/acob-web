@@ -144,6 +144,14 @@ const config: Config = {
             transform: 'translateX(0)',
           },
         },
+        shimmer: {
+          '0%': { transform: 'translateX(-100%)' },
+          '100%': { transform: 'translateX(100%)' },
+        },
+        'enhanced-pulse': {
+          '0%, 100%': { opacity: '0.4' },
+          '50%': { opacity: '0.8' },
+        },
       },
       animation: {
         'accordion-down': 'accordion-down 0.2s ease-out',
@@ -153,6 +161,9 @@ const config: Config = {
         'slow-zoom': 'slow-zoom 15s ease-in-out infinite alternate',
         fadeInUp: 'fadeInUp 0.5s ease-out forwards',
         slideInRight: 'slideInRight 0.5s ease-out forwards',
+        shimmer: 'shimmer 3s ease-in-out infinite',
+        'enhanced-pulse':
+          'enhanced-pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite',
       },
     },
   },
