@@ -10,12 +10,12 @@ import {
 } from '@/components/ui/carousel';
 import Autoplay from 'embla-carousel-autoplay';
 import { ArrowRight } from 'lucide-react';
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 import Link from 'next/link';
 import { servicesData } from '@/lib/data/services';
 import { MaskText } from '../animations/MaskText';
 
-export function ServicesSection() {
+const ServicesSection = React.memo(function ServicesSection() {
   const [currentSlide, setCurrentSlide] = useState(0);
   const [isTransitioning, setIsTransitioning] = useState(false);
   const [carouselApi, setCarouselApi] = useState<CarouselApi>();
@@ -167,7 +167,9 @@ export function ServicesSection() {
       </Container>
     </section>
   );
-}
+});
+
+export { ServicesSection };
 
 // "use client";
 // import { Button } from "@/components/ui/button";
