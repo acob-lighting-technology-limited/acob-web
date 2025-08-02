@@ -83,7 +83,7 @@ export async function POST(req: NextRequest) {
     // Clean messages to remove unsupported properties
     const cleanMessages = messages.map(
       (msg: { role: string; content: string }) => ({
-        role: msg.role,
+        role: msg.role as 'user' | 'assistant' | 'system',
         content: msg.content,
       })
     );
@@ -161,15 +161,15 @@ export async function POST(req: NextRequest) {
   } catch (err: unknown) {
     console.error('=== CATCH BLOCK ERROR ===');
     console.error('Error type:', typeof err);
-    console.error('Error message:', err?.message);
+    console.error('Error message:', (err as Error)?.message);
     console.error('Full error:', err);
-    console.error('Stack trace:', err?.stack);
+    console.error('Stack trace:', (err as Error)?.stack);
 
     return new Response(
       JSON.stringify({
         error: getErrorMessage(err),
         errorType: typeof err,
-        stack: err?.stack,
+        stack: (err as Error)?.stack,
       }),
       {
         status: 500,

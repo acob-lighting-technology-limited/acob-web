@@ -1,10 +1,11 @@
+import { Container } from '@/components/ui/container';
 import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
-import { Container } from '@/components/ui/container';
 import { ArrowRight } from 'lucide-react';
 import Link from 'next/link';
 import { getUpdatePosts } from '@/sanity/lib/client';
 import { OptimizedImage } from '@/components/ui/optimized-image';
+import type { UpdatePost } from '@/lib/types';
 
 export async function NewsSection() {
   const posts = await getUpdatePosts(); // Fetches update posts
@@ -26,7 +27,7 @@ export async function NewsSection() {
 
         {/* News Cards */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-          {latestPosts.map((post: any, index: number) => (
+          {latestPosts.map((post: UpdatePost, index: number) => (
             <Card
               key={post._id}
               className={`overflow-hidden hover:shadow-lg border-0 custom-shadow transition-shadow relative py-0 flex flex-col ${

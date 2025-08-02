@@ -20,7 +20,9 @@ export interface SanityImage {
 }
 
 export interface SanityImageUrl {
-  url: string;
+  asset: {
+    url: string;
+  };
   width?: number;
   height?: number;
 }
@@ -28,7 +30,9 @@ export interface SanityImageUrl {
 export interface Project {
   _id: string;
   title: string;
-  slug: string;
+  slug: {
+    current: string;
+  };
   description: string;
   location: string;
   gradientFrom: string;
@@ -41,15 +45,21 @@ export interface Project {
 export interface UpdatePost {
   _id: string;
   title: string;
-  slug: string;
+  slug: {
+    current: string;
+  };
   content: unknown[]; // Portable Text
   excerpt: string;
   publishedAt: string;
-  author: {
+  author: string;
+  category?: {
     name: string;
-    image?: SanityImageUrl;
+    slug: {
+      current: string;
+    };
   };
-  mainImage?: SanityImageUrl;
+  tags?: string[];
+  featuredImage?: string;
   _createdAt: string;
   _updatedAt: string;
 }
@@ -57,7 +67,9 @@ export interface UpdatePost {
 export interface BlogPost {
   _id: string;
   title: string;
-  slug: string;
+  slug: {
+    current: string;
+  };
   content: unknown[]; // Portable Text
   excerpt: string;
   publishedAt: string;
@@ -92,6 +104,14 @@ export interface ContactFormData {
   company?: string;
   message: string;
   service?: string;
+}
+
+export interface Comment {
+  _id: string;
+  name: string;
+  comment: string;
+  createdAt: string;
+  website?: string;
 }
 
 export interface CommentFormData {
@@ -172,15 +192,21 @@ export interface TeamMember {
 export interface AdminPost {
   _id: string;
   title: string;
-  slug: string;
+  slug: {
+    current: string;
+  };
   content: unknown[]; // Portable Text
   excerpt: string;
   publishedAt: string;
-  author: {
+  author: string;
+  category?: {
     name: string;
-    image?: SanityImageUrl;
+    slug: {
+      current: string;
+    };
   };
-  mainImage?: SanityImageUrl;
+  tags?: string[];
+  featuredImage?: string;
   _createdAt: string;
   _updatedAt: string;
 }

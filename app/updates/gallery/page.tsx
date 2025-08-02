@@ -99,7 +99,6 @@ export default async function MediaGalleryPage() {
     <>
       <PageHero
         title="Media Gallery"
-        subtitle="Photos and videos from our projects, team, and achievements"
         backgroundImage="/images/services/header.jpg?height=400&width=1200"
       />
 

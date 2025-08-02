@@ -14,6 +14,7 @@ import {
 } from 'lucide-react';
 import Link from 'next/link';
 import { getUpdatePosts, getCategories } from '@/sanity/lib/client';
+import type { UpdatePost } from '@/lib/types';
 
 export default async function CaseStudiesPage() {
   const [posts, categories] = await Promise.all([
@@ -23,9 +24,11 @@ export default async function CaseStudiesPage() {
 
   // Filter for case studies (assuming they have a category or tag for case studies)
   const caseStudies = posts.filter(
-    (post: any) =>
+    (post: UpdatePost) =>
       post.category?.name?.toLowerCase().includes('case study') ||
-      post.tags?.some((tag: any) => tag.toLowerCase().includes('case study')) ||
+      post.tags?.some((tag: string) =>
+        tag.toLowerCase().includes('case study')
+      ) ||
       post.title?.toLowerCase().includes('case study')
   );
 
@@ -39,7 +42,6 @@ export default async function CaseStudiesPage() {
     <>
       <PageHero
         title="Case Studies"
-        subtitle="Real-world implementation stories showcasing our successful projects and their impact"
         backgroundImage="/images/services/header.jpg?height=400&width=1200"
       />
 
@@ -68,7 +70,7 @@ export default async function CaseStudiesPage() {
                 </CardContent>
               </Card>
             ) : (
-              caseStudies.map((post: any) => (
+              caseStudies.map((post: UpdatePost) => (
                 <Card
                   key={post._id}
                   className="overflow-hidden border-0 custom-shadow shadow-none p-0 hover:shadow-lg transition-shadow duration-300"
@@ -101,39 +103,6 @@ export default async function CaseStudiesPage() {
                     <p className="text-muted-foreground mb-6 leading-relaxed">
                       {post.excerpt}
                     </p>
-
-                    {/* Project Details */}
-                    {post.projectDetails && (
-                      <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6 p-4 bg-muted/50 rounded-lg">
-                        {post.location && (
-                          <div className="flex items-center text-sm">
-                            <MapPin className="h-4 w-4 mr-2 text-primary" />
-                            <span className="font-medium">Location:</span>
-                            <span className="ml-1 text-muted-foreground">
-                              {post.location}
-                            </span>
-                          </div>
-                        )}
-                        {post.projectType && (
-                          <div className="flex items-center text-sm">
-                            <Target className="h-4 w-4 mr-2 text-primary" />
-                            <span className="font-medium">Type:</span>
-                            <span className="ml-1 text-muted-foreground">
-                              {post.projectType}
-                            </span>
-                          </div>
-                        )}
-                        {post.impact && (
-                          <div className="flex items-center text-sm">
-                            <TrendingUp className="h-4 w-4 mr-2 text-primary" />
-                            <span className="font-medium">Impact:</span>
-                            <span className="ml-1 text-muted-foreground">
-                              {post.impact}
-                            </span>
-                          </div>
-                        )}
-                      </div>
-                    )}
 
                     <Link href={`/updates/${post.slug.current}`}>
                       <Button className="bg-primary hover:bg-primary/90 text-white">
@@ -225,17 +194,23 @@ export default async function CaseStudiesPage() {
               <CardContent className="p-6">
                 <h3 className="font-semibold mb-4">Categories</h3>
                 <ul className="space-y-2">
-                  {categories.map((category: any) => (
-                    <li key={category._id}>
-                      <Link
-                        href={`/updates/category/${category.slug.current}`}
-                        className="text-muted-foreground hover:text-primary transition-colors duration-200 flex items-center justify-between"
-                      >
-                        <span>{category.name}</span>
-                        <ArrowRight className="h-3 w-3" />
-                      </Link>
-                    </li>
-                  ))}
+                  {categories.map(
+                    (category: {
+                      _id: string;
+                      slug: { current: string };
+                      name: string;
+                    }) => (
+                      <li key={category._id}>
+                        <Link
+                          href={`/updates/category/${category.slug.current}`}
+                          className="text-muted-foreground hover:text-primary transition-colors duration-200 flex items-center justify-between"
+                        >
+                          <span>{category.name}</span>
+                          <ArrowRight className="h-3 w-3" />
+                        </Link>
+                      </li>
+                    )
+                  )}
                 </ul>
               </CardContent>
             </Card>

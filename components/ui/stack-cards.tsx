@@ -1,13 +1,16 @@
 'use client';
 
-import type React from 'react';
-
-import Image from 'next/image';
-import { useTransform, motion, useScroll } from 'framer-motion';
-import { useRef } from 'react';
-import Link from 'next/link';
+import React, { useRef } from 'react';
+import {
+  motion,
+  useTransform,
+  MotionValue,
+  useMotionValue,
+} from 'framer-motion';
 import { Button } from './button';
 import { ArrowRight, MapPin } from 'lucide-react';
+import Link from 'next/link';
+import Image from 'next/image';
 
 interface CardProps {
   i: number;
@@ -19,7 +22,7 @@ interface CardProps {
   color?: string;
   gradientFrom: string;
   gradientTo: string;
-  progress: { get: () => number };
+  progress: MotionValue<number> | { get: () => number };
   range: number[];
   targetScale: number;
 }
@@ -40,7 +43,11 @@ const Card: React.FC<CardProps> = ({
 }) => {
   const container = useRef(null);
 
-  const scale = useTransform(progress, range, [1, targetScale]);
+  // Create a fallback MotionValue if progress is not a MotionValue
+  const fallbackProgress = useMotionValue(0);
+  const actualProgress = 'get' in progress ? fallbackProgress : progress;
+
+  const scale = useTransform(actualProgress, range, [1, targetScale]);
 
   return (
     <div

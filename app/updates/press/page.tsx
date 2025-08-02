@@ -13,6 +13,7 @@ import {
 } from 'lucide-react';
 import Link from 'next/link';
 import { getUpdatePosts, getCategories } from '@/sanity/lib/client';
+import type { UpdatePost } from '@/lib/types';
 
 export default async function PressReleasesPage() {
   const [posts, categories] = await Promise.all([
@@ -22,9 +23,9 @@ export default async function PressReleasesPage() {
 
   // Filter for press releases (assuming they have a category or tag for press releases)
   const pressReleases = posts.filter(
-    (post: any) =>
+    (post: UpdatePost) =>
       post.category?.name?.toLowerCase().includes('press') ||
-      post.tags?.some((tag: any) => tag.toLowerCase().includes('press')) ||
+      post.tags?.some((tag: string) => tag.toLowerCase().includes('press')) ||
       post.title?.toLowerCase().includes('press release')
   );
 
@@ -38,7 +39,6 @@ export default async function PressReleasesPage() {
     <>
       <PageHero
         title="Press Releases"
-        subtitle="Official announcements, company news, and media communications from ACOB Lighting Technology Limited"
         backgroundImage="/images/services/header.jpg?height=400&width=1200"
       />
 
@@ -67,7 +67,7 @@ export default async function PressReleasesPage() {
                 </CardContent>
               </Card>
             ) : (
-              pressReleases.map((post: any) => (
+              pressReleases.map((post: UpdatePost) => (
                 <Card
                   key={post._id}
                   className="overflow-hidden border-0 custom-shadow shadow-none p-0 hover:shadow-lg transition-shadow duration-300"
@@ -108,12 +108,6 @@ export default async function PressReleasesPage() {
                           <ArrowRight className="ml-2 h-4 w-4" />
                         </Button>
                       </Link>
-                      {post.pdfUrl && (
-                        <Button variant="outline">
-                          <Download className="mr-2 h-4 w-4" />
-                          Download PDF
-                        </Button>
-                      )}
                     </div>
                   </CardContent>
                 </Card>
@@ -200,17 +194,23 @@ export default async function PressReleasesPage() {
               <CardContent className="p-6">
                 <h3 className="font-semibold mb-4">Categories</h3>
                 <ul className="space-y-2">
-                  {categories.map((category: any) => (
-                    <li key={category._id}>
-                      <Link
-                        href={`/updates/category/${category.slug.current}`}
-                        className="text-muted-foreground hover:text-primary transition-colors duration-200 flex items-center justify-between"
-                      >
-                        <span>{category.name}</span>
-                        <ArrowRight className="h-3 w-3" />
-                      </Link>
-                    </li>
-                  ))}
+                  {categories.map(
+                    (category: {
+                      _id: string;
+                      slug: { current: string };
+                      name: string;
+                    }) => (
+                      <li key={category._id}>
+                        <Link
+                          href={`/updates/category/${category.slug.current}`}
+                          className="text-muted-foreground hover:text-primary transition-colors duration-200 flex items-center justify-between"
+                        >
+                          <span>{category.name}</span>
+                          <ArrowRight className="h-3 w-3" />
+                        </Link>
+                      </li>
+                    )
+                  )}
                 </ul>
               </CardContent>
             </Card>

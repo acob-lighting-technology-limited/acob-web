@@ -1,19 +1,19 @@
 'use client';
 
+import { useRef, useState, useEffect } from 'react';
 import { useScroll } from 'framer-motion';
-import { useEffect, useRef } from 'react';
 import Lenis from '@studio-freight/lenis';
-import Card from '@/components/ui/stack-cards';
 import { getProjects } from '@/sanity/lib/client';
-import { useState } from 'react';
+import Card from '../ui/stack-cards';
 import Link from 'next/link';
 import { Button } from '../ui/button';
 import { ArrowRight } from 'lucide-react';
+import type { Project } from '@/lib/types';
 
 export function ProjectsSection() {
   // The container ref is still used for the <main> element, but useScroll will now target the window.
   const container = useRef<HTMLElement>(null);
-  const [projects, setProjects] = useState<any[]>([]);
+  const [projects, setProjects] = useState<Project[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
@@ -35,7 +35,7 @@ export function ProjectsSection() {
     // Initialize Lenis for smooth scrolling
     const lenis = new Lenis();
 
-    function raf(time: any) {
+    function raf(time: number) {
       lenis.raf(time);
       requestAnimationFrame(raf);
     }

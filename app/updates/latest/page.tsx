@@ -6,6 +6,7 @@ import { Button } from '@/components/ui/button';
 import { ArrowRight, Calendar, User, Clock, TrendingUp } from 'lucide-react';
 import Link from 'next/link';
 import { getUpdatePosts, getCategories } from '@/sanity/lib/client';
+import type { UpdatePost } from '@/lib/types';
 
 export default async function LatestUpdatesPage() {
   const [posts, categories] = await Promise.all([
@@ -16,7 +17,7 @@ export default async function LatestUpdatesPage() {
   // Get the 10 most recent posts
   const latestPosts = posts
     .sort(
-      (a: any, b: any) =>
+      (a: UpdatePost, b: UpdatePost) =>
         new Date(b.publishedAt).getTime() - new Date(a.publishedAt).getTime()
     )
     .slice(0, 10);
@@ -31,7 +32,6 @@ export default async function LatestUpdatesPage() {
     <>
       <PageHero
         title="Latest Updates"
-        subtitle="Stay updated with our recent developments, achievements, and industry insights"
         backgroundImage="/images/services/header.jpg?height=400&width=1200"
       />
 
@@ -89,7 +89,7 @@ export default async function LatestUpdatesPage() {
 
             {/* Recent Posts Grid */}
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              {latestPosts.slice(1).map((post: any) => (
+              {latestPosts.slice(1).map((post: UpdatePost) => (
                 <Card
                   key={post._id}
                   className="overflow-hidden border-0 custom-shadow shadow-none p-0 hover:shadow-lg transition-shadow duration-300"
@@ -169,17 +169,23 @@ export default async function LatestUpdatesPage() {
               <CardContent className="p-6">
                 <h3 className="font-semibold mb-4">Categories</h3>
                 <ul className="space-y-2">
-                  {categories.map((category: any) => (
-                    <li key={category._id}>
-                      <Link
-                        href={`/updates/category/${category.slug.current}`}
-                        className="text-muted-foreground hover:text-primary transition-colors duration-200 flex items-center justify-between"
-                      >
-                        <span>{category.name}</span>
-                        <ArrowRight className="h-3 w-3" />
-                      </Link>
-                    </li>
-                  ))}
+                  {categories.map(
+                    (category: {
+                      _id: string;
+                      slug: { current: string };
+                      name: string;
+                    }) => (
+                      <li key={category._id}>
+                        <Link
+                          href={`/updates/category/${category.slug.current}`}
+                          className="text-muted-foreground hover:text-primary transition-colors duration-200 flex items-center justify-between"
+                        >
+                          <span>{category.name}</span>
+                          <ArrowRight className="h-3 w-3" />
+                        </Link>
+                      </li>
+                    )
+                  )}
                 </ul>
               </CardContent>
             </Card>

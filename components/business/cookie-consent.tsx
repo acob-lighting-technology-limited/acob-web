@@ -50,9 +50,9 @@ export function CookieConsent() {
     <>
       {/* Main Consent Banner */}
       {!showSettings && (
-        <div className="fixed bottom-0 left-0 right-0 z-50 p-4 bg-background border-t border-border shadow-lg">
-          <Card className="max-w-4xl mx-auto">
-            <CardContent className="p-6">
+        <div className="fixed bottom-0 left-0 right-0 z-50 p-4  w-fit ">
+          <Card className="max-w-4xl mx-auto !py-0 !rounded-lg">
+            <CardContent className="p-6 border-t border-border shadow-lg bg-background rounded-lg">
               <div className="flex items-start gap-4">
                 <div className="flex-shrink-0">
                   <Cookie className="h-8 w-8 text-primary" />

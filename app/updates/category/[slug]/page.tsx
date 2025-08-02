@@ -7,6 +7,7 @@ import { ArrowRight, Calendar, User } from 'lucide-react';
 import Link from 'next/link';
 import { getUpdatePosts, getCategories } from '@/sanity/lib/client';
 import { notFound } from 'next/navigation';
+import type { UpdatePost } from '@/lib/types';
 
 interface CategoryPageProps {
   params: Promise<{
@@ -16,7 +17,7 @@ interface CategoryPageProps {
 
 export async function generateStaticParams() {
   const categories = await getCategories();
-  return categories.map((category: any) => ({
+  return categories.map((category: { slug: { current: string } }) => ({
     slug: category.slug.current,
   }));
 }
@@ -31,7 +32,11 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
 
   // Find the current category
   const currentCategory = categories.find(
-    (category: any) => category.slug.current === slug
+    (category: {
+      slug: { current: string };
+      name: string;
+      description?: string;
+    }) => category.slug.current === slug
   );
 
   if (!currentCategory) {
@@ -40,7 +45,7 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
 
   // Filter posts by category
   const categoryPosts = posts.filter(
-    (post: any) => post.category?.slug?.current === slug
+    (post: UpdatePost) => post.category?.slug?.current === slug
   );
 
   const breadcrumbItems = [
@@ -53,10 +58,6 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
     <>
       <PageHero
         title={`${currentCategory.name} Updates`}
-        subtitle={
-          currentCategory.description ||
-          `Latest updates in ${currentCategory.name}`
-        }
         backgroundImage="/images/services/header.jpg?height=400&width=1200"
       />
 
@@ -85,7 +86,7 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
                 </CardContent>
               </Card>
             ) : (
-              categoryPosts.map((post: any) => (
+              categoryPosts.map((post: UpdatePost) => (
                 <Card
                   key={post._id}
                   className="overflow-hidden border-0 custom-shadow shadow-none p-0 hover:shadow-lg transition-shadow duration-300"
@@ -152,20 +153,26 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
               <CardContent className="p-6">
                 <h3 className="font-semibold mb-4">All Categories</h3>
                 <ul className="space-y-2">
-                  {categories.map((category: any) => (
-                    <li key={category._id}>
-                      <Link
-                        href={`/updates/category/${category.slug.current}`}
-                        className={`block p-2 rounded-md transition-colors duration-200 ${
-                          category.slug.current === slug
-                            ? 'bg-primary text-primary-foreground'
-                            : 'text-muted-foreground hover:text-primary hover:bg-primary/10'
-                        }`}
-                      >
-                        <span>{category.name}</span>
-                      </Link>
-                    </li>
-                  ))}
+                  {categories.map(
+                    (category: {
+                      _id: string;
+                      slug: { current: string };
+                      name: string;
+                    }) => (
+                      <li key={category._id}>
+                        <Link
+                          href={`/updates/category/${category.slug.current}`}
+                          className={`block p-2 rounded-md transition-colors duration-200 ${
+                            category.slug.current === slug
+                              ? 'bg-primary text-primary-foreground'
+                              : 'text-muted-foreground hover:text-primary hover:bg-primary/10'
+                          }`}
+                        >
+                          <span>{category.name}</span>
+                        </Link>
+                      </li>
+                    )
+                  )}
                 </ul>
               </CardContent>
             </Card>

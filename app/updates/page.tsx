@@ -4,33 +4,33 @@ import { Breadcrumb } from '@/components/ui/breadcrumb';
 import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
-import { ArrowRight, Search } from 'lucide-react';
+import { ArrowRight, Calendar, User, Search } from 'lucide-react';
 import Link from 'next/link';
-import { getUpdatePosts, getCategories } from '@/sanity/lib/client'; // Changed to getUpdatePosts
+import { getUpdatePosts, getCategories } from '@/sanity/lib/client';
+import type { UpdatePost } from '@/lib/types';
 
 export default async function UpdatesPage() {
-  // Renamed component
   const [posts, categories] = await Promise.all([
     getUpdatePosts(),
     getCategories(),
-  ]); // Fetches update posts
+  ]);
 
-  const breadcrumbItems = [{ label: 'Home', href: '/' }, { label: 'Updates' }]; // Renamed breadcrumb
+  const breadcrumbItems = [{ label: 'Home', href: '/' }, { label: 'Updates' }];
 
   return (
     <>
       <PageHero
-        title="Latest Updates & News"
+        title="Updates & News"
         backgroundImage="/images/services/header.jpg?height=400&width=1200"
-      />{' '}
-      {/* Renamed title */}
+      />
+
       <Container className="px-4 py-8">
         <Breadcrumb items={breadcrumbItems} className="mb-8" />
 
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 items-start">
           {/* Main Content */}
           <div className="lg:col-span-2 space-y-8">
-            {posts.map((post: any) => (
+            {posts.map((post: UpdatePost) => (
               <Card
                 key={post._id}
                 className="overflow-hidden border-0 custom-shadow shadow-none p-0 hover:shadow-lg transition-shadow"
@@ -88,16 +88,22 @@ export default async function UpdatesPage() {
               <CardContent className="p-6">
                 <h3 className="font-semibold mb-4">Categories</h3>
                 <ul className="space-y-2">
-                  {categories.map((category: any) => (
-                    <li key={category._id}>
-                      <Link
-                        href={`/updates/category/${category.slug.current}`}
-                        className="text-gray-600 hover:text-primary transition-colors duration-200 flex items-center justify-between"
-                      >
-                        <span>{category.name}</span>
-                      </Link>
-                    </li>
-                  ))}
+                  {categories.map(
+                    (category: {
+                      _id: string;
+                      slug: { current: string };
+                      name: string;
+                    }) => (
+                      <li key={category._id}>
+                        <Link
+                          href={`/updates/category/${category.slug.current}`}
+                          className="text-gray-600 hover:text-primary transition-colors duration-200 flex items-center justify-between"
+                        >
+                          <span>{category.name}</span>
+                        </Link>
+                      </li>
+                    )
+                  )}
                 </ul>
               </CardContent>
             </Card>

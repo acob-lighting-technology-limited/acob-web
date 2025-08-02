@@ -1,3 +1,10 @@
+import { PageHeroSkeleton, ContentSkeleton } from '@/components/ui/skeleton';
+
 export default function Loading() {
-  return null;
+  return (
+    <>
+      <PageHeroSkeleton />
+      <ContentSkeleton />
+    </>
+  );
 }

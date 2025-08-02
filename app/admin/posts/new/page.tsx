@@ -13,6 +13,23 @@ import { Button } from '@/components/ui/button';
 import { ArrowLeft } from 'lucide-react';
 import Link from 'next/link';
 
+// Type definitions
+interface UploadError extends Error {
+  message: string;
+}
+
+interface ApiError extends Error {
+  message: string;
+}
+
+interface UploadResult {
+  assetId: string;
+}
+
+interface ApiErrorResponse {
+  error: string;
+}
+
 const EXCERPT_MAX_LENGTH = 200;
 
 export default function NewUpdatePostPage() {
@@ -84,10 +101,10 @@ export default function NewUpdatePostPage() {
         });
 
         if (!uploadResponse.ok) {
-          const errorData = await uploadResponse.json();
+          const errorData: ApiErrorResponse = await uploadResponse.json();
           throw new Error(errorData.error || 'Failed to upload image');
         }
-        const uploadResult = await uploadResponse.json();
+        const uploadResult: UploadResult = await uploadResponse.json();
         featuredImageRef = {
           _type: 'image',
           asset: {
@@ -95,10 +112,9 @@ export default function NewUpdatePostPage() {
             _type: 'reference',
           },
         };
-      } catch (uploadError: any) {
-        setError(
-          uploadError.message || 'An error occurred during image upload.'
-        );
+      } catch (uploadError: unknown) {
+        const error = uploadError as UploadError;
+        setError(error.message || 'An error occurred during image upload.');
         setLoading(false);
         return;
       }
@@ -125,7 +141,7 @@ export default function NewUpdatePostPage() {
       });
 
       if (!response.ok) {
-        const errorData = await response.json();
+        const errorData: ApiErrorResponse = await response.json();
         throw new Error(errorData.error || 'Failed to create post');
       }
 
@@ -138,8 +154,9 @@ export default function NewUpdatePostPage() {
       setFeaturedImageFile(null);
       setStatusValue('draft');
       router.push('/admin'); // Redirect to admin dashboard after creation
-    } catch (err: any) {
-      setError(err.message || 'An unexpected error occurred.');
+    } catch (err: unknown) {
+      const error = err as ApiError;
+      setError(error.message || 'An unexpected error occurred.');
     } finally {
       setLoading(false);
     }
