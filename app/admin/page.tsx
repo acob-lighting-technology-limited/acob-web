@@ -9,7 +9,7 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Plus, Edit, Trash2, Eye } from 'lucide-react';
 import Link from 'next/link';
 import { AdminPost } from '@/lib/types';
-import { apiWithProgress } from '@/lib/utils/api-with-progress';
+import { safeFetch } from '@/lib/utils/safe-fetch';
 
 export default function AdminDashboard() {
   const { data: session, status } = useSession();
@@ -33,25 +33,28 @@ export default function AdminDashboard() {
     setLoading(true);
     setFetchError(null); // Clear previous errors
     try {
-      const data = await apiWithProgress(
-        async () => {
-          const response = await fetch('/api/admin/posts');
-          if (!response.ok) {
-            const errorData = await response.json();
-            throw new Error(
-              errorData.error || 'Failed to fetch posts from API'
-            );
-          }
-          return response.json();
-        },
-        { showProgress: true }
-      );
-      setPosts(data);
+      const result = await safeFetch<AdminPost[]>('/api/admin/posts', {
+        fallbackData: [],
+        retries: 2,
+      });
+
+      if (result.isOffline) {
+        setFetchError(
+          'You are offline. Please check your internet connection.'
+        );
+        setPosts([]);
+      } else if (result.error) {
+        setFetchError(result.error);
+        setPosts([]);
+      } else {
+        setPosts(result.data || []);
+      }
     } catch (error: unknown) {
       console.error('Error fetching posts:', error);
       const errorMessage =
         error instanceof Error ? error.message : 'Could not load posts.';
       setFetchError(errorMessage);
+      setPosts([]);
     } finally {
       setLoading(false);
     }
@@ -61,19 +64,25 @@ export default function AdminDashboard() {
     if (!confirm('Are you sure you want to delete this post?')) return;
 
     try {
-      await apiWithProgress(
-        async () => {
-          const response = await fetch(`/api/admin/posts/${id}`, {
-            method: 'DELETE',
-          });
-          if (!response.ok) {
-            const errorData = await response.json();
-            throw new Error(errorData.error || 'Failed to delete post');
-          }
-        },
-        { showProgress: true }
-      );
-      fetchPosts(); // Re-fetch posts after successful deletion
+      const result = await safeFetch(`/api/admin/posts/${id}`, {
+        method: 'DELETE',
+        retries: 2,
+      });
+
+      if (result.isOffline) {
+        alert(
+          'You are offline. Please check your internet connection and try again.'
+        );
+        return;
+      }
+
+      if (result.error) {
+        alert(`Error deleting post: ${result.error}`);
+        return;
+      }
+
+      // Re-fetch posts after successful deletion
+      fetchPosts();
     } catch (error: unknown) {
       console.error('Error deleting post:', error);
       const errorMessage =
