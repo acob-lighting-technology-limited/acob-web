@@ -1,17 +1,34 @@
 import { createClient } from '@sanity/client';
 import imageUrlBuilder from '@sanity/image-url';
+
 const projectId =
   process.env.SANITY_STUDIO_PROJECT_ID ||
   process.env.NEXT_PUBLIC_SANITY_PROJECT_ID;
 const dataset =
   process.env.SANITY_STUDIO_DATASET || process.env.NEXT_PUBLIC_SANITY_DATASET;
+const token = process.env.SANITY_API_TOKEN;
+
+// Validate required environment variables
+if (!projectId) {
+  console.warn('Sanity project ID not found. Using fallback value.');
+}
+
+if (!dataset) {
+  console.warn('Sanity dataset not found. Using fallback value.');
+}
+
+if (!token) {
+  console.warn(
+    'Sanity API token not found. Some features may not work properly.'
+  );
+}
 
 export const client = createClient({
   projectId: projectId || 'x16t7huo',
   dataset: dataset || 'production',
   useCdn: true,
   apiVersion: '2024-01-01',
-  token: process.env.SANITY_API_TOKEN,
+  token: token,
 });
 
 const builder = imageUrlBuilder(client);
@@ -133,5 +150,17 @@ export async function getProject(slug: string) {
   } catch (error) {
     console.error('Error fetching project from Sanity:', error);
     return null;
+  }
+}
+
+// Test function to verify Sanity connection
+export async function testSanityConnection() {
+  try {
+    const result = await client.fetch('*[_type == "project"][0...1]');
+    console.log('✅ Sanity connection successful');
+    return true;
+  } catch (error) {
+    console.error('❌ Sanity connection failed:', error);
+    return false;
   }
 }
