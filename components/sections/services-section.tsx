@@ -1,19 +1,30 @@
 'use client';
-import { Button } from '@/components/ui/button';
-import { Container } from '@/components/ui/container';
-import { Card, CardContent } from '@/components/ui/card';
+
+// React and Next.js imports
+import React, { useState, useEffect } from 'react';
+import Link from 'next/link';
+
+// Third-party library imports
+import Autoplay from 'embla-carousel-autoplay';
+import { ArrowRight } from 'lucide-react';
+
+// UI component imports
 import {
+  Button,
+  Container,
+  Card,
+  CardContent,
   Carousel,
   CarouselContent,
   CarouselItem,
-  type CarouselApi,
-} from '@/components/ui/carousel';
-import Autoplay from 'embla-carousel-autoplay';
-import { ArrowRight } from 'lucide-react';
-import React, { useState, useEffect } from 'react';
-import Link from 'next/link';
-import { servicesData } from '@/lib/data/services';
+} from '@/components/ui';
+import type { CarouselApi } from '@/components/ui/carousel';
+
+// Local component imports
 import { MaskText } from '../animations/MaskText';
+
+// Data imports
+import { servicesData } from '@/lib/data';
 
 export function ServicesSection() {
   const [currentSlide, setCurrentSlide] = useState(0);
