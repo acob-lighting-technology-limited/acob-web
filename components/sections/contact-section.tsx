@@ -19,15 +19,6 @@ interface ContainerProps {
   className?: string;
 }
 
-interface FormField {
-  id: keyof ContactFormData;
-  label: string;
-  placeholder: string;
-  type: string;
-  half?: boolean;
-  rows?: number;
-}
-
 interface ContactFormData {
   firstName: string;
   lastName: string;
@@ -160,7 +151,7 @@ export function ContactSection() {
         company: '',
         message: '',
       });
-    } catch (error: unknown) {
+    } catch (_error: unknown) {
       toast.error('Failed to submit request', {
         description:
           'Something went wrong. Please try again or contact us directly.',

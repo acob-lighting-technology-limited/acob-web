@@ -1,6 +1,5 @@
 'use client';
-import React, { useState, useEffect } from 'react';
-import { useRouter } from 'next/navigation';
+import React from 'react';
 import { Container } from '../ui/container';
 import Link from 'next/link';
 import { Facebook, Instagram, Linkedin, MapPin, Twitter } from 'lucide-react';

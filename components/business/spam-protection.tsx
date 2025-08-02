@@ -121,18 +121,16 @@ export function useHumanValidation() {
   });
 
   useEffect(() => {
-    let timeInterval: NodeJS.Timeout;
-    let mouseMoveCount = 0;
-    let keyPressCount = 0;
-    let maxScrollDepth = 0;
-
-    // Track time
-    timeInterval = setInterval(() => {
+    const timeInterval = setInterval(() => {
       setValidationState(prev => ({
         ...prev,
         timeOnPage: prev.timeOnPage + 1,
       }));
     }, 1000);
+
+    let mouseMoveCount = 0;
+    let keyPressCount = 0;
+    let maxScrollDepth = 0;
 
     // Track mouse movements
     const handleMouseMove = () => {

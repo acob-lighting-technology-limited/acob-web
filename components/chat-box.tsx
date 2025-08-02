@@ -5,7 +5,7 @@ import { useChat } from 'ai/react';
 import type { Message } from 'ai';
 import { Button } from '@/components/ui/button';
 import { Textarea } from '@/components/ui/textarea';
-import { Send, MessageSquare, X, StopCircle, Bot, User } from 'lucide-react';
+import { Send, MessageSquare, X, StopCircle, Bot } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { ACOB_SYSTEM_PROMPT } from '@/lib/data/acobot_system_prompt';
 
@@ -303,7 +303,7 @@ export function ChatBot() {
                 )}
 
                 {/* Messages */}
-                {displayMessages.map((m: Message, index: number) => (
+                {displayMessages.map((m: Message) => (
                   <div
                     key={m.id}
                     className={`flex ${m.role === 'user' ? 'justify-end' : 'justify-start'} mb-2`}
