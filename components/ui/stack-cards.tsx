@@ -19,7 +19,7 @@ interface CardProps {
   color?: string;
   gradientFrom: string;
   gradientTo: string;
-  progress: any;
+  progress: { get: () => number };
   range: number[];
   targetScale: number;
 }
@@ -31,7 +31,7 @@ const Card: React.FC<CardProps> = ({
   images = [], // Default to empty array
   location = 'Nigeria',
   url = '#',
-  color = '#ffffff',
+
   gradientFrom = '#000000',
   gradientTo = '#000000',
   progress = { get: () => 0 }, // Mocked for safety
@@ -39,12 +39,7 @@ const Card: React.FC<CardProps> = ({
   targetScale = 1,
 }) => {
   const container = useRef(null);
-  const { scrollYProgress } = useScroll({
-    target: container,
-    offset: ['start end', 'start start'],
-  });
 
-  const imageScale = useTransform(scrollYProgress, [0, 1], [2, 1]);
   const scale = useTransform(progress, range, [1, targetScale]);
 
   return (

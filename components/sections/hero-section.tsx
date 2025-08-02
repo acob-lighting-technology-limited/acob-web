@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect, useRef, useCallback } from 'react';
 import { Button } from '@/components/ui/button';
 
 import { ArrowRight, ChevronLeft, ChevronRight } from 'lucide-react';
@@ -12,7 +12,6 @@ export function HeroSection() {
   const [isTransitioning, setIsTransitioning] = useState(false);
   const [showContent, setShowContent] = useState(true);
   const [isPaused] = useState(false);
-  const [slideStartTime] = useState(Date.now());
   const intervalRef = useRef<NodeJS.Timeout | null>(null);
 
   const changeSlide = (newIndex: number) => {
@@ -30,13 +29,13 @@ export function HeroSection() {
     }, 800);
   };
 
-  const nextSlide = () => {
+  const nextSlide = useCallback(() => {
     changeSlide((currentSlide + 1) % heroSlides.length);
-  };
+  }, [currentSlide, changeSlide]);
 
-  const prevSlide = () => {
+  const prevSlide = useCallback(() => {
     changeSlide((currentSlide - 1 + heroSlides.length) % heroSlides.length);
-  };
+  }, [currentSlide, changeSlide]);
 
   const goToSlide = (index: number) => {
     changeSlide(index);
