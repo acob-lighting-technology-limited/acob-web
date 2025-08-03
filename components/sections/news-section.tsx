@@ -36,13 +36,20 @@ export async function NewsSection() {
             >
               {/* Image */}
               <div className="aspect-[4/3] overflow-hidden relative">
-                <OptimizedImage
-                  src={post.featuredImage || '/placeholder.svg'}
-                  alt={post.title}
-                  fill
-                  className="object-cover"
-                  sizes="(max-width: 768px) 100vw, (max-width: 1200px) 33vw, 25vw"
-                />
+                {post.featuredImage ? (
+                  <img
+                    src={post.featuredImage}
+                    alt={post.title}
+                    className="w-full h-full object-cover transition-transform duration-300 hover:scale-105"
+                    loading="lazy"
+                  />
+                ) : (
+                  <div className="w-full h-full bg-muted flex items-center justify-center">
+                    <span className="text-muted-foreground text-sm">
+                      No image available
+                    </span>
+                  </div>
+                )}
                 {/* Category Tag */}
                 <div className="absolute top-4 left-4 bg-primary text-white px-3 py-1 rounded text-sm font-medium">
                   {post.category?.name || 'News'}
