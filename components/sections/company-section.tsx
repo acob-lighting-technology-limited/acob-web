@@ -78,21 +78,18 @@ export function CompanySection() {
   }, [isInView]);
 
   return (
-    <section className="relative min-h-screen bg-black dark:bg-zinc-950 overflow-hidden transition-colors duration-700">
-      {/* Gradient background from bottom left corner */}
-      <div className="absolute inset-0 bg-gradient-to-t from-zinc-900 from-0% to-black to-80% dark:bg-gradient-to-t dark:from-zinc-950 dark:to-black transition-colors duration-700" />
-
+    <section className="relative min-h-screen bg-background overflow-hidden transition-colors duration-700">
       {/* Subtle background texture */}
-      <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(255,255,255,0.02)_1px,transparent_1px)] bg-[length:50px_50px]" />
+      <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,hsl(var(--foreground)/0.02)_1px,transparent_1px)] bg-[length:50px_50px]" />
 
-      <div className="relative z-10 min-h-screen flex items-stretch">
-        <Container className="px-4">
-          <div className="flex gap-16 items-stretch min-h-screen">
-            {/* Text Content - Now positioned at bottom */}
-            <div className="text-white w-1/3 flex flex-col justify-end pb-16">
+      <div className="relative z-10 min-h-screen flex items-center">
+        <Container className="px-4 py-8 md:py-16">
+          <div className="flex flex-col-reverse lg:flex-row gap-6 lg:gap-16 items-stretch min-h-screen">
+            {/* Text Content */}
+            <div className="text-foreground w-full lg:w-1/3 flex flex-col justify-center lg:justify-end pb-8 lg:pb-16 order-2 lg:order-1">
               <MaskText
                 phrases={['ACOB LIGHTING TECHNOLOGY LIMITED']}
-                className="text-4xl md:text-3xl lg:text-6xl font-extrabold mb-8 text-white drop-shadow-2xl"
+                className="text-3xl md:text-3xl lg:text-4xl xl:text-6xl font-extrabold mb-6 lg:mb-8 text-foreground drop-shadow-2xl"
               />
               <MaskText
                 phrases={[
@@ -102,7 +99,7 @@ export function CompanySection() {
                   'has made us a trusted partner for rural electrification projects',
                   'and commercial solar installations.',
                 ]}
-                className="text-zinc-100 mb-8 leading-relaxed text-base drop-shadow-lg"
+                className="text-muted-foreground mb-6 lg:mb-8 leading-relaxed text-sm md:text-base drop-shadow-lg"
               />
               <MaskText
                 phrases={[
@@ -110,15 +107,15 @@ export function CompanySection() {
                   'we continue to innovate and deliver cutting-edge solutions',
                   'that meet the growing energy demands of our clients.',
                 ]}
-                className="text-zinc-200 mb-10 leading-relaxed drop-shadow-lg"
+                className="text-muted-foreground/80 mb-8 lg:mb-10 leading-relaxed text-sm md:text-base drop-shadow-lg"
               />
-              <Button className="bg-white/10 hover:bg-white/20 text-white border border-white/20 text-lg py-6 px-8 rounded-xl font-semibold backdrop-blur-md transition-all duration-300 hover:scale-105 hover:shadow-2xl hover:shadow-white/10">
+              <Button className="bg-primary hover:bg-primary/90 text-primary-foreground border border-primary/20 text-base md:text-lg py-4 md:py-6 px-6 md:px-8 rounded-xl font-semibold backdrop-blur-md transition-all duration-300 hover:scale-105 hover:shadow-2xl hover:shadow-primary/20 w-full sm:w-auto">
                 Learn More About Us
               </Button>
             </div>
 
             {/* Right Column with Video and Cards */}
-            <div className="space-y-8 w-2/3 py-16">
+            <div className="space-y-6 lg:space-y-8 w-full lg:w-2/3 order-1 lg:order-2">
               {/* Video Container */}
               <div
                 ref={videoContainerRef}
@@ -126,7 +123,7 @@ export function CompanySection() {
                 onMouseEnter={() => setShowControls(true)}
                 onMouseLeave={() => setShowControls(false)}
               >
-                <div className="relative w-full h-[500px] rounded-2xl overflow-hidden bg-black/20 backdrop-blur-sm">
+                <div className="relative w-full h-[250px] sm:h-[350px] md:h-[400px] lg:h-[500px] rounded-2xl overflow-hidden bg-muted/20 backdrop-blur-sm">
                   {/* Video Iframe */}
                   <iframe
                     ref={iframeRef}
@@ -142,72 +139,72 @@ export function CompanySection() {
 
                   {/* Video Controls Overlay */}
                   <div
-                    className={`absolute inset-0 bg-gradient-to-t from-black/30 via-transparent to-transparent transition-all duration-300 ${showControls ? 'opacity-100' : 'opacity-0'}`}
+                    className={`absolute inset-0 bg-gradient-to-t from-foreground/30 via-transparent to-transparent transition-all duration-300 ${showControls ? 'opacity-100' : 'opacity-0'}`}
                   >
                     {/* Center Play Button */}
                     <div className="absolute inset-0 flex items-center justify-center">
                       <button
                         onClick={togglePlay}
-                        className="bg-white/10 backdrop-blur-md hover:bg-white/20 transition-all duration-300 rounded-full p-4 hover:scale-110 border border-white/20"
+                        className="bg-background/80 backdrop-blur-md hover:bg-background/90 transition-all duration-300 rounded-full p-3 md:p-4 hover:scale-110 border border-border"
                       >
                         {isPlaying ? (
-                          <Pause className="w-6 h-6 text-white" />
+                          <Pause className="w-5 h-5 md:w-6 md:h-6 text-foreground" />
                         ) : (
-                          <Play className="w-6 h-6 text-white ml-1" />
+                          <Play className="w-5 h-5 md:w-6 md:h-6 text-foreground ml-0.5 md:ml-1" />
                         )}
                       </button>
                     </div>
 
                     {/* Top Right Controls */}
-                    <div className="absolute top-4 right-4 flex items-center space-x-2">
+                    <div className="absolute top-3 md:top-4 right-3 md:right-4 flex items-center space-x-2">
                       <button
                         onClick={toggleMute}
-                        className="bg-white/10 backdrop-blur-md hover:bg-white/20 text-white p-2 rounded-full border border-white/20 transition-all duration-200 hover:scale-105"
+                        className="bg-background/80 backdrop-blur-md hover:bg-background/90 text-foreground p-1.5 md:p-2 rounded-full border border-border transition-all duration-200 hover:scale-105"
                       >
                         {isMuted ? (
-                          <VolumeX className="w-4 h-4" />
+                          <VolumeX className="w-3 h-3 md:w-4 md:h-4" />
                         ) : (
-                          <Volume2 className="w-4 h-4" />
+                          <Volume2 className="w-3 h-3 md:w-4 md:h-4" />
                         )}
                       </button>
                     </div>
                   </div>
 
-                  {/* Subtle glow effect that blends with dark background */}
-                  <div className="absolute -inset-1 bg-gradient-to-r from-zinc-800/20 via-zinc-700/20 to-zinc-800/20 rounded-2xl blur-xl opacity-50 -z-10" />
+                  {/* Subtle glow effect that blends with theme background */}
+                  <div className="absolute -inset-1 bg-gradient-to-r from-muted/20 via-muted/10 to-muted/20 rounded-2xl blur-xl opacity-50 -z-10" />
                 </div>
               </div>
 
               {/* Feature Cards Below Video */}
-              <div className="space-y-4">
-                <div className="bg-white/5 backdrop-blur-md p-6 rounded-2xl border border-white/10 hover:bg-white/10 transition-all duration-300 hover:scale-[1.02] hover:shadow-2xl hover:shadow-white/5">
-                  <h3 className="text-white text-xl font-bold mb-3 flex items-center">
-                    <div className="w-2 h-2 bg-blue-400 rounded-full mr-3"></div>
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 lg:gap-6">
+                <div className="bg-card backdrop-blur-md p-4 md:p-6 rounded-2xl border border-border hover:bg-card/80 transition-all duration-300 hover:scale-[1.02] hover:shadow-2xl hover:shadow-primary/5">
+                  <h3 className="text-card-foreground text-lg md:text-xl font-bold mb-2 md:mb-3 flex items-center">
+                    <div className="w-2 h-2 bg-blue-500 rounded-full mr-2 md:mr-3"></div>
                     Solar Solutions
                   </h3>
-                  <p className="text-zinc-300 leading-relaxed">
+                  <p className="text-muted-foreground leading-relaxed text-sm md:text-base">
                     Advanced photovoltaic systems for residential and commercial
                     applications.
                   </p>
                 </div>
 
-                <div className="bg-white/5 backdrop-blur-md p-6 rounded-2xl border border-white/10 hover:bg-white/10 transition-all duration-300 hover:scale-[1.02] hover:shadow-2xl hover:shadow-white/5">
-                  <h3 className="text-white text-xl font-bold mb-3 flex items-center">
-                    <div className="w-2 h-2 bg-green-400 rounded-full mr-3"></div>
+                <div className="bg-card backdrop-blur-md p-4 md:p-6 rounded-2xl border border-border hover:bg-card/80 transition-all duration-300 hover:scale-[1.02] hover:shadow-2xl hover:shadow-primary/5">
+                  <h3 className="text-card-foreground text-lg md:text-xl font-bold mb-2 md:mb-3 flex items-center">
+                    <div className="w-2 h-2 bg-green-500 rounded-full mr-2 md:mr-3"></div>
                     Mini-Grid Systems
                   </h3>
-                  <p className="text-zinc-300 leading-relaxed">
+                  <p className="text-muted-foreground leading-relaxed text-sm md:text-base">
                     Comprehensive off-grid solutions for rural electrification
                     projects.
                   </p>
                 </div>
 
-                <div className="bg-white/5 backdrop-blur-md p-6 rounded-2xl border border-white/10 hover:bg-white/10 transition-all duration-300 hover:scale-[1.02] hover:shadow-2xl hover:shadow-white/5">
-                  <h3 className="text-white text-xl font-bold mb-3 flex items-center">
-                    <div className="w-2 h-2 bg-purple-400 rounded-full mr-3"></div>
+                <div className="bg-card backdrop-blur-md p-4 md:p-6 rounded-2xl border border-border hover:bg-card/80 transition-all duration-300 hover:scale-[1.02] hover:shadow-2xl hover:shadow-primary/5 md:col-span-2 lg:col-span-1">
+                  <h3 className="text-card-foreground text-lg md:text-xl font-bold mb-2 md:mb-3 flex items-center">
+                    <div className="w-2 h-2 bg-purple-500 rounded-full mr-2 md:mr-3"></div>
                     Energy Storage
                   </h3>
-                  <p className="text-zinc-300 leading-relaxed">
+                  <p className="text-muted-foreground leading-relaxed text-sm md:text-base">
                     Cutting-edge battery technology for reliable power
                     management.
                   </p>
