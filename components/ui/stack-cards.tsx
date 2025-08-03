@@ -52,7 +52,7 @@ const Card: React.FC<CardProps> = ({
   return (
     <div
       ref={container}
-      className="h-screen flex items-center text-white  justify-center sticky top-0"
+      className="h-[80vh] sm:h-screen m-4 flex items-center text-white  justify-center sticky top-20 sm:top-0"
     >
       <motion.div
         style={{
@@ -61,25 +61,28 @@ const Card: React.FC<CardProps> = ({
           scale,
           top: `calc(-1vh + ${i * 25}px)`,
         }}
-        className="relative -top-1/4 h-[600px] w-[1300px] rounded-[20px] p-16 flex flex-col transform origin-top"
+        className="relative -top-1/4 h-full sm:h-[600px] w-[1300px] rounded-[20px] p-4 py-6 lg:p-16 flex flex-col transform origin-top"
       >
-        <div className="flex justify-between h-full gap-16">
+        <div className="flex flex-col sm:flex-row justify-between h-full gap-8 lg:gap-16">
           {/* Description Section */}
 
-          <div className="w-1/2 flex flex-col h-full max-w-md">
+          <div className="w-full sm:w-1/2 flex flex-col flex-1 h-full max-w-md">
             <div className="space-y-6">
-              <h2 className="text-5xl font-extrabold text-left">
+              <h2 className="text-3xl lg:text-5xl font-extrabold text-left">
                 {title.length > 50 ? `${title.slice(0, 50)}...` : title}
               </h2>
 
-              <p className="text-xl leading-relaxed">{description}</p>
+              <p className="text-base lg:text-xl leading-relaxed line-clamp-3 md:line-clamp-none">
+                {description}
+              </p>
+
               <p className="flex gap-2 text-lg items-center">
                 <MapPin />
                 {location}
               </p>
             </div>
 
-            <div className="mt-auto pt-6">
+            <div className="sm:mt-auto pt-6">
               <Link href={url}>
                 {' '}
                 {/* Use the passed URL */}
@@ -92,7 +95,7 @@ const Card: React.FC<CardProps> = ({
           </div>
 
           {/* Image Section */}
-          <div className="w-1/2 h-full grid grid-rows-2 grid-cols-2 gap-4 rounded-[20px] overflow-hidden">
+          <div className="w-full sm:w-1/2 h-full flex-1 grid grid-rows-2 grid-cols-2 gap-4 rounded-[20px] overflow-hidden">
             {images[0] && (
               <div className="row-span-1 col-span-2 relative rounded-[16px] overflow-hidden">
                 <Image
