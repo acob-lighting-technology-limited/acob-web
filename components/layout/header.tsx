@@ -6,33 +6,9 @@ import Image from 'next/image';
 import { useTheme } from 'next-themes';
 import { Container } from '@/components/ui/container';
 import { ThemeToggle } from '@/components/ui/theme-toggle';
-import {
-  ChevronDown,
-  Menu,
-  X,
-  Phone,
-  BookOpen,
-  Target,
-  Users,
-  Award,
-  Zap,
-  Lightbulb,
-  BarChart3,
-  Settings,
-  Wrench,
-  Home,
-  Building2,
-  Heart,
-  Newspaper,
-  Megaphone,
-  FileText,
-  Image as ImageIcon,
-  Quote,
-  MapPin,
-  MessageCircle,
-  Briefcase,
-} from 'lucide-react';
+import { ChevronDown, Menu, X, Phone } from 'lucide-react';
 import { navigationItems } from '@/lib/data/navigation-data';
+import { LucideIcons } from '@/lib/data/lucide-icons';
 
 interface SubItem {
   name: string;
@@ -57,30 +33,6 @@ interface MobileMenuProps {
   isOpen: boolean;
   onClose: () => void;
 }
-
-// Lucide icon mapping
-const LucideIcons: Record<string, React.ComponentType<any>> = {
-  BookOpen,
-  Target,
-  Users,
-  Award,
-  Zap,
-  Lightbulb,
-  BarChart3,
-  Settings,
-  Wrench,
-  Home,
-  Building2,
-  Heart,
-  Newspaper,
-  Megaphone,
-  FileText,
-  Image: ImageIcon,
-  Quote,
-  MapPin,
-  MessageCircle,
-  Briefcase,
-};
 
 const DropdownMenu: React.FC<DropdownMenuProps> = ({
   item,
@@ -120,7 +72,7 @@ const DropdownMenu: React.FC<DropdownMenuProps> = ({
               >
                 <div className="flex gap-3 items-start">
                   {IconComponent && (
-                    <IconComponent className="w-5 h-5 text-muted-foreground group-hover:text-primary transition-colors duration-200 mt-0.5" />
+                    <IconComponent className="w-16 h-auto text-muted-foreground group-hover:text-primary transition-colors duration-200 mt-0.5" />
                   )}
                   <div>
                     <div className="font-medium text-foreground group-hover:text-primary break-words">
