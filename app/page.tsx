@@ -22,10 +22,7 @@ export default function HomePage() {
       <ProjectsSection />
       <TestimonialsSection />
       <TransitionSection />
-      <div id="get-quote">
-        {' '}
-        <ContactSection />
-      </div>
+      <ContactSection />
       <NewsSection />
       <PartnersSection />
       <ChatBot />
