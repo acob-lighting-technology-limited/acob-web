@@ -6,15 +6,39 @@ import Image from 'next/image';
 import { useTheme } from 'next-themes';
 import { Container } from '@/components/ui/container';
 import { ThemeToggle } from '@/components/ui/theme-toggle';
-import { ChevronDown, Menu, X, Phone } from 'lucide-react';
+import {
+  ChevronDown,
+  Menu,
+  X,
+  Phone,
+  BookOpen,
+  Target,
+  Users,
+  Award,
+  Zap,
+  Lightbulb,
+  BarChart3,
+  Settings,
+  Wrench,
+  Home,
+  Building2,
+  Heart,
+  Newspaper,
+  Megaphone,
+  FileText,
+  Image as ImageIcon,
+  Quote,
+  MapPin,
+  MessageCircle,
+  Briefcase,
+} from 'lucide-react';
 import { navigationItems } from '@/lib/data/navigation-data';
-import { NavigationIcons } from '@/lib/data/navigation-icons';
 
 interface SubItem {
   name: string;
   href: string;
   description: string;
-  icon: string; // Icon name instead of URL
+  icon: string; // Lucide icon name
 }
 
 interface NavigationItem {
@@ -33,6 +57,30 @@ interface MobileMenuProps {
   isOpen: boolean;
   onClose: () => void;
 }
+
+// Lucide icon mapping
+const LucideIcons: Record<string, React.ComponentType<any>> = {
+  BookOpen,
+  Target,
+  Users,
+  Award,
+  Zap,
+  Lightbulb,
+  BarChart3,
+  Settings,
+  Wrench,
+  Home,
+  Building2,
+  Heart,
+  Newspaper,
+  Megaphone,
+  FileText,
+  Image: ImageIcon,
+  Quote,
+  MapPin,
+  MessageCircle,
+  Briefcase,
+};
 
 const DropdownMenu: React.FC<DropdownMenuProps> = ({
   item,
@@ -54,8 +102,7 @@ const DropdownMenu: React.FC<DropdownMenuProps> = ({
       <div className="p-6">
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
           {item.subItems.map((subItem, index) => {
-            const IconComponent =
-              NavigationIcons[subItem.icon as keyof typeof NavigationIcons];
+            const IconComponent = LucideIcons[subItem.icon];
             return (
               <Link
                 key={subItem.name}
@@ -71,20 +118,15 @@ const DropdownMenu: React.FC<DropdownMenuProps> = ({
                   animationFillMode: 'both',
                 }}
               >
-                <div className="flex gap-2 items-start ">
-                  <div className="mt-1 gap-2 ">
-                    <div className="w-8 h-8 bg-muted dark:bg-muted group-hover:bg-primary rounded p-1 flex items-center justify-center">
-                      {IconComponent && (
-                        <IconComponent className="w-5 h-5 text-muted-foreground group-hover:text-primary-foreground transition-colors duration-200" />
-                      )}
-                    </div>
-                  </div>
+                <div className="flex gap-3 items-start">
+                  {IconComponent && (
+                    <IconComponent className="w-5 h-5 text-muted-foreground group-hover:text-primary transition-colors duration-200 mt-0.5" />
+                  )}
                   <div>
-                    {' '}
-                    <div className="font-medium text-foreground group-hover:text-primary  break-words">
+                    <div className="font-medium text-foreground group-hover:text-primary break-words">
                       {subItem.name}
                     </div>
-                    <div className="text-sm text-left text-muted-foreground mt-1 group-hover:text-foreground  break-words">
+                    <div className="text-sm text-left text-muted-foreground mt-1 group-hover:text-foreground break-words">
                       {subItem.description}
                     </div>
                   </div>
@@ -175,10 +217,7 @@ const MobileMenu: React.FC<MobileMenuProps> = ({ isOpen, onClose }) => {
                 >
                   <div className="pl-4 pt-2 space-y-2">
                     {item.subItems.map((subItem, subIndex) => {
-                      const IconComponent =
-                        NavigationIcons[
-                          subItem.icon as keyof typeof NavigationIcons
-                        ];
+                      const IconComponent = LucideIcons[subItem.icon];
                       return (
                         <Link
                           key={subItem.name}
