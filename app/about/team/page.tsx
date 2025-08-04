@@ -1,14 +1,15 @@
+import { Button } from '@/components/ui/button';
 import { Container } from '@/components/ui/container';
 import { PageHero } from '@/components/ui/page-hero';
 import { Breadcrumb } from '@/components/ui/breadcrumb';
-import { Card } from '@/components/ui/card';
-import { MaskText } from '@/components/animations/MaskText';
-import { Linkedin, Mail } from 'lucide-react';
+import { Card, CardContent } from '@/components/ui/card';
+import { ArrowLeft, Linkedin, Mail } from 'lucide-react';
 import Link from 'next/link';
+import { MaskText } from '@/components/animations/MaskText';
 import { OptimizedImage } from '@/components/ui/optimized-image';
 import { teamMembers } from '@/lib/data/about-data';
 
-export default function OurTeamPage() {
+export default function TeamPage() {
   const breadcrumbItems = [
     { label: 'Home', href: '/' },
     { label: 'About Us', href: '/about' },
@@ -19,63 +20,133 @@ export default function OurTeamPage() {
     <>
       <PageHero
         title="Meet Our Team"
-        backgroundImage="/images/about/our-team-hero.jpg?height=400&width=1200"
-      />
+        backgroundImage="/images/about/acob-team.webp?height=400&width=1200"
+      >
+        <MaskText
+          phrases={[
+            'Dedicated professionals driving innovation in solar energy.',
+            'Meet the experts behind our sustainable energy solutions.',
+          ]}
+          className="text-lg md:text-xl opacity-90 max-w-3xl leading-relaxed"
+        />
+      </PageHero>
 
-      <Container className="px-4 py-8 bg-muted">
+      <Container>
         <Breadcrumb items={breadcrumbItems} className="mb-8" />
 
         <div className="text-center mb-12">
           <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">
-            <MaskText phrases={['The Driving Force Behind Our Success']} />
+            <MaskText phrases={['Our Leadership Team']} />
           </h2>
           <p className="text-lg text-muted-foreground max-w-3xl mx-auto">
-            Our team comprises dedicated professionals, engineers, and community
-            specialists committed to delivering excellence in every aspect of
-            clean energy solutions.
+            Our team of experienced professionals brings together expertise in
+            renewable energy, engineering, community development, and
+            sustainable business practices to deliver exceptional results.
           </p>
         </div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-16">
           {teamMembers.map(member => (
             <Card
               key={member.id}
-              className="border shadow-md border-border bg-surface text-center p-6 flex flex-col items-center"
+              className="overflow-hidden hover:shadow-lg transition-shadow"
             >
-              <OptimizedImage
-                src={member.image || '/placeholder.svg'}
-                alt={member.name}
-                width={128}
-                height={128}
-                className="w-32 h-32 rounded-full mb-4 border-4 border-primary/20 shadow-md"
-              />
-              <h3 className="text-xl font-bold text-foreground mb-1">
-                {member.name}
-              </h3>
-              <p className="text-primary font-medium mb-3">{member.position}</p>
-              <p className="text-muted-foreground text-sm leading-relaxed mb-4 flex-1">
-                {member.bio}
-              </p>
-              <div className="flex gap-3 mt-auto">
-                {member.linkedin && (
-                  <Link
-                    href={member.linkedin}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
-                    <Linkedin className="h-6 w-6 text-muted-foreground hover:text-primary transition-colors" />
-                    <span className="sr-only">LinkedIn</span>
-                  </Link>
-                )}
-                {member.email && (
-                  <Link href={`mailto:${member.email}`}>
-                    <Mail className="h-6 w-6 text-muted-foreground hover:text-primary transition-colors" />
-                    <span className="sr-only">Email</span>
-                  </Link>
-                )}
+              <div className="aspect-square overflow-hidden">
+                <OptimizedImage
+                  src={member.image}
+                  alt={member.name}
+                  fill
+                  className="object-cover hover:scale-105 transition-transform duration-300"
+                  sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                />
               </div>
+              <CardContent className="p-6">
+                <h3 className="text-xl font-bold text-foreground mb-1">
+                  {member.name}
+                </h3>
+                <p className="text-primary font-semibold mb-3">
+                  {member.position}
+                </p>
+                <p className="text-muted-foreground text-sm leading-relaxed mb-4">
+                  {member.bio}
+                </p>
+                <div className="flex space-x-2">
+                  <Link href={member.linkedin}>
+                    <Button variant="outline" size="sm" className="w-8 h-8 p-0">
+                      <Linkedin className="w-4 h-4" />
+                    </Button>
+                  </Link>
+                  <Link href={`mailto:${member.email}`}>
+                    <Button variant="outline" size="sm" className="w-8 h-8 p-0">
+                      <Mail className="w-4 h-4" />
+                    </Button>
+                  </Link>
+                </div>
+              </CardContent>
             </Card>
           ))}
+        </div>
+
+        {/* Team Values */}
+        <div className="mb-16">
+          <h2 className="text-3xl font-bold text-foreground mb-8 text-center">
+            <MaskText phrases={['What Drives Our Team']} />
+          </h2>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <Card className="text-center p-6">
+              <CardContent className="p-0">
+                <div className="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-4">
+                  <span className="text-2xl">🎯</span>
+                </div>
+                <h3 className="text-xl font-bold text-foreground mb-3">
+                  Expertise
+                </h3>
+                <p className="text-muted-foreground text-sm">
+                  Years of experience in renewable energy and sustainable
+                  development.
+                </p>
+              </CardContent>
+            </Card>
+
+            <Card className="text-center p-6">
+              <CardContent className="p-0">
+                <div className="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-4">
+                  <span className="text-2xl">❤️</span>
+                </div>
+                <h3 className="text-xl font-bold text-foreground mb-3">
+                  Passion
+                </h3>
+                <p className="text-muted-foreground text-sm">
+                  Genuine commitment to making a positive impact in communities.
+                </p>
+              </CardContent>
+            </Card>
+
+            <Card className="text-center p-6">
+              <CardContent className="p-0">
+                <div className="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-4">
+                  <span className="text-2xl">🤝</span>
+                </div>
+                <h3 className="text-xl font-bold text-foreground mb-3">
+                  Collaboration
+                </h3>
+                <p className="text-muted-foreground text-sm">
+                  Working together to achieve our shared vision of sustainable
+                  energy.
+                </p>
+              </CardContent>
+            </Card>
+          </div>
+        </div>
+
+        <div className="text-center">
+          <Link href="/about">
+            <Button variant="outline" className="group">
+              <ArrowLeft className="mr-2 h-4 w-4 group-hover:-translate-x-1 transition-transform" />
+              Back to About Us
+            </Button>
+          </Link>
         </div>
       </Container>
     </>

@@ -1,20 +1,20 @@
 'use client';
 
-import type React from 'react';
-import { useState, useEffect, useRef } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
-import { Menu, Phone, ChevronDown, X } from 'lucide-react';
-import { ThemeToggle } from '@/components/ui/theme-toggle';
 import { useTheme } from 'next-themes';
-import { Container } from '../ui/container';
+import { Container } from '@/components/ui/container';
+import { ThemeToggle } from '@/components/ui/theme-toggle';
+import { ChevronDown, Menu, X, Phone } from 'lucide-react';
+import { navigationItems } from '@/lib/data/navigation-data';
+import { LucideIcons } from '@/lib/data/lucide-icons';
 
-// Types
 interface SubItem {
   name: string;
   href: string;
   description: string;
-  icon: string; // Added icon property
+  icon: string; // Lucide icon name
 }
 
 interface NavigationItem {
@@ -33,8 +33,6 @@ interface MobileMenuProps {
   isOpen: boolean;
   onClose: () => void;
 }
-
-import { navigationItems } from '@/lib/data/navigation-data';
 
 const DropdownMenu: React.FC<DropdownMenuProps> = ({
   item,
@@ -55,45 +53,39 @@ const DropdownMenu: React.FC<DropdownMenuProps> = ({
     >
       <div className="p-6">
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-          {item.subItems.map((subItem, index) => (
-            <Link
-              key={subItem.name}
-              href={subItem.href}
-              onClick={onClose}
-              className={`
-                group block p-3 rounded-lg hover:bg-gradient-to-r hover:from-primary/5 dark:hover:from-zinc-700 hover:to-primary/10 dark:hover:to-zinc-500 hover:shadow-md
-                transform hover:scale-105 hover:-translate-y-1
-                animate-fadeInUp
-              `}
-              style={{
-                animationDelay: `${index * 50}ms`,
-                animationFillMode: 'both',
-              }}
-            >
-              <div className="flex gap-2 items-start ">
-                <div className="mt-1 gap-2 ">
-                  <div className="w-8 h-8 bg-muted dark:bg-muted group-hover:bg-primary  rounded p-1">
-                    <Image
-                      src={subItem.icon}
-                      alt={`${subItem.name} Icon`}
-                      width={32}
-                      height={32}
-                      className="w-full h-full object-contain"
-                    />
+          {item.subItems.map((subItem, index) => {
+            const IconComponent = LucideIcons[subItem.icon];
+            return (
+              <Link
+                key={subItem.name}
+                href={subItem.href}
+                onClick={onClose}
+                className={`
+                  group block p-3 rounded-lg hover:bg-gradient-to-r hover:from-primary/5 hover:to-primary/10 dark:hover:bg-zinc-950 hover:shadow-md
+                  transform hover:scale-105 hover:-translate-y-1
+                  animate-fadeInUp
+                `}
+                style={{
+                  animationDelay: `${index * 50}ms`,
+                  animationFillMode: 'both',
+                }}
+              >
+                <div className="flex gap-3 items-start">
+                  {IconComponent && (
+                    <IconComponent className="w-12 h-auto text-muted-foreground group-hover:text-primary transition-colors duration-200 mt-0.5" />
+                  )}
+                  <div>
+                    <div className=" text-sm font-bold text-foreground group-hover:text-primary break-words">
+                      {subItem.name}
+                    </div>
+                    <div className="text-xs text-left text-muted-foreground mt-1 group-hover:text-foreground break-words">
+                      {subItem.description}
+                    </div>
                   </div>
                 </div>
-                <div>
-                  {' '}
-                  <div className="font-medium text-foreground group-hover:text-primary  break-words">
-                    {subItem.name}
-                  </div>
-                  <div className="text-sm text-left text-muted-foreground mt-1 group-hover:text-foreground  break-words">
-                    {subItem.description}
-                  </div>
-                </div>
-              </div>
-            </Link>
-          ))}
+              </Link>
+            );
+          })}
         </div>
       </div>
     </div>
@@ -136,18 +128,12 @@ const MobileMenu: React.FC<MobileMenuProps> = ({ isOpen, onClose }) => {
         absolute right-0 top-0 h-full w-80 bg-popover shadow-2xl
         transform 
         ${isOpen ? 'translate-x-0' : 'translate-x-full'}
+        transition-all duration-300 ease-out
       `}
       >
-        <div className="p-6 h-full overflow-y-auto">
+        <div className="flex flex-col h-full p-6">
           <div className="flex items-center justify-between mb-8">
-            <div className="flex items-center space-x-2">
-              <div className="flex h-8 w-8 items-center justify-center rounded bg-primary text-white font-bold">
-                A
-              </div>
-              <span className="font-bold text-lg text-foreground">
-                ACOB LIGHTING
-              </span>
-            </div>
+            <h2 className="text-xl font-bold text-foreground">Menu</h2>
             <button
               onClick={onClose}
               className="p-2 hover:bg-muted rounded-lg "
@@ -182,29 +168,29 @@ const MobileMenu: React.FC<MobileMenuProps> = ({ isOpen, onClose }) => {
                 `}
                 >
                   <div className="pl-4 pt-2 space-y-2">
-                    {item.subItems.map((subItem, subIndex) => (
-                      <Link
-                        key={subItem.name}
-                        href={subItem.href}
-                        onClick={onClose}
-                        className={`
-                          flex items-center space-x-3 p-2 text-sm text-muted-foreground hover:text-primary hover:bg-primary/10 rounded-md 
-                           animate-fadeInUp
-                        `}
-                        style={{
-                          animationDelay: `${subIndex * 50}ms`,
-                          animationFillMode: 'both',
-                        }}
-                      >
-                        <Image
-                          src={subItem.icon}
-                          alt={`${subItem.name} Icon`}
-                          width={16}
-                          height={16}
-                        />
-                        <span>{subItem.name}</span>
-                      </Link>
-                    ))}
+                    {item.subItems.map((subItem, subIndex) => {
+                      const IconComponent = LucideIcons[subItem.icon];
+                      return (
+                        <Link
+                          key={subItem.name}
+                          href={subItem.href}
+                          onClick={onClose}
+                          className={`
+                            flex items-center space-x-3 p-2 text-sm text-muted-foreground hover:text-primary hover:bg-primary/10 rounded-md 
+                             animate-fadeInUp
+                          `}
+                          style={{
+                            animationDelay: `${subIndex * 50}ms`,
+                            animationFillMode: 'both',
+                          }}
+                        >
+                          {IconComponent && (
+                            <IconComponent className="w-4 h-4 text-muted-foreground group-hover:text-primary transition-colors duration-200" />
+                          )}
+                          <span>{subItem.name}</span>
+                        </Link>
+                      );
+                    })}
                   </div>
                 </div>
               </div>
@@ -247,14 +233,17 @@ export function Header() {
   useEffect(() => {
     if (mounted && resolvedTheme) {
       const newLogoSrc =
-        resolvedTheme === 'dark' ? '/images/ACOB-logo.png' : '/images/ACOB.png';
+        resolvedTheme === 'dark' ? '/images/ACOB-Logo.png' : '/images/ACOB.png';
       setLogoSrc(newLogoSrc);
     }
   }, [mounted, resolvedTheme]);
+
+  // Handle scroll effect
   useEffect(() => {
     const handleScroll = () => {
-      setIsScrolled(window.scrollY > 20);
+      setIsScrolled(window.scrollY > 10);
     };
+
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);

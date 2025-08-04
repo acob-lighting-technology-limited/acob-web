@@ -6,28 +6,28 @@ export const aboutSections = [
     description:
       'Discover our journey, milestones, and how we became a leader in clean energy.',
     href: '/about/our-story',
-    image: '/images/about/our-story.jpg?height=200&width=300',
+    image: '/images/about/acob-team.webp?height=200&width=300',
   },
   {
     title: 'Mission & Vision',
     description:
       'Explore our core values, commitment to sustainability, and future aspirations.',
     href: '/about/mission',
-    image: '/images/about/mission-vision.jpg?height=200&width=300',
+    image: '/images/about/acob-team.webp?height=200&width=300',
   },
   {
     title: 'Meet Our Team',
     description:
       'Get to know the dedicated professionals driving innovation at ACOB Lighting.',
     href: '/about/team',
-    image: '/images/about/our-team.jpg?height=200&width=300',
+    image: '/images/about/acob-team.webp?height=200&width=300',
   },
   {
     title: 'Certifications',
     description:
       'View our accreditations and commitment to global quality and safety standards.',
     href: '/about/certifications',
-    image: '/images/about/certifications.jpg?height=200&width=300',
+    image: '/images/about/acob-team.webp?height=200&width=300',
   },
 ];
 
