@@ -90,7 +90,7 @@ export default async function ServicePage({ params }: ServicePageProps) {
             )}
 
             {/* Features */}
-            <Card className="border shadow-md border-border bg-surface">
+            {/* <Card className="border shadow-md border-border bg-surface">
               <CardContent className="p-8">
                 <h2 className="text-3xl font-bold mb-6 text-foreground">
                   Key Features
@@ -104,10 +104,10 @@ export default async function ServicePage({ params }: ServicePageProps) {
                   ))}
                 </div>
               </CardContent>
-            </Card>
+            </Card> */}
 
             {/* Applications */}
-            <Card className="border shadow-md border-border bg-surface">
+            {/* <Card className="border shadow-md border-border bg-surface">
               <CardContent className="p-8">
                 <h2 className="text-3xl font-bold mb-6 text-foreground">
                   Applications
@@ -121,10 +121,10 @@ export default async function ServicePage({ params }: ServicePageProps) {
                   ))}
                 </div>
               </CardContent>
-            </Card>
+            </Card> */}
 
             {/* Why Choose Us */}
-            <Card className="border shadow-md border-border bg-surface">
+            {/* <Card className="border shadow-md border-border bg-surface">
               <CardContent className="p-8">
                 <h2 className="text-3xl font-bold mb-6 text-foreground">
                   Why Choose Us?
@@ -138,13 +138,13 @@ export default async function ServicePage({ params }: ServicePageProps) {
                   ))}
                 </div>
               </CardContent>
-            </Card>
+            </Card> */}
           </div>
 
           {/* Sidebar */}
           <div className="space-y-6 sticky top-20 self-start">
             {/* Services Navigation */}
-            <div className="bg-muted border-[1px] border-t-2 border-t-primary p-6 rounded-lg">
+            <div className="bg-card border-[1px] border-t-2 border-t-primary p-6 rounded-lg">
               <h3 className="text-2xl font-bold text-foreground mb-6">
                 Our Services
               </h3>
@@ -155,7 +155,7 @@ export default async function ServicePage({ params }: ServicePageProps) {
                     href={link.href}
                     className={`
                        p-4 rounded-lg flex items-center justify-between 
-                      ${link.isActive ? 'bg-primary text-primary-foreground' : 'bg-surface text-foreground hover:bg-muted'}
+                      ${link.isActive ? 'bg-primary text-primary-foreground' : 'bg-muted text-foreground hover:bg-muted'}
                     `}
                   >
                     <span className="font-semibold text-sm">{link.label}</span>

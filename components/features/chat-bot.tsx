@@ -246,7 +246,7 @@ export function ChatBot() {
               animate={{ opacity: 1, scale: 1, y: 0 }}
               exit={{ opacity: 0, scale: 0.95, y: 20 }}
               transition={{ duration: 0.3, ease: 'easeOut' }}
-              className="fixed bottom-4 right-4 w-full sm:w-[380px] h-[calc(100vh-4rem)] sm:h-[80vh] max-h-[600px] rounded-lg overflow-hidden shadow-2xl dark:bg-[#27272a] bg-[#e5e7eb]  flex flex-col z-50 transition-colors duration-700 dark:border-[1px] border-zinc-700"
+              className="fixed bottom-4 right-4 w-full sm:w-[380px] h-[calc(100vh-4rem)] sm:h-[80vh] max-h-[600px] rounded-lg overflow-hidden shadow-2xl bg-background border border-border flex flex-col z-50 transition-colors duration-700"
               onTouchStart={e => e.stopPropagation()}
               onTouchMove={e => e.stopPropagation()}
             >
@@ -284,14 +284,9 @@ export function ChatBot() {
               {/* WhatsApp Messages Area with Chat Wallpaper */}
               <div
                 ref={messagesContainerRef}
-                className="flex-1 overflow-y-auto px-4 py-2 space-y-2"
+                className="flex-1 overflow-y-auto px-4 py-2 space-y-2 bg-background"
                 style={{
                   backgroundImage: `url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23000000' fill-opacity='0.02'%3E%3Cpath d='m36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm-16-16v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")`,
-                  backgroundColor:
-                    typeof document !== 'undefined' &&
-                    document.documentElement.classList.contains('dark')
-                      ? '#27272a' // zinc-800
-                      : '#e5e7eb', // zinc-200,
                   touchAction: 'pan-y',
                   WebkitOverflowScrolling: 'touch',
                   overscrollBehavior: 'contain',
@@ -302,8 +297,8 @@ export function ChatBot() {
                 {/* Welcome Message */}
                 {displayMessages.length === 0 && (
                   <div className="flex justify-center my-4">
-                    <div className="bg-green-50 dark:bg-zinc-900 px-4 py-2 rounded-lg shadow-sm">
-                      <p className="text-xs text-green-600 text-center">
+                    <div className="bg-muted/50  px-4 py-2 rounded-lg shadow-sm border border-muted-foreground/30">
+                      <p className="text-xs text-muted-foreground text-center">
                         You&apos;re chatting with <strong>ACOBot</strong> — your
                         virtual assistant from ACOB Lighting. Have a question?
                         Just ask — I&apos;m here to help!
@@ -327,11 +322,7 @@ export function ChatBot() {
                     >
                       <div className="px-3 py-2">
                         <div
-                          className={`text-sm leading-relaxed ${
-                            m.role === 'user'
-                              ? 'text-zinc-800'
-                              : 'text-zinc-800'
-                          }`}
+                          className="text-sm leading-relaxed text-foreground"
                           style={{
                             overflowWrap: 'break-word',
                             wordBreak: 'break-word',
@@ -342,13 +333,7 @@ export function ChatBot() {
                             __html: formatMessage(m.content),
                           }}
                         />
-                        <div
-                          className={`flex items-center justify-end gap-1 mt-1 ${
-                            m.role === 'user'
-                              ? 'text-zinc-500'
-                              : 'text-zinc-400'
-                          }`}
-                        >
+                        <div className="flex items-center justify-end gap-1 mt-1 text-muted-foreground">
                           <span className="text-xs">{getCurrentTime()}</span>
                           {m.role === 'user' && (
                             <div className="flex">
@@ -357,7 +342,7 @@ export function ChatBot() {
                                   viewBox="0 0 16 15"
                                   width="16"
                                   height="15"
-                                  className="text-zinc-400"
+                                  className="text-muted-foreground"
                                 >
                                   <path
                                     fill="currentColor"
@@ -433,8 +418,8 @@ export function ChatBot() {
                     animate={{ opacity: 1, y: 0 }}
                     className="flex justify-center my-4"
                   >
-                    <div className="bg-red-100 border border-red-200 rounded-lg px-4 py-2 shadow-sm">
-                      <p className="text-red-800 text-sm text-center">
+                    <div className="bg-destructive/10 border border-destructive/20 rounded-lg px-4 py-2 shadow-sm">
+                      <p className="text-destructive text-sm text-center">
                         <strong>Message failed to send.</strong> Try again.
                       </p>
                     </div>
@@ -456,10 +441,10 @@ export function ChatBot() {
                         transition={{ delay: index * 0.1 }}
                       >
                         <Button
-                          variant="outline"
+                          variant="ghost"
                           size="sm"
                           onClick={() => handleQuickReply(msg)}
-                          className="rounded-full text-xs px-3 py-1 h-auto bg-surface !border border-white text-foreground hover:bg-muted transition-all duration-200 disabled:opacity-50"
+                          className="rounded-full text-xs px-3 py-1 h-auto bg-surface !border border-muted text-muted-foreground hover:bg-muted transition-all duration-200 disabled:opacity-50"
                           disabled={isChatting}
                         >
                           {msg}
@@ -480,14 +465,14 @@ export function ChatBot() {
                 <form
                   id="chat-form"
                   onSubmit={handleSubmit}
-                  className="flex items-stretch gap-3 "
+                  className="flex items-stretch gap-3 mb-3"
                 >
-                  <div className="flex-1 relative bg-white dark:bg-zinc-200 rounded-full flex items-center px-4 py-2">
+                  <div className="flex-1 relative bg-card rounded-full flex items-center px-4 py-0 border border-muted-foreground focus-within:border-border focus-within:ring-2 focus-within:ring-ring focus-within:ring-offset-2 focus-within:ring-offset-background">
                     <Textarea
                       value={input}
                       onChange={handleInputChange}
                       placeholder="Type a message..."
-                      className="flex-1 flex justify-end !bg-transparent items-end min-h-[36px] max-h-[120px] resize-none border-0  focus:ring-0 focus:outline-none text-sm focus-visible:!ring-0 placeholder:text-zinc-500 outline-none py-1"
+                      className="flex-1 flex text-foreground justify-end !bg-transparent items-end min-h-9 max-h-28 resize-none border-0 focus:ring-0 focus:outline-none text-sm focus-visible:ring-0 placeholder:text-muted-foreground outline-none py-1 rounded-full"
                       rows={1}
                       onKeyDown={e => {
                         if (e.key === 'Enter' && !e.shiftKey) {

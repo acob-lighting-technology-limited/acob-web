@@ -8,6 +8,7 @@ import Card from '../ui/stack-cards';
 import Link from 'next/link';
 import { Button } from '../ui/button';
 import { ArrowRight } from 'lucide-react';
+import { MaskText } from '../animations/MaskText';
 import type { Project } from '@/lib/types';
 
 export function ProjectsSection() {
@@ -76,11 +77,13 @@ export function ProjectsSection() {
       className="relative py-16 bg-zinc-50 dark:bg-zinc-950 transition-colors duration-700"
     >
       <div className="text-center mb-12">
-        <h2 className="text-3xl md:text-4xl font-bold text-foreground transition-colors duration-700">
-          Latest Rural Electrification Projects,
-          <br />
-          Mini-Grid Solutions & Energizing Supplies
-        </h2>
+        <MaskText
+          phrases={[
+            'Latest Rural Electrification Projects,',
+            'Mini-Grid Solutions & Energizing Supplies',
+          ]}
+          className="text-3xl md:text-4xl font-bold text-foreground transition-colors duration-700"
+        />
       </div>
       {projects.map((project, i) => {
         const targetScale = 1 - (projects.length - i) * 0.05;

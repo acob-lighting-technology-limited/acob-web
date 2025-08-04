@@ -34,8 +34,8 @@ export default function OurStoryPage() {
         <Breadcrumb items={breadcrumbItems} className="mb-8" />
 
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-12">
-          <div className="lg:col-span-2 bg-card p-6 rounded-xl">
-            <div className="prose prose-lg max-w-none">
+          <div className="lg:col-span-2 p-6 rounded-xl bg-card">
+            <div className=" max-w-none">
               <h2 className="text-3xl font-bold text-foreground mb-6">
                 <MaskText phrases={['The ACOB Lighting Journey']} />
               </h2>
@@ -156,8 +156,8 @@ export default function OurStoryPage() {
 
         <div className="mt-12 text-center">
           <Link href="/about">
-            <Button variant="outline" className="group">
-              <ArrowLeft className="mr-2 h-4 w-4 group-hover:-translate-x-1 transition-transform" />
+            <Button variant="default" className="group">
+              <ArrowLeft className="mr-2 h-4 w-4 group-hover:-translate-x-1 transition-transform " />
               Back to About Us
             </Button>
           </Link>

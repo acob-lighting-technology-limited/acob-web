@@ -30,9 +30,9 @@ export default function RootLayout({
         <Providers>
           <NProgressProvider>
             <Toaster closeButton position="top-right" />
-            <div className="flex min-h-screen flex-col w-full">
+            <div className="flex min-h-screen flex-col w-full bg-background transition-all duration-500 ">
               <Header />
-              <main className="flex-1">{children}</main>
+              <main className="flex-1 border-b border-b-muted">{children}</main>
               <Footer /> <ChatBot />
               <ScrollToTop />
             </div>
