@@ -13,6 +13,7 @@ import { heroSlides } from '@/lib/data/hero-data';
 import { getProjects } from '@/sanity/lib/client';
 import type { Project } from '@/lib/types';
 import Link from 'next/link';
+import SimpleSpinnerExit from '../loader/simple-spinner-exit';
 
 const HeroSection = React.memo(function HeroSection() {
   const [currentSlide, setCurrentSlide] = useState(0);
@@ -121,9 +122,7 @@ const HeroSection = React.memo(function HeroSection() {
   if (loading) {
     return (
       <section className="relative h-[70vh] min-h-[500px] sm:min-h-[700px] overflow-hidden w-full bg-black">
-        <div className="absolute inset-0 flex items-center justify-center">
-          <p className="text-white text-lg">Loading hero content...</p>
-        </div>
+        <SimpleSpinnerExit preview={true} />
       </section>
     );
   }

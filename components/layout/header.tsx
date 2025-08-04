@@ -304,7 +304,7 @@ export function Header() {
                 >
                   <Link
                     href={item.href}
-                    className="flex items-center space-x-1 text-foreground hover:text-primary font-medium  hover:scale-105"
+                    className="flex items-center space-x-1 text-foreground hover:text-primary font-medium "
                   >
                     <span>{item.name}</span>
                     <ChevronDown
