@@ -61,7 +61,7 @@ const DropdownMenu: React.FC<DropdownMenuProps> = ({
                 href={subItem.href}
                 onClick={onClose}
                 className={`
-                  group block p-3 rounded-lg hover:bg-gradient-to-r hover:from-primary/5 dark:hover:from-zinc-700 hover:to-primary/10 dark:hover:to-zinc-500 hover:shadow-md
+                  group block p-3 rounded-lg hover:bg-gradient-to-r hover:from-primary/5 hover:to-primary/10 dark:hover:bg-zinc-950 hover:shadow-md
                   transform hover:scale-105 hover:-translate-y-1
                   animate-fadeInUp
                 `}
@@ -72,13 +72,13 @@ const DropdownMenu: React.FC<DropdownMenuProps> = ({
               >
                 <div className="flex gap-3 items-start">
                   {IconComponent && (
-                    <IconComponent className="w-16 h-auto text-muted-foreground group-hover:text-primary transition-colors duration-200 mt-0.5" />
+                    <IconComponent className="w-12 h-auto text-muted-foreground group-hover:text-primary transition-colors duration-200 mt-0.5" />
                   )}
                   <div>
-                    <div className="font-medium text-foreground group-hover:text-primary break-words">
+                    <div className=" text-sm font-bold text-foreground group-hover:text-primary break-words">
                       {subItem.name}
                     </div>
-                    <div className="text-sm text-left text-muted-foreground mt-1 group-hover:text-foreground break-words">
+                    <div className="text-xs text-left text-muted-foreground mt-1 group-hover:text-foreground break-words">
                       {subItem.description}
                     </div>
                   </div>
@@ -233,9 +233,7 @@ export function Header() {
   useEffect(() => {
     if (mounted && resolvedTheme) {
       const newLogoSrc =
-        resolvedTheme === 'dark'
-          ? '/images/ACOB-Black-Logo.jpg'
-          : '/images/ACOB.png';
+        resolvedTheme === 'dark' ? '/images/ACOB-Logo.png' : '/images/ACOB.png';
       setLogoSrc(newLogoSrc);
     }
   }, [mounted, resolvedTheme]);
