@@ -22,7 +22,10 @@ import {
 } from 'lucide-react';
 
 // Lucide icon mapping
-export const LucideIcons: Record<string, React.ComponentType<any>> = {
+export const LucideIcons: Record<
+  string,
+  React.ComponentType<React.SVGProps<SVGSVGElement>>
+> = {
   BookOpen,
   Target,
   Users,
