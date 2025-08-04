@@ -7,13 +7,10 @@ import { Textarea } from '@/components/ui/textarea';
 import { Label } from '@/components/ui/label';
 import { toast } from 'sonner';
 import { Dot } from 'lucide-react';
+import { MaskText } from '../animations/MaskText';
+import { infoPoints, formFields } from '@/lib/data/contact-section-data';
 
 // Types
-interface MaskTextProps {
-  phrases: string[];
-  className?: string;
-}
-
 interface ContainerProps {
   children: React.ReactNode;
   className?: string;
@@ -29,21 +26,10 @@ interface ContactFormData {
   [key: string]: string;
 }
 
-// Mock MaskText component for the artifact
-const MaskText: React.FC<MaskTextProps> = ({ phrases, className }) => (
-  <div className={className}>
-    {phrases.map((phrase, index) => (
-      <span key={index}>{phrase} </span>
-    ))}
-  </div>
-);
-
 // Mock Container component
 const Container: React.FC<ContainerProps> = ({ children, className }) => (
   <div className={`max-w-7xl mx-auto ${className}`}>{children}</div>
 );
-
-import { infoPoints, formFields } from '@/lib/data/contact-section-data';
 
 export function ContactSection() {
   const [formData, setFormData] = useState<ContactFormData>({

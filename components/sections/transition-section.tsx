@@ -3,6 +3,7 @@
 import { Container } from '@/components/ui/container';
 import { motion, useInView } from 'framer-motion';
 import { useRef, useEffect, useState } from 'react';
+import { MaskText } from '../animations/MaskText';
 
 import { stats } from '@/lib/data/transition-data';
 
@@ -81,15 +82,13 @@ export function TransitionSection() {
       <Container className="relative px-4">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
           <div>
-            <motion.h2
+            <MaskText
+              phrases={[
+                'Feeling The Transition To Renewable Power,',
+                'To deploy 100 micro-grids impacting the lives of over ten Nigerians by 2030.',
+              ]}
               className="text-3xl md:text-4xl font-bold mb-6 text-primary-foreground transition-colors duration-700"
-              initial={{ opacity: 0, y: 30 }}
-              animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
-              transition={{ duration: 0.8, ease: 'easeOut' }}
-            >
-              Feeling The Transition To Renewable Power, To deploy 100
-              micro-grids impacting the lives of over ten Nigerians by 2030.
-            </motion.h2>
+            />
             <div className="grid grid-cols-2 gap-6">
               {stats.map((stat, index) => (
                 <motion.div
