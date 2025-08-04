@@ -206,12 +206,12 @@ export function ChatBot() {
         initial={{ scale: 0 }}
         animate={{ scale: 1 }}
         transition={{ delay: 1, type: 'spring', stiffness: 300 }}
-        className="fixed bottom-6 right-6 z-50"
+        className="fixed bottom-2 right-2 z-50 "
       >
         <Button
           size="icon"
           onClick={() => setIsOpen(!isOpen)}
-          className="h-16 w-16 rounded-full bg-primary hover:bg-primary/90 text-primary-foreground shadow-2xl hover:shadow-lg hover:scale-110 transition-all duration-300 border-0"
+          className="h-16 w-16 rounded-full border border-muted-foreground bg-primary hover:bg-primary/90 text-primary-foreground shadow-2xl hover:shadow-lg hover:scale-110 transition-all duration-300 "
           aria-label="Open chat"
         >
           <motion.div

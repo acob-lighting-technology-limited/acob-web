@@ -90,7 +90,7 @@ export const teamMembers = [
 
 export const milestones = [
   {
-    year: '2018',
+    year: '2016',
     title: 'Company Founded',
     description:
       "ACOB Lighting Technology Limited was established with a vision to transform Nigeria's energy landscape.",
@@ -125,7 +125,7 @@ export const milestones = [
     icon: Lightbulb,
   },
   {
-    year: '2023',
+    year: '2025',
     title: 'National Impact',
     description:
       'Reached over 50 communities and established partnerships with government agencies.',

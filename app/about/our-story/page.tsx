@@ -34,23 +34,23 @@ export default function OurStoryPage() {
         <Breadcrumb items={breadcrumbItems} className="mb-8" />
 
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-12">
-          <div className="lg:col-span-2">
+          <div className="lg:col-span-2 bg-card p-6 rounded-xl">
             <div className="prose prose-lg max-w-none">
               <h2 className="text-3xl font-bold text-foreground mb-6">
                 <MaskText phrases={['The ACOB Lighting Journey']} />
               </h2>
 
               <p className="text-lg text-muted-foreground mb-6 leading-relaxed">
-                Founded in 2018, ACOB Lighting Technology Limited emerged from a
-                simple yet powerful vision: to transform Nigeria's energy
+                Founded in 2016, ACOB Lighting Technology Limited emerged from a
+                simple yet powerful vision: to transform Nigeria&apos;s energy
                 landscape through sustainable, reliable, and accessible solar
                 solutions. What started as a small team of passionate engineers
                 has grown into a comprehensive energy solutions provider.
               </p>
 
               <p className="text-lg text-muted-foreground mb-6 leading-relaxed">
-                Our journey began with a deep understanding of Nigeria's energy
-                challenges. We recognized that millions of Nigerians,
+                Our journey began with a deep understanding of Nigeria&apos;s
+                energy challenges. We recognized that millions of Nigerians,
                 particularly in rural areas, lacked access to reliable
                 electricity. This realization became the driving force behind
                 our mission to bring light and power to every community.
@@ -59,7 +59,7 @@ export default function OurStoryPage() {
               <p className="text-lg text-muted-foreground mb-6 leading-relaxed">
                 Today, ACOB Lighting stands as a testament to what can be
                 achieved through innovation, dedication, and a genuine
-                commitment to community development. We've successfully
+                commitment to community development. We&apos;ve successfully
                 completed projects across multiple states, bringing sustainable
                 energy solutions to communities that were once left in the dark.
               </p>
@@ -100,7 +100,7 @@ export default function OurStoryPage() {
                 <div className="space-y-3 text-sm">
                   <div className="flex justify-between">
                     <span className="text-muted-foreground">Founded:</span>
-                    <span className="font-medium">2018</span>
+                    <span className="font-medium">2016</span>
                   </div>
                   <div className="flex justify-between">
                     <span className="text-muted-foreground">

@@ -9,6 +9,7 @@ import { Header } from '@/components/layout/header';
 import { Footer } from '@/components/layout/footer';
 import { ScrollToTop } from '@/components/ui/scroll-to-top';
 import { Toaster } from 'sonner';
+import { ChatBot } from '@/components/features/chat-bot';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -32,7 +33,7 @@ export default function RootLayout({
             <div className="flex min-h-screen flex-col w-full">
               <Header />
               <main className="flex-1">{children}</main>
-              <Footer />
+              <Footer /> <ChatBot />
               <ScrollToTop />
             </div>
           </NProgressProvider>

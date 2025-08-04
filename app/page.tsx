@@ -10,7 +10,6 @@ import { PartnersSection } from '@/components/sections/partners-section';
 
 import { ProjectsSection } from '@/components/sections/projects-section';
 import { TestimonialsSection } from '@/components/sections/testimonials-section';
-import { ChatBot } from '@/components/features/chat-bot';
 
 export default function HomePage() {
   return (
@@ -20,12 +19,12 @@ export default function HomePage() {
       <ServicesSection />
       <CompanySection />
       <ProjectsSection />
-      <TestimonialsSection />
+      {/* <TestimonialsSection /> */}
       <TransitionSection />
       <ContactSection />
       <NewsSection />
       <PartnersSection />
-      <ChatBot />
+
       {/* <MapSection /> */}
     </>
   );

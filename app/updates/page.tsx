@@ -53,7 +53,7 @@ export default async function UpdatesPage() {
                   <h2 className="text-2xl font-bold mb-4 text-foreground">
                     {post.title}
                   </h2>
-                  <p className="text-gray-600 mb-6 leading-relaxed">
+                  <p className="text-muted-foreground mb-6 leading-relaxed">
                     {post.excerpt}
                   </p>
                   <Link href={`/updates/${post.slug.current}`}>

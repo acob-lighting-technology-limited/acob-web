@@ -185,7 +185,7 @@ export default function MissionPage() {
                   <li>• Become the leading solar provider in West Africa</li>
                   <li>• Power 1 million+ households</li>
                   <li>• Export technology to neighboring countries</li>
-                  <li>• Contribute to Nigeria's energy independence</li>
+                  <li>• Contribute to Nigeria&apos;s energy independence</li>
                 </ul>
               </CardContent>
             </Card>

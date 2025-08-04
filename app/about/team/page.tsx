@@ -34,7 +34,7 @@ export default function TeamPage() {
       <Container>
         <Breadcrumb items={breadcrumbItems} className="mb-8" />
 
-        <div className="text-center mb-12">
+        {/* <div className="text-center mb-12">
           <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">
             <MaskText phrases={['Our Leadership Team']} />
           </h2>
@@ -43,15 +43,15 @@ export default function TeamPage() {
             renewable energy, engineering, community development, and
             sustainable business practices to deliver exceptional results.
           </p>
-        </div>
+        </div> */}
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-16">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-16">
           {teamMembers.map(member => (
             <Card
               key={member.id}
-              className="overflow-hidden hover:shadow-lg transition-shadow"
+              className="overflow-hidden hover:shadow-lg transition-shadow !py-0"
             >
-              <div className="aspect-square overflow-hidden">
+              <div className="aspect-[4/3] overflow-hidden">
                 <OptimizedImage
                   src={member.image}
                   alt={member.name}
@@ -93,7 +93,7 @@ export default function TeamPage() {
             <MaskText phrases={['What Drives Our Team']} />
           </h2>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+          <div className="grid grid-cols-1 md:grid-cols">
             <Card className="text-center p-6">
               <CardContent className="p-0">
                 <div className="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-4">
