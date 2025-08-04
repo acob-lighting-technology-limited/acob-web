@@ -206,12 +206,12 @@ export function ChatBot() {
         initial={{ scale: 0 }}
         animate={{ scale: 1 }}
         transition={{ delay: 1, type: 'spring', stiffness: 300 }}
-        className="fixed bottom-2 right-2 z-50 "
+        className="fixed bottom-2 right-2 sm:bottom-4 sm:right-4 z-50"
       >
         <Button
           size="icon"
           onClick={() => setIsOpen(!isOpen)}
-          className="h-16 w-16 rounded-full border border-muted-foreground bg-primary hover:bg-primary/90 text-primary-foreground shadow-2xl hover:shadow-lg hover:scale-110 transition-all duration-300 "
+          className="h-12 w-12 sm:h-16 sm:w-16 rounded-full border border-muted-foreground bg-primary hover:bg-primary/90 text-primary-foreground shadow-2xl hover:shadow-lg hover:scale-110 transition-all duration-300"
           aria-label="Open chat"
         >
           <motion.div
@@ -219,9 +219,9 @@ export function ChatBot() {
             transition={{ duration: 0.3 }}
           >
             {isOpen ? (
-              <X className="h-7 w-7" />
+              <X className="h-5 w-5 sm:h-7 sm:w-7" />
             ) : (
-              <MessageSquare className="h-7 w-7" />
+              <MessageSquare className="h-5 w-5 sm:h-7 sm:w-7" />
             )}
           </motion.div>
         </Button>
@@ -246,7 +246,7 @@ export function ChatBot() {
               animate={{ opacity: 1, scale: 1, y: 0 }}
               exit={{ opacity: 0, scale: 0.95, y: 20 }}
               transition={{ duration: 0.3, ease: 'easeOut' }}
-              className="fixed bottom-4 right-4 w-full sm:w-[380px] h-[calc(100vh-4rem)] sm:h-[80vh] max-h-[600px] rounded-lg overflow-hidden shadow-2xl bg-background border border-border flex flex-col z-50 transition-colors duration-700"
+              className="fixed bottom-2 right-2 sm:bottom-4 sm:right-4 w-[calc(100vw-2rem)] sm:w-[380px] h-[75vh] sm:h-[80vh] max-h-[600px] rounded-lg overflow-hidden shadow-2xl bg-background border border-border flex flex-col z-50 transition-colors duration-700"
               onTouchStart={e => e.stopPropagation()}
               onTouchMove={e => e.stopPropagation()}
             >
