@@ -10,13 +10,58 @@ import React, {
 import { Button } from '@/components/ui/button';
 import { ArrowRight, ChevronLeft, ChevronRight } from 'lucide-react';
 import { heroSlides } from '@/lib/data/hero-data';
+import { getProjects } from '@/sanity/lib/client';
+import type { Project } from '@/lib/types';
+import Link from 'next/link';
 
 const HeroSection = React.memo(function HeroSection() {
   const [currentSlide, setCurrentSlide] = useState(0);
   const [isTransitioning, setIsTransitioning] = useState(false);
   const [showContent, setShowContent] = useState(true);
   const [isPaused] = useState(false);
+  const [projects, setProjects] = useState<Project[]>([]);
+  const [loading, setLoading] = useState(true);
   const intervalRef = useRef<NodeJS.Timeout | null>(null);
+
+  // Fetch projects from Sanity
+  useEffect(() => {
+    const fetchProjects = async () => {
+      try {
+        const fetchedProjects = await getProjects();
+        setProjects(fetchedProjects);
+      } catch (error) {
+        console.error('Failed to fetch projects:', error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchProjects();
+  }, []);
+
+  // Combine projects with hero slides (projects first)
+  const allSlides = useMemo(() => {
+    const projectSlides = projects.map((project, index) => ({
+      id: `project-${project._id}`,
+      title: project.title,
+      image:
+        project.images && project.images.length > 0
+          ? project.images[0].asset.url
+          : '/images/olooji-community.jpg?height=800&width=1400', // fallback
+      location: project.location,
+      isProject: true,
+      slug: project.slug.current,
+    }));
+
+    const staticSlides = heroSlides.map((slide, index) => ({
+      ...slide,
+      id: `static-${slide.id}`,
+      isProject: false,
+      slug: null,
+    }));
+
+    return [...projectSlides, ...staticSlides];
+  }, [projects]);
 
   const changeSlide = (newIndex: number) => {
     if (isTransitioning || newIndex === currentSlide) return;
@@ -34,12 +79,12 @@ const HeroSection = React.memo(function HeroSection() {
   };
 
   const nextSlide = useCallback(() => {
-    changeSlide((currentSlide + 1) % heroSlides.length);
-  }, [currentSlide, changeSlide]);
+    changeSlide((currentSlide + 1) % allSlides.length);
+  }, [currentSlide, allSlides.length, changeSlide]);
 
   const prevSlide = useCallback(() => {
-    changeSlide((currentSlide - 1 + heroSlides.length) % heroSlides.length);
-  }, [currentSlide, changeSlide]);
+    changeSlide((currentSlide - 1 + allSlides.length) % allSlides.length);
+  }, [currentSlide, allSlides.length, changeSlide]);
 
   const goToSlide = (index: number) => {
     changeSlide(index);
@@ -68,24 +113,25 @@ const HeroSection = React.memo(function HeroSection() {
     };
   }, [currentSlide, isPaused, isTransitioning, nextSlide]);
 
-  // const handleMouseEnter = () => {
-  //   setIsPaused(true);
-  // };
-
-  // const handleMouseLeave = () => {
-  //   setIsPaused(false);
-  //   setSlideStartTime(Date.now()); // Reset the slide timer
-  // };
-
   const currentSlideData = useMemo(
-    () => heroSlides[currentSlide],
-    [currentSlide]
+    () => allSlides[currentSlide],
+    [currentSlide, allSlides]
   );
 
+  if (loading) {
+    return (
+      <section className="relative h-[70vh] min-h-[500px] sm:min-h-[700px] overflow-hidden w-full bg-black">
+        <div className="absolute inset-0 flex items-center justify-center">
+          <p className="text-white text-lg">Loading hero content...</p>
+        </div>
+      </section>
+    );
+  }
+
   return (
-    <section className="relative min-h-[700px] overflow-hidden w-full">
+    <section className="relative h-[70vh] min-h-[500px] sm:min-h-[700px] overflow-hidden w-full">
       <div className="absolute inset-0 bg-black">
-        {heroSlides.map((slide, index) => (
+        {allSlides.map((slide, index) => (
           <div
             key={`${slide.id}-${index}`}
             className={`absolute inset-0 ${
@@ -113,7 +159,7 @@ const HeroSection = React.memo(function HeroSection() {
       <button
         onClick={prevSlide}
         disabled={isTransitioning}
-        className="absolute left-0 top-1/2 -translate-y-1/2 z-20 w-12 h-12 rounded-full text-primary-foreground hover:scale-110 transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center group"
+        className="absolute left-0 top-1/2 -translate-y-1/2 z-20 w-12 h-12 rounded-full text-primary-foreground hover:scale-110 transition-all  disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center group"
       >
         <ChevronLeft className="h-24 w-24 text-primary-foreground opacity-30 hover:opacity-70 hover:text-primary-foreground group-hover:scale-110 transition-transform duration-200" />
       </button>
@@ -121,17 +167,17 @@ const HeroSection = React.memo(function HeroSection() {
       <button
         onClick={nextSlide}
         disabled={isTransitioning}
-        className="absolute right-0 top-1/2 -translate-y-1/2 z-20 w-12 h-12 rounded-full text-primary-foreground hover:scale-110 transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center group"
+        className="absolute right-0 top-1/2 -translate-y-1/2 z-20 w-12 h-12 rounded-full text-primary-foreground hover:scale-110 transition-all  disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center group"
       >
         <ChevronRight className="h-24 w-24 text-primary-foreground opacity-30 hover:opacity-70 hover:text-primary-foreground group-hover:scale-110 transition-transform duration-200" />
       </button>
 
       {/* Content with smooth animations */}
-      <div className="relative z-10 2xl:max-w-6xl text-primary-foreground h-full flex items-end p-12 min-h-[700px] w-full">
+      <div className="relative z-10 2xl:max-w-6xl text-primary-foreground  flex items-end p-6 sm:p-12 h-[70vh] sm:h-full min-h-[500px] sm:min-h-[700px] w-full">
         <div className="2xl:px-8 max-w-7xl ">
           <div className="w-full max-w-4xl">
             {/* Animated Title */}
-            <div className="overflow-hidden mb-6">
+            <div className="overflow-hidden mb-4 sm:mb-6">
               <h1
                 className={`text-4xl md:text-7xl font-extrabold leading-tight text-left transition-all duration-1000 ease-out ${
                   showContent
@@ -154,50 +200,93 @@ const HeroSection = React.memo(function HeroSection() {
                 }`}
                 style={{ transitionDelay: showContent ? '600ms' : '0ms' }}
               >
-                {currentSlideData.description}
+                {currentSlideData.location}
               </p>
             </div>
 
             {/* Animated Buttons */}
-            <div className="flex flex-col sm:flex-row gap-4 justify-start">
+            <div className="flex  gap-4 justify-start">
               {/* Read More - slides in from left */}
               <div className="overflow-hidden">
-                <Button
-                  size="lg"
-                  className={`bg-primary hover:bg-primary/90 text-lg py-6 text-primary-foreground transition-all duration-1000 ease-out hover:scale-105 ${
-                    showContent
-                      ? 'transform translate-x-0 opacity-100 blur-0'
-                      : 'transform -translate-x-full opacity-0 '
-                  }`}
-                  style={{ transitionDelay: showContent ? '800ms' : '0ms' }}
-                >
-                  Read More
-                  <ArrowRight className="ml-2 h-4 w-4" />
-                </Button>
+                {currentSlideData.isProject ? (
+                  <Link href={`/projects/${currentSlideData.slug}`}>
+                    <Button
+                      size="lg"
+                      className={`bg-primary hover:bg-primary/90 text-lg py-6 text-primary-foreground transition-opacity ease-out duration-1000 ${
+                        showContent
+                          ? 'translate-x-0 opacity-100'
+                          : '-translate-x-full opacity-0'
+                      }`}
+                      style={{
+                        transitionDelay: showContent ? '800ms' : '0ms',
+                        transform: showContent
+                          ? 'translateX(0)'
+                          : 'translateX(-100%)',
+                        transition: showContent
+                          ? 'transform 1000ms ease-out 800ms, opacity 1000ms ease-out 800ms'
+                          : 'transform 1000ms ease-out, opacity 1000ms ease-out',
+                      }}
+                    >
+                      View Project
+                      <ArrowRight className="ml-2 h-4 w-4" />
+                    </Button>
+                  </Link>
+                ) : (
+                  <Button
+                    size="lg"
+                    className={`bg-primary hover:bg-primary/90 text-lg py-6 text-primary-foreground transition-opacity ease-out duration-1000 ${
+                      showContent
+                        ? 'translate-x-0 opacity-100'
+                        : '-translate-x-full opacity-0'
+                    }`}
+                    style={{
+                      transitionDelay: showContent ? '800ms' : '0ms',
+                      transform: showContent
+                        ? 'translateX(0)'
+                        : 'translateX(-100%)',
+                      transition: showContent
+                        ? 'transform 1000ms ease-out 800ms, opacity 1000ms ease-out 800ms'
+                        : 'transform 1000ms ease-out, opacity 1000ms ease-out',
+                    }}
+                  >
+                    Read More
+                    <ArrowRight className="ml-2 h-4 w-4" />
+                  </Button>
+                )}
               </div>
 
               {/* Our Services - slides in from right */}
-              <Button
-                size="lg"
-                variant="outline"
-                className={`border-primary-foreground text-primary-foreground dark:border-foreground dark:bg-foreground/10 hover:bg-primary-foreground text-lg py-6 hover:text-primary bg-transparent transition-all duration-1000 ease-out hover:scale-105 ${
-                  showContent
-                    ? 'transform translate-x-0 opacity-100 blur-0'
-                    : 'transform translate-x-full opacity-0 '
-                }`}
-                style={{ transitionDelay: showContent ? '1000ms' : '0ms' }}
-              >
-                Our Services
-              </Button>
+              <Link href="/services">
+                <Button
+                  size="lg"
+                  variant="outline"
+                  className={`border-primary-foreground text-primary-foreground dark:border-foreground dark:bg-foreground/10 hover:bg-primary-foreground hover:text-primary text-lg py-6 bg-transparent transition-opacity ease-out duration-1000 ${
+                    showContent
+                      ? 'translate-x-0 opacity-100'
+                      : 'translate-x-full opacity-0'
+                  }`}
+                  style={{
+                    transitionDelay: showContent ? '1000ms' : '0ms',
+                    transform: showContent
+                      ? 'translateX(0)'
+                      : 'translateX(100%)',
+                    transition: showContent
+                      ? 'transform 1000ms ease-out 1000ms, opacity 1000ms ease-out 1000ms'
+                      : 'transform 1000ms ease-out, opacity 1000ms ease-out',
+                  }}
+                >
+                  Our Services
+                </Button>
+              </Link>
             </div>
             {/* Custom Indicators - directly above title */}
             <div className="flex space-x-2 mt-8">
-              {heroSlides.map((_, index) => (
+              {allSlides.map((_, index) => (
                 <button
                   key={index}
                   onClick={() => goToSlide(index)}
                   disabled={isTransitioning}
-                  className={`transition-all duration-500 rounded-full cursor-pointer hover:opacity-80 disabled:cursor-not-allowed ${
+                  className={`transition-all  rounded-full cursor-pointer hover:opacity-80 disabled:cursor-not-allowed ${
                     currentSlide === index
                       ? 'w-8 h-1 bg-primary shadow-lg'
                       : 'w-6 h-0.5 bg-primary-foreground/50 hover:bg-primary-foreground/70 hover:w-7'
