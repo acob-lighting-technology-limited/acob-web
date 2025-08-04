@@ -38,7 +38,7 @@ export default function CareersPage() {
         />
       </PageHero>
 
-      <Container className="px-4 py-8 bg-muted ">
+      <Container className="px-4 py-8">
         <Breadcrumb items={breadcrumbItems} className="mb-8" />
 
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-12 items-start">
@@ -126,26 +126,45 @@ export default function CareersPage() {
             </Card>
           </div>
 
-          <div className="space-y-6 sticky top-20 self-start ">
-            <Card className="border shadow-lg border-primary bg-primary text-primary-foreground">
-              <CardContent className="p-6">
-                <h3 className="font-semibold mb-4 text-lg">
-                  More Contact Options
-                </h3>
-                <ul className="space-y-2">
-                  {contactLinks.map(({ href, label }) => (
-                    <li key={href}>
-                      <Link
-                        href={href}
-                        className="text-primary-foreground border-b pb-1 border-primary-foreground hover:text-primary  flex items-center justify-between"
-                      >
-                        <span>{label}</span>
-                      </Link>
-                    </li>
-                  ))}
-                </ul>
-              </CardContent>
-            </Card>
+          {/* Sidebar */}
+          <div className="space-y-6 sticky top-20 self-start">
+            <div className="bg-muted border-t-2 border-t-primary p-6 rounded-lg border-[1px]">
+              <h3 className="text-xl font-bold text-foreground mb-4">
+                More Contact Options
+              </h3>
+              <div className="space-y-3">
+                {contactLinks.map(({ href, label }) => (
+                  <Link
+                    key={href}
+                    href={href}
+                    className="p-3 rounded-lg flex items-center justify-between bg-surface text-foreground hover:bg-primary hover:text-primary-foreground transition-colors duration-200"
+                  >
+                    <span className="font-medium text-sm">{label}</span>
+                    <ArrowRight className="h-4 w-4" />
+                  </Link>
+                ))}
+              </div>
+            </div>
+
+            <div className="bg-muted border-t-2 border-t-primary p-6 rounded-lg border-[1px]">
+              <h3 className="text-xl font-bold text-foreground mb-4">
+                Quick Contact
+              </h3>
+              <div className="space-y-3 text-sm">
+                <div className="flex justify-between">
+                  <span className="text-muted-foreground">Email:</span>
+                  <span className="font-medium">careers@acoblighting.com</span>
+                </div>
+                <div className="flex justify-between">
+                  <span className="text-muted-foreground">Phone:</span>
+                  <span className="font-medium">0704 920 2634</span>
+                </div>
+                <div className="flex justify-between">
+                  <span className="text-muted-foreground">Location:</span>
+                  <span className="font-medium">Abuja, Nigeria</span>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </Container>
