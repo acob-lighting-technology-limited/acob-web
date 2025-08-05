@@ -6,7 +6,7 @@ import { Card, CardContent } from '@/components/ui/card';
 import { ArrowRight } from 'lucide-react';
 import Link from 'next/link';
 import { MaskText } from '@/components/animations/MaskText';
-import { OptimizedImage } from '@/components/ui/optimized-image';
+import Image from 'next/image';
 import { contactSections } from '@/lib/data/contact-data';
 
 export default function ContactPage() {
@@ -49,11 +49,11 @@ export default function ContactPage() {
               <Link key={section.href} href={section.href}>
                 <Card className="overflow-hidden bg-surface border-0 custom-shadow  p-0 hover:shadow-lg  h-full flex flex-col">
                   <div className="aspect-[4/3] overflow-hidden flex items-center justify-center bg-primary/5">
-                    <OptimizedImage
+                    <Image
                       src={section.image || '/placeholder.svg'}
                       alt={section.title}
                       fill
-                      className="hover:scale-105"
+                      className="hover:scale-105 object-cover"
                       sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 25vw"
                     />
                   </div>

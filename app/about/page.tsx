@@ -6,7 +6,7 @@ import { Card, CardContent } from '@/components/ui/card';
 import { ArrowRight } from 'lucide-react';
 import Link from 'next/link';
 import { MaskText } from '@/components/animations/MaskText';
-import { OptimizedImage } from '@/components/ui/optimized-image';
+import Image from 'next/image';
 import { aboutSections } from '@/lib/data/about-data';
 
 export default function AboutPage() {
@@ -46,11 +46,11 @@ export default function AboutPage() {
             <Link key={section.href} href={section.href}>
               <Card className="overflow-hidden shadow-lg border-[1px] border-border p-0 hover:shadow-lg transition-shadow  h-full flex flex-col bg-surface">
                 <div className="aspect-[4/3] overflow-hidden">
-                  <OptimizedImage
+                  <Image
                     src={section.image || '/placeholder.svg'}
                     alt={section.title}
                     fill
-                    className="hover:scale-105 transition-transform"
+                    className="hover:scale-105 transition-transform object-cover"
                     sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 25vw"
                   />
                 </div>

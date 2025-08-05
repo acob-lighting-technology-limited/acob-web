@@ -6,7 +6,7 @@ import { Card, CardContent } from '@/components/ui/card';
 import { ArrowLeft, Linkedin, Mail } from 'lucide-react';
 import Link from 'next/link';
 import { MaskText } from '@/components/animations/MaskText';
-import { OptimizedImage } from '@/components/ui/optimized-image';
+import Image from 'next/image';
 import { teamMembers } from '@/lib/data/about-data';
 
 export default function TeamPage() {
@@ -52,7 +52,7 @@ export default function TeamPage() {
               className="overflow-hidden hover:shadow-lg transition-shadow !py-0"
             >
               <div className="aspect-[4/3] overflow-hidden">
-                <OptimizedImage
+                <Image
                   src={member.image}
                   alt={member.name}
                   fill

@@ -4,7 +4,7 @@ import { Breadcrumb } from '@/components/ui/breadcrumb';
 import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
-import { OptimizedImage } from '@/components/ui/optimized-image';
+import Image from 'next/image';
 import { MapPin, ArrowRight, Search } from 'lucide-react';
 import Link from 'next/link';
 import { getProjects } from '@/sanity/lib/client';
@@ -35,11 +35,11 @@ export default async function ProjectsPage() {
               >
                 <div className="aspect-[16/9] overflow-hidden">
                   {project.images && project.images.length > 0 && (
-                    <OptimizedImage
+                    <Image
                       src={project.images[0].asset.url || '/placeholder.svg'}
                       alt={project.title}
                       fill
-                      className="hover:scale-105"
+                      className="hover:scale-105 object-cover"
                       sizes="(max-width: 768px) 100vw, (max-width: 1200px) 66vw, 50vw"
                     />
                   )}
