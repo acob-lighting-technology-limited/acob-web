@@ -10,7 +10,7 @@ import React, {
 import { Button } from '@/components/ui/button';
 import { ArrowRight, ChevronLeft, ChevronRight } from 'lucide-react';
 import { heroSlides } from '@/lib/data/hero-data';
-import { getProjects } from '@/sanity/lib/client';
+
 import type { Project } from '@/lib/types';
 import Link from 'next/link';
 import SimpleSpinnerExit from '../loader/simple-spinner-exit';
@@ -24,11 +24,15 @@ const HeroSection = React.memo(function HeroSection() {
   const [loading, setLoading] = useState(true);
   const intervalRef = useRef<NodeJS.Timeout | null>(null);
 
-  // Fetch projects from Sanity
+  // Fetch projects from API
   useEffect(() => {
     const fetchProjects = async () => {
       try {
-        const fetchedProjects = await getProjects();
+        const response = await fetch('/api/projects');
+        if (!response.ok) {
+          throw new Error('Failed to fetch projects');
+        }
+        const fetchedProjects = await response.json();
         setProjects(fetchedProjects);
       } catch (error) {
         console.error('Failed to fetch projects:', error);

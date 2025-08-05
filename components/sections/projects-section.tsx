@@ -3,7 +3,7 @@
 import { useRef, useState, useEffect } from 'react';
 import { useScroll } from 'framer-motion';
 import Lenis from '@studio-freight/lenis';
-import { getProjects } from '@/sanity/lib/client';
+
 import Card from '../ui/stack-cards';
 import Link from 'next/link';
 import { Button } from '../ui/button';
@@ -21,7 +21,11 @@ export function ProjectsSection() {
   useEffect(() => {
     const fetchProjectsData = async () => {
       try {
-        const fetchedProjects = await getProjects();
+        const response = await fetch('/api/projects');
+        if (!response.ok) {
+          throw new Error('Failed to fetch projects');
+        }
+        const fetchedProjects = await response.json();
         setProjects(fetchedProjects);
       } catch (err) {
         console.error('Failed to fetch projects:', err);
