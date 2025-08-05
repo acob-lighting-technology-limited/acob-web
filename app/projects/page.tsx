@@ -33,7 +33,7 @@ export default async function ProjectsPage() {
                 key={project._id}
                 className="overflow-hidden border-0 custom-shadow shadow-none p-0 hover:shadow-lg transition-shadow"
               >
-                <div className="aspect-[16/9] overflow-hidden">
+                <div className="aspect-[16/9] overflow-hidden relative">
                   {project.images && project.images.length > 0 && (
                     <Image
                       src={project.images[0].asset.url || '/placeholder.svg'}

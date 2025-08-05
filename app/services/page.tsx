@@ -31,7 +31,7 @@ export default function ServicesPage() {
                 key={service.id}
                 className="overflow-hidden border-0 custom-shadow shadow-none p-0 hover:shadow-lg transition-shadow"
               >
-                <div className="aspect-[16/9] overflow-hidden">
+                <div className="aspect-[16/9] overflow-hidden relative">
                   <Image
                     src={service.image || '/placeholder.svg'}
                     alt={service.title}
