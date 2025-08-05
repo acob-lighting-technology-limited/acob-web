@@ -221,7 +221,7 @@ export function Header() {
   const [activeDropdown, setActiveDropdown] = useState<string | null>(null);
   const timeoutRef = useRef<NodeJS.Timeout | null>(null);
   const [mounted, setMounted] = useState(false);
-  const [logoSrc, setLogoSrc] = useState('/images/ACOB.png'); // Default logo
+  const [logoSrc, setLogoSrc] = useState('/images/acob-logo-light.png'); // Default logo
   const { resolvedTheme } = useTheme();
 
   // Wait for theme to be resolved on client side
@@ -233,7 +233,9 @@ export function Header() {
   useEffect(() => {
     if (mounted && resolvedTheme) {
       const newLogoSrc =
-        resolvedTheme === 'dark' ? '/images/ACOB-Logo.png' : '/images/ACOB.png';
+        resolvedTheme === 'dark'
+          ? '/images/acob-logo-dark.png'
+          : '/images/acob-logo-light.png';
       setLogoSrc(newLogoSrc);
     }
   }, [mounted, resolvedTheme]);
