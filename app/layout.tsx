@@ -10,6 +10,7 @@ import { Footer } from '@/components/layout/footer';
 import { ScrollToTop } from '@/components/ui/scroll-to-top';
 import { Toaster } from 'sonner';
 import { ChatBot } from '@/components/features/chat-bot';
+import { LazyCookieConsent } from '@/components/lazy-components';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -40,6 +41,7 @@ export default function RootLayout({
               <Header />
               <main className="flex-1 border-b border-b-muted">{children}</main>
               <Footer /> <ChatBot />
+              <LazyCookieConsent />
               <ScrollToTop />
             </div>
           </NProgressProvider>
