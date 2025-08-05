@@ -477,7 +477,26 @@ export function ChatBot() {
                       Navigate to{' '}
                       {navigationRoute === '/'
                         ? 'Home'
-                        : navigationRoute.split('/').pop()?.replace(/-/g, ' ')}
+                        : navigationRoute === '/contact/quote'
+                          ? 'Get Quote Page'
+                          : navigationRoute === '/services'
+                            ? 'Services Page'
+                            : navigationRoute === '/projects'
+                              ? 'Projects Page'
+                              : navigationRoute === '/contact/support'
+                                ? 'Support Page'
+                                : navigationRoute === '/contact/locations'
+                                  ? 'Office Locations'
+                                  : navigationRoute === '/contact/careers'
+                                    ? 'Careers Page'
+                                    : navigationRoute === '/about'
+                                      ? 'About Us Page'
+                                      : navigationRoute === '/updates/gallery'
+                                        ? 'Gallery Page'
+                                        : navigationRoute
+                                            .split('/')
+                                            .pop()
+                                            ?.replace(/-/g, ' ')}
                     </Button>
                   </motion.div>
                 )}

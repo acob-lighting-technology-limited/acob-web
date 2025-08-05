@@ -43,6 +43,9 @@ export const ROUTE_MAP = {
   'case studies': '/updates/case-studies',
   press: '/updates/press',
   gallery: '/updates/gallery',
+  media: '/updates/media',
+  pictures: '/updates/gallery',
+  'picture side': '/updates/gallery',
 } as const;
 
 export type RouteKey = keyof typeof ROUTE_MAP;
@@ -82,6 +85,15 @@ export function findMatchingRoute(userInput: string): string | null {
     input.includes('portfolio')
   ) {
     return '/projects';
+  }
+
+  if (
+    input.includes('gallery') ||
+    input.includes('picture') ||
+    input.includes('media') ||
+    input.includes('photo')
+  ) {
+    return '/updates/gallery';
   }
 
   if (
@@ -137,7 +149,46 @@ export function extractNavigationIntent(response: string): string | null {
     lowerResponse.includes('visit') ||
     lowerResponse.includes('go to')
   ) {
-    // Extract route from response
+    // Check for specific page mentions first
+    if (
+      lowerResponse.includes('quote') ||
+      lowerResponse.includes('get quote')
+    ) {
+      return '/contact/quote';
+    }
+    if (lowerResponse.includes('service')) {
+      return '/services';
+    }
+    if (lowerResponse.includes('project')) {
+      return '/projects';
+    }
+    if (
+      lowerResponse.includes('gallery') ||
+      lowerResponse.includes('picture') ||
+      lowerResponse.includes('media')
+    ) {
+      return '/updates/gallery';
+    }
+    if (lowerResponse.includes('support')) {
+      return '/contact/support';
+    }
+    if (
+      lowerResponse.includes('location') ||
+      lowerResponse.includes('office')
+    ) {
+      return '/contact/locations';
+    }
+    if (lowerResponse.includes('career') || lowerResponse.includes('job')) {
+      return '/contact/careers';
+    }
+    if (lowerResponse.includes('about')) {
+      return '/about';
+    }
+    if (lowerResponse.includes('home')) {
+      return '/';
+    }
+
+    // Fallback: Extract route from response
     for (const [key, route] of Object.entries(ROUTE_MAP)) {
       if (lowerResponse.includes(route) || lowerResponse.includes(key)) {
         return route;
