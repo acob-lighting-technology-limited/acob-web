@@ -3,8 +3,7 @@ import { Breadcrumb } from '@/components/ui/breadcrumb';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
-import { Textarea } from '@/components/ui/textarea';
-import { Label } from '@/components/ui/label';
+
 import Image from 'next/image';
 import { Calendar, User, MessageSquare, ArrowRight } from 'lucide-react';
 import { PortableText } from '@portabletext/react';
@@ -20,7 +19,7 @@ import {
 } from '@/sanity/lib/client';
 import { notFound } from 'next/navigation';
 import type { UpdatePost, Comment } from '@/lib/types';
-import Image from 'next/image';
+
 import { CommentForm } from '@/components/updates/comment-form';
 
 interface UpdatePostPageProps {
