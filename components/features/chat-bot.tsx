@@ -176,6 +176,51 @@ export function ChatBot() {
     }
   }, [isOpen]);
 
+  // Handle viewport changes when keyboard opens/closes
+  useEffect(() => {
+    if (!isOpen) return;
+
+    let initialViewportHeight = window.innerHeight;
+    let timeoutId: NodeJS.Timeout;
+
+    const handleViewportChange = () => {
+      const currentHeight = window.innerHeight;
+      const heightDifference = initialViewportHeight - currentHeight;
+
+      // If viewport height changed significantly (keyboard opened/closed)
+      if (Math.abs(heightDifference) > 150) {
+        // Reset viewport after a short delay
+        timeoutId = setTimeout(() => {
+          window.scrollTo(0, 0);
+          // Force a resize event to trigger any necessary recalculations
+          window.dispatchEvent(new Event('resize'));
+        }, 100);
+      }
+    };
+
+    const handleResize = () => {
+      // Clear any existing timeout
+      if (timeoutId) {
+        clearTimeout(timeoutId);
+      }
+
+      // Update initial height
+      initialViewportHeight = window.innerHeight;
+    };
+
+    // Listen for viewport changes
+    window.addEventListener('resize', handleResize);
+    window.addEventListener('orientationchange', handleViewportChange);
+
+    return () => {
+      window.removeEventListener('resize', handleResize);
+      window.removeEventListener('orientationchange', handleViewportChange);
+      if (timeoutId) {
+        clearTimeout(timeoutId);
+      }
+    };
+  }, [isOpen]);
+
   // Handle scroll events within messages container
   useEffect(() => {
     const messagesContainer = messagesContainerRef.current;
@@ -276,7 +321,7 @@ export function ChatBot() {
               animate={{ opacity: 1, scale: 1, y: 0 }}
               exit={{ opacity: 0, scale: 0.95, y: 20 }}
               transition={{ duration: 0.3, ease: 'easeOut' }}
-              className="fixed bottom-2 right-2 sm:bottom-4 sm:right-4 w-[calc(100vw-2rem)] sm:w-[380px] h-[75vh] sm:h-[80vh] max-h-[600px] rounded-lg overflow-hidden shadow-2xl bg-background border border-border flex flex-col z-50 transition-colors duration-700"
+              className="fixed bottom-2 right-2 sm:bottom-4 sm:right-4 w-[calc(100vw-2rem)] sm:w-[380px] h-[75dvh] sm:h-[80vh] max-h-[600px] rounded-lg overflow-hidden shadow-2xl bg-background border border-border flex flex-col z-50 transition-colors duration-700 chat-container"
               onTouchStart={e => e.stopPropagation()}
               onTouchMove={e => e.stopPropagation()}
             >
