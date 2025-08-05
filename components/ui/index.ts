@@ -35,7 +35,7 @@ export {
   NavigationMenuList,
   NavigationMenuTrigger,
 } from './navigation-menu';
-export { OptimizedImage } from './optimized-image';
+
 export { PageHero } from './page-hero';
 export { ScrollToTop } from './scroll-to-top';
 export { ServiceHero } from './service-hero';

@@ -4,7 +4,7 @@ import { Button } from '@/components/ui/button';
 import { ArrowRight } from 'lucide-react';
 import Link from 'next/link';
 import { getUpdatePosts } from '@/sanity/lib/client';
-import { OptimizedImage } from '@/components/ui/optimized-image';
+import Image from 'next/image';
 import type { UpdatePost } from '@/lib/types';
 
 export async function NewsSection() {

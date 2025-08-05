@@ -8,7 +8,7 @@ import { Input } from '@/components/ui/input';
 import Link from 'next/link';
 import { servicesData, categories, tags } from '@/lib/data';
 import CallToAction from '@/components/layout/call-to-action';
-import { OptimizedImage } from '@/components/ui/optimized-image';
+import Image from 'next/image';
 
 export default function ServicesPage() {
   const breadcrumbItems = [{ label: 'Home', href: '/' }, { label: 'Services' }];
@@ -31,12 +31,12 @@ export default function ServicesPage() {
                 key={service.id}
                 className="overflow-hidden border-0 custom-shadow shadow-none p-0 hover:shadow-lg transition-shadow"
               >
-                <div className="aspect-[16/9] overflow-hidden">
-                  <OptimizedImage
+                <div className="aspect-[16/9] overflow-hidden relative">
+                  <Image
                     src={service.image || '/placeholder.svg'}
                     alt={service.title}
                     fill
-                    className="hover:scale-105"
+                    className="hover:scale-105 object-cover"
                     sizes="(max-width: 768px) 100vw, (max-width: 1200px) 66vw, 50vw"
                   />
                 </div>
