@@ -172,3 +172,57 @@
 .animate-smooth-zoom {
   animation: smoothZoom 12s ease-out infinite alternate;
 }
+
+/* Mobile viewport fixes */
+@layer utilities {
+  .mobile-viewport-fix {
+    height: 100dvh;
+    height: 100vh;
+  }
+
+  /* Prevent zoom on input focus */
+  input,
+  textarea,
+  select {
+    font-size: 16px !important;
+  }
+
+  /* Handle viewport changes */
+  @media screen and (max-width: 768px) {
+    .chat-container {
+      height: 75dvh !important;
+      max-height: 75dvh !important;
+    }
+  }
+}
+
+/* Custom animations */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideInRight {
+  from {
+    opacity: 0;
+    transform: translateX(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+.animate-fadeInUp {
+  animation: fadeInUp 0.3s ease-out forwards;
+}
+
+.animate-slideInRight {
+  animation: slideInRight 0.3s ease-out forwards;
+}

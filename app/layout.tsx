@@ -17,6 +17,12 @@ export const metadata: Metadata = {
   title: 'ACOB Lighting Technology Limited',
   description:
     'Leading supplier of solar materials and renewable energy solutions in Nigeria',
+  viewport: {
+    width: 'device-width',
+    initialScale: 1,
+    maximumScale: 1,
+    userScalable: false,
+  },
 };
 
 export default function RootLayout({
