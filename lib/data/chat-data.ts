@@ -5,4 +5,8 @@ export const suggestedMessages = [
   'What are your installation services?',
   'Tell me about your team and experience',
   'What makes ACOB Lighting different?',
+  'I want to get a quote',
+  'Show me your projects',
+  'Contact support',
+  'Office locations',
 ];
