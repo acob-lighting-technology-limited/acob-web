@@ -6,7 +6,14 @@ import { useState, useRef, useEffect } from 'react';
 // Third-party library imports
 import { useChat } from 'ai/react';
 import type { Message } from 'ai';
-import { Send, MessageSquare, X, StopCircle, Bot } from 'lucide-react';
+import {
+  Send,
+  MessageSquare,
+  X,
+  StopCircle,
+  Bot,
+  ExternalLink,
+} from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 
 // UI component imports
@@ -14,6 +21,13 @@ import { Button, Textarea } from '@/components/ui';
 
 // Data imports
 import { ACOB_SYSTEM_PROMPT, suggestedMessages } from '@/lib/data';
+
+// Navigation imports
+import {
+  findMatchingRoute,
+  extractNavigationIntent,
+  useNavigation,
+} from '@/lib/utils/navigation';
 
 const formatMessage = (content: string) => {
   if (!content) return content;
@@ -71,8 +85,10 @@ const getCurrentTime = () => {
 
 export function ChatBot() {
   const [isOpen, setIsOpen] = useState(false);
+  const [navigationRoute, setNavigationRoute] = useState<string | null>(null);
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const messagesContainerRef = useRef<HTMLDivElement>(null);
+  const { navigateTo } = useNavigation();
 
   const {
     messages,
@@ -90,6 +106,12 @@ export function ChatBot() {
       // Debug logging (only in development)
       if (process.env.NODE_ENV !== 'production') {
         console.log('AI Response:', message);
+      }
+
+      // Check for navigation intent in the response
+      const route = extractNavigationIntent(message.content);
+      if (route) {
+        setNavigationRoute(route);
       }
     },
   });
@@ -187,6 +209,14 @@ export function ChatBot() {
   }, [isOpen]);
 
   const handleQuickReply = (message: string) => {
+    // Check if this is a navigation request
+    const route = findMatchingRoute(message);
+    if (route) {
+      navigateTo(route);
+      setIsOpen(false);
+      return;
+    }
+
     setInput(message);
     setTimeout(() => {
       const form = document.getElementById('chat-form') as HTMLFormElement;
@@ -427,6 +457,49 @@ export function ChatBot() {
                 )}
 
                 <div ref={messagesEndRef} />
+
+                {/* Navigation Button */}
+                {navigationRoute && (
+                  <motion.div
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    className="flex justify-center my-4"
+                  >
+                    <Button
+                      onClick={() => {
+                        navigateTo(navigationRoute);
+                        setIsOpen(false);
+                        setNavigationRoute(null);
+                      }}
+                      className="bg-primary hover:bg-primary/90 text-primary-foreground px-6 py-2 rounded-full shadow-lg flex items-center gap-2"
+                    >
+                      <ExternalLink className="h-4 w-4" />
+                      Navigate to{' '}
+                      {navigationRoute === '/'
+                        ? 'Home'
+                        : navigationRoute === '/contact/quote'
+                          ? 'Get Quote Page'
+                          : navigationRoute === '/services'
+                            ? 'Services Page'
+                            : navigationRoute === '/projects'
+                              ? 'Projects Page'
+                              : navigationRoute === '/contact/support'
+                                ? 'Support Page'
+                                : navigationRoute === '/contact/locations'
+                                  ? 'Office Locations'
+                                  : navigationRoute === '/contact/careers'
+                                    ? 'Careers Page'
+                                    : navigationRoute === '/about'
+                                      ? 'About Us Page'
+                                      : navigationRoute === '/updates/gallery'
+                                        ? 'Gallery Page'
+                                        : navigationRoute
+                                            .split('/')
+                                            .pop()
+                                            ?.replace(/-/g, ' ')}
+                    </Button>
+                  </motion.div>
+                )}
               </div>
 
               {/* Suggested Messages */}
