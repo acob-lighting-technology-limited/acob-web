@@ -493,10 +493,13 @@ export function ChatBot() {
                                       ? 'About Us Page'
                                       : navigationRoute === '/updates/gallery'
                                         ? 'Gallery Page'
-                                        : navigationRoute
-                                            .split('/')
-                                            .pop()
-                                            ?.replace(/-/g, ' ')}
+                                        : navigationRoute ===
+                                            '/updates/case-studies'
+                                          ? 'Case Studies Page'
+                                          : navigationRoute
+                                              .split('/')
+                                              .pop()
+                                              ?.replace(/-/g, ' ')}
                     </Button>
                   </motion.div>
                 )}

@@ -97,6 +97,14 @@ export function findMatchingRoute(userInput: string): string | null {
   }
 
   if (
+    input.includes('case study') ||
+    input.includes('case studies') ||
+    input.includes('case-studies')
+  ) {
+    return '/updates/case-studies';
+  }
+
+  if (
     input.includes('contact') ||
     input.includes('reach') ||
     input.includes('get in touch')
@@ -149,7 +157,14 @@ export function extractNavigationIntent(response: string): string | null {
     lowerResponse.includes('visit') ||
     lowerResponse.includes('go to')
   ) {
-    // Check for specific page mentions first
+    // Check for specific page mentions first (order matters - more specific first)
+    if (
+      lowerResponse.includes('case study') ||
+      lowerResponse.includes('case studies') ||
+      lowerResponse.includes('case-studies')
+    ) {
+      return '/updates/case-studies';
+    }
     if (
       lowerResponse.includes('quote') ||
       lowerResponse.includes('get quote')
@@ -159,15 +174,15 @@ export function extractNavigationIntent(response: string): string | null {
     if (lowerResponse.includes('service')) {
       return '/services';
     }
-    if (lowerResponse.includes('project')) {
-      return '/projects';
-    }
     if (
       lowerResponse.includes('gallery') ||
       lowerResponse.includes('picture') ||
       lowerResponse.includes('media')
     ) {
       return '/updates/gallery';
+    }
+    if (lowerResponse.includes('project')) {
+      return '/projects';
     }
     if (lowerResponse.includes('support')) {
       return '/contact/support';
