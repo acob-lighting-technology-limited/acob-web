@@ -45,13 +45,13 @@ export default function AboutPage() {
           {aboutSections.map(section => (
             <Link key={section.href} href={section.href}>
               <Card className="overflow-hidden shadow-lg border-[1px] border-border p-0 hover:shadow-lg transition-shadow  h-full flex flex-col bg-surface">
-                <div className="aspect-[4/3] overflow-hidden">
+                <div className="aspect-[16/9] overflow-hidden relative">
                   <Image
                     src={section.image || '/placeholder.svg'}
                     alt={section.title}
                     fill
-                    className="hover:scale-105 transition-transform object-cover"
-                    sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 25vw"
+                    className="hover:scale-105 object-cover"
+                    sizes="(max-width: 768px) 100vw, (max-width: 1200px) 66vw, 50vw"
                   />
                 </div>
                 <CardContent className="p-6 flex flex-col flex-1">

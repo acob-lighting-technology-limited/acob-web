@@ -125,14 +125,14 @@ const HeroSection = React.memo(function HeroSection() {
 
   if (loading) {
     return (
-      <section className="relative h-[70vh] min-h-[500px] sm:min-h-[700px] overflow-hidden w-full bg-black">
+      <section className="flex flex-col items-center justify-center relative h-[80vh] min-h-[500px] sm:min-h-[700px] overflow-hidden w-full bg-black">
         <SimpleSpinnerExit preview={true} />
       </section>
     );
   }
 
   return (
-    <section className="relative h-[70vh] min-h-[500px] sm:min-h-[700px] overflow-hidden w-full">
+    <section className="relative h-[80vh] min-h-[500px] sm:min-h-[700px] overflow-hidden w-full">
       <div className="absolute inset-0 bg-black">
         {allSlides.map((slide, index) => (
           <div
@@ -176,7 +176,7 @@ const HeroSection = React.memo(function HeroSection() {
       </button>
 
       {/* Content with smooth animations */}
-      <div className="relative z-10 2xl:max-w-6xl text-primary-foreground  flex items-end p-6 sm:p-12 h-[70vh] sm:h-full min-h-[500px] sm:min-h-[700px] w-full">
+      <div className="relative z-10 2xl:max-w-6xl text-primary-foreground  flex items-end p-6 sm:p-12 h-[80vh] sm:h-full min-h-[500px] sm:min-h-[700px] w-full">
         <div className="2xl:px-8 max-w-7xl ">
           <div className="w-full max-w-4xl">
             {/* Animated Title */}
@@ -262,7 +262,7 @@ const HeroSection = React.memo(function HeroSection() {
               <Link href="/services">
                 <Button
                   size="lg"
-                  variant="outline"
+                  variant="secondary"
                   className={`border-primary-foreground text-primary-foreground dark:border-foreground dark:bg-foreground/10 hover:bg-primary-foreground hover:text-primary text-lg py-6 bg-transparent transition-opacity ease-out duration-1000 ${
                     showContent
                       ? 'translate-x-0 opacity-100'

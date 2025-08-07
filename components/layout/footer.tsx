@@ -77,12 +77,20 @@ export function Footer() {
 
                 <div>
                   <p className="text-sm text-zinc-400">Email:</p>
-                  <Link
-                    href={`mailto:${contactInfo.email}`}
-                    className="text-primary hover:text-primary/80 transition-colors"
-                  >
-                    {contactInfo.email}
-                  </Link>
+                  <div className="space-y-1">
+                    <Link
+                      href={`mailto:${contactInfo.email}`}
+                      className="text-primary hover:text-primary/80 transition-colors block"
+                    >
+                      {contactInfo.email}
+                    </Link>
+                    <Link
+                      href="mailto:infoacob@gmail.com"
+                      className="text-primary hover:text-primary/80 transition-colors block"
+                    >
+                      infoacob@gmail.com
+                    </Link>
+                  </div>
                 </div>
 
                 <div className="space-y-4 text-sm text-zinc-300">
