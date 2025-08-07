@@ -12,7 +12,7 @@ export const supportMethods = [
     icon: Mail,
     title: 'Email Us',
     description:
-      "Send us an email with your detailed query, and we'll get back to you within 24-48 hours.",
+      'Send us an email with your detailed query, and we will get back to you within 24-48 hours.',
     contacts: ['support@acoblighting.com'],
   },
 ];

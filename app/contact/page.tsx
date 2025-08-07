@@ -23,7 +23,7 @@ export default function ContactPage() {
       >
         <MaskText
           phrases={[
-            "We're here to help you with all your clean energy needs.",
+            'We are here to help you with all your clean energy needs.',
             'Reach out to us through our various channels.',
           ]}
           className="text-lg md:text-xl opacity-90 max-w-3xl leading-relaxed"
