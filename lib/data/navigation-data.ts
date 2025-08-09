@@ -170,7 +170,7 @@ export const navigationItems = [
       {
         name: 'Careers',
         href: '/contact/careers',
-        description: 'Join our growing team',
+        description: 'Join our team',
         icon: 'Briefcase',
         // icon: 'https://www.svgrepo.com/download/483991/career-2.svg',
       },

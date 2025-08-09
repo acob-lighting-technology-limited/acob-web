@@ -51,7 +51,7 @@ export default function LocationsPage() {
                   <p className="flex items-center gap-3">
                     <Phone className="h-5 w-5 text-primary flex-shrink-0" />
                     <span className="text-sm">
-                      0704 920 2634, 0803 290 2825
+                      +234 704 920 2634, +234 803 290 2825
                     </span>
                   </p>
                   <p className="flex items-center gap-3">
@@ -102,7 +102,7 @@ export default function LocationsPage() {
                   <p className="flex items-center gap-3">
                     <Phone className="h-5 w-5 text-primary flex-shrink-0" />
                     <span className="text-sm">
-                      0704 920 2634, 0803 290 2825
+                      +234 704 920 2634, +234 803 290 2825
                     </span>
                   </p>
                   <p className="flex items-center gap-3">

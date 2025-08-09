@@ -37,7 +37,7 @@ export function PageHero({
         <div className="text-left text-white">
           <MaskText
             phrases={[title]} // or split into lines if desired
-            className="text-4xl md:text-7xl font-bold"
+            className="text-4xl md:text-7xl font-bold "
           />
           {children}
         </div>

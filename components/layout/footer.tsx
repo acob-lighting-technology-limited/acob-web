@@ -85,10 +85,10 @@ export function Footer() {
                       {contactInfo.email}
                     </Link>
                     <Link
-                      href="mailto:infoacob@gmail.com"
+                      href={`mailto:${contactInfo.additionalEmail}`}
                       className="text-primary hover:text-primary/80 transition-colors block"
                     >
-                      infoacob@gmail.com
+                      {contactInfo.additionalEmail}
                     </Link>
                   </div>
                 </div>

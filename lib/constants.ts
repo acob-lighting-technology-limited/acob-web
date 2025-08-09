@@ -8,6 +8,7 @@ export const COMPANY_INFO = {
   contact: {
     phones: ['0704 700 2424', '0903 700 7895'],
     email: 'info@acoblighting.com',
+    additionalEmail: 'infoacob@gmail.com',
     address: 'Abuja, Nigeria',
   },
 

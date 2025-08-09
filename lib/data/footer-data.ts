@@ -51,8 +51,9 @@ export const socialLinks = [
 ];
 
 export const contactInfo = {
-  phones: ['0704 920 2634', '0803 290 2825'],
+  phones: ['+234 704 920 2634', '+234 803 290 2825'],
   email: 'info@acoblighting.com',
+  additionalEmail: 'infoacob@gmail.com',
   offices: {
     headOffice: {
       title: 'HEAD OFFICE:',

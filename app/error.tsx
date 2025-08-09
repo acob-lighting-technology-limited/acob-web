@@ -71,8 +71,9 @@ export default function Error({ error, reset }: ErrorProps) {
                       Contact Information
                     </h3>
                     <ul className="space-y-1 text-sm">
-                      <li>📞 0704 920 2634</li>
+                      <li>📞 +234 704 920 2634</li>
                       <li>📧 info@acoblighting.com</li>
+                      <li>📧 infoacob@gmail.com</li>
                       <li>
                         📍 Plot 2. Block 14 Extension, Federal Ministry of Works
                         And Housing Sites and Service Scheme, Setraco Gate

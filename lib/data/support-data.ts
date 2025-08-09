@@ -6,7 +6,7 @@ export const supportMethods = [
     title: 'Call Us',
     description:
       'For immediate assistance, please call our support lines during business hours.',
-    contacts: ['0704 920 2634', '0803 290 2825'],
+    contacts: ['+234 704 920 2634', '+234 803 290 2825'],
   },
   {
     icon: Mail,
