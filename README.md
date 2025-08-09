@@ -138,7 +138,7 @@ style: format code with prettier
 ## Company Info
 
 - [ACOB Lighting](https://acoblighting.com) (replace with actual URL)
-- Contact: info@acoblighting.com (replace with actual email)
+- Contact: info@acoblighting.com, infoacob@gmail.com
 
 ## Learn More
 

@@ -19,7 +19,7 @@ export default function GetQuotePage() {
       >
         <MaskText
           phrases={[
-            "Tell us about your energy needs, and we'll provide a tailored solution.",
+            'Tell us about your energy needs, and we will provide a tailored solution.',
             'Our experts are ready to assist you.',
           ]}
           className="text-lg md:text-xl opacity-90 max-w-3xl leading-relaxed"

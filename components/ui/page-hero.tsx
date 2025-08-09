@@ -22,7 +22,7 @@ export function PageHero({
     >
       {/* Background Image with Animation */}
       <div
-        className="absolute inset-0 bg-cover bg-center bg-no-repeat animate-slow-zoom"
+        className="absolute inset-0 bg-cover bg-top bg-no-repeat animate-slow-zoom"
         style={{ backgroundImage: `url('${backgroundImage}')` }}
       />
 
@@ -30,11 +30,14 @@ export function PageHero({
       <div className="absolute inset-0 bg-black/60" />
 
       {/* Content */}
-      <Container className="relative z-10 w-full  h-full flex items-end pb-12 px-4">
+      <Container
+        noPadding
+        className="relative z-10 w-full  h-full flex items-end pb-10 px-4"
+      >
         <div className="text-left text-white">
           <MaskText
             phrases={[title]} // or split into lines if desired
-            className="text-4xl md:text-7xl font-bold mb-4"
+            className="text-4xl md:text-7xl font-bold "
           />
           {children}
         </div>

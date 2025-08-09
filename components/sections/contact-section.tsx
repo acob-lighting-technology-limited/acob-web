@@ -124,7 +124,7 @@ export function ContactSection() {
       toast.dismiss(loadingToast);
       toast.success('Request submitted successfully! 🎉', {
         description:
-          "Thank you for your interest. We'll get back to you within 24 hours with your energy audit details.",
+          'Thank you for your interest. We will get back to you within 24 hours with your energy audit details.',
         duration: 6000,
       });
 

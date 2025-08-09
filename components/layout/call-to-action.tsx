@@ -36,8 +36,8 @@ const CallToAction = () => {
       <div className="flex items-center justify-center space-x-2 text-lg font-semibold">
         <Phone className="w-6 h-6" />
         <div>
-          <div>0704 920 2634,</div>
-          <div>0803 290 2825</div>
+          <div>+234 704 920 2634,</div>
+          <div>+234 803 290 2825</div>
         </div>
       </div>
     </div>

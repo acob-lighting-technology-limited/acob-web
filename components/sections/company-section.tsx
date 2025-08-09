@@ -129,7 +129,7 @@ export function CompanySection() {
                     ref={iframeRef}
                     width="100%"
                     height="100%"
-                    src="https://www.youtube.com/embed/izxpZMcdWsg?enablejsapi=1&controls=0&modestbranding=1&rel=0&showinfo=0&mute=1&loop=1&playlist=izxpZMcdWsg"
+                    src="https://www.youtube.com/embed/INhxpxlCyL0?enablejsapi=1&controls=0&modestbranding=1&rel=0&showinfo=0&mute=1&loop=1&playlist=INhxpxlCyL0"
                     title="ACOB Lighting Video"
                     frameBorder="0"
                     allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"

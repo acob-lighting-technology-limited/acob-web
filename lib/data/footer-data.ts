@@ -51,13 +51,14 @@ export const socialLinks = [
 ];
 
 export const contactInfo = {
-  phones: ['0704 920 2634', '0803 290 2825'],
+  phones: ['+234 704 920 2634', '+234 803 290 2825'],
   email: 'info@acoblighting.com',
+  additionalEmail: 'infoacob@gmail.com',
   offices: {
     headOffice: {
       title: 'HEAD OFFICE:',
       address:
-        'Plot 2. Block 14 Extension, Federal Ministry of Works And Housing Sites and Service Scheme, Setraco Gate Gwarinpa.',
+        'Plot 2. Block 14 Extension, Federal Ministry of Works And Housing Sites and Services Scheme, Setraco Gate, Gwarinpa.',
     },
     branchOffice: {
       title: 'BRANCH OFFICE:',

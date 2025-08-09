@@ -50,22 +50,20 @@ export function CookieConsent() {
     <>
       {/* Main Consent Banner */}
       {!showSettings && (
-        <div className="fixed bottom-0 left-0 right-0 z-50 p-4  w-fit ">
-          <Card className="max-w-4xl mx-auto !py-0 !rounded-lg">
-            <CardContent className="p-6 border-t border-border shadow-lg bg-background rounded-lg">
-              <div className="flex items-start gap-4">
+        <div className="fixed bottom-4 right-2 z-50">
+          <Card className="max-w-md !py-0 !rounded-lg">
+            <CardContent className="p-4 border-t border-border shadow-lg bg-background rounded-lg">
+              <div className="flex items-start gap-3">
                 <div className="flex-shrink-0">
-                  <Cookie className="h-8 w-8 text-primary" />
+                  <Cookie className="h-6 w-6 text-primary" />
                 </div>
                 <div className="flex-1">
-                  <h3 className="text-lg font-semibold mb-2">
+                  <h3 className="text-base font-semibold mb-1">
                     We value your privacy
                   </h3>
-                  <p className="text-muted-foreground mb-4">
-                    ACOB Lighting Technology Limited uses cookies to enhance
-                    your browsing experience, analyze site traffic, and
-                    personalize content. By continuing to use our site, you
-                    consent to our use of cookies in accordance with our{' '}
+                  <p className="text-sm text-muted-foreground mb-3">
+                    We use cookies to enhance your experience. By continuing,
+                    you agree to our{' '}
                     <a
                       href="/privacy-policy"
                       className="text-primary hover:underline"
@@ -76,25 +74,28 @@ export function CookieConsent() {
                     </a>
                     .
                   </p>
-                  <div className="flex flex-wrap gap-3">
+                  <div className="flex flex-wrap gap-2">
                     <Button
+                      size="sm"
                       onClick={acceptAll}
-                      className="bg-primary text-primary-foreground"
+                      className="bg-primary text-primary-foreground text-xs px-3 py-1 h-8"
                     >
-                      Accept All Cookies
+                      Accept All
                     </Button>
                     <Button
+                      size="sm"
                       variant="outline"
                       onClick={() => setShowSettings(true)}
-                      className="flex items-center gap-2"
+                      className="flex items-center gap-1 text-xs px-3 py-1 h-8"
                     >
-                      <Settings className="h-4 w-4" />
-                      Customize Settings
+                      <Settings className="h-3 w-3" />
+                      Settings
                     </Button>
                     <Button
+                      size="sm"
                       variant="ghost"
                       onClick={acceptEssential}
-                      className="text-muted-foreground"
+                      className="text-muted-foreground text-xs px-3 py-1 h-8"
                     >
                       Essential Only
                     </Button>
@@ -104,9 +105,9 @@ export function CookieConsent() {
                   variant="ghost"
                   size="sm"
                   onClick={acceptEssential}
-                  className="flex-shrink-0"
+                  className="flex-shrink-0 h-6 w-6 p-0"
                 >
-                  <X className="h-4 w-4" />
+                  <X className="h-3 w-3" />
                 </Button>
               </div>
             </CardContent>

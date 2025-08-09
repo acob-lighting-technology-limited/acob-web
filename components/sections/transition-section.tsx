@@ -85,7 +85,7 @@ export function TransitionSection() {
             <MaskText
               phrases={[
                 'Feeling The Transition To Renewable Power,',
-                'To deploy 100 micro-grids impacting the lives of over ten Nigerians by 2030.',
+                'To deploy 100 micro-grids impacting the lives of over ten thousand Nigerians by 2030.',
               ]}
               className="text-3xl md:text-4xl font-bold mb-6 text-primary-foreground transition-colors duration-700"
             />

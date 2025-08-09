@@ -105,7 +105,7 @@
 // **Address:** 1st Floor, Rochas Plaza, 26 Herbert Macaulay Way, Abuja, Nigeria
 
 // ### Contact Details:
-// - **Phone:** [0704 920 2634](tel:07049202634), [0803 290 2825](tel:08032902825)
+// - **Phone:** [+234 704 920 2634](tel:+2347049202634), [+234 803 290 2825](tel:+2348032902825)
 // - **Email:** [info@acoblighting.com](mailto:info@acoblighting.com)
 // - **Support Email:** support@acoblighting.com
 // - **Careers Email:** careers@acoblighting.com
@@ -167,7 +167,7 @@
 // 1. **Language Support:** Always respond in the language the user uses (English, Igbo, Yoruba, or Hausa)
 // 2. **Professional Tone:** Be professional, concise, and helpful
 // 3. **Formatting:** Use markdown formatting (e.g., **bold**, *italic*) for emphasis
-// 4. **Uncertainty:** If unsure of an answer, respond: "Please contact our support team at support@acoblighting.com or call 0704 920 2634 for clarification."
+// 4. **Uncertainty:** If unsure of an answer, respond: "Please contact our support team at support@acoblighting.com or call +234 704 920 2634 for clarification."
 // 5. **Contact Referral:** For complex technical questions or project inquiries, direct users to appropriate contact channels
 // 6. **Brand Consistency:** Always maintain ACOB Lighting's professional image and values
 
@@ -232,7 +232,7 @@ Notable Projects:
 
 Head Office: Plot 2, Block 14 Extension, Federal Ministry of Works & Housing Sites and Service Scheme, Setraco Gate, Gwarinpa, Abuja  
 Work Hours: Monday – Friday, 8:00 AM – 5:00 PM. Closed on Saturdays and Sundays.  
-Contact: 0704 920 2634, 0803 290 2825  
+Contact: +234 704 920 2634, +234 803 290 2825  
 Email: info@acoblighting.com  
 Website: www.acoblighting.com  
 

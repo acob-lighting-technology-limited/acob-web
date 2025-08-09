@@ -157,7 +157,7 @@ export default function CareersPage() {
                 </div>
                 <div className="flex justify-between">
                   <span className="text-muted-foreground">Phone:</span>
-                  <span className="font-medium">0704 920 2634</span>
+                  <span className="font-medium">+234 704 920 2634</span>
                 </div>
                 <div className="flex justify-between">
                   <span className="text-muted-foreground">Location:</span>

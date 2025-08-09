@@ -23,7 +23,7 @@ export default function ContactPage() {
       >
         <MaskText
           phrases={[
-            "We're here to help you with all your clean energy needs.",
+            'We are here to help you with all your clean energy needs.',
             'Reach out to us through our various channels.',
           ]}
           className="text-lg md:text-xl opacity-90 max-w-3xl leading-relaxed"
@@ -48,7 +48,7 @@ export default function ContactPage() {
             return (
               <Link key={section.href} href={section.href}>
                 <Card className="overflow-hidden bg-surface border-0 custom-shadow  p-0 hover:shadow-lg  h-full flex flex-col">
-                  <div className="aspect-[4/3] overflow-hidden flex items-center justify-center bg-primary/5">
+                  <div className="aspect-[4/3] overflow-hidden flex items-center justify-center bg-primary/5 relative">
                     <Image
                       src={section.image || '/placeholder.svg'}
                       alt={section.title}

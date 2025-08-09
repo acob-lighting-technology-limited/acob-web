@@ -22,7 +22,7 @@ export default function LocationsPage() {
         <MaskText
           phrases={[
             'Visit us at our offices or reach out through our contact details.',
-            "We're always happy to welcome you.",
+            'We are always happy to welcome you.',
           ]}
           className="text-lg md:text-xl opacity-90 max-w-3xl leading-relaxed"
         />
@@ -51,17 +51,25 @@ export default function LocationsPage() {
                   <p className="flex items-center gap-3">
                     <Phone className="h-5 w-5 text-primary flex-shrink-0" />
                     <span className="text-sm">
-                      0704 920 2634, 0803 290 2825
+                      +234 704 920 2634, +234 803 290 2825
                     </span>
                   </p>
                   <p className="flex items-center gap-3">
                     <Mail className="h-5 w-5 text-primary flex-shrink-0" />
-                    <Link
-                      href="mailto:info@acoblighting.com"
-                      className="hover:underline text-primary text-sm"
-                    >
-                      info@acoblighting.com
-                    </Link>
+                    <div className="flex flex-col gap-1">
+                      <Link
+                        href="mailto:info@acoblighting.com"
+                        className="hover:underline text-primary text-sm"
+                      >
+                        info@acoblighting.com
+                      </Link>
+                      <Link
+                        href="mailto:infoacob@gmail.com"
+                        className="hover:underline text-primary text-sm"
+                      >
+                        infoacob@gmail.com
+                      </Link>
+                    </div>
                   </p>
                 </div>
                 <div className="mt-4">
@@ -94,17 +102,25 @@ export default function LocationsPage() {
                   <p className="flex items-center gap-3">
                     <Phone className="h-5 w-5 text-primary flex-shrink-0" />
                     <span className="text-sm">
-                      0704 920 2634, 0803 290 2825
+                      +234 704 920 2634, +234 803 290 2825
                     </span>
                   </p>
                   <p className="flex items-center gap-3">
                     <Mail className="h-5 w-5 text-primary flex-shrink-0" />
-                    <Link
-                      href="mailto:info@acoblighting.com"
-                      className="hover:underline text-primary text-sm"
-                    >
-                      info@acoblighting.com
-                    </Link>
+                    <div className="flex flex-col gap-1">
+                      <Link
+                        href="mailto:info@acoblighting.com"
+                        className="hover:underline text-primary text-sm"
+                      >
+                        info@acoblighting.com
+                      </Link>
+                      <Link
+                        href="mailto:infoacob@gmail.com"
+                        className="hover:underline text-primary text-sm"
+                      >
+                        infoacob@gmail.com
+                      </Link>
+                    </div>
                   </p>
                 </div>
                 <div className="mt-4">

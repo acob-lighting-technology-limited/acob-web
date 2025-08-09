@@ -23,7 +23,7 @@ export const contactSections = [
   {
     title: 'Careers',
     description:
-      'Explore career opportunities and join our growing team of energy innovators.',
+      'Explore career opportunities and join our team of energy innovators.',
     href: '/contact/careers',
     image: '/images/contact/careers.webp?height=200&width=300',
   },

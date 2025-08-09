@@ -196,10 +196,10 @@ export function Footer() {
                   {/* Phone Numbers */}
                   <div className="space-y-2">
                     <p className="text-2xl font-bold text-white">
-                      0704 920 2634,
+                      +234 704 920 2634,
                     </p>
                     <p className="text-2xl font-bold text-white">
-                      0803 290 2825
+                      +234 803 290 2825
                     </p>
                   </div>
 
