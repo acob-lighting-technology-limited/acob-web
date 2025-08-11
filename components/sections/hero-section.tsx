@@ -215,7 +215,7 @@ const HeroSection = React.memo(function HeroSection() {
                   <Link href={`/projects/${currentSlideData.slug}`}>
                     <Button
                       size="lg"
-                      className={`bg-primary hover:bg-primary/90 text-lg py-6 text-primary-foreground transition-opacity ease-out duration-1000 ${
+                      className={`bg-primary border border-primary hover:border-primary/90   hover:bg-primary/90 text-lg py-6 text-primary-foreground transition-opacity ease-out duration-1000 ${
                         showContent
                           ? 'translate-x-0 opacity-100'
                           : '-translate-x-full opacity-0'
@@ -237,7 +237,7 @@ const HeroSection = React.memo(function HeroSection() {
                 ) : (
                   <Button
                     size="lg"
-                    className={`bg-primary hover:bg-primary/90 text-lg py-6 text-primary-foreground transition-opacity ease-out duration-1000 ${
+                    className={`bg-primary border-primary border hover:border-primary/90 hover:bg-primary/90 text-lg py-6 text-primary-foreground transition-opacity ease-out duration-1000 ${
                       showContent
                         ? 'translate-x-0 opacity-100'
                         : '-translate-x-full opacity-0'
@@ -258,12 +258,11 @@ const HeroSection = React.memo(function HeroSection() {
                 )}
               </div>
 
-              {/* Our Services - slides in from right */}
-              <Link href="/services">
+              {/* Our Projects - slides in from right */}
+              <Link href="/projects">
                 <Button
                   size="lg"
-                  variant="secondary"
-                  className={`border-primary-foreground text-primary-foreground dark:border-foreground dark:bg-foreground/10 hover:bg-primary-foreground hover:text-primary text-lg py-6 bg-transparent transition-opacity ease-out duration-1000 ${
+                  className={`text-lg py-6 bg-muted/90 backdrop-blur-sm border border-border/20 text-foreground hover:bg-accent hover:text-accent-foreground shadow-lg transition-opacity ease-out duration-1000 ${
                     showContent
                       ? 'translate-x-0 opacity-100'
                       : 'translate-x-full opacity-0'
@@ -278,7 +277,7 @@ const HeroSection = React.memo(function HeroSection() {
                       : 'transform 1000ms ease-out, opacity 1000ms ease-out',
                   }}
                 >
-                  Our Services
+                  Our Projects
                 </Button>
               </Link>
             </div>
