@@ -50,7 +50,9 @@ const HeroSection = React.memo(function HeroSection() {
       id: `project-${project._id}`,
       title: project.title,
       image:
-        project.images && project.images.length > 0
+        project.images &&
+        project.images.length > 0 &&
+        project.images[0]?.asset?.url
           ? project.images[0].asset.url
           : '/images/olooji-community.jpg?height=800&width=1400', // fallback
       location: project.location,

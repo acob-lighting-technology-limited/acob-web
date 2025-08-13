@@ -114,8 +114,6 @@ export async function getProjects() {
         slug,
         description,
         location,
-        gradientFrom,
-        gradientTo,
         images[]{
           asset->{url}
         }
@@ -138,8 +136,6 @@ export async function getProject(slug: string) {
         slug,
         description,
         location,
-        gradientFrom,
-        gradientTo,
         images[]{
           asset->{url}
         }

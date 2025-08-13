@@ -49,25 +49,13 @@ export const projectType = defineType({
           ],
         },
       ],
-      validation: Rule => Rule.min(1).required(),
+      validation: Rule => Rule.min(1).max(6).required(),
     }),
     defineField({
       name: 'location',
       title: 'Location',
       type: 'string',
       validation: Rule => Rule.required(),
-    }),
-    defineField({
-      name: 'gradientFrom',
-      title: 'Gradient Start Color (Hex)',
-      type: 'string',
-      description: 'e.g., #08913F',
-    }),
-    defineField({
-      name: 'gradientTo',
-      title: 'Gradient End Color (Hex)',
-      type: 'string',
-      description: 'e.g., #003808',
     }),
   ],
   preview: {

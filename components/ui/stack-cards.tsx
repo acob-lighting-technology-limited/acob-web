@@ -73,7 +73,9 @@ const Card: React.FC<CardProps> = ({
               </h2>
 
               <p className="text-base lg:text-xl leading-relaxed line-clamp-3 md:line-clamp-none">
-                {description}
+                {description.split(' ').length > 40
+                  ? `${description.split(' ').slice(0, 40).join(' ')}...`
+                  : description}
               </p>
 
               <p className="flex gap-2 text-lg items-center">
@@ -95,37 +97,85 @@ const Card: React.FC<CardProps> = ({
           </div>
 
           {/* Image Section */}
-          <div className="w-full sm:w-1/2 h-full flex-1 grid grid-rows-2 grid-cols-2 gap-4 rounded-[20px] overflow-hidden">
-            {images[0] && (
-              <div className="row-span-1 col-span-2 relative rounded-[16px] overflow-hidden">
-                <Image
-                  src={images[0].asset.url || '/placeholder.svg'} // Use Sanity image URL
-                  alt={title}
-                  fill
-                  className="object-cover"
-                />
-              </div>
-            )}
-            {images[1] && (
-              <div className="relative rounded-[16px] overflow-hidden">
-                <Image
-                  src={images[1].asset.url || '/placeholder.svg'} // Use Sanity image URL
-                  alt={title}
-                  fill
-                  className="object-cover"
-                />
-              </div>
-            )}
-            {images[2] && (
-              <div className="relative rounded-[16px] overflow-hidden">
-                <Image
-                  src={images[2].asset.url || '/placeholder.svg'} // Use Sanity image URL
-                  alt={title}
-                  fill
-                  className="object-cover"
-                />
-              </div>
-            )}
+          <div className="w-full sm:w-1/2 h-full flex-1 rounded-[20px] overflow-hidden">
+            {(() => {
+              const validImages = images.filter(img => img?.asset?.url);
+
+              if (validImages.length === 1) {
+                // Single image - full height
+                return (
+                  <div className="relative rounded-[16px] overflow-hidden h-full">
+                    <Image
+                      src={validImages[0].asset.url}
+                      alt={title}
+                      fill
+                      className="object-cover"
+                    />
+                  </div>
+                );
+              } else if (validImages.length === 2) {
+                // Two images - side by side
+                return (
+                  <div className="grid grid-cols-2 gap-4 h-full">
+                    <div className="relative rounded-[16px] overflow-hidden">
+                      <Image
+                        src={validImages[0].asset.url}
+                        alt={title}
+                        fill
+                        className="object-cover"
+                      />
+                    </div>
+                    <div className="relative rounded-[16px] overflow-hidden">
+                      <Image
+                        src={validImages[1].asset.url}
+                        alt={title}
+                        fill
+                        className="object-cover"
+                      />
+                    </div>
+                  </div>
+                );
+              } else if (validImages.length >= 3) {
+                // Three or more images - grid layout
+                return (
+                  <div className="grid grid-rows-2 grid-cols-2 gap-4 h-full">
+                    <div className="row-span-1 col-span-2 relative rounded-[16px] overflow-hidden">
+                      <Image
+                        src={validImages[0].asset.url}
+                        alt={title}
+                        fill
+                        className="object-cover"
+                      />
+                    </div>
+                    <div className="relative rounded-[16px] overflow-hidden">
+                      <Image
+                        src={validImages[1].asset.url}
+                        alt={title}
+                        fill
+                        className="object-cover"
+                      />
+                    </div>
+                    <div className="relative rounded-[16px] overflow-hidden">
+                      <Image
+                        src={validImages[2].asset.url}
+                        alt={title}
+                        fill
+                        className="object-cover"
+                      />
+                    </div>
+                  </div>
+                );
+              } else {
+                // No images - placeholder
+                return (
+                  <div className="h-full bg-muted/20 rounded-[16px] flex items-center justify-center">
+                    <span className="text-muted-foreground">
+                      No images available
+                    </span>
+                  </div>
+                );
+              }
+            })()}
           </div>
         </div>
       </motion.div>

@@ -35,8 +35,6 @@ export interface Project {
   };
   description: string;
   location: string;
-  gradientFrom: string;
-  gradientTo: string;
   images: SanityImageUrl[];
   _createdAt: string;
   _updatedAt: string;

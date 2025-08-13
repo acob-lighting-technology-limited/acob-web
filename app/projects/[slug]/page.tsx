@@ -47,7 +47,7 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
     <>
       <PageHero
         title={project.title}
-        backgroundImage={project.images[0]?.asset.url || '/placeholder.svg'}
+        backgroundImage={project.images[0]?.asset?.url || '/placeholder.svg'}
       />
 
       <Container className="px-4 py-8 relative">
@@ -89,7 +89,7 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
                           className="aspect-[4/3] overflow-hidden rounded-lg"
                         >
                           <Image
-                            src={img.asset.url || '/placeholder.svg'}
+                            src={img.asset?.url || '/placeholder.svg'}
                             alt={`${project.title} image ${index + 1}`}
                             width={800}
                             height={600}
