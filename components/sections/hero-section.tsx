@@ -43,7 +43,7 @@ const HeroSection = React.memo(function HeroSection() {
     fetchProjects();
   }, []);
 
-  // Convert projects to slides format
+  // Convert projects to slides format with optimized images
   const allSlides = useMemo(() => {
     return projects.map(project => ({
       id: `project-${project._id}`,
@@ -52,7 +52,7 @@ const HeroSection = React.memo(function HeroSection() {
         project.images &&
         project.images.length > 0 &&
         project.images[0]?.asset?.url
-          ? project.images[0].asset.url
+          ? `${project.images[0].asset.url}?w=1920&h=1080&fit=crop&auto=format&q=75`
           : '/images/olooji-community.jpg?height=800&width=1400', // fallback
       location: project.location,
       slug: project.slug.current,
@@ -117,6 +117,24 @@ const HeroSection = React.memo(function HeroSection() {
     [currentSlide, allSlides]
   );
 
+  // Preload critical images for better LCP
+  useEffect(() => {
+    if (allSlides.length > 0) {
+      // Preload first image with high priority
+      const preloadImage = new Image();
+      preloadImage.src = allSlides[0].image;
+      preloadImage.onload = () => {
+        console.log('Hero image preloaded successfully');
+      };
+
+      // Preload second image for smooth transitions
+      if (allSlides.length > 1) {
+        const preloadImage2 = new Image();
+        preloadImage2.src = allSlides[1].image;
+      }
+    }
+  }, [allSlides]);
+
   if (loading) {
     return (
       <section className="flex flex-col items-center justify-center relative h-[80vh] min-h-[500px] sm:min-h-[700px] overflow-hidden w-full bg-black">
@@ -145,6 +163,15 @@ const HeroSection = React.memo(function HeroSection() {
                 transformOrigin: 'center center',
               }}
             />
+            {/* Preload next image for smooth transitions */}
+            {index === (currentSlide + 1) % allSlides.length && (
+              <div
+                className="hidden"
+                style={{
+                  backgroundImage: `url('${slide.image}')`,
+                }}
+              />
+            )}
           </div>
         ))}
       </div>
