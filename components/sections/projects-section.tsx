@@ -27,19 +27,6 @@ export function ProjectsSection() {
         }
         const fetchedProjects = await response.json();
 
-        // Log all projects and their images
-        console.log('Fetched projects:', fetchedProjects);
-        console.log(
-          'Projects with images:',
-          fetchedProjects.map((project: any) => ({
-            title: project.title,
-            images: project.images,
-            imageCount: project.images?.length || 0,
-            hasValidImages:
-              project.images?.some((img: any) => img?.asset?.url) || false,
-          }))
-        );
-
         setProjects(fetchedProjects);
       } catch (err) {
         console.error('Failed to fetch projects:', err);

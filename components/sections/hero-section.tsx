@@ -34,16 +34,6 @@ const HeroSection = React.memo(function HeroSection() {
         }
         const fetchedProjects = await response.json();
         setProjects(fetchedProjects);
-        console.log('Fetched projects for hero:', fetchedProjects);
-        console.log(
-          'Projects with valid images:',
-          fetchedProjects.map((project: any) => ({
-            title: project.title,
-            hasValidImages:
-              project.images?.some((img: any) => img?.asset?.url) || false,
-            imageCount: project.images?.length || 0,
-          }))
-        );
       } catch (error) {
         console.error('Failed to fetch projects:', error);
       } finally {
