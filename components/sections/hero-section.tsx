@@ -260,7 +260,7 @@ const HeroSection = React.memo(function HeroSection() {
               <Link href="/projects">
                 <Button
                   size="lg"
-                  className={`text-lg py-6 bg-muted/90 backdrop-blur-sm border border-border/20 text-foreground hover:bg-accent hover:text-accent-foreground shadow-lg transition-opacity ease-out duration-1000 ${
+                  className={`text-lg py-6  border border-white/50 bg-white text-primary hover:bg-primary  dark:hover:bg- hover:text-white dark:bg-zinc-950 dark:text-white dark:hover:bg-zinc-900 dark:hover:text-zinc-100  shadow-lg transition-opacity ease-out duration-1000 ${
                     showContent
                       ? 'translate-x-0 opacity-100'
                       : 'translate-x-full opacity-0'
