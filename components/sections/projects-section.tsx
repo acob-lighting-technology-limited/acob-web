@@ -26,6 +26,20 @@ export function ProjectsSection() {
           throw new Error('Failed to fetch projects');
         }
         const fetchedProjects = await response.json();
+
+        // Log all projects and their images
+        console.log('Fetched projects:', fetchedProjects);
+        console.log(
+          'Projects with images:',
+          fetchedProjects.map((project: any) => ({
+            title: project.title,
+            images: project.images,
+            imageCount: project.images?.length || 0,
+            hasValidImages:
+              project.images?.some((img: any) => img?.asset?.url) || false,
+          }))
+        );
+
         setProjects(fetchedProjects);
       } catch (err) {
         console.error('Failed to fetch projects:', err);
@@ -101,13 +115,25 @@ export function ProjectsSection() {
 
         const gradientConfig = gradients[i];
 
+        // Add fallback image if no valid images
+        const projectImages =
+          project.images?.length > 0
+            ? project.images
+            : [
+                {
+                  asset: {
+                    url: '/images/olooji-community.jpg?height=800&width=1400',
+                  },
+                },
+              ];
+
         return (
           <Card
             key={`p_${project._id}`}
             i={i}
             title={project.title}
             description={project.description}
-            images={project.images}
+            images={projectImages}
             location={project.location}
             gradientFrom={gradientConfig.from}
             gradientTo={gradientConfig.to}

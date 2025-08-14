@@ -107,7 +107,7 @@ export async function getApprovedCommentsForPost(postId: string) {
 // NEW: Helper function to get projects
 export async function getProjects() {
   try {
-    return await client.fetch(`
+    const projects = await client.fetch(`
       *[_type == "project"] | order(_createdAt desc) {
         _id,
         title,
@@ -119,6 +119,25 @@ export async function getProjects() {
         }
       }
     `);
+
+    // Filter out projects with null assets and log issues
+    const validProjects = projects.map((project: any) => {
+      const validImages =
+        project.images?.filter((img: any) => img?.asset?.url) || [];
+
+      if (project.images?.length > 0 && validImages.length === 0) {
+        console.warn(
+          `Project "${project.title}" has images but all assets are null/undefined`
+        );
+      }
+
+      return {
+        ...project,
+        images: validImages,
+      };
+    });
+
+    return validProjects;
   } catch (error) {
     console.error('Error fetching projects from Sanity:', error);
     return [];
@@ -128,7 +147,7 @@ export async function getProjects() {
 // NEW: Helper function to get single project
 export async function getProject(slug: string) {
   try {
-    return await client.fetch(
+    const project = await client.fetch(
       `
       *[_type == "project" && slug.current == $slug][0] {
         _id,
@@ -143,6 +162,17 @@ export async function getProject(slug: string) {
     `,
       { slug }
     );
+
+    if (!project) return null;
+
+    // Filter out null assets
+    const validImages =
+      project.images?.filter((img: any) => img?.asset?.url) || [];
+
+    return {
+      ...project,
+      images: validImages,
+    };
   } catch (error) {
     console.error('Error fetching project from Sanity:', error);
     return null;
