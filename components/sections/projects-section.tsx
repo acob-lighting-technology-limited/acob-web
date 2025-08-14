@@ -1,6 +1,6 @@
 'use client';
 
-import { useRef, useState, useEffect } from 'react';
+import { useRef, useState, useEffect, useMemo, useCallback } from 'react';
 import { useScroll } from 'framer-motion';
 import Lenis from '@studio-freight/lenis';
 
@@ -18,24 +18,23 @@ export function ProjectsSection() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
-  useEffect(() => {
-    const fetchProjectsData = async () => {
-      try {
-        const response = await fetch('/api/projects');
-        if (!response.ok) {
-          throw new Error('Failed to fetch projects');
-        }
-        const fetchedProjects = await response.json();
-
-        setProjects(fetchedProjects);
-      } catch (err) {
-        console.error('Failed to fetch projects:', err);
-        setError('Failed to load projects.');
-      } finally {
-        setLoading(false);
+  const fetchProjectsData = useCallback(async () => {
+    try {
+      const response = await fetch('/api/projects');
+      if (!response.ok) {
+        throw new Error('Failed to fetch projects');
       }
-    };
+      const fetchedProjects = await response.json();
+      setProjects(fetchedProjects);
+    } catch (err) {
+      console.error('Failed to fetch projects:', err);
+      setError('Failed to load projects.');
+    } finally {
+      setLoading(false);
+    }
+  }, []);
 
+  useEffect(() => {
     fetchProjectsData();
 
     // Initialize Lenis for smooth scrolling
@@ -52,13 +51,48 @@ export function ProjectsSection() {
     return () => {
       lenis.destroy();
     };
-  }, []);
+  }, [fetchProjectsData]);
 
   // Use useScroll to track scroll progress of the window (default behavior when target is not specified)
   // This is appropriate when Lenis is managing the global scroll.
   const { scrollYProgress } = useScroll({
     offset: ['start start', 'end end'],
   });
+
+  // Memoize expensive computations
+  const processedProjects = useMemo(() => {
+    return projects.slice(0, 3).map((project, i) => {
+      const targetScale = 1 - (3 - i) * 0.05;
+
+      // Alternating gradient configuration: gray, green, gray, green, etc.
+      const gradients = [
+        { from: '#616161', to: '#000000' }, // 1st card - Gray
+        { from: '#08913F', to: '#003808' }, // 2nd card - Green
+        { from: '#616161', to: '#000000' }, // 3rd card - Gray
+      ];
+
+      const gradientConfig = gradients[i];
+
+      // Add fallback image if no valid images
+      const projectImages =
+        project.images?.length > 0
+          ? project.images
+          : [
+              {
+                asset: {
+                  url: '/images/olooji-community.jpg?height=800&width=1400',
+                },
+              },
+            ];
+
+      return {
+        ...project,
+        targetScale,
+        gradientConfig,
+        projectImages,
+      };
+    });
+  }, [projects]);
 
   if (loading) {
     return (
@@ -90,47 +124,22 @@ export function ProjectsSection() {
           className="text-3xl md:text-4xl font-bold text-foreground transition-colors duration-700"
         />
       </div>
-      {projects.slice(0, 3).map((project, i) => {
-        const targetScale = 1 - (3 - i) * 0.05;
-
-        // Alternating gradient configuration: gray, green, gray, green, etc.
-        const gradients = [
-          { from: '#616161', to: '#000000' }, // 1st card - Gray
-          { from: '#08913F', to: '#003808' }, // 2nd card - Green
-          { from: '#616161', to: '#000000' }, // 3rd card - Gray
-        ];
-
-        const gradientConfig = gradients[i];
-
-        // Add fallback image if no valid images
-        const projectImages =
-          project.images?.length > 0
-            ? project.images
-            : [
-                {
-                  asset: {
-                    url: '/images/olooji-community.jpg?height=800&width=1400',
-                  },
-                },
-              ];
-
-        return (
-          <Card
-            key={`p_${project._id}`}
-            i={i}
-            title={project.title}
-            description={project.description}
-            images={projectImages}
-            location={project.location}
-            gradientFrom={gradientConfig.from}
-            gradientTo={gradientConfig.to}
-            url={`/projects/${project.slug.current}`}
-            progress={scrollYProgress}
-            range={[i * 0.25, 1]}
-            targetScale={targetScale}
-          />
-        );
-      })}
+      {processedProjects.map((project, i) => (
+        <Card
+          key={`p_${project._id}`}
+          i={i}
+          title={project.title}
+          description={project.description}
+          images={project.projectImages}
+          location={project.location}
+          gradientFrom={project.gradientConfig.from}
+          gradientTo={project.gradientConfig.to}
+          url={`/projects/${project.slug.current}`}
+          progress={scrollYProgress}
+          range={[i * 0.25, 1]}
+          targetScale={project.targetScale}
+        />
+      ))}
       <div className="text-center mt-8">
         <Link href="/projects">
           <Button className="bg-primary hover:bg-primary/90">

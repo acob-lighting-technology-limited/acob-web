@@ -59,20 +59,23 @@ const HeroSection = React.memo(function HeroSection() {
     }));
   }, [projects]);
 
-  const changeSlide = (newIndex: number) => {
-    if (isTransitioning || newIndex === currentSlide) return;
+  const changeSlide = useCallback(
+    (newIndex: number) => {
+      if (isTransitioning || newIndex === currentSlide) return;
 
-    setIsTransitioning(true);
-    setShowContent(false);
+      setIsTransitioning(true);
+      setShowContent(false);
 
-    setTimeout(() => {
-      setCurrentSlide(newIndex);
       setTimeout(() => {
-        setShowContent(true);
-        setIsTransitioning(false);
-      }, 200);
-    }, 800);
-  };
+        setCurrentSlide(newIndex);
+        setTimeout(() => {
+          setShowContent(true);
+          setIsTransitioning(false);
+        }, 200);
+      }, 800);
+    },
+    [isTransitioning, currentSlide]
+  );
 
   const nextSlide = useCallback(() => {
     changeSlide((currentSlide + 1) % allSlides.length);
