@@ -44,7 +44,13 @@ const components = {
       value: { asset: { _ref: string }; alt?: string };
     }) => {
       if (!value.asset) return null;
-      const imageUrl = urlFor(value).url();
+      const imageUrl = urlFor(value)
+        .width(800)
+        .height(600)
+        .fit('crop')
+        .auto('format')
+        .quality(75)
+        .url();
       return (
         <div className="w-full md:w-1/2 px-2 my-4">
           {' '}
