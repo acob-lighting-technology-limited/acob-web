@@ -5,13 +5,13 @@ export async function POST(request: NextRequest) {
   try {
     const formData = await request.json();
 
-    // Validate required fields
+    // Validate quote form fields
     const requiredFields = [
-      'firstName',
-      'lastName',
-      'email',
-      'phone',
-      'message',
+      'installer',
+      'completionTime',
+      'systemType',
+      'panelPlace',
+      'roofMaterial',
     ];
     const missingFields = requiredFields.filter(
       field => !formData[field]?.trim()
@@ -44,7 +44,7 @@ export async function POST(request: NextRequest) {
       body: JSON.stringify({
         from: 'onboarding@resend.dev',
         to: ['chibuikemichaelilonze@gmail.com'], // Replace with your business email
-        subject: `New Energy Audit Request from ${formData.firstName} ${formData.lastName}`,
+        subject: `New Solar Quote Request - ${formData.systemType} System`,
         html: `
         <!DOCTYPE html>
         <html lang="en">
@@ -100,54 +100,72 @@ export async function POST(request: NextRequest) {
             <!-- Content Section -->
             <div class="content-section" style="padding: 40px 30px;">
               
-              <!-- Client Information Card -->
+              <!-- Quote Information Card -->
               <div style="background: linear-gradient(135deg, #f0fdf4 0%, #ecfdf5 100%); border-radius: 12px; padding: 25px; margin-bottom: 30px; border-left: 4px solid #15803d; box-shadow: 0 2px 8px rgba(21, 128, 61, 0.1);">
-                <h2 style="color: #166534; margin: 0 0 20px; font-size: 20px; font-weight: 700; display: flex; align-items: center;">
-                  <span style="margin-right: 12px; font-size: 24px;">👤</span>Client Information
-                </h2>
-                
-                <div style="display: grid; gap: 15px;">
-                  <div style="display: flex; align-items: center; flex-wrap: wrap;">
-                    <span style="font-weight: 600; color: #374151; min-width: 80px; margin-right: 15px;">Name:</span>
-                    <span style="color: #1f2937; font-size: 16px; font-weight: 500;">${formData.firstName} ${formData.lastName}</span>
-                  </div>
-                  
-                  <div style="display: flex; align-items: center; flex-wrap: wrap;">
-                    <span style="font-weight: 600; color: #374151; min-width: 80px; margin-right: 15px;">Email:</span>
-                    <a href="mailto:${formData.email}" style="color: #15803d; text-decoration: none; font-size: 16px; font-weight: 500; border-bottom: 1px solid #15803d; transition: all 0.2s;">${formData.email}</a>
-                  </div>
-                  
-                  <div style="display: flex; align-items: center; flex-wrap: wrap;">
-                    <span style="font-weight: 600; color: #374151; min-width: 80px; margin-right: 15px;">Phone:</span>
-                    <a href="tel:${formData.phone}" style="color: #1f2937; text-decoration: none; font-size: 16px; font-weight: 500;">${formData.phone}</a>
-                  </div>
-                  
-                  <div style="display: flex; align-items: center; flex-wrap: wrap;">
-                    <span style="font-weight: 600; color: #374151; min-width: 80px; margin-right: 15px;">Company:</span>
-                    <span style="color: #1f2937; font-size: 16px; font-weight: 500;">${formData.company || '<em style="color: #6b7280; font-style: italic;">Not provided</em>'}</span>
-                  </div>
-                </div>
-              </div>
-
-              <!-- Quote Details Card -->
-              <div style="background-color: #ffffff; border-radius: 12px; padding: 25px; border: 1px solid #e5e7eb; box-shadow: 0 1px 3px rgba(0,0,0,0.1); margin-bottom: 30px;">
                 <h2 style="color: #166534; margin: 0 0 20px; font-size: 20px; font-weight: 700; display: flex; align-items: center;">
                   <span style="margin-right: 12px; font-size: 24px;">⚡</span>Quote Request Details
                 </h2>
                 
-                <div style="background: linear-gradient(135deg, #f9fafb 0%, #f3f4f6 100%); border-radius: 8px; padding: 20px; border-left: 4px solid #22c55e; line-height: 1.6;">
-                  <div style="color: #374151; font-size: 15px; white-space: pre-line;">${formData.message ? formData.message.replace(/\n/g, '<br>') : 'No additional message provided'}</div>
+                <div style="display: grid; gap: 15px;">
+                  <div style="display: flex; align-items: center; flex-wrap: wrap;">
+                    <span style="font-weight: 600; color: #374151; min-width: 120px; margin-right: 15px;">Installer:</span>
+                    <span style="color: #1f2937; font-size: 16px; font-weight: 500;">${formData.installer}</span>
+                  </div>
+                  
+                  <div style="display: flex; align-items: center; flex-wrap: wrap;">
+                    <span style="font-weight: 600; color: #374151; min-width: 120px; margin-right: 15px;">Completion Time:</span>
+                    <span style="color: #1f2937; font-size: 16px; font-weight: 500;">${formData.completionTime}</span>
+                  </div>
+                  
+                  <div style="display: flex; align-items: center; flex-wrap: wrap;">
+                    <span style="font-weight: 600; color: #374151; min-width: 120px; margin-right: 15px;">Monthly Usage:</span>
+                    <span style="color: #1f2937; font-size: 16px; font-weight: 500;">${formData.monthlyUsage || '<em style="color: #6b7280; font-style: italic;">Not specified</em>'}</span>
+                  </div>
+                  
+                  <div style="display: flex; align-items: center; flex-wrap: wrap;">
+                    <span style="font-weight: 600; color: #374151; min-width: 120px; margin-right: 15px;">System Type:</span>
+                    <span style="color: #1f2937; font-size: 16px; font-weight: 500;">${formData.systemType}</span>
+                  </div>
+                  
+                  <div style="display: flex; align-items: center; flex-wrap: wrap;">
+                    <span style="font-weight: 600; color: #374151; min-width: 120px; margin-right: 15px;">Panel Place:</span>
+                    <span style="color: #1f2937; font-size: 16px; font-weight: 500;">${formData.panelPlace}</span>
+                  </div>
+                  
+                  <div style="display: flex; align-items: center; flex-wrap: wrap;">
+                    <span style="font-weight: 600; color: #374151; min-width: 120px; margin-right: 15px;">Roof Material:</span>
+                    <span style="color: #1f2937; font-size: 16px; font-weight: 500;">${formData.roofMaterial}</span>
+                  </div>
+                  
+                  <div style="display: flex; align-items: center; flex-wrap: wrap;">
+                    <span style="font-weight: 600; color: #374151; min-width: 120px; margin-right: 15px;">Contact Method:</span>
+                    <span style="color: #1f2937; font-size: 16px; font-weight: 500;">${formData.contactMethod}</span>
+                  </div>
                 </div>
               </div>
 
+              <!-- Additional Information Card -->
+              ${
+                formData.additionalInfo
+                  ? `
+              <div style="background-color: #ffffff; border-radius: 12px; padding: 25px; border: 1px solid #e5e7eb; box-shadow: 0 1px 3px rgba(0,0,0,0.1); margin-bottom: 30px;">
+                <h2 style="color: #166534; margin: 0 0 20px; font-size: 20px; font-weight: 700; display: flex; align-items: center;">
+                  <span style="margin-right: 12px; font-size: 24px;">📝</span>Additional Information
+                </h2>
+                
+                <div style="background: linear-gradient(135deg, #f9fafb 0%, #f3f4f6 100%); border-radius: 8px; padding: 20px; border-left: 4px solid #22c55e; line-height: 1.6;">
+                  <div style="color: #374151; font-size: 15px; white-space: pre-line;">${formData.additionalInfo.replace(/\n/g, '<br>')}</div>
+                </div>
+              </div>
+              `
+                  : ''
+              }
+
               <!-- Action Buttons -->
-              <div class="action-buttons" style="margin-top: 30px; text-align: center; display: flex; justify-content: center; gap: 15px; flex-wrap: wrap;">
-                <a href="mailto:${formData.email}" class="action-button" style="display: inline-block; background: linear-gradient(135deg, #15803d 0%, #166534 100%); color: #ffffff; text-decoration: none; padding: 14px 32px; border-radius: 8px; font-weight: 600; font-size: 15px; transition: all 0.3s ease; box-shadow: 0 2px 4px rgba(21, 128, 61, 0.2);">
-                  📧 Reply to Client
-                </a>
-                <a href="tel:${formData.phone}" class="action-button" style="display: inline-block; background: linear-gradient(135deg, #22c55e 0%, #16a34a 100%); color: #ffffff; text-decoration: none; padding: 14px 32px; border-radius: 8px; font-weight: 600; font-size: 15px; transition: all 0.3s ease; box-shadow: 0 2px 4px rgba(34, 197, 94, 0.2);">
-                  📞 Call Client
-                </a>
+              <div class="action-buttons" style="margin-top: 30px; text-align: center;">
+                <div style="display: inline-block; background: linear-gradient(135deg, #15803d 0%, #166534 100%); color: #ffffff; padding: 14px 32px; border-radius: 8px; font-weight: 600; font-size: 15px; box-shadow: 0 2px 4px rgba(21, 128, 61, 0.2);">
+                  📋 Quote Request Received
+                </div>
               </div>
             </div>
 
