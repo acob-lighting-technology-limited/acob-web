@@ -1,7 +1,7 @@
 import { Container } from '@/components/ui/container';
 import { PageHero } from '@/components/ui/page-hero';
 import { Breadcrumb } from '@/components/ui/breadcrumb';
-import { ContactSection } from '@/components/sections/contact-section';
+import { QuoteForm } from '@/components/quote-form';
 import { MaskText } from '@/components/animations/MaskText';
 
 export default function GetQuotePage() {
@@ -26,11 +26,13 @@ export default function GetQuotePage() {
         />
       </PageHero>
 
-      <Container className="px-4 py-8 ">
-        <Breadcrumb items={breadcrumbItems} className="mb-8" />
-        {/* Reusing the existing ContactSection component */}
-        <ContactSection />
-      </Container>
+      <div className="pt-8">
+        <Container className=" px-4 ">
+          <Breadcrumb items={breadcrumbItems} className="mb-8" />
+          {/* Using the new QuoteForm component */}
+        </Container>
+        <QuoteForm />
+      </div>
     </>
   );
 }
