@@ -34,14 +34,22 @@ export default async function ProjectsPage() {
                 className="overflow-hidden border-0 custom-shadow shadow-none p-0 hover:shadow-lg transition-shadow"
               >
                 <div className="aspect-[16/9] overflow-hidden relative">
-                  {project.images && project.images.length > 0 && (
+                  {project.images &&
+                  project.images.length > 0 &&
+                  project.images[0]?.asset?.url ? (
                     <Image
-                      src={project.images[0].asset.url || '/placeholder.svg'}
+                      src={project.images[0].asset.url}
                       alt={project.title}
                       fill
                       className="hover:scale-105 object-cover"
                       sizes="(max-width: 768px) 100vw, (max-width: 1200px) 66vw, 50vw"
                     />
+                  ) : (
+                    <div className="w-full h-full bg-muted flex items-center justify-center">
+                      <span className="text-muted-foreground">
+                        No image available
+                      </span>
+                    </div>
                   )}
                 </div>
                 <CardContent className="p-6">

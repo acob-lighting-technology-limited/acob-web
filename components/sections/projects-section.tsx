@@ -83,14 +83,24 @@ export function ProjectsSection() {
       <div className="text-center mb-12">
         <MaskText
           phrases={[
-            'Latest Rural Electrification Projects,',
+            'Latest 3 Rural Electrification Projects,',
             'Mini-Grid Solutions & Energizing Supplies',
           ]}
           className="text-3xl md:text-4xl font-bold text-foreground transition-colors duration-700"
         />
       </div>
-      {projects.map((project, i) => {
-        const targetScale = 1 - (projects.length - i) * 0.05;
+      {projects.slice(0, 3).map((project, i) => {
+        const targetScale = 1 - (3 - i) * 0.05;
+
+        // Alternating gradient configuration: gray, green, gray, green, etc.
+        const gradients = [
+          { from: '#616161', to: '#000000' }, // 1st card - Gray
+          { from: '#08913F', to: '#003808' }, // 2nd card - Green
+          { from: '#616161', to: '#000000' }, // 3rd card - Gray
+        ];
+
+        const gradientConfig = gradients[i];
+
         return (
           <Card
             key={`p_${project._id}`}
@@ -99,8 +109,8 @@ export function ProjectsSection() {
             description={project.description}
             images={project.images}
             location={project.location}
-            gradientFrom={project.gradientFrom}
-            gradientTo={project.gradientTo}
+            gradientFrom={gradientConfig.from}
+            gradientTo={gradientConfig.to}
             url={`/projects/${project.slug.current}`}
             progress={scrollYProgress}
             range={[i * 0.25, 1]}
