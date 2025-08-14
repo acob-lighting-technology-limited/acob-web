@@ -220,7 +220,7 @@ const HeroSection = React.memo(function HeroSection() {
                         : 'transform 1000ms ease-out, opacity 1000ms ease-out',
                     }}
                   >
-                    View Project
+                    Read more
                     <ArrowRight className="ml-2 h-4 w-4" />
                   </Button>
                 </Link>
