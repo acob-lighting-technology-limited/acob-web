@@ -70,7 +70,15 @@ export function EditUpdatePostClient({ id }: EditUpdatePostClientProps) {
         setTags(post.tags ? post.tags.join(', ') : '');
         setStatusValue(post.status);
         if (post.featuredImage) {
-          setCurrentFeaturedImageUrl(urlFor(post.featuredImage).url());
+          setCurrentFeaturedImageUrl(
+            urlFor(post.featuredImage)
+              .width(800)
+              .height(600)
+              .fit('crop')
+              .auto('format')
+              .quality(75)
+              .url()
+          );
         }
       } catch (err: unknown) {
         const errorMessage =

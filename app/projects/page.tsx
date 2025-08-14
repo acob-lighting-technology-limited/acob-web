@@ -38,7 +38,7 @@ export default async function ProjectsPage() {
                   project.images.length > 0 &&
                   project.images[0]?.asset?.url ? (
                     <Image
-                      src={project.images[0].asset.url}
+                      src={`${project.images[0].asset.url}?w=800&h=450&fit=crop&auto=format&q=75`}
                       alt={project.title}
                       fill
                       className="hover:scale-105 object-cover"

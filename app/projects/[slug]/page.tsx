@@ -55,9 +55,9 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
 
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 items-start">
           {/* Main  */}
-          <div className="lg:col-span-2 space-y-8">
+          <div className="lg:col-span-2 space-y-8 ">
             {/* Overview */}
-            <div className="border-0 custom-shadow shadow-none">
+            <div className="border-0 custom-shadow shadow-none bg-card rounded-lg">
               <div className="p-8">
                 <h2 className="text-3xl font-bold mb-6 text-foreground">
                   Project Overview
@@ -78,7 +78,7 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
 
             {/* Gallery */}
             {project.images && project.images.length > 0 && (
-              <div className="border-0 custom-shadow shadow-none">
+              <div className="border-0 custom-shadow shadow-none bg-card rounded-lg">
                 <div className="p-8">
                   <h2 className="text-3xl font-bold mb-6">Project Gallery</h2>
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -107,7 +107,7 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
           {/* Sidebar */}
           <div className="space-y-6 sticky top-20 self-start">
             {/* Quick Contact */}
-            <div className="!bg-muted text-foreground border-t-2 border-t-primary rounded-lg">
+            <div className="!bg-card text-foreground border-t-2 border-t-primary rounded-lg">
               <div className="p-6">
                 <h3 className="font-semibold mb-4">
                   Interested in a similar project?
@@ -129,7 +129,7 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
 
             {/* Related Projects */}
             {relatedProjects.length > 0 && (
-              <div className="!bg-muted text-foreground border-t-2 border-t-primary rounded-lg">
+              <div className="!bg-card text-foreground border-t-2 border-t-primary rounded-lg">
                 <div className="p-6">
                   <h3 className="font-semibold mb-4">More Projects</h3>
                   <div className="space-y-3">
