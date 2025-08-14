@@ -9,7 +9,6 @@ import React, {
 } from 'react';
 import { Button } from '@/components/ui/button';
 import { ArrowRight, ChevronLeft, ChevronRight } from 'lucide-react';
-import { heroSlides } from '@/lib/data/hero-data';
 
 import type { Project } from '@/lib/types';
 import Link from 'next/link';
@@ -44,9 +43,9 @@ const HeroSection = React.memo(function HeroSection() {
     fetchProjects();
   }, []);
 
-  // Combine projects with hero slides (projects first)
+  // Convert projects to slides format
   const allSlides = useMemo(() => {
-    const projectSlides = projects.map((project, index) => ({
+    return projects.map(project => ({
       id: `project-${project._id}`,
       title: project.title,
       image:
@@ -56,18 +55,8 @@ const HeroSection = React.memo(function HeroSection() {
           ? project.images[0].asset.url
           : '/images/olooji-community.jpg?height=800&width=1400', // fallback
       location: project.location,
-      isProject: true,
       slug: project.slug.current,
     }));
-
-    const staticSlides = heroSlides.map((slide, index) => ({
-      ...slide,
-      id: `static-${slide.id}`,
-      isProject: false,
-      slug: null,
-    }));
-
-    return [...projectSlides, ...staticSlides];
   }, [projects]);
 
   const changeSlide = (newIndex: number) => {
@@ -211,35 +200,12 @@ const HeroSection = React.memo(function HeroSection() {
 
             {/* Animated Buttons */}
             <div className="flex  gap-4 justify-start">
-              {/* Read More - slides in from left */}
+              {/* View Project - slides in from left */}
               <div className="overflow-hidden">
-                {currentSlideData.isProject ? (
-                  <Link href={`/projects/${currentSlideData.slug}`}>
-                    <Button
-                      size="lg"
-                      className={`bg-primary border border-primary hover:border-primary/90   hover:bg-primary/90 text-lg py-6 text-primary-foreground transition-opacity ease-out duration-1000 ${
-                        showContent
-                          ? 'translate-x-0 opacity-100'
-                          : '-translate-x-full opacity-0'
-                      }`}
-                      style={{
-                        transitionDelay: showContent ? '800ms' : '0ms',
-                        transform: showContent
-                          ? 'translateX(0)'
-                          : 'translateX(-100%)',
-                        transition: showContent
-                          ? 'transform 1000ms ease-out 800ms, opacity 1000ms ease-out 800ms'
-                          : 'transform 1000ms ease-out, opacity 1000ms ease-out',
-                      }}
-                    >
-                      View Project
-                      <ArrowRight className="ml-2 h-4 w-4" />
-                    </Button>
-                  </Link>
-                ) : (
+                <Link href={`/projects/${currentSlideData.slug}`}>
                   <Button
                     size="lg"
-                    className={`bg-primary border-primary border hover:border-primary/90 hover:bg-primary/90 text-lg py-6 text-primary-foreground transition-opacity ease-out duration-1000 ${
+                    className={`bg-primary border border-primary hover:border-primary/90   hover:bg-primary/90 text-lg py-6 text-primary-foreground transition-opacity ease-out duration-1000 ${
                       showContent
                         ? 'translate-x-0 opacity-100'
                         : '-translate-x-full opacity-0'
@@ -254,10 +220,10 @@ const HeroSection = React.memo(function HeroSection() {
                         : 'transform 1000ms ease-out, opacity 1000ms ease-out',
                     }}
                   >
-                    Read More
+                    View Project
                     <ArrowRight className="ml-2 h-4 w-4" />
                   </Button>
-                )}
+                </Link>
               </div>
 
               {/* Our Projects - slides in from right */}
