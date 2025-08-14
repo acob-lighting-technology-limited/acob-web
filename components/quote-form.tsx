@@ -21,12 +21,6 @@ interface ContainerProps {
 }
 
 interface QuoteFormData {
-  firstName: string;
-  lastName: string;
-  email: string;
-  phone: string;
-  company: string;
-  message: string;
   installer: string;
   completionTime: string;
   monthlyUsage: string;
@@ -45,12 +39,6 @@ const Container: React.FC<ContainerProps> = ({ children, className }) => (
 
 export function QuoteForm() {
   const [formData, setFormData] = useState<QuoteFormData>({
-    firstName: '',
-    lastName: '',
-    email: '',
-    phone: '',
-    company: '',
-    message: '',
     installer: '',
     completionTime: '',
     monthlyUsage: '',
@@ -149,17 +137,6 @@ export function QuoteForm() {
       return;
     }
 
-    // Email validation
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (!emailRegex.test(formData.email)) {
-      toast.error('Invalid email address', {
-        description: 'Please enter a valid email address',
-        duration: 4000,
-      });
-      setIsSubmitting(false);
-      return;
-    }
-
     try {
       const loadingToast = toast.loading('Submitting your request...', {
         description: 'Please wait while we process your energy audit request',
@@ -176,12 +153,6 @@ export function QuoteForm() {
 
       // Reset form
       setFormData({
-        firstName: '',
-        lastName: '',
-        email: '',
-        phone: '',
-        company: '',
-        message: '',
         installer: '',
         completionTime: '',
         monthlyUsage: '',
