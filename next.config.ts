@@ -13,8 +13,21 @@ const nextConfig: NextConfig = {
     ],
   },
 
-  // Enable SWC minification
-  swcMinify: true,
+  // Performance optimizations
+  experimental: {
+    optimizePackageImports: ['lucide-react', 'framer-motion'],
+  },
+
+  // Bundle analyzer (uncomment for debugging)
+  // webpack: (config, { isServer }) => {
+  //   if (!isServer) {
+  //     config.resolve.fallback = {
+  //       ...config.resolve.fallback,
+  //       fs: false,
+  //     };
+  //   }
+  //   return config;
+  // },
 
   // Security headers
   headers: async () => {

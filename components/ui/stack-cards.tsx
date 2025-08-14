@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useRef } from 'react';
+import React, { useRef, useMemo } from 'react';
 import {
   motion,
   useTransform,
@@ -49,18 +49,36 @@ const Card: React.FC<CardProps> = ({
 
   const scale = useTransform(actualProgress, range, [1, targetScale]);
 
+  // Memoize expensive computations
+  const processedTitle = useMemo(
+    () => (title.length > 50 ? `${title.slice(0, 50)}...` : title),
+    [title]
+  );
+
+  const processedDescription = useMemo(
+    () =>
+      description.split(' ').length > 40
+        ? `${description.split(' ').slice(0, 40).join(' ')}...`
+        : description,
+    [description]
+  );
+
+  const backgroundStyle = useMemo(
+    () => ({
+      backgroundImage: `linear-gradient(to bottom, ${gradientFrom}, ${gradientTo})`,
+      scale,
+      top: `calc(-1vh + ${i * 25}px)`,
+    }),
+    [gradientFrom, gradientTo, scale, i]
+  );
+
   return (
     <div
       ref={container}
       className="h-[80vh] sm:h-screen m-4 flex items-center text-white  justify-center sticky top-20 sm:top-0"
     >
       <motion.div
-        style={{
-          backgroundImage: `linear-gradient(to bottom, ${gradientFrom}, ${gradientTo})`,
-
-          scale,
-          top: `calc(-1vh + ${i * 25}px)`,
-        }}
+        style={backgroundStyle}
         className="relative -top-1/4 h-full sm:h-[600px] w-[1300px] rounded-[20px] p-4 py-6 lg:p-16 flex flex-col transform origin-top"
       >
         <div className="flex flex-col sm:flex-row justify-between h-full gap-8 lg:gap-16">
@@ -69,13 +87,11 @@ const Card: React.FC<CardProps> = ({
           <div className="w-full sm:w-1/2 flex flex-col flex-1 h-full max-w-md">
             <div className="space-y-6">
               <h2 className="text-3xl lg:text-5xl font-extrabold text-left">
-                {title.length > 50 ? `${title.slice(0, 50)}...` : title}
+                {processedTitle}
               </h2>
 
               <p className="text-base lg:text-xl leading-relaxed line-clamp-3 md:line-clamp-none">
-                {description.split(' ').length > 40
-                  ? `${description.split(' ').slice(0, 40).join(' ')}...`
-                  : description}
+                {processedDescription}
               </p>
 
               <p className="flex gap-2 text-lg items-center">

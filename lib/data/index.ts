@@ -10,7 +10,7 @@ export { certifications } from './certifications-data';
 export { suggestedMessages } from './chat-data';
 export { contactSections, whyWorkItems, contactLinks } from './contact-data';
 export { infoPoints, formFields } from './contact-section-data';
-export { heroSlides } from './hero-data';
+
 export { missionVisionData, coreValues } from './mission-data';
 export { navigationItems } from './navigation-data';
 export { floatingElements } from './not-found-data';
