@@ -201,12 +201,44 @@ function TextSkeleton({
     </div>
   );
 }
-
+function HeroSkeleton() {
+  return (
+    <div className="relative w-full h-[80vh] min-h-[500px] sm:min-h-[700px] bg-muted-foreground/30 dark:bg-muted/10 overflow-hidden">
+      {/* Background skeleton with shimmer */}
+      {/* <div className="absolute inset-0 bg-gradient-to-br from-primary/10 to-secondary/10" /> */}
+      <div className="absolute inset-0 bg-secondary/30" />
+      {/* Content skeleton */}
+      <div className="relative z-10 flex flex-col items-start justify-end h-full 2xl:container p-6 sm:p-12 mx-auto py-16  text-center">
+        {/* Title skeleton with staggered animation */}
+        <div className="space-y-8 w-full">
+          {' '}
+          <ShimmerSkeleton
+            className="w-1/2 h-16 rounded-lg  animate-pulse !bg-background/80 before:!via-muted-foreground/30"
+            style={{ animationDelay: '0.1s' } as React.CSSProperties}
+          />{' '}
+          <ShimmerSkeleton
+            className="w-1/4 h-8 rounded-lg  animate-pulse !bg-background/80 before:!via-muted-foreground/30"
+            style={{ animationDelay: '0.1s' } as React.CSSProperties}
+          />{' '}
+          <ShimmerSkeleton
+            className="w-1/4 h-8 rounded-lg  animate-pulse !bg-background/80 before:!via-muted-foreground/30"
+            style={{ animationDelay: '0.1s' } as React.CSSProperties}
+          />{' '}
+          <ShimmerSkeleton
+            className="w-[20%] h-2 rounded-lg  animate-pulse !bg-background/80 before:!via-muted-foreground/30"
+            style={{ animationDelay: '0.1s' } as React.CSSProperties}
+          />
+        </div>
+      </div>
+    </div>
+  );
+}
 export {
   Skeleton,
   ShimmerSkeleton,
   PageHeroSkeleton,
   ContentSkeleton,
   CardSkeleton,
+  HeroSkeleton,
   TextSkeleton,
 };
