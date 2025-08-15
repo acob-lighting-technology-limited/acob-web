@@ -1,3 +1,6 @@
+'use client';
+
+import { useState } from 'react';
 import dynamic from 'next/dynamic';
 import { HeroSection } from '@/components/sections/hero-section';
 import { AboutSection } from '@/components/sections/about-section';
@@ -56,20 +59,29 @@ const ProjectsSection = dynamic(
 );
 
 export default function HomePage() {
+  const [heroLoaded, setHeroLoaded] = useState(false);
+
+  const handleHeroLoaded = () => {
+    setHeroLoaded(true);
+  };
+
   return (
     <>
-      <HeroSection />
-      <AboutSection />
-      <ServicesSection />
-      <CompanySection />
-      <ProjectsSection />
-      {/* <TestimonialsSection /> */}
-      <TransitionSection />
-      <ContactSection />
-      <NewsSection />
-      <PartnersSection />
-
-      {/* <MapSection /> */}
+      <HeroSection onLoaded={handleHeroLoaded} />
+      {heroLoaded && (
+        <>
+          <AboutSection />
+          <ServicesSection />
+          <CompanySection />
+          <ProjectsSection />
+          {/* <TestimonialsSection /> */}
+          <TransitionSection />
+          <ContactSection />
+          <NewsSection />
+          <PartnersSection />
+          {/* <MapSection /> */}
+        </>
+      )}
     </>
   );
 }

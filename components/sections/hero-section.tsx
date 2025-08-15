@@ -12,9 +12,15 @@ import { ArrowRight, ChevronLeft, ChevronRight } from 'lucide-react';
 
 import type { Project } from '@/lib/types';
 import Link from 'next/link';
-import { HeroSkeleton } from '../ui/skeleton';
+import SimpleSpinnerExit from '../loader/simple-spinner-exit';
 
-const HeroSection = React.memo(function HeroSection() {
+interface HeroSectionProps {
+  onLoaded?: () => void;
+}
+
+const HeroSection = React.memo(function HeroSection({
+  onLoaded,
+}: HeroSectionProps) {
   const [currentSlide, setCurrentSlide] = useState(0);
   const [isTransitioning, setIsTransitioning] = useState(false);
   const [showContent, setShowContent] = useState(true);
@@ -37,11 +43,12 @@ const HeroSection = React.memo(function HeroSection() {
         console.error('Failed to fetch projects:', error);
       } finally {
         setLoading(false);
+        onLoaded?.();
       }
     };
 
     fetchProjects();
-  }, []);
+  }, [onLoaded]);
 
   // Convert projects to slides format with optimized images
   const allSlides = useMemo(() => {
@@ -136,7 +143,7 @@ const HeroSection = React.memo(function HeroSection() {
   }, [allSlides]);
 
   if (loading) {
-    return <HeroSkeleton />;
+    return <SimpleSpinnerExit preview={true} />;
   }
 
   return (
