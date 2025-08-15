@@ -13,6 +13,7 @@ import { ArrowRight, ChevronLeft, ChevronRight } from 'lucide-react';
 import type { Project } from '@/lib/types';
 import Link from 'next/link';
 import SimpleSpinnerExit from '../loader/simple-spinner-exit';
+import Loading from '@/app/loading';
 
 interface HeroSectionProps {
   onLoaded?: () => void;
@@ -143,7 +144,11 @@ const HeroSection = React.memo(function HeroSection({
   }, [allSlides]);
 
   if (loading) {
-    return <SimpleSpinnerExit preview={true} />;
+    return (
+      <>
+        <Loading />
+      </>
+    );
   }
 
   return (
