@@ -1,3 +1,5 @@
+'use client';
+import { useState, useEffect } from 'react';
 import { Container } from '@/components/ui/container';
 import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
@@ -7,9 +9,47 @@ import { getUpdatePosts } from '@/sanity/lib/client';
 import Image from 'next/image';
 import type { UpdatePost } from '@/lib/types';
 
-export async function NewsSection() {
-  const posts = await getUpdatePosts(); // Fetches update posts
+export function NewsSection() {
+  const [posts, setPosts] = useState<UpdatePost[]>([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchPosts = async () => {
+      try {
+        const fetchedPosts = await getUpdatePosts();
+        setPosts(fetchedPosts);
+      } catch (error) {
+        console.error('Failed to fetch posts:', error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchPosts();
+  }, []);
+
   const latestPosts = posts.slice(0, 3); // Get only the latest 3 posts
+
+  if (loading) {
+    return (
+      <section className="py-16 bg-white dark:bg-zinc-950 transition-colors duration-700">
+        <Container className="px-4">
+          <div className="text-center">
+            <div className="h-8 bg-gray-300 dark:bg-gray-700 rounded animate-pulse mx-auto max-w-md mb-4" />
+            <div className="h-12 bg-gray-300 dark:bg-gray-700 rounded animate-pulse mx-auto max-w-2xl mb-8" />
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+              {[1, 2, 3].map(i => (
+                <div
+                  key={i}
+                  className="h-64 bg-gray-300 dark:bg-gray-700 rounded animate-pulse"
+                />
+              ))}
+            </div>
+          </div>
+        </Container>
+      </section>
+    );
+  }
 
   return (
     <section className="py-16 bg-white dark:bg-zinc-950 transition-colors duration-700">

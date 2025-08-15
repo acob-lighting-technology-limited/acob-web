@@ -1,5 +1,10 @@
+import LoadingLayout from './loading-layout';
 import SimpleSpinnerExit from '@/components/loader/simple-spinner-exit';
 
 export default function Loading() {
-  return <SimpleSpinnerExit preview={true} />;
+  return (
+    <LoadingLayout>
+      <SimpleSpinnerExit preview={true} />
+    </LoadingLayout>
+  );
 }
