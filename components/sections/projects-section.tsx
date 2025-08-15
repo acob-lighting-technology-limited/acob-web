@@ -9,6 +9,7 @@ import Link from 'next/link';
 import { Button } from '../ui/button';
 import { ArrowRight } from 'lucide-react';
 import { MaskText } from '../animations/MaskText';
+import { ProjectsSkeleton } from '../ui/projects-skeleton';
 import type { Project } from '@/lib/types';
 
 export function ProjectsSection() {
@@ -95,11 +96,7 @@ export function ProjectsSection() {
   }, [projects]);
 
   if (loading) {
-    return (
-      <section className="py-16 bg-zinc-50 dark:bg-zinc-950 text-center transition-colors duration-700">
-        <p>Loading projects...</p>
-      </section>
-    );
+    return <ProjectsSkeleton />;
   }
 
   if (error) {

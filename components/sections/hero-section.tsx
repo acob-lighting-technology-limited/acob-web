@@ -12,7 +12,7 @@ import { ArrowRight, ChevronLeft, ChevronRight } from 'lucide-react';
 
 import type { Project } from '@/lib/types';
 import Link from 'next/link';
-import SimpleSpinnerExit from '../loader/simple-spinner-exit';
+import { HeroSkeleton } from '../ui/skeleton';
 
 const HeroSection = React.memo(function HeroSection() {
   const [currentSlide, setCurrentSlide] = useState(0);
@@ -136,11 +136,7 @@ const HeroSection = React.memo(function HeroSection() {
   }, [allSlides]);
 
   if (loading) {
-    return (
-      <section className="flex flex-col items-center justify-center relative h-[80vh] min-h-[500px] sm:min-h-[700px] overflow-hidden w-full bg-black">
-        <SimpleSpinnerExit preview={true} />
-      </section>
-    );
+    return <HeroSkeleton />;
   }
 
   return (
