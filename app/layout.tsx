@@ -12,6 +12,7 @@ import { Toaster } from 'sonner';
 import { ChatBot } from '@/components/features/chat-bot';
 import { LazyCookieConsent } from '@/components/lazy-components';
 import { Analytics } from '@vercel/analytics/react';
+import { SpeedInsights } from '@vercel/speed-insights/next';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -45,6 +46,7 @@ export default function RootLayout({
               <LazyCookieConsent />
               <ScrollToTop />
               <Analytics />
+              <SpeedInsights />
             </div>
           </NProgressProvider>
         </Providers>
