@@ -30,15 +30,15 @@ export function OfflineSafeWebVitals() {
       value: number;
       id: string;
     }) => {
-      // Send to Google Analytics or your analytics service
-      if (typeof window !== 'undefined' && window.gtag) {
-        window.gtag('event', metric.name, {
-          event_category: 'Web Vitals',
-          event_label: metric.id,
+      // Send to Vercel Analytics
+      if (typeof window !== 'undefined' && window.va) {
+        window.va('event', {
+          action: metric.name,
+          category: 'Web Vitals',
+          label: metric.id,
           value: Math.round(
             metric.name === 'CLS' ? metric.value * 1000 : metric.value
           ),
-          non_interaction: true,
         });
       }
 
