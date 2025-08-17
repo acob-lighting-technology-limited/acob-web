@@ -41,7 +41,7 @@ export default function SupportPage() {
         />
       </PageHero>
 
-      <Container className="px-4 py-8 bg-muted">
+      <Container className="px-4 py-8">
         <Breadcrumb items={breadcrumbItems} className="mb-8" />
 
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-12 items-start">
