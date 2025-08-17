@@ -125,23 +125,23 @@ const HeroSection = React.memo(function HeroSection({
     [currentSlide, allSlides]
   );
 
-  // Preload critical images for better LCP
-  useEffect(() => {
-    if (allSlides.length > 0) {
-      // Preload first image with high priority
-      const preloadImage = new Image();
-      preloadImage.src = allSlides[0].image;
-      preloadImage.onload = () => {
-        console.log('Hero image preloaded successfully');
-      };
+  // // Preload critical images for better LCP
+  // useEffect(() => {
+  //   if (allSlides.length > 0) {
+  //     // Preload first image with high priority
+  //     const preloadImage = new Image();
+  //     preloadImage.src = allSlides[0].image;
+  //     preloadImage.onload = () => {
+  //       console.log('Hero image preloaded successfully');
+  //     };
 
-      // Preload second image for smooth transitions
-      if (allSlides.length > 1) {
-        const preloadImage2 = new Image();
-        preloadImage2.src = allSlides[1].image;
-      }
-    }
-  }, [allSlides]);
+  //     // Preload second image for smooth transitions
+  //     if (allSlides.length > 1) {
+  //       const preloadImage2 = new Image();
+  //       preloadImage2.src = allSlides[1].image;
+  //     }
+  //   }
+  // }, [allSlides]);
 
   if (loading) {
     return (

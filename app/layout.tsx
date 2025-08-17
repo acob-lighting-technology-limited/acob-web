@@ -11,6 +11,7 @@ import { ScrollToTop } from '@/components/ui/scroll-to-top';
 import { Toaster } from 'sonner';
 import { ChatBot } from '@/components/features/chat-bot';
 import { LazyCookieConsent } from '@/components/lazy-components';
+import { VercelAnalytics } from '@/components/analytics/vercel-analytics';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -43,6 +44,7 @@ export default function RootLayout({
               <Footer /> <ChatBot />
               <LazyCookieConsent />
               <ScrollToTop />
+              <VercelAnalytics />
             </div>
           </NProgressProvider>
         </Providers>
