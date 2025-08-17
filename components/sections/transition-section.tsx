@@ -6,6 +6,11 @@ import { useRef, useEffect, useState } from 'react';
 import { MaskText } from '../animations/MaskText';
 
 import { stats } from '@/lib/data/transition-data';
+import {
+  getRandomProjectImages,
+  getRandomBackgroundImage,
+  RandomImage,
+} from '@/lib/utils/random-images';
 
 function CounterAnimation({
   end,
@@ -69,13 +74,38 @@ function CounterAnimation({
 export function TransitionSection() {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: '-50px' });
+  const [randomImages, setRandomImages] = useState<RandomImage[]>([]);
+  const [backgroundImage, setBackgroundImage] = useState(
+    '/images/transition-bg.jpg'
+  );
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    const loadRandomImages = async () => {
+      try {
+        setIsLoading(true);
+        const [images, bgImage] = await Promise.all([
+          getRandomProjectImages(4),
+          getRandomBackgroundImage(),
+        ]);
+        setRandomImages(images);
+        setBackgroundImage(bgImage);
+      } catch (error) {
+        console.error('Error loading random images:', error);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    loadRandomImages();
+  }, []);
 
   return (
     <section
       ref={ref}
       className="relative py-16 bg-cover bg-center bg-no-repeat overflow-hidden transition-colors duration-700"
       style={{
-        backgroundImage: "url('/images/transition-bg.jpg')",
+        backgroundImage: `url('${backgroundImage}')`,
       }}
     >
       <div className="absolute inset-0 bg-black/90 dark:bg-gradient-to-b dark:from-zinc-950 from-0% dark:to-black/5 to-80%  z-0 transition-colors duration-700"></div>
@@ -120,66 +150,40 @@ export function TransitionSection() {
             animate={isInView ? { opacity: 1, x: 0 } : { opacity: 0, x: 50 }}
             transition={{ duration: 0.8, delay: 0.2, ease: 'easeOut' }}
           >
-            <div className="relative rounded-lg overflow-hidden shadow-lg">
-              <motion.img
-                src="/images/obadore-ondo.jpg?height=250&width=300"
-                alt="Solar Installation"
-                className="w-full h-[250px] object-cover"
-                initial={{ opacity: 0, scale: 0.8 }}
-                animate={
-                  isInView
-                    ? { opacity: 1, scale: 1 }
-                    : { opacity: 0, scale: 0.8 }
-                }
-                transition={{ duration: 0.6, delay: 0.4 }}
-              />
-              <div className="absolute inset-0 bg-black/30 rounded-lg"></div>
-            </div>
-            <div className="relative rounded-lg overflow-hidden shadow-lg mt-8">
-              <motion.img
-                src="/images/makami-kaduna.jpg?height=250&width=300"
-                alt="Team at Work"
-                className="w-full h-[250px] object-cover"
-                initial={{ opacity: 0, scale: 0.8 }}
-                animate={
-                  isInView
-                    ? { opacity: 1, scale: 1 }
-                    : { opacity: 0, scale: 0.8 }
-                }
-                transition={{ duration: 0.6, delay: 0.6 }}
-              />
-              <div className="absolute inset-0 bg-black/30 rounded-lg"></div>
-            </div>
-            <div className="relative rounded-lg overflow-hidden shadow-lg -mt-8">
-              <motion.img
-                src="/images/olooji-community.jpg?height=250&width=300"
-                alt="Solar Panels"
-                className="w-full h-[250px] object-cover"
-                initial={{ opacity: 0, scale: 0.8 }}
-                animate={
-                  isInView
-                    ? { opacity: 1, scale: 1 }
-                    : { opacity: 0, scale: 0.8 }
-                }
-                transition={{ duration: 0.6, delay: 0.8 }}
-              />
-              <div className="absolute inset-0 bg-black/30 rounded-lg"></div>
-            </div>
-            <div className="relative rounded-lg overflow-hidden shadow-lg">
-              <motion.img
-                src="/images/adebayo-community.jpg?height=250&width=300"
-                alt="Community Impact"
-                className="w-full h-[250px] object-cover"
-                initial={{ opacity: 0, scale: 0.8 }}
-                animate={
-                  isInView
-                    ? { opacity: 1, scale: 1 }
-                    : { opacity: 0, scale: 0.8 }
-                }
-                transition={{ duration: 0.6, delay: 1.0 }}
-              />
-              <div className="absolute inset-0 bg-black/30 rounded-lg"></div>
-            </div>
+            {isLoading
+              ? // Loading skeleton
+                Array.from({ length: 4 }).map((_, index) => (
+                  <div
+                    key={index}
+                    className={`relative rounded-lg overflow-hidden shadow-lg bg-gray-300 animate-pulse ${
+                      index === 1 || index === 2 ? 'mt-8' : ''
+                    } ${index === 2 ? '-mt-8' : ''}`}
+                    style={{ height: '250px' }}
+                  />
+                ))
+              : // Random images
+                randomImages.map((image, index) => (
+                  <div
+                    key={index}
+                    className={`relative rounded-lg overflow-hidden shadow-lg ${
+                      index === 1 || index === 2 ? 'mt-8' : ''
+                    } ${index === 2 ? '-mt-8' : ''}`}
+                  >
+                    <motion.img
+                      src={`${image.url}?height=250&width=300&fit=crop&auto=format&q=75`}
+                      alt={image.alt}
+                      className="w-full h-[250px] object-cover"
+                      initial={{ opacity: 0, scale: 0.8 }}
+                      animate={
+                        isInView
+                          ? { opacity: 1, scale: 1 }
+                          : { opacity: 0, scale: 0.8 }
+                      }
+                      transition={{ duration: 0.6, delay: 0.4 + index * 0.2 }}
+                    />
+                    <div className="absolute inset-0 bg-black/30 rounded-lg"></div>
+                  </div>
+                ))}
           </motion.div>
         </div>
       </Container>
