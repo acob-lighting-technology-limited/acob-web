@@ -18,41 +18,105 @@ export function ProjectsSection() {
   const [projects, setProjects] = useState<Project[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  const [lenisInstance, setLenisInstance] = useState<Lenis | null>(null);
+
+  // Cache key for projects
+  const CACHE_KEY = 'projects-section-data';
+  const CACHE_DURATION = 1000 * 60 * 15; // 15 minutes
+
+  // Get cached projects
+  const getCachedProjects = useCallback((): Project[] | null => {
+    if (typeof window === 'undefined') return null;
+
+    try {
+      const cached = localStorage.getItem(CACHE_KEY);
+      if (!cached) return null;
+
+      const parsed = JSON.parse(cached);
+      const isExpired = Date.now() - parsed.timestamp > CACHE_DURATION;
+
+      if (isExpired) {
+        localStorage.removeItem(CACHE_KEY);
+        return null;
+      }
+
+      return parsed.data;
+    } catch {
+      return null;
+    }
+  }, []);
+
+  // Cache projects
+  const cacheProjects = useCallback((data: Project[]) => {
+    if (typeof window === 'undefined') return;
+
+    try {
+      const cached = {
+        data,
+        timestamp: Date.now(),
+      };
+      localStorage.setItem(CACHE_KEY, JSON.stringify(cached));
+    } catch {
+      // Silently fail if localStorage is not available
+    }
+  }, []);
 
   const fetchProjectsData = useCallback(async () => {
     try {
-      const response = await fetch('/api/projects');
+      // Check cache first
+      const cached = getCachedProjects();
+      if (cached) {
+        setProjects(cached);
+        setLoading(false);
+        return;
+      }
+
+      const response = await fetch('/api/projects', {
+        headers: {
+          'Cache-Control': 'max-age=300',
+        },
+      });
       if (!response.ok) {
         throw new Error('Failed to fetch projects');
       }
       const fetchedProjects = await response.json();
       setProjects(fetchedProjects);
+
+      // Cache the results
+      cacheProjects(fetchedProjects);
     } catch (err) {
       console.error('Failed to fetch projects:', err);
       setError('Failed to load projects.');
     } finally {
       setLoading(false);
     }
-  }, []);
+  }, [getCachedProjects, cacheProjects]);
 
   useEffect(() => {
     fetchProjectsData();
+  }, [fetchProjectsData]);
 
-    // Initialize Lenis for smooth scrolling
-    const lenis = new Lenis();
+  // Initialize Lenis only once and reuse
+  useEffect(() => {
+    if (!lenisInstance) {
+      const lenis = new Lenis();
 
-    function raf(time: number) {
-      lenis.raf(time);
+      setLenisInstance(lenis);
+
+      function raf(time: number) {
+        lenis.raf(time);
+        requestAnimationFrame(raf);
+      }
+
       requestAnimationFrame(raf);
     }
 
-    requestAnimationFrame(raf);
-
-    // Clean up Lenis instance on component unmount
     return () => {
-      lenis.destroy();
+      if (lenisInstance) {
+        lenisInstance.destroy();
+      }
     };
-  }, [fetchProjectsData]);
+  }, [lenisInstance]);
 
   // Use useScroll to track scroll progress of the window (default behavior when target is not specified)
   // This is appropriate when Lenis is managing the global scroll.
@@ -60,18 +124,22 @@ export function ProjectsSection() {
     offset: ['start start', 'end end'],
   });
 
-  // Memoize expensive computations
+  // Pre-compute gradients to avoid recalculation
+  const gradients = useMemo(
+    () => [
+      { from: '#616161', to: '#000000' }, // 1st card - Gray
+      { from: '#08913F', to: '#003808' }, // 2nd card - Green
+      { from: '#616161', to: '#000000' }, // 3rd card - Gray
+    ],
+    []
+  );
+
+  // Memoize expensive computations with better optimization
   const processedProjects = useMemo(() => {
+    if (!projects.length) return [];
+
     return projects.slice(0, 3).map((project, i) => {
       const targetScale = 1 - (3 - i) * 0.05;
-
-      // Alternating gradient configuration: gray, green, gray, green, etc.
-      const gradients = [
-        { from: '#616161', to: '#000000' }, // 1st card - Gray
-        { from: '#08913F', to: '#003808' }, // 2nd card - Green
-        { from: '#616161', to: '#000000' }, // 3rd card - Gray
-      ];
-
       const gradientConfig = gradients[i];
 
       // Add fallback image if no valid images
@@ -81,7 +149,7 @@ export function ProjectsSection() {
           : [
               {
                 asset: {
-                  url: '/images/olooji-community.jpg?height=800&width=1400',
+                  url: '/images/olooji-community-optimized.webp?height=800&width=1400',
                 },
               },
             ];
@@ -93,7 +161,7 @@ export function ProjectsSection() {
         projectImages,
       };
     });
-  }, [projects]);
+  }, [projects, gradients]);
 
   if (loading) {
     return <ProjectsSkeleton />;

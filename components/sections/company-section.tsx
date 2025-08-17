@@ -99,7 +99,7 @@ export function CompanySection() {
                   'has made us a trusted partner for rural electrification projects',
                   'and commercial solar installations.',
                 ]}
-                className="text-muted-foreground mb-6 lg:mb-8 leading-relaxed text-sm md:text-base drop-shadow-lg"
+                className="text-muted-foreground mb-6 lg:mb-8 leading-relaxed text-sm md:text-base "
               />
               <MaskText
                 phrases={[
@@ -107,7 +107,7 @@ export function CompanySection() {
                   'we continue to innovate and deliver cutting-edge solutions',
                   'that meet the growing energy demands of our clients.',
                 ]}
-                className="text-muted-foreground/80 mb-8 lg:mb-10 leading-relaxed text-sm md:text-base drop-shadow-lg"
+                className="text-muted-foreground/80 mb-8 lg:mb-10 leading-relaxed text-sm md:text-base "
               />
               <Button className="bg-primary hover:bg-primary/90 text-primary-foreground border border-primary/20 text-base md:text-lg py-4 md:py-6 px-6 md:px-8 rounded-xl font-semibold backdrop-blur-md transition-all duration-300 hover:scale-105 hover:shadow-2xl hover:shadow-primary/20 w-full sm:w-auto">
                 Learn More About Us
@@ -178,7 +178,7 @@ export function CompanySection() {
               {/* Feature Cards Below Video */}
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 lg:gap-6">
                 <div className="bg-card backdrop-blur-md p-4 md:p-6 rounded-2xl border border-border hover:bg-card/80 transition-all duration-300 hover:scale-[1.02] hover:shadow-2xl hover:shadow-primary/5">
-                  <h3 className="text-card-foreground text-lg md:text-xl font-bold mb-2 md:mb-3 flex items-center">
+                  <h3 className="text-card-foreground text-lg  font-bold mb-2 md:mb-3 flex items-center">
                     <div className="w-2 h-2 bg-blue-500 rounded-full mr-2 md:mr-3"></div>
                     Solar Solutions
                   </h3>
@@ -189,7 +189,7 @@ export function CompanySection() {
                 </div>
 
                 <div className="bg-card backdrop-blur-md p-4 md:p-6 rounded-2xl border border-border hover:bg-card/80 transition-all duration-300 hover:scale-[1.02] hover:shadow-2xl hover:shadow-primary/5">
-                  <h3 className="text-card-foreground text-lg md:text-xl font-bold mb-2 md:mb-3 flex items-center">
+                  <h3 className="text-card-foreground text-lg  font-bold mb-2 md:mb-3 flex items-center">
                     <div className="w-2 h-2 bg-green-500 rounded-full mr-2 md:mr-3"></div>
                     Mini-Grid Systems
                   </h3>
@@ -200,7 +200,7 @@ export function CompanySection() {
                 </div>
 
                 <div className="bg-card backdrop-blur-md p-4 md:p-6 rounded-2xl border border-border hover:bg-card/80 transition-all duration-300 hover:scale-[1.02] hover:shadow-2xl hover:shadow-primary/5 md:col-span-2 lg:col-span-1">
-                  <h3 className="text-card-foreground text-lg md:text-xl font-bold mb-2 md:mb-3 flex items-center">
+                  <h3 className="text-card-foreground text-lg  font-bold mb-2 md:mb-3 flex items-center">
                     <div className="w-2 h-2 bg-purple-500 rounded-full mr-2 md:mr-3"></div>
                     Energy Storage
                   </h3>

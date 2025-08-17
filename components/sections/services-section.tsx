@@ -85,16 +85,21 @@ const ServicesSection = React.memo(function ServicesSection() {
             />
 
             <div className="flex flex-col sm:flex-row gap-4">
-              <Button className="bg-primary dark:bg-primary text-lg hover:bg-primary text-primary-foreground px-8 py-6 transition-colors duration-700">
-                Read More
-                <ArrowRight className="ml-2 h-4 w-4" />
-              </Button>
-              <Button
-                variant="outline"
-                className="border-border text-lg shadow-md text-foreground hover:bg-muted px-8 py-6 bg-transparent transition-colors duration-700"
-              >
-                Find Your Solution
-              </Button>
+              <Link href="/services">
+                <Button className="bg-primary dark:bg-primary text-lg hover:bg-primary text-primary-foreground px-8 py-6 transition-colors duration-700">
+                  Read More
+                  <ArrowRight className="ml-2 h-4 w-4" />
+                </Button>
+              </Link>
+
+              <Link href="/contact">
+                <Button
+                  variant="outline"
+                  className="border-border text-lg shadow-md text-foreground hover:bg-muted px-8 py-6 bg-transparent transition-colors duration-700"
+                >
+                  Find Your Solution
+                </Button>
+              </Link>
             </div>
           </div>
         </div>

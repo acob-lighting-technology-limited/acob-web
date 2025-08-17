@@ -23,7 +23,7 @@ export const servicesData: ServiceData[] = [
       'ACOB delivers reliable mini-grid systems to homes, businesses, and industries, using innovative, scalable technology that empowers communities with sustainable, affordable, and efficient energy access.',
     fullDescription:
       'ACOB provides minigrid solutions that serve a wide range of customers which include private households, commercial businesses such as shops, ice makers and mobile phone chargers, agricultural loads such as cold storage, productive loads such as grind mills, food processing and wood or metal workingshops, and semi industrials such astelecom towers. At ACOB Lighting Technology Ltd., we recognize the diverse needs of our customers and are dedicated to providing tailored solutions that meet their unique requirements. Through innovation, reliability, and a commitment to sustainability, we empower communities to thrive and prosper.',
-    image: '/images/olooji-community.jpg',
+    image: '/images/olooji-community-optimized.webp',
     icon: '/images/mini-grid-solutions.webp',
     features: [
       'Scalable power solutions for communities',
