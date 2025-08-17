@@ -168,7 +168,7 @@ export function TransitionSection() {
           projectTitle: 'Fallback Image',
         },
         {
-          url: '/images/olooji-community.jpg',
+          url: '/images/olooji-community-optimized.webp',
           alt: 'Solar Panels',
           projectTitle: 'Fallback Image',
         },

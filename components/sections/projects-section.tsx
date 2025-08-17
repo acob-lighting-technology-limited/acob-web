@@ -149,7 +149,7 @@ export function ProjectsSection() {
           : [
               {
                 asset: {
-                  url: '/images/olooji-community.jpg?height=800&width=1400',
+                  url: '/images/olooji-community-optimized.webp?height=800&width=1400',
                 },
               },
             ];
