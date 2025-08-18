@@ -12,7 +12,7 @@ import { Toaster } from 'sonner';
 import { ChatBot } from '@/components/features/chat-bot';
 import { LazyCookieConsent } from '@/components/lazy-components';
 import { Analytics } from '@vercel/analytics/react';
-import { SpeedInsights } from '@vercel/speed-insights/next';
+import { SpeedInsights } from '@vercel/speed-insights/react';
 
 const inter = Inter({ subsets: ['latin'] });
 

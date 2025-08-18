@@ -26,15 +26,15 @@
   ],
   "screenshots": [
     {
-      "src": "/images/hero1-optimized.webp",
+      "src": "/images/hero1.JPG",
       "sizes": "1280x720",
-      "type": "image/webp",
+      "type": "image/jpeg",
       "form_factor": "wide"
     },
     {
-      "src": "/images/hero2-optimized.webp",
+      "src": "/images/hero2.JPG",
       "sizes": "750x1334",
-      "type": "image/webp",
+      "type": "image/jpeg",
       "form_factor": "narrow"
     }
   ]

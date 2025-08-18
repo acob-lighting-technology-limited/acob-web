@@ -61,7 +61,7 @@ const HeroSection = React.memo(function HeroSection({
         project.images.length > 0 &&
         project.images[0]?.asset?.url
           ? `${project.images[0].asset.url}?w=1920&h=1080&fit=crop&auto=format&q=75`
-          : '/images/olooji-community-optimized.webp?height=800&width=1400', // fallback
+          : '/images/olooji-community.jpg?height=800&width=1400', // fallback
       location: project.location,
       slug: project.slug.current,
     }));
