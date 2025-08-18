@@ -17,7 +17,6 @@ const TransitionSection = dynamic(
     loading: () => (
       <div className="py-16 bg-zinc-50 dark:bg-zinc-950 animate-pulse" />
     ),
-    ssr: false, // Disable SSR for this component to reduce initial bundle
   }
 );
 
@@ -42,7 +41,6 @@ const NewsSection = dynamic(
     loading: () => (
       <div className="py-16 bg-zinc-50 dark:bg-zinc-950 animate-pulse" />
     ),
-    ssr: false, // Disable SSR for this component
   }
 );
 
@@ -55,7 +53,6 @@ const PartnersSection = dynamic(
     loading: () => (
       <div className="py-16 bg-zinc-50 dark:bg-zinc-950 animate-pulse" />
     ),
-    ssr: false, // Disable SSR for this component
   }
 );
 
@@ -68,7 +65,6 @@ const ProjectsSection = dynamic(
     loading: () => (
       <div className="py-16 bg-zinc-50 dark:bg-zinc-950 animate-pulse" />
     ),
-    ssr: false, // Disable SSR for this component to reduce initial bundle
   }
 );
 
