@@ -77,7 +77,7 @@ export function ProjectsSection() {
         },
       });
       if (!response.ok) {
-        throw new Error('Failed to fetch projects');
+        throw new Error(`Failed to fetch projects: ${response.status}`);
       }
       const fetchedProjects = await response.json();
       setProjects(fetchedProjects);
@@ -86,7 +86,7 @@ export function ProjectsSection() {
       cacheProjects(fetchedProjects);
     } catch (err) {
       console.error('Failed to fetch projects:', err);
-      setError('Failed to load projects.');
+      setError('Failed to load projects. Please try refreshing the page.');
     } finally {
       setLoading(false);
     }
@@ -98,22 +98,30 @@ export function ProjectsSection() {
 
   // Initialize Lenis only once and reuse
   useEffect(() => {
-    if (!lenisInstance) {
-      const lenis = new Lenis();
+    if (!lenisInstance && typeof window !== 'undefined') {
+      try {
+        const lenis = new Lenis();
 
-      setLenisInstance(lenis);
+        setLenisInstance(lenis);
 
-      function raf(time: number) {
-        lenis.raf(time);
+        function raf(time: number) {
+          lenis.raf(time);
+          requestAnimationFrame(raf);
+        }
+
         requestAnimationFrame(raf);
+      } catch (error) {
+        console.error('Failed to initialize Lenis:', error);
       }
-
-      requestAnimationFrame(raf);
     }
 
     return () => {
       if (lenisInstance) {
-        lenisInstance.destroy();
+        try {
+          lenisInstance.destroy();
+        } catch (error) {
+          console.error('Failed to destroy Lenis:', error);
+        }
       }
     };
   }, [lenisInstance]);

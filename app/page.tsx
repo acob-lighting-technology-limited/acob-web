@@ -17,7 +17,6 @@ const TransitionSection = dynamic(
     loading: () => (
       <div className="py-16 bg-zinc-50 dark:bg-zinc-950 animate-pulse" />
     ),
-    ssr: false, // Disable SSR for this component to reduce initial bundle
   }
 );
 
@@ -42,7 +41,6 @@ const NewsSection = dynamic(
     loading: () => (
       <div className="py-16 bg-zinc-50 dark:bg-zinc-950 animate-pulse" />
     ),
-    ssr: false, // Disable SSR for this component
   }
 );
 
@@ -55,7 +53,6 @@ const PartnersSection = dynamic(
     loading: () => (
       <div className="py-16 bg-zinc-50 dark:bg-zinc-950 animate-pulse" />
     ),
-    ssr: false, // Disable SSR for this component
   }
 );
 
@@ -68,16 +65,33 @@ const ProjectsSection = dynamic(
     loading: () => (
       <div className="py-16 bg-zinc-50 dark:bg-zinc-950 animate-pulse" />
     ),
-    ssr: false, // Disable SSR for this component to reduce initial bundle
   }
 );
 
 export default function HomePage() {
   const [heroLoaded, setHeroLoaded] = useState(false);
+  const [error, setError] = useState<string | null>(null);
 
   const handleHeroLoaded = () => {
     setHeroLoaded(true);
   };
+
+  if (error) {
+    return (
+      <div className="min-h-screen flex items-center justify-center">
+        <div className="text-center">
+          <h2 className="text-2xl font-bold mb-4">Something went wrong</h2>
+          <p className="text-gray-600 mb-4">{error}</p>
+          <button
+            onClick={() => window.location.reload()}
+            className="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600"
+          >
+            Reload Page
+          </button>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <>
@@ -87,12 +101,42 @@ export default function HomePage() {
           <AboutSection />
           <ServicesSection />
           <CompanySection />
-          <ProjectsSection />
+          <Suspense
+            fallback={
+              <div className="py-16 bg-zinc-50 dark:bg-zinc-950 animate-pulse" />
+            }
+          >
+            <ProjectsSection />
+          </Suspense>
           {/* <TestimonialsSection /> */}
-          <TransitionSection />
-          <ContactSection />
-          <NewsSection />
-          <PartnersSection />
+          <Suspense
+            fallback={
+              <div className="py-16 bg-zinc-50 dark:bg-zinc-950 animate-pulse" />
+            }
+          >
+            <TransitionSection />
+          </Suspense>
+          <Suspense
+            fallback={
+              <div className="py-16 bg-zinc-50 dark:bg-zinc-950 animate-pulse" />
+            }
+          >
+            <ContactSection />
+          </Suspense>
+          <Suspense
+            fallback={
+              <div className="py-16 bg-zinc-50 dark:bg-zinc-950 animate-pulse" />
+            }
+          >
+            <NewsSection />
+          </Suspense>
+          <Suspense
+            fallback={
+              <div className="py-16 bg-zinc-50 dark:bg-zinc-950 animate-pulse" />
+            }
+          >
+            <PartnersSection />
+          </Suspense>
           {/* <MapSection /> */}
         </>
       )}
