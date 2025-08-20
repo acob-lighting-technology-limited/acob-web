@@ -1,4 +1,4 @@
-import React from 'react';
+import type React from 'react';
 import './globals.css';
 import '../styles/customShadow.css';
 import type { Metadata } from 'next';
@@ -12,7 +12,7 @@ import { Toaster } from 'sonner';
 import { ChatBot } from '@/components/features/chat-bot';
 import { LazyCookieConsent } from '@/components/lazy-components';
 import { Analytics } from '@vercel/analytics/react';
-import { SpeedInsights } from '@vercel/speed-insights/react';
+import { SpeedInsights } from '@vercel/speed-insights/next';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -39,11 +39,10 @@ export default function RootLayout({
         <Providers>
           <NProgressProvider>
             <Toaster closeButton position="top-right" />
-            <div className="flex min-h-screen flex-col w-full bg-background transition-all duration-500">
+            <div className="flex min-h-screen flex-col w-full bg-background transition-all duration-500 ">
               <Header />
               <main className="flex-1 border-b border-b-muted">{children}</main>
-              <Footer />
-              <ChatBot />
+              <Footer /> <ChatBot />
               <LazyCookieConsent />
               <ScrollToTop />
               <Analytics />

@@ -1,22 +1,20 @@
 'use client';
 
-import { useState, Suspense } from 'react';
+import { useState } from 'react';
 import dynamic from 'next/dynamic';
 import { HeroSection } from '@/components/sections/hero-section';
 import { AboutSection } from '@/components/sections/about-section';
 import { ServicesSection } from '@/components/sections/services-section';
 import { CompanySection } from '@/components/sections/company-section';
 
-// Lazy load heavy components with better loading states
+// Lazy load heavy components
 const TransitionSection = dynamic(
   () =>
     import('@/components/sections/transition-section').then(mod => ({
       default: mod.TransitionSection,
     })),
   {
-    loading: () => (
-      <div className="py-16 bg-zinc-50 dark:bg-zinc-950 animate-pulse" />
-    ),
+    loading: () => <div className="py-16 bg-zinc-50 dark:bg-zinc-950" />,
   }
 );
 
@@ -26,9 +24,7 @@ const ContactSection = dynamic(
       default: mod.ContactSection,
     })),
   {
-    loading: () => (
-      <div className="py-16 bg-zinc-50 dark:bg-zinc-950 animate-pulse" />
-    ),
+    loading: () => <div className="py-16 bg-zinc-50 dark:bg-zinc-950" />,
   }
 );
 
@@ -38,9 +34,7 @@ const NewsSection = dynamic(
       default: mod.NewsSection,
     })),
   {
-    loading: () => (
-      <div className="py-16 bg-zinc-50 dark:bg-zinc-950 animate-pulse" />
-    ),
+    loading: () => <div className="py-16 bg-zinc-50 dark:bg-zinc-950" />,
   }
 );
 
@@ -50,9 +44,7 @@ const PartnersSection = dynamic(
       default: mod.PartnersSection,
     })),
   {
-    loading: () => (
-      <div className="py-16 bg-zinc-50 dark:bg-zinc-950 animate-pulse" />
-    ),
+    loading: () => <div className="py-16 bg-zinc-50 dark:bg-zinc-950" />,
   }
 );
 
@@ -62,9 +54,7 @@ const ProjectsSection = dynamic(
       default: mod.ProjectsSection,
     })),
   {
-    loading: () => (
-      <div className="py-16 bg-zinc-50 dark:bg-zinc-950 animate-pulse" />
-    ),
+    loading: () => <div className="py-16 bg-zinc-50 dark:bg-zinc-950" />,
   }
 );
 

@@ -18,15 +18,6 @@ const nextConfig: NextConfig = {
     optimizePackageImports: ['lucide-react', 'framer-motion'],
   },
 
-  // Enable compression
-  compress: true,
-
-  // Disable powered by header
-  poweredByHeader: false,
-
-  // Disable etags for better caching
-  generateEtags: false,
-
   // Bundle analyzer (uncomment for debugging)
   // webpack: (config, { isServer }) => {
   //   if (!isServer) {
@@ -38,7 +29,7 @@ const nextConfig: NextConfig = {
   //   return config;
   // },
 
-  // Security and performance headers
+  // Security headers
   headers: async () => {
     return [
       {
@@ -55,26 +46,6 @@ const nextConfig: NextConfig = {
           {
             key: 'Referrer-Policy',
             value: 'origin-when-cross-origin',
-          },
-          // Enable compression headers
-          {
-            key: 'Accept-Encoding',
-            value: 'gzip, deflate, br',
-          },
-          // Cache static assets
-          {
-            key: 'Cache-Control',
-            value: 'public, max-age=31536000, immutable',
-          },
-        ],
-      },
-      // Cache API responses
-      {
-        source: '/api/(.*)',
-        headers: [
-          {
-            key: 'Cache-Control',
-            value: 'public, max-age=300, s-maxage=300',
           },
         ],
       },
