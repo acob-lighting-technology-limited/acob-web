@@ -186,41 +186,7 @@ export interface TeamMember {
   linkedin?: string;
 }
 
-// Admin Types
-export interface AdminPost {
-  _id: string;
-  title: string;
-  slug: {
-    current: string;
-  };
-  content: unknown[]; // Portable Text
-  excerpt: string;
-  publishedAt: string;
-  author: string;
-  category?: {
-    name: string;
-    slug: {
-      current: string;
-    };
-  };
-  tags?: string[];
-  featuredImage?: string;
-  _createdAt: string;
-  _updatedAt: string;
-}
 
-export interface AdminPostFormData {
-  title: string;
-  slug: string;
-  content: unknown[]; // Portable Text
-  excerpt: string;
-  publishedAt: string;
-  author: {
-    name: string;
-    image?: SanityImageUrl;
-  };
-  mainImage?: SanityImageUrl;
-}
 
 // Web Vitals Types
 export interface WebVitalsMetric {

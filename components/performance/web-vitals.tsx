@@ -5,7 +5,9 @@ import { useEffect } from 'react';
 export function WebVitals() {
   useEffect(() => {
     // Only run in production
-    if (process.env.NODE_ENV !== 'production') return;
+    if (process.env.NODE_ENV !== 'production') {
+      return;
+    }
 
     const sendToAnalytics = (metric: {
       name: string;

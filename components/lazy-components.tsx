@@ -46,11 +46,7 @@ export const LazySpamProtection = dynamic(
   }
 );
 
-// Lazy load admin components
-export const LazyAdminPanel = dynamic(() => import('../app/admin/page'), {
-  loading: () => <div className="h-screen bg-muted animate-pulse" />,
-  ssr: false,
-});
+
 
 // Lazy load heavy sections
 export const LazyProjectsSection = dynamic(

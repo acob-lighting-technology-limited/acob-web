@@ -37,7 +37,9 @@ const ServicesSection = React.memo(function ServicesSection() {
     Autoplay({ delay: 4000, stopOnInteraction: true })
   );
   useEffect(() => {
-    if (!carouselApi) return;
+    if (!carouselApi) {
+      return;
+    }
 
     carouselApi.on('select', () => {
       setCurrentSlide(carouselApi.selectedScrollSnap());
@@ -45,7 +47,9 @@ const ServicesSection = React.memo(function ServicesSection() {
   }, [carouselApi]);
 
   const goToSlide = (index: number) => {
-    if (!carouselApi || isTransitioning) return;
+    if (!carouselApi || isTransitioning) {
+      return;
+    }
 
     setIsTransitioning(true);
     carouselApi.scrollTo(index);

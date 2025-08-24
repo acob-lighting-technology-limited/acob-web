@@ -45,7 +45,9 @@ export function BackupStrategy({
   const [isRestoring, setIsRestoring] = useState(false);
 
   const handleManualBackup = async () => {
-    if (isBackingUp) return;
+    if (isBackingUp) {
+      return;
+    }
 
     setIsBackingUp(true);
     setBackupStatus(prev => ({ ...prev, status: 'in-progress' }));
@@ -73,7 +75,9 @@ export function BackupStrategy({
   };
 
   const handleRestore = async () => {
-    if (isRestoring) return;
+    if (isRestoring) {
+      return;
+    }
 
     setIsRestoring(true);
 

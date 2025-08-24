@@ -145,3 +145,7 @@ When you use an invalid commit message, you'll see:
 - **Type safety** with TypeScript
 - **Error prevention** before code reaches the repository
 - **Team collaboration** with standardized practices
+
+
+
+

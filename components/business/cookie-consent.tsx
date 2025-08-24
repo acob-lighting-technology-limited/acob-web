@@ -44,7 +44,9 @@ export function CookieConsent() {
     }
   };
 
-  if (!showConsent) return null;
+  if (!showConsent) {
+    return null;
+  }
 
   return (
     <>

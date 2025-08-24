@@ -44,7 +44,9 @@ export function useOfflineStatus() {
   const [isOffline, setIsOffline] = React.useState(false);
 
   React.useEffect(() => {
-    if (!isBrowser) return;
+    if (!isBrowser) {
+      return;
+    }
 
     const updateOnlineStatus = () => {
       setIsOffline(!navigator.onLine);

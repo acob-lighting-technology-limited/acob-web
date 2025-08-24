@@ -10,7 +10,8 @@ export function KenBurnsImageLoader() {
       <div
         className="absolute inset-0 bg-cover bg-center bg-no-repeat animate-ken-burns-loader"
         style={{
-          backgroundImage: `url('/images/olooji-community.jpg?height=800&width=1400')`,
+          backgroundImage:
+            "url('/images/olooji-community.jpg?height=800&width=1400')",
         }}
       />
 

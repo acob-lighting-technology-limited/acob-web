@@ -61,7 +61,7 @@ NEXTAUTH_SECRET=0b3a68916cca6cc281f4dd73e79840b011dde4efe8fc3ec2b3ae0ef2641e3a39
 ### 3. Test Authentication
 
 1. Start the development server: `npm run dev`
-2. Navigate to `/admin/login`
+2. Navigate to `/auth/signin`
 3. Use the credentials you set up
 
 ## 🔧 Technical Implementation
