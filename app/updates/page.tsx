@@ -1,19 +1,17 @@
+import { Metadata } from 'next';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Container } from '@/components/ui/container';
 import { PageHero } from '@/components/ui/page-hero';
 import { Breadcrumb } from '@/components/ui/breadcrumb';
-import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
-import { ArrowRight, Calendar, User, Search } from 'lucide-react';
+import { ArrowRight, Search } from 'lucide-react';
 import Link from 'next/link';
-import { getUpdatePosts, getCategories } from '@/sanity/lib/client';
+import { getUpdatePosts } from '@/sanity/lib/client';
 import type { UpdatePost } from '@/lib/types';
 
 export default async function UpdatesPage() {
-  const [posts, categories] = await Promise.all([
-    getUpdatePosts(),
-    getCategories(),
-  ]);
+  const posts = await getUpdatePosts();
 
   const breadcrumbItems = [{ label: 'Home', href: '/' }, { label: 'Updates' }];
 
@@ -29,11 +27,11 @@ export default async function UpdatesPage() {
 
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 items-start">
           {/* Main Content */}
-          <div className="lg:col-span-2 space-y-8">
+          <div className="lg:col-span-2 grid grid-cols-1 md:grid-cols-2 gap-6">
             {posts.map((post: UpdatePost) => (
               <Card
                 key={post._id}
-                className="overflow-hidden  p-0 hover:shadow-lg transition-shadow"
+                className="overflow-hidden p-0 hover:shadow-lg transition-shadow h-full"
               >
                 <div className="aspect-[16/9] overflow-hidden">
                   <img
@@ -72,7 +70,7 @@ export default async function UpdatesPage() {
           {/* Sidebar */}
           <div className="space-y-6 sticky top-20 self-start">
             {/* Search */}
-            <Card className="">
+            <Card>
               <CardContent className="p-6">
                 <h3 className="font-semibold mb-4">Search</h3>
                 <div className="relative border-[0.5px] rounded-md border-primary">
@@ -84,26 +82,11 @@ export default async function UpdatesPage() {
             </Card>
 
             {/* Categories */}
-            <Card className="">
+            <Card>
               <CardContent className="p-6">
                 <h3 className="font-semibold mb-4">Categories</h3>
                 <ul className="space-y-2">
-                  {categories.map(
-                    (category: {
-                      _id: string;
-                      slug: { current: string };
-                      name: string;
-                    }) => (
-                      <li key={category._id}>
-                        <Link
-                          href={`/updates/category/${category.slug.current}`}
-                          className="text-gray-600 hover:text-primary transition-colors duration-200 flex items-center justify-between"
-                        >
-                          <span>{category.name}</span>
-                        </Link>
-                      </li>
-                    )
-                  )}
+                  {/* Removed categories mapping as categories are no longer available */}
                 </ul>
               </CardContent>
             </Card>

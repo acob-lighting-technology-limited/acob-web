@@ -11,9 +11,6 @@ export const structure: StructureResolver = S =>
         .title('Projects')
         .child(S.documentTypeList('project').title('Projects')), // Added Projects
       S.listItem()
-        .title('Categories')
-        .child(S.documentTypeList('category').title('Categories')),
-      S.listItem()
         .title('Comments')
         .child(S.documentTypeList('comment').title('Comments')),
     ]);

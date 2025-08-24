@@ -81,8 +81,15 @@ export const updatePostType = defineType({
     defineField({
       name: 'category',
       title: 'Category',
-      type: 'reference',
-      to: [{ type: 'category' }],
+      type: 'string',
+      options: {
+        list: [
+          { title: 'News', value: 'news' },
+          { title: 'Case Studies', value: 'case-studies' },
+          { title: 'Press Releases', value: 'press-releases' },
+        ],
+      },
+      initialValue: 'news',
     }),
     defineField({
       name: 'tags',

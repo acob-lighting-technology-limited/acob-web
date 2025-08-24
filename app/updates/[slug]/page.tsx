@@ -1,22 +1,21 @@
-import { Container } from '@/components/ui/container';
-import { Breadcrumb } from '@/components/ui/breadcrumb';
-import { Button } from '@/components/ui/button';
-import { Card, CardContent } from '@/components/ui/card';
-import { Input } from '@/components/ui/input';
-
+import { Metadata } from 'next';
 import Image from 'next/image';
 
 import { PortableText } from '@portabletext/react';
 import type {
-  PortableTextComponentProps,
+  PortableTextComponents,
   PortableTextBlock,
+  PortableTextComponentProps,
 } from '@portabletext/react';
-import { urlFor, getUpdatePost, getUpdatePosts, getApprovedCommentsForPost } from '@/sanity/lib/client';
+import { urlFor, getUpdatePost, getUpdatePosts, getApprovedCommentsForPost, getRelatedUpdatePosts } from '@/sanity/lib/client';
 import { notFound } from 'next/navigation';
 import type { UpdatePost, Comment } from '@/lib/types';
-
-import { CommentForm } from '@/components/updates/comment-form';
+import { Container } from '@/components/ui/container';
+import { Breadcrumb } from '@/components/ui/breadcrumb';
+import { Card, CardContent } from '@/components/ui/card';
+import { Input } from '@/components/ui/input';
 import { ShareCopy } from '@/components/updates/share-copy';
+import { CommentForm } from '@/components/updates/comment-form';
 
 interface UpdatePostPageProps {
   params: Promise<{
@@ -113,6 +112,9 @@ export default async function UpdatePostPage({ params }: UpdatePostPageProps) {
   }
 
   const comments = await getApprovedCommentsForPost(post._id);
+  const related = post.category
+    ? await getRelatedUpdatePosts(post.category, post.slug.current, 3)
+    : [];
 
   const breadcrumbItems = [
     { label: 'Home', href: '/' },
@@ -150,7 +152,10 @@ export default async function UpdatePostPage({ params }: UpdatePostPageProps) {
                   <>
                     <span className="mx-2">•</span>
                     <span className="bg-primary text-white px-2 py-1 rounded text-xs">
-                      {post.category.name || 'News'}
+                      {post.category === 'news' ? 'News' : 
+                       post.category === 'case-studies' ? 'Case Studies' : 
+                       post.category === 'press-releases' ? 'Press Releases' : 
+                       post.category}
                     </span>
                   </>
                 )}
@@ -177,6 +182,34 @@ export default async function UpdatePostPage({ params }: UpdatePostPageProps) {
                     {tag}
                   </span>
                 ))}
+              </div>
+            )}
+
+            {/* Related Updates */}
+            {Array.isArray(related) && related.length > 0 && (
+              <div className="pt-8 border-t">
+                <h3 className="text-xl font-semibold mb-4">Related Updates</h3>
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                  {related.map((item: any) => (
+                    <Card key={item._id} className="overflow-hidden">
+                      <div className="aspect-[16/9] overflow-hidden">
+                        <img
+                          src={item.featuredImage || '/placeholder.svg'}
+                          alt={item.title}
+                          className="w-full h-full object-cover hover:scale-105 transition-transform duration-300"
+                        />
+                      </div>
+                      <CardContent className="p-4">
+                        <div className="text-xs text-muted-foreground mb-2">
+                          {new Date(item.publishedAt).toLocaleDateString()}
+                        </div>
+                        <h4 className="font-semibold text-foreground leading-snug line-clamp-2">
+                          {item.title}
+                        </h4>
+                      </CardContent>
+                    </Card>
+                  ))}
+                </div>
               </div>
             )}
 

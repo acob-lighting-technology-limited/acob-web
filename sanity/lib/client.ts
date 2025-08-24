@@ -76,6 +76,27 @@ export async function getUpdatePost(slug: string) {
   );
 }
 
+// Helper function to get related update posts by category (excluding current slug)
+export async function getRelatedUpdatePosts(
+  categorySlug: string,
+  excludeSlug: string,
+  limit: number = 3
+) {
+  return await client.fetch(
+    `
+    *[_type == "updatePost" && category == $categorySlug && slug.current != $excludeSlug]
+      | order(publishedAt desc)[0...$limit] {
+      _id,
+      title,
+      slug,
+      publishedAt,
+      "featuredImage": featuredImage.asset->url + "?w=800&h=600&fit=crop&auto=format&q=75"
+    }
+  `,
+    { categorySlug, excludeSlug, limit }
+  );
+}
+
 // Helper function to get categories
 export async function getCategories() {
   return await client.fetch(`
@@ -182,7 +203,7 @@ export async function getProject(slug: string) {
 // Test function to verify Sanity connection
 export async function testSanityConnection() {
   try {
-    const result = await client.fetch('*[_type == "project"][0...1]');
+    await client.fetch('*[_type == "project"][0...1]');
     console.log('✅ Sanity connection successful');
     return true;
   } catch (error) {
