@@ -1,5 +1,6 @@
 import { Metadata } from 'next';
 import Image from 'next/image';
+import Link from 'next/link';
 
 import { PortableText } from '@portabletext/react';
 import type {
@@ -196,23 +197,25 @@ console.log(post)
                 <h3 className="text-xl font-semibold mb-4">Related Updates</h3>
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                   {related.map((item: any) => (
-                    <Card key={item._id} className="overflow-hidden p-0 border-2">
-                      <div className="aspect-[16/9] overflow-hidden">
-                        <img
-                          src={item.featuredImage || '/placeholder.svg'}
-                          alt={item.title}
-                          className="w-full h-full object-cover hover:scale-105 transition-transform duration-300"
-                        />
-                      </div>
-                      <CardContent className="p-4">
-                        <div className="text-xs text-muted-foreground mb-2">
-                          {new Date(item.publishedAt).toLocaleDateString()}
+                    <Link key={item._id} href={`/updates/${item.slug.current}`}>
+                      <Card className="overflow-hidden p-0 border-2 hover:shadow-lg transition-shadow cursor-pointer">
+                        <div className="aspect-[16/9] overflow-hidden">
+                          <img
+                            src={item.featuredImage || '/placeholder.svg'}
+                            alt={item.title}
+                            className="w-full h-full object-cover hover:scale-105 transition-transform duration-300"
+                          />
                         </div>
-                        <h4 className="font-semibold text-foreground leading-snug line-clamp-2">
-                          {item.title}
-                        </h4>
-                      </CardContent>
-                    </Card>
+                        <CardContent className="p-4">
+                          <div className="text-xs text-muted-foreground mb-2">
+                            {new Date(item.publishedAt).toLocaleDateString()}
+                          </div>
+                          <h4 className="font-semibold text-foreground leading-snug line-clamp-2">
+                            {item.title}
+                          </h4>
+                        </CardContent>
+                      </Card>
+                    </Link>
                   ))}
                 </div>
               </div>
