@@ -186,14 +186,17 @@ console.log(post)
                 ))}
               </div>
             )}
-
+  {/* Share Buttons */}
+  <div className="flex items-center gap-4 pt-8 border-t">
+              <ShareCopy className="rounded-full bg-transparent" />
+            </div>
             {/* Related Updates */}
             {Array.isArray(related) && related.length > 0 && (
               <div className="pt-8 border-t">
                 <h3 className="text-xl font-semibold mb-4">Related Updates</h3>
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                   {related.map((item: any) => (
-                    <Card key={item._id} className="overflow-hidden">
+                    <Card key={item._id} className="overflow-hidden p-0 border-2">
                       <div className="aspect-[16/9] overflow-hidden">
                         <img
                           src={item.featuredImage || '/placeholder.svg'}
@@ -215,10 +218,7 @@ console.log(post)
               </div>
             )}
 
-            {/* Share Buttons */}
-            <div className="flex items-center gap-4 pt-8 border-t">
-              <ShareCopy className="rounded-full bg-transparent" />
-            </div>
+          
             </CardContent>
           </Card>
 

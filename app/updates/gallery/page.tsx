@@ -13,13 +13,10 @@ import {
   List,
 } from 'lucide-react';
 import Link from 'next/link';
-import { getUpdatePosts, getCategories } from '@/sanity/lib/client';
+import { getUpdatePosts } from '@/sanity/lib/client';
 
 export default async function MediaGalleryPage() {
-  const [posts, sanityCategories] = await Promise.all([
-    getUpdatePosts(),
-    getCategories(),
-  ]);
+  const posts = await getUpdatePosts();
 
   // Mock gallery data - in a real implementation, this would come from Sanity
   const galleryItems = [
