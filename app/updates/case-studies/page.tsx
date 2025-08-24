@@ -13,19 +13,16 @@ import {
   MapPin,
 } from 'lucide-react';
 import Link from 'next/link';
-import { getUpdatePosts, getCategories } from '@/sanity/lib/client';
+import { getUpdatePosts } from '@/sanity/lib/client';
 import type { UpdatePost } from '@/lib/types';
 
 export default async function CaseStudiesPage() {
-  const [posts, categories] = await Promise.all([
-    getUpdatePosts(),
-    getCategories(),
-  ]);
+  const posts = await getUpdatePosts();
 
-  // Filter for case studies (assuming they have a category or tag for case studies)
+  // Filter for case studies using the new string-based category system
   const caseStudies = posts.filter(
     (post: UpdatePost) =>
-      post.category?.name?.toLowerCase().includes('case study') ||
+      post.category === 'case-studies' ||
       post.tags?.some((tag: string) =>
         tag.toLowerCase().includes('case study')
       ) ||
@@ -194,23 +191,7 @@ export default async function CaseStudiesPage() {
               <CardContent className="p-6">
                 <h3 className="font-semibold mb-4">Categories</h3>
                 <ul className="space-y-2">
-                  {categories.map(
-                    (category: {
-                      _id: string;
-                      slug: { current: string };
-                      name: string;
-                    }) => (
-                      <li key={category._id}>
-                        <Link
-                          href={`/updates/category/${category.slug.current}`}
-                          className="text-muted-foreground hover:text-primary transition-colors duration-200 flex items-center justify-between"
-                        >
-                          <span>{category.name}</span>
-                          <ArrowRight className="h-3 w-3" />
-                        </Link>
-                      </li>
-                    )
-                  )}
+                  {/* Categories are no longer fetched, so this section is removed */}
                 </ul>
               </CardContent>
             </Card>

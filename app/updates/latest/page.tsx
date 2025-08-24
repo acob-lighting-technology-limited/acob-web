@@ -3,16 +3,13 @@ import { PageHero } from '@/components/ui/page-hero';
 import { Breadcrumb } from '@/components/ui/breadcrumb';
 import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
-import { ArrowRight, Calendar, User, Clock, TrendingUp } from 'lucide-react';
+import { ArrowRight, Calendar, User } from 'lucide-react';
 import Link from 'next/link';
-import { getUpdatePosts, getCategories } from '@/sanity/lib/client';
+import { getUpdatePosts } from '@/sanity/lib/client';
 import type { UpdatePost } from '@/lib/types';
 
-export default async function LatestUpdatesPage() {
-  const [posts, categories] = await Promise.all([
-    getUpdatePosts(),
-    getCategories(),
-  ]);
+export default async function LatestPage() {
+  const posts = await getUpdatePosts();
 
   // Get the 10 most recent posts
   const latestPosts = posts
@@ -53,7 +50,6 @@ export default async function LatestUpdatesPage() {
                 </div>
                 <CardContent className="p-8">
                   <div className="flex items-center text-sm text-muted-foreground mb-4">
-                    <TrendingUp className="h-4 w-4 mr-1" />
                     <span className="bg-primary/10 text-primary px-2 py-1 rounded-full text-xs font-medium">
                       Featured
                     </span>
@@ -148,7 +144,7 @@ export default async function LatestUpdatesPage() {
               <CardContent className="p-6">
                 <h3 className="font-semibold mb-4">Latest Updates</h3>
                 <div className="bg-primary/10 p-4 rounded-lg">
-                  <Clock className="h-8 w-8 text-primary mb-2" />
+                  <Calendar className="h-8 w-8 text-primary mb-2" />
                   <h4 className="font-medium text-primary mb-2">
                     Recent Developments
                   </h4>
@@ -169,23 +165,7 @@ export default async function LatestUpdatesPage() {
               <CardContent className="p-6">
                 <h3 className="font-semibold mb-4">Categories</h3>
                 <ul className="space-y-2">
-                  {categories.map(
-                    (category: {
-                      _id: string;
-                      slug: { current: string };
-                      name: string;
-                    }) => (
-                      <li key={category._id}>
-                        <Link
-                          href={`/updates/category/${category.slug.current}`}
-                          className="text-muted-foreground hover:text-primary transition-colors duration-200 flex items-center justify-between"
-                        >
-                          <span>{category.name}</span>
-                          <ArrowRight className="h-3 w-3" />
-                        </Link>
-                      </li>
-                    )
-                  )}
+                  {/* Categories are no longer fetched, so this section will be empty */}
                 </ul>
               </CardContent>
             </Card>

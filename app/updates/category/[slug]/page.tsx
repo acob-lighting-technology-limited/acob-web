@@ -4,60 +4,33 @@ import { Breadcrumb } from '@/components/ui/breadcrumb';
 import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { ArrowRight, Calendar, User } from 'lucide-react';
-import Link from 'next/link';
-import { getUpdatePosts, getCategories } from '@/sanity/lib/client';
-import { notFound } from 'next/navigation';
+import { getUpdatePosts } from '@/sanity/lib/client';
 import type { UpdatePost } from '@/lib/types';
+import Link from 'next/link';
+import { notFound } from 'next/navigation';
 
 interface CategoryPageProps {
-  params: Promise<{
-    slug: string;
-  }>;
-}
-
-export async function generateStaticParams() {
-  const categories = await getCategories();
-  return categories.map((category: { slug: { current: string } }) => ({
-    slug: category.slug.current,
-  }));
+  params: Promise<{ slug: string }>;
 }
 
 export default async function CategoryPage({ params }: CategoryPageProps) {
   const { slug } = await params;
+  const posts = await getUpdatePosts();
 
-  const [posts, categories] = await Promise.all([
-    getUpdatePosts(),
-    getCategories(),
-  ]);
-
-  // Find the current category
-  const currentCategory = categories.find(
-    (category: {
-      slug: { current: string };
-      name: string;
-      description?: string;
-    }) => category.slug.current === slug
-  );
-
-  if (!currentCategory) {
-    notFound();
-  }
-
-  // Filter posts by category
-  const categoryPosts = posts.filter(
-    (post: UpdatePost) => post.category?.slug?.current === slug
-  );
+  // Filter posts by category using the new string-based system
+  const categoryPosts = posts.filter((post: UpdatePost) => post.category === slug);
 
   const breadcrumbItems = [
     { label: 'Home', href: '/' },
     { label: 'Updates', href: '/updates' },
-    { label: currentCategory.name },
+    { label: 'Category', href: `/updates/category/${slug}` },
+    { label: 'Posts' },
   ];
 
   return (
     <>
       <PageHero
-        title={`${currentCategory.name} Updates`}
+        title={`${slug.replace(/-/g, ' ')} Updates`}
         backgroundImage="/images/services/header.jpg?height=400&width=1200"
       />
 
@@ -134,46 +107,16 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
                 <h3 className="font-semibold mb-4">Category</h3>
                 <div className="bg-primary/10 p-4 rounded-lg">
                   <h4 className="font-medium text-primary mb-2">
-                    {currentCategory.name}
+                    {slug.replace(/-/g, ' ')}
                   </h4>
                   <p className="text-sm text-muted-foreground">
-                    {currentCategory.description ||
-                      `Updates in ${currentCategory.name}`}
+                    Updates in this category.
                   </p>
                   <p className="text-xs text-muted-foreground mt-2">
                     {categoryPosts.length} post
                     {categoryPosts.length !== 1 ? 's' : ''}
                   </p>
                 </div>
-              </CardContent>
-            </Card>
-
-            {/* All Categories */}
-            <Card >
-              <CardContent className="p-6">
-                <h3 className="font-semibold mb-4">All Categories</h3>
-                <ul className="space-y-2">
-                  {categories.map(
-                    (category: {
-                      _id: string;
-                      slug: { current: string };
-                      name: string;
-                    }) => (
-                      <li key={category._id}>
-                        <Link
-                          href={`/updates/category/${category.slug.current}`}
-                          className={`block p-2 rounded-md transition-colors duration-200 ${
-                            category.slug.current === slug
-                              ? 'bg-primary text-primary-foreground'
-                              : 'text-muted-foreground hover:text-primary hover:bg-primary/10'
-                          }`}
-                        >
-                          <span>{category.name}</span>
-                        </Link>
-                      </li>
-                    )
-                  )}
-                </ul>
               </CardContent>
             </Card>
 
