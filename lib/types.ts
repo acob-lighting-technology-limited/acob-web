@@ -53,6 +53,7 @@ export interface UpdatePost {
   category?: string; // Changed from object reference to string
   tags?: string[];
   featuredImage?: string;
+  featured?: boolean; // Added featured field
   _createdAt: string;
   _updatedAt: string;
 }
