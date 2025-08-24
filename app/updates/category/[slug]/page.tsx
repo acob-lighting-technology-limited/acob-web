@@ -68,7 +68,7 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
           {/* Main Content */}
           <div className="lg:col-span-2 space-y-8">
             {categoryPosts.length === 0 ? (
-              <Card className="border-0 custom-shadow shadow-none">
+              <Card >
                 <CardContent className="p-8 text-center">
                   <div className="text-muted-foreground mb-4">
                     <Calendar className="h-12 w-12 mx-auto mb-4 opacity-50" />
@@ -89,7 +89,7 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
               categoryPosts.map((post: UpdatePost) => (
                 <Card
                   key={post._id}
-                  className="overflow-hidden border-0 custom-shadow shadow-none p-0 hover:shadow-lg transition-shadow duration-300"
+                  className="overflow-hidden p-0 hover:shadow-lg transition-shadow duration-300"
                 >
                   <div className="aspect-[16/9] overflow-hidden">
                     <img
@@ -129,7 +129,7 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
           {/* Sidebar */}
           <div className="space-y-6 sticky top-20 self-start">
             {/* Category Info */}
-            <Card className="border-0 custom-shadow shadow-none">
+            <Card >
               <CardContent className="p-6">
                 <h3 className="font-semibold mb-4">Category</h3>
                 <div className="bg-primary/10 p-4 rounded-lg">
@@ -149,7 +149,7 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
             </Card>
 
             {/* All Categories */}
-            <Card className="border-0 custom-shadow shadow-none">
+            <Card >
               <CardContent className="p-6">
                 <h3 className="font-semibold mb-4">All Categories</h3>
                 <ul className="space-y-2">
@@ -178,7 +178,7 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
             </Card>
 
             {/* Back to Updates */}
-            <Card className="border-0 custom-shadow shadow-none">
+            <Card >
               <CardContent className="p-6">
                 <Link href="/updates">
                   <Button variant="outline" className="w-full">

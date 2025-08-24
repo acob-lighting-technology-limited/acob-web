@@ -15,7 +15,6 @@ interface CommentFormProps {
 export function CommentForm({ postId }: CommentFormProps) {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
-  const [website, setWebsite] = useState('');
   const [comment, setComment] = useState('');
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -36,7 +35,6 @@ export function CommentForm({ postId }: CommentFormProps) {
         body: JSON.stringify({
           name,
           email,
-          website,
           comment,
           postId,
         }),
@@ -52,7 +50,6 @@ export function CommentForm({ postId }: CommentFormProps) {
       );
       setName('');
       setEmail('');
-      setWebsite('');
       setComment('');
     } catch (err: unknown) {
       const error = err as Error;
@@ -63,17 +60,19 @@ export function CommentForm({ postId }: CommentFormProps) {
   };
 
   return (
-    <Card className="mt-12 border-0 custom-shadow shadow-none">
+    <Card className="mt-12">
       <CardContent className="p-8">
         <h3 className="text-2xl font-bold mb-6">Leave A Reply</h3>
         <form onSubmit={handleSubmit} className="space-y-6">
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div>
               <Label htmlFor="name">Name</Label>
               <Input
                 id="name"
                 value={name}
                 onChange={e => setName(e.target.value)}
+                placeholder="Your name"
+                className="bg-transparent border border-zinc-300 dark:border-white/10 focus-visible:ring-1 focus-visible:ring-primary/50 focus:border-primary/50 focus-visible:outline-none rounded-lg placeholder:text-zinc-400 transition-colors"
                 required
               />
             </div>
@@ -84,15 +83,9 @@ export function CommentForm({ postId }: CommentFormProps) {
                 type="email"
                 value={email}
                 onChange={e => setEmail(e.target.value)}
+                placeholder="you@example.com"
+                className="bg-transparent border border-zinc-300 dark:border-white/10 focus-visible:ring-1 focus-visible:ring-primary/50 focus:border-primary/50 focus-visible:outline-none rounded-lg placeholder:text-zinc-400 transition-colors"
                 required
-              />
-            </div>
-            <div>
-              <Label htmlFor="website">Website</Label>
-              <Input
-                id="website"
-                value={website}
-                onChange={e => setWebsite(e.target.value)}
               />
             </div>
           </div>
@@ -103,6 +96,8 @@ export function CommentForm({ postId }: CommentFormProps) {
               value={comment}
               onChange={e => setComment(e.target.value)}
               rows={6}
+              placeholder="Write your comment..."
+              className="bg-transparent border border-zinc-300 dark:border-white/10 focus-visible:ring-1 focus-visible:ring-primary/50 focus:border-primary/50 focus-visible:outline-none rounded-lg placeholder:text-zinc-400 transition-colors"
               required
             />
           </div>

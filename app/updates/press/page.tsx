@@ -49,7 +49,7 @@ export default async function PressReleasesPage() {
           {/* Main Content */}
           <div className="lg:col-span-2 space-y-8">
             {pressReleases.length === 0 ? (
-              <Card className="border-0 custom-shadow shadow-none">
+              <Card>
                 <CardContent className="p-8 text-center">
                   <div className="text-muted-foreground mb-4">
                     <Megaphone className="h-12 w-12 mx-auto mb-4 opacity-50" />
@@ -70,7 +70,7 @@ export default async function PressReleasesPage() {
               pressReleases.map((post: UpdatePost) => (
                 <Card
                   key={post._id}
-                  className="overflow-hidden border-0 custom-shadow shadow-none p-0 hover:shadow-lg transition-shadow duration-300"
+                  className="overflow-hidden p-0 hover:shadow-lg transition-shadow duration-300"
                 >
                   <div className="aspect-[16/9] overflow-hidden">
                     <img
@@ -118,7 +118,7 @@ export default async function PressReleasesPage() {
           {/* Sidebar */}
           <div className="space-y-6 sticky top-20 self-start">
             {/* Press Releases Info */}
-            <Card className="border-0 custom-shadow shadow-none">
+            <Card>
               <CardContent className="p-6">
                 <h3 className="font-semibold mb-4">Press Releases</h3>
                 <div className="bg-primary/10 p-4 rounded-lg">
@@ -139,7 +139,7 @@ export default async function PressReleasesPage() {
             </Card>
 
             {/* Media Contact */}
-            <Card className="border-0 custom-shadow shadow-none">
+            <Card>
               <CardContent className="p-6">
                 <h3 className="font-semibold mb-4">Media Contact</h3>
                 <div className="space-y-3">
@@ -166,7 +166,7 @@ export default async function PressReleasesPage() {
             </Card>
 
             {/* Quick Links */}
-            <Card className="border-0 custom-shadow shadow-none">
+            <Card>
               <CardContent className="p-6">
                 <h3 className="font-semibold mb-4">Quick Links</h3>
                 <div className="space-y-3">
@@ -190,7 +190,7 @@ export default async function PressReleasesPage() {
             </Card>
 
             {/* Categories */}
-            <Card className="border-0 custom-shadow shadow-none">
+            <Card>
               <CardContent className="p-6">
                 <h3 className="font-semibold mb-4">Categories</h3>
                 <ul className="space-y-2">

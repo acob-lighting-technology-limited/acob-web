@@ -33,7 +33,7 @@ export default async function UpdatesPage() {
             {posts.map((post: UpdatePost) => (
               <Card
                 key={post._id}
-                className="overflow-hidden border-0 custom-shadow shadow-none p-0 hover:shadow-lg transition-shadow"
+                className="overflow-hidden  p-0 hover:shadow-lg transition-shadow"
               >
                 <div className="aspect-[16/9] overflow-hidden">
                   <img
@@ -72,7 +72,7 @@ export default async function UpdatesPage() {
           {/* Sidebar */}
           <div className="space-y-6 sticky top-20 self-start">
             {/* Search */}
-            <Card className="border-0 custom-shadow shadow-none">
+            <Card className="">
               <CardContent className="p-6">
                 <h3 className="font-semibold mb-4">Search</h3>
                 <div className="relative border-[0.5px] rounded-md border-primary">
@@ -84,7 +84,7 @@ export default async function UpdatesPage() {
             </Card>
 
             {/* Categories */}
-            <Card className="border-0 custom-shadow shadow-none">
+            <Card className="">
               <CardContent className="p-6">
                 <h3 className="font-semibold mb-4">Categories</h3>
                 <ul className="space-y-2">

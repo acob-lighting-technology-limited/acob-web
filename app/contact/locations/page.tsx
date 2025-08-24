@@ -34,7 +34,7 @@ export default function LocationsPage() {
         <div className="grid grid-cols-1 md:grid-cols-3 gap-12 items-start">
           {/* Office Details */}
           <div className="md:col-span-1 space-y-6">
-            <Card className="border-0 custom-shadow shadow-none">
+            <Card>
               <CardContent className="p-6">
                 <h2 className="text-2xl font-bold mb-4 text-foreground">
                   <MaskText phrases={['Head Office']} />
@@ -86,7 +86,7 @@ export default function LocationsPage() {
               </CardContent>
             </Card>
 
-            <Card className="border-0 custom-shadow shadow-none">
+            <Card>
               <CardContent className="p-6">
                 <h2 className="text-2xl font-bold mb-4 text-foreground">
                   <MaskText phrases={['Branch Office']} />
