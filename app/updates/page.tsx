@@ -54,7 +54,7 @@ export default async function UpdatesPage() {
                   <p className="text-muted-foreground mb-6 leading-relaxed">
                     {post.excerpt}
                   </p>
-                  <Link href={`/updates/${post.slug.current}`}>
+                  <Link href={`/updates/${post.slug?.current || '#'}`}>
                     {' '}
                     {/* Changed link to /updates */}
                     <Button className="bg-primary hover:bg-primary/90 text-white">

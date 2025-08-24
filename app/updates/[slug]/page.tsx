@@ -25,9 +25,11 @@ interface UpdatePostPageProps {
 
 export async function generateStaticParams() {
   const posts = await getUpdatePosts();
-  return posts.map((post: UpdatePost) => ({
-    slug: post.slug.current,
-  }));
+  return posts
+    .filter((post: UpdatePost) => post.slug && post.slug.current)
+    .map((post: UpdatePost) => ({
+      slug: post.slug.current,
+    }));
 }
 
 // Custom Portable Text Components
@@ -112,7 +114,7 @@ export default async function UpdatePostPage({ params }: UpdatePostPageProps) {
   }
 
   const comments = await getApprovedCommentsForPost(post._id);
-  const related = post.category
+  const related = post.category && post.slug?.current
     ? await getRelatedUpdatePosts(post.category, post.slug.current, 3)
     : [];
 
