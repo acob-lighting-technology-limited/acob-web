@@ -7,7 +7,7 @@ import { PageHero } from '@/components/ui/page-hero';
 import { Breadcrumb } from '@/components/ui/breadcrumb';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
-import { ArrowRight, Search } from 'lucide-react';
+import { ArrowRight, Search, ChevronLeft, ChevronRight } from 'lucide-react';
 import Link from 'next/link';
 import { getUpdatePosts } from '@/sanity/lib/client';
 import type { UpdatePost } from '@/lib/types';
@@ -18,6 +18,8 @@ export default function UpdatesPage() {
   const [filteredPosts, setFilteredPosts] = useState<UpdatePost[]>([]);
   const [searchQuery, setSearchQuery] = useState('');
   const [isLoading, setIsLoading] = useState(true);
+  const [currentPage, setCurrentPage] = useState(1);
+  const postsPerPage = 8; // Show 8 posts per page
 
   useEffect(() => {
     const fetchPosts = async () => {
@@ -38,6 +40,7 @@ export default function UpdatesPage() {
   useEffect(() => {
     if (!searchQuery.trim()) {
       setFilteredPosts(posts);
+      setCurrentPage(1); // Reset to first page when search is cleared
       return;
     }
 
@@ -57,7 +60,27 @@ export default function UpdatesPage() {
     });
 
     setFilteredPosts(filtered);
+    setCurrentPage(1); // Reset to first page when search changes
   }, [searchQuery, posts]);
+
+  // Calculate pagination
+  const totalPages = Math.ceil(filteredPosts.length / postsPerPage);
+  const startIndex = (currentPage - 1) * postsPerPage;
+  const endIndex = startIndex + postsPerPage;
+  const currentPosts = filteredPosts.slice(startIndex, endIndex);
+
+  // Handle page changes
+  const goToPage = (page: number) => {
+    setCurrentPage(Math.max(1, Math.min(page, totalPages)));
+  };
+
+  const goToPreviousPage = () => {
+    goToPage(currentPage - 1);
+  };
+
+  const goToNextPage = () => {
+    goToPage(currentPage + 1);
+  };
 
   const breadcrumbItems = [{ label: 'Home', href: '/' }, { label: 'Updates' }];
 
@@ -98,44 +121,112 @@ export default function UpdatesPage() {
             )}
 
             {/* Posts Grid */}
-            {filteredPosts.length > 0 ? (
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                {filteredPosts.map((post: UpdatePost) => (
-                  <Card
-                    key={post._id}
-                    className="overflow-hidden p-0 hover:shadow-lg transition-shadow h-full"
-                  >
-                    <div className="aspect-[16/9] overflow-hidden">
-                      <img
-                        src={post.featuredImage || '/placeholder.svg'}
-                        alt={post.title}
-                        className="w-full h-full object-cover hover:scale-105 transition-transform duration-300"
-                      />
-                    </div>
-                    <CardContent className="p-6">
-                      <div className="flex items-center text-sm text-muted-foreground mb-4">
-                        <span>
-                          {new Date(post.publishedAt).toLocaleDateString()}
-                        </span>
-                        <span className="mx-2">•</span>
-                        <span>{post.author}</span>
+            {currentPosts.length > 0 ? (
+              <>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                  {currentPosts.map((post: UpdatePost) => (
+                    <Card
+                      key={post._id}
+                      className="overflow-hidden p-0 hover:shadow-lg transition-shadow h-full"
+                    >
+                      <div className="aspect-[16/9] overflow-hidden">
+                        <img
+                          src={post.featuredImage || '/placeholder.svg'}
+                          alt={post.title}
+                          className="w-full h-full object-cover hover:scale-105 transition-transform duration-300"
+                        />
                       </div>
-                      <h2 className="text-2xl font-bold mb-4 text-foreground">
-                        {post.title}
-                      </h2>
-                      <p className="text-muted-foreground mb-6 leading-relaxed">
-                        {post.excerpt}
-                      </p>
-                      <Link href={`/updates/${post.slug?.current || '#'}`}>
-                        <Button className="bg-primary hover:bg-primary/90 text-white">
-                          Read More
-                          <ArrowRight className="ml-2 h-4 w-4" />
-                        </Button>
-                      </Link>
-                    </CardContent>
-                  </Card>
-                ))}
-              </div>
+                      <CardContent className="p-6">
+                        <div className="flex items-center text-sm text-muted-foreground mb-4">
+                          <span>
+                            {new Date(post.publishedAt).toLocaleDateString()}
+                          </span>
+                          <span className="mx-2">•</span>
+                          <span>{post.author}</span>
+                        </div>
+                        <h2 className="text-2xl font-bold mb-4 text-foreground">
+                          {post.title}
+                        </h2>
+                        <p className="text-muted-foreground mb-6 leading-relaxed">
+                          {post.excerpt}
+                        </p>
+                        <Link href={`/updates/${post.slug?.current || '#'}`}>
+                          <Button className="bg-primary hover:bg-primary/90 text-white">
+                            Read More
+                            <ArrowRight className="ml-2 h-4 w-4" />
+                          </Button>
+                        </Link>
+                      </CardContent>
+                    </Card>
+                  ))}
+                </div>
+
+                {/* Pagination */}
+                {totalPages > 1 && (
+                  <div className="mt-12 flex items-center justify-between">
+                    <div className="text-sm text-muted-foreground">
+                      Showing {startIndex + 1}-{Math.min(endIndex, filteredPosts.length)} of {filteredPosts.length} posts
+                    </div>
+                    
+                    <div className="flex items-center gap-2">
+                      <Button
+                        variant="outline"
+                        size="sm"
+                        onClick={goToPreviousPage}
+                        disabled={currentPage === 1}
+                      >
+                        <ChevronLeft className="h-4 w-4 mr-1" />
+                        Previous
+                      </Button>
+
+                      {/* Page Numbers */}
+                      <div className="flex items-center gap-1">
+                        {Array.from({ length: totalPages }, (_, i) => i + 1).map((page) => {
+                          // Show first page, last page, current page, and pages around current
+                          const shouldShow = 
+                            page === 1 || 
+                            page === totalPages || 
+                            Math.abs(page - currentPage) <= 1;
+
+                          if (shouldShow) {
+                            return (
+                              <Button
+                                key={page}
+                                variant={page === currentPage ? "default" : "outline"}
+                                size="sm"
+                                className="w-10 h-10"
+                                onClick={() => goToPage(page)}
+                              >
+                                {page}
+                              </Button>
+                            );
+                          } else if (
+                            page === currentPage - 2 || 
+                            page === currentPage + 2
+                          ) {
+                            return (
+                              <span key={page} className="px-2 text-muted-foreground">
+                                ...
+                              </span>
+                            );
+                          }
+                          return null;
+                        })}
+                      </div>
+
+                      <Button
+                        variant="outline"
+                        size="sm"
+                        onClick={goToNextPage}
+                        disabled={currentPage === totalPages}
+                      >
+                        Next
+                        <ChevronRight className="h-4 w-4 ml-1" />
+                      </Button>
+                    </div>
+                  </div>
+                )}
+              </>
             ) : (
               <div className="text-center py-12">
                 <Search className="h-12 w-12 text-muted-foreground mx-auto mb-4" />
