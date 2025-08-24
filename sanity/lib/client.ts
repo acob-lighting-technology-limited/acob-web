@@ -49,7 +49,6 @@ export async function getUpdatePosts() {
       author,
       category,
       tags,
-      featured,
       "featuredImage": featuredImage.asset->url + "?w=800&h=600&fit=crop&auto=format&q=75",
       content
     }
@@ -69,7 +68,6 @@ export async function getUpdatePost(slug: string) {
       author,
       category,
       tags,
-      featured,
       "featuredImage": featuredImage.asset->url + "?w=800&h=600&fit=crop&auto=format&q=75",
       content
     }

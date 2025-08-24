@@ -43,12 +43,6 @@ export default async function LatestPage() {
   // Take only the first 10 posts for display
   latestPosts = latestPosts.slice(0, 10);
 
-  // Find the featured post (or use the most recent if none is featured)
-  const featuredPost = latestPosts.find((post: UpdatePost) => post.featured) || latestPosts[0];
-  
-  // Remove the featured post from the regular posts list
-  const regularPosts = latestPosts.filter((post: UpdatePost) => post._id !== featuredPost?._id);
-
   const breadcrumbItems = [
     { label: 'Home', href: '/' },
     { label: 'Updates', href: '/updates' },
@@ -69,12 +63,12 @@ export default async function LatestPage() {
           {/* Main Content */}
           <div className="lg:col-span-2 space-y-8">
             {/* Featured Post */}
-            {featuredPost && (
+            {latestPosts.length > 0 && (
               <Card className="overflow-hidden  p-0 hover:shadow-lg transition-shadow duration-300">
                 <div className="aspect-[21/9] overflow-hidden">
                   <img
-                    src={featuredPost.featuredImage || '/placeholder.svg'}
-                    alt={featuredPost.title}
+                    src={latestPosts[0].featuredImage || '/placeholder.svg'}
+                    alt={latestPosts[0].title}
                     className="w-full h-full object-cover hover:scale-105 transition-transform duration-300"
                   />
                 </div>
@@ -87,20 +81,20 @@ export default async function LatestPage() {
                     <Calendar className="h-4 w-4 mr-1" />
                     <span>
                       {new Date(
-                        featuredPost.publishedAt
+                        latestPosts[0].publishedAt
                       ).toLocaleDateString()}
                     </span>
                     <span className="mx-2">•</span>
                     <User className="h-4 w-4 mr-1" />
-                    <span>{featuredPost.author}</span>
+                    <span>{latestPosts[0].author}</span>
                   </div>
                   <h1 className="text-3xl font-bold mb-4 text-foreground">
-                    {featuredPost.title}
+                    {latestPosts[0].title}
                   </h1>
                   <p className="text-lg text-muted-foreground mb-6 leading-relaxed">
-                    {featuredPost.excerpt}
+                    {latestPosts[0].excerpt}
                   </p>
-                  <Link href={`/updates/${featuredPost.slug.current}`}>
+                  <Link href={`/updates/${latestPosts[0].slug.current}`}>
                     <Button
                       size="lg"
                       className="bg-primary hover:bg-primary/90 text-white"
@@ -115,7 +109,7 @@ export default async function LatestPage() {
 
             {/* Recent Posts Grid */}
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              {regularPosts.map((post: UpdatePost) => (
+              {latestPosts.slice(1).map((post: UpdatePost) => (
                 <Card
                   key={post._id}
                   className="overflow-hidden  p-0 hover:shadow-lg transition-shadow duration-300"

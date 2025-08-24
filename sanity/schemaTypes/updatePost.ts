@@ -113,13 +113,6 @@ export const updatePostType = defineType({
       },
       initialValue: 'draft',
     }),
-    defineField({
-      name: 'featured',
-      title: 'Featured Post',
-      type: 'boolean',
-      description: 'Mark this post as featured. Only one post can be featured at a time.',
-      initialValue: false,
-    }),
   ],
   preview: {
     select: {
