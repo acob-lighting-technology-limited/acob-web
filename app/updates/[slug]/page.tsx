@@ -16,6 +16,7 @@ import { notFound } from 'next/navigation';
 import type { UpdatePost, Comment } from '@/lib/types';
 
 import { CommentForm } from '@/components/updates/comment-form';
+import { ShareCopy } from '@/components/updates/share-copy';
 
 interface UpdatePostPageProps {
   params: Promise<{
@@ -126,7 +127,8 @@ export default async function UpdatePostPage({ params }: UpdatePostPageProps) {
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
         {/* Main Content */}
         <div className="lg:col-span-2">
-          <article className="space-y-8">
+          <Card className="">
+            <CardContent className="p-6 md:p-8 space-y-8">
             {/* Featured Image */}
             {post.featuredImage && (
               <div className="aspect-[16/9] overflow-hidden rounded-lg">
@@ -165,7 +167,7 @@ export default async function UpdatePostPage({ params }: UpdatePostPageProps) {
 
             {/* Tags */}
             {post.tags && post.tags.length > 0 && (
-              <div className="flex flex-wrap gap-2 pt-8 border-t">
+              <div className="flex items-center flex-wrap gap-2 pt-8 border-t">
                 <span className="text-sm font-medium text-gray-700">Tags:</span>
                 {post.tags.map((tag: string, index: number) => (
                   <span
@@ -180,69 +182,48 @@ export default async function UpdatePostPage({ params }: UpdatePostPageProps) {
 
             {/* Share Buttons */}
             <div className="flex items-center gap-4 pt-8 border-t">
-              <span className="text-sm font-medium text-gray-700">Share:</span>
-              <div className="flex gap-2">
-                <Button
-                  size="sm"
-                  variant="outline"
-                  className="rounded-full bg-transparent"
-                >
-                  Facebook
-                </Button>
-                <Button
-                  size="sm"
-                  variant="outline"
-                  className="rounded-full bg-transparent"
-                >
-                  Twitter
-                </Button>
-                <Button
-                  size="sm"
-                  variant="outline"
-                  className="rounded-full bg-transparent"
-                >
-                  LinkedIn
-                </Button>
-              </div>
+              <ShareCopy className="rounded-full bg-transparent" />
             </div>
-          </article>
+            </CardContent>
+          </Card>
 
           {/* Display Comments */}
-          <Card className="mt-12 border-0 custom-shadow shadow-none">
+          <Card className="mt-12 ">
             <CardContent className="p-8">
               <h3 className="text-2xl font-bold mb-6">
                 Comments ({comments.length})
               </h3>
               {comments.length > 0 ? (
-                <div className="space-y-6">
-                  {comments.map((comment: Comment) => (
-                    <div
-                      key={comment._id}
-                      className="border-b pb-4 last:border-b-0 last:pb-0"
-                    >
-                      <div className="flex items-center justify-between mb-2">
-                        <p className="font-semibold text-gray-900">
-                          {comment.name}
-                        </p>
-                        <p className="text-sm text-gray-500">
-                          {new Date(comment.createdAt).toLocaleDateString()}
-                        </p>
+                <div className="space-y-4">
+                  {comments.map((comment: Comment) => {
+                    const initial = (comment.name || '?').charAt(0).toUpperCase();
+                    const dateStr = new Date(comment.createdAt).toLocaleDateString(undefined, {
+                      year: 'numeric',
+                      month: 'short',
+                      day: 'numeric',
+                    });
+                    return (
+                      <div
+                        key={comment._id}
+                        className="flex gap-3 rounded-xl border border-zinc-200 dark:border-white/10 bg-white/50 dark:bg-white/5 backdrop-blur p-4 transition-colors hover:bg-white/70 dark:hover:bg-white/10"
+                      >
+                        <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-primary/10 text-primary font-semibold">
+                          {initial}
+                        </div>
+                        <div className="flex-1">
+                          <div className="flex items-center justify-between gap-3">
+                            <p className="font-semibold text-gray-900 dark:text-gray-100 line-clamp-1">
+                              {comment.name}
+                            </p>
+                            <p className="text-xs text-gray-500 whitespace-nowrap">{dateStr}</p>
+                          </div>
+                          <p className="mt-1 text-gray-700 dark:text-gray-300 leading-relaxed">
+                            {comment.comment}
+                          </p>
+                        </div>
                       </div>
-                      <p className="text-gray-700 leading-relaxed">
-                        {comment.comment}
-                      </p>
-                      {comment.website && (
-                        <a
-                          href={comment.website}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="text-primary text-sm hover:underline mt-1 block"
-                        >
-                          {comment.website}
-                        </a>
-                      )}
-                    </div>
-                  ))}
+                    );
+                  })}
                 </div>
               ) : (
                 <p className="text-gray-500">
@@ -259,7 +240,7 @@ export default async function UpdatePostPage({ params }: UpdatePostPageProps) {
         {/* Sidebar */}
         <div className="space-y-6 sticky top-20 self-start">
           {/* Search */}
-          <Card className="border-0 custom-shadow shadow-none">
+          <Card className="">
             <CardContent className="p-6">
               <h3 className="font-semibold mb-4">Search</h3>
               <div className="relative border-[0.5px] rounded-md border-primary">
@@ -269,7 +250,7 @@ export default async function UpdatePostPage({ params }: UpdatePostPageProps) {
           </Card>
 
           {/* Categories */}
-          <Card className="border-0 custom-shadow shadow-none">
+          <Card className="">
             <CardContent className="p-6">
               <h3 className="font-semibold mb-4">Categories</h3>
               <ul className="space-y-2">

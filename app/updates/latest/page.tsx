@@ -43,7 +43,7 @@ export default async function LatestUpdatesPage() {
           <div className="lg:col-span-2 space-y-8">
             {/* Featured Post */}
             {latestPosts.length > 0 && (
-              <Card className="overflow-hidden border-0 custom-shadow shadow-none p-0 hover:shadow-lg transition-shadow duration-300">
+              <Card className="overflow-hidden  p-0 hover:shadow-lg transition-shadow duration-300">
                 <div className="aspect-[21/9] overflow-hidden">
                   <img
                     src={latestPosts[0].featuredImage || '/placeholder.svg'}
@@ -92,7 +92,7 @@ export default async function LatestUpdatesPage() {
               {latestPosts.slice(1).map((post: UpdatePost) => (
                 <Card
                   key={post._id}
-                  className="overflow-hidden border-0 custom-shadow shadow-none p-0 hover:shadow-lg transition-shadow duration-300"
+                  className="overflow-hidden  p-0 hover:shadow-lg transition-shadow duration-300"
                 >
                   <div className="aspect-[4/3] overflow-hidden">
                     <img
@@ -144,7 +144,7 @@ export default async function LatestUpdatesPage() {
           {/* Sidebar */}
           <div className="space-y-6 sticky top-20 self-start">
             {/* Latest Updates Info */}
-            <Card className="border-0 custom-shadow shadow-none">
+            <Card className="">
               <CardContent className="p-6">
                 <h3 className="font-semibold mb-4">Latest Updates</h3>
                 <div className="bg-primary/10 p-4 rounded-lg">
@@ -165,7 +165,7 @@ export default async function LatestUpdatesPage() {
             </Card>
 
             {/* Categories */}
-            <Card className="border-0 custom-shadow shadow-none">
+            <Card className="">
               <CardContent className="p-6">
                 <h3 className="font-semibold mb-4">Categories</h3>
                 <ul className="space-y-2">
@@ -191,7 +191,7 @@ export default async function LatestUpdatesPage() {
             </Card>
 
             {/* Quick Links */}
-            <Card className="border-0 custom-shadow shadow-none">
+            <Card className="">
               <CardContent className="p-6">
                 <h3 className="font-semibold mb-4">Quick Links</h3>
                 <div className="space-y-3">

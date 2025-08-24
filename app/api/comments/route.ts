@@ -3,7 +3,7 @@ import { client } from '@/sanity/lib/client';
 
 export async function POST(request: NextRequest) {
   try {
-    const { name, email, website, comment, postId } = await request.json();
+    const { name, email, comment, postId } = await request.json();
 
     if (!name || !email || !comment || !postId) {
       return NextResponse.json(
@@ -16,7 +16,6 @@ export async function POST(request: NextRequest) {
       _type: 'comment',
       name,
       email,
-      website,
       comment,
       updatePost: {
         // Changed from blogPost

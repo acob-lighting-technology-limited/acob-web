@@ -9,6 +9,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { PageHero } from '@/components/ui/page-hero';
 import type { Project, SanityImageUrl } from '@/lib/types';
+import { Card, CardContent } from '@/components/ui/card';
 
 interface ProjectPageProps {
   params: Promise<{
@@ -57,8 +58,8 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
           {/* Main  */}
           <div className="lg:col-span-2 space-y-8 ">
             {/* Overview */}
-            <div className="border-0 custom-shadow shadow-none bg-card rounded-lg">
-              <div className="p-8">
+            <Card>
+              <CardContent className="p-8">
                 <h2 className="text-3xl font-bold mb-6 text-foreground">
                   Project Overview
                 </h2>
@@ -73,13 +74,13 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
                     <span className="text-lg">{project.location}</span>
                   </div>
                 )}
-              </div>
-            </div>
+              </CardContent>
+            </Card>
 
             {/* Gallery */}
             {project.images && project.images.length > 0 && (
-              <div className="border-0 custom-shadow shadow-none bg-card rounded-lg">
-                <div className="p-8">
+              <Card>
+                <CardContent className="p-8">
                   <h2 className="text-3xl font-bold mb-6">Project Gallery</h2>
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                     {project.images.map(
@@ -99,16 +100,16 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
                       )
                     )}
                   </div>
-                </div>
-              </div>
+                </CardContent>
+              </Card>
             )}
           </div>
 
           {/* Sidebar */}
           <div className="space-y-6 sticky top-20 self-start">
             {/* Quick Contact */}
-            <div className="!bg-card text-foreground border-t-2 border-t-primary rounded-lg">
-              <div className="p-6">
+            <Card className="text-foreground border-t-2 border-t-primary">
+              <CardContent className="p-6">
                 <h3 className="font-semibold mb-4">
                   Interested in a similar project?
                 </h3>
@@ -124,13 +125,13 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
                     <ArrowRight className="ml-2 h-4 w-4" />
                   </Button>
                 </Link>
-              </div>
-            </div>
+              </CardContent>
+            </Card>
 
             {/* Related Projects */}
             {relatedProjects.length > 0 && (
-              <div className="!bg-card text-foreground border-t-2 border-t-primary rounded-lg">
-                <div className="p-6">
+              <Card className="text-foreground border-t-2 border-t-primary">
+                <CardContent className="p-6">
                   <h3 className="font-semibold mb-4">More Projects</h3>
                   <div className="space-y-3">
                     {relatedProjects.map((relatedProject: Project) => (
@@ -146,11 +147,11 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
                             {relatedProject.title}
                           </h4>
                           {/* {relatedProject.location && (
-                            <div className="flex items-center text-xs text-gray-500 mb-2">
-                              <MapPin className="h-3 w-3 mr-1" />
-                              <span>{relatedProject.location}</span>
-                            </div>
-                          )} */}
+                          <div className="flex items-center text-xs text-gray-500 mb-2">
+                            <MapPin className="h-3 w-3 mr-1" />
+                            <span>{relatedProject.location}</span>
+                          </div>
+                        )} */}
                         </Link>
                       </div>
                     ))}
@@ -166,8 +167,8 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
                       <ArrowRight className="ml-1 h-3 w-3" />
                     </Link>
                   </div>
-                </div>
-              </div>
+                </CardContent>
+              </Card>
             )}
           </div>
         </div>

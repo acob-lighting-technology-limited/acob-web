@@ -29,7 +29,7 @@ export default function ServicesPage() {
             {servicesData.map(service => (
               <Card
                 key={service.id}
-                className="overflow-hidden border-0 custom-shadow shadow-none p-0 hover:shadow-lg transition-shadow"
+                className="overflow-hidden p-0 hover:shadow-lg transition-shadow"
               >
                 <div className="aspect-[16/9] overflow-hidden relative">
                   <Image

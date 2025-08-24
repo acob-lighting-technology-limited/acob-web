@@ -18,12 +18,6 @@ export default defineType({
       validation: Rule => Rule.required().email(),
     }),
     defineField({
-      name: 'website',
-      title: 'Website',
-      type: 'url',
-      description: "Optional: User's website URL",
-    }),
-    defineField({
       name: 'comment',
       title: 'Comment',
       type: 'text',
