@@ -11,13 +11,37 @@ import type { UpdatePost } from '@/lib/types';
 export default async function LatestPage() {
   const posts = await getUpdatePosts();
 
-  // Get the 10 most recent posts
-  const latestPosts = posts
-    .sort(
-      (a: UpdatePost, b: UpdatePost) =>
-        new Date(b.publishedAt).getTime() - new Date(a.publishedAt).getTime()
-    )
-    .slice(0, 10);
+  // Get current year and previous year
+  const currentYear = new Date().getFullYear();
+  const previousYear = currentYear - 1;
+
+  // Filter posts by year and sort by date
+  const currentYearPosts = posts.filter((post: UpdatePost) => {
+    const postYear = new Date(post.publishedAt).getFullYear();
+    return postYear === currentYear;
+  }).sort((a: UpdatePost, b: UpdatePost) => 
+    new Date(b.publishedAt).getTime() - new Date(a.publishedAt).getTime()
+  );
+
+  const previousYearPosts = posts.filter((post: UpdatePost) => {
+    const postYear = new Date(post.publishedAt).getFullYear();
+    return postYear === previousYear;
+  }).sort((a: UpdatePost, b: UpdatePost) => 
+    new Date(b.publishedAt).getTime() - new Date(a.publishedAt).getTime()
+  );
+
+  // Combine posts: current year first, then previous year if needed
+  let latestPosts = [...currentYearPosts];
+  
+  // If we have fewer than 6 posts from current year, add from previous year
+  if (latestPosts.length < 6) {
+    const neededFromPrevious = 6 - latestPosts.length;
+    const additionalPosts = previousYearPosts.slice(0, neededFromPrevious);
+    latestPosts = [...latestPosts, ...additionalPosts];
+  }
+
+  // Take only the first 10 posts for display
+  latestPosts = latestPosts.slice(0, 10);
 
   const breadcrumbItems = [
     { label: 'Home', href: '/' },
