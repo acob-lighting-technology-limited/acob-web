@@ -47,7 +47,7 @@ export async function getUpdatePosts() {
       excerpt,
       publishedAt,
       author,
-      category->{name, slug},
+      category,
       tags,
       "featuredImage": featuredImage.asset->url + "?w=800&h=600&fit=crop&auto=format&q=75",
       content
@@ -66,7 +66,7 @@ export async function getUpdatePost(slug: string) {
       excerpt,
       publishedAt,
       author,
-      category->{name, slug},
+      category,
       tags,
       "featuredImage": featuredImage.asset->url + "?w=800&h=600&fit=crop&auto=format&q=75",
       content
@@ -95,18 +95,6 @@ export async function getRelatedUpdatePosts(
   `,
     { categorySlug, excludeSlug, limit }
   );
-}
-
-// Helper function to get categories
-export async function getCategories() {
-  return await client.fetch(`
-    *[_type == "category"] | order(name asc) {
-      _id,
-      name,
-      slug,
-      description
-    }
-  `);
 }
 
 // Helper function to get approved comments for an update post

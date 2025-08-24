@@ -112,7 +112,7 @@ export default async function UpdatePostPage({ params }: UpdatePostPageProps) {
   if (!post) {
     notFound();
   }
-
+console.log(post)
   const comments = await getApprovedCommentsForPost(post._id);
   const related = post.category && post.slug?.current
     ? await getRelatedUpdatePosts(post.category, post.slug.current, 3)
@@ -162,7 +162,7 @@ export default async function UpdatePostPage({ params }: UpdatePostPageProps) {
                   </>
                 )}
               </div>
-              <h1 className="text-4xl font-bold text-gray-900 mb-4">
+              <h1 className="text-4xl font-bold text-card-foreground mb-4">
                 {post.title}
               </h1>
             </div>

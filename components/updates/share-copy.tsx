@@ -32,9 +32,7 @@ export function ShareCopy({ className, title, url }: ShareCopyProps) {
         await navigator.share({ title: shareTitle, url: shareUrl });
       }
     } catch {
-      toast.error('Unable to share', {
-        description: 'Please try again or copy the link manually.',
-      });
+      // Silently handle errors without showing toast
     } finally {
       setIsSharing(false);
     }
