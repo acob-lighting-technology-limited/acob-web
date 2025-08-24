@@ -1,12 +1,18 @@
-import { NextRequest } from 'next/server';
+import { NextRequest, NextResponse } from 'next/server';
 import { groq } from '@ai-sdk/groq';
 import { streamText } from 'ai';
 
 // Helper function to get a more detailed error message
 function getErrorMessage(error: unknown): string {
-  if (error == null) return 'unknown error';
-  if (typeof error === 'string') return error;
-  if (error instanceof Error) return error.message;
+  if (error === null) {
+    return 'unknown error';
+  }
+  if (typeof error === 'string') {
+    return error;
+  }
+  if (error instanceof Error) {
+    return error.message;
+  }
   return JSON.stringify(error);
 }
 
@@ -20,14 +26,11 @@ export async function POST(req: NextRequest) {
 
     if (!GROQ_API_KEY) {
       console.error('GROQ_API_KEY is not set.');
-      return new Response(
-        JSON.stringify({
-          error: 'Server configuration error: Groq API key is missing.',
-        }),
+      return NextResponse.json(
         {
-          status: 500,
-          headers: { 'Content-Type': 'application/json' },
-        }
+          error: 'Server configuration error: Groq API key is missing.',
+        },
+        { status: 500 }
       );
     }
 
@@ -40,23 +43,17 @@ export async function POST(req: NextRequest) {
 
     if (!Array.isArray(messages)) {
       console.error('Invalid messages - not an array:', body);
-      return new Response(
-        JSON.stringify({ error: 'Invalid messages format: must be an array' }),
-        {
-          status: 400,
-          headers: { 'Content-Type': 'application/json' },
-        }
+      return NextResponse.json(
+        { error: 'Invalid messages format: must be an array' },
+        { status: 400 }
       );
     }
 
     if (messages.length === 0) {
       console.error('Empty messages array');
-      return new Response(
-        JSON.stringify({ error: 'Messages array cannot be empty' }),
-        {
-          status: 400,
-          headers: { 'Content-Type': 'application/json' },
-        }
+      return NextResponse.json(
+        { error: 'Messages array cannot be empty' },
+        { status: 400 }
       );
     }
 
@@ -68,14 +65,11 @@ export async function POST(req: NextRequest) {
 
       if (!msg.role || !msg.content) {
         console.error(`Invalid message at index ${i}:`, msg);
-        return new Response(
-          JSON.stringify({
-            error: `Invalid message format at index ${i}: must have 'role' and 'content'`,
-          }),
+        return NextResponse.json(
           {
-            status: 400,
-            headers: { 'Content-Type': 'application/json' },
-          }
+            error: `Invalid message format at index ${i}: must have 'role' and 'content'`,
+          },
+          { status: 400 }
         );
       }
     }
@@ -121,7 +115,7 @@ export async function POST(req: NextRequest) {
 
         for (let i = 0; i < words.length; i++) {
           const word = words[i];
-          const wordToSend = i === 0 ? word : ' ' + word;
+          const wordToSend = i === 0 ? word : ` ${word}`;
 
           // Send just the new word/part (not accumulated text)
           const chunk = `0:${JSON.stringify(wordToSend)}\n`;
@@ -165,16 +159,13 @@ export async function POST(req: NextRequest) {
     console.error('Full error:', err);
     console.error('Stack trace:', (err as Error)?.stack);
 
-    return new Response(
-      JSON.stringify({
+    return NextResponse.json(
+      {
         error: getErrorMessage(err),
         errorType: typeof err,
         stack: (err as Error)?.stack,
-      }),
-      {
-        status: 500,
-        headers: { 'Content-Type': 'application/json' },
-      }
+      },
+      { status: 500 }
     );
   }
 }

@@ -24,11 +24,15 @@ interface CachedImages {
 
 // Utility function to get cached images
 const getCachedImages = (): CachedImages | null => {
-  if (typeof window === 'undefined') return null;
+  if (typeof window === 'undefined') {
+    return null;
+  }
 
   try {
     const cached = localStorage.getItem(CACHE_KEY);
-    if (!cached) return null;
+    if (!cached) {
+      return null;
+    }
 
     const parsed: CachedImages = JSON.parse(cached);
     const isExpired = Date.now() - parsed.timestamp > CACHE_DURATION;
@@ -46,7 +50,9 @@ const getCachedImages = (): CachedImages | null => {
 
 // Utility function to cache images
 const cacheImages = (images: RandomImage[], backgroundImage: string) => {
-  if (typeof window === 'undefined') return;
+  if (typeof window === 'undefined') {
+    return;
+  }
 
   try {
     const cached: CachedImages = {
@@ -74,13 +80,17 @@ function CounterAnimation({
   const isInView = useInView(countRef, { once: true, margin: '-100px' });
 
   useEffect(() => {
-    if (!isInView) return;
+    if (!isInView) {
+      return;
+    }
 
     let startTime: number;
     let animationFrame: number;
 
     const animate = (currentTime: number) => {
-      if (!startTime) startTime = currentTime;
+      if (!startTime) {
+        startTime = currentTime;
+      }
       const progress = Math.min(
         (currentTime - startTime) / (duration * 1000),
         1

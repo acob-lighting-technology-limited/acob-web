@@ -5,69 +5,69 @@
 review:
   # Enable/disable automatic reviews
   enabled: true
-  
+
   # Review all pull requests automatically
   auto_review: true
-  
+
   # Review only when requested with /review command
   # auto_review: false
-  
+
   # Files to include in reviews
   include:
-    - "**/*.{js,jsx,ts,tsx}"
-    - "**/*.{json,yaml,yml}"
-    - "**/*.{md,txt}"
-  
+    - '**/*.{js,jsx,ts,tsx}'
+    - '**/*.{json,yaml,yml}'
+    - '**/*.{md,txt}'
+
   # Files to exclude from reviews
   exclude:
-    - "**/node_modules/**"
-    - "**/dist/**"
-    - "**/build/**"
-    - "**/.next/**"
-    - "**/coverage/**"
-    - "**/*.lock"
-    - "**/package-lock.json"
-    - "**/yarn.lock"
-    - "**/.env*"
-    - "**/public/**"
-    - "**/sanity/**"
+    - '**/node_modules/**'
+    - '**/dist/**'
+    - '**/build/**'
+    - '**/.next/**'
+    - '**/coverage/**'
+    - '**/*.lock'
+    - '**/package-lock.json'
+    - '**/yarn.lock'
+    - '**/.env*'
+    - '**/public/**'
+    - '**/sanity/**'
 
 # Review focus areas
 focus:
-  - "code quality"
-  - "security"
-  - "performance"
-  - "accessibility"
-  - "best practices"
-  - "type safety"
+  - 'code quality'
+  - 'security'
+  - 'performance'
+  - 'accessibility'
+  - 'best practices'
+  - 'type safety'
 
 # Language-specific settings
 languages:
   typescript:
-    - "Check for proper TypeScript types"
+    - 'Check for proper TypeScript types'
     - "Ensure no 'any' types are used"
-    - "Verify proper error handling"
-  
+    - 'Verify proper error handling'
+
   react:
-    - "Check for proper React hooks usage"
-    - "Ensure components are properly memoized"
-    - "Verify accessibility attributes"
-  
+    - 'Check for proper React hooks usage'
+    - 'Ensure components are properly memoized'
+    - 'Verify accessibility attributes'
+
   nextjs:
-    - "Check for proper Next.js patterns"
-    - "Ensure proper routing"
-    - "Verify SEO best practices"
+    - 'Check for proper Next.js patterns'
+    - 'Ensure proper routing'
+    - 'Verify SEO best practices'
 
 # Custom instructions for the AI
 instructions: |
   You are reviewing code for ACOB Lighting Technology Limited, a Nigerian clean energy company.
-  
+
   Focus on:
   - Clean, maintainable code
   - Performance optimizations
   - Security best practices
   - Accessibility compliance
   - TypeScript best practices
-  
+
   Be constructive and provide actionable feedback.
-  Suggest improvements with code examples when helpful. 
+  Suggest improvements with code examples when helpful.

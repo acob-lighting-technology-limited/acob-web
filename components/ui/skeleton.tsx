@@ -53,11 +53,11 @@ function PageHeroSkeleton() {
         />
 
         {/* Subtitle skeleton with staggered animation */}
-        {/* <ShimmerSkeleton 
+        {/* <ShimmerSkeleton
           className="w-2/3 h-6 rounded-md mb-2 animate-pulse"
           style={{ animationDelay: '0.2s' } as React.CSSProperties}
         />
-        <ShimmerSkeleton 
+        <ShimmerSkeleton
           className="w-1/2 h-6 rounded-md animate-pulse"
           style={{ animationDelay: '0.3s' } as React.CSSProperties}
         /> */}

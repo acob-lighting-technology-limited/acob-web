@@ -4,7 +4,6 @@ module.exports = {
   generateRobotsTxt: false, // We already have a custom robots.txt
   generateIndexSitemap: false,
   exclude: [
-    '/admin/*',
     '/studio/*',
     '/api/*',
     '/test/*',
@@ -21,7 +20,6 @@ module.exports = {
         userAgent: '*',
         allow: '/',
         disallow: [
-          '/admin/',
           '/studio/',
           '/api/',
           '/_next/',

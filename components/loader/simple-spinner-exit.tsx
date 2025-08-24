@@ -20,7 +20,9 @@ export default function SimpleSpinnerExit({
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    if (preview) return;
+    if (preview) {
+      return;
+    }
 
     // Auto exit after specified duration
     const timer = setTimeout(() => {

@@ -23,7 +23,9 @@ export function OfflineSafeWebVitals() {
 
   useEffect(() => {
     // Only run in production and when online
-    if (process.env.NODE_ENV !== 'production' || !isOnline) return;
+    if (process.env.NODE_ENV !== 'production' || !isOnline) {
+      return;
+    }
 
     const sendToAnalytics = (metric: {
       name: string;

@@ -69,7 +69,9 @@ const HeroSection = React.memo(function HeroSection({
 
   const changeSlide = useCallback(
     (newIndex: number) => {
-      if (isTransitioning || newIndex === currentSlide) return;
+      if (isTransitioning || newIndex === currentSlide) {
+        return;
+      }
 
       setIsTransitioning(true);
       setShowContent(false);

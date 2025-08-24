@@ -30,7 +30,9 @@ import {
 } from '@/lib/utils/navigation';
 
 const formatMessage = (content: string) => {
-  if (!content) return content;
+  if (!content) {
+    return content;
+  }
 
   // Debug logging (only in development)
   if (process.env.NODE_ENV !== 'production') {
@@ -178,7 +180,9 @@ export function ChatBot() {
 
   // Handle viewport changes when keyboard opens/closes
   useEffect(() => {
-    if (!isOpen) return;
+    if (!isOpen) {
+      return;
+    }
 
     let initialViewportHeight = window.innerHeight;
     let timeoutId: NodeJS.Timeout;
@@ -224,7 +228,9 @@ export function ChatBot() {
   // Handle scroll events within messages container
   useEffect(() => {
     const messagesContainer = messagesContainerRef.current;
-    if (!messagesContainer || !isOpen) return;
+    if (!messagesContainer || !isOpen) {
+      return;
+    }
 
     const handleTouchStart = (e: TouchEvent) => {
       e.stopPropagation();
@@ -361,7 +367,8 @@ export function ChatBot() {
                 ref={messagesContainerRef}
                 className="flex-1 overflow-y-auto px-4 py-2 space-y-2 bg-background"
                 style={{
-                  backgroundImage: `url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23000000' fill-opacity='0.02'%3E%3Cpath d='m36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm-16-16v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")`,
+                  backgroundImage:
+                    "url(\"data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23000000' fill-opacity='0.02'%3E%3Cpath d='m36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm-16-16v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E\")",
                   touchAction: 'pan-y',
                   WebkitOverflowScrolling: 'touch',
                   overscrollBehavior: 'contain',

@@ -5,18 +5,13 @@ import { Card, CardContent } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
 
 import Image from 'next/image';
-import { Calendar, User, MessageSquare, ArrowRight } from 'lucide-react';
+
 import { PortableText } from '@portabletext/react';
 import type {
   PortableTextComponentProps,
   PortableTextBlock,
 } from '@portabletext/react';
-import { urlFor } from '@/sanity/lib/client';
-import {
-  getUpdatePost,
-  getUpdatePosts,
-  getApprovedCommentsForPost,
-} from '@/sanity/lib/client';
+import { urlFor, getUpdatePost, getUpdatePosts, getApprovedCommentsForPost } from '@/sanity/lib/client';
 import { notFound } from 'next/navigation';
 import type { UpdatePost, Comment } from '@/lib/types';
 
@@ -43,7 +38,9 @@ const components = {
     }: {
       value: { asset: { _ref: string }; alt?: string };
     }) => {
-      if (!value.asset) return null;
+      if (!value.asset) {
+        return null;
+      }
       const imageUrl = urlFor(value)
         .width(800)
         .height(600)
