@@ -1,5 +1,5 @@
 /** @type {import('next-sitemap').IConfig} */
-module.exports = {
+export default {
   siteUrl: process.env.SITE_URL || 'https://acoblighting.com',
   generateRobotsTxt: false, // We already have a custom robots.txt
   generateIndexSitemap: false,
