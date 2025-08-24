@@ -1,7 +1,7 @@
 'use client';
 
 import { Container } from '@/components/ui/container';
-import { motion, useInView } from 'framer-motion';
+import { motion, useInView, animate } from 'framer-motion';
 import { useRef, useEffect, useState, useMemo, useCallback } from 'react';
 import { MaskText } from '../animations/MaskText';
 
@@ -29,7 +29,7 @@ const getCachedImages = (): CachedImages | null => {
   }
 
   try {
-    const cached = localStorage.getItem(CACHE_KEY);
+    const cached = window.localStorage.getItem(CACHE_KEY);
     if (!cached) {
       return null;
     }
@@ -38,7 +38,7 @@ const getCachedImages = (): CachedImages | null => {
     const isExpired = Date.now() - parsed.timestamp > CACHE_DURATION;
 
     if (isExpired) {
-      localStorage.removeItem(CACHE_KEY);
+      window.localStorage.removeItem(CACHE_KEY);
       return null;
     }
 
@@ -60,7 +60,7 @@ const cacheImages = (images: RandomImage[], backgroundImage: string) => {
       backgroundImage,
       timestamp: Date.now(),
     };
-    localStorage.setItem(CACHE_KEY, JSON.stringify(cached));
+    window.localStorage.setItem(CACHE_KEY, JSON.stringify(cached));
   } catch {
     // Silently fail if localStorage is not available
   }
@@ -76,7 +76,7 @@ function CounterAnimation({
   duration?: number;
 }) {
   const [count, setCount] = useState(0);
-  const countRef = useRef<HTMLDivElement>(null);
+  const countRef = useRef<HTMLElement | null>(null);
   const isInView = useInView(countRef, { once: true, margin: '-100px' });
 
   useEffect(() => {
@@ -84,37 +84,15 @@ function CounterAnimation({
       return;
     }
 
-    let startTime: number;
-    let animationFrame: number;
-
-    const animate = (currentTime: number) => {
-      if (!startTime) {
-        startTime = currentTime;
-      }
-      const progress = Math.min(
-        (currentTime - startTime) / (duration * 1000),
-        1
-      );
-
-      // Easing function for smooth animation
-      const easeOutQuart = 1 - Math.pow(1 - progress, 4);
-      const currentCount = Math.floor(easeOutQuart * end);
-
-      setCount(currentCount);
-
-      if (progress < 1) {
-        animationFrame = requestAnimationFrame(animate);
-      } else {
-        setCount(end);
-      }
-    };
-
-    animationFrame = requestAnimationFrame(animate);
+    const controls = animate(0, end, {
+      duration,
+      ease: [0.16, 1, 0.3, 1], // easeOutExpo-like
+      onUpdate: value => setCount(Math.round(value)),
+      onComplete: () => setCount(end),
+    });
 
     return () => {
-      if (animationFrame) {
-        cancelAnimationFrame(animationFrame);
-      }
+      controls.stop();
     };
   }, [isInView, end, duration]);
 
