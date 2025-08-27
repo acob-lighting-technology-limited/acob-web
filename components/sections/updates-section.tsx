@@ -92,7 +92,11 @@ export function NewsSection() {
                 )}
                 {/* Category Tag */}
                 <div className="absolute top-4 left-4 bg-primary text-white px-3 py-1 rounded text-sm font-medium">
-                  {post.category?.name || 'News'}
+                  {post.category === 'case-studies'
+                    ? 'Case Studies'
+                    : post.category === 'press-releases'
+                    ? 'Press Releases'
+                    : post.category || 'News'}
                 </div>
               </div>
 

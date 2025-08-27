@@ -197,9 +197,10 @@ export default async function UpdatePostPage({ params }: UpdatePostPageProps) {
               <div className="pt-8 border-t">
                 <h3 className="text-xl font-semibold mb-4">Related Updates</h3>
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                  {related.map((item: any) => (
-                    <Link key={item._id} href={`/updates/${item.slug.current}`}>
-                      <Card className="overflow-hidden p-0 border-2 hover:shadow-lg transition-shadow cursor-pointer">
+                  {related.map((item: any) => {
+                    const href = item?.slug?.current ? `/updates/${item.slug.current}` : null;
+                    const CardInner = (
+                      <>
                         <div className="aspect-[16/9] overflow-hidden">
                           <Image
                             src={item.featuredImage || '/placeholder.svg'}
@@ -217,9 +218,21 @@ export default async function UpdatePostPage({ params }: UpdatePostPageProps) {
                             {item.title}
                           </h4>
                         </CardContent>
+                      </>
+                    );
+
+                    const cardClass = "overflow-hidden p-0 border-2 hover:shadow-lg transition-shadow" + (href ? " cursor-pointer" : " opacity-90");
+
+                    return href ? (
+                      <Link key={item._id} href={href}>
+                        <Card className={cardClass}>{CardInner}</Card>
+                      </Link>
+                    ) : (
+                      <Card key={item._id} className={cardClass} aria-disabled="true">
+                        {CardInner}
                       </Card>
-                    </Link>
-                  ))}
+                    );
+                  })}
                 </div>
               </div>
             )}

@@ -30,7 +30,7 @@ const ContactSection = dynamic(
 
 const NewsSection = dynamic(
   () =>
-    import('@/components/sections/news-section').then(mod => ({
+    import('@/components/sections/updates-section').then(mod => ({
       default: mod.NewsSection,
     })),
   {
