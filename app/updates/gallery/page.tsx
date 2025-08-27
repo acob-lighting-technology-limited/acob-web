@@ -5,7 +5,7 @@ import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import {
   ArrowRight,
-  Image,
+  Image as ImageIcon,
   Video,
   Camera,
   Filter,
@@ -13,6 +13,7 @@ import {
   List,
 } from 'lucide-react';
 import Link from 'next/link';
+import Image from 'next/image';
 import { getUpdatePosts } from '@/sanity/lib/client';
 
 export default async function MediaGalleryPage() {
@@ -20,60 +21,12 @@ export default async function MediaGalleryPage() {
 
   // Mock gallery data - in a real implementation, this would come from Sanity
   const galleryItems = [
-    {
-      id: 1,
-      title: 'Solar Installation Project',
-      type: 'image',
-      src: '/images/projects/solar-pump-distribution.webp',
-      category: 'Projects',
-      date: '2024-01-15',
-      description: 'Solar pump installation in rural community',
-    },
-    {
-      id: 2,
-      title: 'Street Lighting Installation',
-      type: 'image',
-      src: '/images/projects/installation-high-density-streetlight-1.webp',
-      category: 'Infrastructure',
-      date: '2024-01-10',
-      description: 'High-density street lighting project',
-    },
-    {
-      id: 3,
-      title: 'Hospital Power System',
-      type: 'image',
-      src: '/images/projects/keffi-nassarawa-hospital-1.webp',
-      category: 'Healthcare',
-      date: '2024-01-05',
-      description: 'Solar power system for healthcare facility',
-    },
-    {
-      id: 4,
-      title: 'Team at Work Site',
-      type: 'image',
-      src: '/images/about/acob-team.webp',
-      category: 'Team',
-      date: '2024-01-01',
-      description: 'Our team working on installation',
-    },
-    {
-      id: 5,
-      title: 'Project Completion Ceremony',
-      type: 'video',
-      src: '/placeholder.svg',
-      category: 'Events',
-      date: '2023-12-20',
-      description: 'Celebrating successful project completion',
-    },
-    {
-      id: 6,
-      title: 'Equipment and Tools',
-      type: 'image',
-      src: '/images/projects/routine-maintenance-streetlight-abuja.webp',
-      category: 'Equipment',
-      date: '2023-12-15',
-      description: 'Professional tools and equipment',
-    },
+    { id: 1, title: 'Solar Installation Project', type: 'image', src: '/images/projects/solar-pump-distribution.webp', category: 'Projects', date: '2024-01-15', description: 'Solar pump installation in rural community' },
+    { id: 2, title: 'Street Lighting Installation', type: 'image', src: '/images/projects/installation-high-density-streetlight-1.webp', category: 'Infrastructure', date: '2024-01-10', description: 'High-density street lighting project' },
+    { id: 3, title: 'Hospital Power System', type: 'image', src: '/images/projects/keffi-nassarawa-hospital-1.webp', category: 'Healthcare', date: '2024-01-05', description: 'Solar power system for healthcare facility' },
+    { id: 4, title: 'Team at Work Site', type: 'image', src: '/images/about/acob-team.webp', category: 'Team', date: '2024-01-01', description: 'Our team working on installation' },
+    { id: 5, title: 'Project Completion Ceremony', type: 'video', src: '/placeholder.svg', category: 'Events', date: '2023-12-20', description: 'Celebrating successful project completion' },
+    { id: 6, title: 'Equipment and Tools', type: 'image', src: '/images/projects/routine-maintenance-streetlight-abuja.webp', category: 'Equipment', date: '2023-12-15', description: 'Professional tools and equipment' },
   ];
 
   const breadcrumbItems = [
@@ -82,22 +35,11 @@ export default async function MediaGalleryPage() {
     { label: 'Media Gallery' },
   ];
 
-  const galleryCategories = [
-    'All',
-    'Projects',
-    'Infrastructure',
-    'Healthcare',
-    'Team',
-    'Events',
-    'Equipment',
-  ];
+  const galleryCategories = ['All','Projects','Infrastructure','Healthcare','Team','Events','Equipment'];
 
   return (
     <>
-      <PageHero
-        title="Media Gallery"
-        backgroundImage="/images/services/header.jpg?height=400&width=1200"
-      />
+      <PageHero title="Media Gallery" backgroundImage="/images/services/header.jpg?height=400&width=1200" />
 
       <Container className="px-4 py-8">
         <Breadcrumb items={breadcrumbItems} className="mb-8" />
@@ -128,12 +70,7 @@ export default async function MediaGalleryPage() {
                 {/* Category Filters */}
                 <div className="flex flex-wrap gap-2 mt-4">
                   {galleryCategories.map(category => (
-                    <Button
-                      key={category}
-                      variant="outline"
-                      size="sm"
-                      className="text-xs"
-                    >
+                    <Button key={category} variant="outline" size="sm" className="text-xs">
                       {category}
                     </Button>
                   ))}
@@ -144,15 +81,14 @@ export default async function MediaGalleryPage() {
             {/* Gallery Grid */}
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               {galleryItems.map(item => (
-                <Card
-                  key={item.id}
-                  className="overflow-hidden  hover:shadow-lg transition-shadow duration-300 group"
-                >
+                <Card key={item.id} className="overflow-hidden  hover:shadow-lg transition-shadow duration-300 group">
                   <div className="aspect-[4/3] overflow-hidden relative">
-                    <img
+                    <Image
                       src={item.src}
                       alt={item.title}
-                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                      fill
+                      sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 50vw"
+                      className="object-cover group-hover:scale-105 transition-transform duration-300"
                     />
                     {item.type === 'video' && (
                       <div className="absolute inset-0 bg-black/20 flex items-center justify-center">
@@ -167,20 +103,14 @@ export default async function MediaGalleryPage() {
                   </div>
                   <CardContent className="p-4">
                     <div className="flex items-center text-xs text-muted-foreground mb-2">
-                      <span className="bg-muted px-2 py-1 rounded text-xs">
-                        {item.category}
-                      </span>
+                      <span className="bg-muted px-2 py-1 rounded text-xs">{item.category}</span>
                       <span className="mx-2">•</span>
                       <span>{new Date(item.date).toLocaleDateString()}</span>
                     </div>
-                    <h3 className="font-semibold mb-2 text-foreground">
-                      {item.title}
-                    </h3>
-                    <p className="text-sm text-muted-foreground mb-3">
-                      {item.description}
-                    </p>
+                    <h3 className="font-semibold mb-2 text-foreground">{item.title}</h3>
+                    <p className="text-sm text-muted-foreground mb-3">{item.description}</p>
                     <Button variant="outline" size="sm" className="w-full">
-                      <Image className="mr-2 h-4 w-4" />
+                      <ImageIcon className="mr-2 h-4 w-4" />
                       View Full Size
                     </Button>
                   </CardContent>
@@ -205,12 +135,9 @@ export default async function MediaGalleryPage() {
                 <h3 className="font-semibold mb-4">Media Gallery</h3>
                 <div className="bg-primary/10 p-4 rounded-lg">
                   <Camera className="h-8 w-8 text-primary mb-2" />
-                  <h4 className="font-medium text-primary mb-2">
-                    Visual Stories
-                  </h4>
+                  <h4 className="font-medium text-primary mb-2">Visual Stories</h4>
                   <p className="text-sm text-muted-foreground">
-                    Explore photos and videos from our projects, team
-                    activities, and achievements.
+                    Explore photos and videos from our projects, team activities, and achievements.
                   </p>
                   <div className="flex justify-between text-xs text-muted-foreground mt-2">
                     <span>{galleryItems.length} items</span>
@@ -229,7 +156,7 @@ export default async function MediaGalleryPage() {
                     <span className="text-sm">Images</span>
                     <span className="text-sm font-medium text-primary">5</span>
                   </div>
-                  <div className="flex justify-between items-center">
+                  <div className="flex justify_between items-center">
                     <span className="text-sm">Videos</span>
                     <span className="text-sm font-medium text-primary">1</span>
                   </div>
@@ -251,19 +178,13 @@ export default async function MediaGalleryPage() {
                 <h3 className="font-semibold mb-4">Quick Links</h3>
                 <div className="space-y-3">
                   <Link href="/updates/latest">
-                    <Button variant="outline" className="w-full justify-start">
-                      Latest Updates
-                    </Button>
+                    <Button variant="outline" className="w-full justify-start">Latest Updates</Button>
                   </Link>
                   <Link href="/updates/press">
-                    <Button variant="outline" className="w-full justify-start">
-                      Press Releases
-                    </Button>
+                    <Button variant="outline" className="w-full justify-start">Press Releases</Button>
                   </Link>
                   <Link href="/updates/case-studies">
-                    <Button variant="outline" className="w-full justify-start">
-                      Case Studies
-                    </Button>
+                    <Button variant="outline" className="w-full justify-start">Case Studies</Button>
                   </Link>
                 </div>
               </CardContent>
@@ -273,9 +194,7 @@ export default async function MediaGalleryPage() {
             <Card>
               <CardContent className="p-6">
                 <h3 className="font-semibold mb-4">Request Media</h3>
-                <p className="text-sm text-muted-foreground mb-4">
-                  Need high-resolution images or video content for media use?
-                </p>
+                <p className="text-sm text-muted-foreground mb-4">Need high-resolution images or video content for media use?</p>
                 <Link href="/contact">
                   <Button variant="outline" className="w-full">
                     Contact Media Team

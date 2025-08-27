@@ -5,43 +5,20 @@ import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { ArrowRight, Calendar, User } from 'lucide-react';
 import Link from 'next/link';
+import Image from 'next/image';
 import { getUpdatePosts } from '@/sanity/lib/client';
 import type { UpdatePost } from '@/lib/types';
 
 export default async function LatestPage() {
   const posts = await getUpdatePosts();
 
-  // Get current year and previous year
-  const currentYear = new Date().getFullYear();
-  const previousYear = currentYear - 1;
-
-  // Filter posts by year and sort by date
-  const currentYearPosts = posts.filter((post: UpdatePost) => {
-    const postYear = new Date(post.publishedAt).getFullYear();
-    return postYear === currentYear;
-  }).sort((a: UpdatePost, b: UpdatePost) => 
-    new Date(b.publishedAt).getTime() - new Date(a.publishedAt).getTime()
-  );
-
-  const previousYearPosts = posts.filter((post: UpdatePost) => {
-    const postYear = new Date(post.publishedAt).getFullYear();
-    return postYear === previousYear;
-  }).sort((a: UpdatePost, b: UpdatePost) => 
-    new Date(b.publishedAt).getTime() - new Date(a.publishedAt).getTime()
-  );
-
-  // Combine posts: current year first, then previous year if needed
-  let latestPosts = [...currentYearPosts];
-  
-  // If we have fewer than 6 posts from current year, add from previous year
-  if (latestPosts.length < 6) {
-    const neededFromPrevious = 6 - latestPosts.length;
-    const additionalPosts = previousYearPosts.slice(0, neededFromPrevious);
-    latestPosts = [...latestPosts, ...additionalPosts];
-  }
-
-  // Take only the first 10 posts for display
-  latestPosts = latestPosts.slice(0, 10);
+  // Get the 10 most recent posts
+  const latestPosts = posts
+    .sort(
+      (a: UpdatePost, b: UpdatePost) =>
+        new Date(b.publishedAt).getTime() - new Date(a.publishedAt).getTime()
+    )
+    .slice(0, 10);
 
   const breadcrumbItems = [
     { label: 'Home', href: '/' },
@@ -66,10 +43,12 @@ export default async function LatestPage() {
             {latestPosts.length > 0 && (
               <Card className="overflow-hidden  p-0 hover:shadow-lg transition-shadow duration-300">
                 <div className="aspect-[21/9] overflow-hidden">
-                  <img
+                  <Image
                     src={latestPosts[0].featuredImage || '/placeholder.svg'}
                     alt={latestPosts[0].title}
-                    className="w-full h-full object-cover hover:scale-105 transition-transform duration-300"
+                    width={1600}
+                    height={686}
+                    className="w-full h-full object-cover"
                   />
                 </div>
                 <CardContent className="p-8">
@@ -115,10 +94,12 @@ export default async function LatestPage() {
                   className="overflow-hidden  p-0 hover:shadow-lg transition-shadow duration-300"
                 >
                   <div className="aspect-[4/3] overflow-hidden">
-                    <img
+                    <Image
                       src={post.featuredImage || '/placeholder.svg'}
                       alt={post.title}
-                      className="w-full h-full object-cover hover:scale-105 transition-transform duration-300"
+                      width={1200}
+                      height={900}
+                      className="w-full h-full object-cover"
                     />
                   </div>
                   <CardContent className="p-6">

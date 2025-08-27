@@ -13,6 +13,7 @@ import {
   MapPin,
 } from 'lucide-react';
 import Link from 'next/link';
+import Image from 'next/image';
 import { getUpdatePosts } from '@/sanity/lib/client';
 import type { UpdatePost } from '@/lib/types';
 
@@ -73,10 +74,12 @@ export default async function CaseStudiesPage() {
                   className="overflow-hidden p-0 hover:shadow-lg transition-shadow duration-300"
                 >
                   <div className="aspect-[16/9] overflow-hidden">
-                    <img
+                    <Image
                       src={post.featuredImage || '/placeholder.svg'}
                       alt={post.title}
-                      className="w-full h-full object-cover hover:scale-105 transition-transform duration-300"
+                      width={1200}
+                      height={675}
+                      className="w-full h-full object-cover"
                     />
                   </div>
                   <CardContent className="p-6">
