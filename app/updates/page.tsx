@@ -9,11 +9,17 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { ArrowRight, Search, ChevronLeft, ChevronRight } from 'lucide-react';
 import Link from 'next/link';
+import Image from 'next/image';
 import { getUpdatePosts } from '@/sanity/lib/client';
 import type { UpdatePost } from '@/lib/types';
-import { useState, useEffect } from 'react';
+import { useEffect, useMemo, useState } from 'react';
+import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 
 export default function UpdatesPage() {
+  const router = useRouter();
+  const pathname = usePathname();
+  const params = useSearchParams();
+
   const [posts, setPosts] = useState<UpdatePost[]>([]);
   const [filteredPosts, setFilteredPosts] = useState<UpdatePost[]>([]);
   const [searchQuery, setSearchQuery] = useState('');
@@ -21,6 +27,17 @@ export default function UpdatesPage() {
   const [currentPage, setCurrentPage] = useState(1);
   const postsPerPage = 8; // Show 8 posts per page
 
+  // Initialize from URL
+  useEffect(() => {
+    const q = params.get('q') ?? '';
+    const pageStr = params.get('page');
+    const page = pageStr ? Math.max(1, parseInt(pageStr, 10) || 1) : 1;
+    setSearchQuery(q);
+    setCurrentPage(page);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  // Fetch posts
   useEffect(() => {
     const fetchPosts = async () => {
       try {
@@ -28,7 +45,10 @@ export default function UpdatesPage() {
         setPosts(fetchedPosts);
         setFilteredPosts(fetchedPosts);
       } catch (error) {
-        console.error('Error fetching posts:', error);
+        if (process.env.NODE_ENV !== 'production') {
+          // eslint-disable-next-line no-console
+          console.error('Error fetching posts:', error);
+        }
       } finally {
         setIsLoading(false);
       }
@@ -37,20 +57,19 @@ export default function UpdatesPage() {
     fetchPosts();
   }, []);
 
+  // Filter posts by search
   useEffect(() => {
-    if (!searchQuery.trim()) {
+    const query = (searchQuery || '').trim().toLowerCase();
+    if (!query) {
       setFilteredPosts(posts);
-      setCurrentPage(1); // Reset to first page when search is cleared
       return;
     }
 
-    const query = searchQuery.toLowerCase();
     const filtered = posts.filter((post: UpdatePost) => {
       const title = post.title?.toLowerCase() || '';
       const excerpt = post.excerpt?.toLowerCase() || '';
       const author = post.author?.toLowerCase() || '';
-      const category = post.category?.toLowerCase() || '';
-      
+      const category = (post.category as string | undefined)?.toLowerCase?.() || '';
       return (
         title.includes(query) ||
         excerpt.includes(query) ||
@@ -60,27 +79,36 @@ export default function UpdatesPage() {
     });
 
     setFilteredPosts(filtered);
-    setCurrentPage(1); // Reset to first page when search changes
   }, [searchQuery, posts]);
 
-  // Calculate pagination
-  const totalPages = Math.ceil(filteredPosts.length / postsPerPage);
+  // Keep URL in sync
+  useEffect(() => {
+    const sp = new URLSearchParams(params.toString());
+    if (searchQuery) sp.set('q', searchQuery); else sp.delete('q');
+    if (currentPage && currentPage !== 1) sp.set('page', String(currentPage)); else sp.delete('page');
+    router.replace(`${pathname}?${sp.toString()}`, { scroll: false });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [searchQuery, currentPage]);
+
+  // Reset page when search changes
+  useEffect(() => {
+    setCurrentPage(1);
+  }, [searchQuery]);
+
+  // Pagination calculations
+  const totalPages = Math.ceil(filteredPosts.length / postsPerPage) || 1;
   const startIndex = (currentPage - 1) * postsPerPage;
   const endIndex = startIndex + postsPerPage;
-  const currentPosts = filteredPosts.slice(startIndex, endIndex);
+  const currentPosts = useMemo(
+    () => filteredPosts.slice(startIndex, endIndex),
+    [filteredPosts, startIndex, endIndex]
+  );
 
-  // Handle page changes
   const goToPage = (page: number) => {
     setCurrentPage(Math.max(1, Math.min(page, totalPages)));
   };
-
-  const goToPreviousPage = () => {
-    goToPage(currentPage - 1);
-  };
-
-  const goToNextPage = () => {
-    goToPage(currentPage + 1);
-  };
+  const goToPreviousPage = () => goToPage(currentPage - 1);
+  const goToNextPage = () => goToPage(currentPage + 1);
 
   const breadcrumbItems = [{ label: 'Home', href: '/' }, { label: 'Updates' }];
 
@@ -130,17 +158,17 @@ export default function UpdatesPage() {
                       className="overflow-hidden p-0 hover:shadow-lg transition-shadow h-full"
                     >
                       <div className="aspect-[16/9] overflow-hidden">
-                        <img
+                        <Image
                           src={post.featuredImage || '/placeholder.svg'}
                           alt={post.title}
-                          className="w-full h-full object-cover hover:scale-105 transition-transform duration-300"
+                          width={1200}
+                          height={675}
+                          className="w-full h-full object-cover"
                         />
                       </div>
                       <CardContent className="p-6">
                         <div className="flex items-center text-sm text-muted-foreground mb-4">
-                          <span>
-                            {new Date(post.publishedAt).toLocaleDateString()}
-                          </span>
+                          <span>{new Date(post.publishedAt).toLocaleDateString()}</span>
                           <span className="mx-2">•</span>
                           <span>{post.author}</span>
                         </div>
@@ -167,7 +195,7 @@ export default function UpdatesPage() {
                     <div className="text-sm text-muted-foreground">
                       Showing {startIndex + 1}-{Math.min(endIndex, filteredPosts.length)} of {filteredPosts.length} posts
                     </div>
-                    
+
                     <div className="flex items-center gap-2">
                       <Button
                         variant="outline"
@@ -182,17 +210,12 @@ export default function UpdatesPage() {
                       {/* Page Numbers */}
                       <div className="flex items-center gap-1">
                         {Array.from({ length: totalPages }, (_, i) => i + 1).map((page) => {
-                          // Show first page, last page, current page, and pages around current
-                          const shouldShow = 
-                            page === 1 || 
-                            page === totalPages || 
-                            Math.abs(page - currentPage) <= 1;
-
+                          const shouldShow = page === 1 || page === totalPages || Math.abs(page - currentPage) <= 1;
                           if (shouldShow) {
                             return (
                               <Button
                                 key={page}
-                                variant={page === currentPage ? "default" : "outline"}
+                                variant={page === currentPage ? 'default' : 'outline'}
                                 size="sm"
                                 className="w-10 h-10"
                                 onClick={() => goToPage(page)}
@@ -200,10 +223,7 @@ export default function UpdatesPage() {
                                 {page}
                               </Button>
                             );
-                          } else if (
-                            page === currentPage - 2 || 
-                            page === currentPage + 2
-                          ) {
+                          } else if (page === currentPage - 2 || page === currentPage + 2) {
                             return (
                               <span key={page} className="px-2 text-muted-foreground">
                                 ...
@@ -231,13 +251,8 @@ export default function UpdatesPage() {
               <div className="text-center py-12">
                 <Search className="h-12 w-12 text-muted-foreground mx-auto mb-4" />
                 <h3 className="text-lg font-semibold mb-2">No results found</h3>
-                <p className="text-muted-foreground mb-4">
-                  Try adjusting your search terms or browse all updates.
-                </p>
-                <Button 
-                  variant="outline" 
-                  onClick={() => setSearchQuery('')}
-                >
+                <p className="text-muted-foreground mb-4">Try adjusting your search terms or browse all updates.</p>
+                <Button variant="outline" onClick={() => setSearchQuery('')}>
                   Clear Search
                 </Button>
               </div>
@@ -251,8 +266,8 @@ export default function UpdatesPage() {
               <CardContent className="p-6">
                 <h3 className="font-semibold mb-4">Search</h3>
                 <div className="relative border-[0.5px] rounded-md border-primary">
-                  <Input 
-                    placeholder="Search updates..." 
+                  <Input
+                    placeholder="Search updates..."
                     className="pr-10"
                     value={searchQuery}
                     onChange={(e) => setSearchQuery(e.target.value)}
@@ -266,9 +281,7 @@ export default function UpdatesPage() {
             <Card>
               <CardContent className="p-6">
                 <h3 className="font-semibold mb-4">Categories</h3>
-                <ul className="space-y-2">
-                  {/* Removed categories mapping as categories are no longer available */}
-                </ul>
+                <ul className="space-y-2">{/* No categories available in this version */}</ul>
               </CardContent>
             </Card>
           </div>

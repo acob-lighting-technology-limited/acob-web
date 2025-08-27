@@ -113,7 +113,6 @@ export default async function UpdatePostPage({ params }: UpdatePostPageProps) {
   if (!post) {
     notFound();
   }
-console.log(post)
   const comments = await getApprovedCommentsForPost(post._id);
   const related = post.category && post.slug?.current
     ? await getRelatedUpdatePosts(post.category, post.slug.current, 3)
@@ -137,9 +136,11 @@ console.log(post)
             {/* Featured Image */}
             {post.featuredImage && (
               <div className="aspect-[16/9] overflow-hidden rounded-lg">
-                <img
+                <Image
                   src={post.featuredImage || '/placeholder.svg'}
                   alt={post.title}
+                  width={1200}
+                  height={675}
                   className="w-full h-full object-cover"
                 />
               </div>
@@ -200,10 +201,12 @@ console.log(post)
                     <Link key={item._id} href={`/updates/${item.slug.current}`}>
                       <Card className="overflow-hidden p-0 border-2 hover:shadow-lg transition-shadow cursor-pointer">
                         <div className="aspect-[16/9] overflow-hidden">
-                          <img
+                          <Image
                             src={item.featuredImage || '/placeholder.svg'}
                             alt={item.title}
-                            className="w-full h-full object-cover hover:scale-105 transition-transform duration-300"
+                            width={1200}
+                            height={675}
+                            className="w-full h-full object-cover"
                           />
                         </div>
                         <CardContent className="p-4">
