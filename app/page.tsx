@@ -28,10 +28,10 @@ const ContactSection = dynamic(
   }
 );
 
-const NewsSection = dynamic(
+const UpdatesSection = dynamic(
   () =>
-    import('@/components/sections/news-section').then(mod => ({
-      default: mod.NewsSection,
+    import('@/components/sections/updates-section').then(mod => ({
+      default: mod.UpdatesSection,
     })),
   {
     loading: () => <div className="py-16 bg-zinc-50 dark:bg-zinc-950" />,
@@ -77,7 +77,7 @@ export default function HomePage() {
           {/* <TestimonialsSection /> */}
           <TransitionSection />
           <ContactSection />
-          <NewsSection />
+          <UpdatesSection />
           <PartnersSection />
           {/* <MapSection /> */}
         </>

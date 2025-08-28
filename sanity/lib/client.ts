@@ -47,7 +47,7 @@ export async function getUpdatePosts() {
       excerpt,
       publishedAt,
       author,
-      category->{name, slug},
+      category,
       tags,
       "featuredImage": featuredImage.asset->url + "?w=800&h=600&fit=crop&auto=format&q=75",
       content
@@ -66,7 +66,7 @@ export async function getUpdatePost(slug: string) {
       excerpt,
       publishedAt,
       author,
-      category->{name, slug},
+      category,
       tags,
       "featuredImage": featuredImage.asset->url + "?w=800&h=600&fit=crop&auto=format&q=75",
       content
@@ -76,16 +76,25 @@ export async function getUpdatePost(slug: string) {
   );
 }
 
-// Helper function to get categories
-export async function getCategories() {
-  return await client.fetch(`
-    *[_type == "category"] | order(name asc) {
+// Helper function to get related update posts by category (excluding current slug)
+export async function getRelatedUpdatePosts(
+  categorySlug: string,
+  excludeSlug: string,
+  limit: number = 3
+) {
+  return await client.fetch(
+    `
+    *[_type == "updatePost" && category == $categorySlug && slug.current != $excludeSlug]
+      | order(publishedAt desc)[0...$limit] {
       _id,
-      name,
+      title,
       slug,
-      description
+      publishedAt,
+      "featuredImage": featuredImage.asset->url + "?w=800&h=600&fit=crop&auto=format&q=75"
     }
-  `);
+  `,
+    { categorySlug, excludeSlug, limit }
+  );
 }
 
 // Helper function to get approved comments for an update post
@@ -182,7 +191,7 @@ export async function getProject(slug: string) {
 // Test function to verify Sanity connection
 export async function testSanityConnection() {
   try {
-    const result = await client.fetch('*[_type == "project"][0...1]');
+    await client.fetch('*[_type == "project"][0...1]');
     console.log('✅ Sanity connection successful');
     return true;
   } catch (error) {

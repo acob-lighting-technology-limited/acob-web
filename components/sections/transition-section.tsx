@@ -76,7 +76,7 @@ function CounterAnimation({
   duration?: number;
 }) {
   const [count, setCount] = useState(0);
-  const countRef = useRef<HTMLElement | null>(null);
+  const countRef = useRef<HTMLDivElement>(null);
   const isInView = useInView(countRef, { once: true, margin: '-100px' });
 
   useEffect(() => {

@@ -7,25 +7,26 @@ import {
   ArrowRight,
   Calendar,
   User,
-  Megaphone,
   FileText,
-  Download,
+  Target,
+  TrendingUp,
+  MapPin,
 } from 'lucide-react';
 import Link from 'next/link';
-import { getUpdatePosts, getCategories } from '@/sanity/lib/client';
+import Image from 'next/image';
+import { getUpdatePosts } from '@/sanity/lib/client';
 import type { UpdatePost } from '@/lib/types';
 
-export default async function PressReleasesPage() {
-  const [posts, categories] = await Promise.all([
-    getUpdatePosts(),
-    getCategories(),
-  ]);
+export default async function PressPage() {
+  const posts = await getUpdatePosts();
 
-  // Filter for press releases (assuming they have a category or tag for press releases)
+  // Filter for press releases using the new string-based category system
   const pressReleases = posts.filter(
     (post: UpdatePost) =>
-      post.category?.name?.toLowerCase().includes('press') ||
-      post.tags?.some((tag: string) => tag.toLowerCase().includes('press')) ||
+      post.category === 'press-releases' ||
+      post.tags?.some((tag: string) =>
+        tag.toLowerCase().includes('press release')
+      ) ||
       post.title?.toLowerCase().includes('press release')
   );
 
@@ -52,7 +53,7 @@ export default async function PressReleasesPage() {
               <Card>
                 <CardContent className="p-8 text-center">
                   <div className="text-muted-foreground mb-4">
-                    <Megaphone className="h-12 w-12 mx-auto mb-4 opacity-50" />
+                    <Target className="h-12 w-12 mx-auto mb-4 opacity-50" />
                     <h3 className="text-xl font-semibold mb-2">
                       No Press Releases
                     </h3>
@@ -73,15 +74,17 @@ export default async function PressReleasesPage() {
                   className="overflow-hidden p-0 hover:shadow-lg transition-shadow duration-300"
                 >
                   <div className="aspect-[16/9] overflow-hidden">
-                    <img
+                    <Image
                       src={post.featuredImage || '/placeholder.svg'}
                       alt={post.title}
-                      className="w-full h-full object-cover hover:scale-105 transition-transform duration-300"
+                      width={1200}
+                      height={675}
+                      className="w-full h-full object-cover"
                     />
                   </div>
                   <CardContent className="p-6">
                     <div className="flex items-center text-sm text-muted-foreground mb-4">
-                      <Megaphone className="h-4 w-4 mr-1" />
+                      <Target className="h-4 w-4 mr-1" />
                       <span className="bg-primary/10 text-primary px-2 py-1 rounded-full text-xs font-medium">
                         Press Release
                       </span>
@@ -122,7 +125,7 @@ export default async function PressReleasesPage() {
               <CardContent className="p-6">
                 <h3 className="font-semibold mb-4">Press Releases</h3>
                 <div className="bg-primary/10 p-4 rounded-lg">
-                  <Megaphone className="h-8 w-8 text-primary mb-2" />
+                  <Target className="h-8 w-8 text-primary mb-2" />
                   <h4 className="font-medium text-primary mb-2">
                     Official Communications
                   </h4>
@@ -194,23 +197,7 @@ export default async function PressReleasesPage() {
               <CardContent className="p-6">
                 <h3 className="font-semibold mb-4">Categories</h3>
                 <ul className="space-y-2">
-                  {categories.map(
-                    (category: {
-                      _id: string;
-                      slug: { current: string };
-                      name: string;
-                    }) => (
-                      <li key={category._id}>
-                        <Link
-                          href={`/updates/category/${category.slug.current}`}
-                          className="text-muted-foreground hover:text-primary transition-colors duration-200 flex items-center justify-between"
-                        >
-                          <span>{category.name}</span>
-                          <ArrowRight className="h-3 w-3" />
-                        </Link>
-                      </li>
-                    )
-                  )}
+                  {/* Categories are not fetched in this version, so this section is removed */}
                 </ul>
               </CardContent>
             </Card>

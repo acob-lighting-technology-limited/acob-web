@@ -17,58 +17,83 @@ function getErrorMessage(error: unknown): string {
 }
 
 export async function POST(req: NextRequest) {
-  console.log('=== API ROUTE CALLED ===');
+  if (process.env.NODE_ENV !== 'production') {
+    // eslint-disable-next-line no-console
+    console.log('=== API ROUTE CALLED ===');
+  }
 
   try {
     const GROQ_API_KEY = process.env.GROQ_API_KEY;
 
-    console.log('GROQ_API_KEY exists:', !!GROQ_API_KEY);
+    if (process.env.NODE_ENV !== 'production') {
+      // eslint-disable-next-line no-console
+      console.log('GROQ_API_KEY exists:', !!GROQ_API_KEY);
+    }
 
     if (!GROQ_API_KEY) {
-      console.error('GROQ_API_KEY is not set.');
+      if (process.env.NODE_ENV !== 'production') {
+        // eslint-disable-next-line no-console
+        console.error('GROQ_API_KEY is not set.');
+      }
       return NextResponse.json(
-        {
-          error: 'Server configuration error: Groq API key is missing.',
-        },
+        { error: { message: 'Groq API key is missing', code: 'CONFIG_MISSING' } },
         { status: 500 }
       );
     }
 
-    console.log('=== PARSING REQUEST BODY ===');
+    if (process.env.NODE_ENV !== 'production') {
+      // eslint-disable-next-line no-console
+      console.log('=== PARSING REQUEST BODY ===');
+    }
     const body = await req.json();
     const messages = body.messages;
 
-    console.log('Messages received:', messages?.length, 'messages');
-    console.log('Full request body:', JSON.stringify(body, null, 2));
+    if (process.env.NODE_ENV !== 'production') {
+      // eslint-disable-next-line no-console
+      console.log('Messages received:', messages?.length, 'messages');
+    }
 
     if (!Array.isArray(messages)) {
-      console.error('Invalid messages - not an array:', body);
+      if (process.env.NODE_ENV !== 'production') {
+        // eslint-disable-next-line no-console
+        console.error('Invalid messages - not an array:', body);
+      }
       return NextResponse.json(
-        { error: 'Invalid messages format: must be an array' },
+        { error: { message: 'Invalid messages format: must be an array', code: 'BAD_REQUEST' } },
         { status: 400 }
       );
     }
 
     if (messages.length === 0) {
-      console.error('Empty messages array');
+      if (process.env.NODE_ENV !== 'production') {
+        // eslint-disable-next-line no-console
+        console.error('Empty messages array');
+      }
       return NextResponse.json(
-        { error: 'Messages array cannot be empty' },
+        { error: { message: 'Messages array cannot be empty', code: 'BAD_REQUEST' } },
         { status: 400 }
       );
     }
 
-    console.log('=== VALIDATING MESSAGES ===');
+    if (process.env.NODE_ENV !== 'production') {
+      // eslint-disable-next-line no-console
+      console.log('=== VALIDATING MESSAGES ===');
+    }
     // Validate messages
     for (let i = 0; i < messages.length; i++) {
       const msg = messages[i];
-      console.log(`Message ${i}:`, JSON.stringify(msg, null, 2));
+      if (process.env.NODE_ENV !== 'production') {
+        // eslint-disable-next-line no-console
+        console.log(`Message ${i}:`, JSON.stringify(msg, null, 2));
+      }
 
       if (!msg.role || !msg.content) {
-        console.error(`Invalid message at index ${i}:`, msg);
+        if (process.env.NODE_ENV !== 'production') {
+          // eslint-disable-next-line no-console
+          console.error(`Invalid message at index ${i}:`, msg);
+        }
         return NextResponse.json(
-          {
-            error: `Invalid message format at index ${i}: must have 'role' and 'content'`,
-          },
+          { error: { message: `Invalid message at index ${i}: must have 'role' and 'content'`, code: 'BAD_REQUEST' } },
           { status: 400 }
         );
       }
@@ -82,19 +107,17 @@ export async function POST(req: NextRequest) {
       })
     );
 
-    console.log('=== CLEANED MESSAGES ===');
-    console.log('Clean messages count:', cleanMessages.length);
-
-    console.log('=== CALLING GROQ VIA AI SDK (STREAMING) ===');
+    if (process.env.NODE_ENV !== 'production') {
+      // eslint-disable-next-line no-console
+      console.log('=== CALLING GROQ VIA AI SDK (STREAMING) ===');
+    }
     // Use Vercel AI SDK with Groq (streaming for useChat compatibility)
     const result = await streamText({
       model: groq('llama3-8b-8192'),
       messages: cleanMessages,
-      maxTokens: 4096, // Optional: set max tokens
-      temperature: 0.7, // Optional: set temperature
+      maxTokens: 4096,
+      temperature: 0.7,
     });
-
-    console.log('=== AI SDK STREAM CREATED ===');
 
     // Create a slower typing effect by adding delays
     const slowTypingStream = new ReadableStream({
@@ -102,45 +125,28 @@ export async function POST(req: NextRequest) {
         const encoder = new TextEncoder();
         let fullText = '';
 
-        // Get the full text first
         for await (const textPart of result.textStream) {
           fullText += textPart;
         }
 
-        console.log('=== STARTING SLOW TYPING EFFECT ===');
-        console.log('Full text length:', fullText.length);
-
-        // Now stream it slowly word by word
         const words = fullText.split(' ');
-
         for (let i = 0; i < words.length; i++) {
           const word = words[i];
           const wordToSend = i === 0 ? word : ` ${word}`;
-
-          // Send just the new word/part (not accumulated text)
           const chunk = `0:${JSON.stringify(wordToSend)}\n`;
           controller.enqueue(encoder.encode(chunk));
-
-          // Add delay between words (adjust this to control speed)
-          await new Promise(resolve => setTimeout(resolve, 150)); // 150ms delay between words
+          await new Promise(resolve => setTimeout(resolve, 150));
         }
 
-        // Send the final completion signal
         const finishChunk = `d:${JSON.stringify({
           finishReason: 'stop',
-          usage: {
-            promptTokens: 0,
-            completionTokens: words.length,
-          },
+          usage: { promptTokens: 0, completionTokens: words.length },
         })}\n`;
         controller.enqueue(encoder.encode(finishChunk));
         controller.close();
-
-        console.log('=== SLOW TYPING EFFECT COMPLETED ===');
       },
     });
 
-    // Return the slowed-down stream
     return new Response(slowTypingStream, {
       headers: {
         'Content-Type': 'text/plain; charset=utf-8',
@@ -153,18 +159,12 @@ export async function POST(req: NextRequest) {
       },
     });
   } catch (err: unknown) {
-    console.error('=== CATCH BLOCK ERROR ===');
-    console.error('Error type:', typeof err);
-    console.error('Error message:', (err as Error)?.message);
-    console.error('Full error:', err);
-    console.error('Stack trace:', (err as Error)?.stack);
-
+    if (process.env.NODE_ENV !== 'production') {
+      // eslint-disable-next-line no-console
+      console.error('Chat route error:', err);
+    }
     return NextResponse.json(
-      {
-        error: getErrorMessage(err),
-        errorType: typeof err,
-        stack: (err as Error)?.stack,
-      },
+      { error: { message: getErrorMessage(err), code: 'INTERNAL_SERVER_ERROR' } },
       { status: 500 }
     );
   }

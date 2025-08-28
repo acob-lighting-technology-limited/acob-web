@@ -9,7 +9,7 @@ import { getUpdatePosts } from '@/sanity/lib/client';
 import Image from 'next/image';
 import type { UpdatePost } from '@/lib/types';
 
-export function NewsSection() {
+export function UpdatesSection() {
   const [posts, setPosts] = useState<UpdatePost[]>([]);
   const [loading, setLoading] = useState(true);
 
@@ -92,7 +92,7 @@ export function NewsSection() {
                 )}
                 {/* Category Tag */}
                 <div className="absolute top-4 left-4 bg-primary text-white px-3 py-1 rounded text-sm font-medium">
-                  {post.category?.name || 'News'}
+                  {post.category || 'News'}
                 </div>
               </div>
 

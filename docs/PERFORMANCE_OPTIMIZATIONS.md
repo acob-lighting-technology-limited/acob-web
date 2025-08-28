@@ -71,7 +71,7 @@ export const LazyChatBot = dynamic(() => import('./features/chat-bot'), {
 - ✅ `BackupStrategy` - Admin-only component
 - ✅ `CookieConsent` - Non-critical component
 - ✅ `ProjectsSection` - Heavy data component
-- ✅ `NewsSection` - Dynamic content component
+- ✅ `UpdatesSection` - Dynamic content component
 
 ### **Package Optimization**
 

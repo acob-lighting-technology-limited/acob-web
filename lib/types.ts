@@ -50,12 +50,7 @@ export interface UpdatePost {
   excerpt: string;
   publishedAt: string;
   author: string;
-  category?: {
-    name: string;
-    slug: {
-      current: string;
-    };
-  };
+  category?: string; // Changed from object reference to string
   tags?: string[];
   featuredImage?: string;
   _createdAt: string;

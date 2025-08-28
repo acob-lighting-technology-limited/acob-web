@@ -61,7 +61,7 @@ export const LazyProjectsSection = dynamic(
 
 export const LazyNewsSection = dynamic(
   () =>
-    import('./sections/news-section').then(mod => ({
+    import('./sections/updates-section').then(mod => ({
       default: mod.NewsSection,
     })),
   {

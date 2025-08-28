@@ -1,22 +1,22 @@
-import { Container } from '@/components/ui/container';
-import { Breadcrumb } from '@/components/ui/breadcrumb';
-import { Button } from '@/components/ui/button';
-import { Card, CardContent } from '@/components/ui/card';
-import { Input } from '@/components/ui/input';
-
+import { Metadata } from 'next';
 import Image from 'next/image';
+import Link from 'next/link';
 
 import { PortableText } from '@portabletext/react';
 import type {
-  PortableTextComponentProps,
+  PortableTextComponents,
   PortableTextBlock,
+  PortableTextComponentProps,
 } from '@portabletext/react';
-import { urlFor, getUpdatePost, getUpdatePosts, getApprovedCommentsForPost } from '@/sanity/lib/client';
+import { urlFor, getUpdatePost, getUpdatePosts, getApprovedCommentsForPost, getRelatedUpdatePosts } from '@/sanity/lib/client';
 import { notFound } from 'next/navigation';
 import type { UpdatePost, Comment } from '@/lib/types';
-
-import { CommentForm } from '@/components/updates/comment-form';
+import { Container } from '@/components/ui/container';
+import { Breadcrumb } from '@/components/ui/breadcrumb';
+import { Card, CardContent } from '@/components/ui/card';
+import { Input } from '@/components/ui/input';
 import { ShareCopy } from '@/components/updates/share-copy';
+import { CommentForm } from '@/components/updates/comment-form';
 
 interface UpdatePostPageProps {
   params: Promise<{
@@ -26,9 +26,11 @@ interface UpdatePostPageProps {
 
 export async function generateStaticParams() {
   const posts = await getUpdatePosts();
-  return posts.map((post: UpdatePost) => ({
-    slug: post.slug.current,
-  }));
+  return posts
+    .filter((post: UpdatePost) => post.slug && post.slug.current)
+    .map((post: UpdatePost) => ({
+      slug: post.slug.current,
+    }));
 }
 
 // Custom Portable Text Components
@@ -111,8 +113,10 @@ export default async function UpdatePostPage({ params }: UpdatePostPageProps) {
   if (!post) {
     notFound();
   }
-
   const comments = await getApprovedCommentsForPost(post._id);
+  const related = post.category && post.slug?.current
+    ? await getRelatedUpdatePosts(post.category, post.slug.current, 3)
+    : [];
 
   const breadcrumbItems = [
     { label: 'Home', href: '/' },
@@ -132,9 +136,11 @@ export default async function UpdatePostPage({ params }: UpdatePostPageProps) {
             {/* Featured Image */}
             {post.featuredImage && (
               <div className="aspect-[16/9] overflow-hidden rounded-lg">
-                <img
+                <Image
                   src={post.featuredImage || '/placeholder.svg'}
                   alt={post.title}
+                  width={1200}
+                  height={675}
                   className="w-full h-full object-cover"
                 />
               </div>
@@ -150,12 +156,15 @@ export default async function UpdatePostPage({ params }: UpdatePostPageProps) {
                   <>
                     <span className="mx-2">•</span>
                     <span className="bg-primary text-white px-2 py-1 rounded text-xs">
-                      {post.category.name || 'News'}
+                      {post.category === 'news' ? 'News' : 
+                       post.category === 'case-studies' ? 'Case Studies' : 
+                       post.category === 'press-releases' ? 'Press Releases' : 
+                       post.category}
                     </span>
                   </>
                 )}
               </div>
-              <h1 className="text-4xl font-bold text-gray-900 mb-4">
+              <h1 className="text-4xl font-bold text-card-foreground mb-4">
                 {post.title}
               </h1>
             </div>
@@ -179,11 +188,56 @@ export default async function UpdatePostPage({ params }: UpdatePostPageProps) {
                 ))}
               </div>
             )}
-
-            {/* Share Buttons */}
-            <div className="flex items-center gap-4 pt-8 border-t">
+  {/* Share Buttons */}
+  <div className="flex items-center gap-4 pt-8 border-t">
               <ShareCopy className="rounded-full bg-transparent" />
             </div>
+            {/* Related Updates */}
+            {Array.isArray(related) && related.length > 0 && (
+              <div className="pt-8 border-t">
+                <h3 className="text-xl font-semibold mb-4">Related Updates</h3>
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                  {related.map((item: any) => {
+                    const href = item?.slug?.current ? `/updates/${item.slug.current}` : null;
+                    const CardInner = (
+                      <>
+                        <div className="aspect-[16/9] overflow-hidden">
+                          <Image
+                            src={item.featuredImage || '/placeholder.svg'}
+                            alt={item.title}
+                            width={1200}
+                            height={675}
+                            className="w-full h-full object-cover"
+                          />
+                        </div>
+                        <CardContent className="p-4">
+                          <div className="text-xs text-muted-foreground mb-2">
+                            {new Date(item.publishedAt).toLocaleDateString()}
+                          </div>
+                          <h4 className="font-semibold text-foreground leading-snug line-clamp-2">
+                            {item.title}
+                          </h4>
+                        </CardContent>
+                      </>
+                    );
+
+                    const cardClass = "overflow-hidden p-0 border-2 hover:shadow-lg transition-shadow" + (href ? " cursor-pointer" : " opacity-90");
+
+                    return href ? (
+                      <Link key={item._id} href={href}>
+                        <Card className={cardClass}>{CardInner}</Card>
+                      </Link>
+                    ) : (
+                      <Card key={item._id} className={cardClass} aria-disabled="true">
+                        {CardInner}
+                      </Card>
+                    );
+                  })}
+                </div>
+              </div>
+            )}
+
+          
             </CardContent>
           </Card>
 
