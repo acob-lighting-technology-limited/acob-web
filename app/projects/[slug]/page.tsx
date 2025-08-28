@@ -107,22 +107,49 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
 
           {/* Sidebar */}
           <div className="space-y-6 sticky top-20 self-start">
+            {/* Project Info */}
+            <Card className="!border-t-2 !border-t-primary border border-border">
+              <CardContent className="p-6 ">
+                <h3 className="font-semibold mb-4">Project Details</h3>
+                <div className="space-y-3">
+                  {project.location && (
+                    <div className="flex items-start space-x-2 p-3 rounded-lg bg-muted/30 border border-border">
+                      <MapPin className="h-4 w-4 text-primary mt-0.5 flex-shrink-0" />
+                      <div>
+                        <p className="text-xs text-muted-foreground">Location</p>
+                        <p className="text-sm font-medium">{project.location}</p>
+                      </div>
+                    </div>
+                  )}
+                  <div className="flex items-start space-x-2 p-3 rounded-lg bg-muted/30 border border-border">
+                    <div className="h-4 w-4 bg-primary rounded-sm mt-0.5 flex-shrink-0"></div>
+                    <div>
+                      <p className="text-xs text-muted-foreground">Project Type</p>
+                      <p className="text-sm font-medium">Solar Energy Solution</p>
+                    </div>
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+
             {/* Quick Contact */}
-            <Card className="text-foreground border-t-2 border-t-primary">
+            <Card className="border-t-2 border-t-primary border border-border">
               <CardContent className="p-6">
                 <h3 className="font-semibold mb-4">
-                  Interested in a similar project?
+                  Need a Similar Project?
                 </h3>
-                <p className="text-sm opacity-90 mb-4">
-                  Contact us to discuss your energy needs.
+                <p className="text-sm text-muted-foreground mb-4">
+                  Get a customized solution for your energy needs.
                 </p>
-                <Link href="/contact">
-                  <Button
-                    variant="outline"
-                    className="w-full border-primary text-primary-foreground hover:bg-primary hover:text-primary bg-surface"
-                  >
-                    Request Quote
+                <Link href="/contact/quote">
+                  <Button className="w-full bg-primary hover:bg-primary/90 text-primary-foreground mb-2">
+                    Get Quote
                     <ArrowRight className="ml-2 h-4 w-4" />
+                  </Button>
+                </Link>
+                <Link href="/contact">
+                  <Button variant="outline" className="w-full">
+                    Contact Us
                   </Button>
                 </Link>
               </CardContent>
@@ -130,38 +157,34 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
 
             {/* Related Projects */}
             {relatedProjects.length > 0 && (
-              <Card className="text-foreground border-t-2 border-t-primary">
+              <Card className="!border-t-2 !border-t-primary border border-border">
                 <CardContent className="p-6">
-                  <h3 className="font-semibold mb-4">More Projects</h3>
-                  <div className="space-y-3">
+                  <h3 className="font-semibold mb-4">Related Projects</h3>
+                  <div className="space-y-2">
                     {relatedProjects.map((relatedProject: Project) => (
-                      <div
+                      <Link
                         key={relatedProject._id}
-                        className="border border-primary p-2 bg-surface rounded-lg "
+                        href={`/projects/${relatedProject.slug.current}`}
+                        className="block p-3 rounded-lg bg-muted/30 hover:bg-muted/50 transition-colors duration-200 group border border-border"
                       >
-                        <Link
-                          href={`/projects/${relatedProject.slug.current}`}
-                          className="block group"
-                        >
-                          <h4 className="text-sm font-medium text-foreground group-hover:text-primary  mb-1">
-                            {relatedProject.title}
-                          </h4>
-                          {/* {relatedProject.location && (
-                          <div className="flex items-center text-xs text-gray-500 mb-2">
+                        <h4 className="text-sm font-medium text-foreground group-hover:text-primary mb-1">
+                          {relatedProject.title}
+                        </h4>
+                        {relatedProject.location && (
+                          <div className="flex items-center text-xs text-muted-foreground">
                             <MapPin className="h-3 w-3 mr-1" />
                             <span>{relatedProject.location}</span>
                           </div>
-                        )} */}
-                        </Link>
-                      </div>
+                        )}
+                      </Link>
                     ))}
                   </div>
 
                   {/* View All Projects Link */}
-                  <div className="pt-4">
+                  <div className="pt-4 border-t">
                     <Link
                       href="/projects"
-                      className="text-sm text-primary hover:text-primary/80  flex items-center"
+                      className="text-sm text-primary hover:text-primary/80 flex items-center font-medium"
                     >
                       View All Projects
                       <ArrowRight className="ml-1 h-3 w-3" />

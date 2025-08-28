@@ -1,7 +1,6 @@
 'use client';
 
-import { Metadata } from 'next';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { Card, CardContent } from '@/components/ui/card';
 import { Container } from '@/components/ui/container';
 import { PageHero } from '@/components/ui/page-hero';
 import { Breadcrumb } from '@/components/ui/breadcrumb';
@@ -87,8 +86,7 @@ export default function UpdatesPage() {
     if (searchQuery) sp.set('q', searchQuery); else sp.delete('q');
     if (currentPage && currentPage !== 1) sp.set('page', String(currentPage)); else sp.delete('page');
     router.replace(`${pathname}?${sp.toString()}`, { scroll: false });
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [searchQuery, currentPage]);
+  }, [searchQuery, currentPage, pathname, router]);
 
   // Reset page when search changes
   useEffect(() => {
@@ -262,26 +260,83 @@ export default function UpdatesPage() {
           {/* Sidebar */}
           <div className="space-y-6 sticky top-20 self-start">
             {/* Search */}
-            <Card>
+            <Card className="!border-t-2 !border-t-primary border border-border">
               <CardContent className="p-6">
-                <h3 className="font-semibold mb-4">Search</h3>
-                <div className="relative border-[0.5px] rounded-md border-primary">
+                <h3 className="font-semibold mb-4">Search Updates</h3>
+                <div className="relative">
                   <Input
                     placeholder="Search updates..."
                     className="pr-10"
                     value={searchQuery}
                     onChange={(e) => setSearchQuery(e.target.value)}
                   />
-                  <Search className="absolute right-3 top-1/2 -translate-y-1/2 h-4 w-4 text-gray-400" />
+                  <Search className="absolute right-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
                 </div>
               </CardContent>
             </Card>
 
             {/* Categories */}
-            <Card>
+            <Card className="!border-t-2 !border-t-primary border border-border">
               <CardContent className="p-6">
-                <h3 className="font-semibold mb-4">Categories</h3>
-                <ul className="space-y-2">{/* No categories available in this version */}</ul>
+                <h3 className="font-semibold mb-4">Browse Categories</h3>
+                <div className="space-y-2">
+                  <Link
+                    href="/updates/case-studies"
+                    className="block p-3 rounded-lg bg-muted/30 hover:bg-muted/50 transition-colors duration-200 text-sm font-medium border border-border"
+                  >
+                    Case Studies
+                  </Link>
+                  <Link
+                    href="/updates/press"
+                    className="block p-3 rounded-lg bg-muted/30 hover:bg-muted/50 transition-colors duration-200 text-sm font-medium border border-border"
+                  >
+                    Press Releases
+                  </Link>
+                  <Link
+                    href="/updates/latest"
+                    className="block p-3 rounded-lg bg-muted/30 hover:bg-muted/50 transition-colors duration-200 text-sm font-medium border border-border"
+                  >
+                    Latest Updates
+                  </Link>
+                  <Link
+                    href="/updates/gallery"
+                    className="block p-3 rounded-lg bg-muted/30 hover:bg-muted/50 transition-colors duration-200 text-sm font-medium border border-border"
+                  >
+                    Gallery
+                  </Link>
+                </div>
+              </CardContent>
+            </Card>
+
+            {/* Recent Updates */}
+            <Card className="!border-t-2 !border-t-primary border border-border">
+              <CardContent className="p-6">
+                <h3 className="font-semibold mb-4">Recent Updates</h3>
+                <div className="space-y-2">
+                  {posts.slice(0, 5).map(post => (
+                    <Link
+                      key={post._id}
+                      href={`/updates/${post.slug?.current || '#'}`}
+                      className="block p-3 rounded-lg bg-muted/30 hover:bg-muted/50 transition-colors duration-200 border border-border group"
+                    >
+                      <h4 className="text-sm font-medium text-foreground group-hover:text-primary mb-1">
+                        {post.title}
+                      </h4>
+                      <div className="text-xs text-muted-foreground">
+                        {new Date(post.publishedAt).toLocaleDateString()}
+                      </div>
+                    </Link>
+                  ))}
+                </div>
+                <div className="pt-4 border-t">
+                  <Link
+                    href="/updates"
+                    className="text-sm text-primary hover:text-primary/80 flex items-center font-medium"
+                  >
+                    View All Updates
+                    <ArrowRight className="ml-1 h-3 w-3" />
+                  </Link>
+                </div>
               </CardContent>
             </Card>
           </div>

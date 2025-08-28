@@ -2,10 +2,9 @@ import { Breadcrumb } from '@/components/ui/breadcrumb';
 import { Container } from '@/components/ui/container';
 import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
-import { CheckCircle, Settings, Leaf, Phone } from 'lucide-react';
+import { CheckCircle, ArrowRight } from 'lucide-react';
 import { notFound } from 'next/navigation';
 import { getServiceBySlug, servicesData } from '@/lib/data';
-import { ServiceHero } from '@/components/ui/service-hero';
 import Link from 'next/link';
 import { PageHero } from '@/components/ui/page-hero';
 import CallToAction from '@/components/layout/call-to-action';
@@ -144,46 +143,72 @@ export default async function ServicePage({ params }: ServicePageProps) {
           {/* Sidebar */}
           <div className="space-y-6 sticky top-20 self-start">
             {/* Services Navigation */}
-            <div className="bg-card border-[1px] border-t-2 border-t-primary p-6 rounded-lg">
-              <h3 className="text-2xl font-bold text-foreground mb-6">
-                Our Services
-              </h3>
-              <div className="space-y-3">
-                {sidebarLinks.map((link, idx) => (
-                  <Link
-                    key={idx}
-                    href={link.href}
-                    className={`
-                       p-4 rounded-lg flex items-center justify-between 
-                      ${link.isActive ? 'bg-primary text-primary-foreground' : 'bg-muted text-foreground hover:bg-muted'}
-                    `}
-                  >
-                    <span className="font-semibold text-sm">{link.label}</span>
-                    {link.isActive && (
-                      <div className="w-6 h-6 bg-primary-foreground rounded-full flex-shrink-0"></div>
-                    )}
-                  </Link>
-                ))}
-              </div>
-            </div>
+            <Card className="!border-t-2 !border-t-primary border border-border">
+              <CardContent className="p-6">
+                <h3 className="text-xl font-semibold text-foreground mb-4">
+                  Our Services
+                </h3>
+                <div className="space-y-2">
+                  {sidebarLinks.map((link, idx) => (
+                    <Link
+                      key={idx}
+                      href={link.href}
+                      className={`
+                        block p-3 rounded-lg transition-all duration-200 text-sm border border-border
+                        ${
+                          link.isActive
+                            ? 'bg-primary text-primary-foreground shadow-sm'
+                            : 'bg-muted/30 text-foreground hover:bg-muted/50 hover:text-foreground'
+                        }
+                      `}
+                    >
+                      <div className="flex items-center justify-between">
+                        <span className="font-medium">{link.label}</span>
+                        {link.isActive && (
+                          <div className="w-2 h-2 bg-primary-foreground rounded-full"></div>
+                        )}
+                      </div>
+                    </Link>
+                  ))}
+                </div>
+              </CardContent>
+            </Card>
+
+            {/* Quick Contact */}
+            <Card className="!border-t-2 !border-t-primary border border-border">
+              <CardContent className="p-6">
+                <h3 className="font-semibold mb-4">Need This Service?</h3>
+                <p className="text-sm text-muted-foreground mb-4">
+                  Get a customized quote for {service.title.toLowerCase()}.
+                </p>
+                <Link href="/contact/quote">
+                  <Button className="w-full bg-primary hover:bg-primary/90 text-primary-foreground">
+                    Get Quote
+                    <ArrowRight className="ml-2 h-4 w-4" />
+                  </Button>
+                </Link>
+              </CardContent>
+            </Card>
+
+            {/* Service Features */}
+            {service.features && service.features.length > 0 && (
+              <Card className="!border-t-2 !border-t-primary border border-border">
+                <CardContent className="p-6">
+                  <h3 className="font-semibold mb-4">Key Features</h3>
+                  <ul className="space-y-2">
+                    {service.features.slice(0, 4).map((feature, index) => (
+                      <li key={index} className="flex items-start space-x-2 text-sm p-2 rounded-lg bg-muted/30 border border-border">
+                        <CheckCircle className="h-4 w-4 text-primary mt-0.5 flex-shrink-0" />
+                        <span className="text-foreground">{feature}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </CardContent>
+              </Card>
+            )}
 
             {/* Call to Action Widget */}
             <CallToAction />
-
-            {/* Service Benefits */}
-            {/* <Card className="border shadow-md border-gray-200 bg-white">
-              <CardContent className="p-6">
-                <h3 className="font-semibold mb-4">Service Benefits</h3>
-                <ul className="space-y-3">
-                  {service.benefits.map((benefit, index) => (
-                    <li key={index} className="flex items-start space-x-2">
-                      <CheckCircle className="h-4 w-4 text-primary mt-0.5 flex-shrink-0" />
-                      <span className="text-sm text-gray-600">{benefit}</span>
-                    </li>
-                  ))}
-                </ul>
-              </CardContent>
-            </Card> */}
           </div>
         </div>
       </Container>

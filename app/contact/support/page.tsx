@@ -141,21 +141,20 @@ export default function SupportPage() {
 
           {/* Sidebar */}
           <div className="space-y-6 sticky top-20 self-start">
-            <Card className="border shadow-lg border-primary bg-primary text-primary-foreground">
+            <Card className="!border-t-2 !border-t-primary border border-border">
               <CardContent className="p-6">
                 <h3 className="font-semibold mb-4">More Contact Options</h3>
-                <ul className="space-y-2">
+                <div className="space-y-2">
                   {contactLinks.map(({ href, label }) => (
-                    <li key={href}>
-                      <Link
-                        href={href}
-                        className="text-primary-foreground border-b pb-1 border-primary-foreground hover:text-primary transition-colors duration-200 flex items-center justify-between"
-                      >
-                        <span>{label}</span>
-                      </Link>
-                    </li>
+                    <Link
+                      key={href}
+                      href={href}
+                      className="block p-3 rounded-lg bg-muted/30 hover:bg-muted/50 transition-colors duration-200 text-sm font-medium border border-border"
+                    >
+                      {label}
+                    </Link>
                   ))}
-                </ul>
+                </div>
               </CardContent>
             </Card>
           </div>

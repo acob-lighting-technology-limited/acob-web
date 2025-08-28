@@ -91,33 +91,72 @@ export default function OurStoryPage() {
             </div>
           </div>
 
-          <div className="lg:col-span-1">
-            <Card className="sticky top-8">
+          {/* Sidebar */}
+          <div className="space-y-6 sticky top-20 self-start">
+            <Card className="!border-t-2 !border-t-primary border border-border">
               <CardContent className="p-6">
-                <h3 className="text-xl font-bold text-foreground mb-4">
-                  Quick Facts
-                </h3>
-                <div className="space-y-3 text-sm">
-                  <div className="flex justify-between">
-                    <span className="text-muted-foreground">Founded:</span>
-                    <span className="font-medium">2016</span>
+                <h3 className="font-semibold mb-4">Quick Facts</h3>
+                <div className="space-y-3">
+                  <div className="flex items-start space-x-2 p-3 rounded-lg bg-muted/30 border border-border">
+                    <div className="h-4 w-4 bg-primary rounded-sm mt-0.5 flex-shrink-0"></div>
+                    <div>
+                      <p className="text-xs text-muted-foreground">Founded</p>
+                      <p className="text-sm font-medium">2016</p>
+                    </div>
                   </div>
-                  <div className="flex justify-between">
-                    <span className="text-muted-foreground">
-                      Projects Completed:
-                    </span>
-                    <span className="font-medium">50+</span>
+                  <div className="flex items-start space-x-2 p-3 rounded-lg bg-muted/30 border border-border">
+                    <div className="h-4 w-4 bg-primary rounded-sm mt-0.5 flex-shrink-0"></div>
+                    <div>
+                      <p className="text-xs text-muted-foreground">Projects Completed</p>
+                      <p className="text-sm font-medium">50+</p>
+                    </div>
                   </div>
-                  <div className="flex justify-between">
-                    <span className="text-muted-foreground">
-                      Communities Served:
-                    </span>
-                    <span className="font-medium">100+</span>
+                  <div className="flex items-start space-x-2 p-3 rounded-lg bg-muted/30 border border-border">
+                    <div className="h-4 w-4 bg-primary rounded-sm mt-0.5 flex-shrink-0"></div>
+                    <div>
+                      <p className="text-xs text-muted-foreground">Communities Served</p>
+                      <p className="text-sm font-medium">100+</p>
+                    </div>
                   </div>
-                  <div className="flex justify-between">
-                    <span className="text-muted-foreground">Team Members:</span>
-                    <span className="font-medium">25+</span>
+                  <div className="flex items-start space-x-2 p-3 rounded-lg bg-muted/30 border border-border">
+                    <div className="h-4 w-4 bg-primary rounded-sm mt-0.5 flex-shrink-0"></div>
+                    <div>
+                      <p className="text-xs text-muted-foreground">Team Members</p>
+                      <p className="text-sm font-medium">25+</p>
+                    </div>
                   </div>
+                </div>
+              </CardContent>
+            </Card>
+
+            <Card className="!border-t-2 !border-t-primary border border-border">
+              <CardContent className="p-6">
+                <h3 className="font-semibold mb-4">Explore More</h3>
+                <div className="space-y-2">
+                  <Link
+                    href="/about/mission"
+                    className="block p-3 rounded-lg bg-muted/30 hover:bg-muted/50 transition-colors duration-200 text-sm font-medium border border-border"
+                  >
+                    Mission & Vision
+                  </Link>
+                  <Link
+                    href="/about/team"
+                    className="block p-3 rounded-lg bg-muted/30 hover:bg-muted/50 transition-colors duration-200 text-sm font-medium border border-border"
+                  >
+                    Meet Our Team
+                  </Link>
+                  <Link
+                    href="/about/certifications"
+                    className="block p-3 rounded-lg bg-muted/30 hover:bg-muted/50 transition-colors duration-200 text-sm font-medium border border-border"
+                  >
+                    Certifications
+                  </Link>
+                  <Link
+                    href="/about"
+                    className="block p-3 rounded-lg bg-muted/30 hover:bg-muted/50 transition-colors duration-200 text-sm font-medium border border-border"
+                  >
+                    About Overview
+                  </Link>
                 </div>
               </CardContent>
             </Card>
@@ -130,7 +169,7 @@ export default function OurStoryPage() {
           </h2>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {milestones.map((milestone, index) => {
+            {milestones.map((milestone) => {
               const IconComponent = milestone.icon;
               return (
                 <Card key={milestone.year} className="text-center p-6">

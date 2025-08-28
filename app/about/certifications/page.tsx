@@ -94,6 +94,9 @@ export default function CertificationsPage() {
 
       <Container>
         <Breadcrumb items={breadcrumbItems} className="mb-8" />
+
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-12">
+          <div className="lg:col-span-2">
         {/*
         <div className="text-center mb-12">
           <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">
@@ -234,7 +237,74 @@ export default function CertificationsPage() {
           </Card>
         </div>
 
-        <div className="text-center">
+          </div>
+
+          {/* Sidebar */}
+          <div className="space-y-6 sticky top-20 self-start">
+            <Card className="!border-t-2 !border-t-primary border border-border">
+              <CardContent className="p-6">
+                <h3 className="font-semibold mb-4">Quality Standards</h3>
+                <div className="space-y-3">
+                  <div className="flex items-start space-x-2 p-3 rounded-lg bg-muted/30 border border-border">
+                    <div className="h-4 w-4 bg-primary rounded-sm mt-0.5 flex-shrink-0"></div>
+                    <div>
+                      <p className="text-xs text-muted-foreground">ISO Certified</p>
+                      <p className="text-sm font-medium">Multiple Standards</p>
+                    </div>
+                  </div>
+                  <div className="flex items-start space-x-2 p-3 rounded-lg bg-muted/30 border border-border">
+                    <div className="h-4 w-4 bg-primary rounded-sm mt-0.5 flex-shrink-0"></div>
+                    <div>
+                      <p className="text-xs text-muted-foreground">Industry Awards</p>
+                      <p className="text-sm font-medium">3+ Awards Received</p>
+                    </div>
+                  </div>
+                  <div className="flex items-start space-x-2 p-3 rounded-lg bg-muted/30 border border-border">
+                    <div className="h-4 w-4 bg-primary rounded-sm mt-0.5 flex-shrink-0"></div>
+                    <div>
+                      <p className="text-xs text-muted-foreground">Compliance</p>
+                      <p className="text-sm font-medium">100% Regulatory</p>
+                    </div>
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+
+            <Card className="!border-t-2 !border-t-primary border border-border">
+              <CardContent className="p-6">
+                <h3 className="font-semibold mb-4">Explore More</h3>
+                <div className="space-y-2">
+                  <Link
+                    href="/about/our-story"
+                    className="block p-3 rounded-lg bg-muted/30 hover:bg-muted/50 transition-colors duration-200 text-sm font-medium border border-border"
+                  >
+                    Our Story
+                  </Link>
+                  <Link
+                    href="/about/mission"
+                    className="block p-3 rounded-lg bg-muted/30 hover:bg-muted/50 transition-colors duration-200 text-sm font-medium border border-border"
+                  >
+                    Mission & Vision
+                  </Link>
+                  <Link
+                    href="/about/team"
+                    className="block p-3 rounded-lg bg-muted/30 hover:bg-muted/50 transition-colors duration-200 text-sm font-medium border border-border"
+                  >
+                    Meet Our Team
+                  </Link>
+                  <Link
+                    href="/about"
+                    className="block p-3 rounded-lg bg-muted/30 hover:bg-muted/50 transition-colors duration-200 text-sm font-medium border border-border"
+                  >
+                    About Overview
+                  </Link>
+                </div>
+              </CardContent>
+            </Card>
+          </div>
+        </div>
+
+        <div className="text-center mt-12">
           <Link href="/about">
             <Button variant="outline" className="group">
               <ArrowLeft className="mr-2 h-4 w-4 group-hover:-translate-x-1 transition-transform" />
