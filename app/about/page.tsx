@@ -44,7 +44,7 @@ export default function AboutPage() {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
           {aboutSections.map(section => (
             <Link key={section.href} href={section.href}>
-              <Card className="overflow-hidden shadow-lg border-[1px] border-border p-0 hover:shadow-lg transition-shadow  h-full flex flex-col bg-surface">
+              <Card className="overflow-hidden shadow-lg border-[1px] border-border p-0 hover:shadow-lg transition-shadow  h-full flex flex-col">
                 <div className="aspect-[16/9] overflow-hidden relative">
                   <Image
                     src={section.image || '/placeholder.svg'}
@@ -63,7 +63,7 @@ export default function AboutPage() {
                   </p>
                   <Button
                     variant="link"
-                    className="bg-primary text-primary-foreground  hover:text-secondary-foreground p-3 w-full text-center h-auto justify-center mt-auto"
+                    className="  p-3 w-full text-center h-auto justify-center mt-auto"
                   >
                     Learn More
                     <ArrowRight className="ml-2 h-4 w-4" />

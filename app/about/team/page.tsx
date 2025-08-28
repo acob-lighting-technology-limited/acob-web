@@ -3,7 +3,7 @@ import { Container } from '@/components/ui/container';
 import { PageHero } from '@/components/ui/page-hero';
 import { Breadcrumb } from '@/components/ui/breadcrumb';
 import { Card, CardContent } from '@/components/ui/card';
-import { ArrowLeft, Linkedin, Mail } from 'lucide-react';
+import { ArrowLeft, ArrowRight, Linkedin, Mail } from 'lucide-react';
 import Link from 'next/link';
 import { MaskText } from '@/components/animations/MaskText';
 import Image from 'next/image';
@@ -45,7 +45,9 @@ export default function TeamPage() {
           </p>
         </div> */}
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-16">
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-12">
+          <div className="lg:col-span-2">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-16">
           {teamMembers.map(member => (
             <Card
               key={member.id}
@@ -85,10 +87,85 @@ export default function TeamPage() {
               </CardContent>
             </Card>
           ))}
+            </div>
+          </div>
+
+          {/* Sidebar */}
+          <div className="space-y-6 sticky top-20 self-start">
+            <Card className="!border-t-2 !border-t-primary border border-border">
+              <CardContent className="p-6">
+                <h3 className="font-semibold mb-4">Join Our Team</h3>
+                <div className="space-y-3">
+                  <div className="flex items-start space-x-2 p-3 rounded-lg bg-muted/30 border border-border">
+                    <div className="h-4 w-4 bg-primary rounded-sm mt-0.5 flex-shrink-0"></div>
+                    <div>
+                      <p className="text-xs text-muted-foreground">Open Positions</p>
+                      <p className="text-sm font-medium">Multiple roles available</p>
+                    </div>
+                  </div>
+                  <div className="flex items-start space-x-2 p-3 rounded-lg bg-muted/30 border border-border">
+                    <div className="h-4 w-4 bg-primary rounded-sm mt-0.5 flex-shrink-0"></div>
+                    <div>
+                      <p className="text-xs text-muted-foreground">Work Environment</p>
+                      <p className="text-sm font-medium">On-site</p>
+                    </div>
+                  </div>
+                  <div className="flex items-start space-x-2 p-3 rounded-lg bg-muted/30 border border-border">
+                    <div className="h-4 w-4 bg-primary rounded-sm mt-0.5 flex-shrink-0"></div>
+                    <div>
+                      <p className="text-xs text-muted-foreground">Contact</p>
+                      <p className="text-sm font-medium">careers@acoblighting.com</p>
+                    </div>
+                  </div>
+                </div>
+                <div className="pt-4 border-t">
+                  <Link
+                    href="/contact/careers"
+                    className="text-sm text-primary hover:text-primary/80 flex items-center font-medium"
+                  >
+                    View Career Opportunities
+                    <ArrowRight className="ml-1 h-3 w-3" />
+                  </Link>
+                </div>
+              </CardContent>
+            </Card>
+
+            <Card className="!border-t-2 !border-t-primary border border-border">
+              <CardContent className="p-6">
+                <h3 className="font-semibold mb-4">Explore More</h3>
+                <div className="space-y-2">
+                  <Link
+                    href="/about/our-story"
+                    className="block p-3 rounded-lg bg-muted/30 hover:bg-muted/50 transition-colors duration-200 text-sm font-medium border border-border"
+                  >
+                    Our Story
+                  </Link>
+                  <Link
+                    href="/about/mission"
+                    className="block p-3 rounded-lg bg-muted/30 hover:bg-muted/50 transition-colors duration-200 text-sm font-medium border border-border"
+                  >
+                    Mission & Vision
+                  </Link>
+                  <Link
+                    href="/about/certifications"
+                    className="block p-3 rounded-lg bg-muted/30 hover:bg-muted/50 transition-colors duration-200 text-sm font-medium border border-border"
+                  >
+                    Certifications
+                  </Link>
+                  <Link
+                    href="/about"
+                    className="block p-3 rounded-lg bg-muted/30 hover:bg-muted/50 transition-colors duration-200 text-sm font-medium border border-border"
+                  >
+                    About Overview
+                  </Link>
+                </div>
+              </CardContent>
+            </Card>
+          </div>
         </div>
 
         {/* Team Values */}
-        <div className="mb-16">
+        {/* <div className="mb-16">
           <h2 className="text-3xl font-bold text-foreground mb-8 text-center">
             <MaskText phrases={['What Drives Our Team']} />
           </h2>
@@ -138,7 +215,7 @@ export default function TeamPage() {
               </CardContent>
             </Card>
           </div>
-        </div>
+        </div> */}
 
         <div className="text-center">
           <Link href="/about">

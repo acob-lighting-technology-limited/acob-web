@@ -32,7 +32,8 @@ export default function MissionPage() {
       <Container>
         <Breadcrumb items={breadcrumbItems} className="mb-8" />
 
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 mb-16">
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-12 mb-16">
+          <div className="lg:col-span-2 space-y-12">
           {/* Mission */}
           <Card className="border shadow-md border-border bg-surface">
             <CardContent className="p-8">
@@ -72,6 +73,66 @@ export default function MissionPage() {
               </p>
             </CardContent>
           </Card>
+          </div>
+
+          {/* Sidebar */}
+          <div className="space-y-6 sticky top-20 self-start">
+            <Card className="!border-t-2 !border-t-primary border border-border">
+              <CardContent className="p-6">
+                <h3 className="font-semibold mb-4">Our Values</h3>
+                <div className="space-y-2">
+                  <div className="p-3 rounded-lg bg-muted/30 border border-border">
+                    <h4 className="text-sm font-medium text-foreground mb-1">Innovation</h4>
+                    <p className="text-xs text-muted-foreground">Pioneering sustainable energy solutions</p>
+                  </div>
+                  <div className="p-3 rounded-lg bg-muted/30 border border-border">
+                    <h4 className="text-sm font-medium text-foreground mb-1">Quality</h4>
+                    <p className="text-xs text-muted-foreground">Excellence in every project we deliver</p>
+                  </div>
+                  <div className="p-3 rounded-lg bg-muted/30 border border-border">
+                    <h4 className="text-sm font-medium text-foreground mb-1">Community</h4>
+                    <p className="text-xs text-muted-foreground">Empowering communities through energy</p>
+                  </div>
+                  <div className="p-3 rounded-lg bg-muted/30 border border-border">
+                    <h4 className="text-sm font-medium text-foreground mb-1">Sustainability</h4>
+                    <p className="text-xs text-muted-foreground">Protecting our environment for future generations</p>
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+
+            <Card className="!border-t-2 !border-t-primary border border-border">
+              <CardContent className="p-6">
+                <h3 className="font-semibold mb-4">Explore More</h3>
+                <div className="space-y-2">
+                  <Link
+                    href="/about/our-story"
+                    className="block p-3 rounded-lg bg-muted/30 hover:bg-muted/50 transition-colors duration-200 text-sm font-medium border border-border"
+                  >
+                    Our Story
+                  </Link>
+                  <Link
+                    href="/about/team"
+                    className="block p-3 rounded-lg bg-muted/30 hover:bg-muted/50 transition-colors duration-200 text-sm font-medium border border-border"
+                  >
+                    Meet Our Team
+                  </Link>
+                  <Link
+                    href="/about/certifications"
+                    className="block p-3 rounded-lg bg-muted/30 hover:bg-muted/50 transition-colors duration-200 text-sm font-medium border border-border"
+                  >
+                    Certifications
+                  </Link>
+                  <Link
+                    href="/about"
+                    className="block p-3 rounded-lg bg-muted/30 hover:bg-muted/50 transition-colors duration-200 text-sm font-medium border border-border"
+                  >
+                    About Overview
+                  </Link>
+                </div>
+              </CardContent>
+            </Card>
+          </div>
         </div>
 
         {/* Core Values */}

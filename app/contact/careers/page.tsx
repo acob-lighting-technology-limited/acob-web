@@ -3,7 +3,7 @@ import { PageHero } from '@/components/ui/page-hero';
 import { Breadcrumb } from '@/components/ui/breadcrumb';
 import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
-import { ArrowRight, Lightbulb, Users, Award, Heart } from 'lucide-react';
+import { ArrowRight, Lightbulb, Users, Award, Heart, Mail, Phone, MapPin } from 'lucide-react';
 import Link from 'next/link';
 import { MaskText } from '@/components/animations/MaskText';
 import { whyWorkItems, contactLinks } from '@/lib/data/contact-data';
@@ -128,43 +128,54 @@ export default function CareersPage() {
 
           {/* Sidebar */}
           <div className="space-y-6 sticky top-20 self-start">
-            <div className="bg-muted border-t-2 border-t-primary p-6 rounded-lg border-[1px]">
-              <h3 className="text-xl font-bold text-foreground mb-4">
-                More Contact Options
-              </h3>
-              <div className="space-y-3">
-                {contactLinks.map(({ href, label }) => (
-                  <Link
-                    key={href}
-                    href={href}
-                    className="p-3 rounded-lg flex items-center justify-between bg-surface text-foreground hover:bg-primary hover:text-primary-foreground transition-colors duration-200"
-                  >
-                    <span className="font-medium text-sm">{label}</span>
-                    <ArrowRight className="h-4 w-4" />
-                  </Link>
-                ))}
-              </div>
-            </div>
+            <Card className="!border-t-2 !border-t-primary border border-border">
+              <CardContent className="p-6">
+                <h3 className="font-semibold mb-4">More Contact Options</h3>
+                <div className="space-y-2">
+                  {contactLinks.map(({ href, label }) => (
+                    <Link
+                      key={href}
+                      href={href}
+                      className="block p-3 rounded-lg bg-muted/30 hover:bg-muted/50 transition-colors duration-200 text-sm font-medium border border-border group"
+                    >
+                      <div className="flex items-center justify-between">
+                        <span>{label}</span>
+                        <ArrowRight className="h-4 w-4 group-hover:translate-x-1 transition-transform duration-200" />
+                      </div>
+                    </Link>
+                  ))}
+                </div>
+              </CardContent>
+            </Card>
 
-            <div className="bg-muted border-t-2 border-t-primary p-6 rounded-lg border-[1px]">
-              <h3 className="text-xl font-bold text-foreground mb-4">
-                Quick Contact
-              </h3>
-              <div className="space-y-3 text-sm">
-                <div className="flex justify-between">
-                  <span className="text-muted-foreground">Email:</span>
-                  <span className="font-medium">careers@acoblighting.com</span>
+            <Card className="!border-t-2 !border-t-primary border border-border">
+              <CardContent className="p-6">
+                <h3 className="font-semibold mb-4">Quick Contact</h3>
+                <div className="space-y-3">
+                  <div className="flex items-start space-x-2 p-3 rounded-lg bg-muted/30 border border-border">
+                    <Mail className="h-4 w-4 text-primary mt-0.5 flex-shrink-0" />
+                    <div>
+                      <p className="text-xs text-muted-foreground">Email</p>
+                      <p className="text-sm font-medium">careers@acoblighting.com</p>
+                    </div>
+                  </div>
+                  <div className="flex items-start space-x-2 p-3 rounded-lg bg-muted/30 border border-border">
+                    <Phone className="h-4 w-4 text-primary mt-0.5 flex-shrink-0" />
+                    <div>
+                      <p className="text-xs text-muted-foreground">Phone</p>
+                      <p className="text-sm font-medium">+234 704 920 2634</p>
+                    </div>
+                  </div>
+                  <div className="flex items-start space-x-2 p-3 rounded-lg bg-muted/30 border border-border">
+                    <MapPin className="h-4 w-4 text-primary mt-0.5 flex-shrink-0" />
+                    <div>
+                      <p className="text-xs text-muted-foreground">Location</p>
+                      <p className="text-sm font-medium">Abuja, Nigeria</p>
+                    </div>
+                  </div>
                 </div>
-                <div className="flex justify-between">
-                  <span className="text-muted-foreground">Phone:</span>
-                  <span className="font-medium">+234 704 920 2634</span>
-                </div>
-                <div className="flex justify-between">
-                  <span className="text-muted-foreground">Location:</span>
-                  <span className="font-medium">Abuja, Nigeria</span>
-                </div>
-              </div>
-            </div>
+              </CardContent>
+            </Card>
           </div>
         </div>
       </Container>
