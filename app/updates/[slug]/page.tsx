@@ -6,7 +6,7 @@ import type {
   PortableTextBlock,
   PortableTextComponentProps,
 } from '@portabletext/react';
-import { urlFor, getUpdatePosts, getUpdatePost } from '@/sanity/lib/client';
+import { urlFor, getUpdatePosts, getUpdatePost, getApprovedCommentsForPost, getRelatedUpdatePosts } from '@/sanity/lib/client';
 import { notFound } from 'next/navigation';
 import type { UpdatePost, Comment } from '@/lib/types';
 import { Container } from '@/components/ui/container';
@@ -112,18 +112,8 @@ export default async function UpdatePostPage({ params }: UpdatePostPageProps) {
   }
 
   // Fetch comments and related posts
-  const [commentsResponse, relatedResponse] = await Promise.allSettled([
-    fetch(`/api/comments/${post._id}`),
-    fetch(`/api/updates/related/${slug}`)
-  ]);
-  
-  const comments = commentsResponse.status === 'fulfilled' && commentsResponse.value.ok 
-    ? await commentsResponse.value.json() 
-    : [];
-    
-  const related = relatedResponse.status === 'fulfilled' && relatedResponse.value.ok 
-    ? await relatedResponse.value.json() 
-    : [];
+  const comments = await getApprovedCommentsForPost(post._id);
+  const related = await getRelatedUpdatePosts(post.category || 'news', slug, 3);
 
   const breadcrumbItems = [
     { label: 'Home', href: '/' },
@@ -258,7 +248,7 @@ export default async function UpdatePostPage({ params }: UpdatePostPageProps) {
         {/* Sidebar */}
         <div className="space-y-6 sticky top-20 self-start">
           {/* Post Info */}
-          {/* <Card className="!border-t-2 !border-t-primary border border-border">
+          <Card className="!border-t-2 !border-t-primary border border-border">
             <CardContent className="p-6">
               <h3 className="font-semibold mb-4">Post Details</h3>
               <div className="space-y-3">
@@ -281,7 +271,7 @@ export default async function UpdatePostPage({ params }: UpdatePostPageProps) {
                 </div>
               </div>
             </CardContent>
-          </Card> */}
+          </Card>
 
           {/* Categories */}
           <Card className="!border-t-2 !border-t-primary border border-border">
