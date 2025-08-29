@@ -23,7 +23,7 @@ export const authOptions: NextAuthOptions = {
           // Verify password against hash
           const isValidPassword = await verifyPassword(
             credentials.password,
-            adminCreds.passwordHash
+            adminCreds.passwordHash,
           );
 
           if (isValidPassword) {

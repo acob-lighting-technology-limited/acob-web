@@ -19,7 +19,7 @@ export function isOffline(): boolean {
 // Safe fetch wrapper that checks offline status first
 export function safeServerFetch<T>(
   url: string,
-  options: RequestInit = {}
+  options: RequestInit = {},
 ): Promise<T | null> {
   if (isOffline()) {
     console.warn('Offline detected, skipping fetch request:', url);

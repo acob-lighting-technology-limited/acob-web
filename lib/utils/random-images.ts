@@ -17,7 +17,7 @@ interface SanityProject {
 }
 
 export async function getRandomProjectImages(
-  count: number = 4
+  count: number = 4,
 ): Promise<RandomImage[]> {
   try {
     const projects = await getProjects();

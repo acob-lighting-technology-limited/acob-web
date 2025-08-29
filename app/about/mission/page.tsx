@@ -34,35 +34,47 @@ export default function MissionPage() {
 
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-12 mb-16">
           <div className="lg:col-span-2 space-y-12">
-          {/* Mission */}
-          <Card className="border shadow-md border-border bg-surface">
-            <CardContent className="p-8">
-              <h2 className="text-3xl font-bold text-foreground mb-6">
-                <MaskText phrases={['Our Mission']} />
-              </h2>
-              <p className="text-lg text-muted-foreground leading-relaxed mb-6">
-                To provide sustainable, reliable, and accessible solar energy solutions that transform rural communities across Nigeria, while contributing to the global transition towards renewable energy and bridging the energy access gap.
-              </p>
-              <p className="text-lg text-muted-foreground leading-relaxed">
-                We are committed to providing energy access to areas where grid extension projects cannot easily reach, ensuring that every Nigerian community has access to clean, affordable electricity that powers their homes, businesses, and economic activities.
-              </p>
-            </CardContent>
-          </Card>
+            {/* Mission */}
+            <Card className="border shadow-md border-border bg-surface">
+              <CardContent className="p-8">
+                <h2 className="text-3xl font-bold text-foreground mb-6">
+                  <MaskText phrases={['Our Mission']} />
+                </h2>
+                <p className="text-lg text-muted-foreground leading-relaxed mb-6">
+                  To provide sustainable, reliable, and accessible solar energy
+                  solutions that transform rural communities across Nigeria,
+                  while contributing to the global transition towards renewable
+                  energy and bridging the energy access gap.
+                </p>
+                <p className="text-lg text-muted-foreground leading-relaxed">
+                  We are committed to providing energy access to areas where
+                  grid extension projects cannot easily reach, ensuring that
+                  every Nigerian community has access to clean, affordable
+                  electricity that powers their homes, businesses, and economic
+                  activities.
+                </p>
+              </CardContent>
+            </Card>
 
-          {/* Vision */}
-          <Card className="border shadow-md border-border bg-surface">
-            <CardContent className="p-8">
-              <h2 className="text-3xl font-bold text-foreground mb-6">
-                <MaskText phrases={['Our Vision']} />
-              </h2>
-              <p className="text-lg text-muted-foreground leading-relaxed mb-6">
-                To be the leading provider of solar mini-grid solutions in Nigeria, recognized for innovation, reliability, and positive community impact in rural energy access.
-              </p>
-              <p className="text-lg text-muted-foreground leading-relaxed">
-                We envision a Nigeria where clean energy is accessible to all rural communities, where local economies thrive with reliable power, and where our solutions contribute to sustainable development and economic empowerment for generations to come.
-              </p>
-            </CardContent>
-          </Card>
+            {/* Vision */}
+            <Card className="border shadow-md border-border bg-surface">
+              <CardContent className="p-8">
+                <h2 className="text-3xl font-bold text-foreground mb-6">
+                  <MaskText phrases={['Our Vision']} />
+                </h2>
+                <p className="text-lg text-muted-foreground leading-relaxed mb-6">
+                  To be the leading provider of solar mini-grid solutions in
+                  Nigeria, recognized for innovation, reliability, and positive
+                  community impact in rural energy access.
+                </p>
+                <p className="text-lg text-muted-foreground leading-relaxed">
+                  We envision a Nigeria where clean energy is accessible to all
+                  rural communities, where local economies thrive with reliable
+                  power, and where our solutions contribute to sustainable
+                  development and economic empowerment for generations to come.
+                </p>
+              </CardContent>
+            </Card>
           </div>
 
           {/* Sidebar */}
@@ -72,20 +84,36 @@ export default function MissionPage() {
                 <h3 className="font-semibold mb-4">Our Values</h3>
                 <div className="space-y-2">
                   <div className="p-3 rounded-lg bg-muted/30 border border-border">
-                    <h4 className="text-sm font-medium text-foreground mb-1">Innovation</h4>
-                    <p className="text-xs text-muted-foreground">Pioneering sustainable energy solutions</p>
+                    <h4 className="text-sm font-medium text-foreground mb-1">
+                      Innovation
+                    </h4>
+                    <p className="text-xs text-muted-foreground">
+                      Pioneering sustainable energy solutions
+                    </p>
                   </div>
                   <div className="p-3 rounded-lg bg-muted/30 border border-border">
-                    <h4 className="text-sm font-medium text-foreground mb-1">Quality</h4>
-                    <p className="text-xs text-muted-foreground">Excellence in every project we deliver</p>
+                    <h4 className="text-sm font-medium text-foreground mb-1">
+                      Quality
+                    </h4>
+                    <p className="text-xs text-muted-foreground">
+                      Excellence in every project we deliver
+                    </p>
                   </div>
                   <div className="p-3 rounded-lg bg-muted/30 border border-border">
-                    <h4 className="text-sm font-medium text-foreground mb-1">Community</h4>
-                    <p className="text-xs text-muted-foreground">Empowering communities through energy</p>
+                    <h4 className="text-sm font-medium text-foreground mb-1">
+                      Community
+                    </h4>
+                    <p className="text-xs text-muted-foreground">
+                      Empowering communities through energy
+                    </p>
                   </div>
                   <div className="p-3 rounded-lg bg-muted/30 border border-border">
-                    <h4 className="text-sm font-medium text-foreground mb-1">Sustainability</h4>
-                    <p className="text-xs text-muted-foreground">Protecting our environment for future generations</p>
+                    <h4 className="text-sm font-medium text-foreground mb-1">
+                      Sustainability
+                    </h4>
+                    <p className="text-xs text-muted-foreground">
+                      Protecting our environment for future generations
+                    </p>
                   </div>
                 </div>
               </CardContent>

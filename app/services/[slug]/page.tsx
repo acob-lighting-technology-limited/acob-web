@@ -156,10 +156,10 @@ export default async function ServicePage({ params }: ServicePageProps) {
                       className={`
                         block p-3 rounded-lg transition-all duration-200 text-sm border border-border
                         ${
-                          link.isActive
-                            ? 'bg-primary text-primary-foreground shadow-sm'
-                            : 'bg-muted/30 text-foreground hover:bg-muted/50 hover:text-foreground'
-                        }
+                    link.isActive
+                      ? 'bg-primary text-primary-foreground shadow-sm'
+                      : 'bg-muted/30 text-foreground hover:bg-muted/50 hover:text-foreground'
+                    }
                       `}
                     >
                       <div className="flex items-center justify-between">

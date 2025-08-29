@@ -8,7 +8,7 @@ export async function POST(request: NextRequest) {
     if (!name || !email || !comment || !postId) {
       return NextResponse.json(
         { error: 'Missing required fields' },
-        { status: 400 }
+        { status: 400 },
       );
     }
 
@@ -32,7 +32,7 @@ export async function POST(request: NextRequest) {
     console.error('Error creating comment:', error);
     return NextResponse.json(
       { error: 'Failed to submit comment' },
-      { status: 500 }
+      { status: 500 },
     );
   }
 }

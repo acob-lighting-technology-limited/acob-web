@@ -24,13 +24,13 @@ export const MaskText: FC<MaskTextProps> = ({ phrases, className }) => {
             animate={
               inView
                 ? {
-                    y: '0',
-                    transition: {
-                      duration: 1.2,
-                      ease: [0.33, 1, 0.68, 1],
-                      delay: 0.15 * index,
-                    },
-                  }
+                  y: '0',
+                  transition: {
+                    duration: 1.2,
+                    ease: [0.33, 1, 0.68, 1],
+                    delay: 0.15 * index,
+                  },
+                }
                 : {}
             }
             className="m-0"

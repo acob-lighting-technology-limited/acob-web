@@ -44,26 +44,26 @@ export function ShareCopy({ className, title, url }: ShareCopyProps) {
 
   const handleSocialShare = (platform: string) => {
     let socialShareUrl = '';
-    
+
     switch (platform) {
-      case 'linkedin':
-        socialShareUrl = `https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(shareUrl)}`;
-        break;
-      case 'twitter':
-        socialShareUrl = `https://twitter.com/intent/tweet?text=${encodeURIComponent(shareTitle)}&url=${encodeURIComponent(shareUrl)}`;
-        break;
-      case 'facebook':
-        socialShareUrl = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(shareUrl)}`;
-        break;
-      case 'instagram':
-        // Instagram doesn't support direct URL sharing, so we copy the URL
-        navigator.clipboard.writeText(shareUrl);
-        toast.success('Link copied for Instagram', {
-          description: 'URL copied to clipboard. You can paste it in your Instagram story or post.',
-        });
-        return;
-      default:
-        return;
+    case 'linkedin':
+      socialShareUrl = `https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(shareUrl)}`;
+      break;
+    case 'twitter':
+      socialShareUrl = `https://twitter.com/intent/tweet?text=${encodeURIComponent(shareTitle)}&url=${encodeURIComponent(shareUrl)}`;
+      break;
+    case 'facebook':
+      socialShareUrl = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(shareUrl)}`;
+      break;
+    case 'instagram':
+      // Instagram doesn't support direct URL sharing, so we copy the URL
+      navigator.clipboard.writeText(shareUrl);
+      toast.success('Link copied for Instagram', {
+        description: 'URL copied to clipboard. You can paste it in your Instagram story or post.',
+      });
+      return;
+    default:
+      return;
     }
 
     // Open in new window

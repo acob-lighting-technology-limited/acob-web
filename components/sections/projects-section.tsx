@@ -19,11 +19,11 @@ export function ProjectsSection() {
       try {
         setLoading(true);
         const response = await fetch('/api/projects');
-        
+
         if (!response.ok) {
           throw new Error('Failed to fetch projects');
         }
-        
+
         const data = await response.json();
         setProjects(data.slice(0, 3)); // Show only 3 projects
       } catch (err) {
@@ -49,7 +49,7 @@ export function ProjectsSection() {
               Discover our latest rural electrification projects and mini-grid solutions
             </p>
           </div>
-          
+
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {[1, 2, 3].map((i) => (
               <div key={i} className="animate-pulse">
@@ -79,8 +79,8 @@ export function ProjectsSection() {
             </div>
             <h3 className="text-lg font-semibold mb-2">Unable to Load Projects</h3>
             <p className="text-muted-foreground mb-4">{error}</p>
-            <Button 
-              onClick={() => window.location.reload()} 
+            <Button
+              onClick={() => window.location.reload()}
               variant="outline"
             >
               Try Again
@@ -125,31 +125,31 @@ export function ProjectsSection() {
         {/* Projects Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-12">
           {projects.map((project) => (
-            <Card 
-              key={project._id} 
+            <Card
+              key={project._id}
               className="group overflow-hidden hover:shadow-lg transition-all duration-300 hover:-translate-y-1"
             >
               {/* Project Image */}
               <div className="aspect-[16/9] overflow-hidden relative bg-muted">
-                                 <Image
-                   src={project.images?.[0]?.asset?.url ? `${project.images[0].asset.url}?w=600&h=400&fit=crop&auto=format&q=75` : '/placeholder.svg'}
-                   alt={project.title}
-                   fill
-                   className="object-cover group-hover:scale-105 transition-transform duration-300"
-                   sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-                   priority={true}
-                   onError={(e) => {
-                     const target = e.target as HTMLImageElement;
-                     target.src = '/placeholder.svg';
-                   }}
-                   onLoad={(e) => {
-                     const target = e.target as HTMLImageElement;
-                     target.style.opacity = '1';
-                   }}
-                   style={{ opacity: 0, transition: 'opacity 0.3s ease-in-out' }}
-                 />
+                <Image
+                  src={project.images?.[0]?.asset?.url ? `${project.images[0].asset.url}?w=600&h=400&fit=crop&auto=format&q=75` : '/placeholder.svg'}
+                  alt={project.title}
+                  fill
+                  className="object-cover group-hover:scale-105 transition-transform duration-300"
+                  sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                  priority={true}
+                  onError={(e) => {
+                    const target = e.target as HTMLImageElement;
+                    target.src = '/placeholder.svg';
+                  }}
+                  onLoad={(e) => {
+                    const target = e.target as HTMLImageElement;
+                    target.style.opacity = '1';
+                  }}
+                  style={{ opacity: 0, transition: 'opacity 0.3s ease-in-out' }}
+                />
                 <div className="absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-                
+
                 {/* Project Type Badge */}
                 <div className="absolute top-4 left-4">
                   <span className="bg-primary/90 text-primary-foreground px-3 py-1 rounded-full text-xs font-medium">
@@ -185,8 +185,8 @@ export function ProjectsSection() {
                 {/* View Project Button */}
                 <div className="mt-6">
                   <Link href={`/projects/${project.slug?.current}`}>
-                    <Button 
-                      variant="outline" 
+                    <Button
+                      variant="outline"
                       className="w-full group-hover:bg-primary group-hover:text-primary-foreground transition-colors duration-200"
                     >
                       View Project

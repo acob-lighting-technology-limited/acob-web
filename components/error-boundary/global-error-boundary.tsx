@@ -58,7 +58,7 @@ export class GlobalErrorBoundary extends Component<Props, State> {
     // Add global error handlers for unhandled promise rejections
     window.addEventListener(
       'unhandledrejection',
-      this.handleUnhandledRejection
+      this.handleUnhandledRejection,
     );
 
     // Add global error handler for fetch errors
@@ -68,7 +68,7 @@ export class GlobalErrorBoundary extends Component<Props, State> {
   componentWillUnmount() {
     window.removeEventListener(
       'unhandledrejection',
-      this.handleUnhandledRejection
+      this.handleUnhandledRejection,
     );
     window.removeEventListener('error', this.handleGlobalError);
   }

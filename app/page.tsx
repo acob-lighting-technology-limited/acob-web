@@ -15,7 +15,7 @@ const TransitionSection = dynamic(
     })),
   {
     loading: () => <div className="py-16 bg-zinc-50 dark:bg-zinc-950" />,
-  }
+  },
 );
 
 const ContactSection = dynamic(
@@ -25,7 +25,7 @@ const ContactSection = dynamic(
     })),
   {
     loading: () => <div className="py-16 bg-zinc-50 dark:bg-zinc-950" />,
-  }
+  },
 );
 
 const UpdatesSection = dynamic(
@@ -35,7 +35,7 @@ const UpdatesSection = dynamic(
     })),
   {
     loading: () => <div className="py-16 bg-zinc-50 dark:bg-zinc-950" />,
-  }
+  },
 );
 
 const PartnersSection = dynamic(
@@ -45,7 +45,7 @@ const PartnersSection = dynamic(
     })),
   {
     loading: () => <div className="py-16 bg-zinc-50 dark:bg-zinc-950" />,
-  }
+  },
 );
 
 const ProjectsSection = dynamic(
@@ -55,7 +55,7 @@ const ProjectsSection = dynamic(
     })),
   {
     loading: () => <div className="py-16 bg-zinc-50 dark:bg-zinc-950" />,
-  }
+  },
 );
 
 export default function HomePage() {

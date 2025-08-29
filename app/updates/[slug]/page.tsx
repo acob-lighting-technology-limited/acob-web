@@ -131,68 +131,68 @@ export default async function UpdatePostPage({ params }: UpdatePostPageProps) {
         <div className="lg:col-span-2">
           <Card className="">
             <CardContent className="p-6 md:p-8 space-y-8">
-            {/* Featured Image */}
-            {post.featuredImage && (
-              <div className="aspect-[16/9] overflow-hidden rounded-lg">
-                <Image
-                  src={post.featuredImage || '/placeholder.svg'}
-                  alt={post.title}
-                  width={1200}
-                  height={675}
-                  className="w-full h-full object-cover"
-                />
-              </div>
-            )}
+              {/* Featured Image */}
+              {post.featuredImage && (
+                <div className="aspect-[16/9] overflow-hidden rounded-lg">
+                  <Image
+                    src={post.featuredImage || '/placeholder.svg'}
+                    alt={post.title}
+                    width={1200}
+                    height={675}
+                    className="w-full h-full object-cover"
+                  />
+                </div>
+              )}
 
-            {/* Post Header */}
-            <div>
-              <div className="flex items-center text-sm text-gray-600 mb-4">
-                <span>{new Date(post.publishedAt).toLocaleDateString()}</span>
-                <span className="mx-2">•</span>
-                <span>{post.author}</span>
-                {post.category && (
-                  <>
-                    <span className="mx-2">•</span>
-                    <span className="bg-primary text-white px-2 py-1 rounded text-xs">
-                      {post.category === 'news' ? 'News' : 
-                       post.category === 'case-studies' ? 'Case Studies' : 
-                       post.category === 'press-releases' ? 'Press Releases' : 
-                       post.category}
+              {/* Post Header */}
+              <div>
+                <div className="flex items-center text-sm text-gray-600 mb-4">
+                  <span>{new Date(post.publishedAt).toLocaleDateString()}</span>
+                  <span className="mx-2">•</span>
+                  <span>{post.author}</span>
+                  {post.category && (
+                    <>
+                      <span className="mx-2">•</span>
+                      <span className="bg-primary text-white px-2 py-1 rounded text-xs">
+                        {post.category === 'news' ? 'News' :
+                          post.category === 'case-studies' ? 'Case Studies' :
+                            post.category === 'press-releases' ? 'Press Releases' :
+                              post.category}
+                      </span>
+                    </>
+                  )}
+                </div>
+                <h1 className="text-4xl font-bold text-card-foreground mb-4">
+                  {post.title}
+                </h1>
+              </div>
+
+              {/* Post Content - Wrapped in flex for image grid */}
+              <div className="prose prose-lg max-w-none flex flex-wrap -mx-2">
+                <PortableText value={post.content} components={components} />
+              </div>
+
+              {/* Tags */}
+              {post.tags && post.tags.length > 0 && (
+                <div className="flex items-center flex-wrap gap-2 pt-8 border-t">
+                  <span className="text-sm font-medium text-gray-700">Tags:</span>
+                  {post.tags.map((tag: string, index: number) => (
+                    <span
+                      key={index}
+                      className="px-3 py-1 bg-primary/10 text-primary text-sm rounded-full"
+                    >
+                      {tag}
                     </span>
-                  </>
-                )}
+                  ))}
+                </div>
+              )}
+              {/* Share Buttons */}
+              <div className="flex items-center gap-4 pt-8 border-t">
+                <ShareCopy className="rounded-full bg-transparent" />
               </div>
-              <h1 className="text-4xl font-bold text-card-foreground mb-4">
-                {post.title}
-              </h1>
-            </div>
-
-            {/* Post Content - Wrapped in flex for image grid */}
-            <div className="prose prose-lg max-w-none flex flex-wrap -mx-2">
-              <PortableText value={post.content} components={components} />
-            </div>
-
-            {/* Tags */}
-            {post.tags && post.tags.length > 0 && (
-              <div className="flex items-center flex-wrap gap-2 pt-8 border-t">
-                <span className="text-sm font-medium text-gray-700">Tags:</span>
-                {post.tags.map((tag: string, index: number) => (
-                  <span
-                    key={index}
-                    className="px-3 py-1 bg-primary/10 text-primary text-sm rounded-full"
-                  >
-                    {tag}
-                  </span>
-                ))}
-              </div>
-            )}
-  {/* Share Buttons */}
-  <div className="flex items-center gap-4 pt-8 border-t">
-              <ShareCopy className="rounded-full bg-transparent" />
-            </div>
 
 
-          
+
             </CardContent>
           </Card>
 

@@ -17,7 +17,7 @@ function isOffline(): boolean {
 // Intercept fetch calls
 function interceptedFetch(
   input: RequestInfo | URL,
-  init?: RequestInit
+  init?: RequestInit,
 ): Promise<Response> {
   // Check if we're offline
   if (isOffline()) {

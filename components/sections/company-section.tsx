@@ -20,12 +20,12 @@ export function CompanySection() {
       if (isPlaying) {
         iframe.contentWindow.postMessage(
           '{"event":"command","func":"pauseVideo","args":""}',
-          '*'
+          '*',
         );
       } else {
         iframe.contentWindow.postMessage(
           '{"event":"command","func":"playVideo","args":""}',
-          '*'
+          '*',
         );
       }
       setIsPlaying(!isPlaying);
@@ -38,12 +38,12 @@ export function CompanySection() {
       if (isMuted) {
         iframe.contentWindow.postMessage(
           '{"event":"command","func":"unMute","args":""}',
-          '*'
+          '*',
         );
       } else {
         iframe.contentWindow.postMessage(
           '{"event":"command","func":"mute","args":""}',
-          '*'
+          '*',
         );
       }
       setIsMuted(!isMuted);
@@ -61,14 +61,14 @@ export function CompanySection() {
             if (iframe?.contentWindow) {
               iframe.contentWindow.postMessage(
                 '{"event":"command","func":"playVideo","args":""}',
-                '*'
+                '*',
               );
               setIsPlaying(true);
             }
           }, 500);
         }
       },
-      { threshold: 0.3 }
+      { threshold: 0.3 },
     );
 
     if (videoContainerRef.current) {

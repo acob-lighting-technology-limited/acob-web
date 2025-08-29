@@ -13,7 +13,7 @@ export function Container({ children, className, noPadding }: ContainerProps) {
       className={cn(
         '2xl:container max-w-7xl mx-auto px-4 relative',
         !noPadding && 'py-16',
-        className
+        className,
       )}
     >
       {children}

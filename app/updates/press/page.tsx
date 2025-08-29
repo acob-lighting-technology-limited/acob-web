@@ -23,9 +23,9 @@ export default async function PressPage() {
     (post: UpdatePost) =>
       post.category === 'press-releases' ||
       post.tags?.some((tag: string) =>
-        tag.toLowerCase().includes('press release')
+        tag.toLowerCase().includes('press release'),
       ) ||
-      post.title?.toLowerCase().includes('press release')
+      post.title?.toLowerCase().includes('press release'),
   );
 
   const breadcrumbItems = [

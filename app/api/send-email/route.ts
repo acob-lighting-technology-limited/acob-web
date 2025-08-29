@@ -14,13 +14,13 @@ export async function POST(request: NextRequest) {
       'roofMaterial',
     ];
     const missingFields = requiredFields.filter(
-      field => !formData[field]?.trim()
+      field => !formData[field]?.trim(),
     );
 
     if (missingFields.length > 0) {
       return NextResponse.json(
         { error: 'Missing required fields', fields: missingFields },
-        { status: 400 }
+        { status: 400 },
       );
     }
 
@@ -31,7 +31,7 @@ export async function POST(request: NextRequest) {
       console.error('RESEND_API_KEY is not configured');
       return NextResponse.json(
         { error: 'Server configuration error' },
-        { status: 500 }
+        { status: 500 },
       );
     }
 
@@ -146,8 +146,8 @@ export async function POST(request: NextRequest) {
 
               <!-- Additional Information Card -->
               ${
-                formData.additionalInfo
-                  ? `
+  formData.additionalInfo
+    ? `
               <div style="background-color: #ffffff; border-radius: 12px; padding: 25px; border: 1px solid #e5e7eb; box-shadow: 0 1px 3px rgba(0,0,0,0.1); margin-bottom: 30px;">
                 <h2 style="color: #166534; margin: 0 0 20px; font-size: 20px; font-weight: 700; display: flex; align-items: center;">
                   <span style="margin-right: 12px; font-size: 24px;">📝</span>Additional Information
@@ -158,8 +158,8 @@ export async function POST(request: NextRequest) {
                 </div>
               </div>
               `
-                  : ''
-              }
+    : ''
+}
 
               <!-- Action Buttons -->
               <div class="action-buttons" style="margin-top: 30px; text-align: center;">
@@ -187,16 +187,16 @@ export async function POST(request: NextRequest) {
                 <p style="margin: 0; color: #6b7280; font-size: 12px; line-height: 1.5;">
                   This message was sent from your website quote request form.<br>
                   <span style="color: #9ca3af; font-weight: 500;">Received on ${new Date().toLocaleDateString(
-                    'en-US',
-                    {
-                      weekday: 'long',
-                      year: 'numeric',
-                      month: 'long',
-                      day: 'numeric',
-                      hour: '2-digit',
-                      minute: '2-digit',
-                    }
-                  )}</span>
+    'en-US',
+    {
+      weekday: 'long',
+      year: 'numeric',
+      month: 'long',
+      day: 'numeric',
+      hour: '2-digit',
+      minute: '2-digit',
+    },
+  )}</span>
                 </p>
               </div>
             </div>
@@ -213,7 +213,7 @@ export async function POST(request: NextRequest) {
       console.error('Resend API error:', errorData);
       return NextResponse.json(
         { error: 'Failed to send email' },
-        { status: 500 }
+        { status: 500 },
       );
     }
 
@@ -223,7 +223,7 @@ export async function POST(request: NextRequest) {
     console.error('Error in send-email API:', error);
     return NextResponse.json(
       { error: 'Internal server error' },
-      { status: 500 }
+      { status: 500 },
     );
   }
 }

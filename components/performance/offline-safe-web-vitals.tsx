@@ -39,7 +39,7 @@ export function OfflineSafeWebVitals() {
           category: 'Web Vitals',
           label: metric.id,
           value: Math.round(
-            metric.name === 'CLS' ? metric.value * 1000 : metric.value
+            metric.name === 'CLS' ? metric.value * 1000 : metric.value,
           ),
         });
       }

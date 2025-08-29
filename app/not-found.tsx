@@ -78,7 +78,7 @@ export default function NotFound() {
             <Link href="/">
               <Button
                 size="lg"
-            
+
                 className="px-8 py-3"
               >
                 <Home className="mr-2 w-5 h-5" />

@@ -25,7 +25,7 @@ function ShimmerSkeleton({
         'before:absolute before:inset-0',
         'before:bg-gradient-to-r before:from-transparent before:via-muted dark:before:via-secondary before:to-transparent',
         'before:animate-shimmer before:-translate-x-full',
-        className
+        className,
       )}
       style={
         {
@@ -189,7 +189,7 @@ function TextSkeleton({
           key={i}
           className={cn(
             'h-4 animate-pulse',
-            i === lines - 1 ? 'w-3/4' : 'w-full'
+            i === lines - 1 ? 'w-3/4' : 'w-full',
           )}
           style={
             staggered

@@ -53,16 +53,16 @@ export function GalleryClient({ galleryItems, galleryCategories }: GalleryClient
               <span className="font-medium">Filter by:</span>
             </div>
             <div className="flex gap-2">
-              <Button 
-                variant={viewMode === 'grid' ? 'default' : 'outline'} 
+              <Button
+                variant={viewMode === 'grid' ? 'default' : 'outline'}
                 size="sm"
                 onClick={() => setViewMode('grid')}
               >
                 <Grid className="h-4 w-4 mr-2" />
                 Grid
               </Button>
-              <Button 
-                variant={viewMode === 'list' ? 'default' : 'outline'} 
+              <Button
+                variant={viewMode === 'list' ? 'default' : 'outline'}
                 size="sm"
                 onClick={() => setViewMode('list')}
               >
@@ -75,10 +75,10 @@ export function GalleryClient({ galleryItems, galleryCategories }: GalleryClient
           {/* Category Filters */}
           <div className="flex flex-wrap gap-2 mt-4">
             {galleryCategories.map(category => (
-              <Button 
-                key={category} 
-                variant={selectedCategory === category ? 'default' : 'outline'} 
-                size="sm" 
+              <Button
+                key={category}
+                variant={selectedCategory === category ? 'default' : 'outline'}
+                size="sm"
                 className="text-xs"
                 onClick={() => setSelectedCategory(category)}
               >
