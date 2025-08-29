@@ -12,6 +12,15 @@ import { MapPin, ArrowRight, Search, X } from 'lucide-react';
 import Link from 'next/link';
 // Remove direct Sanity import - use API route instead
 import type { Project } from '@/lib/types';
+import {
+  Pagination,
+  PaginationContent,
+  PaginationEllipsis,
+  PaginationItem,
+  PaginationLink,
+  PaginationNext,
+  PaginationPrevious,
+} from '@/components/ui/pagination';
 
 export default function ProjectsPage() {
   const [projects, setProjects] = useState<Project[]>([]);
@@ -19,6 +28,8 @@ export default function ProjectsPage() {
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedState, setSelectedState] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState(true);
+  const [currentPage, setCurrentPage] = useState(1);
+  const projectsPerPage = 6; // Show 6 projects per page (3 rows of 2 columns)
 
   useEffect(() => {
     const fetchProjects = async () => {
@@ -66,11 +77,24 @@ export default function ProjectsPage() {
     }
 
     setFilteredProjects(filtered);
+    setCurrentPage(1); // Reset to first page when filters change
   }, [searchQuery, selectedState, projects]);
 
   const handleClearSearch = () => {
     setSearchQuery('');
     setSelectedState(null);
+    setCurrentPage(1);
+  };
+
+  // Pagination logic
+  const totalPages = Math.ceil(filteredProjects.length / projectsPerPage);
+  const startIndex = (currentPage - 1) * projectsPerPage;
+  const endIndex = startIndex + projectsPerPage;
+  const currentProjects = filteredProjects.slice(startIndex, endIndex);
+
+  const handlePageChange = (page: number) => {
+    setCurrentPage(page);
+    window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
   // Get unique states for filtering - extract state names from location strings.
@@ -209,7 +233,7 @@ export default function ProjectsPage() {
               </Card>
             ) : (
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                {filteredProjects.map((project: Project) => (
+                {currentProjects.map((project: Project) => (
                   <Card
                     key={project._id}
                     className="overflow-hidden p-0 hover:shadow-lg transition-shadow flex flex-col"
@@ -239,8 +263,8 @@ export default function ProjectsPage() {
                           {project.title}
                         </h2>
                         <p className="text-muted-foreground mb-4 leading-relaxed">
-                          {project.description.length > 300 
-                            ? `${project.description.substring(0, 300)}...` 
+                          {project.description.length > 200 
+                            ? `${project.description.substring(0, 100)}...` 
                             : project.description}
                         </p>
                         <div className="flex items-center text-sm text-muted-foreground mb-6">
@@ -259,6 +283,63 @@ export default function ProjectsPage() {
                     </CardContent>
                   </Card>
                 ))}
+              </div>
+            )}
+
+            {/* Pagination */}
+            {totalPages > 1 && (
+              <div className="mt-8">
+                <Pagination>
+                  <PaginationContent>
+                    <PaginationItem>
+                      <PaginationPrevious 
+                        onClick={() => handlePageChange(Math.max(1, currentPage - 1))}
+                        className={currentPage === 1 ? 'pointer-events-none opacity-50' : 'cursor-pointer'}
+                        size="default"
+                      />
+                    </PaginationItem>
+                    
+                    {Array.from({ length: totalPages }, (_, i) => i + 1).map((page) => {
+                      // Show first page, last page, current page, and pages around current
+                      if (
+                        page === 1 ||
+                        page === totalPages ||
+                        (page >= currentPage - 1 && page <= currentPage + 1)
+                      ) {
+                        return (
+                          <PaginationItem key={page}>
+                            <PaginationLink
+                              onClick={() => handlePageChange(page)}
+                              isActive={currentPage === page}
+                              className="cursor-pointer"
+                              size="default"
+                            >
+                              {page}
+                            </PaginationLink>
+                          </PaginationItem>
+                        );
+                      } else if (
+                        page === currentPage - 2 ||
+                        page === currentPage + 2
+                      ) {
+                        return (
+                          <PaginationItem key={page}>
+                            <PaginationEllipsis />
+                          </PaginationItem>
+                        );
+                      }
+                      return null;
+                    })}
+                    
+                    <PaginationItem>
+                      <PaginationNext 
+                        onClick={() => handlePageChange(Math.min(totalPages, currentPage + 1))}
+                        className={currentPage === totalPages ? 'pointer-events-none opacity-50' : 'cursor-pointer'}
+                        size="default"
+                      />
+                    </PaginationItem>
+                  </PaginationContent>
+                </Pagination>
               </div>
             )}
           </div>
