@@ -107,36 +107,42 @@ export default function ServicesPage() {
                 </CardContent>
               </Card>
             ) : (
-              filteredServices.map(service => (
-                <Card
-                  key={service.id}
-                  className="overflow-hidden p-0 hover:shadow-lg transition-shadow"
-                >
-                  <div className="aspect-[16/9] overflow-hidden relative">
-                    <Image
-                      src={service.image || '/placeholder.svg'}
-                      alt={service.title}
-                      fill
-                      className="hover:scale-105 object-cover"
-                      sizes="(max-width: 768px) 100vw, (max-width: 1200px) 66vw, 50vw"
-                    />
-                  </div>
-                  <CardContent className="p-6">
-                    <h2 className="text-2xl font-bold mb-4 text-foreground">
-                      {service.title}
-                    </h2>
-                    <p className="text-muted-foreground mb-6 leading-relaxed">
-                      {service.shortDescription}
-                    </p>
-                    <Link href={`/services/${service.slug}`}>
-                      <Button className="bg-primary hover:bg-primary/90 text-primary-foreground">
-                      Read More
-                        <ArrowRight className="ml-2 h-4 w-4" />
-                      </Button>
-                    </Link>
-                  </CardContent>
-                </Card>
-              ))
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                {filteredServices.map(service => (
+                  <Card
+                    key={service.id}
+                    className="overflow-hidden p-0 hover:shadow-lg transition-shadow flex flex-col"
+                  >
+                    <div className="aspect-[16/9] overflow-hidden relative flex-shrink-0">
+                      <Image
+                        src={service.image || '/placeholder.svg'}
+                        alt={service.title}
+                        fill
+                        className="hover:scale-105 object-cover"
+                        sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                      />
+                    </div>
+                    <CardContent className="p-6 flex flex-col flex-1">
+                      <div className="flex-1">
+                        <h2 className="text-xl font-bold mb-4 text-foreground">
+                          {service.title}
+                        </h2>
+                        <p className="text-muted-foreground mb-6 leading-relaxed">
+                          {service.shortDescription}
+                        </p>
+                      </div>
+                      <div className="mt-auto">
+                        <Link href={`/services/${service.slug}`}>
+                          <Button className="w-full bg-primary hover:bg-primary/90 text-primary-foreground">
+                            Read More
+                            <ArrowRight className="ml-2 h-4 w-4" />
+                          </Button>
+                        </Link>
+                      </div>
+                    </CardContent>
+                  </Card>
+                ))}
+              </div>
             )}
           </div>
 
