@@ -4,7 +4,7 @@ import { Container } from '@/components/ui/container';
 import { Button } from '@/components/ui/button';
 import { ArrowRight, MapPin } from 'lucide-react';
 import { notFound } from 'next/navigation';
-// Remove direct Sanity imports - use API routes instead
+import { getProjects, getProject } from '@/sanity/lib/client';
 import Image from 'next/image';
 import Link from 'next/link';
 import { PageHero } from '@/components/ui/page-hero';
@@ -18,11 +18,7 @@ interface ProjectPageProps {
 }
 
 export async function generateStaticParams() {
-  const response = await fetch('/api/projects');
-  if (!response.ok) {
-    return [];
-  }
-  const projects = await response.json();
+  const projects = await getProjects();
   return projects.map((project: Project) => ({
     slug: project.slug.current,
   }));
@@ -30,19 +26,16 @@ export async function generateStaticParams() {
 
 export default async function ProjectPage({ params }: ProjectPageProps) {
   const { slug } = await params;
-  const response = await fetch(`/api/projects/${slug}`);
-  if (!response.ok) {
+  const project = await getProject(slug);
+  if (!project) {
     notFound();
   }
-  const project = await response.json();
 
   // Fetch all projects and filter out the current one to show related projects
-  const allProjectsResponse = await fetch('/api/projects');
-  const allProjects = allProjectsResponse.ok ? await allProjectsResponse.json() : [];
+  const allProjects = await getProjects();
   const relatedProjects = allProjects
     .filter((p: Project) => p.slug.current !== slug)
     .slice(0, 5); // Show only 5 related projects
-
   const breadcrumbItems = [
     { label: 'Home', href: '/' },
     { label: 'Projects', href: '/projects' },
