@@ -4,7 +4,7 @@ import { Container } from '@/components/ui/container';
 import { Button } from '@/components/ui/button';
 import { ArrowRight, MapPin } from 'lucide-react';
 import { notFound } from 'next/navigation';
-import { getProject, getProjects } from '@/sanity/lib/client';
+import { getProjects, getProject } from '@/sanity/lib/client';
 import Image from 'next/image';
 import Link from 'next/link';
 import { PageHero } from '@/components/ui/page-hero';
@@ -27,7 +27,6 @@ export async function generateStaticParams() {
 export default async function ProjectPage({ params }: ProjectPageProps) {
   const { slug } = await params;
   const project = await getProject(slug);
-
   if (!project) {
     notFound();
   }
@@ -37,7 +36,6 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
   const relatedProjects = allProjects
     .filter((p: Project) => p.slug.current !== slug)
     .slice(0, 5); // Show only 5 related projects
-
   const breadcrumbItems = [
     { label: 'Home', href: '/' },
     { label: 'Projects', href: '/projects' },

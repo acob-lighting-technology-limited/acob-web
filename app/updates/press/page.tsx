@@ -66,53 +66,54 @@ export default async function PressPage() {
                 </CardContent>
               </Card>
             ) : (
-              pressReleases.map((post: UpdatePost) => (
-                <Card
-                  key={post._id}
-                  className="overflow-hidden p-0 hover:shadow-lg transition-shadow duration-300"
-                >
-                  <div className="aspect-[16/9] overflow-hidden">
-                    <Image
-                      src={post.featuredImage || '/placeholder.svg'}
-                      alt={post.title}
-                      width={1200}
-                      height={675}
-                      className="w-full h-full object-cover"
-                    />
-                  </div>
-                  <CardContent className="p-6">
-                    <div className="flex items-center text-sm text-muted-foreground mb-4">
-                      <Target className="h-4 w-4 mr-1" />
-                      <span className="bg-primary/10 text-primary px-2 py-1 rounded-full text-xs font-medium">
-                        Press Release
-                      </span>
-                      <span className="mx-2">•</span>
-                      <Calendar className="h-4 w-4 mr-1" />
-                      <span>
-                        {new Date(post.publishedAt).toLocaleDateString()}
-                      </span>
-                      <span className="mx-2">•</span>
-                      <User className="h-4 w-4 mr-1" />
-                      <span>{post.author}</span>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                {pressReleases.map((post: UpdatePost) => (
+                  <Card
+                    key={post._id}
+                    className="overflow-hidden p-0 hover:shadow-lg transition-shadow duration-300 flex flex-col"
+                  >
+                    <div className="aspect-[16/9] overflow-hidden flex-shrink-0">
+                      <Image
+                        src={post.featuredImage || '/placeholder.svg'}
+                        alt={post.title}
+                        width={1200}
+                        height={675}
+                        className="w-full h-full object-cover"
+                      />
                     </div>
-                    <h2 className="text-2xl font-bold mb-4 text-foreground">
-                      {post.title}
-                    </h2>
-                    <p className="text-muted-foreground mb-6 leading-relaxed">
-                      {post.excerpt}
-                    </p>
-                    <div className="flex gap-3">
-                      <Link href={`/updates/${post.slug.current}`}>
-                        <Button>
-                          <FileText className="mr-2 h-4 w-4" />
-                          Read Full Release
-                          <ArrowRight className="ml-2 h-4 w-4" />
-                        </Button>
-                      </Link>
-                    </div>
-                  </CardContent>
-                </Card>
-              ))
+                    <CardContent className="p-6 flex flex-col flex-1">
+                      <div className="flex-1">
+                        <div className="flex items-center text-sm text-muted-foreground mb-4">
+                         
+                        <User className="h-4 w-4 mr-1" />
+                        <span>{post.author}</span>  <span className="mx-2">•</span>
+                          <Calendar className="h-4 w-4 mr-1" />
+                          <span>
+                            {new Date(post.publishedAt).toLocaleDateString()}
+                          </span>
+                        
+                         
+                        </div>
+                        <h2 className="text-xl font-bold mb-4 text-foreground">
+                          {post.title}
+                        </h2>
+                        <p className="text-muted-foreground mb-6 leading-relaxed">
+                          {post.excerpt}
+                        </p>
+                      </div>
+                      <div className="mt-auto">
+                        <Link href={`/updates/${post.slug.current}`}>
+                          <Button className="w-full">
+                           
+                            Read More
+                            <ArrowRight className="ml-2 h-4 w-4" />
+                          </Button>
+                        </Link>
+                      </div>
+                    </CardContent>
+                  </Card>
+                ))}
+              </div>
             )}
           </div>
 

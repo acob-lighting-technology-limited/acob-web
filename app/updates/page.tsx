@@ -6,13 +6,22 @@ import { PageHero } from '@/components/ui/page-hero';
 import { Breadcrumb } from '@/components/ui/breadcrumb';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
-import { ArrowRight, Search, ChevronLeft, ChevronRight } from 'lucide-react';
+import { ArrowRight, Search } from 'lucide-react';
 import Link from 'next/link';
 import Image from 'next/image';
-import { getUpdatePosts } from '@/sanity/lib/client';
+// Remove direct Sanity import - use API route instead
 import type { UpdatePost } from '@/lib/types';
 import { useEffect, useMemo, useState } from 'react';
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
+import {
+  Pagination,
+  PaginationContent,
+  PaginationEllipsis,
+  PaginationItem,
+  PaginationLink,
+  PaginationNext,
+  PaginationPrevious,
+} from '@/components/ui/pagination';
 
 export default function UpdatesPage() {
   const router = useRouter();
@@ -40,7 +49,11 @@ export default function UpdatesPage() {
   useEffect(() => {
     const fetchPosts = async () => {
       try {
-        const fetchedPosts = await getUpdatePosts();
+        const response = await fetch('/api/updates');
+        if (!response.ok) {
+          throw new Error('Failed to fetch updates');
+        }
+        const fetchedPosts = await response.json();
         setPosts(fetchedPosts);
         setFilteredPosts(fetchedPosts);
       } catch (error) {
@@ -108,8 +121,6 @@ export default function UpdatesPage() {
   const goToPage = (page: number) => {
     setCurrentPage(Math.max(1, Math.min(page, totalPages)));
   };
-  const goToPreviousPage = () => goToPage(currentPage - 1);
-  const goToNextPage = () => goToPage(currentPage + 1);
 
   const breadcrumbItems = [{ label: 'Home', href: '/' }, { label: 'Updates' }];
 
@@ -200,75 +211,61 @@ export default function UpdatesPage() {
 
                 {/* Pagination */}
                 {totalPages > 1 && (
-                  <div className="mt-12 flex items-center justify-between">
-                    <div className="text-sm text-muted-foreground">
-                      Showing {startIndex + 1}-
-                      {Math.min(endIndex, filteredPosts.length)} of{' '}
-                      {filteredPosts.length} posts
+                  <div className="mt-12">
+                    <div className="text-sm text-muted-foreground text-center mb-4">
+                      Showing {startIndex + 1}-{Math.min(endIndex, filteredPosts.length)} of {filteredPosts.length} posts
                     </div>
-
-                    <div className="flex items-center gap-2">
-                      <Button
-                        variant="outline"
-                        size="sm"
-                        onClick={goToPreviousPage}
-                        disabled={currentPage === 1}
-                      >
-                        <ChevronLeft className="h-4 w-4 mr-1" />
-                        Previous
-                      </Button>
-
-                      {/* Page Numbers */}
-                      <div className="flex items-center gap-1">
-                        {Array.from(
-                          { length: totalPages },
-                          (_, i) => i + 1,
-                        ).map(page => {
-                          const shouldShow =
+                    <Pagination>
+                      <PaginationContent>
+                        <PaginationItem>
+                          <PaginationPrevious 
+                            onClick={() => goToPage(Math.max(1, currentPage - 1))}
+                            className={currentPage === 1 ? 'pointer-events-none opacity-50' : 'cursor-pointer'}
+                            size="default"
+                          />
+                        </PaginationItem>
+                        
+                        {Array.from({ length: totalPages }, (_, i) => i + 1).map((page) => {
+                          // Show first page, last page, current page, and pages around current
+                          if (
                             page === 1 ||
                             page === totalPages ||
-                            Math.abs(page - currentPage) <= 1;
-                          if (shouldShow) {
+                            (page >= currentPage - 1 && page <= currentPage + 1)
+                          ) {
                             return (
-                              <Button
-                                key={page}
-                                variant={
-                                  page === currentPage ? 'default' : 'outline'
-                                }
-                                size="sm"
-                                className="w-10 h-10"
-                                onClick={() => goToPage(page)}
-                              >
-                                {page}
-                              </Button>
+                              <PaginationItem key={page}>
+                                <PaginationLink
+                                  onClick={() => goToPage(page)}
+                                  isActive={currentPage === page}
+                                  className="cursor-pointer"
+                                  size="default"
+                                >
+                                  {page}
+                                </PaginationLink>
+                              </PaginationItem>
                             );
                           } else if (
                             page === currentPage - 2 ||
                             page === currentPage + 2
                           ) {
                             return (
-                              <span
-                                key={page}
-                                className="px-2 text-muted-foreground"
-                              >
-                                ...
-                              </span>
+                              <PaginationItem key={page}>
+                                <PaginationEllipsis />
+                              </PaginationItem>
                             );
                           }
                           return null;
                         })}
-                      </div>
-
-                      <Button
-                        variant="outline"
-                        size="sm"
-                        onClick={goToNextPage}
-                        disabled={currentPage === totalPages}
-                      >
-                        Next
-                        <ChevronRight className="h-4 w-4 ml-1" />
-                      </Button>
-                    </div>
+                        
+                        <PaginationItem>
+                          <PaginationNext 
+                            onClick={() => goToPage(Math.min(totalPages, currentPage + 1))}
+                            className={currentPage === totalPages ? 'pointer-events-none opacity-50' : 'cursor-pointer'}
+                            size="default"
+                          />
+                        </PaginationItem>
+                      </PaginationContent>
+                    </Pagination>
                   </div>
                 )}
               </>
@@ -337,37 +334,6 @@ export default function UpdatesPage() {
               </CardContent>
             </Card>
 
-            {/* Recent Updates */}
-            <Card className="!border-t-2 !border-t-primary border border-border">
-              <CardContent className="p-6">
-                <h3 className="font-semibold mb-4">Recent Updates</h3>
-                <div className="space-y-2">
-                  {posts.slice(0, 5).map(post => (
-                    <Link
-                      key={post._id}
-                      href={`/updates/${post.slug?.current || '#'}`}
-                      className="block p-3 rounded-lg bg-muted/30 hover:bg-muted/50 transition-colors duration-200 border border-border group"
-                    >
-                      <h4 className="text-sm font-medium text-foreground group-hover:text-primary mb-1">
-                        {post.title}
-                      </h4>
-                      <div className="text-xs text-muted-foreground">
-                        {new Date(post.publishedAt).toLocaleDateString()}
-                      </div>
-                    </Link>
-                  ))}
-                </div>
-                <div className="pt-4 border-t">
-                  <Link
-                    href="/updates"
-                    className="text-sm text-primary hover:text-primary/80 flex items-center font-medium"
-                  >
-                    View All Updates
-                    <ArrowRight className="ml-1 h-3 w-3" />
-                  </Link>
-                </div>
-              </CardContent>
-            </Card>
           </div>
         </div>
       </Container>

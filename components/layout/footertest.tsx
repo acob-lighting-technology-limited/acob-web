@@ -102,10 +102,10 @@ export function Footer() {
                     </li>
                     <li>
                       <Link
-                        href="/shop"
+                        href="/services"
                         className="text-gray-300 hover:text-white transition-colors"
                       >
-                        Shop
+                        Services
                       </Link>
                     </li>
                   </ul>
@@ -156,7 +156,7 @@ export function Footer() {
                   <ul className="space-y-3 text-sm">
                     <li>
                       <Link
-                        href="/terms"
+                        href="/terms-of-service"
                         className="text-gray-300 hover:text-white transition-colors"
                       >
                         Terms & Conditions
@@ -164,26 +164,26 @@ export function Footer() {
                     </li>
                     <li>
                       <Link
-                        href="/shipping"
+                        href="/privacy-policy"
                         className="text-gray-300 hover:text-white transition-colors"
                       >
-                        Shipping Policy
+                        Privacy Policy
                       </Link>
                     </li>
                     <li>
                       <Link
-                        href="/delivery"
+                        href="/contact/support"
                         className="text-gray-300 hover:text-white transition-colors"
                       >
-                        Delivery Tips
+                        Support
                       </Link>
                     </li>
                     <li>
                       <Link
-                        href="/returns"
+                        href="/contact/quote"
                         className="text-gray-300 hover:text-white transition-colors"
                       >
-                        Returns
+                        Get Quote
                       </Link>
                     </li>
                   </ul>

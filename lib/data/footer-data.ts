@@ -4,11 +4,11 @@ export const footerLinks = {
   quickLinks: [
     { href: '/', label: 'Home' },
     { href: '/about', label: 'About Us' },
-    { href: '/team', label: 'Meet Our Team' },
+    { href: '/about/team', label: 'Meet Our Team' },
     { href: '/updates', label: 'Updates & Media' },
     { href: '/projects', label: 'Our Projects' },
     { href: '/contact', label: 'Contacts' },
-    { href: '/shop', label: 'Shop' },
+    { href: '/services', label: 'Services' },
   ],
   services: [
     { href: '/services/mini-grid', label: 'Mini-Grid Solutions' },
@@ -20,10 +20,10 @@ export const footerLinks = {
     },
   ],
   support: [
-    { href: '/terms', label: 'Terms & Conditions' },
-    { href: '/shipping', label: 'Shipping Policy' },
-    { href: '/delivery', label: 'Delivery Tips' },
-    { href: '/returns', label: 'Returns' },
+    { href: '/terms-of-service', label: 'Terms & Conditions' },
+    { href: '/privacy-policy', label: 'Privacy Policy' },
+    { href: '/contact/support', label: 'Support' },
+    { href: '/contact/quote', label: 'Get Quote' },
   ],
 };
 

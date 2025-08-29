@@ -10,26 +10,41 @@ import { Input } from '@/components/ui/input';
 import Image from 'next/image';
 import { MapPin, ArrowRight, Search, X } from 'lucide-react';
 import Link from 'next/link';
-import { getProjects } from '@/sanity/lib/client';
+// Remove direct Sanity import - use API route instead
 import type { Project } from '@/lib/types';
+import {
+  Pagination,
+  PaginationContent,
+  PaginationEllipsis,
+  PaginationItem,
+  PaginationLink,
+  PaginationNext,
+  PaginationPrevious,
+} from '@/components/ui/pagination';
 
 export default function ProjectsPage() {
   const [projects, setProjects] = useState<Project[]>([]);
   const [filteredProjects, setFilteredProjects] = useState<Project[]>([]);
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedState, setSelectedState] = useState<string | null>(null);
-  const [isLoading, setIsLoading] = useState(true);
+ 
+  const [currentPage, setCurrentPage] = useState(1);
+  const projectsPerPage = 6; // Show 6 projects per page (3 rows of 2 columns)
 
   useEffect(() => {
     const fetchProjects = async () => {
       try {
-        const fetchedProjects = await getProjects();
+        const response = await fetch('/api/projects');
+        if (!response.ok) {
+          throw new Error('Failed to fetch projects');
+        }
+        const fetchedProjects = await response.json();
         setProjects(fetchedProjects);
         setFilteredProjects(fetchedProjects);
       } catch (error) {
-        // Error handling for project fetching
+        console.error('Error fetching projects:', error);
       } finally {
-        setIsLoading(false);
+       
       }
     };
 
@@ -62,14 +77,26 @@ export default function ProjectsPage() {
     }
 
     setFilteredProjects(filtered);
+    setCurrentPage(1); // Reset to first page when filters change
   }, [searchQuery, selectedState, projects]);
 
   const handleClearSearch = () => {
     setSearchQuery('');
     setSelectedState(null);
+    setCurrentPage(1);
   };
 
-  // Get unique states for filtering - extract state names from location strings
+  // Pagination logic
+  const totalPages = Math.ceil(filteredProjects.length / projectsPerPage);
+  const startIndex = (currentPage - 1) * projectsPerPage;
+  const endIndex = startIndex + projectsPerPage;
+  const currentProjects = filteredProjects.slice(startIndex, endIndex);
+
+  const handlePageChange = (page: number) => {
+    setCurrentPage(page);
+  };
+
+  // Get unique states for filtering - extract state names from location strings.
   const extractStateFromLocation = (location: string): string => {
     // Special handling for Abuja/FCT
     if (
@@ -113,39 +140,7 @@ export default function ProjectsPage() {
     ),
   ).sort();
 
-  if (isLoading) {
-    return (
-      <>
-        <PageHero
-          title="Our Projects"
-          backgroundImage="/images/services/header.jpg?height=400&width=1200"
-        />
-        <Container className="px-4 py-8">
-          <div className="text-center">
-            <div className="h-8 bg-gray-300 dark:bg-gray-700 rounded animate-pulse mx-auto max-w-md mb-4" />
-            <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-              <div className="lg:col-span-2 space-y-8">
-                {[1, 2, 3].map(i => (
-                  <div
-                    key={i}
-                    className="h-64 bg-gray-300 dark:bg-gray-700 rounded animate-pulse"
-                  />
-                ))}
-              </div>
-              <div className="space-y-6">
-                {[1, 2].map(i => (
-                  <div
-                    key={i}
-                    className="h-32 bg-gray-300 dark:bg-gray-700 rounded animate-pulse"
-                  />
-                ))}
-              </div>
-            </div>
-          </div>
-        </Container>
-      </>
-    );
-  }
+  
 
   const breadcrumbItems = [{ label: 'Home', href: '/' }, { label: 'Projects' }];
 
@@ -204,50 +199,115 @@ export default function ProjectsPage() {
                 </CardContent>
               </Card>
             ) : (
-              filteredProjects.map((project: Project) => (
-                <Card
-                  key={project._id}
-                  className="overflow-hidden p-0 hover:shadow-lg transition-shadow"
-                >
-                  <div className="aspect-[16/9] overflow-hidden relative">
-                    {project.images &&
-                    project.images.length > 0 &&
-                    project.images[0]?.asset?.url ? (
-                        <Image
-                          src={`${project.images[0].asset.url}?w=800&h=450&fit=crop&auto=format&q=75`}
-                          alt={project.title}
-                          fill
-                          className="hover:scale-105 object-cover"
-                          sizes="(max-width: 768px) 100vw, (max-width: 1200px) 66vw, 50vw"
-                        />
-                      ) : (
-                        <div className="w-full h-full bg-muted flex items-center justify-center">
-                          <span className="text-muted-foreground">
-                          No image available
-                          </span>
-                        </div>
-                      )}
-                  </div>
-                  <CardContent className="p-6">
-                    <h2 className="text-2xl font-bold mb-4 text-foreground">
-                      {project.title}
-                    </h2>
-                    <p className="text-muted-foreground mb-4 leading-relaxed">
-                      {project.description}
-                    </p>
-                    <div className="flex items-center text-sm text-muted-foreground mb-6">
-                      <MapPin className="h-4 w-4 mr-1" />
-                      <span>{project.location}</span>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                {currentProjects.map((project: Project) => (
+              <Card
+                key={project._id}
+                    className="overflow-hidden p-0 hover:shadow-lg transition-shadow flex flex-col"
+              >
+                    <div className="aspect-[16/9] overflow-hidden relative flex-shrink-0">
+                  {project.images &&
+                  project.images.length > 0 &&
+                  project.images[0]?.asset?.url ? (
+                    <Image
+                      src={`${project.images[0].asset.url}?w=800&h=450&fit=crop&auto=format&q=75`}
+                      alt={project.title}
+                      fill
+                      className="hover:scale-105 object-cover"
+                            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                    />
+                  ) : (
+                    <div className="w-full h-full bg-muted flex items-center justify-center">
+                      <span className="text-muted-foreground">
+                        No image available
+                      </span>
                     </div>
-                    <Link href={`/projects/${project.slug.current}`}>
-                      <Button className="bg-primary hover:bg-primary/90 text-primary-foreground">
-                        View Project
-                        <ArrowRight className="ml-2 h-4 w-4" />
-                      </Button>
-                    </Link>
-                  </CardContent>
-                </Card>
-              ))
+                  )}
+                </div>
+                    <CardContent className="p-6 flex flex-col flex-1">
+                      <div className="flex-1">
+                        <h2 className="text-xl font-bold mb-4 text-foreground">
+                    {project.title}
+                  </h2>
+                  <p className="text-muted-foreground mb-4 leading-relaxed">
+                          {project.description.length > 200 
+                            ? `${project.description.substring(0, 100)}...` 
+                            : project.description}
+                  </p>
+                  <div className="flex items-center text-sm text-muted-foreground mb-6">
+                    <MapPin className="h-4 w-4 mr-1" />
+                    <span>{project.location}</span>
+                  </div>
+                      </div>
+                      <div className="mt-auto">
+                  <Link href={`/projects/${project.slug.current}`}>
+                          <Button className="w-full bg-primary hover:bg-primary/90 text-primary-foreground">
+                      View Project
+                      <ArrowRight className="ml-2 h-4 w-4" />
+                    </Button>
+                  </Link>
+                      </div>
+                </CardContent>
+              </Card>
+            ))}
+              </div>
+            )}
+
+            {/* Pagination */}
+            {totalPages > 1 && (
+              <div className="mt-8">
+                <Pagination>
+                  <PaginationContent>
+                    <PaginationItem>
+                      <PaginationPrevious 
+                        onClick={() => handlePageChange(Math.max(1, currentPage - 1))}
+                        className={currentPage === 1 ? 'pointer-events-none opacity-50' : 'cursor-pointer'}
+                        size="default"
+                      />
+                    </PaginationItem>
+                    
+                    {Array.from({ length: totalPages }, (_, i) => i + 1).map((page) => {
+                      // Show first page, last page, current page, and pages around current
+                      if (
+                        page === 1 ||
+                        page === totalPages ||
+                        (page >= currentPage - 1 && page <= currentPage + 1)
+                      ) {
+                        return (
+                          <PaginationItem key={page}>
+                            <PaginationLink
+                              onClick={() => handlePageChange(page)}
+                              isActive={currentPage === page}
+                              className="cursor-pointer"
+                              size="default"
+                            >
+                              {page}
+                            </PaginationLink>
+                          </PaginationItem>
+                        );
+                      } else if (
+                        page === currentPage - 2 ||
+                        page === currentPage + 2
+                      ) {
+                        return (
+                          <PaginationItem key={page}>
+                            <PaginationEllipsis />
+                          </PaginationItem>
+                        );
+                      }
+                      return null;
+                    })}
+                    
+                    <PaginationItem>
+                      <PaginationNext 
+                        onClick={() => handlePageChange(Math.min(totalPages, currentPage + 1))}
+                        className={currentPage === totalPages ? 'pointer-events-none opacity-50' : 'cursor-pointer'}
+                        size="default"
+                      />
+                    </PaginationItem>
+                  </PaginationContent>
+                </Pagination>
+              </div>
             )}
           </div>
 
@@ -258,8 +318,8 @@ export default function ProjectsPage() {
               <CardContent className="p-6">
                 <h3 className="font-semibold mb-4">Search Projects</h3>
                 <div className="relative">
-                  <Input
-                    placeholder="Search projects..."
+                <Input
+                  placeholder="Search projects..."
                     value={searchQuery}
                     onChange={e => setSearchQuery(e.target.value)}
                     className="pr-10"
@@ -301,10 +361,10 @@ export default function ProjectsPage() {
                           }
                           )
                         </span>
-                      </div>
+              </div>
                     </button>
                   ))}
-                </div>
+            </div>
               </CardContent>
             </Card>
 
@@ -339,7 +399,7 @@ export default function ProjectsPage() {
                     View All Projects
                     <ArrowRight className="ml-1 h-3 w-3" />
                   </Link>
-                </div>
+            </div>
               </CardContent>
             </Card>
           </div>
