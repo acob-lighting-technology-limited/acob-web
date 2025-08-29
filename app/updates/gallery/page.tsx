@@ -5,34 +5,33 @@ import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import {
   ArrowRight,
-  Image as ImageIcon,
-  Video,
   Camera,
-  Filter,
-  Grid,
-  List,
 } from 'lucide-react';
 import Link from 'next/link';
-import Image from 'next/image';
-import { getUpdatePosts } from '@/sanity/lib/client';
+import { GalleryClient } from './gallery-client';
 
-export default async function MediaGalleryPage() {
-  const posts = await getUpdatePosts();
-
-  // Mock gallery data - in a real implementation, this would come from Sanity
-  const galleryItems = [
-    { id: 1, title: 'Solar Installation Project', type: 'image', src: '/images/projects/solar-pump-distribution.webp', category: 'Projects', date: '2024-01-15', description: 'Solar pump installation in rural community' },
-    { id: 2, title: 'Street Lighting Installation', type: 'image', src: '/images/projects/installation-high-density-streetlight-1.webp', category: 'Infrastructure', date: '2024-01-10', description: 'High-density street lighting project' },
-    { id: 3, title: 'Hospital Power System', type: 'image', src: '/images/projects/keffi-nassarawa-hospital-1.webp', category: 'Healthcare', date: '2024-01-05', description: 'Solar power system for healthcare facility' },
-    { id: 4, title: 'Team at Work Site', type: 'image', src: '/images/about/acob-team.webp', category: 'Team', date: '2024-01-01', description: 'Our team working on installation' },
-    { id: 5, title: 'Project Completion Ceremony', type: 'video', src: '/placeholder.svg', category: 'Events', date: '2023-12-20', description: 'Celebrating successful project completion' },
-    { id: 6, title: 'Equipment and Tools', type: 'image', src: '/images/projects/routine-maintenance-streetlight-abuja.webp', category: 'Equipment', date: '2023-12-15', description: 'Professional tools and equipment' },
-  ];
-
+export default function GalleryPage() {
   const breadcrumbItems = [
     { label: 'Home', href: '/' },
     { label: 'Updates', href: '/updates' },
     { label: 'Media Gallery' },
+  ];
+
+  const galleryItems: Array<{
+    id: number;
+    title: string;
+    type: 'image' | 'video';
+    src: string;
+    category: string;
+    date: string;
+    description: string;
+  }> = [
+    { id: 1, title: 'Solar Installation Project', type: 'image', src: '/images/projects/routine-maintenance-streetlight-abuja.webp', category: 'Projects', date: '2024-01-15', description: 'Large-scale solar installation in rural community' },
+    { id: 2, title: 'Street Lighting Infrastructure', type: 'image', src: '/images/services/streetlighting-infrastructure-project-development.webp', category: 'Infrastructure', date: '2024-01-10', description: 'LED street lighting installation and maintenance' },
+    { id: 3, title: 'Healthcare Facility Power System', type: 'image', src: '/images/services/captive-power-solutions.webp', category: 'Healthcare', date: '2024-01-05', description: 'Reliable power system for healthcare facilities' },
+    { id: 4, title: 'Team at Work Site', type: 'image', src: '/images/about/acob-team.webp', category: 'Team', date: '2024-01-01', description: 'Our team working on installation' },
+    { id: 5, title: 'Project Completion Ceremony', type: 'video', src: '/placeholder.svg', category: 'Events', date: '2023-12-20', description: 'Celebrating successful project completion' },
+    { id: 6, title: 'Equipment and Tools', type: 'image', src: '/images/projects/routine-maintenance-streetlight-abuja.webp', category: 'Equipment', date: '2023-12-15', description: 'Professional tools and equipment' },
   ];
 
   const galleryCategories = ['All','Projects','Infrastructure','Healthcare','Team','Events','Equipment'];
@@ -46,94 +45,17 @@ export default async function MediaGalleryPage() {
 
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 items-start">
           {/* Main Content */}
-          <div className="lg:col-span-2 space-y-8">
-            {/* Gallery Controls */}
-            <Card>
-              <CardContent className="p-6">
-                <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
-                  <div className="flex items-center gap-2">
-                    <Filter className="h-4 w-4 text-muted-foreground" />
-                    <span className="font-medium">Filter by:</span>
-                  </div>
-                  <div className="flex gap-2">
-                    <Button variant="outline" size="sm">
-                      <Grid className="h-4 w-4 mr-2" />
-                      Grid
-                    </Button>
-                    <Button variant="outline" size="sm">
-                      <List className="h-4 w-4 mr-2" />
-                      List
-                    </Button>
-                  </div>
-                </div>
-
-                {/* Category Filters */}
-                <div className="flex flex-wrap gap-2 mt-4">
-                  {galleryCategories.map(category => (
-                    <Button key={category} variant="outline" size="sm" className="text-xs">
-                      {category}
-                    </Button>
-                  ))}
-                </div>
-              </CardContent>
-            </Card>
-
-            {/* Gallery Grid */}
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              {galleryItems.map(item => (
-                <Card key={item.id} className="overflow-hidden  hover:shadow-lg transition-shadow duration-300 group">
-                  <div className="aspect-[4/3] overflow-hidden relative">
-                    <Image
-                      src={item.src}
-                      alt={item.title}
-                      fill
-                      sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 50vw"
-                      className="object-cover group-hover:scale-105 transition-transform duration-300"
-                    />
-                    {item.type === 'video' && (
-                      <div className="absolute inset-0 bg-black/20 flex items-center justify-center">
-                        <Video className="h-12 w-12 text-white" />
-                      </div>
-                    )}
-                    <div className="absolute top-2 right-2">
-                      <span className="bg-primary/90 text-primary-foreground px-2 py-1 rounded-full text-xs font-medium">
-                        {item.type === 'video' ? 'Video' : 'Image'}
-                      </span>
-                    </div>
-                  </div>
-                  <CardContent className="p-4">
-                    <div className="flex items-center text-xs text-muted-foreground mb-2">
-                      <span className="bg-muted px-2 py-1 rounded text-xs">{item.category}</span>
-                      <span className="mx-2">•</span>
-                      <span>{new Date(item.date).toLocaleDateString()}</span>
-                    </div>
-                    <h3 className="font-semibold mb-2 text-foreground">{item.title}</h3>
-                    <p className="text-sm text-muted-foreground mb-3">{item.description}</p>
-                    <Button variant="outline" size="sm" className="w-full">
-                      <ImageIcon className="mr-2 h-4 w-4" />
-                      View Full Size
-                    </Button>
-                  </CardContent>
-                </Card>
-              ))}
-            </div>
-
-            {/* Load More */}
-            <div className="text-center pt-8">
-              <Button size="lg" variant="outline">
-                Load More
-                <ArrowRight className="ml-2 h-4 w-4" />
-              </Button>
-            </div>
+          <div className="lg:col-span-2">
+            <GalleryClient galleryItems={galleryItems} galleryCategories={galleryCategories} />
           </div>
 
           {/* Sidebar */}
           <div className="space-y-6 sticky top-20 self-start">
             {/* Gallery Info */}
-            <Card>
+            <Card className="!border-t-2 !border-t-primary border border-border">
               <CardContent className="p-6">
                 <h3 className="font-semibold mb-4">Media Gallery</h3>
-                <div className="bg-primary/10 p-4 rounded-lg">
+                <div className="bg-muted/30 p-4 rounded-lg border border-border">
                   <Camera className="h-8 w-8 text-primary mb-2" />
                   <h4 className="font-medium text-primary mb-2">Visual Stories</h4>
                   <p className="text-sm text-muted-foreground">
@@ -141,57 +63,74 @@ export default async function MediaGalleryPage() {
                   </p>
                   <div className="flex justify-between text-xs text-muted-foreground mt-2">
                     <span>{galleryItems.length} items</span>
-                    <span>5 categories</span>
+                    <span>{galleryCategories.length - 1} categories</span>
                   </div>
                 </div>
               </CardContent>
             </Card>
 
             {/* Gallery Stats */}
-            <Card>
+            <Card className="!border-t-2 !border-t-primary border border-border">
               <CardContent className="p-6">
                 <h3 className="font-semibold mb-4">Gallery Stats</h3>
-                <div className="space-y-3">
-                  <div className="flex justify-between items-center">
-                    <span className="text-sm">Images</span>
-                    <span className="text-sm font-medium text-primary">5</span>
+                <div className="space-y-2">
+                  <div className="p-3 rounded-lg bg-muted/30 border border-border">
+                    <div className="flex justify-between items-center">
+                      <span className="text-sm font-medium">Images</span>
+                      <span className="text-sm font-medium text-primary">5</span>
+                    </div>
                   </div>
-                  <div className="flex justify_between items-center">
-                    <span className="text-sm">Videos</span>
-                    <span className="text-sm font-medium text-primary">1</span>
+                  <div className="p-3 rounded-lg bg-muted/30 border border-border">
+                    <div className="flex justify-between items-center">
+                      <span className="text-sm font-medium">Videos</span>
+                      <span className="text-sm font-medium text-primary">1</span>
+                    </div>
                   </div>
-                  <div className="flex justify-between items-center">
-                    <span className="text-sm">Projects</span>
-                    <span className="text-sm font-medium text-primary">3</span>
+                  <div className="p-3 rounded-lg bg-muted/30 border border-border">
+                    <div className="flex justify-between items-center">
+                      <span className="text-sm font-medium">Projects</span>
+                      <span className="text-sm font-medium text-primary">3</span>
+                    </div>
                   </div>
-                  <div className="flex justify-between items-center">
-                    <span className="text-sm">Events</span>
-                    <span className="text-sm font-medium text-primary">1</span>
+                  <div className="p-3 rounded-lg bg-muted/30 border border-border">
+                    <div className="flex justify-between items-center">
+                      <span className="text-sm font-medium">Events</span>
+                      <span className="text-sm font-medium text-primary">1</span>
+                    </div>
                   </div>
                 </div>
               </CardContent>
             </Card>
 
-            {/* Quick Links */}
-            <Card>
+            {/* Browse Categories */}
+            <Card className="!border-t-2 !border-t-primary border border-border">
               <CardContent className="p-6">
-                <h3 className="font-semibold mb-4">Quick Links</h3>
-                <div className="space-y-3">
-                  <Link href="/updates/latest">
-                    <Button variant="outline" className="w-full justify-start">Latest Updates</Button>
+                <h3 className="font-semibold mb-4">Browse Categories</h3>
+                <div className="space-y-2">
+                  <Link
+                    href="/updates/latest"
+                    className="block p-3 rounded-lg bg-muted/30 hover:bg-muted/50 transition-colors duration-200 text-sm font-medium border border-border"
+                  >
+                    Latest Updates
                   </Link>
-                  <Link href="/updates/press">
-                    <Button variant="outline" className="w-full justify-start">Press Releases</Button>
+                  <Link
+                    href="/updates/press"
+                    className="block p-3 rounded-lg bg-muted/30 hover:bg-muted/50 transition-colors duration-200 text-sm font-medium border border-border"
+                  >
+                    Press Releases
                   </Link>
-                  <Link href="/updates/case-studies">
-                    <Button variant="outline" className="w-full justify-start">Case Studies</Button>
+                  <Link
+                    href="/updates/case-studies"
+                    className="block p-3 rounded-lg bg-muted/30 hover:bg-muted/50 transition-colors duration-200 text-sm font-medium border border-border"
+                  >
+                    Case Studies
                   </Link>
                 </div>
               </CardContent>
             </Card>
 
             {/* Contact for Media */}
-            <Card>
+            <Card className="!border-t-2 !border-t-primary border border-border">
               <CardContent className="p-6">
                 <h3 className="font-semibold mb-4">Request Media</h3>
                 <p className="text-sm text-muted-foreground mb-4">Need high-resolution images or video content for media use?</p>

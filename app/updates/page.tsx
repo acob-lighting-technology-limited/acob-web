@@ -33,7 +33,7 @@ export default function UpdatesPage() {
     const page = pageStr ? Math.max(1, parseInt(pageStr, 10) || 1) : 1;
     setSearchQuery(q);
     setCurrentPage(page);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+  
   }, []);
 
   // Fetch posts
@@ -68,7 +68,8 @@ export default function UpdatesPage() {
       const title = post.title?.toLowerCase() || '';
       const excerpt = post.excerpt?.toLowerCase() || '';
       const author = post.author?.toLowerCase() || '';
-      const category = (post.category as string | undefined)?.toLowerCase?.() || '';
+      const category =
+        (post.category as string | undefined)?.toLowerCase?.() || '';
       return (
         title.includes(query) ||
         excerpt.includes(query) ||
@@ -82,9 +83,11 @@ export default function UpdatesPage() {
 
   // Keep URL in sync
   useEffect(() => {
-    const sp = new URLSearchParams(params.toString());
-    if (searchQuery) sp.set('q', searchQuery); else sp.delete('q');
-    if (currentPage && currentPage !== 1) sp.set('page', String(currentPage)); else sp.delete('page');
+    const sp = new (globalThis as any).URLSearchParams(params.toString());
+    if (searchQuery) sp.set('q', searchQuery);
+    else sp.delete('q');
+    if (currentPage && currentPage !== 1) sp.set('page', String(currentPage));
+    else sp.delete('page');
     router.replace(`${pathname}?${sp.toString()}`, { scroll: false });
   }, [searchQuery, currentPage, pathname, router]);
 
@@ -141,7 +144,9 @@ export default function UpdatesPage() {
             {searchQuery && (
               <div className="mb-6 p-4 bg-muted rounded-lg">
                 <p className="text-sm text-muted-foreground">
-                  {filteredPosts.length} result{filteredPosts.length !== 1 ? 's' : ''} found for "{searchQuery}"
+                  {filteredPosts.length} result
+                  {filteredPosts.length !== 1 ? 's' : ''} found for "
+                  {searchQuery}"
                 </p>
               </div>
             )}
@@ -153,9 +158,9 @@ export default function UpdatesPage() {
                   {currentPosts.map((post: UpdatePost) => (
                     <Card
                       key={post._id}
-                      className="overflow-hidden p-0 hover:shadow-lg transition-shadow h-full"
+                      className="overflow-hidden p-0 hover:shadow-lg transition-shadow duration-300 flex flex-col"
                     >
-                      <div className="aspect-[16/9] overflow-hidden">
+                      <div className="aspect-[16/9] overflow-hidden flex-shrink-0">
                         <Image
                           src={post.featuredImage || '/placeholder.svg'}
                           alt={post.title}
@@ -164,24 +169,30 @@ export default function UpdatesPage() {
                           className="w-full h-full object-cover"
                         />
                       </div>
-                      <CardContent className="p-6">
-                        <div className="flex items-center text-sm text-muted-foreground mb-4">
-                          <span>{new Date(post.publishedAt).toLocaleDateString()}</span>
-                          <span className="mx-2">•</span>
-                          <span>{post.author}</span>
+                      <CardContent className="p-6 flex flex-col flex-1">
+                        <div className="flex-1">
+                          <div className="flex items-center text-sm text-muted-foreground mb-4">
+                            <span>{post.author}</span>
+                            <span className="mx-2">•</span>
+                            <span>
+                              {new Date(post.publishedAt).toLocaleDateString()}
+                            </span>
+                          </div>
+                          <h2 className="text-xl font-bold mb-4 text-foreground">
+                            {post.title}
+                          </h2>
+                          <p className="text-muted-foreground mb-6 leading-relaxed">
+                            {post.excerpt}
+                          </p>
                         </div>
-                        <h2 className="text-2xl font-bold mb-4 text-foreground">
-                          {post.title}
-                        </h2>
-                        <p className="text-muted-foreground mb-6 leading-relaxed">
-                          {post.excerpt}
-                        </p>
-                        <Link href={`/updates/${post.slug?.current || '#'}`}>
-                          <Button className="bg-primary hover:bg-primary/90 text-white">
-                            Read More
-                            <ArrowRight className="ml-2 h-4 w-4" />
-                          </Button>
-                        </Link>
+                        <div className="mt-auto">
+                          <Link href={`/updates/${post.slug?.current || '#'}`}>
+                            <Button className="w-full">
+                              Read More
+                              <ArrowRight className="ml-2 h-4 w-4" />
+                            </Button>
+                          </Link>
+                        </div>
                       </CardContent>
                     </Card>
                   ))}
@@ -191,7 +202,9 @@ export default function UpdatesPage() {
                 {totalPages > 1 && (
                   <div className="mt-12 flex items-center justify-between">
                     <div className="text-sm text-muted-foreground">
-                      Showing {startIndex + 1}-{Math.min(endIndex, filteredPosts.length)} of {filteredPosts.length} posts
+                      Showing {startIndex + 1}-
+                      {Math.min(endIndex, filteredPosts.length)} of{' '}
+                      {filteredPosts.length} posts
                     </div>
 
                     <div className="flex items-center gap-2">
@@ -207,13 +220,21 @@ export default function UpdatesPage() {
 
                       {/* Page Numbers */}
                       <div className="flex items-center gap-1">
-                        {Array.from({ length: totalPages }, (_, i) => i + 1).map((page) => {
-                          const shouldShow = page === 1 || page === totalPages || Math.abs(page - currentPage) <= 1;
+                        {Array.from(
+                          { length: totalPages },
+                          (_, i) => i + 1
+                        ).map(page => {
+                          const shouldShow =
+                            page === 1 ||
+                            page === totalPages ||
+                            Math.abs(page - currentPage) <= 1;
                           if (shouldShow) {
                             return (
                               <Button
                                 key={page}
-                                variant={page === currentPage ? 'default' : 'outline'}
+                                variant={
+                                  page === currentPage ? 'default' : 'outline'
+                                }
                                 size="sm"
                                 className="w-10 h-10"
                                 onClick={() => goToPage(page)}
@@ -221,9 +242,15 @@ export default function UpdatesPage() {
                                 {page}
                               </Button>
                             );
-                          } else if (page === currentPage - 2 || page === currentPage + 2) {
+                          } else if (
+                            page === currentPage - 2 ||
+                            page === currentPage + 2
+                          ) {
                             return (
-                              <span key={page} className="px-2 text-muted-foreground">
+                              <span
+                                key={page}
+                                className="px-2 text-muted-foreground"
+                              >
                                 ...
                               </span>
                             );
@@ -249,7 +276,9 @@ export default function UpdatesPage() {
               <div className="text-center py-12">
                 <Search className="h-12 w-12 text-muted-foreground mx-auto mb-4" />
                 <h3 className="text-lg font-semibold mb-2">No results found</h3>
-                <p className="text-muted-foreground mb-4">Try adjusting your search terms or browse all updates.</p>
+                <p className="text-muted-foreground mb-4">
+                  Try adjusting your search terms or browse all updates.
+                </p>
                 <Button variant="outline" onClick={() => setSearchQuery('')}>
                   Clear Search
                 </Button>
@@ -268,7 +297,7 @@ export default function UpdatesPage() {
                     placeholder="Search updates..."
                     className="pr-10"
                     value={searchQuery}
-                    onChange={(e) => setSearchQuery(e.target.value)}
+                    onChange={e => setSearchQuery(e.target.value)}
                   />
                   <Search className="absolute right-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
                 </div>

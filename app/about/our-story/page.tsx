@@ -37,57 +37,46 @@ export default function OurStoryPage() {
           <div className="lg:col-span-2 p-6 rounded-xl bg-card">
             <div className=" max-w-none">
               <h2 className="text-3xl font-bold text-foreground mb-6">
-                <MaskText phrases={['The ACOB Lighting Journey']} />
+                <MaskText phrases={['ACOB\'s Journey to Powering Rural Communities']} />
               </h2>
 
               <p className="text-lg text-muted-foreground mb-6 leading-relaxed">
-                Founded in 2016, ACOB Lighting Technology Limited emerged from a
-                simple yet powerful vision: to transform Nigeria&apos;s energy
-                landscape through sustainable, reliable, and accessible solar
-                solutions. What started as a small team of passionate engineers
-                has grown into a comprehensive energy solutions provider.
+                ACOB Lighting Technology Limited was established in 2016, starting with street lighting installation and maintenance. From 2016-2018, we successfully piloted LED streetlight projects across 23 Nigerian states, maintaining critical infrastructure including 25 kilometres of street lighting from the National Stadium to the Airport City Gate for the FCDA.
               </p>
 
               <p className="text-lg text-muted-foreground mb-6 leading-relaxed">
-                Our journey began with a deep understanding of Nigeria&apos;s
-                energy challenges. We recognized that millions of Nigerians,
-                particularly in rural areas, lacked access to reliable
-                electricity. This realization became the driving force behind
-                our mission to bring light and power to every community.
+                In 2018, we expanded into the renewable energy sector, embracing solar installations for residential homes, offices, and institutions. This strategic pivot led us to become one of the first companies selected by the Rural Electrification Agency (REA) to construct solar mini-grids in rural areas as part of their pilot program.
               </p>
 
               <p className="text-lg text-muted-foreground mb-6 leading-relaxed">
-                Today, ACOB Lighting stands as a testament to what can be
-                achieved through innovation, dedication, and a genuine
-                commitment to community development. We&apos;ve successfully
-                completed projects across multiple states, bringing sustainable
-                energy solutions to communities that were once left in the dark.
+                Today, ACOB has grown from a two-person team to 75 staff members, with the capability to complete a 15 kWp EPC project in just 2-3 weeks, highlighting our growth in efficiency and supply chain management.
               </p>
 
               <h3 className="text-2xl font-bold text-foreground mb-4 mt-8">
-                Our Founding Principles
+                Our Strategic Evolution
               </h3>
 
-              <ul className="space-y-3 text-muted-foreground">
-                <li className="flex items-start">
-                  <span className="text-primary font-bold mr-2">•</span>
-                  <span>Innovation in renewable energy technology</span>
-                </li>
-                <li className="flex items-start">
-                  <span className="text-primary font-bold mr-2">•</span>
-                  <span>Community-centered development approach</span>
-                </li>
-                <li className="flex items-start">
-                  <span className="text-primary font-bold mr-2">•</span>
-                  <span>Sustainability and environmental responsibility</span>
-                </li>
-                <li className="flex items-start">
-                  <span className="text-primary font-bold mr-2">•</span>
-                  <span>
-                    Excellence in service delivery and customer satisfaction
-                  </span>
-                </li>
-              </ul>
+              <div className="space-y-6">
+                <div className="bg-muted/30 p-6 rounded-lg">
+                  <h4 className="text-xl font-semibold text-foreground mb-3">From Street Lighting to Solar Mini-Grids</h4>
+                  <p className="text-muted-foreground leading-relaxed mb-4">
+                    Maintaining and installing street lighting formed the initial bedrock of ACOB's business. From 2016–2018, notable street lighting projects included piloting LED streetlight projects across 23 Nigerian states, maintaining 25 kilometres of street lighting from the National Stadium to the Airport City Gate for the FCDA, and undertaking comprehensive street lighting infrastructure for the Kogi State Government House.
+                  </p>
+                  <p className="text-muted-foreground leading-relaxed">
+                    As street lighting maintenance contracts neared completion, we discovered an answer to the question of what would happen to our assembled staff when we heard of and registered to attend a Schneider Electric training workshop in Lagos in 2018. During this training, we received detailed exposure to large-scale solar installations.
+                  </p>
+                </div>
+
+                <div className="bg-muted/30 p-6 rounded-lg">
+                  <h4 className="text-xl font-semibold text-foreground mb-3">Scaling ACOB Lighting</h4>
+                  <p className="text-muted-foreground leading-relaxed mb-4">
+                    ACOB lighting has since grown, evolving from a two-person team to 75 staff members. Today, a similar 15 kWp EPC project can be completed in just 2-3 weeks, highlighting ACOB's growth in efficiency and supply chain management.
+                  </p>
+                  <p className="text-muted-foreground leading-relaxed">
+                    In addition to street lighting installation and maintenance, ACOB offers comprehensive services in the renewable energy sector including isolated mini-grids, commercial & industrial solutions, EPC/contractor services, and energy audit services.
+                  </p>
+                </div>
+              </div>
             </div>
           </div>
 

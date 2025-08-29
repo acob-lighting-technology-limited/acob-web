@@ -24,8 +24,8 @@ export default function TeamPage() {
       >
         <MaskText
           phrases={[
-            'Dedicated professionals driving innovation in solar energy.',
-            'Meet the experts behind our sustainable energy solutions.',
+            '75 dedicated professionals driving energy access across Nigeria.',
+            'Meet the team behind our solar mini-grid solutions.',
           ]}
           className="text-lg md:text-xl opacity-90 max-w-3xl leading-relaxed"
         />

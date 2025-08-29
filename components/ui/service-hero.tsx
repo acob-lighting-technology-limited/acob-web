@@ -39,7 +39,7 @@ export function ServiceHero({
           <div className="flex flex-col sm:flex-row gap-4">
             <Button
               size="lg"
-              className="bg-primary hover:bg-primary/90 text-white px-8 py-3"
+              className="px-8 py-3"
             >
               Get Quote
               <ArrowRight className="ml-2 h-4 w-4" />

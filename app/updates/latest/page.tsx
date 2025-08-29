@@ -74,10 +74,7 @@ export default async function LatestPage() {
                     {latestPosts[0].excerpt}
                   </p>
                   <Link href={`/updates/${latestPosts[0].slug.current}`}>
-                    <Button
-                      size="lg"
-                      className="bg-primary hover:bg-primary/90 text-white"
-                    >
+                    <Button size="lg">
                       Read Full Article
                       <ArrowRight className="ml-2 h-4 w-4" />
                     </Button>
@@ -91,9 +88,9 @@ export default async function LatestPage() {
               {latestPosts.slice(1).map((post: UpdatePost) => (
                 <Card
                   key={post._id}
-                  className="overflow-hidden  p-0 hover:shadow-lg transition-shadow duration-300"
+                  className="overflow-hidden p-0 hover:shadow-lg transition-shadow duration-300 flex flex-col"
                 >
-                  <div className="aspect-[4/3] overflow-hidden">
+                  <div className="aspect-[16/9] overflow-hidden flex-shrink-0">
                     <Image
                       src={post.featuredImage || '/placeholder.svg'}
                       alt={post.title}
@@ -102,28 +99,32 @@ export default async function LatestPage() {
                       className="w-full h-full object-cover"
                     />
                   </div>
-                  <CardContent className="p-6">
-                    <div className="flex items-center text-sm text-muted-foreground mb-3">
-                      <Calendar className="h-4 w-4 mr-1" />
-                      <span>
-                        {new Date(post.publishedAt).toLocaleDateString()}
-                      </span>
-                      <span className="mx-2">•</span>
-                      <User className="h-4 w-4 mr-1" />
-                      <span>{post.author}</span>
+                  <CardContent className="p-6 flex flex-col flex-1">
+                    <div className="flex-1">
+                      <div className="flex items-center text-sm text-muted-foreground mb-3">
+                        <Calendar className="h-4 w-4 mr-1" />
+                        <span>
+                          {new Date(post.publishedAt).toLocaleDateString()}
+                        </span>
+                        <span className="mx-2">•</span>
+                        <User className="h-4 w-4 mr-1" />
+                        <span>{post.author}</span>
+                      </div>
+                      <h3 className="text-xl font-bold mb-3 text-foreground line-clamp-2">
+                        {post.title}
+                      </h3>
+                      <p className="text-muted-foreground mb-4 leading-relaxed line-clamp-3">
+                        {post.excerpt}
+                      </p>
                     </div>
-                    <h3 className="text-xl font-bold mb-3 text-foreground line-clamp-2">
-                      {post.title}
-                    </h3>
-                    <p className="text-muted-foreground mb-4 leading-relaxed line-clamp-3">
-                      {post.excerpt}
-                    </p>
-                    <Link href={`/updates/${post.slug.current}`}>
-                      <Button variant="outline" className="w-full">
-                        Read More
-                        <ArrowRight className="ml-2 h-4 w-4" />
-                      </Button>
-                    </Link>
+                    <div className="mt-auto">
+                      <Link href={`/updates/${post.slug.current}`}>
+                        <Button className="w-full">
+                          Read More
+                          <ArrowRight className="ml-2 h-4 w-4" />
+                        </Button>
+                      </Link>
+                    </div>
                   </CardContent>
                 </Card>
               ))}
@@ -145,10 +146,10 @@ export default async function LatestPage() {
           {/* Sidebar */}
           <div className="space-y-6 sticky top-20 self-start">
             {/* Latest Updates Info */}
-            <Card className="">
+            <Card className="!border-t-2 !border-t-primary border border-border">
               <CardContent className="p-6">
                 <h3 className="font-semibold mb-4">Latest Updates</h3>
-                <div className="bg-primary/10 p-4 rounded-lg">
+                <div className="bg-muted/30 p-4 rounded-lg border border-border">
                   <Calendar className="h-8 w-8 text-primary mb-2" />
                   <h4 className="font-medium text-primary mb-2">
                     Recent Developments
@@ -165,35 +166,60 @@ export default async function LatestPage() {
               </CardContent>
             </Card>
 
-            {/* Categories */}
-            <Card className="">
+            {/* Browse Categories */}
+            <Card className="!border-t-2 !border-t-primary border border-border">
               <CardContent className="p-6">
-                <h3 className="font-semibold mb-4">Categories</h3>
-                <ul className="space-y-2">
-                  {/* Categories are no longer fetched, so this section will be empty */}
-                </ul>
+                <h3 className="font-semibold mb-4">Browse Categories</h3>
+                <div className="space-y-2">
+                  <Link
+                    href="/updates/press"
+                    className="block p-3 rounded-lg bg-muted/30 hover:bg-muted/50 transition-colors duration-200 text-sm font-medium border border-border"
+                  >
+                    Press Releases
+                  </Link>
+                  <Link
+                    href="/updates/case-studies"
+                    className="block p-3 rounded-lg bg-muted/30 hover:bg-muted/50 transition-colors duration-200 text-sm font-medium border border-border"
+                  >
+                    Case Studies
+                  </Link>
+                  <Link
+                    href="/updates/gallery"
+                    className="block p-3 rounded-lg bg-muted/30 hover:bg-muted/50 transition-colors duration-200 text-sm font-medium border border-border"
+                  >
+                    Media Gallery
+                  </Link>
+                </div>
               </CardContent>
             </Card>
 
-            {/* Quick Links */}
-            <Card className="">
+            {/* Recent Updates */}
+            <Card className="!border-t-2 !border-t-primary border border-border">
               <CardContent className="p-6">
-                <h3 className="font-semibold mb-4">Quick Links</h3>
-                <div className="space-y-3">
-                  <Link href="/updates/press">
-                    <Button variant="outline" className="w-full justify-start">
-                      Press Releases
-                    </Button>
-                  </Link>
-                  <Link href="/updates/case-studies">
-                    <Button variant="outline" className="w-full justify-start">
-                      Case Studies
-                    </Button>
-                  </Link>
-                  <Link href="/updates/gallery">
-                    <Button variant="outline" className="w-full justify-start">
-                      Media Gallery
-                    </Button>
+                <h3 className="font-semibold mb-4">Recent Updates</h3>
+                <div className="space-y-2">
+                  {latestPosts.slice(0, 5).map((post: UpdatePost) => (
+                    <Link
+                      key={post._id}
+                      href={`/updates/${post.slug?.current || '#'}`}
+                      className="block p-3 rounded-lg bg-muted/30 hover:bg-muted/50 transition-colors duration-200 border border-border group"
+                    >
+                      <h4 className="text-sm font-medium text-foreground group-hover:text-primary mb-1">
+                        {post.title}
+                      </h4>
+                      <div className="text-xs text-muted-foreground">
+                        {new Date(post.publishedAt).toLocaleDateString()}
+                      </div>
+                    </Link>
+                  ))}
+                </div>
+                <div className="pt-4 border-t">
+                  <Link
+                    href="/updates"
+                    className="text-sm text-primary hover:text-primary/80 flex items-center font-medium"
+                  >
+                    View All Updates
+                    <ArrowRight className="ml-1 h-3 w-3" />
                   </Link>
                 </div>
               </CardContent>

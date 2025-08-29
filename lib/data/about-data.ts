@@ -4,28 +4,28 @@ export const aboutSections = [
   {
     title: 'Our Story',
     description:
-      'Discover our journey, milestones, and how we became a leader in clean energy.',
+      'Discover ACOB\'s journey from street lighting to pioneering solar mini-grid solutions across Nigeria.',
     href: '/about/our-story',
     image: '/images/about/acob-team.webp?height=200&width=300',
   },
   {
     title: 'Mission & Vision',
     description:
-      'Explore our core values, commitment to sustainability, and future aspirations.',
+      'Explore our commitment to sustainable energy access and community empowerment across rural Nigeria.',
     href: '/about/mission',
     image: '/images/about/acob-team.webp?height=200&width=300',
   },
   {
     title: 'Meet Our Team',
     description:
-      'Get to know the dedicated professionals driving innovation at ACOB Lighting.',
+      'Get to know the 75 dedicated professionals driving innovation and energy access across Nigeria.',
     href: '/about/team',
     image: '/images/about/acob-team.webp?height=200&width=300',
   },
   {
     title: 'Certifications',
     description:
-      'View our accreditations and commitment to global quality and safety standards.',
+      'View our accreditations and commitment to quality standards in renewable energy infrastructure.',
     href: '/about/certifications',
     image: '/images/about/acob-team.webp?height=200&width=300',
   },
@@ -91,44 +91,58 @@ export const teamMembers = [
 export const milestones = [
   {
     year: '2016',
-    title: 'Company Founded',
+    title: 'ACOB Lighting Established',
     description:
-      "ACOB Lighting Technology Limited was established with a vision to transform Nigeria's energy landscape.",
+      "ACOB Lighting Technology Limited was established, starting with street lighting installation and maintenance across Nigeria.",
+    icon: Lightbulb,
+  },
+  {
+    year: '2016-2018',
+    title: 'Street Lighting Projects',
+    description:
+      "Successfully piloted LED streetlight projects across 23 Nigerian states, maintaining critical infrastructure for FCDA and state governments.",
+    icon: Lightbulb,
+  },
+  {
+    year: '2018',
+    title: 'Solar Energy Expansion',
+    description:
+      "Expanded into renewable energy sector, embracing solar installations for residential, commercial, and institutional clients.",
     icon: Lightbulb,
   },
   {
     year: '2019',
-    title: 'First Mini-Grid Project',
+    title: 'REA Mini-Grid Pilot',
     description:
-      'Successfully completed our first community mini-grid project, bringing reliable power to rural areas.',
+      'Selected by Rural Electrification Agency (REA) to construct solar mini-grids in rural areas as part of their pilot program.',
     icon: Users,
   },
   {
     year: '2020',
-    title: 'Industry Recognition',
+    title: 'COVID-19 Response',
     description:
-      'Received multiple awards for innovation and community impact in renewable energy.',
+      'Built 50kWp systems in 12 beneficiary hospitals under the Nigerian Government\'s COVID-19 intervention program.',
     icon: Award,
   },
   {
-    year: '2021',
-    title: 'Expansion Phase',
+    year: '2021-2023',
+    title: 'Rapid Growth',
     description:
-      'Expanded operations across multiple states and launched new service offerings.',
+      'Expanded to 75 staff members with capability to complete 15 kWp EPC projects in 2-3 weeks.',
     icon: BookOpen,
   },
   {
-    year: '2022',
-    title: 'Technology Innovation',
+    year: '2024',
+    title: 'Institutional Funding',
     description:
-      'Introduced cutting-edge solar solutions and smart grid technologies.',
+      'Raised NGN 1.51 billion through InfraCredit green infrastructure bond for scaling operations.',
     icon: Lightbulb,
   },
   {
     year: '2025',
-    title: 'National Impact',
+    title: 'National Scale Impact',
     description:
-      'Reached over 50 communities and established partnerships with government agencies.',
+      'Deployed projects in 9 communities, powering 2,306 connections with 690 kWp capacity. 19 more communities under construction.',
     icon: Users,
   },
 ];

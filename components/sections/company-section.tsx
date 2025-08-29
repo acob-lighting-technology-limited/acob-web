@@ -2,6 +2,7 @@
 import { Button } from '@/components/ui/button';
 import { Container } from '@/components/ui/container';
 import { MaskText } from '../animations/MaskText';
+import Link from 'next/link';
 import { Play, Pause, Volume2, VolumeX } from 'lucide-react';
 import { useState, useRef, useEffect } from 'react';
 
@@ -109,9 +110,11 @@ export function CompanySection() {
                 ]}
                 className="text-muted-foreground/80 mb-8 lg:mb-10 leading-relaxed text-sm md:text-base "
               />
-              <Button className="bg-primary hover:bg-primary/90 text-primary-foreground border border-primary/20 text-base md:text-lg py-4 md:py-6 px-6 md:px-8 rounded-xl font-semibold backdrop-blur-md transition-all duration-300 hover:scale-105 hover:shadow-2xl hover:shadow-primary/20 w-full sm:w-auto">
-                Learn More About Us
-              </Button>
+              <Link href="/about">
+                <Button className="bg-primary hover:bg-primary/90 text-primary-foreground border border-primary/20 text-base md:text-lg py-4 md:py-6 px-6 md:px-8 rounded-xl font-semibold backdrop-blur-md transition-all duration-300 hover:scale-105 hover:shadow-2xl hover:shadow-primary/20 w-full sm:w-auto">
+                  Learn More About Us
+                </Button>
+              </Link>
             </div>
 
             {/* Right Column with Video and Cards */}
