@@ -78,7 +78,8 @@ export default function NotFound() {
             <Link href="/">
               <Button
                 size="lg"
-                className="bg-primary hover:bg-primary/90 text-white px-8 py-3"
+            
+                className="px-8 py-3"
               >
                 <Home className="mr-2 w-5 h-5" />
                 Go Home

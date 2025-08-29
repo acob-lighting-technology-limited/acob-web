@@ -139,7 +139,7 @@ export function UpdatesSection() {
           <Link href="/updates">
             {' '}
             {/* Changed link to /updates */}
-            <Button className="bg-primary hover:bg-primary/90 text-white px-8 py-3">
+            <Button className=" px-8 py-3">
               View All Updates
               <ArrowRight className="ml-2 h-4 w-4" />
             </Button>

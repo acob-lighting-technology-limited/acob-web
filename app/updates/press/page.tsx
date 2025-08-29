@@ -9,8 +9,6 @@ import {
   User,
   FileText,
   Target,
-  TrendingUp,
-  MapPin,
 } from 'lucide-react';
 import Link from 'next/link';
 import Image from 'next/image';
@@ -105,7 +103,7 @@ export default async function PressPage() {
                     </p>
                     <div className="flex gap-3">
                       <Link href={`/updates/${post.slug.current}`}>
-                        <Button className="bg-primary hover:bg-primary/90 text-white">
+                        <Button>
                           <FileText className="mr-2 h-4 w-4" />
                           Read Full Release
                           <ArrowRight className="ml-2 h-4 w-4" />
@@ -121,10 +119,10 @@ export default async function PressPage() {
           {/* Sidebar */}
           <div className="space-y-6 sticky top-20 self-start">
             {/* Press Releases Info */}
-            <Card>
+            <Card className="!border-t-2 !border-t-primary border border-border">
               <CardContent className="p-6">
                 <h3 className="font-semibold mb-4">Press Releases</h3>
-                <div className="bg-primary/10 p-4 rounded-lg">
+                <div className="bg-muted/30 p-4 rounded-lg border border-border">
                   <Target className="h-8 w-8 text-primary mb-2" />
                   <h4 className="font-medium text-primary mb-2">
                     Official Communications
@@ -142,17 +140,17 @@ export default async function PressPage() {
             </Card>
 
             {/* Media Contact */}
-            <Card>
+            <Card className="!border-t-2 !border-t-primary border border-border">
               <CardContent className="p-6">
                 <h3 className="font-semibold mb-4">Media Contact</h3>
                 <div className="space-y-3">
-                  <div>
+                  <div className="p-3 rounded-lg bg-muted/30 border border-border">
                     <p className="text-sm font-medium">For Media Inquiries:</p>
                     <p className="text-sm text-muted-foreground">
                       press@acoblighting.com
                     </p>
                   </div>
-                  <div>
+                  <div className="p-3 rounded-lg bg-muted/30 border border-border">
                     <p className="text-sm font-medium">Phone:</p>
                     <p className="text-sm text-muted-foreground">
                       +234 XXX XXX XXXX
@@ -168,37 +166,62 @@ export default async function PressPage() {
               </CardContent>
             </Card>
 
-            {/* Quick Links */}
-            <Card>
+            {/* Browse Categories */}
+            <Card className="!border-t-2 !border-t-primary border border-border">
               <CardContent className="p-6">
-                <h3 className="font-semibold mb-4">Quick Links</h3>
-                <div className="space-y-3">
-                  <Link href="/updates/latest">
-                    <Button variant="outline" className="w-full justify-start">
-                      Latest Updates
-                    </Button>
+                <h3 className="font-semibold mb-4">Browse Categories</h3>
+                <div className="space-y-2">
+                  <Link
+                    href="/updates/latest"
+                    className="block p-3 rounded-lg bg-muted/30 hover:bg-muted/50 transition-colors duration-200 text-sm font-medium border border-border"
+                  >
+                    Latest Updates
                   </Link>
-                  <Link href="/updates/case-studies">
-                    <Button variant="outline" className="w-full justify-start">
-                      Case Studies
-                    </Button>
+                  <Link
+                    href="/updates/case-studies"
+                    className="block p-3 rounded-lg bg-muted/30 hover:bg-muted/50 transition-colors duration-200 text-sm font-medium border border-border"
+                  >
+                    Case Studies
                   </Link>
-                  <Link href="/updates/gallery">
-                    <Button variant="outline" className="w-full justify-start">
-                      Media Gallery
-                    </Button>
+                  <Link
+                    href="/updates/gallery"
+                    className="block p-3 rounded-lg bg-muted/30 hover:bg-muted/50 transition-colors duration-200 text-sm font-medium border border-border"
+                  >
+                    Media Gallery
                   </Link>
                 </div>
               </CardContent>
             </Card>
 
-            {/* Categories */}
-            <Card>
+            {/* Recent Press Releases */}
+            <Card className="!border-t-2 !border-t-primary border border-border">
               <CardContent className="p-6">
-                <h3 className="font-semibold mb-4">Categories</h3>
-                <ul className="space-y-2">
-                  {/* Categories are not fetched in this version, so this section is removed */}
-                </ul>
+                <h3 className="font-semibold mb-4">Recent Press Releases</h3>
+                <div className="space-y-2">
+                  {pressReleases.slice(0, 5).map((post: UpdatePost) => (
+                    <Link
+                      key={post._id}
+                      href={`/updates/${post.slug?.current || '#'}`}
+                      className="block p-3 rounded-lg bg-muted/30 hover:bg-muted/50 transition-colors duration-200 border border-border group"
+                    >
+                      <h4 className="text-sm font-medium text-foreground group-hover:text-primary mb-1">
+                        {post.title}
+                      </h4>
+                      <div className="text-xs text-muted-foreground">
+                        {new Date(post.publishedAt).toLocaleDateString()}
+                      </div>
+                    </Link>
+                  ))}
+                </div>
+                <div className="pt-4 border-t">
+                  <Link
+                    href="/updates"
+                    className="text-sm text-primary hover:text-primary/80 flex items-center font-medium"
+                  >
+                    View All Updates
+                    <ArrowRight className="ml-1 h-3 w-3" />
+                  </Link>
+                </div>
               </CardContent>
             </Card>
           </div>

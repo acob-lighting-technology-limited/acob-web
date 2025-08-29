@@ -7,7 +7,7 @@ import { ArrowRight, Calendar, User } from 'lucide-react';
 import { getUpdatePosts } from '@/sanity/lib/client';
 import type { UpdatePost } from '@/lib/types';
 import Link from 'next/link';
-import { notFound } from 'next/navigation';
+
 
 interface CategoryPageProps {
   params: Promise<{ slug: string }>;
@@ -18,7 +18,9 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
   const posts = await getUpdatePosts();
 
   // Filter posts by category using the new string-based system
-  const categoryPosts = posts.filter((post: UpdatePost) => post.category === slug);
+  const categoryPosts = posts.filter(
+    (post: UpdatePost) => post.category === slug
+  );
 
   const breadcrumbItems = [
     { label: 'Home', href: '/' },
@@ -41,7 +43,7 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
           {/* Main Content */}
           <div className="lg:col-span-2 space-y-8">
             {categoryPosts.length === 0 ? (
-              <Card >
+              <Card>
                 <CardContent className="p-8 text-center">
                   <div className="text-muted-foreground mb-4">
                     <Calendar className="h-12 w-12 mx-auto mb-4 opacity-50" />
@@ -88,7 +90,7 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
                       {post.excerpt}
                     </p>
                     <Link href={`/updates/${post.slug.current}`}>
-                      <Button className="bg-primary hover:bg-primary/90 text-white">
+                      <Button>
                         Read More
                         <ArrowRight className="ml-2 h-4 w-4" />
                       </Button>
@@ -102,7 +104,7 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
           {/* Sidebar */}
           <div className="space-y-6 sticky top-20 self-start">
             {/* Category Info */}
-            <Card >
+            <Card>
               <CardContent className="p-6">
                 <h3 className="font-semibold mb-4">Category</h3>
                 <div className="bg-primary/10 p-4 rounded-lg">
@@ -121,7 +123,7 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
             </Card>
 
             {/* Back to Updates */}
-            <Card >
+            <Card>
               <CardContent className="p-6">
                 <Link href="/updates">
                   <Button variant="outline" className="w-full">

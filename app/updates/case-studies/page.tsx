@@ -8,9 +8,6 @@ import {
   Calendar,
   User,
   FileText,
-  Target,
-  TrendingUp,
-  MapPin,
 } from 'lucide-react';
 import Link from 'next/link';
 import Image from 'next/image';
@@ -68,62 +65,62 @@ export default async function CaseStudiesPage() {
                 </CardContent>
               </Card>
             ) : (
-              caseStudies.map((post: UpdatePost) => (
-                <Card
-                  key={post._id}
-                  className="overflow-hidden p-0 hover:shadow-lg transition-shadow duration-300"
-                >
-                  <div className="aspect-[16/9] overflow-hidden">
-                    <Image
-                      src={post.featuredImage || '/placeholder.svg'}
-                      alt={post.title}
-                      width={1200}
-                      height={675}
-                      className="w-full h-full object-cover"
-                    />
-                  </div>
-                  <CardContent className="p-6">
-                    <div className="flex items-center text-sm text-muted-foreground mb-4">
-                      <FileText className="h-4 w-4 mr-1" />
-                      <span className="bg-primary/10 text-primary px-2 py-1 rounded-full text-xs font-medium">
-                        Case Study
-                      </span>
-                      <span className="mx-2">•</span>
-                      <Calendar className="h-4 w-4 mr-1" />
-                      <span>
-                        {new Date(post.publishedAt).toLocaleDateString()}
-                      </span>
-                      <span className="mx-2">•</span>
-                      <User className="h-4 w-4 mr-1" />
-                      <span>{post.author}</span>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                {caseStudies.map((post: UpdatePost) => (
+                  <Card
+                    key={post._id}
+                    className="overflow-hidden p-0 hover:shadow-lg transition-shadow duration-300 flex flex-col"
+                  >
+                    <div className="aspect-[16/9] overflow-hidden flex-shrink-0">
+                      <Image
+                        src={post.featuredImage || '/placeholder.svg'}
+                        alt={post.title}
+                        width={1200}
+                        height={675}
+                        className="w-full h-full object-cover"
+                      />
                     </div>
-                    <h2 className="text-2xl font-bold mb-4 text-foreground">
-                      {post.title}
-                    </h2>
-                    <p className="text-muted-foreground mb-6 leading-relaxed">
-                      {post.excerpt}
-                    </p>
+                    <CardContent className="p-6 flex flex-col flex-1">
+                      <div className="flex-1">
+                        <div className="flex items-center text-sm text-muted-foreground mb-4">
+                          <User className="h-4 w-4 mr-1" />
+                          <span>{post.author}</span>{' '}
+                          <span className="mx-2">•</span>
+                          <Calendar className="h-4 w-4 mr-1" />
+                          <span>
+                            {new Date(post.publishedAt).toLocaleDateString()}
+                          </span>
+                        </div>
+                        <h2 className="text-xl font-bold mb-4 text-foreground">
+                          {post.title}
+                        </h2>
+                        <p className="text-muted-foreground mb-6 leading-relaxed">
+                          {post.excerpt}
+                        </p>
+                      </div>
 
-                    <Link href={`/updates/${post.slug.current}`}>
-                      <Button className="bg-primary hover:bg-primary/90 text-white">
-                        <FileText className="mr-2 h-4 w-4" />
-                        Read Case Study
-                        <ArrowRight className="ml-2 h-4 w-4" />
-                      </Button>
-                    </Link>
-                  </CardContent>
-                </Card>
-              ))
+                      <div className="mt-auto">
+                        <Link href={`/updates/${post.slug.current}`}>
+                          <Button className="w-full">
+                            Read More
+                            <ArrowRight className="ml-2 h-4 w-4" />
+                          </Button>
+                        </Link>
+                      </div>
+                    </CardContent>
+                  </Card>
+                ))}
+              </div>
             )}
           </div>
 
           {/* Sidebar */}
           <div className="space-y-6 sticky top-20 self-start">
             {/* Case Studies Info */}
-            <Card>
+            <Card className="!border-t-2 !border-t-primary border border-border">
               <CardContent className="p-6">
                 <h3 className="font-semibold mb-4">Case Studies</h3>
-                <div className="bg-primary/10 p-4 rounded-lg">
+                <div className="bg-muted/30 p-4 rounded-lg border border-border">
                   <FileText className="h-8 w-8 text-primary mb-2" />
                   <h4 className="font-medium text-primary mb-2">
                     Success Stories
@@ -140,62 +137,62 @@ export default async function CaseStudiesPage() {
               </CardContent>
             </Card>
 
-            {/* Project Types */}
-            <Card>
+            {/* Browse Categories */}
+            <Card className="!border-t-2 !border-t-primary border border-border">
               <CardContent className="p-6">
-                <h3 className="font-semibold mb-4">Project Types</h3>
-                <div className="space-y-3">
-                  <div className="flex items-center justify-between p-2 rounded-md hover:bg-muted/50">
-                    <span className="text-sm">Rural Electrification</span>
-                    <Target className="h-4 w-4 text-primary" />
-                  </div>
-                  <div className="flex items-center justify-between p-2 rounded-md hover:bg-muted/50">
-                    <span className="text-sm">Commercial Installations</span>
-                    <Target className="h-4 w-4 text-primary" />
-                  </div>
-                  <div className="flex items-center justify-between p-2 rounded-md hover:bg-muted/50">
-                    <span className="text-sm">Street Lighting</span>
-                    <Target className="h-4 w-4 text-primary" />
-                  </div>
-                  <div className="flex items-center justify-between p-2 rounded-md hover:bg-muted/50">
-                    <span className="text-sm">Healthcare Projects</span>
-                    <Target className="h-4 w-4 text-primary" />
-                  </div>
-                </div>
-              </CardContent>
-            </Card>
-
-            {/* Quick Links */}
-            <Card>
-              <CardContent className="p-6">
-                <h3 className="font-semibold mb-4">Quick Links</h3>
-                <div className="space-y-3">
-                  <Link href="/updates/latest">
-                    <Button variant="outline" className="w-full justify-start">
-                      Latest Updates
-                    </Button>
+                <h3 className="font-semibold mb-4">Browse Categories</h3>
+                <div className="space-y-2">
+                  <Link
+                    href="/updates/latest"
+                    className="block p-3 rounded-lg bg-muted/30 hover:bg-muted/50 transition-colors duration-200 text-sm font-medium border border-border"
+                  >
+                    Latest Updates
                   </Link>
-                  <Link href="/updates/press">
-                    <Button variant="outline" className="w-full justify-start">
-                      Press Releases
-                    </Button>
+                  <Link
+                    href="/updates/press"
+                    className="block p-3 rounded-lg bg-muted/30 hover:bg-muted/50 transition-colors duration-200 text-sm font-medium border border-border"
+                  >
+                    Press Releases
                   </Link>
-                  <Link href="/updates/gallery">
-                    <Button variant="outline" className="w-full justify-start">
-                      Media Gallery
-                    </Button>
+                  <Link
+                    href="/updates/gallery"
+                    className="block p-3 rounded-lg bg-muted/30 hover:bg-muted/50 transition-colors duration-200 text-sm font-medium border border-border"
+                  >
+                    Media Gallery
                   </Link>
                 </div>
               </CardContent>
             </Card>
 
-            {/* Categories */}
-            <Card>
+            {/* Recent Case Studies */}
+            <Card className="!border-t-2 !border-t-primary border border-border">
               <CardContent className="p-6">
-                <h3 className="font-semibold mb-4">Categories</h3>
-                <ul className="space-y-2">
-                  {/* Categories are no longer fetched, so this section is removed */}
-                </ul>
+                <h3 className="font-semibold mb-4">Recent Case Studies</h3>
+                <div className="space-y-2">
+                  {caseStudies.slice(0, 5).map((post: UpdatePost) => (
+                    <Link
+                      key={post._id}
+                      href={`/updates/${post.slug?.current || '#'}`}
+                      className="block p-3 rounded-lg bg-muted/30 hover:bg-muted/50 transition-colors duration-200 border border-border group"
+                    >
+                      <h4 className="text-sm font-medium text-foreground group-hover:text-primary mb-1">
+                        {post.title}
+                      </h4>
+                      <div className="text-xs text-muted-foreground">
+                        {new Date(post.publishedAt).toLocaleDateString()}
+                      </div>
+                    </Link>
+                  ))}
+                </div>
+                <div className="pt-4 border-t">
+                  <Link
+                    href="/updates"
+                    className="text-sm text-primary hover:text-primary/80 flex items-center font-medium"
+                  >
+                    View All Updates
+                    <ArrowRight className="ml-1 h-3 w-3" />
+                  </Link>
+                </div>
               </CardContent>
             </Card>
           </div>
