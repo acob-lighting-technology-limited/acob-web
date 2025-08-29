@@ -111,9 +111,19 @@ export default async function UpdatePostPage({ params }: UpdatePostPageProps) {
     notFound();
   }
 
-  // For now, we'll skip comments and related posts until we create those API routes
-  const comments: Comment[] = [];
-  const related: UpdatePost[] = [];
+  // Fetch comments and related posts
+  const [commentsResponse, relatedResponse] = await Promise.allSettled([
+    fetch(`/api/comments/${post._id}`),
+    fetch(`/api/updates/related/${slug}`)
+  ]);
+  
+  const comments = commentsResponse.status === 'fulfilled' && commentsResponse.value.ok 
+    ? await commentsResponse.value.json() 
+    : [];
+    
+  const related = relatedResponse.status === 'fulfilled' && relatedResponse.value.ok 
+    ? await relatedResponse.value.json() 
+    : [];
 
   const breadcrumbItems = [
     { label: 'Home', href: '/' },

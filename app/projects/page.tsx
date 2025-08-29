@@ -234,55 +234,55 @@ export default function ProjectsPage() {
             ) : (
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 {currentProjects.map((project: Project) => (
-                  <Card
-                    key={project._id}
+              <Card
+                key={project._id}
                     className="overflow-hidden p-0 hover:shadow-lg transition-shadow flex flex-col"
-                  >
+              >
                     <div className="aspect-[16/9] overflow-hidden relative flex-shrink-0">
-                      {project.images &&
-                      project.images.length > 0 &&
-                      project.images[0]?.asset?.url ? (
-                          <Image
-                            src={`${project.images[0].asset.url}?w=800&h=450&fit=crop&auto=format&q=75`}
-                            alt={project.title}
-                            fill
-                            className="hover:scale-105 object-cover"
+                  {project.images &&
+                  project.images.length > 0 &&
+                  project.images[0]?.asset?.url ? (
+                    <Image
+                      src={`${project.images[0].asset.url}?w=800&h=450&fit=crop&auto=format&q=75`}
+                      alt={project.title}
+                      fill
+                      className="hover:scale-105 object-cover"
                             sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-                          />
-                        ) : (
-                          <div className="w-full h-full bg-muted flex items-center justify-center">
-                            <span className="text-muted-foreground">
-                            No image available
-                            </span>
-                          </div>
-                        )}
+                    />
+                  ) : (
+                    <div className="w-full h-full bg-muted flex items-center justify-center">
+                      <span className="text-muted-foreground">
+                        No image available
+                      </span>
                     </div>
+                  )}
+                </div>
                     <CardContent className="p-6 flex flex-col flex-1">
                       <div className="flex-1">
                         <h2 className="text-xl font-bold mb-4 text-foreground">
-                          {project.title}
-                        </h2>
-                        <p className="text-muted-foreground mb-4 leading-relaxed">
+                    {project.title}
+                  </h2>
+                  <p className="text-muted-foreground mb-4 leading-relaxed">
                           {project.description.length > 200 
                             ? `${project.description.substring(0, 100)}...` 
                             : project.description}
-                        </p>
-                        <div className="flex items-center text-sm text-muted-foreground mb-6">
-                          <MapPin className="h-4 w-4 mr-1" />
-                          <span>{project.location}</span>
-                        </div>
+                  </p>
+                  <div className="flex items-center text-sm text-muted-foreground mb-6">
+                    <MapPin className="h-4 w-4 mr-1" />
+                    <span>{project.location}</span>
+                  </div>
                       </div>
                       <div className="mt-auto">
-                        <Link href={`/projects/${project.slug.current}`}>
+                  <Link href={`/projects/${project.slug.current}`}>
                           <Button className="w-full bg-primary hover:bg-primary/90 text-primary-foreground">
-                            View Project
-                            <ArrowRight className="ml-2 h-4 w-4" />
-                          </Button>
-                        </Link>
+                      View Project
+                      <ArrowRight className="ml-2 h-4 w-4" />
+                    </Button>
+                  </Link>
                       </div>
-                    </CardContent>
-                  </Card>
-                ))}
+                </CardContent>
+              </Card>
+            ))}
               </div>
             )}
 
@@ -351,8 +351,8 @@ export default function ProjectsPage() {
               <CardContent className="p-6">
                 <h3 className="font-semibold mb-4">Search Projects</h3>
                 <div className="relative">
-                  <Input
-                    placeholder="Search projects..."
+                <Input
+                  placeholder="Search projects..."
                     value={searchQuery}
                     onChange={e => setSearchQuery(e.target.value)}
                     className="pr-10"
@@ -394,10 +394,10 @@ export default function ProjectsPage() {
                           }
                           )
                         </span>
-                      </div>
+              </div>
                     </button>
                   ))}
-                </div>
+            </div>
               </CardContent>
             </Card>
 
@@ -432,7 +432,7 @@ export default function ProjectsPage() {
                     View All Projects
                     <ArrowRight className="ml-1 h-3 w-3" />
                   </Link>
-                </div>
+            </div>
               </CardContent>
             </Card>
           </div>
