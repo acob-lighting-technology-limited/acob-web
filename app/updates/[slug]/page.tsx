@@ -190,6 +190,49 @@ export default async function UpdatePostPage({ params }: UpdatePostPageProps) {
               <div className="flex items-center gap-4 pt-8 border-t">
                 <ShareCopy className="rounded-full bg-transparent" />
               </div>
+              {Array.isArray(related) && related.length > 0 && (
+              <div className="pt-8 border-t">
+                <h3 className="text-xl font-semibold mb-4">Related Updates</h3>
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                  {related.map((item: any) => {
+                    const href = item?.slug?.current ? `/updates/${item.slug.current}` : null;
+                    const CardInner = (
+                      <>
+                        <div className="aspect-[16/9] overflow-hidden">
+                          <Image
+                            src={item.featuredImage || '/placeholder.svg'}
+                            alt={item.title}
+                            width={1200}
+                            height={675}
+                            className="w-full h-full object-cover"
+                          />
+                        </div>
+                        <CardContent className="p-4">
+                          <div className="text-xs text-muted-foreground mb-2">
+                            {new Date(item.publishedAt).toLocaleDateString()}
+                          </div>
+                          <h4 className="font-semibold text-foreground leading-snug line-clamp-2">
+                            {item.title}
+                          </h4>
+                        </CardContent>
+                      </>
+                    );
+
+                    const cardClass = "overflow-hidden p-0 border-2 hover:shadow-lg transition-shadow" + (href ? " cursor-pointer" : " opacity-90");
+
+                    return href ? (
+                      <Link key={item._id} href={href}>
+                        <Card className={cardClass}>{CardInner}</Card>
+                      </Link>
+                    ) : (
+                      <Card key={item._id} className={cardClass} aria-disabled="true">
+                        {CardInner}
+                      </Card>
+                    );
+                  })}
+                </div>
+              </div>
+            )}
 
 
 
@@ -248,32 +291,7 @@ export default async function UpdatePostPage({ params }: UpdatePostPageProps) {
 
         {/* Sidebar */}
         <div className="space-y-6 sticky top-20 self-start">
-          {/* Post Info */}
-          <Card className="!border-t-2 !border-t-primary border border-border">
-            <CardContent className="p-6">
-              <h3 className="font-semibold mb-4">Post Details</h3>
-              <div className="space-y-3">
-                <div className="flex items-start space-x-2 p-3 rounded-lg bg-muted/30 border border-border">
-                  <div className="h-4 w-4 bg-primary rounded-sm mt-0.5 flex-shrink-0"></div>
-                  <div>
-                    <p className="text-xs text-muted-foreground">Category</p>
-                    <p className="text-sm font-medium">
-                      {post.category === 'case-studies' ? 'Case Studies' :
-                       post.category === 'press-releases' ? 'Press Releases' : 'News'}
-                    </p>
-                  </div>
-                </div>
-                <div className="flex items-start space-x-2 p-3 rounded-lg bg-muted/30 border border-border">
-                  <div className="h-4 w-4 bg-primary rounded-sm mt-0.5 flex-shrink-0"></div>
-                  <div>
-                    <p className="text-xs text-muted-foreground">Author</p>
-                    <p className="text-sm font-medium">{post.author}</p>
-                  </div>
-                </div>
-              </div>
-            </CardContent>
-          </Card>
-
+       
           {/* Categories */}
           <Card className="!border-t-2 !border-t-primary border border-border">
             <CardContent className="p-6">
@@ -334,56 +352,7 @@ export default async function UpdatePostPage({ params }: UpdatePostPageProps) {
           </Card>
 
           {/* Related Updates */}
-          {Array.isArray(related) && related.length > 0 && (
-            <Card className="!border-t-2 !border-t-primary border border-border">
-              <CardContent className="p-6">
-                <h3 className="font-semibold mb-4">Related Updates</h3>
-                <div className="space-y-2">
-                  {related.map((item: any) => {
-                    const href = item?.slug?.current ? `/updates/${item.slug.current}` : null;
-                    return href ? (
-                      <Link
-                        key={item._id}
-                        href={href}
-                        className="block p-3 rounded-lg bg-muted/30 hover:bg-muted/50 transition-colors duration-200 group border border-border"
-                      >
-                        <h4 className="text-sm font-medium text-foreground group-hover:text-primary mb-1">
-                          {item.title}
-                        </h4>
-                        <div className="text-xs text-muted-foreground">
-                          {new Date(item.publishedAt).toLocaleDateString()}
-                        </div>
-                      </Link>
-                    ) : (
-                      <div
-                        key={item._id}
-                        className="p-3 rounded-lg bg-muted/30 opacity-50 border border-border"
-                        aria-disabled="true"
-                      >
-                        <h4 className="text-sm font-medium text-foreground mb-1">
-                          {item.title}
-                        </h4>
-                        <div className="text-xs text-muted-foreground">
-                          {new Date(item.publishedAt).toLocaleDateString()}
-                        </div>
-                      </div>
-                    );
-                  })}
-                </div>
-
-                {/* View All Updates Link */}
-                <div className="pt-4 border-t">
-                  <Link
-                    href="/updates"
-                    className="text-sm text-primary hover:text-primary/80 flex items-center font-medium"
-                  >
-                    View All Updates
-                    <ArrowRight className="ml-1 h-3 w-3" />
-                  </Link>
-                </div>
-              </CardContent>
-            </Card>
-          )}
+         
         </div>
       </div>
     </Container>
