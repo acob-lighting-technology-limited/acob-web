@@ -111,9 +111,10 @@ export default async function UpdatePostPage({ params }: UpdatePostPageProps) {
     notFound();
   }
 
-  // Fetch comments and related posts
+  // Fetch comments, related posts, and recent posts
   const comments = await getApprovedCommentsForPost(post._id);
   const related = await getRelatedUpdatePosts(post.category || 'news', slug, 3);
+  const recentPosts = await getUpdatePosts();
 
   const breadcrumbItems = [
     { label: 'Home', href: '/' },
@@ -295,6 +296,38 @@ export default async function UpdatePostPage({ params }: UpdatePostPageProps) {
                   className="block p-3 rounded-lg bg-muted/30 hover:bg-muted/50 transition-colors duration-200 text-sm font-medium border border-border"
                 >
                   All Updates
+                </Link>
+              </div>
+            </CardContent>
+          </Card>
+
+          {/* Recent Updates */}
+          <Card className="!border-t-2 !border-t-primary border border-border">
+            <CardContent className="p-6">
+              <h3 className="font-semibold mb-4">Recent Updates</h3>
+              <div className="space-y-2">
+                {recentPosts.slice(0, 5).map((item: UpdatePost) => (
+                  <Link
+                    key={item._id}
+                    href={`/updates/${item.slug.current}`}
+                    className="block p-3 rounded-lg bg-muted/30 hover:bg-muted/50 transition-colors duration-200 border border-border group"
+                  >
+                    <h4 className="text-sm font-medium text-foreground group-hover:text-primary mb-1">
+                      {item.title}
+                    </h4>
+                    <div className="text-xs text-muted-foreground">
+                      {new Date(item.publishedAt).toLocaleDateString()}
+                    </div>
+                  </Link>
+                ))}
+              </div>
+              <div className="pt-4 border-t">
+                <Link
+                  href="/updates"
+                  className="text-sm text-primary hover:text-primary/80 flex items-center font-medium"
+                >
+                  View All Updates
+                  <ArrowRight className="ml-1 h-3 w-3" />
                 </Link>
               </div>
             </CardContent>
