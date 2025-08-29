@@ -239,7 +239,9 @@ export default function ProjectsPage() {
                           {project.title}
                         </h2>
                         <p className="text-muted-foreground mb-4 leading-relaxed">
-                          {project.description}
+                          {project.description.length > 300 
+                            ? `${project.description.substring(0, 300)}...` 
+                            : project.description}
                         </p>
                         <div className="flex items-center text-sm text-muted-foreground mb-6">
                           <MapPin className="h-4 w-4 mr-1" />
