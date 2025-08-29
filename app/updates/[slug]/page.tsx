@@ -6,7 +6,8 @@ import type {
   PortableTextBlock,
   PortableTextComponentProps,
 } from '@portabletext/react';
-import { urlFor, getUpdatePost, getUpdatePosts, getApprovedCommentsForPost, getRelatedUpdatePosts } from '@/sanity/lib/client';
+import { urlFor } from '@/sanity/lib/client';
+// Remove direct Sanity imports - use API routes instead
 import { notFound } from 'next/navigation';
 import type { UpdatePost, Comment } from '@/lib/types';
 import { Container } from '@/components/ui/container';
@@ -23,7 +24,11 @@ interface UpdatePostPageProps {
 }
 
 export async function generateStaticParams() {
-  const posts = await getUpdatePosts();
+  const response = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL || 'http://localhost:3000'}/api/updates`);
+  if (!response.ok) {
+    return [];
+  }
+  const posts = await response.json();
   return posts
     .filter((post: UpdatePost) => post.slug && post.slug.current)
     .map((post: UpdatePost) => ({
@@ -106,15 +111,15 @@ const components = {
 export default async function UpdatePostPage({ params }: UpdatePostPageProps) {
   const { slug } = await params;
 
-  const post = await getUpdatePost(slug);
-
-  if (!post) {
+  const response = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL || 'http://localhost:3000'}/api/updates/${slug}`);
+  if (!response.ok) {
     notFound();
   }
-  const comments = await getApprovedCommentsForPost(post._id);
-  const related = post.category && post.slug?.current
-    ? await getRelatedUpdatePosts(post.category, post.slug.current, 3)
-    : [];
+  const post = await response.json();
+
+  // For now, we'll skip comments and related posts until we create those API routes
+  const comments: Comment[] = [];
+  const related: UpdatePost[] = [];
 
   const breadcrumbItems = [
     { label: 'Home', href: '/' },

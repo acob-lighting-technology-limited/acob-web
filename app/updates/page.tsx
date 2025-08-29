@@ -9,7 +9,7 @@ import { Input } from '@/components/ui/input';
 import { ArrowRight, Search, ChevronLeft, ChevronRight } from 'lucide-react';
 import Link from 'next/link';
 import Image from 'next/image';
-import { getUpdatePosts } from '@/sanity/lib/client';
+// Remove direct Sanity import - use API route instead
 import type { UpdatePost } from '@/lib/types';
 import { useEffect, useMemo, useState } from 'react';
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
@@ -40,7 +40,11 @@ export default function UpdatesPage() {
   useEffect(() => {
     const fetchPosts = async () => {
       try {
-        const fetchedPosts = await getUpdatePosts();
+        const response = await fetch('/api/updates');
+        if (!response.ok) {
+          throw new Error('Failed to fetch updates');
+        }
+        const fetchedPosts = await response.json();
         setPosts(fetchedPosts);
         setFilteredPosts(fetchedPosts);
       } catch (error) {

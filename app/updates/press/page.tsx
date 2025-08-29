@@ -12,11 +12,15 @@ import {
 } from 'lucide-react';
 import Link from 'next/link';
 import Image from 'next/image';
-import { getUpdatePosts } from '@/sanity/lib/client';
+// Remove direct Sanity import - use API route instead
 import type { UpdatePost } from '@/lib/types';
 
 export default async function PressPage() {
-  const posts = await getUpdatePosts();
+  const response = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL || 'http://localhost:3000'}/api/updates`);
+  if (!response.ok) {
+    throw new Error('Failed to fetch updates');
+  }
+  const posts = await response.json();
 
   // Filter for press releases using the new string-based category system
   const pressReleases = posts.filter(
