@@ -1,150 +1,214 @@
 'use client';
 
-import { useRef, useState, useEffect, useMemo, useCallback } from 'react';
-import { useScroll } from 'framer-motion';
-import Lenis from '@studio-freight/lenis';
-
-import Card from '../ui/stack-cards';
+import { useState, useEffect } from 'react';
 import Link from 'next/link';
-import { Button } from '../ui/button';
-import { ArrowRight } from 'lucide-react';
-import { MaskText } from '../animations/MaskText';
-import { ProjectsSkeleton } from '../ui/projects-skeleton';
+import Image from 'next/image';
+import { Button } from '@/components/ui/button';
+import { Card, CardContent } from '@/components/ui/card';
+import { Container } from '@/components/ui/container';
+import { ArrowRight, MapPin } from 'lucide-react';
 import type { Project } from '@/lib/types';
 
 export function ProjectsSection() {
-  // The container ref is still used for the <main> element, but useScroll will now target the window.
-  const container = useRef<HTMLElement>(null);
   const [projects, setProjects] = useState<Project[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
-  const fetchProjectsData = useCallback(async () => {
-    try {
-      const response = await fetch('/api/projects');
-      if (!response.ok) {
-        throw new Error('Failed to fetch projects');
+  useEffect(() => {
+    const fetchProjects = async () => {
+      try {
+        setLoading(true);
+        const response = await fetch('/api/projects');
+        
+        if (!response.ok) {
+          throw new Error('Failed to fetch projects');
+        }
+        
+        const data = await response.json();
+        setProjects(data.slice(0, 3)); // Show only 3 projects
+      } catch (err) {
+
+        setError('Failed to load projects. Please try again later.');
+      } finally {
+        setLoading(false);
       }
-      const fetchedProjects = await response.json();
-      setProjects(fetchedProjects);
-    } catch (err) {
-      console.error('Failed to fetch projects:', err);
-      setError('Failed to load projects.');
-    } finally {
-      setLoading(false);
-    }
+    };
+
+    fetchProjects();
   }, []);
 
-  useEffect(() => {
-    fetchProjectsData();
-
-    // Initialize Lenis for smooth scrolling
-    const lenis = new Lenis();
-
-    function raf(time: number) {
-      lenis.raf(time);
-      requestAnimationFrame(raf);
-    }
-
-    requestAnimationFrame(raf);
-
-    // Clean up Lenis instance on component unmount
-    return () => {
-      lenis.destroy();
-    };
-  }, [fetchProjectsData]);
-
-  // Use useScroll to track scroll progress of the window (default behavior when target is not specified)
-  // This is appropriate when Lenis is managing the global scroll.
-  const { scrollYProgress } = useScroll({
-    offset: ['start start', 'end end'],
-  });
-
-  // Memoize expensive computations
-  const processedProjects = useMemo(() => {
-    return projects.slice(0, 3).map((project, i) => {
-      const targetScale = 1 - (3 - i) * 0.05;
-
-      // Alternating gradient configuration: gray, green, gray, green, etc.
-      const gradients = [
-        { from: '#616161', to: '#000000' }, // 1st card - Gray
-        { from: '#08913F', to: '#003808' }, // 2nd card - Green
-        { from: '#616161', to: '#000000' }, // 3rd card - Gray
-      ];
-
-      const gradientConfig = gradients[i];
-
-      // Add fallback image if no valid images
-      const projectImages =
-        project.images?.length > 0
-          ? project.images
-          : [
-              {
-                asset: {
-                  url: '/images/olooji-community.jpg?height=800&width=1400',
-                },
-              },
-            ];
-
-      return {
-        ...project,
-        targetScale,
-        gradientConfig,
-        projectImages,
-      };
-    });
-  }, [projects]);
-
   if (loading) {
-    return <ProjectsSkeleton />;
+    return (
+      <section className="py-16 bg-background">
+        <div className="container mx-auto px-4">
+          <div className="text-center mb-12">
+            <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">
+              Featured Projects
+            </h2>
+            <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
+              Discover our latest rural electrification projects and mini-grid solutions
+            </p>
+          </div>
+          
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {[1, 2, 3].map((i) => (
+              <div key={i} className="animate-pulse">
+                <div className="bg-muted rounded-lg h-48 mb-4"></div>
+                <div className="space-y-3">
+                  <div className="h-4 bg-muted rounded w-3/4"></div>
+                  <div className="h-4 bg-muted rounded w-1/2"></div>
+                  <div className="h-4 bg-muted rounded w-2/3"></div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+    );
   }
 
   if (error) {
     return (
-      <section className="py-16 bg-zinc-50 dark:bg-zinc-950 text-center transition-colors duration-700">
-        <p className="text-red-500">{error}</p>
+      <section className="py-16 bg-background">
+        <div className="container mx-auto px-4 text-center">
+          <div className="max-w-md mx-auto">
+            <div className="text-red-500 mb-4">
+              <svg className="w-12 h-12 mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-2.5L13.732 4c-.77-.833-1.964-.833-2.732 0L3.732 16.5c-.77.833.192 2.5 1.732 2.5z" />
+              </svg>
+            </div>
+            <h3 className="text-lg font-semibold mb-2">Unable to Load Projects</h3>
+            <p className="text-muted-foreground mb-4">{error}</p>
+            <Button 
+              onClick={() => window.location.reload()} 
+              variant="outline"
+            >
+              Try Again
+            </Button>
+          </div>
+        </div>
+      </section>
+    );
+  }
+
+  if (projects.length === 0) {
+    return (
+      <section className="py-16 bg-background">
+        <div className="container mx-auto px-4 text-center">
+          <div className="max-w-md mx-auto">
+            <div className="text-muted-foreground mb-4">
+              <svg className="w-12 h-12 mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" />
+              </svg>
+            </div>
+            <h3 className="text-lg font-semibold mb-2">No Projects Available</h3>
+            <p className="text-muted-foreground">Check back soon for our latest projects.</p>
+          </div>
+        </div>
       </section>
     );
   }
 
   return (
-    <main
-      ref={container}
-      className="relative py-16 bg-zinc-50 dark:bg-zinc-950 transition-colors duration-700"
-    >
-      <div className="text-center mb-12">
-        <MaskText
-          phrases={[
-            'Latest 3 Rural Electrification Projects,',
-            'Mini-Grid Solutions & Energizing Supplies',
-          ]}
-          className="text-3xl md:text-4xl font-bold text-foreground transition-colors duration-700"
-        />
-      </div>
-      {processedProjects.map((project, i) => (
-        <Card
-          key={`p_${project._id}`}
-          i={i}
-          title={project.title}
-          description={project.description}
-          images={project.projectImages}
-          location={project.location}
-          gradientFrom={project.gradientConfig.from}
-          gradientTo={project.gradientConfig.to}
-          url={`/projects/${project.slug.current}`}
-          progress={scrollYProgress}
-          range={[i * 0.25, 1]}
-          targetScale={project.targetScale}
-        />
-      ))}
-      <div className="text-center mt-8">
-        <Link href="/projects">
-          <Button className="bg-primary hover:bg-primary/90">
-            View All Projects
-            <ArrowRight className="ml-2 h-4 w-4" />
-          </Button>
-        </Link>
-      </div>
-    </main>
+    <section className="py-16 bg-background">
+      <Container className="px-4">
+        {/* Section Header */}
+        <div className="text-center mb-12">
+          <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">
+            Featured Projects
+          </h2>
+          <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
+            Discover our latest rural electrification projects and mini-grid solutions that are powering communities across Nigeria
+          </p>
+        </div>
+
+        {/* Projects Grid */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-12">
+          {projects.map((project) => (
+            <Card 
+              key={project._id} 
+              className="group overflow-hidden hover:shadow-lg transition-all duration-300 hover:-translate-y-1"
+            >
+              {/* Project Image */}
+              <div className="aspect-[16/9] overflow-hidden relative bg-muted">
+                                 <Image
+                   src={project.images?.[0]?.asset?.url ? `${project.images[0].asset.url}?w=600&h=400&fit=crop&auto=format&q=75` : '/placeholder.svg'}
+                   alt={project.title}
+                   fill
+                   className="object-cover group-hover:scale-105 transition-transform duration-300"
+                   sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                   priority={true}
+                   onError={(e) => {
+                     const target = e.target as HTMLImageElement;
+                     target.src = '/placeholder.svg';
+                   }}
+                   onLoad={(e) => {
+                     const target = e.target as HTMLImageElement;
+                     target.style.opacity = '1';
+                   }}
+                   style={{ opacity: 0, transition: 'opacity 0.3s ease-in-out' }}
+                 />
+                <div className="absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                
+                {/* Project Type Badge */}
+                <div className="absolute top-4 left-4">
+                  <span className="bg-primary/90 text-primary-foreground px-3 py-1 rounded-full text-xs font-medium">
+                    Project
+                  </span>
+                </div>
+              </div>
+
+              {/* Project Content */}
+              <CardContent className="p-6">
+                <div className="space-y-4">
+                  {/* Project Meta */}
+                  <div className="flex items-center text-sm text-muted-foreground">
+                    <div className="flex items-center">
+                      <MapPin className="h-4 w-4 mr-1" />
+                      <span>{project.location}</span>
+                    </div>
+                  </div>
+
+                  {/* Project Title */}
+                  <h3 className="text-xl font-bold text-foreground group-hover:text-primary transition-colors duration-200">
+                    {project.title}
+                  </h3>
+
+                  {/* Project Description */}
+                  <p className="text-muted-foreground line-clamp-3">
+                    {project.description}
+                  </p>
+
+
+                </div>
+
+                {/* View Project Button */}
+                <div className="mt-6">
+                  <Link href={`/projects/${project.slug?.current}`}>
+                    <Button 
+                      variant="outline" 
+                      className="w-full group-hover:bg-primary group-hover:text-primary-foreground transition-colors duration-200"
+                    >
+                      View Project
+                      <ArrowRight className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform duration-200" />
+                    </Button>
+                  </Link>
+                </div>
+              </CardContent>
+            </Card>
+          ))}
+        </div>
+
+        {/* View All Projects CTA */}
+        <div className="text-center">
+          <Link href="/projects">
+            <Button size="lg" className="bg-primary hover:bg-primary/90">
+              View All Projects
+              <ArrowRight className="ml-2 h-4 w-4" />
+            </Button>
+          </Link>
+        </div>
+      </Container>
+    </section>
   );
 }
