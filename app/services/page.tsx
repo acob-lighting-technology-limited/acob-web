@@ -128,7 +128,9 @@ export default function ServicesPage() {
                           {service.title}
                         </h2>
                         <p className="text-muted-foreground mb-6 leading-relaxed">
-                          {service.shortDescription}
+                          {service.shortDescription.split(' ').length > 20 
+                            ? `${service.shortDescription.split(' ').slice(0, 30).join(' ')}...` 
+                            : service.shortDescription}
                         </p>
                       </div>
                       <div className="mt-auto">
