@@ -11,11 +11,16 @@
 const { createClient } = require('@sanity/client');
 
 const projectId = process.env.SANITY_STUDIO_PROJECT_ID || process.env.NEXT_PUBLIC_SANITY_PROJECT_ID;
-const dataset = process.env.SANITY_STUDIO_DATASET || process.env.NEXT_PUBLIC_SANITY_DATASET || 'production';
+const dataset = process.env.SANITY_STUDIO_DATASET || process.env.NEXT_PUBLIC_SANITY_DATASET;
 const token = process.env.SANITY_API_TOKEN;
 
 if (!projectId) {
   console.error('Missing SANITY_STUDIO_PROJECT_ID or NEXT_PUBLIC_SANITY_PROJECT_ID');
+  process.exit(1);
+}
+
+if (!dataset) {
+  console.error('Missing SANITY_STUDIO_DATASET or NEXT_PUBLIC_SANITY_DATASET');
   process.exit(1);
 }
 

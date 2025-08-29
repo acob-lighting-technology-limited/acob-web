@@ -1,9 +1,18 @@
 const { createClient } = require('@sanity/client');
 
+// Validate required environment variables
+if (!process.env.NEXT_PUBLIC_SANITY_PROJECT_ID) {
+  throw new Error('NEXT_PUBLIC_SANITY_PROJECT_ID environment variable is required');
+}
+
+if (!process.env.NEXT_PUBLIC_SANITY_DATASET) {
+  throw new Error('NEXT_PUBLIC_SANITY_DATASET environment variable is required');
+}
+
 // Configure Sanity client
 const client = createClient({
-  projectId: process.env.NEXT_PUBLIC_SANITY_PROJECT_ID || 'x16t7huo',
-  dataset: process.env.NEXT_PUBLIC_SANITY_DATASET || 'production',
+  projectId: process.env.NEXT_PUBLIC_SANITY_PROJECT_ID,
+  dataset: process.env.NEXT_PUBLIC_SANITY_DATASET,
   useCdn: false, // We need to bypass CDN to see real-time data
   apiVersion: '2024-01-01',
   token: process.env.SANITY_API_TOKEN, // You'll need a token with write access

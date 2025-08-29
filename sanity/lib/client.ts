@@ -10,11 +10,11 @@ const token = process.env.SANITY_API_TOKEN;
 
 // Validate required environment variables
 if (!projectId) {
-  console.warn('Sanity project ID not found. Using fallback value.');
+  throw new Error('SANITY_STUDIO_PROJECT_ID or NEXT_PUBLIC_SANITY_PROJECT_ID is required');
 }
 
 if (!dataset) {
-  console.warn('Sanity dataset not found. Using fallback value.');
+  throw new Error('SANITY_STUDIO_DATASET or NEXT_PUBLIC_SANITY_DATASET is required');
 }
 
 if (!token) {
@@ -24,18 +24,28 @@ if (!token) {
 }
 
 // Server-side client (for API routes and SSR)
+// Validate required environment variables
+if (!projectId) {
+  throw new Error('SANITY_STUDIO_PROJECT_ID or NEXT_PUBLIC_SANITY_PROJECT_ID is required');
+}
+
+if (!dataset) {
+  throw new Error('SANITY_STUDIO_DATASET or NEXT_PUBLIC_SANITY_DATASET is required');
+}
+
 export const client = createClient({
-  projectId: projectId || 'x16t7huo',
-  dataset: dataset || 'production',
+  projectId,
+  dataset,
   useCdn: false, // Disable CDN for server-side requests
   apiVersion: '2024-01-01',
   token: token,
 });
 
-// Client-side client (for browser requests)
+// Note: For security, prefer using API routes instead of direct client-side Sanity calls
+// This client is only for cases where you absolutely need client-side data fetching
 export const clientForBrowser = createClient({
-  projectId: projectId || 'x16t7huo',
-  dataset: dataset || 'production',
+  projectId,
+  dataset,
   useCdn: true, // Enable CDN for client-side requests
   apiVersion: '2024-01-01',
   // No token for client-side requests

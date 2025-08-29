@@ -5,7 +5,7 @@ import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { ArrowRight } from 'lucide-react';
 import Link from 'next/link';
-import { getUpdatePosts } from '@/sanity/lib/client';
+// Remove direct Sanity import - use API route instead
 
 import type { UpdatePost } from '@/lib/types';
 
@@ -16,10 +16,14 @@ export function UpdatesSection() {
   useEffect(() => {
     const fetchPosts = async () => {
       try {
-        const fetchedPosts = await getUpdatePosts();
+        const response = await fetch('/api/updates');
+        if (!response.ok) {
+          throw new Error('Failed to fetch updates');
+        }
+        const fetchedPosts = await response.json();
         setPosts(fetchedPosts);
       } catch (error) {
-
+        console.error('Error fetching updates:', error);
       } finally {
         setLoading(false);
       }
