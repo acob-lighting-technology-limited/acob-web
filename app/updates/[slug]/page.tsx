@@ -24,7 +24,7 @@ interface UpdatePostPageProps {
 }
 
 export async function generateStaticParams() {
-  const response = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL || 'http://localhost:3000'}/api/updates`);
+  const response = await fetch('/api/updates');
   if (!response.ok) {
     return [];
   }
@@ -111,7 +111,7 @@ const components = {
 export default async function UpdatePostPage({ params }: UpdatePostPageProps) {
   const { slug } = await params;
 
-  const response = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL || 'http://localhost:3000'}/api/updates/${slug}`);
+  const response = await fetch(`/api/updates/${slug}`);
   if (!response.ok) {
     notFound();
   }

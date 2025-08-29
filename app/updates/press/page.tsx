@@ -16,7 +16,7 @@ import Image from 'next/image';
 import type { UpdatePost } from '@/lib/types';
 
 export default async function PressPage() {
-  const response = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL || 'http://localhost:3000'}/api/updates`);
+  const response = await fetch('/api/updates');
   if (!response.ok) {
     throw new Error('Failed to fetch updates');
   }
