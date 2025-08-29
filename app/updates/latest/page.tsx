@@ -16,7 +16,7 @@ export default async function LatestPage() {
   const latestPosts = posts
     .sort(
       (a: UpdatePost, b: UpdatePost) =>
-        new Date(b.publishedAt).getTime() - new Date(a.publishedAt).getTime()
+        new Date(b.publishedAt).getTime() - new Date(a.publishedAt).getTime(),
     )
     .slice(0, 10);
 
@@ -60,7 +60,7 @@ export default async function LatestPage() {
                     <Calendar className="h-4 w-4 mr-1" />
                     <span>
                       {new Date(
-                        latestPosts[0].publishedAt
+                        latestPosts[0].publishedAt,
                       ).toLocaleDateString()}
                     </span>
                     <span className="mx-2">•</span>

@@ -20,7 +20,7 @@ export async function hashPassword(password: string): Promise<string> {
  */
 export async function verifyPassword(
   password: string,
-  hashedPassword: string
+  hashedPassword: string,
 ): Promise<boolean> {
   return bcrypt.compare(password, hashedPassword);
 }
@@ -54,7 +54,7 @@ export function getAdminCredentials(): AdminCredentials {
 
   if (!email || !passwordHash) {
     throw new Error(
-      'Admin credentials not properly configured in environment variables'
+      'Admin credentials not properly configured in environment variables',
     );
   }
 

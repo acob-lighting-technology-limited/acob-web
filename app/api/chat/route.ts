@@ -36,8 +36,10 @@ export async function POST(req: NextRequest) {
         console.error('GROQ_API_KEY is not set.');
       }
       return NextResponse.json(
-        { error: { message: 'Groq API key is missing', code: 'CONFIG_MISSING' } },
-        { status: 500 }
+        {
+          error: { message: 'Groq API key is missing', code: 'CONFIG_MISSING' },
+        },
+        { status: 500 },
       );
     }
 
@@ -59,8 +61,13 @@ export async function POST(req: NextRequest) {
         console.error('Invalid messages - not an array:', body);
       }
       return NextResponse.json(
-        { error: { message: 'Invalid messages format: must be an array', code: 'BAD_REQUEST' } },
-        { status: 400 }
+        {
+          error: {
+            message: 'Invalid messages format: must be an array',
+            code: 'BAD_REQUEST',
+          },
+        },
+        { status: 400 },
       );
     }
 
@@ -70,8 +77,13 @@ export async function POST(req: NextRequest) {
         console.error('Empty messages array');
       }
       return NextResponse.json(
-        { error: { message: 'Messages array cannot be empty', code: 'BAD_REQUEST' } },
-        { status: 400 }
+        {
+          error: {
+            message: 'Messages array cannot be empty',
+            code: 'BAD_REQUEST',
+          },
+        },
+        { status: 400 },
       );
     }
 
@@ -93,8 +105,13 @@ export async function POST(req: NextRequest) {
           console.error(`Invalid message at index ${i}:`, msg);
         }
         return NextResponse.json(
-          { error: { message: `Invalid message at index ${i}: must have 'role' and 'content'`, code: 'BAD_REQUEST' } },
-          { status: 400 }
+          {
+            error: {
+              message: `Invalid message at index ${i}: must have 'role' and 'content'`,
+              code: 'BAD_REQUEST',
+            },
+          },
+          { status: 400 },
         );
       }
     }
@@ -104,7 +121,7 @@ export async function POST(req: NextRequest) {
       (msg: { role: string; content: string }) => ({
         role: msg.role as 'user' | 'assistant' | 'system',
         content: msg.content,
-      })
+      }),
     );
 
     if (process.env.NODE_ENV !== 'production') {
@@ -164,8 +181,10 @@ export async function POST(req: NextRequest) {
       console.error('Chat route error:', err);
     }
     return NextResponse.json(
-      { error: { message: getErrorMessage(err), code: 'INTERNAL_SERVER_ERROR' } },
-      { status: 500 }
+      {
+        error: { message: getErrorMessage(err), code: 'INTERNAL_SERVER_ERROR' },
+      },
+      { status: 500 },
     );
   }
 }

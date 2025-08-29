@@ -41,17 +41,21 @@ export default function ProjectsPage() {
 
     // Filter by search query
     if (searchQuery.trim()) {
-      filtered = filtered.filter(project =>
-        project.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
-        project.description.toLowerCase().includes(searchQuery.toLowerCase()) ||
-        (project.location && project.location.toLowerCase().includes(searchQuery.toLowerCase()))
+      filtered = filtered.filter(
+        project =>
+          project.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
+          project.description
+            .toLowerCase()
+            .includes(searchQuery.toLowerCase()) ||
+          (project.location &&
+            project.location.toLowerCase().includes(searchQuery.toLowerCase())),
       );
     }
 
     // Filter by state
     if (selectedState) {
       filtered = filtered.filter(project => {
-        if (!project.location) return false;
+        if (!project.location) {return false;}
         const projectState = extractStateFromLocation(project.location);
         return projectState.toLowerCase().includes(selectedState.toLowerCase());
       });
@@ -68,31 +72,34 @@ export default function ProjectsPage() {
   // Get unique states for filtering - extract state names from location strings
   const extractStateFromLocation = (location: string): string => {
     // Special handling for Abuja/FCT
-    if (location.toLowerCase().includes('abuja') || location.toLowerCase().includes('fct')) {
+    if (
+      location.toLowerCase().includes('abuja') ||
+      location.toLowerCase().includes('fct')
+    ) {
       return 'Abuja';
     }
-    
+
     // Special handling for Northern Region
     if (location.toLowerCase().includes('northern region')) {
       return 'Northern Region';
     }
-    
+
     // Common patterns to extract state names
     const statePatterns = [
-      /,\s*([^,]+)\s*State/i,  // "City, State State"
+      /,\s*([^,]+)\s*State/i, // "City, State State"
       /,\s*([^,]+)\s*State\./i, // "City, State State."
-      /,\s*([^,]+)\s*State$/i,  // "City, State State" (end of string)
-      /,\s*([^,]+)$/i,          // "City, State" (end of string)
-      /,\s*([^,]+)\.$/i,        // "City, State." (end of string)
+      /,\s*([^,]+)\s*State$/i, // "City, State State" (end of string)
+      /,\s*([^,]+)$/i, // "City, State" (end of string)
+      /,\s*([^,]+)\.$/i, // "City, State." (end of string)
     ];
-    
+
     for (const pattern of statePatterns) {
       const match = location.match(pattern);
       if (match) {
         return match[1].trim();
       }
     }
-    
+
     // If no pattern matches, return the original location
     return location;
   };
@@ -102,8 +109,8 @@ export default function ProjectsPage() {
       projects
         .map(p => p.location)
         .filter(Boolean)
-        .map(extractStateFromLocation)
-    )
+        .map(extractStateFromLocation),
+    ),
   ).sort();
 
   if (isLoading) {
@@ -119,12 +126,18 @@ export default function ProjectsPage() {
             <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
               <div className="lg:col-span-2 space-y-8">
                 {[1, 2, 3].map(i => (
-                  <div key={i} className="h-64 bg-gray-300 dark:bg-gray-700 rounded animate-pulse" />
+                  <div
+                    key={i}
+                    className="h-64 bg-gray-300 dark:bg-gray-700 rounded animate-pulse"
+                  />
                 ))}
               </div>
               <div className="space-y-6">
                 {[1, 2].map(i => (
-                  <div key={i} className="h-32 bg-gray-300 dark:bg-gray-700 rounded animate-pulse" />
+                  <div
+                    key={i}
+                    className="h-32 bg-gray-300 dark:bg-gray-700 rounded animate-pulse"
+                  />
                 ))}
               </div>
             </div>
@@ -178,8 +191,12 @@ export default function ProjectsPage() {
                 <CardContent className="p-8 text-center">
                   <div className="text-muted-foreground mb-4">
                     <Search className="h-12 w-12 mx-auto mb-4 opacity-50" />
-                    <h3 className="text-xl font-semibold mb-2">No projects found</h3>
-                    <p>Try adjusting your search terms or browse all projects.</p>
+                    <h3 className="text-xl font-semibold mb-2">
+                      No projects found
+                    </h3>
+                    <p>
+                      Try adjusting your search terms or browse all projects.
+                    </p>
                   </div>
                   <Button variant="outline" onClick={handleClearSearch}>
                     View All Projects
@@ -188,48 +205,48 @@ export default function ProjectsPage() {
               </Card>
             ) : (
               filteredProjects.map((project: Project) => (
-              <Card
-                key={project._id}
-                className="overflow-hidden p-0 hover:shadow-lg transition-shadow"
-              >
-                <div className="aspect-[16/9] overflow-hidden relative">
-                  {project.images &&
-                  project.images.length > 0 &&
-                  project.images[0]?.asset?.url ? (
-                    <Image
-                      src={`${project.images[0].asset.url}?w=800&h=450&fit=crop&auto=format&q=75`}
-                      alt={project.title}
-                      fill
-                      className="hover:scale-105 object-cover"
-                      sizes="(max-width: 768px) 100vw, (max-width: 1200px) 66vw, 50vw"
-                    />
-                  ) : (
-                    <div className="w-full h-full bg-muted flex items-center justify-center">
-                      <span className="text-muted-foreground">
-                        No image available
-                      </span>
-                    </div>
-                  )}
-                </div>
-                <CardContent className="p-6">
-                  <h2 className="text-2xl font-bold mb-4 text-foreground">
-                    {project.title}
-                  </h2>
-                  <p className="text-muted-foreground mb-4 leading-relaxed">
-                    {project.description}
-                  </p>
-                  <div className="flex items-center text-sm text-muted-foreground mb-6">
-                    <MapPin className="h-4 w-4 mr-1" />
-                    <span>{project.location}</span>
+                <Card
+                  key={project._id}
+                  className="overflow-hidden p-0 hover:shadow-lg transition-shadow"
+                >
+                  <div className="aspect-[16/9] overflow-hidden relative">
+                    {project.images &&
+                    project.images.length > 0 &&
+                    project.images[0]?.asset?.url ? (
+                        <Image
+                          src={`${project.images[0].asset.url}?w=800&h=450&fit=crop&auto=format&q=75`}
+                          alt={project.title}
+                          fill
+                          className="hover:scale-105 object-cover"
+                          sizes="(max-width: 768px) 100vw, (max-width: 1200px) 66vw, 50vw"
+                        />
+                      ) : (
+                        <div className="w-full h-full bg-muted flex items-center justify-center">
+                          <span className="text-muted-foreground">
+                          No image available
+                          </span>
+                        </div>
+                      )}
                   </div>
-                  <Link href={`/projects/${project.slug.current}`}>
-                    <Button className="bg-primary hover:bg-primary/90 text-primary-foreground">
-                      View Project
-                      <ArrowRight className="ml-2 h-4 w-4" />
-                    </Button>
-                  </Link>
-                </CardContent>
-              </Card>
+                  <CardContent className="p-6">
+                    <h2 className="text-2xl font-bold mb-4 text-foreground">
+                      {project.title}
+                    </h2>
+                    <p className="text-muted-foreground mb-4 leading-relaxed">
+                      {project.description}
+                    </p>
+                    <div className="flex items-center text-sm text-muted-foreground mb-6">
+                      <MapPin className="h-4 w-4 mr-1" />
+                      <span>{project.location}</span>
+                    </div>
+                    <Link href={`/projects/${project.slug.current}`}>
+                      <Button className="bg-primary hover:bg-primary/90 text-primary-foreground">
+                        View Project
+                        <ArrowRight className="ml-2 h-4 w-4" />
+                      </Button>
+                    </Link>
+                  </CardContent>
+                </Card>
               ))
             )}
           </div>
@@ -244,7 +261,7 @@ export default function ProjectsPage() {
                   <Input
                     placeholder="Search projects..."
                     value={searchQuery}
-                    onChange={(e) => setSearchQuery(e.target.value)}
+                    onChange={e => setSearchQuery(e.target.value)}
                     className="pr-10"
                   />
                   <Search className="absolute right-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
@@ -260,7 +277,9 @@ export default function ProjectsPage() {
                   {uniqueStates.map((state: string) => (
                     <button
                       key={state}
-                      onClick={() => setSelectedState(selectedState === state ? null : state)}
+                      onClick={() =>
+                        setSelectedState(selectedState === state ? null : state)
+                      }
                       className={`w-full text-left p-3 rounded-lg transition-colors duration-200 text-sm font-medium border border-border ${
                         selectedState === state
                           ? 'bg-primary text-primary-foreground'
@@ -270,11 +289,17 @@ export default function ProjectsPage() {
                       <div className="flex items-center justify-between">
                         <span>{state}</span>
                         <span className="text-xs opacity-70">
-                          ({projects.filter(p => {
-                            if (!p.location) return false;
-                            const projectState = extractStateFromLocation(p.location);
-                            return projectState === state;
-                          }).length})
+                          (
+                          {
+                            projects.filter(p => {
+                              if (!p.location) {return false;}
+                              const projectState = extractStateFromLocation(
+                                p.location,
+                              );
+                              return projectState === state;
+                            }).length
+                          }
+                          )
                         </span>
                       </div>
                     </button>

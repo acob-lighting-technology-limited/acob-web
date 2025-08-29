@@ -97,7 +97,7 @@ export default function CertificationsPage() {
 
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-12">
           <div className="lg:col-span-2">
-        {/*
+            {/*
         <div className="text-center mb-12">
           <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">
             <MaskText phrases={['Our Certifications & Standards']} />
@@ -110,133 +110,139 @@ export default function CertificationsPage() {
           </p>
         </div> */}
 
-        {/* Certifications */}
-        <div className="mb-16">
-          <h3 className="text-2xl font-bold text-foreground mb-6 text-center">
-            Industry Certifications
-          </h3>
+            {/* Certifications */}
+            <div className="mb-16">
+              <h3 className="text-2xl font-bold text-foreground mb-6 text-center">
+                Industry Certifications
+              </h3>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {certifications.map((cert, index) => (
-              <Card key={index} className="hover:shadow-lg transition-shadow">
-                <CardContent className="p-6">
-                  <div className="flex items-start gap-3">
-                    <div className="w-12 h-12 bg-primary/10 rounded-full flex items-center justify-center flex-shrink-0">
-                      <Award className="w-6 h-6 text-primary" />
-                    </div>
-                    <div className="flex-1">
-                      <h4 className="text-lg font-bold text-foreground mb-1">
-                        {cert.title}
-                      </h4>
-                      <p className="text-muted-foreground text-sm mb-2">
-                        {cert.description}
-                      </p>
-                      <div className="flex items-center justify-between">
-                        <span className="text-sm text-muted-foreground">
-                          Year: {cert.year}
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                {certifications.map((cert, index) => (
+                  <Card
+                    key={index}
+                    className="hover:shadow-lg transition-shadow"
+                  >
+                    <CardContent className="p-6">
+                      <div className="flex items-start gap-3">
+                        <div className="w-12 h-12 bg-primary/10 rounded-full flex items-center justify-center flex-shrink-0">
+                          <Award className="w-6 h-6 text-primary" />
+                        </div>
+                        <div className="flex-1">
+                          <h4 className="text-lg font-bold text-foreground mb-1">
+                            {cert.title}
+                          </h4>
+                          <p className="text-muted-foreground text-sm mb-2">
+                            {cert.description}
+                          </p>
+                          <div className="flex items-center justify-between">
+                            <span className="text-sm text-muted-foreground">
+                              Year: {cert.year}
+                            </span>
+                            <span className="flex items-center text-sm text-green-600">
+                              <CheckCircle className="w-4 h-4 mr-1" />
+                              {cert.status}
+                            </span>
+                          </div>
+                        </div>
+                      </div>
+                    </CardContent>
+                  </Card>
+                ))}
+              </div>
+            </div>
+
+            {/* Awards */}
+            <div className="mb-16">
+              <h3 className="text-2xl font-bold text-foreground mb-6 text-center">
+                Awards & Recognition
+              </h3>
+
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                {awards.map((award, index) => (
+                  <Card
+                    key={index}
+                    className="hover:shadow-lg transition-shadow"
+                  >
+                    <CardContent className="p-6">
+                      <div className="text-center">
+                        <div className="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-4">
+                          <Award className="w-8 h-8 text-primary" />
+                        </div>
+                        <h4 className="text-lg font-bold text-foreground mb-2">
+                          {award.title}
+                        </h4>
+                        <p className="text-primary font-semibold text-sm mb-2">
+                          {award.organization}
+                        </p>
+                        <p className="text-muted-foreground text-sm mb-3">
+                          {award.description}
+                        </p>
+                        <span className="inline-block bg-primary/10 text-primary px-3 py-1 rounded-full text-sm font-medium">
+                          {award.year}
                         </span>
-                        <span className="flex items-center text-sm text-green-600">
-                          <CheckCircle className="w-4 h-4 mr-1" />
-                          {cert.status}
-                        </span>
+                      </div>
+                    </CardContent>
+                  </Card>
+                ))}
+              </div>
+            </div>
+
+            {/* Quality Commitment */}
+            <div className="mb-16">
+              <Card className="border-2 border-primary/20">
+                <CardContent className="p-8">
+                  <div className="text-center">
+                    <h3 className="text-2xl font-bold text-foreground mb-4">
+                      Our Quality Commitment
+                    </h3>
+                    <p className="text-lg text-muted-foreground mb-6 max-w-3xl mx-auto">
+                      At ACOB Lighting, we are committed to maintaining the
+                      highest standards of quality in all our operations. Our
+                      certifications and awards reflect our dedication to
+                      excellence, safety, and environmental responsibility.
+                    </p>
+                    <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                      <div className="text-center">
+                        <div className="w-12 h-12 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-3">
+                          <span className="text-xl">🔒</span>
+                        </div>
+                        <h4 className="font-semibold text-foreground mb-2">
+                          Safety First
+                        </h4>
+                        <p className="text-sm text-muted-foreground">
+                          Ensuring the safety of our team and communities in all
+                          projects.
+                        </p>
+                      </div>
+                      <div className="text-center">
+                        <div className="w-12 h-12 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-3">
+                          <span className="text-xl">🌍</span>
+                        </div>
+                        <h4 className="font-semibold text-foreground mb-2">
+                          Environmental Care
+                        </h4>
+                        <p className="text-sm text-muted-foreground">
+                          Minimizing environmental impact through sustainable
+                          practices.
+                        </p>
+                      </div>
+                      <div className="text-center">
+                        <div className="w-12 h-12 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-3">
+                          <span className="text-xl">⭐</span>
+                        </div>
+                        <h4 className="font-semibold text-foreground mb-2">
+                          Quality Excellence
+                        </h4>
+                        <p className="text-sm text-muted-foreground">
+                          Delivering superior quality in every project and
+                          service.
+                        </p>
                       </div>
                     </div>
                   </div>
                 </CardContent>
               </Card>
-            ))}
-          </div>
-        </div>
-
-        {/* Awards */}
-        <div className="mb-16">
-          <h3 className="text-2xl font-bold text-foreground mb-6 text-center">
-            Awards & Recognition
-          </h3>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {awards.map((award, index) => (
-              <Card key={index} className="hover:shadow-lg transition-shadow">
-                <CardContent className="p-6">
-                  <div className="text-center">
-                    <div className="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-4">
-                      <Award className="w-8 h-8 text-primary" />
-                    </div>
-                    <h4 className="text-lg font-bold text-foreground mb-2">
-                      {award.title}
-                    </h4>
-                    <p className="text-primary font-semibold text-sm mb-2">
-                      {award.organization}
-                    </p>
-                    <p className="text-muted-foreground text-sm mb-3">
-                      {award.description}
-                    </p>
-                    <span className="inline-block bg-primary/10 text-primary px-3 py-1 rounded-full text-sm font-medium">
-                      {award.year}
-                    </span>
-                  </div>
-                </CardContent>
-              </Card>
-            ))}
-          </div>
-        </div>
-
-        {/* Quality Commitment */}
-        <div className="mb-16">
-          <Card className="border-2 border-primary/20">
-            <CardContent className="p-8">
-              <div className="text-center">
-                <h3 className="text-2xl font-bold text-foreground mb-4">
-                  Our Quality Commitment
-                </h3>
-                <p className="text-lg text-muted-foreground mb-6 max-w-3xl mx-auto">
-                  At ACOB Lighting, we are committed to maintaining the highest
-                  standards of quality in all our operations. Our certifications
-                  and awards reflect our dedication to excellence, safety, and
-                  environmental responsibility.
-                </p>
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-                  <div className="text-center">
-                    <div className="w-12 h-12 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-3">
-                      <span className="text-xl">🔒</span>
-                    </div>
-                    <h4 className="font-semibold text-foreground mb-2">
-                      Safety First
-                    </h4>
-                    <p className="text-sm text-muted-foreground">
-                      Ensuring the safety of our team and communities in all
-                      projects.
-                    </p>
-                  </div>
-                  <div className="text-center">
-                    <div className="w-12 h-12 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-3">
-                      <span className="text-xl">🌍</span>
-                    </div>
-                    <h4 className="font-semibold text-foreground mb-2">
-                      Environmental Care
-                    </h4>
-                    <p className="text-sm text-muted-foreground">
-                      Minimizing environmental impact through sustainable
-                      practices.
-                    </p>
-                  </div>
-                  <div className="text-center">
-                    <div className="w-12 h-12 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-3">
-                      <span className="text-xl">⭐</span>
-                    </div>
-                    <h4 className="font-semibold text-foreground mb-2">
-                      Quality Excellence
-                    </h4>
-                    <p className="text-sm text-muted-foreground">
-                      Delivering superior quality in every project and service.
-                    </p>
-                  </div>
-                </div>
-              </div>
-            </CardContent>
-          </Card>
-        </div>
-
+            </div>
           </div>
 
           {/* Sidebar */}
@@ -248,21 +254,27 @@ export default function CertificationsPage() {
                   <div className="flex items-start space-x-2 p-3 rounded-lg bg-muted/30 border border-border">
                     <div className="h-4 w-4 bg-primary rounded-sm mt-0.5 flex-shrink-0"></div>
                     <div>
-                      <p className="text-xs text-muted-foreground">ISO Certified</p>
+                      <p className="text-xs text-muted-foreground">
+                        ISO Certified
+                      </p>
                       <p className="text-sm font-medium">Multiple Standards</p>
                     </div>
                   </div>
                   <div className="flex items-start space-x-2 p-3 rounded-lg bg-muted/30 border border-border">
                     <div className="h-4 w-4 bg-primary rounded-sm mt-0.5 flex-shrink-0"></div>
                     <div>
-                      <p className="text-xs text-muted-foreground">Industry Awards</p>
+                      <p className="text-xs text-muted-foreground">
+                        Industry Awards
+                      </p>
                       <p className="text-sm font-medium">3+ Awards Received</p>
                     </div>
                   </div>
                   <div className="flex items-start space-x-2 p-3 rounded-lg bg-muted/30 border border-border">
                     <div className="h-4 w-4 bg-primary rounded-sm mt-0.5 flex-shrink-0"></div>
                     <div>
-                      <p className="text-xs text-muted-foreground">Compliance</p>
+                      <p className="text-xs text-muted-foreground">
+                        Compliance
+                      </p>
                       <p className="text-sm font-medium">100% Regulatory</p>
                     </div>
                   </div>

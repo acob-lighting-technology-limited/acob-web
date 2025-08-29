@@ -84,7 +84,7 @@ const HeroSection = React.memo(function HeroSection({
         }, 200);
       }, 800);
     },
-    [isTransitioning, currentSlide]
+    [isTransitioning, currentSlide],
   );
 
   const nextSlide = useCallback(() => {
@@ -124,7 +124,7 @@ const HeroSection = React.memo(function HeroSection({
 
   const currentSlideData = useMemo(
     () => allSlides[currentSlide],
-    [currentSlide, allSlides]
+    [currentSlide, allSlides],
   );
 
   // // Preload critical images for better LCP

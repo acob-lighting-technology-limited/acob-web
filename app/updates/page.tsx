@@ -33,7 +33,7 @@ export default function UpdatesPage() {
     const page = pageStr ? Math.max(1, parseInt(pageStr, 10) || 1) : 1;
     setSearchQuery(q);
     setCurrentPage(page);
-  
+
   }, []);
 
   // Fetch posts
@@ -84,10 +84,10 @@ export default function UpdatesPage() {
   // Keep URL in sync
   useEffect(() => {
     const sp = new (globalThis as any).URLSearchParams(params.toString());
-    if (searchQuery) sp.set('q', searchQuery);
-    else sp.delete('q');
-    if (currentPage && currentPage !== 1) sp.set('page', String(currentPage));
-    else sp.delete('page');
+    if (searchQuery) {sp.set('q', searchQuery);}
+    else {sp.delete('q');}
+    if (currentPage && currentPage !== 1) {sp.set('page', String(currentPage));}
+    else {sp.delete('page');}
     router.replace(`${pathname}?${sp.toString()}`, { scroll: false });
   }, [searchQuery, currentPage, pathname, router]);
 
@@ -102,7 +102,7 @@ export default function UpdatesPage() {
   const endIndex = startIndex + postsPerPage;
   const currentPosts = useMemo(
     () => filteredPosts.slice(startIndex, endIndex),
-    [filteredPosts, startIndex, endIndex]
+    [filteredPosts, startIndex, endIndex],
   );
 
   const goToPage = (page: number) => {
@@ -222,7 +222,7 @@ export default function UpdatesPage() {
                       <div className="flex items-center gap-1">
                         {Array.from(
                           { length: totalPages },
-                          (_, i) => i + 1
+                          (_, i) => i + 1,
                         ).map(page => {
                           const shouldShow =
                             page === 1 ||

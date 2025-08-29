@@ -19,7 +19,7 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
 
   // Filter posts by category using the new string-based system
   const categoryPosts = posts.filter(
-    (post: UpdatePost) => post.category === slug
+    (post: UpdatePost) => post.category === slug,
   );
 
   const breadcrumbItems = [

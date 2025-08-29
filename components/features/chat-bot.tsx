@@ -51,19 +51,19 @@ const formatMessage = (content: string) => {
   // Convert URLs to clickable links
   formatted = formatted.replace(
     /(https?:\/\/[^\s<]+)/g,
-    '<a href="$1" target="_blank" rel="noopener noreferrer" class="text-blue-600 hover:text-blue-800 underline">$1</a>'
+    '<a href="$1" target="_blank" rel="noopener noreferrer" class="text-blue-600 hover:text-blue-800 underline">$1</a>',
   );
 
   // Convert email addresses
   formatted = formatted.replace(
     /([a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,})/g,
-    '<a href="mailto:$1" class="text-blue-600 hover:text-blue-800 underline">$1</a>'
+    '<a href="mailto:$1" class="text-blue-600 hover:text-blue-800 underline">$1</a>',
   );
 
   // Convert phone numbers
   formatted = formatted.replace(
     /(\d{4}\s?\d{3}\s?\d{4})/g,
-    '<a href="tel:$1" class="text-blue-600 hover:text-blue-800 underline">$1</a>'
+    '<a href="tel:$1" class="text-blue-600 hover:text-blue-800 underline">$1</a>',
   );
 
   // Convert line breaks
@@ -453,45 +453,45 @@ export function ChatBot() {
                 {isLoading &&
                   displayMessages[displayMessages.length - 1]?.role ===
                     'user' && (
-                    <motion.div
-                      initial={{ opacity: 0, y: 20 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      className="flex justify-start mb-2"
-                    >
-                      <div className="bg-surface rounded-t-2xl rounded-br-2xl rounded-bl-md shadow-sm px-4 py-3 relative">
-                        <div className="flex items-center gap-1">
-                          <motion.div
-                            animate={{ scale: [1, 1.2, 1] }}
-                            transition={{
-                              duration: 0.6,
-                              repeat: Number.POSITIVE_INFINITY,
-                              delay: 0,
-                            }}
-                            className="w-2 h-2 bg-primary rounded-full"
-                          />
-                          <motion.div
-                            animate={{ scale: [1, 1.2, 1] }}
-                            transition={{
-                              duration: 0.6,
-                              repeat: Number.POSITIVE_INFINITY,
-                              delay: 0.2,
-                            }}
-                            className="w-2 h-2 bg-primary rounded-full"
-                          />
-                          <motion.div
-                            animate={{ scale: [1, 1.2, 1] }}
-                            transition={{
-                              duration: 0.6,
-                              repeat: Number.POSITIVE_INFINITY,
-                              delay: 0.4,
-                            }}
-                            className="w-2 h-2 bg-primary rounded-full"
-                          />
-                        </div>
-                        <div className="absolute top-0 -left-1 w-3 h-3 transform rotate-45 bg-surface" />
+                  <motion.div
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    className="flex justify-start mb-2"
+                  >
+                    <div className="bg-surface rounded-t-2xl rounded-br-2xl rounded-bl-md shadow-sm px-4 py-3 relative">
+                      <div className="flex items-center gap-1">
+                        <motion.div
+                          animate={{ scale: [1, 1.2, 1] }}
+                          transition={{
+                            duration: 0.6,
+                            repeat: Number.POSITIVE_INFINITY,
+                            delay: 0,
+                          }}
+                          className="w-2 h-2 bg-primary rounded-full"
+                        />
+                        <motion.div
+                          animate={{ scale: [1, 1.2, 1] }}
+                          transition={{
+                            duration: 0.6,
+                            repeat: Number.POSITIVE_INFINITY,
+                            delay: 0.2,
+                          }}
+                          className="w-2 h-2 bg-primary rounded-full"
+                        />
+                        <motion.div
+                          animate={{ scale: [1, 1.2, 1] }}
+                          transition={{
+                            duration: 0.6,
+                            repeat: Number.POSITIVE_INFINITY,
+                            delay: 0.4,
+                          }}
+                          className="w-2 h-2 bg-primary rounded-full"
+                        />
                       </div>
-                    </motion.div>
-                  )}
+                      <div className="absolute top-0 -left-1 w-3 h-3 transform rotate-45 bg-surface" />
+                    </div>
+                  </motion.div>
+                )}
 
                 {/* Error Message */}
                 {error && (
@@ -549,9 +549,9 @@ export function ChatBot() {
                                             '/updates/case-studies'
                                           ? 'Case Studies Page'
                                           : navigationRoute
-                                              .split('/')
-                                              .pop()
-                                              ?.replace(/-/g, ' ')}
+                                            .split('/')
+                                            .pop()
+                                            ?.replace(/-/g, ' ')}
                     </Button>
                   </motion.div>
                 )}
@@ -607,7 +607,7 @@ export function ChatBot() {
                           e.preventDefault();
                           // Trigger form submission manually
                           const form = document.getElementById(
-                            'chat-form'
+                            'chat-form',
                           ) as HTMLFormElement;
                           if (form) {
                             const submitEvent = new Event('submit', {

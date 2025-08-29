@@ -17,7 +17,7 @@ export function TestimonialsSection() {
 
   const prevTestimonial = () => {
     setCurrentIndex(
-      prev => (prev - 1 + testimonials.length) % testimonials.length
+      prev => (prev - 1 + testimonials.length) % testimonials.length,
     );
   };
 

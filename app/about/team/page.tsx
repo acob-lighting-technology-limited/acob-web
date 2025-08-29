@@ -48,45 +48,45 @@ export default function TeamPage() {
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-12">
           <div className="lg:col-span-2">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-16">
-          {teamMembers.map(member => (
-            <Card
-              key={member.id}
-              className="overflow-hidden hover:shadow-lg transition-shadow !py-0"
-            >
-              <div className="aspect-[4/3] overflow-hidden">
-                <Image
-                  src={member.image}
-                  alt={member.name}
-                  fill
-                  className="object-cover hover:scale-105 transition-transform duration-300"
-                  sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-                />
-              </div>
-              <CardContent className="p-6">
-                <h3 className="text-xl font-bold text-foreground mb-1">
-                  {member.name}
-                </h3>
-                <p className="text-primary font-semibold mb-3">
-                  {member.position}
-                </p>
-                <p className="text-muted-foreground text-sm leading-relaxed mb-4">
-                  {member.bio}
-                </p>
-                <div className="flex space-x-2">
-                  <Link href={member.linkedin}>
-                    <Button variant="outline" size="sm" className="w-8 h-8 p-0">
-                      <Linkedin className="w-4 h-4" />
-                    </Button>
-                  </Link>
-                  <Link href={`mailto:${member.email}`}>
-                    <Button variant="outline" size="sm" className="w-8 h-8 p-0">
-                      <Mail className="w-4 h-4" />
-                    </Button>
-                  </Link>
-                </div>
-              </CardContent>
-            </Card>
-          ))}
+              {teamMembers.map(member => (
+                <Card
+                  key={member.id}
+                  className="overflow-hidden hover:shadow-lg transition-shadow !py-0"
+                >
+                  <div className="aspect-[4/3] overflow-hidden">
+                    <Image
+                      src={member.image}
+                      alt={member.name}
+                      fill
+                      className="object-cover hover:scale-105 transition-transform duration-300"
+                      sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                    />
+                  </div>
+                  <CardContent className="p-6">
+                    <h3 className="text-xl font-bold text-foreground mb-1">
+                      {member.name}
+                    </h3>
+                    <p className="text-primary font-semibold mb-3">
+                      {member.position}
+                    </p>
+                    <p className="text-muted-foreground text-sm leading-relaxed mb-4">
+                      {member.bio}
+                    </p>
+                    <div className="flex space-x-2">
+                      <Link href={member.linkedin}>
+                        <Button variant="outline" size="sm" className="w-8 h-8 p-0">
+                          <Linkedin className="w-4 h-4" />
+                        </Button>
+                      </Link>
+                      <Link href={`mailto:${member.email}`}>
+                        <Button variant="outline" size="sm" className="w-8 h-8 p-0">
+                          <Mail className="w-4 h-4" />
+                        </Button>
+                      </Link>
+                    </div>
+                  </CardContent>
+                </Card>
+              ))}
             </div>
           </div>
 

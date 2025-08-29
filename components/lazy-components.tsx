@@ -10,7 +10,7 @@ export const LazyChatBot = dynamic(
       <div className="fixed bottom-4 right-4 w-12 h-12 bg-primary rounded-full animate-pulse" />
     ),
     ssr: false,
-  }
+  },
 );
 
 export const LazyBackupStrategy = dynamic(
@@ -21,7 +21,7 @@ export const LazyBackupStrategy = dynamic(
   {
     loading: () => <div className="h-64 bg-muted animate-pulse rounded-lg" />,
     ssr: false,
-  }
+  },
 );
 
 export const LazyCookieConsent = dynamic(
@@ -32,7 +32,7 @@ export const LazyCookieConsent = dynamic(
   {
     loading: () => null,
     ssr: false,
-  }
+  },
 );
 
 export const LazySpamProtection = dynamic(
@@ -43,7 +43,7 @@ export const LazySpamProtection = dynamic(
   {
     loading: () => null,
     ssr: false,
-  }
+  },
 );
 
 
@@ -56,17 +56,17 @@ export const LazyProjectsSection = dynamic(
     })),
   {
     loading: () => <div className="h-96 bg-muted animate-pulse rounded-lg" />,
-  }
+  },
 );
 
 export const LazyNewsSection = dynamic(
   () =>
     import('./sections/updates-section').then(mod => ({
-      default: mod.NewsSection,
+      default: mod.UpdatesSection,
     })),
   {
     loading: () => <div className="h-96 bg-muted animate-pulse rounded-lg" />,
-  }
+  },
 );
 
 // Lazy load UI components
@@ -74,7 +74,7 @@ export const LazyCarousel = dynamic(
   () => import('./ui/carousel').then(mod => ({ default: mod.Carousel })),
   {
     loading: () => <div className="h-64 bg-muted animate-pulse rounded-lg" />,
-  }
+  },
 );
 
 export const LazyStackCards = dynamic(() => import('./ui/stack-cards'), {

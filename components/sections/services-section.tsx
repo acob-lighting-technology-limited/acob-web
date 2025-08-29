@@ -34,7 +34,7 @@ const ServicesSection = React.memo(function ServicesSection() {
   const [carouselApi, setCarouselApi] = useState<CarouselApi>();
 
   const plugin = React.useRef(
-    Autoplay({ delay: 4000, stopOnInteraction: true })
+    Autoplay({ delay: 4000, stopOnInteraction: true }),
   );
   useEffect(() => {
     if (!carouselApi) {

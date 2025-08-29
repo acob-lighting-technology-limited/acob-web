@@ -26,7 +26,7 @@ export default function ServicesPage() {
       filtered = filtered.filter(service =>
         service.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
         service.shortDescription.toLowerCase().includes(searchQuery.toLowerCase()) ||
-        service.fullDescription.toLowerCase().includes(searchQuery.toLowerCase())
+        service.fullDescription.toLowerCase().includes(searchQuery.toLowerCase()),
       );
     }
 
@@ -39,9 +39,9 @@ export default function ServicesPage() {
           'Captive Power': ['Power Solutions'],
           'Energy Audit': ['Consulting'],
           'Installation': ['Construction'],
-          'Maintenance': ['Infrastructure', 'Construction']
+          'Maintenance': ['Infrastructure', 'Construction'],
         };
-        
+
         const targetCategories = categoryMapping[selectedCategory] || [selectedCategory];
         return targetCategories.includes(service.category);
       });
@@ -108,34 +108,34 @@ export default function ServicesPage() {
               </Card>
             ) : (
               filteredServices.map(service => (
-              <Card
-                key={service.id}
-                className="overflow-hidden p-0 hover:shadow-lg transition-shadow"
-              >
-                <div className="aspect-[16/9] overflow-hidden relative">
-                  <Image
-                    src={service.image || '/placeholder.svg'}
-                    alt={service.title}
-                    fill
-                    className="hover:scale-105 object-cover"
-                    sizes="(max-width: 768px) 100vw, (max-width: 1200px) 66vw, 50vw"
-                  />
-                </div>
-                <CardContent className="p-6">
-                  <h2 className="text-2xl font-bold mb-4 text-foreground">
-                    {service.title}
-                  </h2>
-                  <p className="text-muted-foreground mb-6 leading-relaxed">
-                    {service.shortDescription}
-                  </p>
-                  <Link href={`/services/${service.slug}`}>
-                    <Button className="bg-primary hover:bg-primary/90 text-primary-foreground">
+                <Card
+                  key={service.id}
+                  className="overflow-hidden p-0 hover:shadow-lg transition-shadow"
+                >
+                  <div className="aspect-[16/9] overflow-hidden relative">
+                    <Image
+                      src={service.image || '/placeholder.svg'}
+                      alt={service.title}
+                      fill
+                      className="hover:scale-105 object-cover"
+                      sizes="(max-width: 768px) 100vw, (max-width: 1200px) 66vw, 50vw"
+                    />
+                  </div>
+                  <CardContent className="p-6">
+                    <h2 className="text-2xl font-bold mb-4 text-foreground">
+                      {service.title}
+                    </h2>
+                    <p className="text-muted-foreground mb-6 leading-relaxed">
+                      {service.shortDescription}
+                    </p>
+                    <Link href={`/services/${service.slug}`}>
+                      <Button className="bg-primary hover:bg-primary/90 text-primary-foreground">
                       Read More
-                      <ArrowRight className="ml-2 h-4 w-4" />
-                    </Button>
-                  </Link>
-                </CardContent>
-              </Card>
+                        <ArrowRight className="ml-2 h-4 w-4" />
+                      </Button>
+                    </Link>
+                  </CardContent>
+                </Card>
               ))
             )}
           </div>
@@ -177,13 +177,13 @@ export default function ServicesPage() {
                         <span>{category}</span>
                         <span className="text-xs opacity-70">
                           ({(() => {
-                            if (category === 'All Services') return servicesData.length;
+                            if (category === 'All Services') {return servicesData.length;}
                             const categoryMapping: { [key: string]: string[] } = {
                               'Mini-Grid Solutions': ['Power Solutions'],
                               'Captive Power': ['Power Solutions'],
                               'Energy Audit': ['Consulting'],
                               'Installation': ['Construction'],
-                              'Maintenance': ['Infrastructure', 'Construction']
+                              'Maintenance': ['Infrastructure', 'Construction'],
                             };
                             const targetCategories = categoryMapping[category] || [category];
                             return servicesData.filter(s => targetCategories.includes(s.category)).length;

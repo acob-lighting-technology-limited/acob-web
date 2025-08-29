@@ -112,7 +112,7 @@ export function TransitionSection() {
   const isInView = useInView(ref, { once: true, margin: '-50px' });
   const [randomImages, setRandomImages] = useState<RandomImage[]>([]);
   const [backgroundImage, setBackgroundImage] = useState(
-    '/images/transition-bg.jpg'
+    '/images/transition-bg.jpg',
   );
   const [isLoading, setIsLoading] = useState(true);
   const [hasLoaded, setHasLoaded] = useState(false);

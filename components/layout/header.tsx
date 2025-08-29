@@ -94,7 +94,7 @@ const DropdownMenu: React.FC<DropdownMenuProps> = ({
 
 const MobileMenu: React.FC<MobileMenuProps> = ({ isOpen, onClose }) => {
   const [expandedItems, setExpandedItems] = useState<Record<string, boolean>>(
-    {}
+    {},
   );
 
   const toggleExpanded = (itemName: string) => {
@@ -275,10 +275,10 @@ export function Header() {
         bg-background/95 backdrop-blur-sm border-b-[2px] border-border
         dark:bg-black 
         ${
-          isScrolled
-            ? 'bg-background/75 backdrop-blur-3xl shadow-lg border-b-[1px] border-border dark:bg-background'
-            : 'bg-background/95 backdrop-blur-sm border-b border-border dark:bg-background'
-        }
+    isScrolled
+      ? 'bg-background/75 backdrop-blur-3xl shadow-lg border-b-[1px] border-border dark:bg-background'
+      : 'bg-background/95 backdrop-blur-sm border-b border-border dark:bg-background'
+    }
       `}
       >
         <Container noPadding className="px-4">

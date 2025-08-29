@@ -17,7 +17,7 @@ const NextStudio = dynamic(
   {
     ssr: false,
     loading: () => <div>Loading Sanity Studio...</div>,
-  }
+  },
 );
 
 export default function StudioPage() {

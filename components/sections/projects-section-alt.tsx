@@ -79,12 +79,12 @@ export function ProjectsSectionAlt() {
         project.images?.length > 0
           ? project.images
           : [
-              {
-                asset: {
-                  url: '/images/olooji-community.jpg?height=800&width=1400',
-                },
+            {
+              asset: {
+                url: '/images/olooji-community.jpg?height=800&width=1400',
               },
-            ];
+            },
+          ];
 
       return {
         ...project,

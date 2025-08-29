@@ -46,7 +46,7 @@ export function CommentForm({ postId }: CommentFormProps) {
       }
 
       setSuccess(
-        'Comment submitted successfully! It will appear after moderation.'
+        'Comment submitted successfully! It will appear after moderation.',
       );
       setName('');
       setEmail('');

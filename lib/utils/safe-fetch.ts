@@ -15,7 +15,7 @@ interface SafeFetchResponse<T> {
  */
 export async function safeFetch<T>(
   url: string,
-  options: SafeFetchOptions<T> = {}
+  options: SafeFetchOptions<T> = {},
 ): Promise<SafeFetchResponse<T>> {
   const {
     fallbackData = null,
@@ -86,7 +86,7 @@ export async function safeFetch<T>(
       // Wait before retrying (exponential backoff)
       if (attempt < retries) {
         await new Promise(resolve =>
-          setTimeout(resolve, Math.pow(2, attempt) * 1000)
+          setTimeout(resolve, Math.pow(2, attempt) * 1000),
         );
       }
     }
@@ -105,7 +105,7 @@ export async function safeFetch<T>(
 export async function safeFetchWithFallback<T>(
   url: string,
   fallbackData: T,
-  options: Omit<SafeFetchOptions, 'fallbackData'> = {}
+  options: Omit<SafeFetchOptions, 'fallbackData'> = {},
 ): Promise<T> {
   const result = await safeFetch<T>(url, { ...options, fallbackData });
   return result.data || fallbackData;
@@ -117,7 +117,7 @@ export async function safeFetchWithFallback<T>(
 export function useSafeFetch<T>() {
   const fetchData = async (
     url: string,
-    options: SafeFetchOptions<T> = {}
+    options: SafeFetchOptions<T> = {},
   ): Promise<SafeFetchResponse<T>> => {
     return safeFetch<T>(url, options);
   };

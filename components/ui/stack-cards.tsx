@@ -52,7 +52,7 @@ const Card: React.FC<CardProps> = ({
   // Memoize expensive computations
   const processedTitle = useMemo(
     () => (title.length > 50 ? `${title.slice(0, 50)}...` : title),
-    [title]
+    [title],
   );
 
   const processedDescription = useMemo(
@@ -60,7 +60,7 @@ const Card: React.FC<CardProps> = ({
       description.split(' ').length > 40
         ? `${description.split(' ').slice(0, 40).join(' ')}...`
         : description,
-    [description]
+    [description],
   );
 
   const backgroundStyle = useMemo(
@@ -69,7 +69,7 @@ const Card: React.FC<CardProps> = ({
       scale,
       top: `calc(-1vh + ${i * 25}px)`,
     }),
-    [gradientFrom, gradientTo, scale, i]
+    [gradientFrom, gradientTo, scale, i],
   );
 
   return (

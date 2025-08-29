@@ -97,7 +97,7 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
                             className="w-full h-full object-cover hover:scale-105 "
                           />
                         </div>
-                      )
+                      ),
                     )}
                   </div>
                 </CardContent>

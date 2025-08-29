@@ -93,21 +93,21 @@ export const milestones = [
     year: '2016',
     title: 'ACOB Lighting Established',
     description:
-      "ACOB Lighting Technology Limited was established, starting with street lighting installation and maintenance across Nigeria.",
+      'ACOB Lighting Technology Limited was established, starting with street lighting installation and maintenance across Nigeria.',
     icon: Lightbulb,
   },
   {
     year: '2016-2018',
     title: 'Street Lighting Projects',
     description:
-      "Successfully piloted LED streetlight projects across 23 Nigerian states, maintaining critical infrastructure for FCDA and state governments.",
+      'Successfully piloted LED streetlight projects across 23 Nigerian states, maintaining critical infrastructure for FCDA and state governments.',
     icon: Lightbulb,
   },
   {
     year: '2018',
     title: 'Solar Energy Expansion',
     description:
-      "Expanded into renewable energy sector, embracing solar installations for residential, commercial, and institutional clients.",
+      'Expanded into renewable energy sector, embracing solar installations for residential, commercial, and institutional clients.',
     icon: Lightbulb,
   },
   {

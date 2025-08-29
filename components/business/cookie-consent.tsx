@@ -199,13 +199,13 @@ export function CookieConsent() {
                       const analytics =
                         (
                           document.getElementById(
-                            'analytics'
+                            'analytics',
                           ) as HTMLInputElement
                         )?.checked || false;
                       const marketing =
                         (
                           document.getElementById(
-                            'marketing'
+                            'marketing',
                           ) as HTMLInputElement
                         )?.checked || false;
                       savePreferences(analytics, marketing);
