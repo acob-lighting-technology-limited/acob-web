@@ -4,7 +4,7 @@ import { Breadcrumb } from '@/components/ui/breadcrumb';
 import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { ArrowRight, Calendar, User } from 'lucide-react';
-// Remove direct Sanity import - use API route instead
+import { getUpdatePosts } from '@/sanity/lib/client';
 import type { UpdatePost } from '@/lib/types';
 import Link from 'next/link';
 
@@ -15,11 +15,7 @@ interface CategoryPageProps {
 
 export default async function CategoryPage({ params }: CategoryPageProps) {
   const { slug } = await params;
-  const response = await fetch('/api/updates');
-  if (!response.ok) {
-    throw new Error('Failed to fetch updates');
-  }
-  const posts = await response.json();
+  const posts = await getUpdatePosts();
 
   // Filter posts by category using the new string-based system
   const categoryPosts = posts.filter(

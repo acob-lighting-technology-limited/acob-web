@@ -11,15 +11,11 @@ import {
 } from 'lucide-react';
 import Link from 'next/link';
 import Image from 'next/image';
-// Remove direct Sanity import - use API route instead
+import { getUpdatePosts } from '@/sanity/lib/client';
 import type { UpdatePost } from '@/lib/types';
 
 export default async function CaseStudiesPage() {
-  const response = await fetch('/api/updates');
-  if (!response.ok) {
-    throw new Error('Failed to fetch updates');
-  }
-  const posts = await response.json();
+  const posts = await getUpdatePosts();
 
   // Filter for case studies using the new string-based category system
   const caseStudies = posts.filter(

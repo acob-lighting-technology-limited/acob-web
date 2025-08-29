@@ -6,15 +6,11 @@ import { Button } from '@/components/ui/button';
 import { ArrowRight, Calendar, User } from 'lucide-react';
 import Link from 'next/link';
 import Image from 'next/image';
-// Remove direct Sanity import - use API route instead
+import { getUpdatePosts } from '@/sanity/lib/client';
 import type { UpdatePost } from '@/lib/types';
 
 export default async function LatestPage() {
-  const response = await fetch('/api/updates');
-  if (!response.ok) {
-    throw new Error('Failed to fetch updates');
-  }
-  const posts = await response.json();
+  const posts = await getUpdatePosts();
 
   // Get the 10 most recent posts
   const latestPosts = posts

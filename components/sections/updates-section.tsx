@@ -74,7 +74,7 @@ export function UpdatesSection() {
           {latestPosts.map((post: UpdatePost) => (
             <Card
               key={post._id}
-              className="overflow-hidden hover:shadow-lg custom-shadow transition-all duration-300 relative py-0 flex flex-col border-b-4 border-transparent hover:border-b-primary"
+              className="group overflow-hidden hover:shadow-lg custom-shadow transition-all duration-300 relative py-0 flex flex-col border-b-4 border-transparent hover:border-b-primary"
             >
               {/* Image */}
               <div className="aspect-[16/9] overflow-hidden relative">
@@ -82,7 +82,7 @@ export function UpdatesSection() {
                   <img
                     src={post.featuredImage}
                     alt={post.title}
-                    className="w-full h-full object-cover transition-transform duration-300 hover:scale-105"
+                    className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
                     loading="lazy"
                   />
                 ) : (
@@ -107,7 +107,7 @@ export function UpdatesSection() {
                 </div>{' '}
                 <div>
                   {/* Title */}
-                  <h3 className="text-lg font-bold dark:text-zinc-300 text-zinc-900 mb-3 leading-tight">
+                  <h3 className="text-lg font-bold dark:text-zinc-300 text-zinc-900 mb-3 leading-tight group-hover:text-primary transition-colors duration-200">
                     {post.title}
                   </h3>
 
@@ -120,10 +120,12 @@ export function UpdatesSection() {
                 <div className="mt-auto pt-6">
                   <Link href={`/updates/${post.slug.current}`}>
                     {' '}
-                    {/* Changed link to /updates */}
-                    <Button className="bg-transparent dark:bg-primary  border-[0.5px] border-primary dark:text-zinc-300 text-zinc-700 hover:bg-primary hover:text-white transition-colors duration-500">
+                    <Button
+                      variant="outline"
+                      className="w-full group-hover:bg-primary group-hover:text-primary-foreground transition-colors duration-200"
+                    >
                       Read more
-                      <ArrowRight className="ml-2 h-4 w-4" />
+                      <ArrowRight className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform duration-200" />
                     </Button>
                   </Link>
                 </div>

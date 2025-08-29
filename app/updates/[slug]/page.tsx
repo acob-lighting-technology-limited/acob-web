@@ -6,8 +6,7 @@ import type {
   PortableTextBlock,
   PortableTextComponentProps,
 } from '@portabletext/react';
-import { urlFor } from '@/sanity/lib/client';
-// Remove direct Sanity imports - use API routes instead
+import { urlFor, getUpdatePosts, getUpdatePost } from '@/sanity/lib/client';
 import { notFound } from 'next/navigation';
 import type { UpdatePost, Comment } from '@/lib/types';
 import { Container } from '@/components/ui/container';
@@ -24,11 +23,7 @@ interface UpdatePostPageProps {
 }
 
 export async function generateStaticParams() {
-  const response = await fetch('/api/updates');
-  if (!response.ok) {
-    return [];
-  }
-  const posts = await response.json();
+  const posts = await getUpdatePosts();
   return posts
     .filter((post: UpdatePost) => post.slug && post.slug.current)
     .map((post: UpdatePost) => ({
@@ -111,11 +106,10 @@ const components = {
 export default async function UpdatePostPage({ params }: UpdatePostPageProps) {
   const { slug } = await params;
 
-  const response = await fetch(`/api/updates/${slug}`);
-  if (!response.ok) {
+  const post = await getUpdatePost(slug);
+  if (!post) {
     notFound();
   }
-  const post = await response.json();
 
   // For now, we'll skip comments and related posts until we create those API routes
   const comments: Comment[] = [];
