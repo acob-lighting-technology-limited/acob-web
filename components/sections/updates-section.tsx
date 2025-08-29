@@ -6,7 +6,7 @@ import { Button } from '@/components/ui/button';
 import { ArrowRight } from 'lucide-react';
 import Link from 'next/link';
 import { getUpdatePosts } from '@/sanity/lib/client';
-import Image from 'next/image';
+
 import type { UpdatePost } from '@/lib/types';
 
 export function UpdatesSection() {
@@ -19,7 +19,7 @@ export function UpdatesSection() {
         const fetchedPosts = await getUpdatePosts();
         setPosts(fetchedPosts);
       } catch (error) {
-        console.error('Failed to fetch posts:', error);
+
       } finally {
         setLoading(false);
       }
@@ -67,15 +67,13 @@ export function UpdatesSection() {
 
         {/* News Cards */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-          {latestPosts.map((post: UpdatePost, index: number) => (
+          {latestPosts.map((post: UpdatePost) => (
             <Card
               key={post._id}
-              className={`overflow-hidden hover:shadow-lg border-0 custom-shadow transition-shadow relative py-0 flex flex-col ${
-                index === 2 ? 'border-b-4 border-b-primary' : ''
-              }`}
+              className="overflow-hidden hover:shadow-lg custom-shadow transition-all duration-300 relative py-0 flex flex-col border-b-4 border-transparent hover:border-b-primary"
             >
               {/* Image */}
-              <div className="aspect-[4/3] overflow-hidden relative">
+              <div className="aspect-[16/9] overflow-hidden relative">
                 {post.featuredImage ? (
                   <img
                     src={post.featuredImage}
@@ -97,27 +95,23 @@ export function UpdatesSection() {
               </div>
 
               <CardContent className="p-6 flex flex-col flex-1 h-full">
+                {/* Date and Author */}
+                <div className="flex items-center text-sm dark:text-zinc-400 text-zinc-600 mb-4">
+                  <span>{new Date(post.publishedAt).toLocaleDateString()}</span>
+                  <span className="mx-2">•</span>
+                  <span>{post.author}</span>
+                </div>{' '}
                 <div>
                   {/* Title */}
                   <h3 className="text-lg font-bold dark:text-zinc-300 text-zinc-900 mb-3 leading-tight">
                     {post.title}
                   </h3>
 
-                  {/* Date and Author */}
-                  <div className="flex items-center text-sm dark:text-zinc-400 text-zinc-600 mb-4">
-                    <span>
-                      {new Date(post.publishedAt).toLocaleDateString()}
-                    </span>
-                    <span className="mx-2">•</span>
-                    <span>{post.author}</span>
-                  </div>
-
                   {/* Excerpt */}
                   <p className="dark:text-zinc-400 text-zinc-600 text-sm leading-relaxed">
                     {post.excerpt}
                   </p>
                 </div>
-
                 {/* Read More Button */}
                 <div className="mt-auto pt-6">
                   <Link href={`/updates/${post.slug.current}`}>

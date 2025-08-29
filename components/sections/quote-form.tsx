@@ -5,6 +5,7 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { Label } from '@/components/ui/label';
+import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
 import { toast } from 'sonner';
 import { Dot } from 'lucide-react';
 import { MaskText } from '../animations/MaskText';
@@ -305,27 +306,27 @@ export function QuoteForm() {
                 <Label className="text-foreground">
                   Preferred Contact Method
                 </Label>
-                <div className="flex gap-4 mt-2">
+                <RadioGroup
+                  value={formData.contactMethod}
+                  onValueChange={handleRadioChange}
+                  className="flex gap-4 mt-2"
+                >
                   {contactMethodOptions.map(option => (
                     <div
                       key={option.id}
                       className="flex items-center space-x-2"
                     >
-                      <input
-                        type="radio"
-                        id={option.id}
-                        name="contactMethod"
+                      <RadioGroupItem
                         value={option.value}
-                        checked={formData.contactMethod === option.value}
-                        onChange={e => handleRadioChange(e.target.value)}
-                        className="w-4 h-4 text-primary bg-surface border-border focus:ring-primary"
+                        id={option.id}
+                        className="text-primary"
                       />
                       <Label htmlFor={option.id} className="text-sm">
                         {option.label}
                       </Label>
                     </div>
                   ))}
-                </div>
+                </RadioGroup>
               </div>
 
               <Button
