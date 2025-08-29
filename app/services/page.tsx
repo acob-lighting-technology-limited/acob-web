@@ -129,7 +129,7 @@ export default function ServicesPage() {
                         </h2>
                         <p className="text-muted-foreground mb-6 leading-relaxed">
                           {service.shortDescription.split(' ').length > 20 
-                            ? `${service.shortDescription.split(' ').slice(0, 30).join(' ')}...` 
+                            ? `${service.shortDescription.split(' ').slice(0, 20).join(' ')}...` 
                             : service.shortDescription}
                         </p>
                       </div>

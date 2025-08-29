@@ -27,7 +27,7 @@ export default function ProjectsPage() {
   const [filteredProjects, setFilteredProjects] = useState<Project[]>([]);
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedState, setSelectedState] = useState<string | null>(null);
-  const [isLoading, setIsLoading] = useState(true);
+ 
   const [currentPage, setCurrentPage] = useState(1);
   const projectsPerPage = 6; // Show 6 projects per page (3 rows of 2 columns)
 
@@ -44,7 +44,7 @@ export default function ProjectsPage() {
       } catch (error) {
         console.error('Error fetching projects:', error);
       } finally {
-        setIsLoading(false);
+       
       }
     };
 
@@ -140,39 +140,7 @@ export default function ProjectsPage() {
     ),
   ).sort();
 
-  if (isLoading) {
-    return (
-      <>
-        <PageHero
-          title="Our Projects"
-          backgroundImage="/images/services/header.jpg?height=400&width=1200"
-        />
-        <Container className="px-4 py-8">
-          <div className="text-center">
-            <div className="h-8 bg-gray-300 dark:bg-gray-700 rounded animate-pulse mx-auto max-w-md mb-4" />
-            <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-              <div className="lg:col-span-2 space-y-8">
-                {[1, 2, 3].map(i => (
-                  <div
-                    key={i}
-                    className="h-64 bg-gray-300 dark:bg-gray-700 rounded animate-pulse"
-                  />
-                ))}
-              </div>
-              <div className="space-y-6">
-                {[1, 2].map(i => (
-                  <div
-                    key={i}
-                    className="h-32 bg-gray-300 dark:bg-gray-700 rounded animate-pulse"
-                  />
-                ))}
-              </div>
-            </div>
-          </div>
-        </Container>
-      </>
-    );
-  }
+  
 
   const breadcrumbItems = [{ label: 'Home', href: '/' }, { label: 'Projects' }];
 
