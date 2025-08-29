@@ -10,7 +10,7 @@ import { Input } from '@/components/ui/input';
 import Image from 'next/image';
 import { MapPin, ArrowRight, Search, X } from 'lucide-react';
 import Link from 'next/link';
-import { getProjects } from '@/sanity/lib/client';
+// Remove direct Sanity import - use API route instead
 import type { Project } from '@/lib/types';
 
 export default function ProjectsPage() {
@@ -23,11 +23,15 @@ export default function ProjectsPage() {
   useEffect(() => {
     const fetchProjects = async () => {
       try {
-        const fetchedProjects = await getProjects();
+        const response = await fetch('/api/projects');
+        if (!response.ok) {
+          throw new Error('Failed to fetch projects');
+        }
+        const fetchedProjects = await response.json();
         setProjects(fetchedProjects);
         setFilteredProjects(fetchedProjects);
       } catch (error) {
-        // Error handling for project fetching
+        console.error('Error fetching projects:', error);
       } finally {
         setIsLoading(false);
       }
