@@ -69,7 +69,7 @@ export default function ProjectsPage() {
     setSelectedState(null);
   };
 
-  // Get unique states for filtering - extract state names from location strings
+  // Get unique states for filtering - extract state names from location strings.
   const extractStateFromLocation = (location: string): string => {
     // Special handling for Abuja/FCT
     if (

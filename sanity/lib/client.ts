@@ -23,12 +23,22 @@ if (!token) {
   );
 }
 
+// Server-side client (for API routes and SSR)
 export const client = createClient({
   projectId: projectId || 'x16t7huo',
   dataset: dataset || 'production',
-  useCdn: true,
+  useCdn: false, // Disable CDN for server-side requests
   apiVersion: '2024-01-01',
   token: token,
+});
+
+// Client-side client (for browser requests)
+export const clientForBrowser = createClient({
+  projectId: projectId || 'x16t7huo',
+  dataset: dataset || 'production',
+  useCdn: true, // Enable CDN for client-side requests
+  apiVersion: '2024-01-01',
+  // No token for client-side requests
 });
 
 const builder = imageUrlBuilder(client);
