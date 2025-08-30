@@ -41,16 +41,16 @@ export default function CareersPage() {
       <Container className="px-4 py-8">
         <Breadcrumb items={breadcrumbItems} className="mb-8" />
 
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-12 items-start">
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 items-start">
           <div className="lg:col-span-2 space-y-8">
-            <Card className="border shadow-lg border-border bg-surface ">
+            <Card className="border shadow-md border-border bg-surface">
               <CardContent className="p-8">
                 <h2 className="text-3xl font-bold mb-6 text-foreground">
-                  <MaskText phrases={['Shape the Future of Energy with Us']} />
+                  Shape the Future of Energy with Us
                 </h2>
-                <div className="text-foreground leading-relaxed space-y-6 text-lg">
+                <div className="text-muted-foreground leading-relaxed space-y-4 text-lg">
                   <p>
-                    At ACOB Lighting, we believe that our people are our
+                    At ACOB Lighting Technology Limited, we believe that our people are our
                     greatest asset. We are a dynamic and growing company at the
                     forefront of Nigeria&apos;s clean energy revolution. Joining
                     our team means becoming part of a mission-driven
@@ -68,25 +68,27 @@ export default function CareersPage() {
               </CardContent>
             </Card>
 
-            <Card className="border shadow-lg border-border bg-surface ">
+            <Card className="border shadow-md border-border bg-surface">
               <CardContent className="p-8">
-                <h2 className="text-3xl font-bold mb-6 text-foreground ">
-                  <MaskText phrases={['Why Work at ACOB Lighting?']} />
+                <h2 className="text-3xl font-bold mb-6 text-foreground">
+                  Why Work at ACOB Lighting?
                 </h2>
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-6 text-foreground leading-relaxed">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                   {whyWorkItems.map(({ icon, title, description }) => {
                     const IconComponent = iconMap[icon as keyof typeof iconMap];
                     return (
                       <div
                         key={title}
-                        className="flex items-start gap-3 border p-2 rounded-lg bg-muted"
+                        className="flex items-start gap-4 p-6 rounded-xl bg-muted/30 border border-border hover:bg-muted/50 transition-colors duration-200"
                       >
-                        <IconComponent className="h-6 w-6 text-primary flex-shrink-0 mt-1" />
-                        <div>
-                          <h4 className="font-semibold text-lg mb-1">
+                        <div className="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center flex-shrink-0">
+                          <IconComponent className="h-6 w-6 text-primary" />
+                        </div>
+                        <div className="flex-1">
+                          <h4 className="font-semibold text-lg mb-2 text-foreground">
                             {title}
                           </h4>
-                          <p className="text-sm text-muted-foreground">
+                          <p className="text-muted-foreground leading-relaxed">
                             {description}
                           </p>
                         </div>
@@ -97,31 +99,26 @@ export default function CareersPage() {
               </CardContent>
             </Card>
 
-            <Card className="border shadow-lg border-border bg-surface ">
-              <CardContent className="p-8 text-center ">
-                <h2 className="text-3xl font-bold mb-6 text-foreground ">
-                  <MaskText phrases={['Current Openings']} />
+            <Card className="border shadow-md border-border bg-surface">
+              <CardContent className="p-8 text-center">
+                <h2 className="text-3xl font-bold mb-6 text-foreground">
+                  Career Opportunities
                 </h2>
-                <p className="text-muted-foreground leading-relaxed mb-6">
-                  We are always looking for talented individuals to join our
-                  team. Check our current vacancies below.
+                <p className="text-muted-foreground leading-relaxed mb-8 text-lg max-w-2xl mx-auto">
+                  We're always looking for talented individuals who are passionate about clean energy 
+                  and innovation to join our growing team.
                 </p>
-                <Link href="#" className="inline-block">
-                  <Button className="bg-primary hover:bg-primary/90 text-primary-foreground px-8 py-3">
-                    View All Vacancies
-                    <ArrowRight className="ml-2 h-4 w-4" />
+                <div className="p-6 bg-muted/30 rounded-xl border border-border mb-8">
+                  <p className="text-muted-foreground text-base">
+                    Please check this page regularly for current job openings and opportunities.
+                  </p>
+                </div>
+                <Link href="/contact">
+                  <Button className="bg-primary hover:bg-primary/90 text-primary-foreground px-8 py-3 text-lg">
+                    Contact Us
+                    <ArrowRight className="ml-2 h-5 w-5" />
                   </Button>
                 </Link>
-                <p className="text-muted-foreground text-sm mt-4">
-                  Don&apos;t see a suitable role? Send your resume to{' '}
-                  <Link
-                    href="mailto:careers@acoblighting.com"
-                    className="text-primary hover:underline"
-                  >
-                    careers@acoblighting.com
-                  </Link>{' '}
-                  for future consideration.
-                </p>
               </CardContent>
             </Card>
           </div>
@@ -148,30 +145,21 @@ export default function CareersPage() {
               </CardContent>
             </Card>
 
-            <Card className="!border-t-2 !border-t-primary border border-border">
+            <Card className="border border-border">
               <CardContent className="p-6">
                 <h3 className="font-semibold mb-4">Quick Contact</h3>
                 <div className="space-y-3">
-                  <div className="flex items-start space-x-2 p-3 rounded-lg bg-muted/30 border border-border">
-                    <Mail className="h-4 w-4 text-primary mt-0.5 flex-shrink-0" />
-                    <div>
-                      <p className="text-xs text-muted-foreground">Email</p>
-                      <p className="text-sm font-medium">careers@acoblighting.com</p>
-                    </div>
+                  <div className="p-3 rounded-lg bg-muted/30 border border-border">
+                    <p className="text-xs text-muted-foreground mb-1">Email</p>
+                    <p className="text-sm font-semibold text-primary">careers@acoblighting.com</p>
                   </div>
-                  <div className="flex items-start space-x-2 p-3 rounded-lg bg-muted/30 border border-border">
-                    <Phone className="h-4 w-4 text-primary mt-0.5 flex-shrink-0" />
-                    <div>
-                      <p className="text-xs text-muted-foreground">Phone</p>
-                      <p className="text-sm font-medium">+234 704 920 2634</p>
-                    </div>
+                  <div className="p-3 rounded-lg bg-muted/30 border border-border">
+                    <p className="text-xs text-muted-foreground mb-1">Phone</p>
+                    <p className="text-sm font-semibold text-primary">+234 704 920 2634</p>
                   </div>
-                  <div className="flex items-start space-x-2 p-3 rounded-lg bg-muted/30 border border-border">
-                    <MapPin className="h-4 w-4 text-primary mt-0.5 flex-shrink-0" />
-                    <div>
-                      <p className="text-xs text-muted-foreground">Location</p>
-                      <p className="text-sm font-medium">Abuja, Nigeria</p>
-                    </div>
+                  <div className="p-3 rounded-lg bg-muted/30 border border-border">
+                    <p className="text-xs text-muted-foreground mb-1">Location</p>
+                    <p className="text-sm font-semibold">Abuja, Nigeria</p>
                   </div>
                 </div>
               </CardContent>

@@ -140,12 +140,7 @@ export default function OurStoryPage() {
                   >
                     Certifications
                   </Link>
-                  <Link
-                    href="/about"
-                    className="block p-3 rounded-lg bg-muted/30 hover:bg-muted/50 transition-colors duration-200 text-sm font-medium border border-border"
-                  >
-                    About Overview
-                  </Link>
+                 
                 </div>
               </CardContent>
             </Card>
