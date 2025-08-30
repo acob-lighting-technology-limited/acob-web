@@ -81,7 +81,7 @@ export default async function PressPage() {
                         className="w-full h-full object-cover"
                       />
                     </div>
-                    <CardContent className="p-6 flex flex-col flex-1">
+                    <CardContent className="!pt-0 p-6 flex flex-col flex-1">
                       <div className="flex-1">
                         <div className="flex items-center text-sm text-muted-foreground mb-4">
                          
@@ -94,12 +94,12 @@ export default async function PressPage() {
                         
                          
                         </div>
-                        <h2 className="text-xl font-bold mb-4 text-foreground">
+                        <h2 className="text-xl font-bold mb-4 text-foreground line-clamp-2 h-[50px]">
                           {post.title}
-                        </h2>
-                        <p className="text-muted-foreground mb-6 leading-relaxed">
-                          {post.excerpt}
-                        </p>
+                          </h2>
+                          <p className="text-muted-foreground mb-6 leading-relaxed line-clamp-[3]">
+                            {post.excerpt}
+                          </p>
                       </div>
                       <div className="mt-auto">
                         <Link href={`/updates/${post.slug.current}`}>

@@ -36,7 +36,7 @@ export const faqItems = [
 ];
 
 export const contactLinks = [
-  { label: 'Get a Quote', href: '/contact/get-quote' },
+  { label: 'Get a Quote', href: '/contact/quote' },
   { label: 'Office Locations', href: '/contact/locations' },
   { label: 'Careers', href: '/contact/careers' },
 ];

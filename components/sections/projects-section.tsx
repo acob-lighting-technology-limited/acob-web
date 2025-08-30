@@ -196,7 +196,7 @@ export function ProjectsSection() {
                   </h3>
 
                   {/* Project Description */}
-                  <p className="text-muted-foreground line-clamp-3">
+                  <p className="text-muted-foreground line-clamp-[3]">
                     {project.description}
                   </p>
                 </div>

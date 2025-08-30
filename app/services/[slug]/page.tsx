@@ -60,17 +60,10 @@ export default async function ServicePage({ params }: ServicePageProps) {
                 <p className="text-muted-foreground leading-relaxed text-lg">
                   {service.fullDescription}
                 </p>
-              </CardContent>
-            </Card>
-
-            {/* Gallery */}
-            {service.gallery.length > 0 && (
-              <Card className="border shadow-md border-border bg-surface">
-                <CardContent className="p-8">
-                  <h2 className="text-3xl font-bold mb-6 text-foreground">
-                    Project Gallery
-                  </h2>
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                
+                {/* Gallery */}
+                {service.gallery.length > 0 && (
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-6">
                     {service.gallery.map((image, index) => (
                       <div
                         key={index}
@@ -84,9 +77,9 @@ export default async function ServicePage({ params }: ServicePageProps) {
                       </div>
                     ))}
                   </div>
-                </CardContent>
-              </Card>
-            )}
+                )}
+              </CardContent>
+            </Card>
 
             {/* Features */}
             {/* <Card className="border shadow-md border-border bg-surface">

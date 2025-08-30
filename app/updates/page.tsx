@@ -168,7 +168,7 @@ export default function UpdatesPage() {
                           className="w-full h-full object-cover"
                         />
                       </div>
-                      <CardContent className="p-6 flex flex-col flex-1">
+                      <CardContent className="!pt-0 p-6 flex flex-col flex-1">
                         <div className="flex-1">
                           <div className="flex items-center text-sm text-muted-foreground mb-4">
                             <span>{post.author}</span>
@@ -177,10 +177,10 @@ export default function UpdatesPage() {
                               {new Date(post.publishedAt).toLocaleDateString()}
                             </span>
                           </div>
-                          <h2 className="text-xl font-bold mb-4 text-foreground">
-                            {post.title}
+                          <h2 className="text-xl font-bold mb-4 text-foreground line-clamp-2 h-[50px]">
+                          {post.title}
                           </h2>
-                          <p className="text-muted-foreground mb-6 leading-relaxed">
+                          <p className="text-muted-foreground mb-6 leading-relaxed line-clamp-[3]">
                             {post.excerpt}
                           </p>
                         </div>

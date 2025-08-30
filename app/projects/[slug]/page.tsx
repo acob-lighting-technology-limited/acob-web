@@ -10,6 +10,7 @@ import Link from 'next/link';
 import { PageHero } from '@/components/ui/page-hero';
 import type { Project, SanityImageUrl } from '@/lib/types';
 import { Card, CardContent } from '@/components/ui/card';
+import { ShareCopy } from '@/components/updates/share-copy';
 
 interface ProjectPageProps {
   params: Promise<{
@@ -72,15 +73,10 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
                     <span className="text-lg">{project.location}</span>
                   </div>
                 )}
-              </CardContent>
-            </Card>
-
-            {/* Gallery */}
-            {project.images && project.images.length > 0 && (
-              <Card>
-                <CardContent className="p-8">
-                  <h2 className="text-3xl font-bold mb-6">Project Gallery</h2>
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                
+                {/* Gallery */}
+                {project.images && project.images.length > 0 && (
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-6">
                     {project.images.map(
                       (img: SanityImageUrl, index: number) => (
                         <div
@@ -98,9 +94,14 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
                       ),
                     )}
                   </div>
-                </CardContent>
-              </Card>
-            )}
+                )}
+                
+                {/* Share Buttons */}
+                <div className="flex items-center gap-4 pt-8 border-t mt-6">
+                  <ShareCopy className="rounded-full bg-transparent" />
+                </div>
+              </CardContent>
+            </Card>
           </div>
 
           {/* Sidebar */}
@@ -165,7 +166,7 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
                         href={`/projects/${relatedProject.slug.current}`}
                         className="block p-3 rounded-lg bg-muted/30 hover:bg-muted/50 transition-colors duration-200 group border border-border"
                       >
-                        <h4 className="text-sm font-medium text-foreground group-hover:text-primary mb-1">
+                        <h4 className="text-sm font-medium text-foreground group-hover:text-primary mb-1 line-clamp-2">
                           {relatedProject.title}
                         </h4>
                         {relatedProject.location && (

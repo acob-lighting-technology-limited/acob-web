@@ -92,29 +92,27 @@ export function UpdatesSection() {
                     </span>
                   </div>
                 )}
-                
               </div>
 
-              <CardContent className="p-6 flex flex-col flex-1 h-full">
+              <CardContent className="!pt-0 p-6 flex flex-col flex-1 h-full">
                 {/* Date and Author */}
-                <div className="flex items-center text-sm dark:text-zinc-400 text-zinc-600 mb-4">
+                <div className="flex items-center text-xs dark:text-zinc-400 text-zinc-600 mb-4">
+                  <span>{post.author}</span> <span className="mx-2">•</span>
                   <span>{new Date(post.publishedAt).toLocaleDateString()}</span>
                   <span className="mx-2">•</span>
-                  <span>{post.author}</span>
-                  <span className="mx-2">•</span>
                   {/* Category Tag */}
-                <div className="absolute top-4 left-4 bg-primary text-white px-3 py-1 rounded text-sm font-medium">
-                  {post.category || 'News'}
-                </div>
+                  <div className=" bg-primary text-white px-3 py-1 rounded  font-medium">
+                    {post.category || 'News'}
+                  </div>
                 </div>{' '}
                 <div>
                   {/* Title */}
-                  <h3 className="text-lg font-bold dark:text-zinc-300 text-zinc-900 mb-3 leading-tight group-hover:text-primary transition-colors duration-200">
+                  <h3 className="text-lg h-10 font-bold dark:text-zinc-300 text-zinc-900 mb-3 leading-tight group-hover:text-primary transition-colors duration-200 line-clamp-2">
                     {post.title}
                   </h3>
 
                   {/* Excerpt */}
-                  <p className="dark:text-zinc-400 text-zinc-600 text-sm leading-relaxed">
+                  <p className="dark:text-zinc-400 text-zinc-600 text-sm leading-relaxed line-clamp-[3]">
                     {post.excerpt}
                   </p>
                 </div>
