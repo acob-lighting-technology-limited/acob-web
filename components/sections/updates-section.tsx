@@ -74,7 +74,7 @@ export function UpdatesSection() {
           {latestPosts.map((post: UpdatePost) => (
             <Card
               key={post._id}
-              className="group overflow-hidden hover:shadow-lg custom-shadow transition-all duration-300 relative py-0 flex flex-col border-b-4 border-transparent hover:border-b-primary"
+              className="group overflow-hidden hover:shadow-lg  transition-all duration-300 relative py-0 flex flex-col border-b-2  hover:border-b-primary"
             >
               {/* Image */}
               <div className="aspect-[16/9] overflow-hidden relative">

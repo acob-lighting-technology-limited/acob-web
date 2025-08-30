@@ -26,8 +26,11 @@
     --destructive-foreground: 0 0% 100%; /* white */
 
     /* Border & Input Colors */
-    --border: 240 5% 96%; /* zinc-100 */
-    --input: 0 0% 100%; /* white */
+ /* zinc-300 */
+--border: 240 4.8% 85.9%; /* #d4d4d8 */
+--input: 240 4.8% 85.9%;  /* #d4d4d8 */
+
+    
     --ring: 142 76% 36%; /* green-600 */
 
     /* Background Colors */
@@ -79,8 +82,8 @@
     --destructive-foreground: 240 4% 96%; /* zinc-50 */
 
     /* Border & Input Colors */
-    --border: 240, 5%, 16%; /* zinc-800 */
-    --input: 240 5% 16%; /* zinc-900 */
+    --border: 240, 5.26%, 26.08%;
+    --input:  240, 5.26%, 26.08%; /* zinc-900 */
     --ring: 142 76% 36%; /* green-600 */
 
     /* Background Colors */
