@@ -141,12 +141,7 @@ export default function MissionPage() {
                   >
                     Certifications
                   </Link>
-                  <Link
-                    href="/about"
-                    className="block p-3 rounded-lg bg-muted/30 hover:bg-muted/50 transition-colors duration-200 text-sm font-medium border border-border"
-                  >
-                    About Overview
-                  </Link>
+                
                 </div>
               </CardContent>
             </Card>
@@ -221,7 +216,7 @@ export default function MissionPage() {
         </div>
 
         {/* Goals */}
-        <div className="mb-16">
+        {/* <div className="mb-16">
           <h2 className="text-3xl font-bold text-foreground mb-8 text-center">
             <MaskText phrases={['Our Strategic Goals']} />
           </h2>
@@ -269,7 +264,7 @@ export default function MissionPage() {
               </CardContent>
             </Card>
           </div>
-        </div>
+        </div> */}
 
         <div className="text-center">
           <Link href="/about">

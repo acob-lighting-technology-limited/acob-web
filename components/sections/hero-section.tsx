@@ -154,7 +154,7 @@ const HeroSection = React.memo(function HeroSection({
   }
 
   return (
-    <section className="relative h-[80vh] min-h-[500px] sm:min-h-[700px] overflow-hidden w-full">
+    <section className="relative h-[70vh] md:h-[80vh] min-h-[300px] md:min-h-[700px] overflow-hidden w-full">
       <div className="absolute inset-0 bg-black">
         {allSlides.map((slide, index) => (
           <div
@@ -207,7 +207,7 @@ const HeroSection = React.memo(function HeroSection({
       </button>
 
       {/* Content with smooth animations */}
-      <div className="relative z-10 2xl:max-w-6xl text-primary-foreground  flex items-end p-6 sm:p-12 h-[80vh] sm:h-full min-h-[500px] sm:min-h-[700px] w-full">
+      <div className="relative z-10 2xl:max-w-6xl text-primary-foreground  flex items-end p-6 sm:p-12 h-[70vh] sm:h-full min-h-[300px] sm:min-h-[700px] w-full">
         <div className="2xl:px-8 max-w-7xl ">
           <div className="w-full max-w-4xl">
             {/* Animated Title */}

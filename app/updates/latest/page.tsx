@@ -99,7 +99,7 @@ export default async function LatestPage() {
                       className="w-full h-full object-cover"
                     />
                   </div>
-                  <CardContent className="p-6 flex flex-col flex-1">
+                  <CardContent className="!pt-0 p-6 flex flex-col flex-1">
                     <div className="flex-1">
                       <div className="flex items-center text-sm text-muted-foreground mb-3">
                         <Calendar className="h-4 w-4 mr-1" />
@@ -110,12 +110,12 @@ export default async function LatestPage() {
                         <User className="h-4 w-4 mr-1" />
                         <span>{post.author}</span>
                       </div>
-                      <h3 className="text-xl font-bold mb-3 text-foreground line-clamp-2">
-                        {post.title}
-                      </h3>
-                      <p className="text-muted-foreground mb-4 leading-relaxed line-clamp-3">
-                        {post.excerpt}
-                      </p>
+                      <h2 className="text-xl font-bold mb-4 text-foreground line-clamp-2 h-[50px]">
+                          {post.title}
+                          </h2>
+                          <p className="text-muted-foreground mb-6 leading-relaxed line-clamp-[3]">
+                            {post.excerpt}
+                          </p>
                     </div>
                     <div className="mt-auto">
                       <Link href={`/updates/${post.slug.current}`}>

@@ -1,7 +1,7 @@
 'use client';
 
 import { Share2, Linkedin, Twitter, Facebook, Instagram } from 'lucide-react';
-import { toast } from 'sonner';
+// import { toast } from 'sonner';
 import { Button } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
 import { useState, useEffect } from 'react';
@@ -27,9 +27,9 @@ export function ShareCopy({ className, title, url }: ShareCopyProps) {
       setIsSharing(true);
       // 1) Copy to clipboard first
       await navigator.clipboard.writeText(shareUrl);
-      toast.success('Link copied', {
-        description: 'URL has been copied to your clipboard.',
-      });
+      // toast.success('Link copied', {
+      //   description: 'URL has been copied to your clipboard.',
+      // });
 
       // 2) Then open native share sheet if available
       if (navigator.share) {
@@ -58,9 +58,9 @@ export function ShareCopy({ className, title, url }: ShareCopyProps) {
     case 'instagram':
       // Instagram doesn't support direct URL sharing, so we copy the URL
       navigator.clipboard.writeText(shareUrl);
-      toast.success('Link copied for Instagram', {
-        description: 'URL copied to clipboard. You can paste it in your Instagram story or post.',
-      });
+      // toast.success('Link copied for Instagram', {
+      //   description: 'URL copied to clipboard. You can paste it in your Instagram story or post.',
+      // });
       return;
     default:
       return;

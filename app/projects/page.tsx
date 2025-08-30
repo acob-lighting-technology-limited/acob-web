@@ -224,15 +224,13 @@ export default function ProjectsPage() {
                     </div>
                   )}
                 </div>
-                    <CardContent className="p-6 flex flex-col flex-1">
+                    <CardContent className="!pt-0 p-6 flex flex-col flex-1">
                       <div className="flex-1">
                         <h2 className="text-xl font-bold mb-4 text-foreground">
                     {project.title}
                   </h2>
-                  <p className="text-muted-foreground mb-4 leading-relaxed">
-                          {project.description.length > 200 
-                            ? `${project.description.substring(0, 100)}...` 
-                            : project.description}
+                  <p className="text-muted-foreground mb-4 leading-relaxed line-clamp-2">
+                          {project.description}
                   </p>
                   <div className="flex items-center text-sm text-muted-foreground mb-6">
                     <MapPin className="h-4 w-4 mr-1" />

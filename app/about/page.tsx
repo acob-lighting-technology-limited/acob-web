@@ -129,11 +129,11 @@ export default function AboutPage() {
                     sizes="(max-width: 768px) 100vw, (max-width: 1200px) 66vw, 50vw"
                   />
                 </div>
-                <CardContent className="p-6 flex flex-col flex-1">
+                <CardContent className="!pt-0 p-6 flex flex-col flex-1">
                   <h3 className="text-xl font-bold mb-3 text-foreground">
                     {section.title}
                   </h3>
-                  <p className="text-muted-foreground text-sm leading-relaxed mb-4 flex-1">
+                  <p className="text-muted-foreground text-sm leading-relaxed mb-4 flex-1 line-clamp-2">
                     {section.description}
                   </p>
                   <Button

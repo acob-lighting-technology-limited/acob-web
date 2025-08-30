@@ -3,7 +3,7 @@ export const contactSections = [
     title: 'Get a Quote',
     description:
       'Request a personalized energy audit or project quotation for your needs.',
-    href: '/contact/get-quote',
+    href: '/contact/quote',
     image: '/images/contact/get-quote.png?height=200&width=300',
   },
   {

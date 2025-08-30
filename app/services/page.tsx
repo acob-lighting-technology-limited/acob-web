@@ -122,15 +122,13 @@ export default function ServicesPage() {
                         sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                       />
                     </div>
-                    <CardContent className="p-6 flex flex-col flex-1">
+                    <CardContent className="!pt-0 p-6 flex flex-col flex-1">
                       <div className="flex-1">
                         <h2 className="text-xl font-bold mb-4 text-foreground">
                           {service.title}
                         </h2>
-                        <p className="text-muted-foreground mb-6 leading-relaxed">
-                          {service.shortDescription.split(' ').length > 20 
-                            ? `${service.shortDescription.split(' ').slice(0, 20).join(' ')}...` 
-                            : service.shortDescription}
+                        <p className="text-muted-foreground mb-6 leading-relaxed line-clamp-[3]">
+                          {service.shortDescription}
                         </p>
                       </div>
                       <div className="mt-auto">

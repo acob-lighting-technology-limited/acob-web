@@ -208,6 +208,63 @@ export async function getProject(slug: string) {
   }
 }
 
+// Helper function to get active job postings
+export async function getJobPostings() {
+  try {
+    const jobs = await client.fetch(`
+      *[_type == "jobPosting" && isActive == true] | order(publishedAt desc) {
+        _id,
+        title,
+        department,
+        location,
+        employmentType,
+        description,
+        requirements,
+        applicationDeadline,
+        publishedAt,
+        slug
+      }
+    `);
+    return jobs;
+  } catch (error) {
+    console.error('Error fetching job postings from Sanity:', error);
+    return [];
+  }
+}
+
+// Helper function to get single job posting
+export async function getJobPosting(slug: string) {
+  try {
+    const job = await client.fetch(
+      `
+      *[_type == "jobPosting" && slug.current == $slug && isActive == true][0] {
+        _id,
+        title,
+        department,
+        location,
+        employmentType,
+        description,
+        requirements,
+        applicationDeadline,
+        publishedAt,
+        slug
+      }
+    `,
+      { slug }
+    );
+    
+    if (!job) {
+      console.log(`Job posting with slug "${slug}" not found or not active`);
+      return null;
+    }
+    
+    return job;
+  } catch (error) {
+    console.error('Error fetching job posting from Sanity:', error);
+    return null;
+  }
+}
+
 // Test function to verify Sanity connection
 export async function testSanityConnection() {
   try {

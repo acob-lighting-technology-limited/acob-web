@@ -88,18 +88,18 @@ const ServicesSection = React.memo(function ServicesSection() {
               className="text-muted-foreground text-lg leading-relaxed mb-8 transition-colors duration-700"
             />
 
-            <div className="flex flex-col sm:flex-row gap-4">
-              <Link href="/services">
-                <Button className="bg-primary dark:bg-primary text-lg hover:bg-primary text-primary-foreground px-8 py-6 transition-colors duration-700">
+            <div className="flex gap-4">
+              <Link href="/services" className="w-1/2 md:auto">
+                <Button className="w-full bg-primary dark:bg-primary text-lg hover:bg-primary text-primary-foreground px-8 py-6 transition-colors duration-700">
                   Read More
                   <ArrowRight className="ml-2 h-4 w-4" />
                 </Button>
               </Link>
 
-              <Link href="/contact">
+              <Link href="/contact" className="w-1/2 md:auto">
                 <Button
                   variant="outline"
-                  className="border-border text-lg shadow-md text-foreground hover:bg-muted px-8 py-6 bg-transparent transition-colors duration-700"
+                  className="w-full border-border text-lg shadow-md text-foreground hover:bg-muted px-8 py-6 bg-transparent transition-colors duration-700"
                 >
                   Find Your Solution
                 </Button>
@@ -140,12 +140,8 @@ const ServicesSection = React.memo(function ServicesSection() {
                     <h3 className="text-2xl font-bold text-foreground mb-4">
                       {service.title}
                     </h3>
-                    <p className="text-muted-foreground text-base leading-relaxed mb-8">
-                      {service.shortDescription
-                        .split(' ')
-                        .slice(0, 25)
-                        .join(' ')}
-                      {service.shortDescription.split(' ').length > 36 && '...'}
+                    <p className="text-muted-foreground text-base leading-relaxed mb-8 line-clamp-[3]">
+                      {service.shortDescription}
                     </p>
 
                     <div className="mt-auto">

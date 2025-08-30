@@ -29,11 +29,11 @@ const Breadcrumb = React.forwardRef<
       <div key={index} className="flex items-center">
         {index > 0 && <ChevronRight className="h-4 w-4 text-gray-400 mx-2" />}
         {item.href ? (
-          <Link href={item.href} className="text-gray-600 hover:text-primary ">
+          <Link href={item.href} className="text-gray-600 hover:text-primary line-clamp-1">
             {item.label}
           </Link>
         ) : (
-          <span className="text-foreground-2 font-medium">{item.label}</span>
+          <span className="text-foreground-2 font-medium line-clamp-1">{item.label}</span>
         )}
       </div>
     ))}

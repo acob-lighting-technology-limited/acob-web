@@ -141,6 +141,20 @@ export async function POST(request: NextRequest) {
                     <span style="font-weight: 600; color: #374151; min-width: 120px; margin-right: 15px;">Contact Method:</span>
                     <span style="color: #1f2937; font-size: 16px; font-weight: 500;">${formData.contactMethod}</span>
                   </div>
+                  
+                  ${formData.email ? `
+                  <div style="display: flex; align-items: center; flex-wrap: wrap;">
+                    <span style="font-weight: 600; color: #374151; min-width: 120px; margin-right: 15px;">Email:</span>
+                    <span style="color: #1f2937; font-size: 16px; font-weight: 500;">${formData.email}</span>
+                  </div>
+                  ` : ''}
+                  
+                  ${formData.phone ? `
+                  <div style="display: flex; align-items: center; flex-wrap: wrap;">
+                    <span style="font-weight: 600; color: #374151; min-width: 120px; margin-right: 15px;">Phone:</span>
+                    <span style="color: #1f2937; font-size: 16px; font-weight: 500;">${formData.phone}</span>
+                  </div>
+                  ` : ''}
                 </div>
               </div>
 

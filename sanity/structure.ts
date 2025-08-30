@@ -11,6 +11,9 @@ export const structure: StructureResolver = S =>
         .title('Projects')
         .child(S.documentTypeList('project').title('Projects')), // Added Projects
       S.listItem()
+        .title('Job Postings')
+        .child(S.documentTypeList('jobPosting').title('Job Postings')), // Added Job Postings
+      S.listItem()
         .title('Comments')
         .child(S.documentTypeList('comment').title('Comments')),
     ]);

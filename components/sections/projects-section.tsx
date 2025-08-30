@@ -27,7 +27,6 @@ export function ProjectsSection() {
         const data = await response.json();
         setProjects(data.slice(0, 3)); // Show only 3 projects
       } catch (err) {
-
         setError('Failed to load projects. Please try again later.');
       } finally {
         setLoading(false);
@@ -46,12 +45,13 @@ export function ProjectsSection() {
               Featured Projects
             </h2>
             <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
-              Discover our latest rural electrification projects and mini-grid solutions
+              Discover our latest rural electrification projects and mini-grid
+              solutions
             </p>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {[1, 2, 3].map((i) => (
+            {[1, 2, 3].map(i => (
               <div key={i} className="animate-pulse">
                 <div className="bg-muted rounded-lg h-48 mb-4"></div>
                 <div className="space-y-3">
@@ -73,16 +73,25 @@ export function ProjectsSection() {
         <div className="container mx-auto px-4 text-center">
           <div className="max-w-md mx-auto">
             <div className="text-red-500 mb-4">
-              <svg className="w-12 h-12 mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-2.5L13.732 4c-.77-.833-1.964-.833-2.732 0L3.732 16.5c-.77.833.192 2.5 1.732 2.5z" />
+              <svg
+                className="w-12 h-12 mx-auto"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-2.5L13.732 4c-.77-.833-1.964-.833-2.732 0L3.732 16.5c-.77.833.192 2.5 1.732 2.5z"
+                />
               </svg>
             </div>
-            <h3 className="text-lg font-semibold mb-2">Unable to Load Projects</h3>
+            <h3 className="text-lg font-semibold mb-2">
+              Unable to Load Projects
+            </h3>
             <p className="text-muted-foreground mb-4">{error}</p>
-            <Button
-              onClick={() => window.location.reload()}
-              variant="outline"
-            >
+            <Button onClick={() => window.location.reload()} variant="outline">
               Try Again
             </Button>
           </div>
@@ -97,12 +106,26 @@ export function ProjectsSection() {
         <div className="container mx-auto px-4 text-center">
           <div className="max-w-md mx-auto">
             <div className="text-muted-foreground mb-4">
-              <svg className="w-12 h-12 mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" />
+              <svg
+                className="w-12 h-12 mx-auto"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"
+                />
               </svg>
             </div>
-            <h3 className="text-lg font-semibold mb-2">No Projects Available</h3>
-            <p className="text-muted-foreground">Check back soon for our latest projects.</p>
+            <h3 className="text-lg font-semibold mb-2">
+              No Projects Available
+            </h3>
+            <p className="text-muted-foreground">
+              Check back soon for our latest projects.
+            </p>
           </div>
         </div>
       </section>
@@ -118,13 +141,14 @@ export function ProjectsSection() {
             Featured Projects
           </h2>
           <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
-            Discover our latest rural electrification projects and mini-grid solutions that are powering communities across Nigeria
+            Discover our latest rural electrification projects and mini-grid
+            solutions that are powering communities across Nigeria
           </p>
         </div>
 
         {/* Projects Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-12">
-          {projects.map((project) => (
+          {projects.map(project => (
             <Card
               key={project._id}
               className="group overflow-hidden hover:shadow-lg transition-all duration-300 hover:-translate-y-1"
@@ -132,30 +156,27 @@ export function ProjectsSection() {
               {/* Project Image */}
               <div className="aspect-[16/9] overflow-hidden relative bg-muted">
                 <Image
-                  src={project.images?.[0]?.asset?.url ? `${project.images[0].asset.url}?w=600&h=400&fit=crop&auto=format&q=75` : '/placeholder.svg'}
+                  src={
+                    project.images?.[0]?.asset?.url
+                      ? `${project.images[0].asset.url}?w=600&h=400&fit=crop&auto=format&q=75`
+                      : '/placeholder.svg'
+                  }
                   alt={project.title}
                   fill
                   className="object-cover group-hover:scale-105 transition-transform duration-300"
                   sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                   priority={true}
-                  onError={(e) => {
+                  onError={e => {
                     const target = e.target as HTMLImageElement;
                     target.src = '/placeholder.svg';
                   }}
-                  onLoad={(e) => {
+                  onLoad={e => {
                     const target = e.target as HTMLImageElement;
                     target.style.opacity = '1';
                   }}
                   style={{ opacity: 0, transition: 'opacity 0.3s ease-in-out' }}
                 />
                 <div className="absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-
-                {/* Project Type Badge */}
-                <div className="absolute top-4 left-4">
-                  <span className="bg-primary/90 text-primary-foreground px-3 py-1 rounded-full text-xs font-medium">
-                    Project
-                  </span>
-                </div>
               </div>
 
               {/* Project Content */}
@@ -175,11 +196,9 @@ export function ProjectsSection() {
                   </h3>
 
                   {/* Project Description */}
-                  <p className="text-muted-foreground line-clamp-3">
+                  <p className="text-muted-foreground line-clamp-[3]">
                     {project.description}
                   </p>
-
-
                 </div>
 
                 {/* View Project Button */}

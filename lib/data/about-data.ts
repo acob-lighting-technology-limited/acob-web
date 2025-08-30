@@ -1,4 +1,4 @@
-import { Lightbulb, Users, Award, BookOpen } from 'lucide-react';
+
 
 export const aboutSections = [
   {
@@ -94,56 +94,56 @@ export const milestones = [
     title: 'ACOB Lighting Established',
     description:
       'ACOB Lighting Technology Limited was established, starting with street lighting installation and maintenance across Nigeria.',
-    icon: Lightbulb,
+    icon: 'Lightbulb',
   },
   {
     year: '2016-2018',
     title: 'Street Lighting Projects',
     description:
       'Successfully piloted LED streetlight projects across 23 Nigerian states, maintaining critical infrastructure for FCDA and state governments.',
-    icon: Lightbulb,
+    icon: 'Lightbulb',
   },
   {
     year: '2018',
     title: 'Solar Energy Expansion',
     description:
       'Expanded into renewable energy sector, embracing solar installations for residential, commercial, and institutional clients.',
-    icon: Lightbulb,
+    icon: 'Lightbulb',
   },
   {
     year: '2019',
     title: 'REA Mini-Grid Pilot',
     description:
       'Selected by Rural Electrification Agency (REA) to construct solar mini-grids in rural areas as part of their pilot program.',
-    icon: Users,
+    icon: 'Users',
   },
   {
     year: '2020',
     title: 'COVID-19 Response',
     description:
       'Built 50kWp systems in 12 beneficiary hospitals under the Nigerian Government\'s COVID-19 intervention program.',
-    icon: Award,
+    icon: 'Award',
   },
   {
     year: '2021-2023',
     title: 'Rapid Growth',
     description:
       'Expanded to 75 staff members with capability to complete 15 kWp EPC projects in 2-3 weeks.',
-    icon: BookOpen,
+    icon: 'BookOpen',
   },
   {
     year: '2024',
     title: 'Institutional Funding',
     description:
       'Raised NGN 1.51 billion through InfraCredit green infrastructure bond for scaling operations.',
-    icon: Lightbulb,
+    icon: 'Lightbulb',
   },
   {
     year: '2025',
     title: 'National Scale Impact',
     description:
       'Deployed projects in 9 communities, powering 2,306 connections with 690 kWp capacity. 19 more communities under construction.',
-    icon: Users,
+    icon: 'Users',
   },
 ];
 

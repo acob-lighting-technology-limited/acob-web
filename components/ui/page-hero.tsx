@@ -39,7 +39,7 @@ export function PageHero({
             phrases={[title]} // or split into lines if desired
             className="text-4xl md:text-7xl font-bold "
           />
-          {children}
+          {/* {children} */}
         </div>
       </Container>
     </section>

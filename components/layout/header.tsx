@@ -9,6 +9,7 @@ import { ThemeToggle } from '@/components/ui/theme-toggle';
 import { ChevronDown, Menu, X, Phone } from 'lucide-react';
 import { navigationItems } from '@/lib/data/navigation-data';
 import { LucideIcons } from '@/lib/data/lucide-icons';
+import { HiringAnnouncementBanner } from '../ui/announcement-banner';
 
 interface SubItem {
   name: string;
@@ -268,7 +269,7 @@ export function Header() {
   };
 
   return (
-    <>
+    <>   
       <header
         className={`
         sticky top-0 z-40 w-full  ease-out
@@ -280,7 +281,8 @@ export function Header() {
       : 'bg-background/95 backdrop-blur-sm border-b border-border dark:bg-background'
     }
       `}
-      >
+      ><HiringAnnouncementBanner />
+
         <Container noPadding className="px-4">
           <div className="flex items-center justify-between h-16">
             {/* Logo */}
