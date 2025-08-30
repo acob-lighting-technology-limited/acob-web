@@ -3,10 +3,11 @@ import { PageHero } from '@/components/ui/page-hero';
 import { Breadcrumb } from '@/components/ui/breadcrumb';
 import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
-import { ArrowRight, Lightbulb, Users, Award, Heart, Mail, Phone, MapPin } from 'lucide-react';
+import { ArrowRight, Lightbulb, Users, Award, Heart, Mail, Phone, MapPin, Calendar, MapPin as LocationIcon, Briefcase } from 'lucide-react';
 import Link from 'next/link';
 import { MaskText } from '@/components/animations/MaskText';
 import { whyWorkItems, contactLinks } from '@/lib/data/contact-data';
+import { getJobPostings } from '@/sanity/lib/client';
 
 // Icon mapping
 const iconMap = {
@@ -16,12 +17,16 @@ const iconMap = {
   Heart,
 };
 
-export default function CareersPage() {
+export default async function CareersPage() {
   const breadcrumbItems = [
     { label: 'Home', href: '/' },
     { label: 'Contact', href: '/contact' },
     { label: 'Careers' },
   ];
+
+  // Fetch active job postings
+  const jobPostings = await getJobPostings();
+  console.log('Job postings found:', jobPostings.length);
 
   return (
     <>
@@ -100,25 +105,84 @@ export default function CareersPage() {
             </Card>
 
             <Card className="border shadow-md border-border bg-surface">
-              <CardContent className="p-8 text-center">
+              <CardContent className="p-8">
                 <h2 className="text-3xl font-bold mb-6 text-foreground">
-                  Career Opportunities
+                  {jobPostings.length > 0 ? 'Current Openings' : 'Career Opportunities'}
                 </h2>
-                <p className="text-muted-foreground leading-relaxed mb-8 text-lg max-w-2xl mx-auto">
-                  We're always looking for talented individuals who are passionate about clean energy 
-                  and innovation to join our growing team.
-                </p>
-                <div className="p-6 bg-muted/30 rounded-xl border border-border mb-8">
-                  <p className="text-muted-foreground text-base">
-                    Please check this page regularly for current job openings and opportunities.
-                  </p>
-                </div>
-                <Link href="/contact">
-                  <Button className="bg-primary hover:bg-primary/90 text-primary-foreground px-8 py-3 text-lg">
-                    Contact Us
-                    <ArrowRight className="ml-2 h-5 w-5" />
-                  </Button>
-                </Link>
+                
+                {jobPostings.length > 0 ? (
+                  <div className="space-y-6">
+                    {jobPostings.map((job: any) => (
+                      <div
+                        key={job._id}
+                        className="p-6 rounded-xl border border-border bg-muted/30 hover:bg-muted/50 transition-colors duration-200"
+                      >
+                        <div className="mb-4">
+                          <h3 className="text-xl font-semibold text-foreground mb-2">
+                            {job.title}
+                          </h3>
+                          <div className="flex flex-wrap gap-4 text-sm text-muted-foreground">
+                            {job.department && (
+                              <div className="flex items-center gap-1">
+                                <Briefcase className="h-4 w-4" />
+                                <span>{job.department}</span>
+                              </div>
+                            )}
+                            {job.location && (
+                              <div className="flex items-center gap-1">
+                                <LocationIcon className="h-4 w-4" />
+                                <span>{job.location}</span>
+                              </div>
+                            )}
+                            {job.employmentType && (
+                              <div className="flex items-center gap-1">
+                                <Calendar className="h-4 w-4" />
+                                <span>{job.employmentType}</span>
+                              </div>
+                            )}
+                          </div>
+                        </div>
+                        
+                        <p className="text-muted-foreground mb-4 leading-relaxed">
+                          {job.description}
+                        </p>
+                        
+                        <div className="flex flex-col sm:flex-row gap-3">
+                          <Link href={`/contact/careers/${job.slug.current}`}>
+                            <Button className="bg-primary hover:bg-primary/90 text-primary-foreground">
+                              View Details
+                              <ArrowRight className="ml-2 h-4 w-4" />
+                            </Button>
+                          </Link>
+                          {job.applicationDeadline && (
+                            <div className="text-sm text-muted-foreground flex items-center gap-1">
+                              <Calendar className="h-4 w-4" />
+                              <span>Deadline: {new Date(job.applicationDeadline).toLocaleDateString()}</span>
+                            </div>
+                          )}
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                ) : (
+                  <div className="text-center">
+                    <p className="text-muted-foreground leading-relaxed mb-8 text-lg max-w-2xl mx-auto">
+                      We're always looking for talented individuals who are passionate about clean energy 
+                      and innovation to join our growing team.
+                    </p>
+                    <div className="p-6 bg-muted/30 rounded-xl border border-border mb-8">
+                      <p className="text-muted-foreground text-base">
+                        Please check this page regularly for current job openings and opportunities.
+                      </p>
+                    </div>
+                    <Link href="/contact">
+                      <Button className="bg-primary hover:bg-primary/90 text-primary-foreground px-8 py-3 text-lg">
+                        Contact Us
+                        <ArrowRight className="ml-2 h-5 w-5" />
+                      </Button>
+                    </Link>
+                  </div>
+                )}
               </CardContent>
             </Card>
           </div>
