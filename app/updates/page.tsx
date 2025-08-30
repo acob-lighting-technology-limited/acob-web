@@ -124,19 +124,7 @@ export default function UpdatesPage() {
 
   const breadcrumbItems = [{ label: 'Home', href: '/' }, { label: 'Updates' }];
 
-  if (isLoading) {
-    return (
-      <>
-        <PageHero
-          title="Updates & News"
-          backgroundImage="/images/services/header.jpg?height=400&width=1200"
-        />
-        <Container className="px-4 py-8">
-          <div className="text-center">Loading updates...</div>
-        </Container>
-      </>
-    );
-  }
+
 
   return (
     <>

@@ -193,7 +193,7 @@ export default async function UpdatePostPage({ params }: UpdatePostPageProps) {
               {Array.isArray(related) && related.length > 0 && (
               <div className="pt-8 border-t">
                 <h3 className="text-xl font-semibold mb-4">Related Updates</h3>
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
                   {related.map((item: any) => {
                     const href = item?.slug?.current ? `/updates/${item.slug.current}` : null;
                     const CardInner = (
@@ -208,10 +208,10 @@ export default async function UpdatePostPage({ params }: UpdatePostPageProps) {
                           />
                         </div>
                         <CardContent className="p-4">
-                          <div className="text-xs text-muted-foreground mb-2">
+                          <div className="text-sm text-muted-foreground mb-2">
                             {new Date(item.publishedAt).toLocaleDateString()}
                           </div>
-                          <h4 className="font-semibold text-foreground leading-snug line-clamp-2">
+                          <h4 className="text-xs font-semibold text-foreground leading-snug line-clamp-2">
                             {item.title}
                           </h4>
                         </CardContent>

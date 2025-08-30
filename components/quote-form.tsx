@@ -30,6 +30,8 @@ interface QuoteFormData {
   roofMaterial: string;
   additionalInfo: string;
   contactMethod: string;
+  email: string;
+  phone: string;
   [key: string]: string;
 }
 
@@ -48,6 +50,8 @@ export function QuoteForm() {
     roofMaterial: '',
     additionalInfo: '',
     contactMethod: 'all',
+    email: '',
+    phone: '',
   });
   const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
 
@@ -93,7 +97,9 @@ export function QuoteForm() {
             Panel Place: ${formData.panelPlace}
             Roof Material: ${formData.roofMaterial}
             Additional Info: ${formData.additionalInfo}
-            Contact Method: ${formData.contactMethod}`,
+            Contact Method: ${formData.contactMethod}
+            ${formData.email ? `Email: ${formData.email}` : ''}
+            ${formData.phone ? `Phone: ${formData.phone}` : ''}`,
         }),
       });
 
@@ -162,6 +168,8 @@ export function QuoteForm() {
         roofMaterial: '',
         additionalInfo: '',
         contactMethod: 'all',
+        email: '',
+        phone: '',
       });
     } catch (error: unknown) {
       toast.error('Failed to submit request', {
@@ -298,6 +306,39 @@ export function QuoteForm() {
                   ))}
                 </RadioGroup>
               </div>
+
+              {/* Conditional Contact Inputs */}
+              {(formData.contactMethod === 'email' || formData.contactMethod === 'all') && (
+                <div className="mb-4">
+                  <Label htmlFor="email" className="text-foreground">
+                    Email Address *
+                  </Label>
+                  <Input
+                    id="email"
+                    type="email"
+                    placeholder="Enter your email address"
+                    value={formData.email}
+                    onChange={handleInputChange}
+                    className="border border-border rounded-md focus-visible:!ring-[1px] bg-surface text-foreground/60 text-xs ring-[0.5px] ring-border focus:outline-none focus:ring-2 focus:ring-primary"
+                  />
+                </div>
+              )}
+
+              {(formData.contactMethod === 'phone' || formData.contactMethod === 'all') && (
+                <div className="mb-4">
+                  <Label htmlFor="phone" className="text-foreground">
+                    Phone Number *
+                  </Label>
+                  <Input
+                    id="phone"
+                    type="tel"
+                    placeholder="Enter your phone number"
+                    value={formData.phone}
+                    onChange={handleInputChange}
+                    className="border border-border rounded-md focus-visible:!ring-[1px] bg-surface text-foreground/60 text-xs ring-[0.5px] ring-border focus:outline-none focus:ring-2 focus:ring-primary"
+                  />
+                </div>
+              )}
 
               <Button
                 onClick={handleSubmit}

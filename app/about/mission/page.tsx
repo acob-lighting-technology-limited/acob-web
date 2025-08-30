@@ -221,7 +221,7 @@ export default function MissionPage() {
         </div>
 
         {/* Goals */}
-        <div className="mb-16">
+        {/* <div className="mb-16">
           <h2 className="text-3xl font-bold text-foreground mb-8 text-center">
             <MaskText phrases={['Our Strategic Goals']} />
           </h2>
@@ -269,7 +269,7 @@ export default function MissionPage() {
               </CardContent>
             </Card>
           </div>
-        </div>
+        </div> */}
 
         <div className="text-center">
           <Link href="/about">

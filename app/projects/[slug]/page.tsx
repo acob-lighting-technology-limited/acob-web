@@ -142,7 +142,7 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
                 <Link href="/contact/quote">
                   <Button className="w-full bg-primary hover:bg-primary/90 text-primary-foreground mb-2">
                     Get Quote
-                    <ArrowRight className="ml-2 h-4 w-4" />
+                    <ArrowRight className="ml-1 h-4 w-4" />
                   </Button>
                 </Link>
                 <Link href="/contact">

@@ -287,7 +287,7 @@ export function ChatBot() {
         initial={{ scale: 0 }}
         animate={{ scale: 1 }}
         transition={{ delay: 1, type: 'spring', stiffness: 300 }}
-        className="fixed bottom-2 right-2 sm:bottom-4 sm:right-4 z-50"
+        className="z-50"
       >
         <Button
           size="icon"

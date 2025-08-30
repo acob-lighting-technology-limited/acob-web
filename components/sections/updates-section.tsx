@@ -92,10 +92,7 @@ export function UpdatesSection() {
                     </span>
                   </div>
                 )}
-                {/* Category Tag */}
-                <div className="absolute top-4 left-4 bg-primary text-white px-3 py-1 rounded text-sm font-medium">
-                  {post.category || 'News'}
-                </div>
+                
               </div>
 
               <CardContent className="p-6 flex flex-col flex-1 h-full">
@@ -104,6 +101,11 @@ export function UpdatesSection() {
                   <span>{new Date(post.publishedAt).toLocaleDateString()}</span>
                   <span className="mx-2">•</span>
                   <span>{post.author}</span>
+                  <span className="mx-2">•</span>
+                  {/* Category Tag */}
+                <div className="absolute top-4 left-4 bg-primary text-white px-3 py-1 rounded text-sm font-medium">
+                  {post.category || 'News'}
+                </div>
                 </div>{' '}
                 <div>
                   {/* Title */}
