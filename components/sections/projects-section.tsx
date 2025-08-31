@@ -9,34 +9,15 @@ import { Container } from '@/components/ui/container';
 import { ArrowRight, MapPin } from 'lucide-react';
 import type { Project } from '@/lib/types';
 
-export function ProjectsSection() {
-  const [projects, setProjects] = useState<Project[]>([]);
-  const [loading, setLoading] = useState(true);
+interface ProjectsSectionProps {
+  projects: Project[];
+}
+
+export function ProjectsSection({ projects }: ProjectsSectionProps) {
   const [error, setError] = useState<string | null>(null);
+  const displayProjects = projects.slice(0, 3); // Show only 3 projects
 
-  useEffect(() => {
-    const fetchProjects = async () => {
-      try {
-        setLoading(true);
-        const response = await fetch('/api/projects');
-
-        if (!response.ok) {
-          throw new Error('Failed to fetch projects');
-        }
-
-        const data = await response.json();
-        setProjects(data.slice(0, 3)); // Show only 3 projects
-      } catch (err) {
-        setError('Failed to load projects. Please try again later.');
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetchProjects();
-  }, []);
-
-  if (loading) {
+  if (!projects || projects.length === 0) {
     return (
       <section className="py-16 bg-background">
         <div className="container mx-auto px-4">
@@ -148,7 +129,7 @@ export function ProjectsSection() {
 
         {/* Projects Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-12">
-          {projects.map(project => (
+          {displayProjects.map(project => (
             <Card
               key={project._id}
               className="group overflow-hidden hover:shadow-lg transition-all duration-300 hover:-translate-y-1"
