@@ -174,6 +174,7 @@ const HeroSection = React.memo(function HeroSection({
         onClick={prevSlide}
         disabled={isTransitioning}
         className="absolute left-0 top-1/2 -translate-y-1/2 z-20 w-12 h-12 rounded-full text-primary-foreground hover:scale-110 transition-all  disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center group"
+        aria-label="Previous slide"
       >
         <ChevronLeft className="h-24 w-24 text-primary-foreground opacity-30 hover:opacity-70 hover:text-primary-foreground group-hover:scale-110 transition-transform duration-200" />
       </button>
@@ -182,6 +183,7 @@ const HeroSection = React.memo(function HeroSection({
         onClick={nextSlide}
         disabled={isTransitioning}
         className="absolute right-0 top-1/2 -translate-y-1/2 z-20 w-12 h-12 rounded-full text-primary-foreground hover:scale-110 transition-all  disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center group"
+        aria-label="Next slide"
       >
         <ChevronRight className="h-24 w-24 text-primary-foreground opacity-30 hover:opacity-70 hover:text-primary-foreground group-hover:scale-110 transition-transform duration-200" />
       </button>
@@ -222,7 +224,10 @@ const HeroSection = React.memo(function HeroSection({
             <div className="flex  gap-4 justify-start">
               {/* View Project - slides in from left */}
               <div className="overflow-hidden">
-                <Link href={`/projects/${currentSlideData.slug}`}>
+                <Link 
+                  href={`/projects/${currentSlideData.slug}`}
+                  aria-label={`Read more about ${currentSlideData.title} project`}
+                >
                   <Button
                     size="lg"
                     className={`bg-primary border border-primary hover:border-primary/90   hover:bg-primary/90 text-lg py-6 text-primary-foreground transition-opacity ease-out duration-1000 ${
@@ -281,6 +286,7 @@ const HeroSection = React.memo(function HeroSection({
                       ? 'w-8 h-1 bg-primary shadow-lg'
                       : 'w-6 h-0.5 bg-primary-foreground/50 hover:bg-primary-foreground/70 hover:w-7'
                   }`}
+                  aria-label={`Go to slide ${index + 1}`}
                 />
               ))}
             </div>

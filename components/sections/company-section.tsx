@@ -149,6 +149,7 @@ export function CompanySection() {
                       <button
                         onClick={togglePlay}
                         className="bg-background/80 backdrop-blur-md hover:bg-background/90 transition-all duration-300 rounded-full p-3 md:p-4 hover:scale-110 border border-border"
+                        aria-label={isPlaying ? "Pause video" : "Play video"}
                       >
                         {isPlaying ? (
                           <Pause className="w-5 h-5 md:w-6 md:h-6 text-foreground" />
@@ -163,6 +164,7 @@ export function CompanySection() {
                       <button
                         onClick={toggleMute}
                         className="bg-background/80 backdrop-blur-md hover:bg-background/90 text-foreground p-1.5 md:p-2 rounded-full border border-border transition-all duration-200 hover:scale-105"
+                        aria-label={isMuted ? "Unmute video" : "Mute video"}
                       >
                         {isMuted ? (
                           <VolumeX className="w-3 h-3 md:w-4 md:h-4" />

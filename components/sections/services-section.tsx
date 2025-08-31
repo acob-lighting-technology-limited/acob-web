@@ -90,7 +90,7 @@ const ServicesSection = React.memo(function ServicesSection() {
             />
 
             <div className="flex gap-4">
-              <Link href="/services" className="w-1/2 md:auto">
+              <Link href="/services" className="w-1/2 md:auto" aria-label="View all our services">
                 <Button className="w-full bg-primary dark:bg-primary text-lg hover:bg-primary text-primary-foreground px-8 py-6 transition-colors duration-700">
                   Read More
                   <ArrowRight className="ml-2 h-4 w-4" />
@@ -148,7 +148,10 @@ const ServicesSection = React.memo(function ServicesSection() {
                     </p>
 
                     <div className="mt-auto">
-                      <Link href={`/services/${service.slug}`}>
+                      <Link 
+                        href={`/services/${service.slug}`}
+                        aria-label={`Learn more about ${service.title}`}
+                      >
                         <Button
                           size="lg"
                           className="bg-foreground dark:!bg-primary !h-12 hover:bg-primary duration-500 transition-colors text-primary-foreground px-6 py-4 text-sm"
@@ -182,6 +185,7 @@ const ServicesSection = React.memo(function ServicesSection() {
                   ? 'w-8 h-1.5 bg-primary dark:bg-primary shadow-lg'
                   : 'w-6 h-1 bg-zinc-400 hover:bg-zinc-600 hover:w-7'
               }`}
+              aria-label={`Go to service ${index + 1}`}
             />
           ))}
         </div>

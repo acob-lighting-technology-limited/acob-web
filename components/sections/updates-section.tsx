@@ -62,7 +62,7 @@ export function UpdatesSection({ posts }: UpdatesSectionProps) {
               className="group overflow-hidden hover:shadow-lg  transition-all duration-300 relative py-0 flex flex-col border-b-2  hover:border-b-primary"
             >
               {/* Image */}
-              <div className="aspect-[16/9] overflow-hidden relative">
+              <div className="aspect-[16/9] overflow-hidden relative bg-muted">
                 {post.featuredImage ? (
                   <Image
                     src={post.featuredImage}
@@ -71,6 +71,8 @@ export function UpdatesSection({ posts }: UpdatesSectionProps) {
                     className="object-cover transition-transform duration-300 group-hover:scale-105"
                     sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                     priority={false}
+                    placeholder="blur"
+                    blurDataURL="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAYEBQYFBAYGBQYHBwYIChAKCgkJChQODwwQFxQYGBcUFhYaHSUfGhsjHBYWICwgIyYnKSopGR8tMC0oMCUoKSj/2wBDAQcHBwoIChMKChMoGhYaKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCj/wAARCAAIAAoDASIAAhEBAxEB/8QAFQABAQAAAAAAAAAAAAAAAAAAAAv/xAAhEAACAQMDBQAAAAAAAAAAAAABAgMABAUGIWGRkqGx0f/EABUBAQEAAAAAAAAAAAAAAAAAAAMF/8QAGhEAAgIDAAAAAAAAAAAAAAAAAAECEgMRkf/aAAwDAQACEQMRAD8AltJagyeH0AthI5xdrLcNM91BF5pX2HaH9bcfaSXWGaRmknyJckliyjqTzSlT54b6bk+h0R//2Q=="
                   />
                 ) : (
                   <div className="w-full h-full bg-muted flex items-center justify-center">
@@ -105,7 +107,10 @@ export function UpdatesSection({ posts }: UpdatesSectionProps) {
                 </div>
                 {/* Read More Button */}
                 <div className="mt-auto pt-6">
-                  <Link href={`/updates/${post.slug.current}`}>
+                  <Link 
+                    href={`/updates/${post.slug.current}`}
+                    aria-label={`Read more about ${post.title}`}
+                  >
                     {' '}
                     <Button
                       variant="outline"

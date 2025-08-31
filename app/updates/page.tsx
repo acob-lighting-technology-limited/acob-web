@@ -185,7 +185,10 @@ export default function UpdatesPage() {
                           </p>
                         </div>
                         <div className="mt-auto">
-                          <Link href={`/updates/${post.slug?.current || '#'}`}>
+                          <Link 
+                            href={`/updates/${post.slug?.current || '#'}`}
+                            aria-label={`Read more about ${post.title}`}
+                          >
                             <Button className="w-full">
                               Read More
                               <ArrowRight className="ml-2 h-4 w-4" />

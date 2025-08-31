@@ -100,7 +100,10 @@ export default async function CaseStudiesPage() {
                       </div>
 
                       <div className="mt-auto">
-                        <Link href={`/updates/${post.slug.current}`}>
+                        <Link 
+                          href={`/updates/${post.slug.current}`}
+                          aria-label={`Read more about ${post.title} case study`}
+                        >
                           <Button className="w-full">
                             Read More
                             <ArrowRight className="ml-2 h-4 w-4" />

@@ -340,6 +340,7 @@ export function Header() {
             <button
               onClick={() => setIsMobileMenuOpen(true)}
               className="lg:hidden p-2 hover:bg-muted rounded-lg  hover:scale-105"
+              aria-label="Open mobile menu"
             >
               <Menu className="h-6 w-6" />
             </button>
