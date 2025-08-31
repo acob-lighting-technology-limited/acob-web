@@ -8,33 +8,17 @@ import Link from 'next/link';
 // Remove direct Sanity import - use API route instead
 
 import type { UpdatePost } from '@/lib/types';
+import { formatDate } from '@/lib/utils/date';
 
-export function UpdatesSection() {
-  const [posts, setPosts] = useState<UpdatePost[]>([]);
-  const [loading, setLoading] = useState(true);
+interface UpdatesSectionProps {
+  posts: UpdatePost[];
+}
 
-  useEffect(() => {
-    const fetchPosts = async () => {
-      try {
-        const response = await fetch('/api/updates');
-        if (!response.ok) {
-          throw new Error('Failed to fetch updates');
-        }
-        const fetchedPosts = await response.json();
-        setPosts(fetchedPosts);
-      } catch (error) {
-        console.error('Error fetching updates:', error);
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetchPosts();
-  }, []);
+export function UpdatesSection({ posts }: UpdatesSectionProps) {
 
   const latestPosts = posts.slice(0, 3); // Get only the latest 3 posts
 
-  if (loading) {
+  if (!posts || posts.length === 0) {
     return (
       <section className="py-16 bg-white dark:bg-zinc-950 transition-colors duration-700">
         <Container className="px-4">
@@ -98,7 +82,7 @@ export function UpdatesSection() {
                 {/* Date and Author */}
                 <div className="flex items-center text-xs dark:text-zinc-400 text-zinc-600 mb-4">
                   <span>{post.author}</span> <span className="mx-2">•</span>
-                  <span>{new Date(post.publishedAt).toLocaleDateString()}</span>
+                  <span>{formatDate(post.publishedAt)}</span>
                   <span className="mx-2">•</span>
                   {/* Category Tag */}
                   <div className=" bg-primary text-white px-3 py-1 rounded  font-medium">

@@ -13,46 +13,32 @@ import { ArrowRight, ChevronLeft, ChevronRight } from 'lucide-react';
 import type { Project } from '@/lib/types';
 import Link from 'next/link';
 import SimpleSpinnerExit from '../loader/simple-spinner-exit';
-import Loading from '@/app/loading';
 
 interface HeroSectionProps {
-  onLoaded?: () => void;
+  projects: any[];
 }
 
 const HeroSection = React.memo(function HeroSection({
-  onLoaded,
+  projects,
 }: HeroSectionProps) {
   const [currentSlide, setCurrentSlide] = useState(0);
   const [isTransitioning, setIsTransitioning] = useState(false);
   const [showContent, setShowContent] = useState(true);
   const [isPaused] = useState(false);
-  const [projects, setProjects] = useState<Project[]>([]);
-  const [loading, setLoading] = useState(true);
   const intervalRef = useRef<NodeJS.Timeout | null>(null);
-
-  // Fetch projects from API
-  useEffect(() => {
-    const fetchProjects = async () => {
-      try {
-        const response = await fetch('/api/projects');
-        if (!response.ok) {
-          throw new Error('Failed to fetch projects');
-        }
-        const fetchedProjects = await response.json();
-        setProjects(fetchedProjects);
-      } catch (error) {
-        console.error('Failed to fetch projects:', error);
-      } finally {
-        setLoading(false);
-        onLoaded?.();
-      }
-    };
-
-    fetchProjects();
-  }, [onLoaded]);
 
   // Convert projects to slides format with optimized images
   const allSlides = useMemo(() => {
+    if (!projects || projects.length === 0) {
+      return [{
+        id: 'fallback',
+        title: 'ACOB Lighting Technology Limited',
+        image: '/images/olooji-community.jpg?height=800&width=1400',
+        location: 'Powering Communities Across Nigeria',
+        slug: '',
+      }];
+    }
+    
     return projects.map(project => ({
       id: `project-${project._id}`,
       title: project.title,
@@ -145,13 +131,7 @@ const HeroSection = React.memo(function HeroSection({
   //   }
   // }, [allSlides]);
 
-  if (loading) {
-    return (
-      <>
-        <Loading />
-      </>
-    );
-  }
+
 
   return (
     <section className="relative h-[70vh] md:h-[80vh] min-h-[300px] md:min-h-[700px] overflow-hidden w-full">
