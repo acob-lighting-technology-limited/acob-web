@@ -1,14 +1,7 @@
-import { Metadata } from 'next';
 import { Container } from '@/components/ui/container';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { PageHero } from '@/components/ui/page-hero';
 import { Breadcrumb } from '@/components/ui/breadcrumb';
-
-export const metadata: Metadata = {
-  title: 'Terms of Service',
-  description:
-    'Terms and conditions governing the use of ACOB Lighting Technology Limited services and website.',
-};
 
 export default function TermsOfServicePage() {
   const breadcrumbItems = [

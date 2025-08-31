@@ -9,6 +9,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { PageHero } from '@/components/ui/page-hero';
 import CallToAction from '@/components/layout/call-to-action';
+import { Metadata } from 'next';
 
 interface ServicePageProps {
   params: Promise<{
@@ -20,6 +21,35 @@ export async function generateStaticParams() {
   return servicesData.map(service => ({
     slug: service.slug,
   }));
+}
+
+export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
+  const { slug } = await params;
+  const service = getServiceBySlug(slug);
+
+  if (!service) {
+    return {
+      title: 'Service Not Found - ACOB Lighting Technology Limited',
+      description: 'The requested service could not be found.',
+    };
+  }
+
+  return {
+    title: `${service.title} - ACOB Lighting Technology Limited`,
+    description: service.shortDescription || `Learn about ${service.title} services from ACOB Lighting Technology Limited. We provide comprehensive solar energy solutions including ${service.title.toLowerCase()} across Nigeria.`,
+    keywords: `${service.title}, solar energy, ${service.title.toLowerCase()}, ACOB Lighting, Nigeria solar services, renewable energy`,
+    openGraph: {
+      title: `${service.title} - ACOB Lighting Technology Limited`,
+      description: service.shortDescription || `Learn about ${service.title} services from ACOB Lighting.`,
+      type: 'website',
+      url: `https://acoblighting.com/services/${slug}`,
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title: `${service.title} - ACOB Lighting Technology Limited`,
+      description: service.shortDescription || `Learn about ${service.title} services from ACOB Lighting.`,
+    },
+  };
 }
 
 export default async function ServicePage({ params }: ServicePageProps) {

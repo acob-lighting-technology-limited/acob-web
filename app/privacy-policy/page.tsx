@@ -1,14 +1,7 @@
-import { Metadata } from 'next';
 import { Container } from '@/components/ui/container';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { PageHero } from '@/components/ui/page-hero';
 import { Breadcrumb } from '@/components/ui/breadcrumb';
-
-export const metadata: Metadata = {
-  title: 'Privacy Policy',
-  description:
-    'Learn how ACOB Lighting Technology Limited collects, uses, and protects your personal information.',
-};
 
 export default function PrivacyPolicyPage() {
   const breadcrumbItems = [

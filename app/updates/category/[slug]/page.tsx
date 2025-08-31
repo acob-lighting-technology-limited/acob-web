@@ -8,10 +8,37 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { getUpdatePosts } from '@/sanity/lib/client';
 import type { UpdatePost } from '@/lib/types';
+import { Metadata } from 'next';
 
 
 interface CategoryPageProps {
   params: Promise<{ slug: string }>;
+}
+
+export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
+  const { slug } = await params;
+  const posts = await getUpdatePosts();
+  const categoryPosts = posts.filter((post: UpdatePost) => post.category === slug);
+  
+  const categoryName = slug.replace(/-/g, ' ').replace(/\b\w/g, l => l.toUpperCase());
+  const postCount = categoryPosts.length;
+
+  return {
+    title: `${categoryName} - ACOB Lighting Technology Limited`,
+    description: `Browse ${postCount} ${categoryName.toLowerCase()} updates from ACOB Lighting Technology Limited. Stay updated with our latest ${categoryName.toLowerCase()}, news, and developments in solar energy solutions across Nigeria.`,
+    keywords: `${categoryName}, ACOB Lighting ${categoryName.toLowerCase()}, solar energy ${categoryName.toLowerCase()}, renewable energy, Nigeria solar ${categoryName.toLowerCase()}`,
+    openGraph: {
+      title: `${categoryName} - ACOB Lighting Technology Limited`,
+      description: `Browse ${postCount} ${categoryName.toLowerCase()} updates from ACOB Lighting.`,
+      type: 'website',
+      url: `https://acoblighting.com/updates/category/${slug}`,
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title: `${categoryName} - ACOB Lighting Technology Limited`,
+      description: `Browse ${postCount} ${categoryName.toLowerCase()} updates from ACOB Lighting.`,
+    },
+  };
 }
 
 export default async function CategoryPage({ params }: CategoryPageProps) {

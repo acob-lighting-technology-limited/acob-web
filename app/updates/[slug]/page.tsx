@@ -15,6 +15,7 @@ import { Card, CardContent } from '@/components/ui/card';
 import { ArrowRight } from 'lucide-react';
 import { ShareCopy } from '@/components/updates/share-copy';
 import { CommentForm } from '@/components/updates/comment-form';
+import { Metadata } from 'next';
 
 interface UpdatePostPageProps {
   params: Promise<{
@@ -29,6 +30,37 @@ export async function generateStaticParams() {
     .map((post: UpdatePost) => ({
       slug: post.slug.current,
     }));
+}
+
+export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
+  const { slug } = await params;
+  const post = await getUpdatePost(slug);
+
+  if (!post) {
+    return {
+      title: 'Update Not Found - ACOB Lighting Technology Limited',
+      description: 'The requested update could not be found.',
+    };
+  }
+
+  return {
+    title: `${post.title} - ACOB Lighting Technology Limited`,
+    description: post.excerpt || `Read about ${post.title} from ACOB Lighting Technology Limited. Stay updated with our latest news, case studies, and developments in solar energy solutions across Nigeria.`,
+    keywords: `${post.title}, ACOB Lighting news, solar energy updates, renewable energy, Nigeria solar news, ${post.category || 'news'}`,
+    openGraph: {
+      title: `${post.title} - ACOB Lighting Technology Limited`,
+      description: post.excerpt || `Read about ${post.title} from ACOB Lighting.`,
+      type: 'article',
+      url: `https://acoblighting.com/updates/${slug}`,
+      publishedTime: post.publishedAt,
+      authors: [post.author],
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title: `${post.title} - ACOB Lighting Technology Limited`,
+      description: post.excerpt || `Read about ${post.title} from ACOB Lighting.`,
+    },
+  };
 }
 
 // Custom Portable Text Components
