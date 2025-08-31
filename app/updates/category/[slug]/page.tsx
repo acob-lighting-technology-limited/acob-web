@@ -4,9 +4,10 @@ import { Breadcrumb } from '@/components/ui/breadcrumb';
 import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { ArrowRight, Calendar, User } from 'lucide-react';
+import Link from 'next/link';
+import Image from 'next/image';
 import { getUpdatePosts } from '@/sanity/lib/client';
 import type { UpdatePost } from '@/lib/types';
-import Link from 'next/link';
 
 
 interface CategoryPageProps {
@@ -66,11 +67,13 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
                   key={post._id}
                   className="overflow-hidden p-0 hover:shadow-lg transition-shadow duration-300"
                 >
-                  <div className="aspect-[16/9] overflow-hidden">
-                    <img
+                  <div className="aspect-[16/9] overflow-hidden relative">
+                    <Image
                       src={post.featuredImage || '/placeholder.svg'}
                       alt={post.title}
-                      className="w-full h-full object-cover hover:scale-105 transition-transform duration-300"
+                      fill
+                      className="object-cover hover:scale-105 transition-transform duration-300"
+                      sizes="(max-width: 768px) 100vw, 66vw"
                     />
                   </div>
                   <CardContent className="p-6">

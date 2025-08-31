@@ -6,6 +6,7 @@ import { CheckCircle, ArrowRight } from 'lucide-react';
 import { notFound } from 'next/navigation';
 import { getServiceBySlug, servicesData } from '@/lib/data';
 import Link from 'next/link';
+import Image from 'next/image';
 import { PageHero } from '@/components/ui/page-hero';
 import CallToAction from '@/components/layout/call-to-action';
 
@@ -69,10 +70,12 @@ export default async function ServicePage({ params }: ServicePageProps) {
                         key={index}
                         className="aspect-[4/3] overflow-hidden rounded-lg"
                       >
-                        <img
+                        <Image
                           src={image || '/placeholder.svg'}
                           alt={`${service.title} project ${index + 1}`}
-                          className="w-full h-full object-cover hover:scale-105 "
+                          fill
+                          className="object-cover hover:scale-105 transition-transform duration-300"
+                          sizes="(max-width: 768px) 100vw, 50vw"
                         />
                       </div>
                     ))}

@@ -21,6 +21,7 @@ import {
   CarouselItem,
 } from '@/components/ui';
 import type { CarouselApi } from '@/components/ui/carousel';
+import Image from 'next/image';
 
 // Local component imports
 import { MaskText } from '../animations/MaskText';
@@ -130,10 +131,12 @@ const ServicesSection = React.memo(function ServicesSection() {
                   <CardContent className="relative p-10 flex flex-col h-full  border-0  ">
                     <div className="mb-6 w-fit transition-transform duration-700 group-hover:scale-x-[-1]">
                       <span>
-                        <img
+                        <Image
                           src={service.icon || '/placeholder.svg'}
                           alt={service.title}
-                          className="w-20 h-20 object-contain"
+                          width={80}
+                          height={80}
+                          className="object-contain"
                         />
                       </span>
                     </div>

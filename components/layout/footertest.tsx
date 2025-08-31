@@ -2,6 +2,7 @@
 import React from 'react';
 import { Container } from '../ui/container';
 import Link from 'next/link';
+import Image from 'next/image';
 import { Facebook, Instagram, Linkedin, MapPin, Twitter } from 'lucide-react';
 
 export function Footer() {
@@ -17,9 +18,11 @@ export function Footer() {
               <div className=" w-1/2 flex flex-col gap-8 max-w-md">
                 {' '}
                 <Link href="/" className="flex items-center space-x-2 group">
-                  <img
+                  <Image
                     src="/images/ACOB-Logo.png"
                     alt="ACOB Lighting Logo"
+                    width={48}
+                    height={48}
                     className="h-12 w-auto transition-transform duration-200 group-hover:scale-105"
                   />
                 </Link>

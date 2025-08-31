@@ -5,6 +5,7 @@ import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { ArrowRight } from 'lucide-react';
 import Link from 'next/link';
+import Image from 'next/image';
 // Remove direct Sanity import - use API route instead
 
 import type { UpdatePost } from '@/lib/types';
@@ -63,11 +64,13 @@ export function UpdatesSection({ posts }: UpdatesSectionProps) {
               {/* Image */}
               <div className="aspect-[16/9] overflow-hidden relative">
                 {post.featuredImage ? (
-                  <img
+                  <Image
                     src={post.featuredImage}
                     alt={post.title}
-                    className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
-                    loading="lazy"
+                    fill
+                    className="object-cover transition-transform duration-300 group-hover:scale-105"
+                    sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                    priority={false}
                   />
                 ) : (
                   <div className="w-full h-full bg-muted flex items-center justify-center">
