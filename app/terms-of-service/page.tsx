@@ -345,15 +345,15 @@ export default function TermsOfServicePage() {
                     <div className="space-y-3">
                       <div className="flex items-center gap-3 text-muted-foreground">
                         <Mail className="w-4 h-4 text-primary" />
-                        <span>legal@acoblighting.com</span>
+                        <span>info@acoblighting.com</span>
                       </div>
                       <div className="flex items-center gap-3 text-muted-foreground">
                         <Phone className="w-4 h-4 text-primary" />
-                        <span>+234-XXX-XXX-XXXX</span>
+                        <span>+234 704 920 2634</span>
                       </div>
                       <div className="flex items-center gap-3 text-muted-foreground">
                         <MapPin className="w-4 h-4 text-primary" />
-                        <span>[Your Business Address]</span>
+                        <span>1st Floor, Rochas Plaza, 26 Herbert Macaulay Way, Abuja, Nigeria</span>
                       </div>
                     </div>
                   </div>

@@ -225,6 +225,12 @@ export function Header() {
   const [logoSrc, setLogoSrc] = useState('/images/acob-logo-light.png'); // Default logo
   const { resolvedTheme } = useTheme();
 
+  // Smart scroll behavior states
+  const [isScrollingDown, setIsScrollingDown] = useState(false);
+  const [showHeader, setShowHeader] = useState(true);
+  const [lastScrollY, setLastScrollY] = useState(0);
+  const scrollTimeoutRef = useRef<NodeJS.Timeout | null>(null);
+
   // Wait for theme to be resolved on client side
   useEffect(() => {
     setMounted(true);
@@ -241,15 +247,74 @@ export function Header() {
     }
   }, [mounted, resolvedTheme]);
 
-  // Handle scroll effect
+  // Enhanced scroll handling with smart show/hide behavior
   useEffect(() => {
     const handleScroll = () => {
-      setIsScrolled(window.scrollY > 10);
+      const currentScrollY = window.scrollY;
+      const scrollDifference = Math.abs(currentScrollY - lastScrollY);
+      
+      // Only update if scroll difference is significant (reduces jitter)
+      if (scrollDifference < 5) return;
+
+      // Update scroll state for styling
+      setIsScrolled(currentScrollY > 10);
+      
+      // Determine scroll direction
+      const scrollingDown = currentScrollY > lastScrollY;
+      setIsScrollingDown(scrollingDown);
+      
+      // Show/hide logic
+      if (currentScrollY < 100) {
+        // Always show header near the top
+        setShowHeader(true);
+      } else if (scrollingDown && currentScrollY > lastScrollY) {
+        // Hide when scrolling down (with threshold to prevent hiding on small movements)
+        if (scrollDifference > 10) {
+          setShowHeader(false);
+        }
+      } else if (!scrollingDown) {
+        // Show when scrolling up
+        setShowHeader(true);
+      }
+      
+      setLastScrollY(currentScrollY);
     };
 
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
+    // Separate function to handle scroll stop detection
+    const handleScrollStop = () => {
+      // Clear any existing timeout
+      if (scrollTimeoutRef.current) {
+        clearTimeout(scrollTimeoutRef.current);
+      }
+      
+      // Show header after user stops scrolling for 1 second
+      scrollTimeoutRef.current = setTimeout(() => {
+        setShowHeader(true);
+      }, 1000);
+    };
+
+    // Throttle scroll events for better performance
+    let ticking = false;
+    const throttledHandleScroll = () => {
+      if (!ticking) {
+        requestAnimationFrame(() => {
+          handleScroll();
+          ticking = false;
+        });
+        ticking = true;
+      }
+      // Handle scroll stop detection on every scroll event
+      handleScrollStop();
+    };
+
+    window.addEventListener('scroll', throttledHandleScroll, { passive: true });
+    return () => {
+      window.removeEventListener('scroll', throttledHandleScroll);
+      if (scrollTimeoutRef.current) {
+        clearTimeout(scrollTimeoutRef.current);
+      }
+    };
+  }, [lastScrollY]);
 
   const handleMouseEnter = (itemName: string) => {
     if (timeoutRef.current) {
@@ -272,16 +337,18 @@ export function Header() {
     <>   
       <header
         className={`
-        sticky top-0 z-40 w-full  ease-out
-        bg-background/95 backdrop-blur-sm border-b-[2px] border-border
-        dark:bg-black 
-        ${
-    isScrolled
-      ? 'bg-background/75 backdrop-blur-3xl shadow-lg border-b-[1px] border-border dark:bg-background'
-      : 'bg-background/95 backdrop-blur-sm border-b border-border dark:bg-background'
-    }
-      `}
-      ><HiringAnnouncementBanner />
+          sticky top-0 z-40 w-full transition-all duration-300 ease-out
+          bg-background/95 backdrop-blur-sm border-b-[2px] border-border
+          dark:bg-black 
+          ${showHeader ? 'translate-y-0' : '-translate-y-full'}
+          ${
+            isScrolled
+              ? 'bg-background/75 backdrop-blur-3xl shadow-lg border-b-[1px] border-border dark:bg-background'
+              : 'bg-background/95 backdrop-blur-sm border-b border-border dark:bg-background'
+          }
+        `}
+      >
+        <HiringAnnouncementBanner />
 
         <Container noPadding className="px-4">
           <div className="flex items-center justify-between h-16">

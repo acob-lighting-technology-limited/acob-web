@@ -157,7 +157,7 @@ export default async function PressPage() {
                   <div className="p-3 rounded-lg bg-muted/30 border border-border">
                     <p className="text-sm font-medium">Phone:</p>
                     <p className="text-sm text-muted-foreground">
-                      +234 XXX XXX XXXX
+                      +234 704 920 2634
                     </p>
                   </div>
                   <Link href="/contact">

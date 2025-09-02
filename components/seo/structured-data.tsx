@@ -9,15 +9,15 @@ export function StructuredData() {
       'Leading supplier of solar materials for manufacturers, installers & contractors. Mini-grid solutions, captive power systems, and professional energy audits.',
     address: {
       '@type': 'PostalAddress',
-      streetAddress: 'Your Street Address',
+      streetAddress: '1st Floor, Rochas Plaza, 26 Herbert Macaulay Way',
       addressLocality: 'Abuja',
       addressRegion: 'FCT',
-      postalCode: 'Your Postal Code',
+      postalCode: '900001',
       addressCountry: 'NG',
     },
     contactPoint: {
       '@type': 'ContactPoint',
-      telephone: '+234-XXX-XXX-XXXX',
+      telephone: '+234 704 920 2634',
       contactType: 'customer service',
       email: 'info@acoblighting.com',
     },

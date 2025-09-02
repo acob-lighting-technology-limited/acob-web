@@ -331,9 +331,9 @@ export default function PrivacyPolicyPage() {
                   data practices, please contact us:
                 </p>
                 <div className="mt-3 space-y-1 text-muted-foreground">
-                  <p>Email: privacy@acoblighting.com</p>
-                  <p>Phone: +234-XXX-XXX-XXXX</p>
-                  <p>Address: [Your Business Address]</p>
+                  <p>Email: info@acoblighting.com</p>
+                  <p>Phone: +234 704 920 2634</p>
+                  <p>Address: 1st Floor, Rochas Plaza, 26 Herbert Macaulay Way, Abuja, Nigeria</p>
                 </div>
               </section>
               </CardContent>
