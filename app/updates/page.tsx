@@ -6,7 +6,7 @@ import { PageHero } from '@/components/ui/page-hero';
 import { Breadcrumb } from '@/components/ui/breadcrumb';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
-import { ArrowRight, Search } from 'lucide-react';
+import { ArrowRight, Search, Filter } from 'lucide-react';
 import Link from 'next/link';
 import Image from 'next/image';
 // Remove direct Sanity import - use API route instead
@@ -34,6 +34,7 @@ export default function UpdatesPage() {
   const [searchQuery, setSearchQuery] = useState('');
   const [isLoading, setIsLoading] = useState(true);
   const [currentPage, setCurrentPage] = useState(1);
+  const [showMobileFilters, setShowMobileFilters] = useState(false);
   const postsPerPage = 8; // Show 8 posts per page
 
   // Initialize from URL
@@ -125,6 +126,27 @@ export default function UpdatesPage() {
 
   const breadcrumbItems = [{ label: 'Home', href: '/' }, { label: 'Updates' }];
 
+  const activeFiltersCount = searchQuery ? 1 : 0;
+
+  // Mobile Filter components
+  // const MobileFilterContent = () => (
+  //   <div className="space-y-6">
+  //     {/* Search */}
+  //     <div>
+  //       <h3 className="font-semibold mb-4">Search Updates</h3>
+  //       <div className="relative">
+  //         <Input
+  //           placeholder="Search updates..."
+  //           value={searchQuery}
+  //           onChange={e => setSearchQuery(e.target.value)}
+  //           className="pr-10"
+  //         />
+  //         <Search className="absolute right-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+  //       </div>
+  //     </div>
+  //   </div>
+  // );
+
 
 
   return (
@@ -137,6 +159,66 @@ export default function UpdatesPage() {
       <Container className="px-4 py-8">
         <Breadcrumb items={breadcrumbItems} className="mb-8" />
 
+        {/* Mobile Search & Filter - Combined */}
+        <div className="lg:hidden mb-2">
+          <Card className="!border-t-2 !border-t-primary border border-border !py-0">
+            <CardContent className="p-0">
+              {/* Search and Filter Header */}
+              <div className="flex items-center gap-2 p-3">
+                {/* Search Input */}
+                <div className="relative flex-1">
+                  <Input
+                    placeholder="Search updates..."
+                    value={searchQuery}
+                    onChange={e => setSearchQuery(e.target.value)}
+                    className="pr-10 h-10"
+                  />
+                  <Search className="absolute right-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+                </div>
+
+                {/* Filter Toggle Button */}
+                <button
+                  onClick={() => setShowMobileFilters(!showMobileFilters)}
+                  className="flex items-center gap-2 px-3 py-2 h-10 bg-muted/30 hover:bg-muted/50 border border-border rounded-lg transition-colors duration-200"
+                >
+                  <Filter className="h-4 w-4" />
+                  <span className="text-sm font-medium">Filter</span>
+                  {activeFiltersCount > 0 && (
+                    <span className="bg-primary text-primary-foreground rounded-full px-1.5 py-0.5 text-xs font-medium min-w-[18px] text-center">
+                      {activeFiltersCount}
+                    </span>
+                  )}
+                  <div className={`transition-transform duration-200 ${showMobileFilters ? 'rotate-180' : ''}`}>
+                    <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                    </svg>
+                  </div>
+                </button>
+              </div>
+
+              {/* Expandable Filter Content */}
+              {/* {showMobileFilters && (
+                <div className="border-t border-border p-4 animate-in slide-in-from-top-5 duration-300">
+                  <MobileFilterContent />
+                  Clear button for mobile
+                  <div className="mt-6 pt-4 border-t">
+                    <Button
+                      variant="outline"
+                      onClick={() => {
+                        setSearchQuery('');
+                      }}
+                      className="w-full"
+                      disabled={activeFiltersCount === 0}
+                    >
+                      Clear Filters
+                    </Button>
+                  </div>
+                </div>
+              )} */}
+            </CardContent>
+          </Card>
+        </div>
+
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 items-start">
           {/* Main Content */}
           <div className="lg:col-span-2">
@@ -145,15 +227,26 @@ export default function UpdatesPage() {
             ) : (
               <>
                 {/* Search Results Info */}
-                {searchQuery && (
-                  <div className="mb-6 p-4 bg-muted rounded-lg">
-                    <p className="text-sm text-muted-foreground">
-                      {filteredPosts.length} result
-                      {filteredPosts.length !== 1 ? 's' : ''} found for "
-                      {searchQuery}"
+                <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6">
+                  <div className="flex-1">
+                    {searchQuery && (
+                      <div className="p-4 bg-muted rounded-lg">
+                        <p className="text-sm text-muted-foreground">
+                          {filteredPosts.length} result
+                          {filteredPosts.length !== 1 ? 's' : ''} found for "
+                          {searchQuery}"
+                        </p>
+                      </div>
+                    )}
+                  </div>
+                  
+                  {/* Results count for mobile - always visible */}
+                  <div className="lg:hidden">
+                    <p className="text-sm text-muted-foreground text-right">
+                      {filteredPosts.length} of {posts.length} updates
                     </p>
                   </div>
-                )}
+                </div>
 
                 {/* Posts Grid */}
                 {currentPosts.length > 0 ? (
@@ -281,8 +374,10 @@ export default function UpdatesPage() {
             )}
           </div>
 
-          {/* Sidebar */}
-          <div className="space-y-6 sticky top-20 self-start">
+          {/* Desktop Sidebar - Hidden on mobile */}
+          <div className="hidden lg:block">
+            <div className="sticky top-20 self-start">
+              <div className="space-y-6">
             {isLoading ? (
               <UpdatesSidebarSkeleton />
             ) : (
@@ -337,6 +432,8 @@ export default function UpdatesPage() {
             </Card>
               </>
             )}
+              </div>
+            </div>
           </div>
         </div>
       </Container>

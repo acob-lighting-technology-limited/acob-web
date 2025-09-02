@@ -353,7 +353,7 @@ export default function TermsOfServicePage() {
                       </div>
                       <div className="flex items-center gap-3 text-muted-foreground">
                         <MapPin className="w-4 h-4 text-primary" />
-                        <span>1st Floor, Rochas Plaza, 26 Herbert Macaulay Way, Abuja, Nigeria</span>
+                        <span>Plot 2. Block 14 Extension, Federal Ministry of Works And Housing Sites and Service Scheme, Setraco Gate Gwarinpa, Abuja, Nigeria</span>
                       </div>
                     </div>
                   </div>

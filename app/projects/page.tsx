@@ -8,7 +8,7 @@ import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import Image from 'next/image';
-import { MapPin, ArrowRight, Search, X } from 'lucide-react';
+import { MapPin, ArrowRight, Search, X, Filter } from 'lucide-react';
 import Link from 'next/link';
 // Remove direct Sanity import - use API route instead
 import type { Project } from '@/lib/types';
@@ -30,6 +30,7 @@ export default function ProjectsPage() {
   const [selectedState, setSelectedState] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState(true);
   const [currentPage, setCurrentPage] = useState(1);
+  const [showMobileFilters, setShowMobileFilters] = useState(false);
   const projectsPerPage = 6; // Show 6 projects per page (3 rows of 2 columns)
 
   useEffect(() => {
@@ -87,6 +88,52 @@ export default function ProjectsPage() {
     setSelectedState(null);
     setCurrentPage(1);
   };
+
+  const activeFiltersCount = (searchQuery ? 1 : 0) + (selectedState ? 1 : 0);
+
+  // Mobile Filter components
+  const MobileFilterContent = () => (
+    <div className="space-y-6">
+     
+
+      {/* States */}
+      <div>
+        <h3 className="font-semibold mb-4">Filter by State</h3>
+        <div className="space-y-2">
+          {uniqueStates.map((state: string) => (
+            <button
+              key={state}
+              onClick={() =>
+                setSelectedState(selectedState === state ? null : state)
+              }
+              className={`w-full text-left p-3 rounded-lg transition-colors duration-200 text-sm font-medium border border-border ${
+                selectedState === state
+                  ? 'bg-primary text-primary-foreground'
+                  : 'bg-muted/30 hover:bg-muted/50 text-foreground'
+              }`}
+            >
+              <div className="flex items-center justify-between">
+                <span>{state}</span>
+                <span className="text-xs opacity-70">
+                  (
+                  {
+                    projects.filter(p => {
+                      if (!p.location) {return false;}
+                      const projectState = extractStateFromLocation(
+                        p.location,
+                      );
+                      return projectState === state;
+                    }).length
+                  }
+                  )
+                </span>
+              </div>
+            </button>
+          ))}
+        </div>
+      </div>
+    </div>
+  );
 
   // Pagination logic
   const totalPages = Math.ceil(filteredProjects.length / projectsPerPage);
@@ -156,6 +203,67 @@ export default function ProjectsPage() {
       <Container className="px-4 py-8">
         <Breadcrumb items={breadcrumbItems} className="mb-8" />
 
+        {/* Mobile Search & Filter - Combined */}
+        <div className="lg:hidden mb-2">
+          <Card className="!border-t-2 !border-t-primary border border-border !py-0">
+            <CardContent className="p-0">
+              {/* Search and Filter Header */}
+              <div className="flex items-center gap-2 p-3">
+                {/* Search Input */}
+                <div className="relative flex-1">
+                  <Input
+                    placeholder="Search projects..."
+                    value={searchQuery}
+                    onChange={e => setSearchQuery(e.target.value)}
+                    className="pr-10 h-10"
+                  />
+                  <Search className="absolute right-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+                </div>
+
+                {/* Filter Toggle Button */}
+                <button
+                  onClick={() => setShowMobileFilters(!showMobileFilters)}
+                  className="flex items-center gap-2 px-3 py-2 h-10 bg-muted/30 hover:bg-muted/50 border border-border rounded-lg transition-colors duration-200"
+                >
+                  <Filter className="h-4 w-4" />
+                  <span className="text-sm font-medium">Filter</span>
+                  {activeFiltersCount > 0 && (
+                    <span className="bg-primary text-primary-foreground rounded-full px-1.5 py-0.5 text-xs font-medium min-w-[18px] text-center">
+                      {activeFiltersCount}
+                    </span>
+                  )}
+                  <div className={`transition-transform duration-200 ${showMobileFilters ? 'rotate-180' : ''}`}>
+                    <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                    </svg>
+                  </div>
+                </button>
+              </div>
+
+              {/* Expandable Filter Content */}
+              {showMobileFilters && (
+                <div className="border-t border-border p-4 animate-in slide-in-from-top-5 duration-300">
+                  <MobileFilterContent />
+                  {/* Clear button for mobile */}
+                  <div className="mt-6 pt-4 border-t">
+                    <Button
+                      variant="outline"
+                      onClick={() => {
+                        setSearchQuery('');
+                        setSelectedState(null);
+                      }}
+                      className="w-full"
+                      disabled={activeFiltersCount === 0}
+                    >
+                      Clear Filters
+                    </Button>
+                  </div>
+                </div>
+              )}
+            </CardContent>
+          </Card>
+        </div>
+
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 items-start">
           {/* Main Content */}
           <div className="lg:col-span-2 space-y-8">
@@ -163,29 +271,40 @@ export default function ProjectsPage() {
               <ProjectsGridSkeleton />
             ) : (
               <>
-                {/* Search Results Info */}
+                            {/* Search Results Info */}
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+              <div className="flex-1">
                 {(searchQuery || selectedState) && (
-              <Card className="!border-t-2 !border-t-primary border border-border">
-                <CardContent className="p-4">
-                  <div className="flex items-center justify-between">
-                    <p className="text-sm text-muted-foreground">
-                      {filteredProjects.length} project(s) found
-                      {searchQuery && ` for "${searchQuery}"`}
-                      {selectedState && ` in "${selectedState}"`}
-                    </p>
-                    <Button
-                      variant="outline"
-                      size="sm"
-                      onClick={handleClearSearch}
-                      className="text-xs"
-                    >
-                      <X className="h-3 w-3 mr-1" />
-                      Clear
-                    </Button>
-                  </div>
-                </CardContent>
-              </Card>
-            )}
+                  <Card className="!border-t-2 !border-t-primary border border-border">
+                    <CardContent className="p-4">
+                      <div className="flex items-center justify-between">
+                        <p className="text-sm text-muted-foreground">
+                          {filteredProjects.length} project(s) found
+                          {searchQuery && ` for "${searchQuery}"`}
+                          {selectedState && ` in "${selectedState}"`}
+                        </p>
+                        <Button
+                          variant="outline"
+                          size="sm"
+                          onClick={handleClearSearch}
+                          className="text-xs"
+                        >
+                          <X className="h-3 w-3 mr-1" />
+                          Clear All
+                        </Button>
+                      </div>
+                    </CardContent>
+                  </Card>
+                )}
+              </div>
+              
+              {/* Results count for mobile - always visible */}
+              <div className="lg:hidden">
+                <p className="text-sm text-muted-foreground text-right">
+                  {filteredProjects.length} of {projects.length} projects
+                </p>
+              </div>
+            </div>
 
             {filteredProjects.length === 0 ? (
               <Card className="!border-t-2 !border-t-primary border border-border">
@@ -317,8 +436,10 @@ export default function ProjectsPage() {
             )}
           </div>
 
-          {/* Sidebar */}
-          <div className="space-y-6 sticky top-20 self-start">
+          {/* Desktop Sidebar - Hidden on mobile */}
+          <div className="hidden lg:block">
+            <div className="sticky top-20 self-start">
+              <div className="space-y-6">
             {isLoading ? (
               <ProjectsSidebarSkeleton />
             ) : (
@@ -414,6 +535,8 @@ export default function ProjectsPage() {
               </Card>
               </>
             )}
+              </div>
+            </div>
           </div>
         </div>
       </Container>

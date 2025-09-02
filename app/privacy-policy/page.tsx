@@ -333,7 +333,7 @@ export default function PrivacyPolicyPage() {
                 <div className="mt-3 space-y-1 text-muted-foreground">
                   <p>Email: info@acoblighting.com</p>
                   <p>Phone: +234 704 920 2634</p>
-                  <p>Address: 1st Floor, Rochas Plaza, 26 Herbert Macaulay Way, Abuja, Nigeria</p>
+                  <p>Address: Plot 2. Block 14 Extension, Federal Ministry of Works And Housing Sites and Service Scheme, Setraco Gate Gwarinpa, Abuja, Nigeria</p>
                 </div>
               </section>
               </CardContent>

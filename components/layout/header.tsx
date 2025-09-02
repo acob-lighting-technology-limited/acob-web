@@ -108,16 +108,14 @@ const MobileMenu: React.FC<MobileMenuProps> = ({ isOpen, onClose }) => {
   return (
     <div
       className={`
-      fixed inset-0 z-50 lg:hidden
-      
-      ${isOpen ? 'opacity-100 visible' : 'opacity-0 invisible'}
-    `}
+        fixed inset-0 z-50 lg:hidden transition-all duration-300 ease-out
+        ${isOpen ? 'opacity-100 visible' : 'opacity-0 invisible'}
+      `}
     >
       {/* Backdrop */}
       <div
         className={`
-          absolute inset-0 bg-black/50 backdrop-blur-sm
-         =
+          absolute inset-0 bg-black/50 backdrop-blur-sm transition-opacity duration-300
           ${isOpen ? 'opacity-100' : 'opacity-0'}
         `}
         onClick={onClose}
@@ -126,49 +124,73 @@ const MobileMenu: React.FC<MobileMenuProps> = ({ isOpen, onClose }) => {
       {/* Menu Panel */}
       <div
         className={`
-        absolute right-0 top-0 h-full w-80 bg-popover shadow-2xl
-        transform 
-        ${isOpen ? 'translate-x-0' : 'translate-x-full'}
-        transition-all duration-300 ease-out
-      `}
+          absolute right-0 top-0 h-full w-80 bg-popover shadow-2xl border-l border-border
+          transform transition-all duration-300 ease-out
+          ${isOpen ? 'translate-x-0' : 'translate-x-full'}
+        `}
       >
-        <div className="flex flex-col h-full p-6">
-          <div className="flex items-center justify-between mb-8">
-            <h2 className="text-xl font-bold text-foreground">Menu</h2>
+        <div className="flex flex-col h-full">
+          {/* Header */}
+          <div className="flex items-center justify-between p-6 border-b border-border bg-gradient-to-r from-primary/5 to-primary/10">
+            <h2 className="text-xl font-bold text-foreground">Navigation</h2>
             <button
               onClick={onClose}
-              className="p-2 hover:bg-muted rounded-lg "
+              className="p-2 hover:bg-destructive/10 hover:text-destructive rounded-full transition-all duration-200 hover:scale-110 active:scale-95"
+              aria-label="Close menu"
             >
               <X className="h-5 w-5" />
             </button>
           </div>
 
-          <nav className="space-y-2">
+          {/* Navigation */}
+          <nav className="flex-1 overflow-y-auto p-4 space-y-1">
             {navigationItems.map((item, index) => (
               <div
                 key={item.name}
                 className="animate-slideInRight"
-                style={{ animationDelay: `${index * 100}ms` }}
+                style={{ 
+                  animationDelay: `${index * 100}ms`,
+                  animationFillMode: 'both'
+                }}
               >
-                <button
-                  onClick={() => toggleExpanded(item.name)}
-                  className="w-full flex items-center justify-between p-3 text-left hover:bg-muted rounded-lg "
-                >
-                  <span className="font-medium text-foreground">
-                    {item.name}
-                  </span>
-                  <ChevronDown
-                    className={`h-4 w-4  ${expandedItems[item.name] ? 'rotate-180' : ''}`}
-                  />
-                </button>
+                {/* Main Navigation Item */}
+                <div className="flex items-center rounded-lg overflow-hidden border border-transparent hover:border-border/50 transition-all duration-200">
+                  {/* Clickable main link */}
+                  <Link
+                    href={item.href}
+                    onClick={onClose}
+                    className="flex-1 flex items-center p-3 text-left hover:bg-primary/5 transition-colors duration-200"
+                  >
+                    <span className="font-medium text-foreground hover:text-primary transition-colors">
+                      {item.name}
+                    </span>
+                  </Link>
+                  
+                  {/* Expand/collapse button */}
+                  <button
+                    onClick={() => toggleExpanded(item.name)}
+                    className="p-3 hover:bg-muted transition-colors duration-200 border-l border-border/20"
+                    aria-label={`${expandedItems[item.name] ? 'Collapse' : 'Expand'} ${item.name} menu`}
+                  >
+                    <ChevronDown
+                      className={`h-4 w-4 text-muted-foreground transition-all duration-200 ${
+                        expandedItems[item.name] ? 'rotate-180 text-primary' : ''
+                      }`}
+                    />
+                  </button>
+                </div>
 
+                {/* Sub Items */}
                 <div
                   className={`
-                  overflow-hidden 
-                  ${expandedItems[item.name] ? 'max-h-96 opacity-100' : 'max-h-0 opacity-0'}
-                `}
+                    overflow-hidden transition-all duration-300 ease-out
+                    ${expandedItems[item.name] 
+                      ? 'max-h-96 opacity-100 mt-2' 
+                      : 'max-h-0 opacity-0 mt-0'
+                    }
+                  `}
                 >
-                  <div className="pl-4 pt-2 space-y-2">
+                  <div className="ml-4 space-y-1 border-l-2 border-primary/20 pl-4">
                     {item.subItems.map((subItem, subIndex) => {
                       const IconComponent = LucideIcons[subItem.icon];
                       return (
@@ -177,18 +199,27 @@ const MobileMenu: React.FC<MobileMenuProps> = ({ isOpen, onClose }) => {
                           href={subItem.href}
                           onClick={onClose}
                           className={`
-                            flex items-center space-x-3 p-2 text-sm text-muted-foreground hover:text-primary hover:bg-primary/10 rounded-md 
-                             animate-fadeInUp
+                            group flex items-start gap-3 p-3 text-sm rounded-lg
+                            hover:bg-gradient-to-r hover:from-primary/5 hover:to-primary/10
+                            transition-all duration-200 hover:scale-[1.02]
+                            animate-fadeInUp
                           `}
                           style={{
-                            animationDelay: `${subIndex * 50}ms`,
+                            animationDelay: `${(index * 100) + (subIndex * 50)}ms`,
                             animationFillMode: 'both',
                           }}
                         >
                           {IconComponent && (
-                            <IconComponent className="w-4 h-4 text-muted-foreground group-hover:text-primary transition-colors duration-200" />
+                            <IconComponent className="w-5 h-5 text-muted-foreground group-hover:text-primary transition-colors duration-200 mt-0.5 flex-shrink-0" />
                           )}
-                          <span>{subItem.name}</span>
+                          <div className="min-w-0 flex-1">
+                            <div className="font-medium text-foreground group-hover:text-primary transition-colors break-words">
+                              {subItem.name}
+                            </div>
+                            <div className="text-xs text-muted-foreground group-hover:text-foreground/80 mt-1 break-words leading-relaxed">
+                              {subItem.description}
+                            </div>
+                          </div>
                         </Link>
                       );
                     })}
@@ -198,17 +229,19 @@ const MobileMenu: React.FC<MobileMenuProps> = ({ isOpen, onClose }) => {
             ))}
           </nav>
 
-          <div className="mt-8 pt-8 border-t">
+          {/* Footer */}
+          <div className="p-6 border-t border-border bg-gradient-to-r from-primary/5 to-primary/10">
             <Link
               href="/contact/quote"
-              className="w-full bg-primary hover:bg-primary/90 text-white font-medium py-3 px-4 rounded-lg  hover:shadow-lg hover:scale-105 flex items-center justify-center"
+              onClick={onClose}
+              className="w-full bg-primary hover:bg-primary/90 text-primary-foreground font-medium py-3 px-4 rounded-lg transition-all duration-200 hover:shadow-lg hover:scale-[1.02] active:scale-[0.98] flex items-center justify-center group"
             >
-              <Phone className="mr-2 h-4 w-4" />
+              <Phone className="mr-2 h-4 w-4 group-hover:animate-pulse" />
               Get Quote
             </Link>
-          </div>
-          <div className="mt-6 flex justify-center">
-            <ThemeToggle />
+            <div className="mt-4 flex justify-center">
+              <ThemeToggle />
+            </div>
           </div>
         </div>
       </div>
