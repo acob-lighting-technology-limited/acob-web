@@ -12,6 +12,7 @@ import { MapPin, ArrowRight, Search, X } from 'lucide-react';
 import Link from 'next/link';
 // Remove direct Sanity import - use API route instead
 import type { Project } from '@/lib/types';
+import { ProjectsGridSkeleton, ProjectsSidebarSkeleton } from '@/components/ui/projects-grid-skeleton';
 import {
   Pagination,
   PaginationContent,
@@ -27,12 +28,13 @@ export default function ProjectsPage() {
   const [filteredProjects, setFilteredProjects] = useState<Project[]>([]);
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedState, setSelectedState] = useState<string | null>(null);
- 
+  const [isLoading, setIsLoading] = useState(true);
   const [currentPage, setCurrentPage] = useState(1);
   const projectsPerPage = 6; // Show 6 projects per page (3 rows of 2 columns)
 
   useEffect(() => {
     const fetchProjects = async () => {
+      setIsLoading(true);
       try {
         const response = await fetch('/api/projects');
         if (!response.ok) {
@@ -44,7 +46,7 @@ export default function ProjectsPage() {
       } catch (error) {
         console.error('Error fetching projects:', error);
       } finally {
-       
+        setIsLoading(false);
       }
     };
 
@@ -157,8 +159,12 @@ export default function ProjectsPage() {
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 items-start">
           {/* Main Content */}
           <div className="lg:col-span-2 space-y-8">
-            {/* Search Results Info */}
-            {(searchQuery || selectedState) && (
+            {isLoading ? (
+              <ProjectsGridSkeleton />
+            ) : (
+              <>
+                {/* Search Results Info */}
+                {(searchQuery || selectedState) && (
               <Card className="!border-t-2 !border-t-primary border border-border">
                 <CardContent className="p-4">
                   <div className="flex items-center justify-between">
@@ -307,12 +313,18 @@ export default function ProjectsPage() {
                 </Pagination>
               </div>
             )}
+              </>
+            )}
           </div>
 
           {/* Sidebar */}
           <div className="space-y-6 sticky top-20 self-start">
-            {/* Search */}
-            <Card className="!border-t-2 !border-t-primary border border-border">
+            {isLoading ? (
+              <ProjectsSidebarSkeleton />
+            ) : (
+              <>
+                {/* Search */}
+                <Card className="!border-t-2 !border-t-primary border border-border">
               <CardContent className="p-6">
                 <h3 className="font-semibold mb-4">Search Projects</h3>
                 <div className="relative">
@@ -396,10 +408,12 @@ export default function ProjectsPage() {
                   >
                     View All Projects
                     <ArrowRight className="ml-1 h-3 w-3" />
-                  </Link>
-            </div>
-              </CardContent>
-            </Card>
+                                      </Link>
+                  </div>
+                </CardContent>
+              </Card>
+              </>
+            )}
           </div>
         </div>
       </Container>

@@ -11,6 +11,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 // Remove direct Sanity import - use API route instead
 import type { UpdatePost } from '@/lib/types';
+import { UpdatesGridSkeleton, UpdatesSidebarSkeleton } from '@/components/ui/updates-grid-skeleton';
 import { useEffect, useMemo, useState } from 'react';
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 import {
@@ -139,19 +140,23 @@ export default function UpdatesPage() {
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 items-start">
           {/* Main Content */}
           <div className="lg:col-span-2">
-            {/* Search Results Info */}
-            {searchQuery && (
-              <div className="mb-6 p-4 bg-muted rounded-lg">
-                <p className="text-sm text-muted-foreground">
-                  {filteredPosts.length} result
-                  {filteredPosts.length !== 1 ? 's' : ''} found for "
-                  {searchQuery}"
-                </p>
-              </div>
-            )}
+            {isLoading ? (
+              <UpdatesGridSkeleton />
+            ) : (
+              <>
+                {/* Search Results Info */}
+                {searchQuery && (
+                  <div className="mb-6 p-4 bg-muted rounded-lg">
+                    <p className="text-sm text-muted-foreground">
+                      {filteredPosts.length} result
+                      {filteredPosts.length !== 1 ? 's' : ''} found for "
+                      {searchQuery}"
+                    </p>
+                  </div>
+                )}
 
-            {/* Posts Grid */}
-            {currentPosts.length > 0 ? (
+                {/* Posts Grid */}
+                {currentPosts.length > 0 ? (
               <>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                   {currentPosts.map((post: UpdatePost) => (
@@ -272,12 +277,18 @@ export default function UpdatesPage() {
                 </Button>
               </div>
             )}
+              </>
+            )}
           </div>
 
           {/* Sidebar */}
           <div className="space-y-6 sticky top-20 self-start">
-            {/* Search */}
-            <Card className="!border-t-2 !border-t-primary border border-border">
+            {isLoading ? (
+              <UpdatesSidebarSkeleton />
+            ) : (
+              <>
+                {/* Search */}
+                <Card className="!border-t-2 !border-t-primary border border-border">
               <CardContent className="p-6">
                 <h3 className="font-semibold mb-4">Search Updates</h3>
                 <div className="relative">
@@ -324,7 +335,8 @@ export default function UpdatesPage() {
                 </div>
               </CardContent>
             </Card>
-
+              </>
+            )}
           </div>
         </div>
       </Container>

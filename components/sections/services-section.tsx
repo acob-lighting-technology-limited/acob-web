@@ -144,7 +144,7 @@ const ServicesSection = React.memo(function ServicesSection() {
                       {service.title}
                     </h3>
                     <p className="text-muted-foreground text-base leading-relaxed mb-8 line-clamp-[3]">
-                      {service.shortDescription}
+                      {service.excerpt}
                     </p>
 
                     <div className="mt-auto">

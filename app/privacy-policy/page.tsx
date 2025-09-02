@@ -2,6 +2,7 @@ import { Container } from '@/components/ui/container';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { PageHero } from '@/components/ui/page-hero';
 import { Breadcrumb } from '@/components/ui/breadcrumb';
+import { Shield, Lock, Calendar, Mail, Phone, MapPin } from 'lucide-react';
 
 export default function PrivacyPolicyPage() {
   const breadcrumbItems = [
@@ -16,170 +17,264 @@ export default function PrivacyPolicyPage() {
         backgroundImage="/images/contact/contact-us.jpg"
       />
 
-      <Container className="py-12">
-        <Breadcrumb items={breadcrumbItems} className="mb-8" />
+      <Container className="py-16">
+        <Breadcrumb items={breadcrumbItems} className="mb-12" />
 
-        <div className="max-w-4xl mx-auto space-y-8">
-          <Card>
-            <CardHeader>
-              <CardTitle className="text-2xl">Privacy Policy</CardTitle>
-              <p className="text-muted-foreground">
-                Last updated: {new Date().toLocaleDateString()}
-              </p>
+        <div className="max-w-4xl mx-auto">
+          {/* Header Card */}
+          <Card className="mb-8 border-primary/20 bg-gradient-to-br from-primary/5 to-primary/10">
+            <CardHeader className="text-center pb-6">
+              <div className="mx-auto w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mb-4">
+                <Lock className="w-8 h-8 text-primary" />
+              </div>
+              <CardTitle className="text-3xl font-bold text-foreground">
+                Privacy Policy
+              </CardTitle>
+              <div className="flex items-center justify-center gap-2 text-muted-foreground">
+                <Calendar className="w-4 h-4" />
+                <span>Last updated: {new Date().toLocaleDateString()}</span>
+              </div>
             </CardHeader>
-            <CardContent className="space-y-6">
-              <section>
-                <h2 className="text-xl font-semibold mb-3">1. Introduction</h2>
-                <p className="text-muted-foreground leading-relaxed">
-                  ACOB Lighting Technology Limited (&quot;we,&quot;
-                  &quot;our,&quot; or &quot;us&quot;) is committed to protecting
-                  your privacy. This Privacy Policy explains how we collect,
-                  use, disclose, and safeguard your information when you visit
-                  our website or use our services.
-                </p>
-              </section>
+          </Card>
 
-              <section>
-                <h2 className="text-xl font-semibold mb-3">
-                  2. Information We Collect
-                </h2>
-                <div className="space-y-4">
-                  <div>
-                    <h3 className="font-medium mb-2">Personal Information</h3>
-                    <p className="text-muted-foreground">
-                      We may collect personal information such as your name,
-                      email address, phone number, company name, and any other
-                      information you provide when you:
-                    </p>
-                    <ul className="list-disc list-inside text-muted-foreground mt-2 space-y-1">
-                      <li>Fill out contact forms</li>
-                      <li>Request quotes or services</li>
-                      <li>Subscribe to our newsletter</li>
-                      <li>Apply for careers</li>
-                      <li>Contact our support team</li>
-                    </ul>
+          {/* Main Content */}
+          <div className="space-y-8">
+            <Card className="border-border/50 shadow-sm">
+              <CardContent className="p-8 space-y-8">
+                <section className="group">
+                  <div className="flex items-center gap-3 mb-4">
+                    <div className="w-8 h-8 bg-primary/10 rounded-full flex items-center justify-center text-primary font-bold text-sm">
+                      1
+                    </div>
+                    <h2 className="text-xl font-semibold text-foreground">
+                      Introduction
+                    </h2>
                   </div>
+                  <p className="text-muted-foreground leading-relaxed text-base pl-11">
+                    ACOB Lighting Technology Limited (&quot;we,&quot;
+                    &quot;our,&quot; or &quot;us&quot;) is committed to protecting
+                    your privacy. This Privacy Policy explains how we collect,
+                    use, disclose, and safeguard your information when you visit
+                    our website or use our services.
+                  </p>
+                </section>
 
-                  <div>
-                    <h3 className="font-medium mb-2">
-                      Automatically Collected Information
-                    </h3>
-                    <p className="text-muted-foreground">
-                      We automatically collect certain information when you
-                      visit our website, including:
-                    </p>
-                    <ul className="list-disc list-inside text-muted-foreground mt-2 space-y-1">
-                      <li>IP address and location data</li>
-                      <li>Browser type and version</li>
-                      <li>Operating system</li>
-                      <li>Pages visited and time spent</li>
-                      <li>Referring website</li>
-                      <li>Device information</li>
-                    </ul>
+                <section className="group">
+                  <div className="flex items-center gap-3 mb-4">
+                    <div className="w-8 h-8 bg-primary/10 rounded-full flex items-center justify-center text-primary font-bold text-sm">
+                      2
+                    </div>
+                    <h2 className="text-xl font-semibold text-foreground">
+                      Information We Collect
+                    </h2>
                   </div>
-                </div>
-              </section>
+                  <div className="pl-11 space-y-6">
+                    <div>
+                      <h3 className="font-medium mb-3 text-foreground">Personal Information</h3>
+                      <p className="text-muted-foreground mb-3 text-base">
+                        We may collect personal information such as your name,
+                        email address, phone number, company name, and any other
+                        information you provide when you:
+                      </p>
+                      <div className="grid grid-cols-1 md:grid-cols-2 gap-2">
+                        {[
+                          'Fill out contact forms',
+                          'Request quotes or services',
+                          'Subscribe to our newsletter',
+                          'Apply for careers',
+                          'Contact our support team'
+                        ].map((action, index) => (
+                          <div key={index} className="flex items-center gap-2 text-muted-foreground">
+                            <div className="w-2 h-2 bg-primary rounded-full"></div>
+                            <span className="text-sm">{action}</span>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
 
-              <section>
-                <h2 className="text-xl font-semibold mb-3">
-                  3. How We Use Your Information
-                </h2>
-                <p className="text-muted-foreground mb-3">
-                  We use the information we collect for the following purposes:
-                </p>
-                <ul className="list-disc list-inside text-muted-foreground space-y-1">
-                  <li>To provide and maintain our services</li>
-                  <li>To respond to your inquiries and requests</li>
-                  <li>
-                    To send you marketing communications (with your consent)
-                  </li>
-                  <li>To improve our website and services</li>
-                  <li>To analyze website usage and trends</li>
-                  <li>To comply with legal obligations</li>
-                  <li>To protect against fraud and security threats</li>
-                </ul>
-              </section>
+                    <div>
+                      <h3 className="font-medium mb-3 text-foreground">
+                        Automatically Collected Information
+                      </h3>
+                      <p className="text-muted-foreground mb-3 text-base">
+                        We automatically collect certain information when you
+                        visit our website, including:
+                      </p>
+                      <div className="grid grid-cols-1 md:grid-cols-2 gap-2">
+                        {[
+                          'IP address and location data',
+                          'Browser type and version',
+                          'Operating system',
+                          'Pages visited and time spent',
+                          'Referring website',
+                          'Device information'
+                        ].map((info, index) => (
+                          <div key={index} className="flex items-center gap-2 text-muted-foreground">
+                            <div className="w-2 h-2 bg-primary rounded-full"></div>
+                            <span className="text-sm">{info}</span>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                  </div>
+                </section>
 
-              <section>
-                <h2 className="text-xl font-semibold mb-3">
-                  4. Cookies and Tracking Technologies
-                </h2>
-                <p className="text-muted-foreground mb-3">
-                  We use cookies and similar tracking technologies to enhance
-                  your browsing experience:
-                </p>
-                <div className="space-y-3">
-                  <div>
-                    <h3 className="font-medium">Essential Cookies</h3>
-                    <p className="text-sm text-muted-foreground">
-                      Required for the website to function properly. These
-                      cannot be disabled.
+                <section className="group">
+                  <div className="flex items-center gap-3 mb-4">
+                    <div className="w-8 h-8 bg-primary/10 rounded-full flex items-center justify-center text-primary font-bold text-sm">
+                      3
+                    </div>
+                    <h2 className="text-xl font-semibold text-foreground">
+                      How We Use Your Information
+                    </h2>
+                  </div>
+                  <div className="pl-11">
+                    <p className="text-muted-foreground mb-4 text-base">
+                      We use the information we collect for the following purposes:
+                    </p>
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-2">
+                      {[
+                        'To provide and maintain our services',
+                        'To respond to your inquiries and requests',
+                        'To send you marketing communications (with your consent)',
+                        'To improve our website and services',
+                        'To analyze website usage and trends',
+                        'To comply with legal obligations',
+                        'To protect against fraud and security threats'
+                      ].map((purpose, index) => (
+                        <div key={index} className="flex items-center gap-2 text-muted-foreground">
+                          <div className="w-2 h-2 bg-primary rounded-full"></div>
+                          <span className="text-sm">{purpose}</span>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                </section>
+
+                <section className="group">
+                  <div className="flex items-center gap-3 mb-4">
+                    <div className="w-8 h-8 bg-primary/10 rounded-full flex items-center justify-center text-primary font-bold text-sm">
+                      4
+                    </div>
+                    <h2 className="text-xl font-semibold text-foreground">
+                      Cookies and Tracking Technologies
+                    </h2>
+                  </div>
+                  <div className="pl-11">
+                    <p className="text-muted-foreground mb-4 text-base">
+                      We use cookies and similar tracking technologies to enhance
+                      your browsing experience:
+                    </p>
+                    <div className="space-y-4">
+                      <div className="p-4 bg-muted/30 rounded-lg border border-border">
+                        <h3 className="font-medium text-foreground mb-2">Essential Cookies</h3>
+                        <p className="text-sm text-muted-foreground">
+                          Required for the website to function properly. These
+                          cannot be disabled.
+                        </p>
+                      </div>
+                      <div className="p-4 bg-muted/30 rounded-lg border border-border">
+                        <h3 className="font-medium text-foreground mb-2">Analytics Cookies</h3>
+                        <p className="text-sm text-muted-foreground">
+                          Help us understand how visitors use our website to improve
+                          performance.
+                        </p>
+                      </div>
+                      <div className="p-4 bg-muted/30 rounded-lg border border-border">
+                        <h3 className="font-medium text-foreground mb-2">Marketing Cookies</h3>
+                        <p className="text-sm text-muted-foreground">
+                          Used to deliver relevant advertisements and track
+                          marketing campaign performance.
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                </section>
+
+                <section className="group">
+                  <div className="flex items-center gap-3 mb-4">
+                    <div className="w-8 h-8 bg-primary/10 rounded-full flex items-center justify-center text-primary font-bold text-sm">
+                      5
+                    </div>
+                    <h2 className="text-xl font-semibold text-foreground">
+                      Information Sharing and Disclosure
+                    </h2>
+                  </div>
+                  <div className="pl-11">
+                    <p className="text-muted-foreground mb-4 text-base">
+                      We do not sell, trade, or rent your personal information to
+                      third parties. We may share your information in the following
+                      circumstances:
+                    </p>
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-2">
+                      {[
+                        'With your explicit consent',
+                        'To comply with legal obligations',
+                        'To protect our rights and safety',
+                        'With trusted service providers who assist in our operations',
+                        'In connection with a business transfer or merger'
+                      ].map((circumstance, index) => (
+                        <div key={index} className="flex items-center gap-2 text-muted-foreground">
+                          <div className="w-2 h-2 bg-primary rounded-full"></div>
+                          <span className="text-sm">{circumstance}</span>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                </section>
+
+                <section className="group">
+                  <div className="flex items-center gap-3 mb-4">
+                    <div className="w-8 h-8 bg-primary/10 rounded-full flex items-center justify-center text-primary font-bold text-sm">
+                      6
+                    </div>
+                    <h2 className="text-xl font-semibold text-foreground">
+                      Data Security
+                    </h2>
+                  </div>
+                  <div className="pl-11">
+                    <p className="text-muted-foreground leading-relaxed text-base">
+                      We implement appropriate technical and organizational measures
+                      to protect your personal information against unauthorized
+                      access, alteration, disclosure, or destruction. However, no
+                      method of transmission over the internet is 100% secure, and
+                      we cannot guarantee absolute security.
                     </p>
                   </div>
-                  <div>
-                    <h3 className="font-medium">Analytics Cookies</h3>
-                    <p className="text-sm text-muted-foreground">
-                      Help us understand how visitors use our website to improve
-                      performance.
-                    </p>
+                </section>
+
+                <section className="group">
+                  <div className="flex items-center gap-3 mb-4">
+                    <div className="w-8 h-8 bg-primary/10 rounded-full flex items-center justify-center text-primary font-bold text-sm">
+                      7
+                    </div>
+                    <h2 className="text-xl font-semibold text-foreground">
+                      Your Rights
+                    </h2>
                   </div>
-                  <div>
-                    <h3 className="font-medium">Marketing Cookies</h3>
-                    <p className="text-sm text-muted-foreground">
-                      Used to deliver relevant advertisements and track
-                      marketing campaign performance.
+                  <div className="pl-11">
+                    <p className="text-muted-foreground mb-4 text-base">
+                      Depending on your location, you may have the following rights
+                      regarding your personal information:
                     </p>
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-2">
+                      {[
+                        'Right to access your personal information',
+                        'Right to correct inaccurate information',
+                        'Right to delete your personal information',
+                        'Right to restrict processing',
+                        'Right to data portability',
+                        'Right to object to processing',
+                        'Right to withdraw consent'
+                      ].map((right, index) => (
+                        <div key={index} className="flex items-center gap-2 text-muted-foreground">
+                          <div className="w-2 h-2 bg-primary rounded-full"></div>
+                          <span className="text-sm">{right}</span>
+                        </div>
+                      ))}
+                    </div>
                   </div>
-                </div>
-              </section>
-
-              <section>
-                <h2 className="text-xl font-semibold mb-3">
-                  5. Information Sharing and Disclosure
-                </h2>
-                <p className="text-muted-foreground mb-3">
-                  We do not sell, trade, or rent your personal information to
-                  third parties. We may share your information in the following
-                  circumstances:
-                </p>
-                <ul className="list-disc list-inside text-muted-foreground space-y-1">
-                  <li>With your explicit consent</li>
-                  <li>To comply with legal obligations</li>
-                  <li>To protect our rights and safety</li>
-                  <li>
-                    With trusted service providers who assist in our operations
-                  </li>
-                  <li>In connection with a business transfer or merger</li>
-                </ul>
-              </section>
-
-              <section>
-                <h2 className="text-xl font-semibold mb-3">6. Data Security</h2>
-                <p className="text-muted-foreground">
-                  We implement appropriate technical and organizational measures
-                  to protect your personal information against unauthorized
-                  access, alteration, disclosure, or destruction. However, no
-                  method of transmission over the internet is 100% secure, and
-                  we cannot guarantee absolute security.
-                </p>
-              </section>
-
-              <section>
-                <h2 className="text-xl font-semibold mb-3">7. Your Rights</h2>
-                <p className="text-muted-foreground mb-3">
-                  Depending on your location, you may have the following rights
-                  regarding your personal information:
-                </p>
-                <ul className="list-disc list-inside text-muted-foreground space-y-1">
-                  <li>Right to access your personal information</li>
-                  <li>Right to correct inaccurate information</li>
-                  <li>Right to delete your personal information</li>
-                  <li>Right to restrict processing</li>
-                  <li>Right to data portability</li>
-                  <li>Right to object to processing</li>
-                  <li>Right to withdraw consent</li>
-                </ul>
-              </section>
+                </section>
 
               <section>
                 <h2 className="text-xl font-semibold mb-3">
@@ -241,8 +336,9 @@ export default function PrivacyPolicyPage() {
                   <p>Address: [Your Business Address]</p>
                 </div>
               </section>
-            </CardContent>
-          </Card>
+              </CardContent>
+            </Card>
+          </div>
         </div>
       </Container>
     </>

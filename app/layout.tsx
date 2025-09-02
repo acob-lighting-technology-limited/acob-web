@@ -81,7 +81,7 @@ export default function RootLayout({
               <Header />
               <main className="flex-1 border-b border-b-muted">{children}</main>
               <Footer />
-              <div className="fixed bottom-2 right-2 flex flex-col gap-2 items-center w-16 h-32 sm:w-20 sm:h-40">
+              <div className="z-50 fixed bottom-2 right-2 flex flex-col gap-2 items-center w-16 h-32 sm:w-20 sm:h-40">
                 <ScrollToTop />
                 <ChatBot />
               </div>
