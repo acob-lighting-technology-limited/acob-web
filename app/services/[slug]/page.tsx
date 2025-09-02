@@ -6,8 +6,10 @@ import { CheckCircle, ArrowRight } from 'lucide-react';
 import { notFound } from 'next/navigation';
 import { getServiceBySlug, servicesData } from '@/lib/data';
 import Link from 'next/link';
+import Image from 'next/image';
 import { PageHero } from '@/components/ui/page-hero';
 import CallToAction from '@/components/layout/call-to-action';
+import { Metadata } from 'next';
 
 interface ServicePageProps {
   params: Promise<{
@@ -19,6 +21,35 @@ export async function generateStaticParams() {
   return servicesData.map(service => ({
     slug: service.slug,
   }));
+}
+
+export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
+  const { slug } = await params;
+  const service = getServiceBySlug(slug);
+
+  if (!service) {
+    return {
+      title: 'Service Not Found - ACOB Lighting Technology Limited',
+      description: 'The requested service could not be found.',
+    };
+  }
+
+  return {
+    title: `${service.title} - ACOB Lighting Technology Limited`,
+    description: service.shortDescription || `Learn about ${service.title} services from ACOB Lighting Technology Limited. We provide comprehensive solar energy solutions including ${service.title.toLowerCase()} across Nigeria.`,
+    keywords: `${service.title}, solar energy, ${service.title.toLowerCase()}, ACOB Lighting, Nigeria solar services, renewable energy`,
+    openGraph: {
+      title: `${service.title} - ACOB Lighting Technology Limited`,
+      description: service.shortDescription || `Learn about ${service.title} services from ACOB Lighting.`,
+      type: 'website',
+      url: `https://acoblighting.com/services/${slug}`,
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title: `${service.title} - ACOB Lighting Technology Limited`,
+      description: service.shortDescription || `Learn about ${service.title} services from ACOB Lighting.`,
+    },
+  };
 }
 
 export default async function ServicePage({ params }: ServicePageProps) {
@@ -69,10 +100,12 @@ export default async function ServicePage({ params }: ServicePageProps) {
                         key={index}
                         className="aspect-[4/3] overflow-hidden rounded-lg"
                       >
-                        <img
+                        <Image
                           src={image || '/placeholder.svg'}
                           alt={`${service.title} project ${index + 1}`}
-                          className="w-full h-full object-cover hover:scale-105 "
+                          fill
+                          className="object-cover hover:scale-105 transition-transform duration-300"
+                          sizes="(max-width: 768px) 100vw, 50vw"
                         />
                       </div>
                     ))}
@@ -138,9 +171,9 @@ export default async function ServicePage({ params }: ServicePageProps) {
             {/* Services Navigation */}
             <Card className="!border-t-2 !border-t-primary border border-border">
               <CardContent className="p-6">
-                <h3 className="text-xl font-semibold text-foreground mb-4">
+                <h2 className="text-xl font-semibold text-foreground mb-4">
                   Our Services
-                </h3>
+                </h2>
                 <div className="space-y-2">
                   {sidebarLinks.map((link, idx) => (
                     <Link
@@ -170,7 +203,7 @@ export default async function ServicePage({ params }: ServicePageProps) {
             {/* Quick Contact */}
             <Card className="!border-t-2 !border-t-primary border border-border">
               <CardContent className="p-6">
-                <h3 className="font-semibold mb-4">Need This Service?</h3>
+                <h2 className="font-semibold mb-4">Need This Service?</h2>
                 <p className="text-sm text-muted-foreground mb-4">
                   Get a customized quote for {service.title.toLowerCase()}.
                 </p>
@@ -187,7 +220,7 @@ export default async function ServicePage({ params }: ServicePageProps) {
             {service.features && service.features.length > 0 && (
               <Card className="!border-t-2 !border-t-primary border border-border">
                 <CardContent className="p-6">
-                  <h3 className="font-semibold mb-4">Key Features</h3>
+                  <h2 className="font-semibold mb-4">Key Features</h2>
                   <ul className="space-y-2">
                     {service.features.slice(0, 4).map((feature, index) => (
                       <li key={index} className="flex items-start space-x-2 text-sm p-2 rounded-lg bg-muted/30 border border-border">

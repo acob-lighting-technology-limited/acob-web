@@ -15,6 +15,7 @@ import { Card, CardContent } from '@/components/ui/card';
 import { ArrowRight } from 'lucide-react';
 import { ShareCopy } from '@/components/updates/share-copy';
 import { CommentForm } from '@/components/updates/comment-form';
+import { Metadata } from 'next';
 
 interface UpdatePostPageProps {
   params: Promise<{
@@ -29,6 +30,37 @@ export async function generateStaticParams() {
     .map((post: UpdatePost) => ({
       slug: post.slug.current,
     }));
+}
+
+export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
+  const { slug } = await params;
+  const post = await getUpdatePost(slug);
+
+  if (!post) {
+    return {
+      title: 'Update Not Found - ACOB Lighting Technology Limited',
+      description: 'The requested update could not be found.',
+    };
+  }
+
+  return {
+    title: `${post.title} - ACOB Lighting Technology Limited`,
+    description: post.excerpt || `Read about ${post.title} from ACOB Lighting Technology Limited. Stay updated with our latest news, case studies, and developments in solar energy solutions across Nigeria.`,
+    keywords: `${post.title}, ACOB Lighting news, solar energy updates, renewable energy, Nigeria solar news, ${post.category || 'news'}`,
+    openGraph: {
+      title: `${post.title} - ACOB Lighting Technology Limited`,
+      description: post.excerpt || `Read about ${post.title} from ACOB Lighting.`,
+      type: 'article',
+      url: `https://acoblighting.com/updates/${slug}`,
+      publishedTime: post.publishedAt,
+      authors: [post.author],
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title: `${post.title} - ACOB Lighting Technology Limited`,
+      description: post.excerpt || `Read about ${post.title} from ACOB Lighting.`,
+    },
+  };
 }
 
 // Custom Portable Text Components
@@ -192,7 +224,7 @@ export default async function UpdatePostPage({ params }: UpdatePostPageProps) {
               </div>
               {Array.isArray(related) && related.length > 0 && (
               <div className="pt-8 border-t">
-                <h3 className="text-xl font-semibold mb-4">Related Updates</h3>
+                <h2 className="text-xl font-semibold mb-4">Related Updates</h2>
                 <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
                   {related.map((item: any) => {
                     const href = item?.slug?.current ? `/updates/${item.slug.current}` : null;
@@ -242,9 +274,9 @@ export default async function UpdatePostPage({ params }: UpdatePostPageProps) {
           {/* Display Comments */}
           <Card className="mt-12 ">
             <CardContent className="p-8">
-              <h3 className="text-2xl font-bold mb-6">
+              <h2 className="text-2xl font-bold mb-6">
                 Comments ({comments.length})
-              </h3>
+              </h2>
               {comments.length > 0 ? (
                 <div className="space-y-4">
                   {comments.map((comment: Comment) => {

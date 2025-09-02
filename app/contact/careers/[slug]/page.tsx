@@ -7,6 +7,7 @@ import { ArrowLeft, Calendar, MapPin, Briefcase, Mail, Phone } from 'lucide-reac
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import { getJobPosting, getJobPostings } from '@/sanity/lib/client';
+import { Metadata } from 'next';
 
 interface JobPostingPageProps {
   params: Promise<{
@@ -26,6 +27,35 @@ interface JobPostingPageProps {
 //     return [];
 //   }
 // }
+
+export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
+  const { slug } = await params;
+  const job = await getJobPosting(slug);
+
+  if (!job) {
+    return {
+      title: 'Job Not Found - ACOB Lighting Technology Limited',
+      description: 'The requested job posting could not be found.',
+    };
+  }
+
+  return {
+    title: `${job.title} - ACOB Lighting Technology Limited`,
+    description: job.description || `Join ACOB Lighting Technology Limited as ${job.title}. We are looking for talented individuals to be part of Nigeria's energy access revolution in solar energy and mini-grid solutions.`,
+    keywords: `${job.title}, ACOB Lighting careers, solar energy jobs, renewable energy careers, Nigeria solar jobs, energy access jobs`,
+    openGraph: {
+      title: `${job.title} - ACOB Lighting Technology Limited`,
+      description: job.description || `Join ACOB Lighting as ${job.title} and be part of Nigeria's energy access revolution.`,
+      type: 'website',
+      url: `https://acoblighting.com/contact/careers/${slug}`,
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title: `${job.title} - ACOB Lighting Technology Limited`,
+      description: job.description || `Join ACOB Lighting as ${job.title} and be part of Nigeria's energy access revolution.`,
+    },
+  };
+}
 
 export default async function JobPostingPage({ params }: JobPostingPageProps) {
   const { slug } = await params;

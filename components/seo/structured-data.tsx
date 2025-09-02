@@ -7,17 +7,17 @@ export function StructuredData() {
     logo: 'https://acoblighting.com/images/ACOB-logo.png',
     description:
       'Leading supplier of solar materials for manufacturers, installers & contractors. Mini-grid solutions, captive power systems, and professional energy audits.',
-    address: {
-      '@type': 'PostalAddress',
-      streetAddress: 'Your Street Address',
-      addressLocality: 'Abuja',
-      addressRegion: 'FCT',
-      postalCode: 'Your Postal Code',
-      addressCountry: 'NG',
-    },
+          address: {
+        '@type': 'PostalAddress',
+        streetAddress: 'Plot 2. Block 14 Extension, Federal Ministry of Works And Housing Sites and Service Scheme, Setraco Gate Gwarinpa',
+        addressLocality: 'Abuja',
+        addressRegion: 'FCT',
+        postalCode: '900001',
+        addressCountry: 'NG',
+      },
     contactPoint: {
       '@type': 'ContactPoint',
-      telephone: '+234-XXX-XXX-XXXX',
+      telephone: '+234 704 920 2634',
       contactType: 'customer service',
       email: 'info@acoblighting.com',
     },

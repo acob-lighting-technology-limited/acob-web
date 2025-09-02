@@ -284,10 +284,10 @@ export function ChatBot() {
     <>
       {/* Floating Chat Button */}
       <motion.div
-        initial={{ scale: 0 }}
-        animate={{ scale: 1 }}
-        transition={{ delay: 1, type: 'spring', stiffness: 300 }}
-        className="z-50"
+        initial={{ scale: 0, opacity: 0 }}
+        animate={{ scale: 1, opacity: 1 }}
+        transition={{ delay: 0.5, type: 'spring', stiffness: 300 }}
+        className="z-50 h-12 w-12 sm:h-16 sm:w-16"
       >
         <Button
           size="icon"

@@ -4,13 +4,41 @@ import { Breadcrumb } from '@/components/ui/breadcrumb';
 import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { ArrowRight, Calendar, User } from 'lucide-react';
+import Link from 'next/link';
+import Image from 'next/image';
 import { getUpdatePosts } from '@/sanity/lib/client';
 import type { UpdatePost } from '@/lib/types';
-import Link from 'next/link';
+import { Metadata } from 'next';
 
 
 interface CategoryPageProps {
   params: Promise<{ slug: string }>;
+}
+
+export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
+  const { slug } = await params;
+  const posts = await getUpdatePosts();
+  const categoryPosts = posts.filter((post: UpdatePost) => post.category === slug);
+  
+  const categoryName = slug.replace(/-/g, ' ').replace(/\b\w/g, l => l.toUpperCase());
+  const postCount = categoryPosts.length;
+
+  return {
+    title: `${categoryName} - ACOB Lighting Technology Limited`,
+    description: `Browse ${postCount} ${categoryName.toLowerCase()} updates from ACOB Lighting Technology Limited. Stay updated with our latest ${categoryName.toLowerCase()}, news, and developments in solar energy solutions across Nigeria.`,
+    keywords: `${categoryName}, ACOB Lighting ${categoryName.toLowerCase()}, solar energy ${categoryName.toLowerCase()}, renewable energy, Nigeria solar ${categoryName.toLowerCase()}`,
+    openGraph: {
+      title: `${categoryName} - ACOB Lighting Technology Limited`,
+      description: `Browse ${postCount} ${categoryName.toLowerCase()} updates from ACOB Lighting.`,
+      type: 'website',
+      url: `https://acoblighting.com/updates/category/${slug}`,
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title: `${categoryName} - ACOB Lighting Technology Limited`,
+      description: `Browse ${postCount} ${categoryName.toLowerCase()} updates from ACOB Lighting.`,
+    },
+  };
 }
 
 export default async function CategoryPage({ params }: CategoryPageProps) {
@@ -66,11 +94,13 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
                   key={post._id}
                   className="overflow-hidden p-0 hover:shadow-lg transition-shadow duration-300"
                 >
-                  <div className="aspect-[16/9] overflow-hidden">
-                    <img
+                  <div className="aspect-[16/9] overflow-hidden relative">
+                    <Image
                       src={post.featuredImage || '/placeholder.svg'}
                       alt={post.title}
-                      className="w-full h-full object-cover hover:scale-105 transition-transform duration-300"
+                      fill
+                      className="object-cover hover:scale-105 transition-transform duration-300"
+                      sizes="(max-width: 768px) 100vw, 66vw"
                     />
                   </div>
                   <CardContent className="p-6">

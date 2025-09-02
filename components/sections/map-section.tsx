@@ -1,5 +1,6 @@
 import Link from 'next/link';
 import { Container } from '../ui/container';
+import Image from 'next/image';
 
 export function MapSection() {
   return (
@@ -8,9 +9,11 @@ export function MapSection() {
         <div className=" w-1/2 flex flex-col gap-8 max-w-md">
           {' '}
           <Link href="/" className="flex items-center space-x-2 group">
-            <img
+            <Image
               src="/images/ACOB-Logo.png"
               alt="ACOB Lighting Logo"
+              width={48}
+              height={48}
               className="h-12 w-auto transition-transform duration-200 group-hover:scale-105"
             />
           </Link>

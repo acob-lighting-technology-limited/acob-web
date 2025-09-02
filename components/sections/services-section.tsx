@@ -21,6 +21,7 @@ import {
   CarouselItem,
 } from '@/components/ui';
 import type { CarouselApi } from '@/components/ui/carousel';
+import Image from 'next/image';
 
 // Local component imports
 import { MaskText } from '../animations/MaskText';
@@ -89,7 +90,7 @@ const ServicesSection = React.memo(function ServicesSection() {
             />
 
             <div className="flex gap-4">
-              <Link href="/services" className="w-1/2 md:auto">
+              <Link href="/services" className="w-1/2 md:auto" aria-label="View all our services">
                 <Button className="w-full bg-primary dark:bg-primary text-lg hover:bg-primary text-primary-foreground px-8 py-6 transition-colors duration-700">
                   Read More
                   <ArrowRight className="ml-2 h-4 w-4" />
@@ -130,10 +131,12 @@ const ServicesSection = React.memo(function ServicesSection() {
                   <CardContent className="relative p-10 flex flex-col h-full  border-0  ">
                     <div className="mb-6 w-fit transition-transform duration-700 group-hover:scale-x-[-1]">
                       <span>
-                        <img
+                        <Image
                           src={service.icon || '/placeholder.svg'}
                           alt={service.title}
-                          className="w-20 h-20 object-contain"
+                          width={80}
+                          height={80}
+                          className="object-contain"
                         />
                       </span>
                     </div>
@@ -141,11 +144,14 @@ const ServicesSection = React.memo(function ServicesSection() {
                       {service.title}
                     </h3>
                     <p className="text-muted-foreground text-base leading-relaxed mb-8 line-clamp-[3]">
-                      {service.shortDescription}
+                      {service.excerpt}
                     </p>
 
                     <div className="mt-auto">
-                      <Link href={`/services/${service.slug}`}>
+                      <Link 
+                        href={`/services/${service.slug}`}
+                        aria-label={`Learn more about ${service.title}`}
+                      >
                         <Button
                           size="lg"
                           className="bg-foreground dark:!bg-primary !h-12 hover:bg-primary duration-500 transition-colors text-primary-foreground px-6 py-4 text-sm"
@@ -179,6 +185,7 @@ const ServicesSection = React.memo(function ServicesSection() {
                   ? 'w-8 h-1.5 bg-primary dark:bg-primary shadow-lg'
                   : 'w-6 h-1 bg-zinc-400 hover:bg-zinc-600 hover:w-7'
               }`}
+              aria-label={`Go to service ${index + 1}`}
             />
           ))}
         </div>

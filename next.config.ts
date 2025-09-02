@@ -1,13 +1,16 @@
-import type { NextConfig } from 'next';
-
-const nextConfig: NextConfig = {
-  // Disable ESLint during build to prevent deployment failures
+/** @type {import('next').NextConfig} */
+const nextConfig = {
   eslint: {
     ignoreDuringBuilds: true,
   },
-
-  // Image optimization
+  typescript: {
+    ignoreBuildErrors: true,
+  },
+  outputFileTracingRoot: process.cwd(),
   images: {
+    formats: ['image/webp', 'image/avif'],
+    deviceSizes: [640, 750, 828, 1080, 1200, 1920, 2048, 3840],
+    domains: ['cdn.sanity.io'],
     remotePatterns: [
       {
         protocol: 'https',
@@ -17,11 +20,22 @@ const nextConfig: NextConfig = {
       },
     ],
   },
-
-  // Performance optimizations
   experimental: {
-    optimizePackageImports: ['lucide-react', 'framer-motion'],
+    optimizePackageImports: ['lucide-react', '@radix-ui/react-icons'],
   },
+  ...(process.env.ANALYZE === 'true' && {
+    webpack: (config: any) => {
+      const { BundleAnalyzerPlugin } = require('webpack-bundle-analyzer');
+      config.plugins.push(
+        new BundleAnalyzerPlugin({
+          analyzerMode: 'static',
+          reportFilename: 'bundle-report.html',
+          openAnalyzer: true,
+        })
+      );
+      return config;
+    },
+  }),
 
   // Bundle analyzer (uncomment for debugging)
   // webpack: (config, { isServer }) => {

@@ -1,6 +1,7 @@
 // components/PartnersSection.tsx
 import Marquee from 'react-fast-marquee';
 import { Container } from '@/components/ui/container';
+import Image from 'next/image';
 import { partners } from '@/lib/data/partners-data';
 
 export function PartnersSection() {
@@ -20,10 +21,12 @@ export function PartnersSection() {
           <Marquee speed={50} gradient={false} loop={0}>
             {partners.map((partner, idx) => (
               <div key={idx} className="flex items-center justify-center px-8">
-                <img
+                <Image
                   src={partner.logo}
                   alt={partner.name}
-                  className="h-16 w-auto  transition duration-300 hover:scale-105"
+                  width={64}
+                  height={64}
+                  className="h-16 w-auto transition duration-300 hover:scale-105"
                 />
               </div>
             ))}

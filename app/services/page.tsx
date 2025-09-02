@@ -6,7 +6,7 @@ import { Breadcrumb } from '@/components/ui/breadcrumb';
 import { Container } from '@/components/ui/container';
 import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
-import { ArrowRight, Search, X } from 'lucide-react';
+import { ArrowRight, Search, X, Filter, SlidersHorizontal } from 'lucide-react';
 import { Input } from '@/components/ui/input';
 import Link from 'next/link';
 import { servicesData, categories, tags } from '@/lib/data';
@@ -17,6 +17,7 @@ export default function ServicesPage() {
   const [searchQuery, setSearchQuery] = useState('');
   const [filteredServices, setFilteredServices] = useState(servicesData);
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
+  const [showMobileFilters, setShowMobileFilters] = useState(false);
 
   useEffect(() => {
     let filtered = servicesData;
@@ -54,7 +55,149 @@ export default function ServicesPage() {
     setSearchQuery('');
     setSelectedCategory(null);
   };
+
   const breadcrumbItems = [{ label: 'Home', href: '/' }, { label: 'Services' }];
+
+  const activeFiltersCount = (selectedCategory ? 1 : 0); // Only count category filters for mobile button
+
+  // Mobile Filter components (excluding search)
+  const MobileFilterContent = () => (
+    <div className="space-y-6">
+      {/* Categories */}
+      <div>
+        <h3 className="font-semibold mb-4">Categories</h3>
+        <div className="space-y-2">
+          {categories.map(category => (
+            <button
+              key={category}
+              onClick={() => setSelectedCategory(selectedCategory === category ? null : category)}
+              className={`w-full text-left p-3 rounded-lg transition-colors duration-200 text-sm font-medium border border-border ${
+                selectedCategory === category
+                  ? 'bg-primary text-primary-foreground'
+                  : 'bg-muted/30 hover:bg-muted/50 text-foreground'
+              }`}
+            >
+              <div className="flex items-center justify-between">
+                <span>{category}</span>
+                <span className="text-xs opacity-70">
+                  ({(() => {
+                    if (category === 'All Services') {return servicesData.length;}
+                    const categoryMapping: { [key: string]: string[] } = {
+                      'Mini-Grid Solutions': ['Power Solutions'],
+                      'Captive Power': ['Power Solutions'],
+                      'Energy Audit': ['Consulting'],
+                      'Installation': ['Construction'],
+                      'Maintenance': ['Infrastructure', 'Construction'],
+                    };
+                    const targetCategories = categoryMapping[category] || [category];
+                    return servicesData.filter(s => targetCategories.includes(s.category)).length;
+                  })()})
+                </span>
+              </div>
+            </button>
+          ))}
+        </div>
+      </div>
+
+      {/* Tags */}
+      <div>
+        <h3 className="font-semibold mb-4">Popular Tags</h3>
+        <div className="flex flex-wrap gap-2">
+          {tags.map(tag => (
+            <button
+              key={tag}
+              onClick={() => setSearchQuery(tag)}
+              className="px-3 py-2 bg-muted/30 border border-border text-foreground text-sm rounded-lg hover:bg-muted/50 transition-colors duration-200 font-medium"
+            >
+              {tag}
+            </button>
+          ))}
+        </div>
+      </div>
+    </div>
+  );
+
+  // Desktop sidebar component
+  const DesktopFilterSidebar = () => (
+    <div className="space-y-6">
+      {/* Search */}
+      <Card className="!border-t-2 !border-t-primary border border-border">
+        <CardContent className="p-6">
+          <h3 className="font-semibold mb-4">Search Services</h3>
+          <div className="relative">
+            <Input
+              placeholder="Search services..."
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+              className="pr-10"
+            />
+            <Search className="absolute right-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+          </div>
+        </CardContent>
+      </Card>
+
+      {/* Categories */}
+      <Card className="!border-t-2 !border-t-primary border border-border">
+        <CardContent className="p-6">
+          <h3 className="font-semibold mb-4">Categories</h3>
+          <div className="space-y-2">
+            {categories.map(category => (
+              <button
+                key={category}
+                onClick={() => setSelectedCategory(selectedCategory === category ? null : category)}
+                className={`w-full text-left p-3 rounded-lg transition-colors duration-200 text-sm font-medium border border-border ${
+                  selectedCategory === category
+                    ? 'bg-primary text-primary-foreground'
+                    : 'bg-muted/30 hover:bg-muted/50 text-foreground'
+                }`}
+              >
+                <div className="flex items-center justify-between">
+                  <span>{category}</span>
+                  <span className="text-xs opacity-70">
+                    ({(() => {
+                      if (category === 'All Services') {return servicesData.length;}
+                      const categoryMapping: { [key: string]: string[] } = {
+                        'Mini-Grid Solutions': ['Power Solutions'],
+                        'Captive Power': ['Power Solutions'],
+                        'Energy Audit': ['Consulting'],
+                        'Installation': ['Construction'],
+                        'Maintenance': ['Infrastructure', 'Construction'],
+                      };
+                      const targetCategories = categoryMapping[category] || [category];
+                      return servicesData.filter(s => targetCategories.includes(s.category)).length;
+                    })()})
+                  </span>
+                </div>
+              </button>
+            ))}
+          </div>
+        </CardContent>
+      </Card>
+
+      {/* Tags */}
+      <Card className="!border-t-2 !border-t-primary border border-border">
+        <CardContent className="p-6">
+          <h3 className="font-semibold mb-4">Popular Tags</h3>
+          <div className="flex flex-wrap gap-2">
+            {tags.map(tag => (
+              <button
+                key={tag}
+                onClick={() => setSearchQuery(tag)}
+                className="px-3 py-2 bg-muted/30 border border-border text-foreground text-sm rounded-lg hover:bg-muted/50 transition-colors duration-200 font-medium"
+              >
+                {tag}
+              </button>
+            ))}
+          </div>
+        </CardContent>
+      </Card>
+
+      {/* Call to Action Widget - Only on desktop */}
+      <div className="hidden lg:block">
+        <CallToAction />
+      </div>
+    </div>
+  );
 
   return (
     <>
@@ -66,32 +209,103 @@ export default function ServicesPage() {
       <Container className="px-4 py-8">
         <Breadcrumb items={breadcrumbItems} className="mb-8" />
 
+        {/* Mobile Search & Filter - Combined */}
+        <div className="lg:hidden mb-2">
+          <Card className="!border-t-2 !border-t-primary border border-border !py-0">
+            <CardContent className="p-0">
+              {/* Search and Filter Header */}
+              <div className="flex items-center gap-2 p-3">
+                {/* Search Input */}
+                <div className="relative flex-1">
+                  <Input
+                    placeholder="Search services..."
+                    value={searchQuery}
+                    onChange={(e) => setSearchQuery(e.target.value)}
+                    className="pr-10 h-10"
+                  />
+                  <Search className="absolute right-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+                </div>
+
+                {/* Filter Toggle Button */}
+                <button
+                  onClick={() => setShowMobileFilters(!showMobileFilters)}
+                  className="flex items-center gap-2 px-3 py-2 h-10 bg-muted/30 hover:bg-muted/50 border border-border rounded-lg transition-colors duration-200"
+                >
+                  <Filter className="h-4 w-4" />
+                  <span className="text-sm font-medium">Filter</span>
+                  {activeFiltersCount > 0 && (
+                    <span className="bg-primary text-primary-foreground rounded-full px-1.5 py-0.5 text-xs font-medium min-w-[18px] text-center">
+                      {activeFiltersCount}
+                    </span>
+                  )}
+                  <div className={`transition-transform duration-200 ${showMobileFilters ? 'rotate-180' : ''}`}>
+                    <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                    </svg>
+                  </div>
+                </button>
+              </div>
+
+              {/* Expandable Filter Content */}
+              {showMobileFilters && (
+                <div className="border-t border-border p-4 animate-in slide-in-from-top-5 duration-300">
+                  <MobileFilterContent />
+                  {/* Clear button for mobile */}
+                  <div className="mt-6 pt-4 border-t">
+                    <Button
+                      variant="outline"
+                      onClick={() => {
+                        setSelectedCategory(null);
+                      }}
+                      className="w-full"
+                      disabled={activeFiltersCount === 0}
+                    >
+                      Clear Filters
+                    </Button>
+                  </div>
+                </div>
+              )}
+            </CardContent>
+          </Card>
+        </div>
+
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 items-start">
           {/* Main Content */}
           <div className="lg:col-span-2 space-y-8">
             {/* Search Results Info */}
-            {(searchQuery || selectedCategory) && (
-              <Card className="!border-t-2 !border-t-primary border border-border">
-                <CardContent className="p-4">
-                  <div className="flex items-center justify-between">
-                    <p className="text-sm text-muted-foreground">
-                      {filteredServices.length} service(s) found
-                      {searchQuery && ` for "${searchQuery}"`}
-                      {selectedCategory && ` in "${selectedCategory}"`}
-                    </p>
-                    <Button
-                      variant="outline"
-                      size="sm"
-                      onClick={handleClearSearch}
-                      className="text-xs"
-                    >
-                      <X className="h-3 w-3 mr-1" />
-                      Clear
-                    </Button>
-                  </div>
-                </CardContent>
-              </Card>
-            )}
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+              <div className="flex-1">
+                {(searchQuery || selectedCategory) && (
+                  <Card className="!border-t-2 !border-t-primary border border-border">
+                    <CardContent className="p-4">
+                      <div className="flex items-center justify-between">
+                        <p className="text-sm text-muted-foreground">
+                          {filteredServices.length} service(s) found
+                          {searchQuery && ` for "${searchQuery}"`}
+                          {selectedCategory && ` in "${selectedCategory}"`}
+                        </p>
+                        <Button
+                          variant="outline"
+                          size="sm"
+                          onClick={handleClearSearch}
+                          className="text-xs"
+                        >
+                          <X className="h-3 w-3 mr-1" />
+                          Clear All
+                        </Button>
+                      </div>
+                    </CardContent>
+                  </Card>
+                )}
+              </div>
+              
+              {/* Results count for mobile - always visible */}
+              <div className="lg:hidden">
+                <p className="text-sm text-muted-foreground text-right">
+                  {filteredServices.length} of {servicesData.length} services
+                </p>
+              </div>
+            </div>
 
             {filteredServices.length === 0 ? (
               <Card className="!border-t-2 !border-t-primary border border-border">
@@ -118,7 +332,7 @@ export default function ServicesPage() {
                         src={service.image || '/placeholder.svg'}
                         alt={service.title}
                         fill
-                        className="hover:scale-105 object-cover"
+                        className="hover:scale-105 object-cover transition-transform duration-300"
                         sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                       />
                     </div>
@@ -132,7 +346,10 @@ export default function ServicesPage() {
                         </p>
                       </div>
                       <div className="mt-auto">
-                        <Link href={`/services/${service.slug}`}>
+                        <Link 
+                          href={`/services/${service.slug}`}
+                          aria-label={`Learn more about ${service.title}`}
+                        >
                           <Button className="w-full bg-primary hover:bg-primary/90 text-primary-foreground">
                             Read More
                             <ArrowRight className="ml-2 h-4 w-4" />
@@ -146,83 +363,17 @@ export default function ServicesPage() {
             )}
           </div>
 
-          {/* Sidebar */}
-          <div className="space-y-6 sticky top-20 self-start">
-            {/* Search */}
-            <Card className="!border-t-2 !border-t-primary border border-border">
-              <CardContent className="p-6">
-                <h3 className="font-semibold mb-4">Search Services</h3>
-                <div className="relative">
-                  <Input
-                    placeholder="Search services..."
-                    value={searchQuery}
-                    onChange={(e) => setSearchQuery(e.target.value)}
-                    className="pr-10"
-                  />
-                  <Search className="absolute right-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
-                </div>
-              </CardContent>
-            </Card>
-
-            {/* Categories */}
-            <Card className="!border-t-2 !border-t-primary border border-border">
-              <CardContent className="p-6">
-                <h3 className="font-semibold mb-4">Categories</h3>
-                <div className="space-y-2">
-                  {categories.map(category => (
-                    <button
-                      key={category}
-                      onClick={() => setSelectedCategory(selectedCategory === category ? null : category)}
-                      className={`w-full text-left p-3 rounded-lg transition-colors duration-200 text-sm font-medium border border-border ${
-                        selectedCategory === category
-                          ? 'bg-primary text-primary-foreground'
-                          : 'bg-muted/30 hover:bg-muted/50 text-foreground'
-                      }`}
-                    >
-                      <div className="flex items-center justify-between">
-                        <span>{category}</span>
-                        <span className="text-xs opacity-70">
-                          ({(() => {
-                            if (category === 'All Services') {return servicesData.length;}
-                            const categoryMapping: { [key: string]: string[] } = {
-                              'Mini-Grid Solutions': ['Power Solutions'],
-                              'Captive Power': ['Power Solutions'],
-                              'Energy Audit': ['Consulting'],
-                              'Installation': ['Construction'],
-                              'Maintenance': ['Infrastructure', 'Construction'],
-                            };
-                            const targetCategories = categoryMapping[category] || [category];
-                            return servicesData.filter(s => targetCategories.includes(s.category)).length;
-                          })()})
-                        </span>
-                      </div>
-                    </button>
-                  ))}
-                </div>
-              </CardContent>
-            </Card>
-
-            {/* Tags */}
-            <Card className="!border-t-2 !border-t-primary border border-border">
-              <CardContent className="p-6">
-                <h3 className="font-semibold mb-4">Popular Tags</h3>
-                <div className="flex flex-wrap gap-2">
-                  {tags.map(tag => (
-                    <button
-                      key={tag}
-                      onClick={() => setSearchQuery(tag)}
-                      className="px-3 py-2 bg-muted/30 border border-border text-foreground text-sm rounded-lg hover:bg-muted/50 transition-colors duration-200 font-medium"
-                    >
-                      {tag}
-                    </button>
-                  ))}
-                </div>
-              </CardContent>
-            </Card>
-
-            {/* Call to Action Widget */}
-            <CallToAction />
+          {/* Desktop Sidebar - Hidden on mobile */}
+          <div className="hidden lg:block">
+            <div className="sticky top-20 self-start">
+              <DesktopFilterSidebar />
+            </div>
           </div>
+        </div>
+
+        {/* Mobile CTA - Show CallToAction on mobile at bottom */}
+        <div className="lg:hidden mt-12">
+          <CallToAction />
         </div>
       </Container>
     </>
