@@ -9,6 +9,7 @@ import { ArrowRight, Search, Filter } from 'lucide-react';
 import Link from 'next/link';
 import Image from 'next/image';
 import type { UpdatePost, PaginationInfo } from '@/lib/types';
+import { formatDate } from '@/lib/utils';
 import {
   Pagination,
   PaginationContent,
@@ -150,7 +151,7 @@ export default function UpdatesClient({
         </div>
 
         {/* Search Results Info */}
-        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6">
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
           <div className="flex-1">
             {searchQuery && (
               <div className="p-4 bg-muted rounded-lg">
@@ -210,7 +211,7 @@ export default function UpdatesClient({
                         <span>{post.author}</span>
                         <span className="mx-2">•</span>
                         <span>
-                          {new Date(post.publishedAt).toLocaleDateString()}
+                          {formatDate(post.publishedAt)}
                         </span>
                       </div>
                       <h2 className="text-xl font-bold mb-4 text-foreground line-clamp-2 h-[50px]">
