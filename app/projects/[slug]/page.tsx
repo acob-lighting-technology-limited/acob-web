@@ -12,26 +12,6 @@ import type { Project, SanityImageUrl } from '@/lib/types';
 import { Card, CardContent } from '@/components/ui/card';
 import { ShareCopy } from '@/components/updates/share-copy';
 import { Metadata } from 'next';
-import { PortableText } from '@portabletext/react';
-
-// Helper function to get the first image from content
-function getFirstImageFromContent(content: any[]): string | null {
-  if (!Array.isArray(content)) return null;
-  
-  for (const block of content) {
-    if (block._type === 'image' && block.asset?.url) {
-      return block.asset.url;
-    }
-  }
-  return null;
-}
-
-// Helper function to extract images from content
-function getImagesFromContent(content: any[]): any[] {
-  if (!Array.isArray(content)) return [];
-  
-  return content.filter(block => block._type === 'image' && block.asset?.url);
-}
 
 interface ProjectPageProps {
   params: Promise<{
@@ -97,7 +77,7 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
     <>
       <PageHero
         title={project.title}
-        backgroundImage={getFirstImageFromContent(project.content) || '/placeholder.svg'}
+        backgroundImage={project.projectImage || '/placeholder.svg'}
       />
 
       <Container className="px-4 py-8 relative">
@@ -124,33 +104,18 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
                   </div>
                 )}
                 
-                {/* Project Content */}
-                {project.content && (
-                  <div className="mt-6 prose prose-lg max-w-none">
-                    <PortableText
-                      value={project.content}
-                      components={{
-                        types: {
-                          image: ({ value }) => (
-                            <div className="my-6">
-                              <Image
-                                src={value.asset?.url || '/placeholder.svg'}
-                                alt={value.alt || 'Project image'}
-                                width={800}
-                                height={600}
-                                className="w-full h-auto rounded-lg"
-                              />
-                            </div>
-                          ),
-                        },
-                        block: {
-                          h1: ({ children }) => <h1 className="text-3xl font-bold mb-4">{children}</h1>,
-                          h2: ({ children }) => <h2 className="text-2xl font-bold mb-3">{children}</h2>,
-                          h3: ({ children }) => <h3 className="text-xl font-bold mb-2">{children}</h3>,
-                          normal: ({ children }) => <p className="mb-4 leading-relaxed">{children}</p>,
-                        },
-                      }}
-                    />
+                {/* Project Image */}
+                {project.projectImage && (
+                  <div className="mt-6">
+                    <div className="aspect-[16/9] overflow-hidden rounded-lg">
+                      <Image
+                        src={`${project.projectImage}?w=1200&h=675&fit=crop&auto=format&q=75`}
+                        alt={project.title}
+                        width={1200}
+                        height={675}
+                        className="w-full h-full object-cover hover:scale-105 transition-transform duration-300"
+                      />
+                    </div>
                   </div>
                 )}
                 

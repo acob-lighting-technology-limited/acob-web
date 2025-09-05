@@ -10,18 +10,6 @@ import { MapPin, ArrowRight, Search, X, Filter } from 'lucide-react';
 import Link from 'next/link';
 import type { Project, PaginationInfo } from '@/lib/types';
 import { extractTextFromPortableText } from '@/lib/utils';
-
-// Helper function to get the first image from content
-function getFirstImageFromContent(content: any[]): string | null {
-  if (!Array.isArray(content)) return null;
-  
-  for (const block of content) {
-    if (block._type === 'image' && block.asset?.url) {
-      return block.asset.url;
-    }
-  }
-  return null;
-}
 import {
   Pagination,
   PaginationContent,
@@ -328,9 +316,9 @@ export default function ProjectsClient({
                   className="overflow-hidden p-0 hover:shadow-lg transition-shadow flex flex-col"
                 >
                   <div className="aspect-[16/9] overflow-hidden relative flex-shrink-0">
-                    {getFirstImageFromContent(project.content) ? (
+                    {project.projectImage ? (
                       <Image
-                        src={`${getFirstImageFromContent(project.content)}?w=800&h=450&fit=crop&auto=format&q=75`}
+                        src={`${project.projectImage}?w=800&h=450&fit=crop&auto=format&q=75`}
                         alt={project.title}
                         fill
                         className="hover:scale-105 object-cover"

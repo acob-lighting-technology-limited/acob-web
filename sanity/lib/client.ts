@@ -231,6 +231,7 @@ export async function getProjects() {
         projectDate,
         content,
         location,
+        "projectImage": projectImage.asset->url,
         comments[]{
           _key,
           author,
@@ -242,24 +243,7 @@ export async function getProjects() {
       }
     `);
 
-    // Filter out projects with null assets and log issues
-    const validProjects = projects.map((project: any) => {
-      const validImages =
-        project.images?.filter((img: any) => img?.asset?.url) || [];
-
-      if (project.images?.length > 0 && validImages.length === 0) {
-        console.warn(
-          `Project "${project.title}" has images but all assets are null/undefined`
-        );
-      }
-
-      return {
-        ...project,
-        images: validImages,
-      };
-    });
-
-    return validProjects;
+    return projects;
   } catch (error) {
     console.error('Error fetching projects from Sanity:', error);
     return [];
@@ -346,21 +330,10 @@ export async function getProjectsPaginated({
       client.fetch(countQuery, params)
     ]);
     
-    // Filter out projects with null assets
-    const validProjects = projects.map((project: any) => {
-      const validImages =
-        project.images?.filter((img: any) => img?.asset?.url) || [];
-
-      return {
-        ...project,
-        images: validImages,
-      };
-    });
-    
     const totalPages = Math.ceil(totalCount / limit);
     
     return {
-      projects: validProjects,
+      projects,
       pagination: {
         currentPage: page,
         totalPages,
@@ -400,6 +373,7 @@ export async function getProject(slug: string) {
         projectDate,
         content,
         location,
+        "projectImage": projectImage.asset->url,
         comments[]{
           _key,
           author,
@@ -415,14 +389,7 @@ export async function getProject(slug: string) {
 
     if (!project) return null;
 
-    // Filter out null assets
-    const validImages =
-      project.images?.filter((img: any) => img?.asset?.url) || [];
-
-    return {
-      ...project,
-      images: validImages,
-    };
+    return project;
   } catch (error) {
     console.error('Error fetching project from Sanity:', error);
     return null;
@@ -443,6 +410,7 @@ export async function getProjectsByCategory(category: string) {
         projectDate,
         content,
         location,
+        "projectImage": projectImage.asset->url,
         comments[]{
           _key,
           author,
@@ -456,18 +424,7 @@ export async function getProjectsByCategory(category: string) {
       { category }
     );
 
-    // Filter out projects with null assets
-    const validProjects = projects.map((project: any) => {
-      const validImages =
-        project.images?.filter((img: any) => img?.asset?.url) || [];
-
-      return {
-        ...project,
-        images: validImages,
-      };
-    });
-
-    return validProjects;
+    return projects;
   } catch (error) {
     console.error('Error fetching projects by category from Sanity:', error);
     return [];
@@ -495,18 +452,7 @@ export async function getRelatedProjects(category: string, currentSlug: string, 
       { category, currentSlug, limit }
     );
 
-    // Filter out projects with null assets
-    const validProjects = relatedProjects.map((project: any) => {
-      const validImages =
-        project.images?.filter((img: any) => img?.asset?.url) || [];
-
-      return {
-        ...project,
-        images: validImages,
-      };
-    });
-
-    return validProjects;
+    return relatedProjects;
   } catch (error) {
     console.error('Error fetching related projects from Sanity:', error);
     return [];

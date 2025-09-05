@@ -81,6 +81,24 @@ export const projectType = defineType({
       validation: Rule => Rule.required(),
     }),
     defineField({
+      name: "projectImage",
+      title: "Project Image",
+      type: "image",
+      description: "Main image for the project card and hero section",
+      options: {
+        hotspot: true,
+      },
+      fields: [
+        {
+          name: "alt",
+          type: "string",
+          title: "Alternative text",
+          description: "Describe the image for accessibility",
+        },
+      ],
+      validation: Rule => Rule.required(),
+    }),
+    defineField({
       name: "location",
       title: "Location",
       type: "string",
@@ -153,13 +171,13 @@ export const projectType = defineType({
     select: {
       title: "title",
       date: "projectDate",
-      media: "content.0",
+      media: "projectImage",
     },
     prepare({ title, date, media }) {
       return {
         title: title,
         subtitle: date ? new Date(date).toISOString().split("T")[0] : "No date set",
-        media: media?.asset || media,
+        media: media,
       };
     },
   },

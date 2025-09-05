@@ -38,6 +38,7 @@ export interface Project {
   projectDate?: string;
   content: unknown[]; // Portable Text for rich formatting
   location: string;
+  projectImage: string; // Single project image URL
   comments?: ProjectComment[];
   _createdAt: string;
   _updatedAt: string;
