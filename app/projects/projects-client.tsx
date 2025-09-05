@@ -10,6 +10,18 @@ import { MapPin, ArrowRight, Search, X, Filter } from 'lucide-react';
 import Link from 'next/link';
 import type { Project, PaginationInfo } from '@/lib/types';
 import { extractTextFromPortableText } from '@/lib/utils';
+
+// Helper function to get the first image from content
+function getFirstImageFromContent(content: any[]): string | null {
+  if (!Array.isArray(content)) return null;
+  
+  for (const block of content) {
+    if (block._type === 'image' && block.asset?.url) {
+      return block.asset.url;
+    }
+  }
+  return null;
+}
 import {
   Pagination,
   PaginationContent,
@@ -181,7 +193,7 @@ export default function ProjectsClient({
   return (
     <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 items-start">
       {/* Main Content */}
-      <div className="lg:col-span-2 space-y-8">
+      <div className="lg:col-span-2 ">
         {/* Mobile Search & Filter - Combined */}
         <div className="lg:hidden mb-2">
           <Card className="!border-t-2 !border-t-primary border border-border !py-0">
@@ -316,11 +328,9 @@ export default function ProjectsClient({
                   className="overflow-hidden p-0 hover:shadow-lg transition-shadow flex flex-col"
                 >
                   <div className="aspect-[16/9] overflow-hidden relative flex-shrink-0">
-                    {project.images &&
-                    project.images.length > 0 &&
-                    project.images[0]?.asset?.url ? (
+                    {getFirstImageFromContent(project.content) ? (
                       <Image
-                        src={`${project.images[0].asset.url}?w=800&h=450&fit=crop&auto=format&q=75`}
+                        src={`${getFirstImageFromContent(project.content)}?w=800&h=450&fit=crop&auto=format&q=75`}
                         alt={project.title}
                         fill
                         className="hover:scale-105 object-cover"

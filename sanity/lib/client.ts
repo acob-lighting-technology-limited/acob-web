@@ -231,9 +231,6 @@ export async function getProjects() {
         projectDate,
         content,
         location,
-        images[]{
-          asset->{url}
-        },
         comments[]{
           _key,
           author,
@@ -403,9 +400,6 @@ export async function getProject(slug: string) {
         projectDate,
         content,
         location,
-        images[]{
-          asset->{url}
-        },
         comments[]{
           _key,
           author,
@@ -449,9 +443,6 @@ export async function getProjectsByCategory(category: string) {
         projectDate,
         content,
         location,
-        images[]{
-          asset->{url}
-        },
         comments[]{
           _key,
           author,

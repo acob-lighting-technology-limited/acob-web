@@ -4,7 +4,7 @@ import { Container } from '@/components/ui/container';
 import { Button } from '@/components/ui/button';
 import { ArrowRight, MapPin } from 'lucide-react';
 import { notFound } from 'next/navigation';
-import { getProjects, getProject } from '@/sanity/lib/client';
+import { getProjects, getProject, getRelatedProjects } from '@/sanity/lib/client';
 import Image from 'next/image';
 import Link from 'next/link';
 import { PageHero } from '@/components/ui/page-hero';
@@ -12,6 +12,26 @@ import type { Project, SanityImageUrl } from '@/lib/types';
 import { Card, CardContent } from '@/components/ui/card';
 import { ShareCopy } from '@/components/updates/share-copy';
 import { Metadata } from 'next';
+import { PortableText } from '@portabletext/react';
+
+// Helper function to get the first image from content
+function getFirstImageFromContent(content: any[]): string | null {
+  if (!Array.isArray(content)) return null;
+  
+  for (const block of content) {
+    if (block._type === 'image' && block.asset?.url) {
+      return block.asset.url;
+    }
+  }
+  return null;
+}
+
+// Helper function to extract images from content
+function getImagesFromContent(content: any[]): any[] {
+  if (!Array.isArray(content)) return [];
+  
+  return content.filter(block => block._type === 'image' && block.asset?.url);
+}
 
 interface ProjectPageProps {
   params: Promise<{
@@ -77,7 +97,7 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
     <>
       <PageHero
         title={project.title}
-        backgroundImage={project.images[0]?.asset?.url || '/placeholder.svg'}
+        backgroundImage={getFirstImageFromContent(project.content) || '/placeholder.svg'}
       />
 
       <Container className="px-4 py-8 relative">
@@ -85,7 +105,7 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
 
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 items-start">
           {/* Main  */}
-          <div className="lg:col-span-2 space-y-8 ">
+          <div className="lg:col-span-2  ">
             {/* Overview */}
             <Card>
               <CardContent className="p-8">
@@ -104,25 +124,33 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
                   </div>
                 )}
                 
-                {/* Gallery */}
-                {project.images && project.images.length > 0 && (
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-6">
-                    {project.images.map(
-                      (img: SanityImageUrl, index: number) => (
-                        <div
-                          key={index}
-                          className="aspect-[4/3] overflow-hidden rounded-lg"
-                        >
-                          <Image
-                            src={img.asset?.url || '/placeholder.svg'}
-                            alt={`${project.title} image ${index + 1}`}
-                            width={800}
-                            height={600}
-                            className="w-full h-full object-cover hover:scale-105 "
-                          />
-                        </div>
-                      ),
-                    )}
+                {/* Project Content */}
+                {project.content && (
+                  <div className="mt-6 prose prose-lg max-w-none">
+                    <PortableText
+                      value={project.content}
+                      components={{
+                        types: {
+                          image: ({ value }) => (
+                            <div className="my-6">
+                              <Image
+                                src={value.asset?.url || '/placeholder.svg'}
+                                alt={value.alt || 'Project image'}
+                                width={800}
+                                height={600}
+                                className="w-full h-auto rounded-lg"
+                              />
+                            </div>
+                          ),
+                        },
+                        block: {
+                          h1: ({ children }) => <h1 className="text-3xl font-bold mb-4">{children}</h1>,
+                          h2: ({ children }) => <h2 className="text-2xl font-bold mb-3">{children}</h2>,
+                          h3: ({ children }) => <h3 className="text-xl font-bold mb-2">{children}</h3>,
+                          normal: ({ children }) => <p className="mb-4 leading-relaxed">{children}</p>,
+                        },
+                      }}
+                    />
                   </div>
                 )}
                 
