@@ -8,15 +8,16 @@ import type { UpdatePost } from '@/lib/types';
 import UpdatesClient from './updates-client';
 
 interface UpdatesPageProps {
-  searchParams: {
+  searchParams: Promise<{
     page?: string;
     search?: string;
-  };
+  }>;
 }
 
 export default async function UpdatesPage({ searchParams }: UpdatesPageProps) {
-  const page = parseInt(searchParams.page || '1');
-  const search = searchParams.search || '';
+  const params = await searchParams;
+  const page = parseInt(params.page || '1');
+  const search = params.search || '';
   const limit = 8;
 
   // Fetch posts with pagination

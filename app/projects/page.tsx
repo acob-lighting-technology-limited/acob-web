@@ -9,17 +9,18 @@ import type { Project } from '@/lib/types';
 import ProjectsClient from './projects-client';
 
 interface ProjectsPageProps {
-  searchParams: {
+  searchParams: Promise<{
     page?: string;
     search?: string;
     state?: string;
-  };
+  }>;
 }
 
 export default async function ProjectsPage({ searchParams }: ProjectsPageProps) {
-  const page = parseInt(searchParams.page || '1');
-  const search = searchParams.search || '';
-  const state = searchParams.state || '';
+  const params = await searchParams;
+  const page = parseInt(params.page || '1');
+  const search = params.search || '';
+  const state = params.state || '';
   const limit = 6;
 
   // Fetch projects with pagination
