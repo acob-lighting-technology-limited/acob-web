@@ -26,8 +26,8 @@ export default function ServicesPage() {
     if (searchQuery.trim()) {
       filtered = filtered.filter(service =>
         service.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
-        service.shortDescription.toLowerCase().includes(searchQuery.toLowerCase()) ||
-        service.fullDescription.toLowerCase().includes(searchQuery.toLowerCase()),
+        service.excerpt.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        service.description.toLowerCase().includes(searchQuery.toLowerCase()),
       );
     }
 
@@ -271,7 +271,7 @@ export default function ServicesPage() {
 
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 items-start">
           {/* Main Content */}
-          <div className="lg:col-span-2 space-y-8">
+          <div className="lg:col-span-2 ">
             {/* Search Results Info */}
             <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
               <div className="flex-1">
@@ -342,7 +342,7 @@ export default function ServicesPage() {
                           {service.title}
                         </h2>
                         <p className="text-muted-foreground mb-6 leading-relaxed line-clamp-[3]">
-                          {service.shortDescription}
+                          {service.excerpt}
                         </p>
                       </div>
                       <div className="mt-auto">

@@ -231,6 +231,8 @@ export async function getProjects() {
         projectDate,
         content,
         location,
+        isFeatured,
+        featuredRank,
         "projectImage": projectImage.asset->url,
         comments[]{
           _key,
@@ -246,6 +248,40 @@ export async function getProjects() {
     return projects;
   } catch (error) {
     console.error('Error fetching projects from Sanity:', error);
+    return [];
+  }
+}
+
+// Helper function to get featured projects for hero section
+export async function getFeaturedProjects() {
+  try {
+    const projects = await client.fetch(`
+      *[_type == "project" && isFeatured == true] | order(featuredRank asc) {
+        _id,
+        title,
+        excerpt,
+        slug,
+        category,
+        projectDate,
+        content,
+        location,
+        isFeatured,
+        featuredRank,
+        "projectImage": projectImage.asset->url,
+        comments[]{
+          _key,
+          author,
+          email,
+          commentContent,
+          createdAt,
+          isApproved
+        }
+      }
+    `);
+
+    return projects;
+  } catch (error) {
+    console.error('Error fetching featured projects from Sanity:', error);
     return [];
   }
 }
@@ -296,9 +332,9 @@ export async function getProjectsPaginated({
       projectDate,
       content,
       location,
-      images[]{
-        asset->{url}
-      },
+      isFeatured,
+      featuredRank,
+      "projectImage": projectImage.asset->url,
       comments[]{
         _key,
         author,
@@ -373,6 +409,8 @@ export async function getProject(slug: string) {
         projectDate,
         content,
         location,
+        isFeatured,
+        featuredRank,
         "projectImage": projectImage.asset->url,
         comments[]{
           _key,

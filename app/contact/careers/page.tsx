@@ -47,7 +47,7 @@ export default async function CareersPage() {
         <Breadcrumb items={breadcrumbItems} className="mb-8" />
 
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 items-start">
-          <div className="lg:col-span-2 space-y-8">
+          <div className="lg:col-span-2 ">
             <Card className="border shadow-md border-border bg-surface">
               <CardContent className="p-8">
                 <h2 className="text-3xl font-bold mb-6 text-foreground">

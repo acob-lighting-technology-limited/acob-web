@@ -105,6 +105,54 @@ export const projectType = defineType({
       validation: Rule => Rule.required(),
     }),
     defineField({
+      name: "isFeatured",
+      title: "Featured Project",
+      type: "boolean",
+      description: "Toggle to feature this project in the hero section",
+      initialValue: false,
+      validation: Rule => 
+        Rule.custom(async (value, context) => {
+          if (!value) return true; // Skip validation if not featured
+          
+          const { getClient } = context;
+          const client = getClient({ apiVersion: '2024-01-01' });
+          
+          // Count existing featured projects
+          const featuredCount = await client.fetch(
+            `count(*[_type == "project" && isFeatured == true && _id != $currentId])`,
+            { currentId: context.document?._id }
+          );
+          
+          if (featuredCount >= 6) {
+            return "Maximum 6 projects can be featured. Please unfeature another project first.";
+          }
+          
+          return true;
+        }),
+    }),
+    defineField({
+      name: "featuredRank",
+      title: "Featured Rank",
+      type: "number",
+      description: "Ranking for featured projects (1-6). Lower numbers appear first in hero section.",
+      hidden: ({ document }) => !document?.isFeatured,
+      validation: Rule => 
+        Rule.custom((value, context) => {
+          const isFeatured = context.document?.isFeatured;
+          if (!isFeatured) return true; // Skip validation if not featured
+          
+          if (value === undefined || value === null) {
+            return "Featured rank is required when project is featured";
+          }
+          
+          if (value < 1 || value > 6) {
+            return "Featured rank must be between 1 and 6";
+          }
+          
+          return true;
+        }),
+    }),
+    defineField({
       name: "comments",
       title: "Comments",
       type: "array",
@@ -172,16 +220,31 @@ export const projectType = defineType({
       title: "title",
       date: "projectDate",
       media: "projectImage",
+      isFeatured: "isFeatured",
+      featuredRank: "featuredRank",
     },
-    prepare({ title, date, media }) {
+    prepare({ title, date, media, isFeatured, featuredRank }) {
+      const subtitle = [
+        date ? new Date(date).toISOString().split("T")[0] : "No date set",
+        isFeatured ? `⭐ Featured (Rank ${featuredRank})` : null
+      ].filter(Boolean).join(" • ");
+      
       return {
         title: title,
-        subtitle: date ? new Date(date).toISOString().split("T")[0] : "No date set",
+        subtitle: subtitle,
         media: media,
       };
     },
   },
   orderings: [
+    {
+      title: "Featured Projects (by Rank)",
+      name: "featuredRankAsc",
+      by: [
+        { field: "isFeatured", direction: "desc" },
+        { field: "featuredRank", direction: "asc" }
+      ]
+    },
     {
       title: "Project Date, New",
       name: "projectDateDesc",

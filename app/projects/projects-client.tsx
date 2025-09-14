@@ -318,7 +318,7 @@ export default function ProjectsClient({
                   <div className="aspect-[16/9] overflow-hidden relative flex-shrink-0">
                     {project.projectImage ? (
                       <Image
-                        src={`${project.projectImage}?w=800&h=450&fit=crop&auto=format&q=75`}
+                        src={project.projectImage}
                         alt={project.title}
                         fill
                         className="hover:scale-105 object-cover"

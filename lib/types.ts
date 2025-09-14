@@ -39,6 +39,8 @@ export interface Project {
   content: unknown[]; // Portable Text for rich formatting
   location: string;
   projectImage: string; // Single project image URL
+  isFeatured?: boolean;
+  featuredRank?: number;
   comments?: ProjectComment[];
   _createdAt: string;
   _updatedAt: string;

@@ -6,6 +6,7 @@ import { MaskText } from '../animations/MaskText';
 interface PageHeroProps {
   title: string;
   backgroundImage: string;
+  backgroundPosition?: string;
   className?: string;
   children?: React.ReactNode;
 }
@@ -13,6 +14,7 @@ interface PageHeroProps {
 export function PageHero({
   title,
   backgroundImage,
+  backgroundPosition = 'bg-center',
   className = '',
   children,
 }: PageHeroProps) {
@@ -22,7 +24,7 @@ export function PageHero({
     >
       {/* Background Image with Animation */}
       <div
-        className="absolute inset-0 bg-cover bg-top bg-no-repeat animate-slow-zoom"
+        className={`absolute inset-0 bg-cover ${backgroundPosition} bg-no-repeat animate-slow-zoom`}
         style={{ backgroundImage: `url('${backgroundImage}')` }}
       />
 

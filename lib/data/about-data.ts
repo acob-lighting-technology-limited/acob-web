@@ -1,10 +1,8 @@
-
-
 export const aboutSections = [
   {
     title: 'Our Story',
     description:
-      'Discover ACOB\'s journey from street lighting to pioneering solar mini-grid solutions across Nigeria.',
+      "Discover ACOB's journey from street lighting to pioneering solar mini-grid solutions across Nigeria.",
     href: '/about/our-story',
     image: '/images/about/acob-team.webp?height=200&width=300',
   },
@@ -13,7 +11,7 @@ export const aboutSections = [
     description:
       'Explore our commitment to sustainable energy access and community empowerment across rural Nigeria.',
     href: '/about/mission',
-    image: '/images/about/acob-team.webp?height=200&width=300',
+    image: '/images/about/mission-vision.png?height=200&width=300',
   },
   {
     title: 'Meet Our Team',
@@ -121,7 +119,7 @@ export const milestones = [
     year: '2020',
     title: 'COVID-19 Response',
     description:
-      'Built 50kWp systems in 12 beneficiary hospitals under the Nigerian Government\'s COVID-19 intervention program.',
+      "Built 50kWp systems in 12 beneficiary hospitals under the Nigerian Government's COVID-19 intervention program.",
     icon: 'Award',
   },
   {

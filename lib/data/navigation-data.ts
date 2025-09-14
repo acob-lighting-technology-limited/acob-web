@@ -72,6 +72,13 @@ export const navigationItems = [
         icon: 'Wrench',
         // icon: 'https://www.svgrepo.com/download/340556/license-maintenance-draft.svg',
       },
+      {
+        name: 'Operations and Maintenance',
+        href: '/services/operations-and-maintenance',
+        description: '24/7 monitoring and proactive maintenance services',
+        icon: 'Shield',
+        // icon: 'https://www.svgrepo.com/download/340556/license-maintenance-draft.svg',
+      },
     ],
   },
   {
@@ -80,31 +87,31 @@ export const navigationItems = [
     subItems: [
       {
         name: 'Rural Electrification',
-        href: '/projects/rural-electrification',
+        href: '/projects/category/rural-electrification',
         description: 'Projects bringing power to remote areas',
         icon: 'Home',
-        // icon: 'https://www.svgrepo.com/download/533270/home.svg',
+       
       },
       {
         name: 'Commercial Installations',
-        href: '/projects/commercial-installations',
+        href: '/projects/category/commercial-installations',
         description: 'Solar solutions for businesses',
         icon: 'Building2',
-        // icon: 'https://www.svgrepo.com/download/533254/building.svg',
+       
       },
       {
         name: 'Street Lighting',
-        href: '/projects/street-lighting',
+        href: '/projects/category/street-lighting',
         description: 'Public lighting infrastructure projects',
         icon: 'Lightbulb',
-        // icon: 'https://www.svgrepo.com/download/533274/lightbulb.svg',
+        
       },
       {
         name: 'Healthcare Projects',
-        href: '/projects/healthcare-projects',
+        href: '/projects/category/healthcare-projects',
         description: 'Powering hospitals and clinics',
         icon: 'Heart',
-        // icon: 'https://www.svgrepo.com/download/533268/heart.svg',
+       
       },
     ],
   },

@@ -7,19 +7,20 @@ import { TransitionSection } from '@/components/sections/transition-section';
 import { ContactSection } from '@/components/sections/contact-section';
 import { UpdatesSection } from '@/components/sections/updates-section';
 import { PartnersSection } from '@/components/sections/partners-section';
-import { getProjects } from '@/sanity/lib/client';
+import { getProjects, getFeaturedProjects } from '@/sanity/lib/client';
 import { getUpdatePosts } from '@/sanity/lib/client';
 
 export default async function HomePage() {
   // Fetch data server-side
-  const [projects, posts] = await Promise.all([
+  const [projects, featuredProjects, posts] = await Promise.all([
     getProjects(),
+    getFeaturedProjects(),
     getUpdatePosts(),
   ]);
 
   return (
     <>
-      <HeroSection projects={projects} />
+      <HeroSection projects={featuredProjects} />
       <AboutSection />
       <ServicesSection />
       <CompanySection />

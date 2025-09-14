@@ -46,7 +46,7 @@ export default function SupportPage() {
 
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 items-start">
           {/* Main Content */}
-          <div className="lg:col-span-2 space-y-8">
+          <div className="lg:col-span-2 ">
             {/* Help Overview */}
             <Card className="border shadow-md border-border bg-surface">
               <CardContent className="p-8">

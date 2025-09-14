@@ -14,11 +14,54 @@ export default function MissionPage() {
     { label: 'Mission & Vision' },
   ];
 
+  const coreValues = [
+    {
+      icon: '🤝',
+      title: 'COLLABORATION',
+      description: 'Synergizing diversities and harnessing cross-sectoral competencies in satisfying our customer needs while identifying and leveraging on stakeholder partnership and relationship management in advancing and meeting our vision and mission.'
+    },
+    {
+      icon: '💎',
+      title: 'LOYALTY',
+      description: 'Consistently building and maintaining a culture of trust and dedication to our brand by ensuring our client gets top-notch service delivery through innovative and value-driven solutions.'
+    },
+    {
+      icon: '⚖️',
+      title: 'ACCOUNTABILITY',
+      description: 'Sustaining a culture of transparency while imbibing the high ethos of integrity, responsibility and reliability in the management of our customer and stakeholder engagements.'
+    },
+    {
+      icon: '🎯',
+      title: 'PROFESSIONALISM',
+      description: 'We pride ourselves in deploying efficient solutions while imbibing high ethical standards in service delivery to stakeholders in line with international best practices.'
+    }
+  ];
+
+  const sidebarCoreValues = [
+    {
+      title: 'collaboration',
+      description: 'Synergizing diversities and harnessing cross-sectoral competencies.'
+    },
+    {
+      title: 'loyalty',
+      description: 'Building trust and dedication through innovative solutions.'
+    },
+    {
+      title: 'accountability',
+      description: 'Sustaining transparency with integrity and reliability.'
+    },
+    {
+      title: 'professionalism',
+      description: 'Deploying efficient solutions with high ethical standards.'
+    }
+  ];
+
   return (
     <>
       <PageHero
         title="Mission & Vision"
-        backgroundImage="/images/about/acob-team.webp?height=400&width=1200"
+        backgroundImage="/images/about/mission-vision.png?height=400&width=1200"
+        backgroundPosition="bg-center"
       >
         <MaskText
           phrases={[
@@ -34,45 +77,54 @@ export default function MissionPage() {
 
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-12 mb-16">
           <div className="lg:col-span-2 space-y-12">
-            {/* Mission */}
-            <Card className="border shadow-md border-border bg-surface">
-              <CardContent className="p-8">
-                <h2 className="text-3xl font-bold text-foreground mb-6">
-                  <MaskText phrases={['Our Mission']} />
-                </h2>
-                <p className="text-lg text-muted-foreground leading-relaxed mb-6">
-                  To provide sustainable, reliable, and accessible solar energy
-                  solutions that transform rural communities across Nigeria,
-                  while contributing to the global transition towards renewable
-                  energy and bridging the energy access gap.
-                </p>
-                <p className="text-lg text-muted-foreground leading-relaxed">
-                  We are committed to providing energy access to areas where
-                  grid extension projects cannot easily reach, ensuring that
-                  every Nigerian community has access to clean, affordable
-                  electricity that powers their homes, businesses, and economic
-                  activities.
-                </p>
-              </CardContent>
-            </Card>
-
             {/* Vision */}
             <Card className="border shadow-md border-border bg-surface">
               <CardContent className="p-8">
                 <h2 className="text-3xl font-bold text-foreground mb-6">
                   <MaskText phrases={['Our Vision']} />
                 </h2>
-                <p className="text-lg text-muted-foreground leading-relaxed mb-6">
-                  To be the leading provider of solar mini-grid solutions in
-                  Nigeria, recognized for innovation, reliability, and positive
-                  community impact in rural energy access.
-                </p>
                 <p className="text-lg text-muted-foreground leading-relaxed">
-                  We envision a Nigeria where clean energy is accessible to all
-                  rural communities, where local economies thrive with reliable
-                  power, and where our solutions contribute to sustainable
-                  development and economic empowerment for generations to come.
+                  To be a flagship renewable energy company in Nigeria, driven by innovations and committed to transforming communities through sustainable energy solutions that power economic growth and environmental stewardship.
                 </p>
+              </CardContent>
+            </Card>
+
+            {/* Mission */}
+            <Card className="border shadow-md border-border bg-surface">
+              <CardContent className="p-8">
+                <h2 className="text-3xl font-bold text-foreground mb-6">
+                  <MaskText phrases={['Our Mission Statement']} />
+                </h2>
+                <ul className="space-y-4 text-lg text-muted-foreground leading-relaxed">
+                  <li className="flex items-start">
+                    <span className="text-primary mr-3 mt-1">•</span>
+                    <span>To rapidly deploy mini-grids to underdeveloped and underserved populace in Nigeria which will be impacting the lives of over 5 million Nigerians by 2030.</span>
+                  </li>
+                  <li className="flex items-start">
+                    <span className="text-primary mr-3 mt-1">•</span>
+                    <span>Providing clean, affordable & reliable energy to unserved & underserved communities in Nigeria through isolated & interconnected mini-grids.</span>
+                  </li>
+                  <li className="flex items-start">
+                    <span className="text-primary mr-3 mt-1">•</span>
+                    <span>To carry out the deployment of high-density LED & solar street-lighting infrastructure that meets best standards.</span>
+                  </li>
+                  <li className="flex items-start">
+                    <span className="text-primary mr-3 mt-1">•</span>
+                    <span>Using renewable energy as a catalyst to solving the decade of energy poverty in Nigeria and Sub-Saharan Africa.</span>
+                  </li>
+                  <li className="flex items-start">
+                    <span className="text-primary mr-3 mt-1">•</span>
+                    <span>Creating a sustainable future in line with the global Sustainable Development Goals (SDG-7).</span>
+                  </li>
+                  <li className="flex items-start">
+                    <span className="text-primary mr-3 mt-1">•</span>
+                    <span>Deployment of 2 million all-in-one across all geopolitical zones by 2029.</span>
+                  </li>
+                  <li className="flex items-start">
+                    <span className="text-primary mr-3 mt-1">•</span>
+                    <span>Building communal resilience through the use of renewable energy.</span>
+                  </li>
+                </ul>
               </CardContent>
             </Card>
           </div>
@@ -81,40 +133,18 @@ export default function MissionPage() {
           <div className="space-y-6 sticky top-20 self-start">
             <Card className="!border-t-2 !border-t-primary border border-border">
               <CardContent className="p-6">
-                <h3 className="font-semibold mb-4">Our Values</h3>
+                <h3 className="font-semibold mb-4">Our Core Values</h3>
                 <div className="space-y-2">
-                  <div className="p-3 rounded-lg bg-muted/30 border border-border">
-                    <h4 className="text-sm font-medium text-foreground mb-1">
-                      Innovation
-                    </h4>
-                    <p className="text-xs text-muted-foreground">
-                      Pioneering sustainable energy solutions
-                    </p>
-                  </div>
-                  <div className="p-3 rounded-lg bg-muted/30 border border-border">
-                    <h4 className="text-sm font-medium text-foreground mb-1">
-                      Quality
-                    </h4>
-                    <p className="text-xs text-muted-foreground">
-                      Excellence in every project we deliver
-                    </p>
-                  </div>
-                  <div className="p-3 rounded-lg bg-muted/30 border border-border">
-                    <h4 className="text-sm font-medium text-foreground mb-1">
-                      Community
-                    </h4>
-                    <p className="text-xs text-muted-foreground">
-                      Empowering communities through energy
-                    </p>
-                  </div>
-                  <div className="p-3 rounded-lg bg-muted/30 border border-border">
-                    <h4 className="text-sm font-medium text-foreground mb-1">
-                      Sustainability
-                    </h4>
-                    <p className="text-xs text-muted-foreground">
-                      Protecting our environment for future generations
-                    </p>
-                  </div>
+                  {sidebarCoreValues.map((value, index) => (
+                    <div key={index} className="p-3 rounded-lg bg-muted/30 border border-border">
+                      <h4 className="text-sm font-medium text-foreground mb-1">
+                        {value.title}
+                      </h4>
+                      <p className="text-xs text-muted-foreground">
+                        {value.description}
+                      </p>
+                    </div>
+                  ))}
                 </div>
               </CardContent>
             </Card>
@@ -150,68 +180,45 @@ export default function MissionPage() {
 
         {/* Core Values */}
         <div className="mb-16">
-          <h2 className="text-3xl font-bold text-foreground mb-8 text-center">
-            <MaskText phrases={['Our Core Values']} />
-          </h2>
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
+            {/* Left Column - Title */}
+            <div className="bg-primary text-white p-8 h-full lg:p-12 rounded-lg flex flex-col justify-center">
+              <div className="flex items-center mb-6">
+                <div className="w-4 h-4 bg-white rounded-sm mr-3"></div>
+                <span className="text-sm font-medium">OUR</span>
+              </div>
+              <h2 className="text-4xl lg:text-5xl font-bold leading-tight mb-6">
+                CORE VALUES
+              </h2>
+              <p className="text-white/90 text-lg leading-relaxed">
+                ACOB Lighting Technology Limited is built upon unique values that holds us together.
+              </p>
+            </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-            <Card className="text-center p-6">
-              <CardContent className="p-0">
-                <div className="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-4">
-                  <span className="text-2xl">💡</span>
+            {/* Right Column - Values */}
+            <div className="space-y-6">
+              {coreValues.map((value, index) => (
+                <div key={index} className="border-2 border-dashed border-primary/30 p-6 rounded-lg">
+                  <div className="flex items-start space-x-4">
+                    <div className="flex-shrink-0">
+                      <div className="w-12 h-12 bg-primary rounded-full flex items-center justify-center border-2 border-dashed border-primary/50">
+                        <span className="text-white font-bold text-lg">
+                          {value.title.charAt(0)}
+                        </span>
+                      </div>
+                    </div>
+                    <div className="flex-1">
+                      <h3 className="text-xl font-bold text-primary mb-2">
+                        {value.title}
+                      </h3>
+                      <p className="text-muted-foreground text-sm leading-relaxed">
+                        {value.description}
+                      </p>
+                    </div>
+                  </div>
                 </div>
-                <h3 className="text-xl font-bold text-foreground mb-3">
-                  Innovation
-                </h3>
-                <p className="text-muted-foreground text-sm">
-                  Continuously developing cutting-edge solar solutions and
-                  technologies.
-                </p>
-              </CardContent>
-            </Card>
-
-            <Card className="text-center p-6">
-              <CardContent className="p-0">
-                <div className="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-4">
-                  <span className="text-2xl">🤝</span>
-                </div>
-                <h3 className="text-xl font-bold text-foreground mb-3">
-                  Community
-                </h3>
-                <p className="text-muted-foreground text-sm">
-                  Putting communities first in all our projects and initiatives.
-                </p>
-              </CardContent>
-            </Card>
-
-            <Card className="text-center p-6">
-              <CardContent className="p-0">
-                <div className="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-4">
-                  <span className="text-2xl">🌱</span>
-                </div>
-                <h3 className="text-xl font-bold text-foreground mb-3">
-                  Sustainability
-                </h3>
-                <p className="text-muted-foreground text-sm">
-                  Committed to environmental responsibility and long-term
-                  impact.
-                </p>
-              </CardContent>
-            </Card>
-
-            <Card className="text-center p-6">
-              <CardContent className="p-0">
-                <div className="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-4">
-                  <span className="text-2xl">⭐</span>
-                </div>
-                <h3 className="text-xl font-bold text-foreground mb-3">
-                  Excellence
-                </h3>
-                <p className="text-muted-foreground text-sm">
-                  Delivering the highest quality solutions and customer service.
-                </p>
-              </CardContent>
-            </Card>
+              ))}
+            </div>
           </div>
         </div>
 
