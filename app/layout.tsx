@@ -13,7 +13,7 @@ import { ChatBot } from '@/components/features/chat-bot';
 import { LazyCookieConsent } from '@/components/lazy-components';
 import { Analytics } from '@vercel/analytics/react';
 import { SpeedInsights } from '@vercel/speed-insights/next';
-import { HiringAnnouncementBanner } from '@/components/ui/announcement-banner';
+
 
 
 const inter = Inter({ subsets: ['latin'] });
@@ -74,7 +74,7 @@ export default function RootLayout({
       <body className={inter.className}>
         <Providers>
           <NProgressProvider>
-            <HiringAnnouncementBanner />
+           
             <Toaster closeButton position="top-right" />
                         <div className="flex min-h-screen flex-col w-full bg-background transition-all duration-500 ">
               

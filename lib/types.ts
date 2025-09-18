@@ -18,6 +18,7 @@ export interface Project {
   _id: string;
   title: string;
   excerpt?: string;
+  description?: string; // Add description field
   slug: {
     current: string;
   };
@@ -26,6 +27,7 @@ export interface Project {
   content: unknown[]; // Portable Text for rich formatting
   location: string;
   projectImage: string; // Single project image URL
+  images?: any[]; // Add images field for compatibility
   isFeatured?: boolean;
   featuredRank?: number;
   comments?: ProjectComment[];

@@ -29,7 +29,7 @@ if (!token) {
   process.exit(1);
 }
 
-const client = createClient({ projectId, dataset, token, apiVersion: '2024-01-01', useCdn: false });
+const client = createClient({ projectId, dataset, token, apiVersion: '2025-07-16', useCdn: false });
 
 async function ensureCategory(slugCurrent, nameTitle) {
   // Try to find existing by slug

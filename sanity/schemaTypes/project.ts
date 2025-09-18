@@ -115,7 +115,7 @@ export const projectType = defineType({
           if (!value) return true; // Skip validation if not featured
           
           const { getClient } = context;
-          const client = getClient({ apiVersion: '2024-01-01' });
+          const client = getClient({ apiVersion: '2025-07-16' });
           
           // Count existing featured projects
           const featuredCount = await client.fetch(

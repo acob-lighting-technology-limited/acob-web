@@ -15,6 +15,7 @@ interface ProjectsSectionProps {
 
 export function ProjectsSection({ projects }: ProjectsSectionProps) {
   const [error, setError] = useState<string | null>(null);
+  const [imageErrors, setImageErrors] = useState<Set<string>>(new Set());
   const displayProjects = projects.slice(0, 3); // Show only 3 projects
 
   if (!projects || projects.length === 0) {
@@ -132,14 +133,14 @@ export function ProjectsSection({ projects }: ProjectsSectionProps) {
           {displayProjects.map(project => (
             <Card
               key={project._id}
-              className="group overflow-hidden hover:shadow-lg transition-all duration-300 hover:-translate-y-1"
+              className="group overflow-hidden hover:shadow-lg transition-all duration-300 hover:-translate-y-1 p-0"
             >
               {/* Project Image */}
               <div className="aspect-[16/9] overflow-hidden relative bg-muted">
                 <Image
                   src={
-                    project.images?.[0]?.asset?.url
-                      ? `${project.images[0].asset.url}?w=600&h=400&fit=crop&auto=format&q=75`
+                    project.projectImage
+                      ? `${project.projectImage}?w=600&h=400&fit=crop&auto=format&q=75`
                       : '/placeholder.svg'
                   }
                   alt={project.title}
@@ -149,7 +150,13 @@ export function ProjectsSection({ projects }: ProjectsSectionProps) {
                   priority={true}
                   onError={e => {
                     const target = e.target as HTMLImageElement;
-                    target.src = '/placeholder.svg';
+                    const currentSrc = target.src;
+                    
+                    // Prevent infinite loop by checking if we've already tried the placeholder
+                    if (!currentSrc.includes('placeholder.svg') && !imageErrors.has(project._id)) {
+                      setImageErrors(prev => new Set(prev).add(project._id));
+                      target.src = '/placeholder.svg';
+                    }
                   }}
                   onLoad={e => {
                     const target = e.target as HTMLImageElement;
@@ -178,7 +185,7 @@ export function ProjectsSection({ projects }: ProjectsSectionProps) {
 
                   {/* Project Description */}
                   <p className="text-muted-foreground line-clamp-[3]">
-                    {project.description}
+                    {project.excerpt || 'Project details coming soon...'}
                   </p>
                 </div>
 

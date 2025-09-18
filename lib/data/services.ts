@@ -1,9 +1,10 @@
 export interface ServiceData {
   id: string;
   title: string;
-  slug: string;
+  slug: string | { current: string };
   excerpt: string;
   description: string;
+  fullDescription?: string;
   image: string;
   icon: string;
   features: string[];

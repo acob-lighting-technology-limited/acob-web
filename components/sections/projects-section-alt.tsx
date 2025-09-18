@@ -76,7 +76,7 @@ export function ProjectsSectionAlt() {
 
       // Add fallback image if no valid images
       const projectImages =
-        project.images?.length > 0
+        project.images && project.images.length > 0
           ? project.images
           : [
             {
@@ -126,8 +126,8 @@ export function ProjectsSectionAlt() {
           key={`p_${project._id}`}
           i={i}
           title={project.title}
-          description={project.description}
-          images={project.projectImages}
+          description={project.description || project.excerpt || ''}
+          images={project.projectImages || []}
           location={project.location}
           gradientFrom={project.gradientConfig.from}
           gradientTo={project.gradientConfig.to}

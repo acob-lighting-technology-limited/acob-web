@@ -106,7 +106,7 @@ export function ServicesCarousel() {
             >
               {servicesData.map((service, index) => (
                 <div
-                  key={service.slug.current}
+                  key={typeof service.slug === 'string' ? service.slug : service.slug.current}
                   className="w-full flex-shrink-0"
                   style={{ width: '100%' }}
                 >
