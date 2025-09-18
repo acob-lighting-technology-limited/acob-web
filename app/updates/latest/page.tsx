@@ -8,6 +8,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { getUpdatePosts } from '@/sanity/lib/client';
 import type { UpdatePost } from '@/lib/types';
+import { formatDate } from '@/lib/utils';
 
 export default async function LatestPage() {
   const posts = await getUpdatePosts();
@@ -38,7 +39,7 @@ export default async function LatestPage() {
 
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 items-start">
           {/* Main Content */}
-          <div className="lg:col-span-2 space-y-8">
+          <div className="lg:col-span-2">
             {/* Featured Post */}
             {latestPosts.length > 0 && (
               <Card className="overflow-hidden  p-0 hover:shadow-lg transition-shadow duration-300">
@@ -59,9 +60,7 @@ export default async function LatestPage() {
                     <span className="mx-2">•</span>
                     <Calendar className="h-4 w-4 mr-1" />
                     <span>
-                      {new Date(
-                        latestPosts[0].publishedAt,
-                      ).toLocaleDateString()}
+                      {formatDate(latestPosts[0].publishedAt)}
                     </span>
                     <span className="mx-2">•</span>
                     <User className="h-4 w-4 mr-1" />
@@ -104,7 +103,7 @@ export default async function LatestPage() {
                       <div className="flex items-center text-sm text-muted-foreground mb-3">
                         <Calendar className="h-4 w-4 mr-1" />
                         <span>
-                          {new Date(post.publishedAt).toLocaleDateString()}
+                          {formatDate(post.publishedAt)}
                         </span>
                         <span className="mx-2">•</span>
                         <User className="h-4 w-4 mr-1" />

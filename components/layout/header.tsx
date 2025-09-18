@@ -4,6 +4,7 @@ import React, { useState, useRef, useEffect } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { useTheme } from 'next-themes';
+import { usePathname } from 'next/navigation';
 import { Container } from '@/components/ui/container';
 import { ThemeToggle } from '@/components/ui/theme-toggle';
 import { ChevronDown, Menu, X, Phone } from 'lucide-react';
@@ -95,7 +96,7 @@ const DropdownMenu: React.FC<DropdownMenuProps> = ({
 
 const MobileMenu: React.FC<MobileMenuProps> = ({ isOpen, onClose }) => {
   const [expandedItems, setExpandedItems] = useState<Record<string, boolean>>(
-    {},
+    {}
   );
 
   const toggleExpanded = (itemName: string) => {
@@ -148,9 +149,9 @@ const MobileMenu: React.FC<MobileMenuProps> = ({ isOpen, onClose }) => {
               <div
                 key={item.name}
                 className="animate-slideInRight"
-                style={{ 
+                style={{
                   animationDelay: `${index * 100}ms`,
-                  animationFillMode: 'both'
+                  animationFillMode: 'both',
                 }}
               >
                 {/* Main Navigation Item */}
@@ -165,7 +166,7 @@ const MobileMenu: React.FC<MobileMenuProps> = ({ isOpen, onClose }) => {
                       {item.name}
                     </span>
                   </Link>
-                  
+
                   {/* Expand/collapse button */}
                   <button
                     onClick={() => toggleExpanded(item.name)}
@@ -174,7 +175,9 @@ const MobileMenu: React.FC<MobileMenuProps> = ({ isOpen, onClose }) => {
                   >
                     <ChevronDown
                       className={`h-4 w-4 text-muted-foreground transition-all duration-200 ${
-                        expandedItems[item.name] ? 'rotate-180 text-primary' : ''
+                        expandedItems[item.name]
+                          ? 'rotate-180 text-primary'
+                          : ''
                       }`}
                     />
                   </button>
@@ -184,9 +187,10 @@ const MobileMenu: React.FC<MobileMenuProps> = ({ isOpen, onClose }) => {
                 <div
                   className={`
                     overflow-hidden transition-all duration-300 ease-out
-                    ${expandedItems[item.name] 
-                      ? 'max-h-96 opacity-100 mt-2' 
-                      : 'max-h-0 opacity-0 mt-0'
+                    ${
+                      expandedItems[item.name]
+                        ? 'max-h-96 opacity-100 mt-2'
+                        : 'max-h-0 opacity-0 mt-0'
                     }
                   `}
                 >
@@ -205,7 +209,7 @@ const MobileMenu: React.FC<MobileMenuProps> = ({ isOpen, onClose }) => {
                             animate-fadeInUp
                           `}
                           style={{
-                            animationDelay: `${(index * 100) + (subIndex * 50)}ms`,
+                            animationDelay: `${index * 100 + subIndex * 50}ms`,
                             animationFillMode: 'both',
                           }}
                         >
@@ -257,12 +261,22 @@ export function Header() {
   const [mounted, setMounted] = useState(false);
   const [logoSrc, setLogoSrc] = useState('/images/acob-logo-light.png'); // Default logo
   const { resolvedTheme } = useTheme();
+  const pathname = usePathname();
 
   // Smart scroll behavior states
   const [isScrollingDown, setIsScrollingDown] = useState(false);
   const [showHeader, setShowHeader] = useState(true);
   const [lastScrollY, setLastScrollY] = useState(0);
   const scrollTimeoutRef = useRef<NodeJS.Timeout | null>(null);
+
+  // Function to check if a navigation item is active
+  const isActiveRoute = (item: NavigationItem) => {
+    // Check if current path exactly matches the main route
+    if (pathname === item.href) return true;
+
+    // Check if current path matches any subroute
+    return item.subItems.some(subItem => pathname.startsWith(subItem.href));
+  };
 
   // Wait for theme to be resolved on client side
   useEffect(() => {
@@ -285,17 +299,17 @@ export function Header() {
     const handleScroll = () => {
       const currentScrollY = window.scrollY;
       const scrollDifference = Math.abs(currentScrollY - lastScrollY);
-      
+
       // Only update if scroll difference is significant (reduces jitter)
       if (scrollDifference < 5) return;
 
       // Update scroll state for styling
       setIsScrolled(currentScrollY > 10);
-      
+
       // Determine scroll direction
       const scrollingDown = currentScrollY > lastScrollY;
       setIsScrollingDown(scrollingDown);
-      
+
       // Show/hide logic
       if (currentScrollY < 100) {
         // Always show header near the top
@@ -309,7 +323,7 @@ export function Header() {
         // Show when scrolling up
         setShowHeader(true);
       }
-      
+
       setLastScrollY(currentScrollY);
     };
 
@@ -319,7 +333,7 @@ export function Header() {
       if (scrollTimeoutRef.current) {
         clearTimeout(scrollTimeoutRef.current);
       }
-      
+
       // Show header after user stops scrolling for 1 second
       scrollTimeoutRef.current = setTimeout(() => {
         setShowHeader(true);
@@ -367,7 +381,7 @@ export function Header() {
   };
 
   return (
-    <>   
+    <>
       <header
         className={`
           sticky top-0 z-40 w-full transition-all duration-300 ease-out
@@ -393,36 +407,76 @@ export function Header() {
                 width={120}
                 height={32}
                 priority
-                className="h-8 w-auto  group-hover:scale-105"
+                className="h-8 w-auto group-hover:scale-105"
+                style={{ width: 'auto', height: 'auto' }}
               />
             </Link>
 
             {/* Desktop Navigation */}
-            <nav className="hidden lg:flex items-center space-x-8">
-              {navigationItems.map(item => (
-                <div
-                  key={item.name}
-                  className="relative"
-                  onMouseEnter={() => handleMouseEnter(item.name)}
-                  onMouseLeave={handleMouseLeave}
-                >
-                  <Link
-                    href={item.href}
-                    className="flex items-center space-x-1 text-foreground hover:text-primary font-medium "
-                  >
-                    <span>{item.name}</span>
-                    <ChevronDown
-                      className={`h-4 w-4  ${activeDropdown === item.name ? 'rotate-180' : ''}`}
-                    />
-                  </Link>
+            <nav className="hidden lg:flex items-center space-x-8 h-full">
+              {navigationItems.map(item => {
+                const isActive = isActiveRoute(item);
 
-                  <DropdownMenu
-                    item={item}
-                    isOpen={activeDropdown === item.name}
-                    onClose={handleDropdownClose}
-                  />
-                </div>
-              ))}
+                return (
+                  <div
+                    key={item.name}
+                    className="relative h-full flex items-center"
+                    onMouseEnter={() => handleMouseEnter(item.name)}
+                    onMouseLeave={handleMouseLeave}
+                  >
+                    <Link
+                      href={item.href}
+                      className={`
+                        relative flex items-center space-x-1 h-full font-medium transition-all duration-300 ease-out px-2
+                        ${
+                          isActive
+                            ? 'text-primary'
+                            : 'text-foreground hover:text-primary'
+                        }
+                      `}
+                    >
+                      <span>{item.name}</span>
+                      <ChevronDown
+                        className={`h-4 w-4 transition-transform duration-200 ${
+                          activeDropdown === item.name ? 'rotate-180' : ''
+                        }`}
+                      />
+
+                      {/* Active route indicator - smooth animated border */}
+                      <div
+                        className={`
+                          absolute bottom-0 left-0 right-0 h-0.5 bg-gradient-to-r from-primary to-primary/80 
+                          transform origin-center transition-all duration-300 ease-out
+                          ${
+                            isActive
+                              ? 'scale-x-100 opacity-100'
+                              : 'scale-x-0 opacity-0'
+                          }
+                        `}
+                      />
+
+                      {/* Hover indicator - subtle underline effect */}
+                      <div
+                        className={`
+                          absolute bottom-0 left-0 right-0 h-px bg-primary/30
+                          transform origin-center transition-all duration-200 ease-out
+                          ${
+                            !isActive && activeDropdown !== item.name
+                              ? 'hover:scale-x-100 hover:opacity-100 scale-x-0 opacity-0'
+                              : 'scale-x-0 opacity-0'
+                          }
+                        `}
+                      />
+                    </Link>
+
+                    <DropdownMenu
+                      item={item}
+                      isOpen={activeDropdown === item.name}
+                      onClose={handleDropdownClose}
+                    />
+                  </div>
+                );
+              })}
             </nav>
 
             {/* Desktop CTA */}

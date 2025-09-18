@@ -36,18 +36,18 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
 
   return {
     title: `${service.title} - ACOB Lighting Technology Limited`,
-    description: service.shortDescription || `Learn about ${service.title} services from ACOB Lighting Technology Limited. We provide comprehensive solar energy solutions including ${service.title.toLowerCase()} across Nigeria.`,
+    description: service.excerpt || `Learn about ${service.title} services from ACOB Lighting Technology Limited. We provide comprehensive solar energy solutions including ${service.title.toLowerCase()} across Nigeria.`,
     keywords: `${service.title}, solar energy, ${service.title.toLowerCase()}, ACOB Lighting, Nigeria solar services, renewable energy`,
     openGraph: {
       title: `${service.title} - ACOB Lighting Technology Limited`,
-      description: service.shortDescription || `Learn about ${service.title} services from ACOB Lighting.`,
+      description: service.excerpt || `Learn about ${service.title} services from ACOB Lighting.`,
       type: 'website',
       url: `https://acoblighting.com/services/${slug}`,
     },
     twitter: {
       card: 'summary_large_image',
       title: `${service.title} - ACOB Lighting Technology Limited`,
-      description: service.shortDescription || `Learn about ${service.title} services from ACOB Lighting.`,
+      description: service.excerpt || `Learn about ${service.title} services from ACOB Lighting.`,
     },
   };
 }
@@ -81,30 +81,31 @@ export default async function ServicePage({ params }: ServicePageProps) {
 
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 items-start">
           {/* Main Content */}
-          <div className="lg:col-span-2 space-y-8">
+          <div className="lg:col-span-2">
             {/* Overview */}
             <Card className="border shadow-md border-border bg-surface">
               <CardContent className="p-8">
                 <h2 className="text-3xl font-bold mb-6 text-foreground">
                   Overview
                 </h2>
-                <p className="text-muted-foreground leading-relaxed text-lg">
-                  {service.fullDescription}
-                </p>
+                <div className="text-muted-foreground leading-relaxed text-lg whitespace-pre-line">
+                  {service.description}
+                </div>
                 
                 {/* Gallery */}
                 {service.gallery.length > 0 && (
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-6">
+                  <div className="grid grid-cols-1  gap-4 mt-6">
                     {service.gallery.map((image, index) => (
                       <div
                         key={index}
-                        className="aspect-[4/3] overflow-hidden rounded-lg"
+                        className="aspect-[4/3] overflow-hidden rounded-lg relative"
                       >
                         <Image
                           src={image || '/placeholder.svg'}
                           alt={`${service.title} project ${index + 1}`}
-                          fill
-                          className="object-cover hover:scale-105 transition-transform duration-300"
+                          width={400}
+                          height={300}
+                          className="w-full h-full object-cover  transition-transform duration-300"
                           sizes="(max-width: 768px) 100vw, 50vw"
                         />
                       </div>

@@ -4,7 +4,7 @@ import { Container } from '@/components/ui/container';
 import { Button } from '@/components/ui/button';
 import { ArrowRight, MapPin } from 'lucide-react';
 import { notFound } from 'next/navigation';
-import { getProjects, getProject } from '@/sanity/lib/client';
+import { getProjects, getProject, getRelatedProjects, urlFor } from '@/sanity/lib/client';
 import Image from 'next/image';
 import Link from 'next/link';
 import { PageHero } from '@/components/ui/page-hero';
@@ -12,12 +12,84 @@ import type { Project, SanityImageUrl } from '@/lib/types';
 import { Card, CardContent } from '@/components/ui/card';
 import { ShareCopy } from '@/components/updates/share-copy';
 import { Metadata } from 'next';
+import { PortableText, type PortableTextComponentProps } from '@portabletext/react';
+import type { PortableTextBlock } from '@portabletext/types';
 
 interface ProjectPageProps {
   params: Promise<{
     slug: string;
   }>;
 }
+
+// Custom Portable Text Components
+const components = {
+  types: {
+    image: ({
+      value,
+    }: {
+      value: { asset: { _ref: string }; alt?: string };
+    }) => {
+      if (!value.asset) {
+        return null;
+      }
+      const imageUrl = urlFor(value)
+        .width(800)
+        .height(600)
+        .fit('crop')
+        .auto('format')
+        .quality(75)
+        .url();
+      return (
+        <div className="w-full md:w-1/2 px-2 my-4">
+          <Image
+            src={imageUrl || '/placeholder.svg'}
+            alt={value.alt || 'Project image'}
+            width={800}
+            height={600}
+            className="rounded-lg object-cover w-full h-auto"
+          />
+        </div>
+      );
+    },
+  },
+  block: {
+    h1: ({ children }: PortableTextComponentProps<PortableTextBlock>) => (
+      <h1 className="text-4xl font-bold my-4">{children}</h1>
+    ),
+    h2: ({ children }: PortableTextComponentProps<PortableTextBlock>) => (
+      <h2 className="text-3xl font-bold my-3">{children}</h2>
+    ),
+    h3: ({ children }: PortableTextComponentProps<PortableTextBlock>) => (
+      <h3 className="text-2xl font-bold my-2">{children}</h3>
+    ),
+    normal: ({ children }: PortableTextComponentProps<PortableTextBlock>) => (
+      <p className="my-2 text-muted-foreground leading-relaxed">{children}</p>
+    ),
+    blockquote: ({
+      children,
+    }: PortableTextComponentProps<PortableTextBlock>) => (
+      <blockquote className="border-l-4 border-primary pl-4 italic my-4">
+        {children}
+      </blockquote>
+    ),
+  },
+  list: {
+    bullet: ({ children }: PortableTextComponentProps<PortableTextBlock>) => (
+      <ul className="list-disc list-inside my-4 space-y-2">{children}</ul>
+    ),
+    number: ({ children }: PortableTextComponentProps<PortableTextBlock>) => (
+      <ol className="list-decimal list-inside my-4 space-y-2">{children}</ol>
+    ),
+  },
+  listItem: {
+    bullet: ({ children }: PortableTextComponentProps<PortableTextBlock>) => (
+      <li className="text-muted-foreground">{children}</li>
+    ),
+    number: ({ children }: PortableTextComponentProps<PortableTextBlock>) => (
+      <li className="text-muted-foreground">{children}</li>
+    ),
+  },
+};
 
 export async function generateStaticParams() {
   const projects = await getProjects();
@@ -77,7 +149,7 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
     <>
       <PageHero
         title={project.title}
-        backgroundImage={project.images[0]?.asset?.url || '/placeholder.svg'}
+        backgroundImage={project.projectImage || '/placeholder.svg'}
       />
 
       <Container className="px-4 py-8 relative">
@@ -85,7 +157,7 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
 
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 items-start">
           {/* Main  */}
-          <div className="lg:col-span-2 space-y-8 ">
+          <div className="lg:col-span-2  ">
             {/* Overview */}
             <Card>
               <CardContent className="p-8">
@@ -104,25 +176,10 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
                   </div>
                 )}
                 
-                {/* Gallery */}
-                {project.images && project.images.length > 0 && (
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-6">
-                    {project.images.map(
-                      (img: SanityImageUrl, index: number) => (
-                        <div
-                          key={index}
-                          className="aspect-[4/3] overflow-hidden rounded-lg"
-                        >
-                          <Image
-                            src={img.asset?.url || '/placeholder.svg'}
-                            alt={`${project.title} image ${index + 1}`}
-                            width={800}
-                            height={600}
-                            className="w-full h-full object-cover hover:scale-105 "
-                          />
-                        </div>
-                      ),
-                    )}
+                {/* Project Content */}
+                {project.content && (
+                  <div className="mt-6 prose prose-lg max-w-none flex flex-wrap -mx-2">
+                    <PortableText value={project.content} components={components} />
                   </div>
                 )}
                 

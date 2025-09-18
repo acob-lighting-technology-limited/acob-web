@@ -30,14 +30,29 @@ export interface SanityImageUrl {
 export interface Project {
   _id: string;
   title: string;
+  excerpt?: string;
   slug: {
     current: string;
   };
-  description: string;
+  category: string;
+  projectDate?: string;
+  content: unknown[]; // Portable Text for rich formatting
   location: string;
-  images: SanityImageUrl[];
+  projectImage: string; // Single project image URL
+  isFeatured?: boolean;
+  featuredRank?: number;
+  comments?: ProjectComment[];
   _createdAt: string;
   _updatedAt: string;
+}
+
+export interface ProjectComment {
+  _key: string;
+  author: string;
+  email: string;
+  commentContent: string;
+  createdAt: string;
+  isApproved: boolean;
 }
 
 export interface UpdatePost {
@@ -133,6 +148,26 @@ export interface ApiResponse<T = unknown> {
   data?: T;
   error?: string;
   message?: string;
+}
+
+// Pagination Types
+export interface PaginationInfo {
+  currentPage: number;
+  totalPages: number;
+  totalCount: number;
+  limit: number;
+  hasNextPage: boolean;
+  hasPreviousPage: boolean;
+}
+
+export interface PaginatedResponse<T> {
+  projects: T[];
+  pagination: PaginationInfo;
+}
+
+export interface PaginatedUpdatesResponse<T> {
+  posts: T[];
+  pagination: PaginationInfo;
 }
 
 export interface SanityApiResponse {

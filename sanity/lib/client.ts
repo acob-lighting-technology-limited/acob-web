@@ -24,15 +24,6 @@ if (!token) {
 }
 
 // Server-side client (for API routes and SSR)
-// Validate required environment variables
-if (!projectId) {
-  throw new Error('SANITY_STUDIO_PROJECT_ID or NEXT_PUBLIC_SANITY_PROJECT_ID is required');
-}
-
-if (!dataset) {
-  throw new Error('SANITY_STUDIO_DATASET or NEXT_PUBLIC_SANITY_DATASET is required');
-}
-
 export const client = createClient({
   projectId,
   dataset,
@@ -75,6 +66,97 @@ export async function getUpdatePosts() {
   `);
 }
 
+// Helper function to get update posts with pagination and filtering
+export async function getUpdatePostsPaginated({
+  page = 1,
+  limit = 8,
+  search = ''
+}: {
+  page?: number;
+  limit?: number;
+  search?: string;
+}) {
+  try {
+    const offset = (page - 1) * limit;
+    
+    // Build the base query
+    let query = `*[_type == "updatePost"`;
+    let params: Record<string, any> = {};
+    
+    // Add search filter
+    if (search.trim()) {
+      query += ` && (
+        title match $search ||
+        excerpt match $search ||
+        author match $search ||
+        category match $search ||
+        pt::text(content) match $search
+      )`;
+      params.search = `*${search}*`;
+    }
+    
+    // Complete the query with ordering and pagination
+    query += `] | order(publishedAt desc)[${offset}...${offset + limit}] {
+      _id,
+      title,
+      slug,
+      excerpt,
+      publishedAt,
+      author,
+      category,
+      tags,
+      "featuredImage": featuredImage.asset->url + "?w=800&h=600&fit=crop&auto=format&q=75",
+      content
+    }`;
+    
+    // Get total count for pagination
+    let countQuery = `count(*[_type == "updatePost"`;
+    if (search.trim()) {
+      countQuery += ` && (
+        title match $search ||
+        excerpt match $search ||
+        author match $search ||
+        category match $search ||
+        pt::text(content) match $search
+      )`;
+    }
+    countQuery += `])`;
+    
+    // Execute both queries
+    const [posts, totalCount] = await Promise.all([
+      client.fetch(query, params),
+      client.fetch(countQuery, params)
+    ]);
+    
+    const totalPages = Math.ceil(totalCount / limit);
+    
+    return {
+      posts,
+      pagination: {
+        currentPage: page,
+        totalPages,
+        totalCount,
+        limit,
+        hasNextPage: page < totalPages,
+        hasPreviousPage: page > 1
+      }
+    };
+  } catch (error) {
+    console.error('Error fetching paginated update posts from Sanity:', error);
+    return {
+      posts: [],
+      pagination: {
+        currentPage: 1,
+        totalPages: 0,
+        totalCount: 0,
+        limit,
+        hasNextPage: false,
+        hasPreviousPage: false
+      }
+    };
+  }
+}
+
 // Helper function to get single update post (formerly single blog post)
 export async function getUpdatePost(slug: string) {
   return await client.fetch(
@@ -98,30 +180,33 @@ export async function getUpdatePost(slug: string) {
 
 // Helper function to get related update posts by category (excluding current slug)
 export async function getRelatedUpdatePosts(
-  categorySlug: string,
-  excludeSlug: string,
+  category: string,
+  currentSlug: string,
   limit: number = 3
 ) {
   return await client.fetch(
     `
-    *[_type == "updatePost" && category == $categorySlug && slug.current != $excludeSlug]
+    *[_type == "updatePost" && category == $category && slug.current != $currentSlug]
       | order(publishedAt desc)[0...$limit] {
       _id,
       title,
       slug,
+      excerpt,
       publishedAt,
+      author,
+      category,
       "featuredImage": featuredImage.asset->url + "?w=800&h=600&fit=crop&auto=format&q=75"
     }
   `,
-    { categorySlug, excludeSlug, limit }
+    { category, currentSlug, limit }
   );
 }
 
-// Helper function to get approved comments for an update post
+// Helper function to get approved comments for a post
 export async function getApprovedCommentsForPost(postId: string) {
   return await client.fetch(
     `
-    *[_type == "comment" && updatePost._ref == $postId && approved == true] | order(createdAt desc) {
+    *[_type == "comment" && postId == $postId && isApproved == true] | order(createdAt desc) {
       _id,
       name,
       comment,
@@ -133,47 +218,184 @@ export async function getApprovedCommentsForPost(postId: string) {
   );
 }
 
-// NEW: Helper function to get projects
+// Helper function to get projects
 export async function getProjects() {
   try {
     const projects = await client.fetch(`
-      *[_type == "project"] | order(_createdAt desc) {
+      *[_type == "project"] | order(projectDate desc, _createdAt desc) {
         _id,
         title,
+        excerpt,
         slug,
-        description,
+        category,
+        projectDate,
+        content,
         location,
-        images[]{
-          asset->{url}
+        isFeatured,
+        featuredRank,
+        "projectImage": projectImage.asset->url,
+        comments[]{
+          _key,
+          author,
+          email,
+          commentContent,
+          createdAt,
+          isApproved
         }
       }
     `);
 
-    // Filter out projects with null assets and log issues
-    const validProjects = projects.map((project: any) => {
-      const validImages =
-        project.images?.filter((img: any) => img?.asset?.url) || [];
-
-      if (project.images?.length > 0 && validImages.length === 0) {
-        console.warn(
-          `Project "${project.title}" has images but all assets are null/undefined`
-        );
-      }
-
-      return {
-        ...project,
-        images: validImages,
-      };
-    });
-
-    return validProjects;
+    return projects;
   } catch (error) {
     console.error('Error fetching projects from Sanity:', error);
     return [];
   }
 }
 
-// NEW: Helper function to get single project
+// Helper function to get featured projects for hero section
+export async function getFeaturedProjects() {
+  try {
+    const projects = await client.fetch(`
+      *[_type == "project" && isFeatured == true] | order(featuredRank asc) {
+        _id,
+        title,
+        excerpt,
+        slug,
+        category,
+        projectDate,
+        content,
+        location,
+        isFeatured,
+        featuredRank,
+        "projectImage": projectImage.asset->url,
+        comments[]{
+          _key,
+          author,
+          email,
+          commentContent,
+          createdAt,
+          isApproved
+        }
+      }
+    `);
+
+    return projects;
+  } catch (error) {
+    console.error('Error fetching featured projects from Sanity:', error);
+    return [];
+  }
+}
+
+// Helper function to get projects with pagination and filtering
+export async function getProjectsPaginated({
+  page = 1,
+  limit = 6,
+  search = '',
+  state = ''
+}: {
+  page?: number;
+  limit?: number;
+  search?: string;
+  state?: string;
+}) {
+  try {
+    const offset = (page - 1) * limit;
+    
+    // Build the base query
+    let query = `*[_type == "project"`;
+    let params: Record<string, any> = {};
+    
+    // Add search filter
+    if (search.trim()) {
+      query += ` && (
+        title match $search ||
+        excerpt match $search ||
+        location match $search ||
+        pt::text(content) match $search
+      )`;
+      params.search = `*${search}*`;
+    }
+    
+    // Add state filter
+    if (state.trim()) {
+      query += ` && location match $state`;
+      params.state = `*${state}*`;
+    }
+    
+    // Complete the query with ordering and pagination
+    query += `] | order(projectDate desc, _createdAt desc)[${offset}...${offset + limit}] {
+      _id,
+      title,
+      excerpt,
+      slug,
+      category,
+      projectDate,
+      content,
+      location,
+      isFeatured,
+      featuredRank,
+      "projectImage": projectImage.asset->url,
+      comments[]{
+        _key,
+        author,
+        email,
+        commentContent,
+        createdAt,
+        isApproved
+      }
+    }`;
+    
+    // Get total count for pagination
+    let countQuery = `count(*[_type == "project"`;
+    if (search.trim()) {
+      countQuery += ` && (
+        title match $search ||
+        excerpt match $search ||
+        location match $search ||
+        pt::text(content) match $search
+      )`;
+    }
+    if (state.trim()) {
+      countQuery += ` && location match $state`;
+    }
+    countQuery += `])`;
+    
+    // Execute both queries
+    const [projects, totalCount] = await Promise.all([
+      client.fetch(query, params),
+      client.fetch(countQuery, params)
+    ]);
+    
+    const totalPages = Math.ceil(totalCount / limit);
+    
+    return {
+      projects,
+      pagination: {
+        currentPage: page,
+        totalPages,
+        totalCount,
+        limit,
+        hasNextPage: page < totalPages,
+        hasPreviousPage: page > 1
+      }
+    };
+  } catch (error) {
+    console.error('Error fetching paginated projects from Sanity:', error);
+    return {
+      projects: [],
+      pagination: {
+        currentPage: 1,
+        totalPages: 0,
+        totalCount: 0,
+        limit,
+        hasNextPage: false,
+        hasPreviousPage: false
+      }
+    };
+  }
+}
+
+// Helper function to get single project
 export async function getProject(slug: string) {
   try {
     const project = await client.fetch(
@@ -181,11 +403,22 @@ export async function getProject(slug: string) {
       *[_type == "project" && slug.current == $slug][0] {
         _id,
         title,
+        excerpt,
         slug,
-        description,
+        category,
+        projectDate,
+        content,
         location,
-        images[]{
-          asset->{url}
+        isFeatured,
+        featuredRank,
+        "projectImage": projectImage.asset->url,
+        comments[]{
+          _key,
+          author,
+          email,
+          commentContent,
+          createdAt,
+          isApproved
         }
       }
     `,
@@ -194,17 +427,73 @@ export async function getProject(slug: string) {
 
     if (!project) return null;
 
-    // Filter out null assets
-    const validImages =
-      project.images?.filter((img: any) => img?.asset?.url) || [];
-
-    return {
-      ...project,
-      images: validImages,
-    };
+    return project;
   } catch (error) {
     console.error('Error fetching project from Sanity:', error);
     return null;
+  }
+}
+
+// Helper function to get projects by category
+export async function getProjectsByCategory(category: string) {
+  try {
+    const projects = await client.fetch(
+      `
+      *[_type == "project" && category == $category] | order(projectDate desc, _createdAt desc) {
+        _id,
+        title,
+        excerpt,
+        slug,
+        category,
+        projectDate,
+        content,
+        location,
+        "projectImage": projectImage.asset->url,
+        comments[]{
+          _key,
+          author,
+          email,
+          commentContent,
+          createdAt,
+          isApproved
+        }
+      }
+    `,
+      { category }
+    );
+
+    return projects;
+  } catch (error) {
+    console.error('Error fetching projects by category from Sanity:', error);
+    return [];
+  }
+}
+
+// Helper function to get related projects by category (excluding current slug)
+export async function getRelatedProjects(category: string, currentSlug: string, limit: number = 3) {
+  try {
+    const relatedProjects = await client.fetch(
+      `
+      *[_type == "project" && category == $category && slug.current != $currentSlug] | order(projectDate desc, _createdAt desc)[0...$limit] {
+        _id,
+        title,
+        excerpt,
+        slug,
+        category,
+        projectDate,
+        location,
+        images[]{
+          asset->{url}
+        }
+      }
+    `,
+      { category, currentSlug, limit }
+    );
+
+    return relatedProjects;
+  } catch (error) {
+    console.error('Error fetching related projects from Sanity:', error);
+    return [];
   }
 }
 
@@ -268,11 +557,11 @@ export async function getJobPosting(slug: string) {
 // Test function to verify Sanity connection
 export async function testSanityConnection() {
   try {
-    await client.fetch('*[_type == "project"][0...1]');
-    console.log('✅ Sanity connection successful');
+    const result = await client.fetch('*[_type == "project"][0...1]');
+    console.log('Sanity connection successful:', result.length > 0 ? 'Found projects' : 'No projects found');
     return true;
   } catch (error) {
-    console.error('❌ Sanity connection failed:', error);
+    console.error('Sanity connection failed:', error);
     return false;
   }
 }
