@@ -76,7 +76,6 @@
     "@commitlint/cli": "^19.8.1",
     "@commitlint/config-conventional": "^19.8.1",
     "@eslint/js": "^9.33.0",
-    "webpack-bundle-analyzer": "^4.10.1",
     "@types/node": "^20.19.8",
     "@types/nprogress": "^0.2.3",
     "@types/react": "^19",
@@ -95,7 +94,8 @@
     "tailwindcss": "^3.4.17",
     "tailwindcss-animate": "^1.0.7",
     "tw-animate-css": "^1.3.5",
-    "typescript": "^5"
+    "typescript": "^5",
+    "webpack-bundle-analyzer": "^4.10.1"
   },
   "lint-staged": {
     "*.{js,jsx,ts,tsx}": [
