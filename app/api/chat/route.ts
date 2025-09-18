@@ -17,24 +17,10 @@ function getErrorMessage(error: unknown): string {
 }
 
 export async function POST(req: NextRequest) {
-  if (process.env.NODE_ENV !== 'production') {
-    // eslint-disable-next-line no-console
-    console.log('=== API ROUTE CALLED ===');
-  }
-
   try {
     const GROQ_API_KEY = process.env.GROQ_API_KEY;
 
-    if (process.env.NODE_ENV !== 'production') {
-      // eslint-disable-next-line no-console
-      console.log('GROQ_API_KEY exists:', !!GROQ_API_KEY);
-    }
-
     if (!GROQ_API_KEY) {
-      if (process.env.NODE_ENV !== 'production') {
-        // eslint-disable-next-line no-console
-        console.error('GROQ_API_KEY is not set.');
-      }
       return NextResponse.json(
         {
           error: { message: 'Groq API key is missing', code: 'CONFIG_MISSING' },
@@ -43,23 +29,10 @@ export async function POST(req: NextRequest) {
       );
     }
 
-    if (process.env.NODE_ENV !== 'production') {
-      // eslint-disable-next-line no-console
-      console.log('=== PARSING REQUEST BODY ===');
-    }
     const body = await req.json();
     const messages = body.messages;
 
-    if (process.env.NODE_ENV !== 'production') {
-      // eslint-disable-next-line no-console
-      console.log('Messages received:', messages?.length, 'messages');
-    }
-
     if (!Array.isArray(messages)) {
-      if (process.env.NODE_ENV !== 'production') {
-        // eslint-disable-next-line no-console
-        console.error('Invalid messages - not an array:', body);
-      }
       return NextResponse.json(
         {
           error: {
@@ -72,10 +45,6 @@ export async function POST(req: NextRequest) {
     }
 
     if (messages.length === 0) {
-      if (process.env.NODE_ENV !== 'production') {
-        // eslint-disable-next-line no-console
-        console.error('Empty messages array');
-      }
       return NextResponse.json(
         {
           error: {
@@ -87,23 +56,11 @@ export async function POST(req: NextRequest) {
       );
     }
 
-    if (process.env.NODE_ENV !== 'production') {
-      // eslint-disable-next-line no-console
-      console.log('=== VALIDATING MESSAGES ===');
-    }
     // Validate messages
     for (let i = 0; i < messages.length; i++) {
       const msg = messages[i];
-      if (process.env.NODE_ENV !== 'production') {
-        // eslint-disable-next-line no-console
-        console.log(`Message ${i}:`, JSON.stringify(msg, null, 2));
-      }
 
       if (!msg.role || !msg.content) {
-        if (process.env.NODE_ENV !== 'production') {
-          // eslint-disable-next-line no-console
-          console.error(`Invalid message at index ${i}:`, msg);
-        }
         return NextResponse.json(
           {
             error: {
@@ -123,11 +80,6 @@ export async function POST(req: NextRequest) {
         content: msg.content,
       }),
     );
-
-    if (process.env.NODE_ENV !== 'production') {
-      // eslint-disable-next-line no-console
-      console.log('=== CALLING GROQ VIA AI SDK (STREAMING) ===');
-    }
     // Use Vercel AI SDK with Groq (streaming for useChat compatibility)
     const result = await streamText({
       model: groq('llama3-8b-8192'),
@@ -176,10 +128,6 @@ export async function POST(req: NextRequest) {
       },
     });
   } catch (err: unknown) {
-    if (process.env.NODE_ENV !== 'production') {
-      // eslint-disable-next-line no-console
-      console.error('Chat route error:', err);
-    }
     return NextResponse.json(
       {
         error: { message: getErrorMessage(err), code: 'INTERNAL_SERVER_ERROR' },

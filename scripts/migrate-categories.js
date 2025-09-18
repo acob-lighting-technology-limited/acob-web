@@ -4,7 +4,7 @@ const client = createClient({
   projectId: process.env.NEXT_PUBLIC_SANITY_PROJECT_ID,
   dataset: process.env.NEXT_PUBLIC_SANITY_DATASET,
   token: process.env.SANITY_TOKEN, // You'll need to create a token with write permissions
-  apiVersion: '2024-01-01',
+  apiVersion: '2025-07-16',
   useCdn: false,
 });
 

@@ -32,8 +32,6 @@ Utility functions, types, and data:
 - **`/types.ts`** - TypeScript type definitions
 - **`/utils.ts`** - Utility functions
 - **`/constants.ts`** - Application constants
-- **`/auth.ts`** - Authentication utilities
-- **`/auth-utils.ts`** - Authentication helper functions
 
 ### `/sanity`
 

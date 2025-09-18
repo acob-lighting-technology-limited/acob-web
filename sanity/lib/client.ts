@@ -28,7 +28,7 @@ export const client = createClient({
   projectId,
   dataset,
   useCdn: false, // Disable CDN for server-side requests
-  apiVersion: '2024-01-01',
+  apiVersion: '2025-07-16',
   token: token,
 });
 
@@ -38,7 +38,7 @@ export const clientForBrowser = createClient({
   projectId,
   dataset,
   useCdn: true, // Enable CDN for client-side requests
-  apiVersion: '2024-01-01',
+  apiVersion: '2025-07-16',
   // No token for client-side requests
 });
 
