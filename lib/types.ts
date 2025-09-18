@@ -1,16 +1,3 @@
-// NextAuth Types
-export interface ExtendedUser {
-  id: string;
-  email: string;
-  name: string;
-  role: string;
-}
-
-export interface ExtendedSession {
-  user: ExtendedUser;
-  expires: string;
-}
-
 // Sanity Types
 export interface SanityImage {
   asset: {

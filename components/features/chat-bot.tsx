@@ -34,11 +34,6 @@ const formatMessage = (content: string) => {
     return content;
   }
 
-  // Debug logging (only in development)
-  if (process.env.NODE_ENV !== 'production') {
-    console.log('Raw message content:', content);
-  }
-
   // Remove stray '/>' if any
   content = content.replace(/\/>/g, '');
 
@@ -105,11 +100,6 @@ export function ChatBot() {
     api: '/api/chat',
     initialMessages: [ACOB_SYSTEM_PROMPT],
     onFinish: message => {
-      // Debug logging (only in development)
-      if (process.env.NODE_ENV !== 'production') {
-        console.log('AI Response:', message);
-      }
-
       // Check for navigation intent in the response
       const route = extractNavigationIntent(message.content);
       if (route) {
