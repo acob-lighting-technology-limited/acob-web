@@ -28,6 +28,7 @@ export interface Project {
   location: string;
   projectImage: string; // Single project image URL
   images?: any[]; // Add images field for compatibility
+  galleryImages?: string[]; // Add gallery images from content
   isFeatured?: boolean;
   featuredRank?: number;
   comments?: ProjectComment[];

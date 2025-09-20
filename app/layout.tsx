@@ -10,7 +10,7 @@ import { Footer } from '@/components/layout/footer';
 import { ScrollToTop } from '@/components/ui/scroll-to-top';
 import { Toaster } from 'sonner';
 import { ChatBot } from '@/components/features/chat-bot';
-import { LazyCookieConsent } from '@/components/lazy-components';
+// import { LazyCookieConsent } from '@/components/lazy-components';
 import { Analytics } from '@vercel/analytics/react';
 import { SpeedInsights } from '@vercel/speed-insights/next';
 
@@ -85,7 +85,7 @@ export default function RootLayout({
                 <ScrollToTop />
                 <ChatBot />
               </div>
-              <LazyCookieConsent />
+              {/* <LazyCookieConsent /> */}
               <Analytics />
               <SpeedInsights />
             </div>

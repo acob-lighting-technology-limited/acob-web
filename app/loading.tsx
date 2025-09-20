@@ -14,7 +14,7 @@ export default function Loading() {
       'header',
       'footer',
       '[data-chatbot]',
-      '[data-cookie-consent]',
+      // '[data-cookie-consent]',
       '[data-scroll-to-top]',
     ];
 

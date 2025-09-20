@@ -10,6 +10,7 @@ import { MapPin, ArrowRight, Search, X, Filter } from 'lucide-react';
 import Link from 'next/link';
 import type { Project, PaginationInfo } from '@/lib/types';
 import { extractTextFromPortableText } from '@/lib/utils';
+import { applySanityImagePreset } from '@/lib/utils/sanity-image';
 import {
   Pagination,
   PaginationContent,
@@ -318,7 +319,7 @@ export default function ProjectsClient({
                   <div className="aspect-[16/9] overflow-hidden relative flex-shrink-0">
                     {project.projectImage ? (
                       <Image
-                        src={project.projectImage}
+                        src={applySanityImagePreset(project.projectImage, 'card')}
                         alt={project.title}
                         fill
                         className="hover:scale-105 object-cover"
@@ -361,6 +362,9 @@ export default function ProjectsClient({
             {/* Pagination */}
             {pagination.totalPages > 1 && (
               <div className="mt-8">
+                <div className="text-sm text-muted-foreground text-center mb-4">
+                  Showing {((pagination.currentPage - 1) * pagination.limit) + 1}-{Math.min(pagination.currentPage * pagination.limit, pagination.totalCount)} of {pagination.totalCount} projects
+                </div>
                 <Pagination>
                   <PaginationContent>
                     <PaginationItem>

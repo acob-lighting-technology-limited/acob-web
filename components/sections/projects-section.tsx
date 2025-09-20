@@ -8,6 +8,7 @@ import { Card, CardContent } from '@/components/ui/card';
 import { Container } from '@/components/ui/container';
 import { ArrowRight, MapPin } from 'lucide-react';
 import type { Project } from '@/lib/types';
+import { applySanityImagePreset } from '@/lib/utils/sanity-image';
 
 interface ProjectsSectionProps {
   projects: Project[];
@@ -140,7 +141,7 @@ export function ProjectsSection({ projects }: ProjectsSectionProps) {
                 <Image
                   src={
                     project.projectImage
-                      ? `${project.projectImage}?w=600&h=400&fit=crop&auto=format&q=75`
+                      ? applySanityImagePreset(project.projectImage, 'card')
                       : '/placeholder.svg'
                   }
                   alt={project.title}

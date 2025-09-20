@@ -18,6 +18,9 @@ export function PageHero({
   className = '',
   children,
 }: PageHeroProps) {
+  // Truncate title to max 25 characters
+  const truncatedTitle = title.length > 60 ? title.substring(0, 60) + '...' : title;
+
   return (
     <section
       className={`relative h-[400px] flex items-end justify-start overflow-hidden ${className}`}
@@ -38,8 +41,8 @@ export function PageHero({
       >
         <div className="text-left text-white">
           <MaskText
-            phrases={[title]} // or split into lines if desired
-            className="text-4xl md:text-7xl font-bold "
+            phrases={[truncatedTitle]}
+            className="text-4xl md:text-7xl font-bold"
           />
           {/* {children} */}
         </div>

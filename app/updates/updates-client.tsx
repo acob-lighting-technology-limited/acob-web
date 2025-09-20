@@ -10,6 +10,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 import type { UpdatePost, PaginationInfo } from '@/lib/types';
 import { formatDate } from '@/lib/utils';
+import { applySanityImagePreset } from '@/lib/utils/sanity-image';
 import {
   Pagination,
   PaginationContent,
@@ -198,7 +199,7 @@ export default function UpdatesClient({
                 >
                   <div className="aspect-[16/9] overflow-hidden flex-shrink-0">
                     <Image
-                      src={post.featuredImage || '/placeholder.svg'}
+                      src={post.featuredImage ? applySanityImagePreset(post.featuredImage, 'featured') : '/placeholder.svg'}
                       alt={post.title}
                       width={1200}
                       height={675}
