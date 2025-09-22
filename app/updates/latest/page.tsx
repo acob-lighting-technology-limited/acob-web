@@ -83,7 +83,7 @@ export default async function LatestPage() {
             )}
 
             {/* Recent Posts Grid */}
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div className="mt-8 grid grid-cols-1 md:grid-cols-2 gap-6">
               {latestPosts.slice(1).map((post: UpdatePost) => (
                 <Card
                   key={post._id}

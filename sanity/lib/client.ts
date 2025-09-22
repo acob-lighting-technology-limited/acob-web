@@ -252,6 +252,56 @@ export async function getProjects() {
   }
 }
 
+export async function getProjectsForGallery() {
+  try {
+    const projects = await client.fetch(`
+      *[_type == "project"] | order(projectDate desc, _createdAt desc) {
+        _id,
+        title,
+        excerpt,
+        slug,
+        category,
+        projectDate,
+        content,
+        location,
+        isFeatured,
+        featuredRank,
+        "projectImage": projectImage.asset->url,
+        "galleryImages": content[].asset->url
+      }
+    `);
+
+    // Process the projects to extract images from content
+    const processedProjects = projects.map((project: any) => {
+      const galleryImages: string[] = [];
+      
+      // Add the main project image
+      if (project.projectImage) {
+        galleryImages.push(project.projectImage);
+      }
+      
+      // Extract images from content blocks
+      if (project.content && Array.isArray(project.content)) {
+        project.content.forEach((block: any) => {
+          if (block._type === 'image' && block.asset && block.asset.url) {
+            galleryImages.push(block.asset.url);
+          }
+        });
+      }
+      
+      return {
+        ...project,
+        galleryImages
+      };
+    });
+
+    return processedProjects;
+  } catch (error) {
+    console.error('Error fetching projects for gallery from Sanity:', error);
+    return [];
+  }
+}
+
 // Helper function to get featured projects for hero section
 export async function getFeaturedProjects() {
   try {

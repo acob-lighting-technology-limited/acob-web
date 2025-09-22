@@ -11,6 +11,7 @@ import Link from 'next/link';
 import { PageHero } from '@/components/ui/page-hero';
 import type { Project } from '@/lib/types';
 import { Metadata } from 'next';
+import { applySanityImagePreset } from '@/lib/utils/sanity-image';
 
 interface CategoryPageProps {
   params: Promise<{
@@ -179,7 +180,7 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
                       <div className="aspect-[16/9] overflow-hidden relative flex-shrink-0">
                         {project.projectImage ? (
                           <Image
-                            src={project.projectImage}
+                            src={applySanityImagePreset(project.projectImage, 'card')}
                             alt={project.title}
                             fill
                             className="hover:scale-105 object-cover transition-transform duration-300"

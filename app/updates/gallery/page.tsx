@@ -9,32 +9,69 @@ import {
 } from 'lucide-react';
 import Link from 'next/link';
 import { GalleryClient } from './gallery-client';
+import { getProjectsForGallery } from '@/sanity/lib/client';
+import type { Project } from '@/lib/types';
 
-export default function GalleryPage() {
+export default async function GalleryPage() {
   const breadcrumbItems = [
     { label: 'Home', href: '/' },
     { label: 'Updates', href: '/updates' },
     { label: 'Media Gallery' },
   ];
 
-  const galleryItems: Array<{
-    id: number;
-    title: string;
-    type: 'image' | 'video';
-    src: string;
-    category: string;
-    date: string;
-    description: string;
-  }> = [
-    { id: 1, title: 'Solar Installation Project', type: 'image', src: '/images/projects/routine-maintenance-streetlight-abuja.webp', category: 'Projects', date: '2024-01-15', description: 'Large-scale solar installation in rural community' },
-    { id: 2, title: 'Street Lighting Infrastructure', type: 'image', src: '/images/services/streetlighting-infrastructure-project-development.webp', category: 'Infrastructure', date: '2024-01-10', description: 'LED street lighting installation and maintenance' },
-    { id: 3, title: 'Healthcare Facility Power System', type: 'image', src: '/images/services/captive-power-solutions.webp', category: 'Healthcare', date: '2024-01-05', description: 'Reliable power system for healthcare facilities' },
-    { id: 4, title: 'Team at Work Site', type: 'image', src: '/images/about/acob-team.webp', category: 'Team', date: '2024-01-01', description: 'Our team working on installation' },
-    { id: 5, title: 'Project Completion Ceremony', type: 'video', src: '/placeholder.svg', category: 'Events', date: '2023-12-20', description: 'Celebrating successful project completion' },
-    { id: 6, title: 'Equipment and Tools', type: 'image', src: '/images/projects/routine-maintenance-streetlight-abuja.webp', category: 'Equipment', date: '2023-12-15', description: 'Professional tools and equipment' },
+  // Fetch projects with gallery images
+  const projects = await getProjectsForGallery();
+  
+  // Get actual categories from projects and convert to title case
+  const actualCategories = Array.from(new Set(projects.map((p: Project) => p.category))).filter(Boolean);
+  
+  // Convert kebab-case to title case
+  const formatCategoryName = (category: string) => {
+    return category
+      .split('-')
+      .map(word => word.charAt(0).toUpperCase() + word.slice(1))
+      .join(' ');
+  };
+  
+  // Define the 4 project categories (use actual categories if available)
+  const projectCategories = actualCategories.length > 0 ? actualCategories : [
+    'rural-electrification',
+    'commercial-installations', 
+    'street-lighting',
+    'healthcare-projects'
   ];
 
-  const galleryCategories = ['All','Projects','Infrastructure','Healthcare','Team','Events','Equipment'];
+  // Process projects to extract gallery images by category
+  const galleryData = projectCategories.map(category => {
+    const categoryProjects = projects.filter((project: Project) => 
+      project.category === category
+    );
+    
+    // Extract all images from projects in this category
+    const allImages: string[] = [];
+    categoryProjects.forEach((project: Project) => {
+      // Always add the main project image
+      if (project.projectImage) {
+        allImages.push(project.projectImage);
+      }
+      
+      // Add gallery images if they exist
+      if (project.galleryImages && Array.isArray(project.galleryImages)) {
+        allImages.push(...project.galleryImages.filter(Boolean));
+      }
+    });
+
+    return {
+      category: formatCategoryName(category as string),
+      projects: categoryProjects,
+      images: allImages,
+      totalImages: allImages.length
+    };
+  });
+
+  // Calculate total stats
+  const totalImages = galleryData.reduce((sum, cat) => sum + cat.totalImages, 0);
+  const totalProjects = projects.length;
 
   return (
     <>
@@ -46,7 +83,7 @@ export default function GalleryPage() {
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 items-start">
           {/* Main Content */}
           <div className="lg:col-span-2">
-            <GalleryClient galleryItems={galleryItems} galleryCategories={galleryCategories} />
+            <GalleryClient galleryData={galleryData} />
           </div>
 
           {/* Sidebar */}
@@ -57,13 +94,13 @@ export default function GalleryPage() {
                 <h3 className="font-semibold mb-4">Media Gallery</h3>
                 <div className="bg-muted/30 p-4 rounded-lg border border-border">
                   <Camera className="h-8 w-8 text-primary mb-2" />
-                  <h4 className="font-medium text-primary mb-2">Visual Stories</h4>
+                  <h4 className="font-medium text-primary mb-2">Project Visuals</h4>
                   <p className="text-sm text-muted-foreground">
-                    Explore photos and videos from our projects, team activities, and achievements.
+                    Explore photos and images from our projects organized by category.
                   </p>
                   <div className="flex justify-between text-xs text-muted-foreground mt-2">
-                    <span>{galleryItems.length} items</span>
-                    <span>{galleryCategories.length - 1} categories</span>
+                    <span>{totalImages} images</span>
+                    <span>{projectCategories.length} categories</span>
                   </div>
                 </div>
               </CardContent>
@@ -76,28 +113,39 @@ export default function GalleryPage() {
                 <div className="space-y-2">
                   <div className="p-3 rounded-lg bg-muted/30 border border-border">
                     <div className="flex justify-between items-center">
-                      <span className="text-sm font-medium">Images</span>
-                      <span className="text-sm font-medium text-primary">5</span>
+                      <span className="text-sm font-medium">Total Images</span>
+                      <span className="text-sm font-medium text-primary">{totalImages}</span>
                     </div>
                   </div>
                   <div className="p-3 rounded-lg bg-muted/30 border border-border">
                     <div className="flex justify-between items-center">
-                      <span className="text-sm font-medium">Videos</span>
-                      <span className="text-sm font-medium text-primary">1</span>
+                      <span className="text-sm font-medium">Total Projects</span>
+                      <span className="text-sm font-medium text-primary">{totalProjects}</span>
                     </div>
                   </div>
                   <div className="p-3 rounded-lg bg-muted/30 border border-border">
                     <div className="flex justify-between items-center">
-                      <span className="text-sm font-medium">Projects</span>
-                      <span className="text-sm font-medium text-primary">3</span>
+                      <span className="text-sm font-medium">Categories</span>
+                      <span className="text-sm font-medium text-primary">{projectCategories.length}</span>
                     </div>
                   </div>
-                  <div className="p-3 rounded-lg bg-muted/30 border border-border">
-                    <div className="flex justify-between items-center">
-                      <span className="text-sm font-medium">Events</span>
-                      <span className="text-sm font-medium text-primary">1</span>
+                </div>
+              </CardContent>
+            </Card>
+
+            {/* Category Breakdown */}
+            <Card className="!border-t-2 !border-t-primary border border-border">
+              <CardContent className="p-6">
+                <h3 className="font-semibold mb-4">By Category</h3>
+                <div className="space-y-2">
+                  {galleryData.map((categoryData) => (
+                    <div key={categoryData.category} className="p-3 rounded-lg bg-muted/30 border border-border">
+                      <div className="flex justify-between items-center">
+                        <span className="text-sm font-medium">{categoryData.category}</span>
+                        <span className="text-sm font-medium text-primary">{categoryData.totalImages}</span>
+                      </div>
                     </div>
-                  </div>
+                  ))}
                 </div>
               </CardContent>
             </Card>
@@ -105,7 +153,7 @@ export default function GalleryPage() {
             {/* Browse Categories */}
             <Card className="!border-t-2 !border-t-primary border border-border">
               <CardContent className="p-6">
-                <h3 className="font-semibold mb-4">Browse Categories</h3>
+                <h3 className="font-semibold mb-4">Browse Updates</h3>
                 <div className="space-y-2">
                   <Link
                     href="/updates/latest"

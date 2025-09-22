@@ -13,6 +13,7 @@ import { ArrowRight, ChevronLeft, ChevronRight } from 'lucide-react';
 import type { Project } from '@/lib/types';
 import Link from 'next/link';
 import SimpleSpinnerExit from '../loader/simple-spinner-exit';
+import { applySanityImagePreset } from '@/lib/utils/sanity-image';
 
 interface HeroSectionProps {
   projects: any[];
@@ -46,7 +47,7 @@ const HeroSection = React.memo(function HeroSection({
       id: `project-${project._id}`,
       title: project.title,
       image: project.projectImage 
-        ? `${project.projectImage}?w=1920&h=1080&fit=crop&auto=format&q=75`
+        ? applySanityImagePreset(project.projectImage, 'hero')
         : '/images/olooji-community.jpg?height=800&width=1400', // fallback
       location: project.location,
       slug: project.slug.current,

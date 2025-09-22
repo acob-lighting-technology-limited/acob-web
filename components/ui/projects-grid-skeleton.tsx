@@ -15,7 +15,7 @@ export function ProjectsGridSkeleton() {
       </Card> */}
 
       {/* Projects Grid Skeleton */}
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
         {Array.from({ length: 6 }).map((_, index) => (
           <Card key={index} className="overflow-hidden p-0">
             <div className="aspect-[16/9] overflow-hidden relative">

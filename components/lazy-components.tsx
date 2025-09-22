@@ -24,16 +24,16 @@ export const LazyBackupStrategy = dynamic(
   },
 );
 
-export const LazyCookieConsent = dynamic(
-  () =>
-    import('./business/cookie-consent').then(mod => ({
-      default: mod.CookieConsent,
-    })),
-  {
-    loading: () => null,
-    ssr: false,
-  },
-);
+// export const LazyCookieConsent = dynamic(
+//   () =>
+//     import('./business/cookie-consent').then(mod => ({
+//       default: mod.CookieConsent,
+//     })),
+//   {
+//     loading: () => null,
+//     ssr: false,
+//   },
+// );
 
 export const LazySpamProtection = dynamic(
   () =>

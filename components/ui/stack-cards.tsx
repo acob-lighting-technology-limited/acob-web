@@ -11,6 +11,7 @@ import { Button } from './button';
 import { ArrowRight, MapPin } from 'lucide-react';
 import Link from 'next/link';
 import Image from 'next/image';
+import { applySanityImagePreset } from '@/lib/utils/sanity-image';
 
 interface CardProps {
   i: number;
@@ -122,7 +123,7 @@ const Card: React.FC<CardProps> = ({
                 return (
                   <div className="relative rounded-[16px] overflow-hidden h-full">
                     <Image
-                      src={`${validImages[0].asset.url}?w=600&h=400&fit=crop&auto=format&q=75`}
+                      src={applySanityImagePreset(validImages[0].asset.url, 'card')}
                       alt={title}
                       fill
                       className="object-cover"
@@ -135,7 +136,7 @@ const Card: React.FC<CardProps> = ({
                   <div className="grid grid-cols-2 gap-4 h-full">
                     <div className="relative rounded-[16px] overflow-hidden">
                       <Image
-                        src={`${validImages[0].asset.url}?w=300&h=400&fit=crop&auto=format&q=75`}
+                        src={applySanityImagePreset(validImages[0].asset.url, 'thumbnail')}
                         alt={title}
                         fill
                         className="object-cover"
@@ -143,7 +144,7 @@ const Card: React.FC<CardProps> = ({
                     </div>
                     <div className="relative rounded-[16px] overflow-hidden">
                       <Image
-                        src={`${validImages[1].asset.url}?w=300&h=400&fit=crop&auto=format&q=75`}
+                        src={applySanityImagePreset(validImages[1].asset.url, 'thumbnail')}
                         alt={title}
                         fill
                         className="object-cover"
@@ -157,7 +158,7 @@ const Card: React.FC<CardProps> = ({
                   <div className="grid grid-rows-2 grid-cols-2 gap-4 h-full">
                     <div className="row-span-1 col-span-2 relative rounded-[16px] overflow-hidden">
                       <Image
-                        src={`${validImages[0].asset.url}?w=600&h=200&fit=crop&auto=format&q=75`}
+                        src={applySanityImagePreset(validImages[0].asset.url, 'card')}
                         alt={title}
                         fill
                         className="object-cover"
@@ -165,7 +166,7 @@ const Card: React.FC<CardProps> = ({
                     </div>
                     <div className="relative rounded-[16px] overflow-hidden">
                       <Image
-                        src={`${validImages[1].asset.url}?w=300&h=200&fit=crop&auto=format&q=75`}
+                        src={applySanityImagePreset(validImages[1].asset.url, 'thumbnail')}
                         alt={title}
                         fill
                         className="object-cover"
@@ -173,7 +174,7 @@ const Card: React.FC<CardProps> = ({
                     </div>
                     <div className="relative rounded-[16px] overflow-hidden">
                       <Image
-                        src={`${validImages[2].asset.url}?w=300&h=200&fit=crop&auto=format&q=75`}
+                        src={applySanityImagePreset(validImages[2].asset.url, 'thumbnail')}
                         alt={title}
                         fill
                         className="object-cover"

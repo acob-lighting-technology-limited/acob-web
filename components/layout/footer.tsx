@@ -13,10 +13,10 @@ const linkClass = 'text-zinc-300 hover:text-white transition-colors text-sm';
 export function Footer() {
   return (
     <div
-      className="relative h-[65vh]"
+      className="relative h-[85vh]"
       style={{ clipPath: 'polygon(0% 0, 100% 0%, 100% 100%, 0 100%)' }}
     >
-      <div className="fixed bottom-0 h-[65vh] w-full">
+      <div className="fixed bottom-0 h-[85vh] w-full">
         <footer className="bg-black text-white">
           <Container className="px-4 py-12">
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
