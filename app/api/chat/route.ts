@@ -20,6 +20,8 @@ export async function POST(req: NextRequest) {
   try {
     const GROQ_API_KEY = process.env.GROQ_API_KEY;
 
+    console.log('GROQ_API_KEY exists:', !!GROQ_API_KEY);
+
     if (!GROQ_API_KEY) {
       return NextResponse.json(
         {
@@ -82,52 +84,15 @@ export async function POST(req: NextRequest) {
     );
     // Use Vercel AI SDK with Groq (streaming for useChat compatibility)
     const result = await streamText({
-      model: groq('llama3-8b-8192'),
+      model: groq('llama-3.1-8b-instant'),
       messages: cleanMessages,
-      maxTokens: 4096,
+      maxTokens: 1000,
       temperature: 0.7,
     });
 
-    // Create a slower typing effect by adding delays
-    const slowTypingStream = new ReadableStream({
-      async start(controller) {
-        const encoder = new TextEncoder();
-        let fullText = '';
-
-        for await (const textPart of result.textStream) {
-          fullText += textPart;
-        }
-
-        const words = fullText.split(' ');
-        for (let i = 0; i < words.length; i++) {
-          const word = words[i];
-          const wordToSend = i === 0 ? word : ` ${word}`;
-          const chunk = `0:${JSON.stringify(wordToSend)}\n`;
-          controller.enqueue(encoder.encode(chunk));
-          await new Promise(resolve => setTimeout(resolve, 150));
-        }
-
-        const finishChunk = `d:${JSON.stringify({
-          finishReason: 'stop',
-          usage: { promptTokens: 0, completionTokens: words.length },
-        })}\n`;
-        controller.enqueue(encoder.encode(finishChunk));
-        controller.close();
-      },
-    });
-
-    return new Response(slowTypingStream, {
-      headers: {
-        'Content-Type': 'text/plain; charset=utf-8',
-        'Cache-Control': 'no-cache',
-        Connection: 'keep-alive',
-        'x-vercel-ai-data-stream': 'v1',
-        'Access-Control-Allow-Origin': '*',
-        'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE, OPTIONS',
-        'Access-Control-Allow-Headers': 'Content-Type, Authorization',
-      },
-    });
+    return result.toDataStreamResponse();
   } catch (err: unknown) {
+    console.error('Chat API error:', err);
     return NextResponse.json(
       {
         error: { message: getErrorMessage(err), code: 'INTERNAL_SERVER_ERROR' },

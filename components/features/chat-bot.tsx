@@ -106,6 +106,9 @@ export function ChatBot() {
         setNavigationRoute(route);
       }
     },
+    onError: (error) => {
+      console.error('Chat error:', error);
+    },
   });
 
   const scrollToBottom = () => {
