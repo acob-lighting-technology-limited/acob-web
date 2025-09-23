@@ -1,70 +1,19 @@
 'use client';
 
 import { Container } from '@/components/ui/container';
+import { ImageWithFallback } from '@/components/ui/image-with-fallback';
 import { motion, useInView, animate } from 'framer-motion';
-import { useRef, useEffect, useState, useMemo, useCallback } from 'react';
+import { useRef, useEffect, useState } from 'react';
 import { MaskText } from '../animations/MaskText';
 
 import { stats } from '@/lib/data/transition-data';
 import {
-  getRandomProjectImages,
-  getRandomBackgroundImage,
-  RandomImage,
-} from '@/lib/utils/random-images';
+  StaticImage,
+  initializeStaticImages,
+  getStaticImages,
+  getStaticBackgroundImage,
+} from '@/lib/utils/static-images';
 
-// Cache for random images to avoid refetching
-const CACHE_KEY = 'transition-section-images';
-const CACHE_DURATION = 1000 * 60 * 30; // 30 minutes
-
-interface CachedImages {
-  images: RandomImage[];
-  backgroundImage: string;
-  timestamp: number;
-}
-
-// Utility function to get cached images
-const getCachedImages = (): CachedImages | null => {
-  if (typeof window === 'undefined') {
-    return null;
-  }
-
-  try {
-    const cached = window.localStorage.getItem(CACHE_KEY);
-    if (!cached) {
-      return null;
-    }
-
-    const parsed: CachedImages = JSON.parse(cached);
-    const isExpired = Date.now() - parsed.timestamp > CACHE_DURATION;
-
-    if (isExpired) {
-      window.localStorage.removeItem(CACHE_KEY);
-      return null;
-    }
-
-    return parsed;
-  } catch {
-    return null;
-  }
-};
-
-// Utility function to cache images
-const cacheImages = (images: RandomImage[], backgroundImage: string) => {
-  if (typeof window === 'undefined') {
-    return;
-  }
-
-  try {
-    const cached: CachedImages = {
-      images,
-      backgroundImage,
-      timestamp: Date.now(),
-    };
-    window.localStorage.setItem(CACHE_KEY, JSON.stringify(cached));
-  } catch {
-    // Silently fail if localStorage is not available
-  }
-};
 
 function CounterAnimation({
   end,
@@ -110,73 +59,36 @@ function CounterAnimation({
 export function TransitionSection() {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: '-50px' });
-  const [randomImages, setRandomImages] = useState<RandomImage[]>([]);
+  const [images, setImages] = useState<StaticImage[]>([]);
   const [backgroundImage, setBackgroundImage] = useState(
     '/images/transition-bg.jpg',
   );
   const [isLoading, setIsLoading] = useState(true);
-  const [hasLoaded, setHasLoaded] = useState(false);
-
-  // Memoized loading function to prevent unnecessary re-renders
-  const loadRandomImages = useCallback(async () => {
-    // Check cache first
-    const cached = getCachedImages();
-    if (cached) {
-      setRandomImages(cached.images);
-      setBackgroundImage(cached.backgroundImage);
-      setIsLoading(false);
-      setHasLoaded(true);
-      return;
-    }
-
-    try {
-      setIsLoading(true);
-      const [images, bgImage] = await Promise.all([
-        getRandomProjectImages(4),
-        getRandomBackgroundImage(),
-      ]);
-
-      setRandomImages(images);
-      setBackgroundImage(bgImage);
-
-      // Cache the results
-      cacheImages(images, bgImage);
-    } catch (error) {
-      console.error('Error loading random images:', error);
-      // Use fallback images on error
-      setRandomImages([
-        {
-          url: '/images/obadore-ondo.jpg',
-          alt: 'Solar Installation',
-          projectTitle: 'Fallback Image',
-        },
-        {
-          url: '/images/makami-kaduna.jpg',
-          alt: 'Team at Work',
-          projectTitle: 'Fallback Image',
-        },
-        {
-          url: '/images/olooji-community.jpg',
-          alt: 'Solar Panels',
-          projectTitle: 'Fallback Image',
-        },
-        {
-          url: '/images/adebayo-community.jpg',
-          alt: 'Community Impact',
-          projectTitle: 'Fallback Image',
-        },
-      ]);
-    } finally {
-      setIsLoading(false);
-      setHasLoaded(true);
-    }
-  }, []);
-
   useEffect(() => {
-    if (!hasLoaded) {
-      loadRandomImages();
-    }
-  }, [loadRandomImages, hasLoaded]);
+    const loadImages = async () => {
+      try {
+        await initializeStaticImages();
+        const staticImages = getStaticImages();
+        const staticBg = getStaticBackgroundImage();
+        console.log('🖼️ Transition section - Images loaded:', staticImages.length);
+        console.log('🖼️ Transition section - Background image:', staticBg);
+        setImages(staticImages);
+        setBackgroundImage(staticBg);
+      } catch (error) {
+        console.error('Error initializing images:', error);
+        // Fallback images are already set in initializeStaticImages
+        const staticImages = getStaticImages();
+        const staticBg = getStaticBackgroundImage();
+        console.log('🔄 Using fallback images in transition section:', staticImages.length);
+        setImages(staticImages);
+        setBackgroundImage(staticBg);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    loadImages();
+  }, []);
 
   return (
     <section
@@ -228,45 +140,40 @@ export function TransitionSection() {
             animate={isInView ? { opacity: 1, x: 0 } : { opacity: 0, x: 50 }}
             transition={{ duration: 0.8, delay: 0.2, ease: 'easeOut' }}
           >
-            {useMemo(() => {
+            {(() => {
               if (isLoading) {
-                // Loading skeleton
                 return Array.from({ length: 4 }).map((_, index) => (
                   <div
                     key={index}
-                    className={`relative rounded-lg overflow-hidden shadow-lg bg-gray-300 animate-pulse ${
-                      index === 1 || index === 2 ? 'mt-8' : ''
-                    } ${index === 2 ? '-mt-8' : ''}`}
-                    style={{ height: '250px' }}
+                    className="relative rounded-lg overflow-hidden shadow-lg bg-gray-300 animate-pulse h-[250px]"
                   />
                 ));
               }
 
-              // Random images
-              return randomImages.map((image, index) => (
-                <div
+              return images.map((image, index) => (
+                <motion.div
                   key={`${image.projectTitle}-${index}`}
-                  className={`relative rounded-lg overflow-hidden shadow-lg ${
-                    index === 1 || index === 2 ? 'mt-8' : ''
-                  } ${index === 2 ? '-mt-8' : ''}`}
+                  className="relative rounded-lg overflow-hidden shadow-lg h-[250px] flex"
+                  initial={{ opacity: 0, scale: 0.8 }}
+                  animate={
+                    isInView
+                      ? { opacity: 1, scale: 1 }
+                      : { opacity: 0, scale: 0.8 }
+                  }
+                  transition={{ duration: 0.6, delay: 0.4 + index * 0.2 }}
                 >
-                  <motion.img
+                  <ImageWithFallback
                     src={`${image.url}?height=250&width=300&fit=crop&auto=format&q=75`}
                     alt={image.alt}
-                    className="w-full h-[250px] object-cover"
-                    initial={{ opacity: 0, scale: 0.8 }}
-                    animate={
-                      isInView
-                        ? { opacity: 1, scale: 1 }
-                        : { opacity: 0, scale: 0.8 }
-                    }
-                    transition={{ duration: 0.6, delay: 0.4 + index * 0.2 }}
-                    loading="lazy"
+                    width={300}
+                    height={250}
+                    className=""
+                    objectFit="cover"
                   />
                   <div className="absolute inset-0 bg-black/30 rounded-lg"></div>
-                </div>
+                </motion.div>
               ));
-            }, [isLoading, randomImages, isInView])}
+            })()}
           </motion.div>
         </div>
       </Container>

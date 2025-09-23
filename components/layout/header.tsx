@@ -33,6 +33,7 @@ interface DropdownMenuProps {
 interface MobileMenuProps {
   isOpen: boolean;
   onClose: () => void;
+  logoSrc: string;
 }
 
 const DropdownMenu: React.FC<DropdownMenuProps> = ({
@@ -93,7 +94,7 @@ const DropdownMenu: React.FC<DropdownMenuProps> = ({
   );
 };
 
-const MobileMenu: React.FC<MobileMenuProps> = ({ isOpen, onClose }) => {
+const MobileMenu: React.FC<MobileMenuProps> = ({ isOpen, onClose, logoSrc }) => {
   const [expandedItems, setExpandedItems] = useState<Record<string, boolean>>(
     {}
   );
@@ -132,7 +133,17 @@ const MobileMenu: React.FC<MobileMenuProps> = ({ isOpen, onClose }) => {
         <div className="flex flex-col h-full">
           {/* Header */}
           <div className="flex items-center justify-between p-6 border-b border-border bg-gradient-to-r from-primary/5 to-primary/10">
-            <h2 className="text-xl font-bold text-foreground">Navigation</h2>
+          <Link href="/" className="flex items-center space-x-2 group">
+              <Image
+                src={logoSrc}
+                alt="ACOB Lighting Logo"
+                width={120}
+                height={32}
+                priority
+                className="h-8 w-auto group-hover:scale-105"
+                style={{ width: 'auto', height: 'auto' }}
+              />
+            </Link>
             <button
               onClick={onClose}
               className="p-2 hover:bg-destructive/10 hover:text-destructive rounded-full transition-all duration-200 hover:scale-110 active:scale-95"
@@ -503,6 +514,7 @@ export function Header() {
       <MobileMenu
         isOpen={isMobileMenuOpen}
         onClose={() => setIsMobileMenuOpen(false)}
+        logoSrc={logoSrc}
       />
     </>
   );

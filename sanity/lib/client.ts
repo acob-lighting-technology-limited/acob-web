@@ -234,6 +234,10 @@ export async function getProjects() {
         isFeatured,
         featuredRank,
         "projectImage": projectImage.asset->url,
+        "images": content[].asset->{
+          url,
+          metadata
+        },
         comments[]{
           _key,
           author,

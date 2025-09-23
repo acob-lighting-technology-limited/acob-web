@@ -180,7 +180,7 @@ export function ProjectsSection({ projects }: ProjectsSectionProps) {
                   </div>
 
                   {/* Project Title */}
-                  <h3 className="text-xl font-bold text-foreground group-hover:text-primary transition-colors duration-200">
+                  <h3 className="text-xl font-bold text-foreground group-hover:text-primary transition-colors duration-200 line-clamp-2 h-[50px]">
                     {project.title}
                   </h3>
 
