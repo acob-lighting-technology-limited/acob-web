@@ -193,7 +193,8 @@ export function QuoteForm() {
           <div>
             <MaskText
               phrases={[
-                'Lighting Up Nigeria,',
+                // 'Lighting Up Nigeria,',
+                "Need an Installation?",
                 'Request For Professional Energy Audit',
               ]}
               className="text-3xl md:text-4xl font-bold mb-6 italic"
@@ -201,9 +202,7 @@ export function QuoteForm() {
 
             <MaskText
               phrases={[
-                'Get a comprehensive energy assessment for your facility.',
-                'Our experts will analyze your current energy usage',
-                'and provide recommendations for optimal solar solutions.',
+                'Get a comprehensive energy assessment for your facility - our experts will analyze your current energy usage and provide recommendations for optimal solar solutions.',
               ]}
               className="text-lg opacity-90 mb-8"
             />

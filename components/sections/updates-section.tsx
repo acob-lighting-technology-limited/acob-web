@@ -26,7 +26,7 @@ export function UpdatesSection({ posts }: UpdatesSectionProps) {
           <div className="text-center">
             <div className="h-8 bg-gray-300 dark:bg-gray-700 rounded animate-pulse mx-auto max-w-md mb-4" />
             <div className="h-12 bg-gray-300 dark:bg-gray-700 rounded animate-pulse mx-auto max-w-2xl mb-8" />
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
               {[1, 2, 3].map(i => (
                 <div
                   key={i}
@@ -45,7 +45,7 @@ export function UpdatesSection({ posts }: UpdatesSectionProps) {
       <Container className="px-4">
         {/* Header */}
         <div className="text-center mb-12">
-          <div className="inline-block bg-primary/10 text-primary px-4 py-2 rounded-full text-sm font-medium mb-4 dark:bg-primary/20 dark:text-primary transition-colors duration-700">
+          <div className="inline-block bg-primary/10 text-primary border border-border px-4 py-2 rounded-full text-sm font-medium mb-4 dark:bg-primary/20 dark:text-primary transition-colors duration-700">
             News & Announcements
           </div>
           <h2 className="text-4xl md:text-5xl font-bold  text-zinc-900 dark:text-white transition-colors duration-700">
@@ -55,11 +55,11 @@ export function UpdatesSection({ posts }: UpdatesSectionProps) {
         </div>
 
         {/* News Cards */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {latestPosts.map((post: UpdatePost) => (
             <Card
               key={post._id}
-              className="group overflow-hidden hover:shadow-lg  transition-all duration-300 relative py-0 flex flex-col border-b-2  hover:border-b-primary"
+              className="group overflow-hidden hover:shadow-lg transition-all duration-300 hover:-translate-y-1 p-0"
             >
               {/* Image */}
               <div className="aspect-[16/9] overflow-hidden relative bg-muted">
@@ -83,7 +83,7 @@ export function UpdatesSection({ posts }: UpdatesSectionProps) {
                 )}
               </div>
 
-              <CardContent className="!pt-0 p-6 flex flex-col flex-1 h-full">
+              <CardContent className="p-6">
                 {/* Date and Author */}
                 <div className="flex items-center text-xs dark:text-zinc-400 text-zinc-600 mb-4">
                   <span>{post.author}</span> <span className="mx-2">•</span>
@@ -94,19 +94,19 @@ export function UpdatesSection({ posts }: UpdatesSectionProps) {
                     {post.category || 'News'}
                   </div>
                 </div>{' '}
-                <div>
+                <div className="space-y-4">
                   {/* Title */}
-                  <h3 className="text-lg h-10 font-bold dark:text-zinc-300 text-zinc-900 mb-3 leading-tight group-hover:text-primary transition-colors duration-200 line-clamp-2">
+                  <h3 className="text-xl font-bold text-foreground group-hover:text-primary transition-colors duration-200 line-clamp-2 h-[50px]">
                     {post.title}
                   </h3>
 
                   {/* Excerpt */}
-                  <p className="dark:text-zinc-400 text-zinc-600 text-sm leading-relaxed line-clamp-[3]">
+                  <p className="text-muted-foreground line-clamp-[3]">
                     {post.excerpt}
                   </p>
                 </div>
                 {/* Read More Button */}
-                <div className="mt-auto pt-6">
+                <div className="mt-6">
                   <Link 
                     href={`/updates/${post.slug.current}`}
                     aria-label={`Read more about ${post.title}`}

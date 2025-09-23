@@ -214,7 +214,8 @@ export function QuoteForm() {
           <div>
             <MaskText
               phrases={[
-                'Lighting Up Nigeria,',
+                // 'Lighting Up Nigeria,',
+                "Need an Installation?",
                 'Request For Professional Energy Audit',
               ]}
               className="text-3xl md:text-4xl font-bold mb-6 italic"

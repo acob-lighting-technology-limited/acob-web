@@ -10,7 +10,7 @@
 
 // **Company Statistics:**
 // - **100+** projects completed
-// - **50MW+** total capacity installed
+// - **150MW+** total capacity installed
 // - **200+** communities served
 // - **10+** years of experience in the renewable energy sector
 

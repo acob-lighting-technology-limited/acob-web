@@ -93,22 +93,16 @@ export function CompanySection() {
                 className="text-3xl md:text-3xl lg:text-4xl xl:text-6xl font-extrabold mb-6 lg:mb-8 text-foreground drop-shadow-2xl"
               />
               <MaskText
-                phrases={[
-                  'We are committed to providing sustainable energy solutions',
-                  'that transform communities across Nigeria.',
-                  'Our expertise in solar technology and mini-grid systems',
-                  'has made us a trusted partner for rural electrification projects',
-                  'and commercial solar installations.',
-                ]}
-                className="text-muted-foreground mb-6 lg:mb-8 leading-relaxed text-sm md:text-base "
+                phrases={['We are committed to providing sustainable energy solutions that transform communities across Nigeria.']}
+                className="text-muted-foreground mb-4 leading-loose text-sm md:text-base "
               />
               <MaskText
-                phrases={[
-                  'With years of experience in the renewable energy sector,',
-                  'we continue to innovate and deliver cutting-edge solutions',
-                  'that meet the growing energy demands of our clients.',
-                ]}
-                className="text-muted-foreground/80 mb-8 lg:mb-10 leading-relaxed text-sm md:text-base "
+                phrases={['Our expertise in solar technology and mini-grid systems has made us a trusted partner for rural electrification projects and commercial solar installations.']}
+                className="text-muted-foreground mb-4 leading-loose text-sm md:text-base "
+              />
+              <MaskText
+                phrases={['With years of experience in the renewable energy sector, we continue to innovate and deliver cutting-edge solutions that meet the growing energy demands of our clients.']}
+                className="text-muted-foreground/80 mb-8 lg:mb-10 leading-loose text-sm md:text-base "
               />
               <Link href="/about">
                 <Button className="bg-primary hover:bg-primary/90 text-primary-foreground border border-primary/20 text-base md:text-lg py-4 md:py-6 px-6 md:px-8 rounded-xl font-semibold backdrop-blur-md transition-all duration-300 hover:scale-105 hover:shadow-2xl hover:shadow-primary/20 w-full sm:w-auto">
