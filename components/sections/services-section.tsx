@@ -2,7 +2,7 @@
 
 // React and Next.js imports
 
-import React, { useState, useEffect, useMemo } from 'react';
+import React, { useState, useEffect } from 'react';
 
 import Link from 'next/link';
 
@@ -35,7 +35,7 @@ const ServicesSection = React.memo(function ServicesSection() {
   const [carouselApi, setCarouselApi] = useState<CarouselApi>();
 
   const plugin = React.useRef(
-    Autoplay({ delay: 4000, stopOnInteraction: true }),
+    Autoplay({ delay: 4000, stopOnInteraction: true })
   );
   useEffect(() => {
     if (!carouselApi) {
@@ -79,18 +79,24 @@ const ServicesSection = React.memo(function ServicesSection() {
           <div>
             <MaskText
               phrases={[
-                'Together with experienced technical team,',
-                'ACOB Lighting provides emergency response to electricity outages',
-                'for customers, standard technical O&M activities,',
-                'design and installation of streetlighting infrastructure.',
-                'We ensure quality control of indoor installations',
-                'and safety training for customers.',
+                'Together with our experienced technical team, ACOB Lighting provides emergency response to electricity outages for customers, standard technical O&M activities, and design and installation of streetlighting infrastructure.',
+              ]}
+              className="text-muted-foreground text-lg leading-relaxed mb-4 transition-colors duration-700"
+            />
+
+            <MaskText
+              phrases={[
+                'We ensure quality control of indoor installations and provide safety training for customers.',
               ]}
               className="text-muted-foreground text-lg leading-relaxed mb-8 transition-colors duration-700"
             />
 
             <div className="flex gap-4">
-              <Link href="/services" className="w-1/2 md:auto" aria-label="View all our services">
+              <Link
+                href="/services"
+                className="w-1/2 md:auto"
+                aria-label="View all our services"
+              >
                 <Button className="w-full bg-primary dark:bg-primary text-lg hover:bg-primary text-primary-foreground px-8 py-6 transition-colors duration-700">
                   Read More
                   <ArrowRight className="ml-2 h-4 w-4" />
@@ -148,7 +154,7 @@ const ServicesSection = React.memo(function ServicesSection() {
                     </p>
 
                     <div className="mt-auto">
-                      <Link 
+                      <Link
                         href={`/services/${service.slug}`}
                         aria-label={`Learn more about ${service.title}`}
                       >
