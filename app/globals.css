@@ -1,256 +1,261 @@
-  @tailwind base;
-  @tailwind components;
-  @tailwind utilities;
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
-  /* Font display optimization to prevent layout shifts */
-  @layer base {
-    * {
-      font-display: swap;
-    }
-    
-    /* Prevent layout shifts from dynamic content */
-    img, video, iframe {
-      max-width: 100%;
-      height: auto;
-    }
-    
-    /* Reserve space for fixed elements */
-    body {
-      min-height: 100vh;
-    }
+/* Font display optimization to prevent layout shifts */
+@layer base {
+  * {
+    font-display: swap;
   }
 
-  @layer base {
-    :root {
-      /* Primary Colors */
-      --primary: 120 100% 25%; /* green-700 */
-      --primary-foreground: 0 0% 100%; /* white */
-      --primary-dark: 120 100% 25%; /* green-800 */
-
-      /* Secondary Colors */
-      --secondary: 240 5% 96%; /* blue-100 */
-      --secondary-foreground: 240 5% 4%; /* zinc-950 */
-
-      /* Muted Colors */
-      --muted: 240 4% 96%; /* zinc-50 */
-      --muted-foreground: 240 4% 46%; /* zinc-500 */
-
-      /* Accent Colors */
-      --accent: 240 5% 96%; /* zinc-100 */
-      --accent-foreground: 240 5% 4%; /* zinc-950 */
-
-      /* Destructive Colors */
-      --destructive: 0 84% 60%; /* red-500 */
-      --destructive-foreground: 0 0% 100%; /* white */
-
-      /* Border & Input Colors */
-  /* zinc-300 */
-  --border: 240 4.8% 85.9%; /* #d4d4d8 */
-  --input: 240 4.8% 85.9%;  /* #d4d4d8 */
-
-      
-      --ring: 142 76% 36%; /* green-600 */
-
-      /* Background Colors */
-      --background: 240 4% 96%; /* zinc-50 */
-      --foreground: 240 5% 4%; /* zinc-950 */
-      --foreground-2: 0 0% 100%; /* zinc-300 */
-
-      /* Card Colors */
-      --card: 0 0% 100%; /* white */
-      --card-foreground: 240 5% 4%; /* zinc-950 */
-
-      /* Popover Colors */
-      --popover: 0 0% 100%; /* white */
-      --popover-foreground: 240 5% 4%; /* zinc-950 */
-
-      /* Additional Semantic Colors */
-      --surface: 0 0% 100%; /* white */
-      --surface-foreground: 240 5% 4%; /* zinc-950 */
-      --surface-muted: 240 4% 96%; /* zinc-50 */
-      --surface-muted-foreground: 240 4% 46%; /* zinc-500 */
-
-      /* Scrollbar colors for light mode */
-      --scroll-track: 240 4% 96%; /* zinc-50 */
-      --scroll-thumb: 240 5% 4%; /* zinc-950 */
-
-      --radius: 0.5rem;
-    }
-
-    .dark {
-      /* Primary Colors */
-      --primary: 138 95% 20%; /* green-800 */
-      --primary-foreground: 0 0% 100%; /* white */
-      --primary-dark: 138 95% 15%; /* green-900 */
-
-      /* Secondary Colors */
-      --secondary: 240 5% 20%; /* zinc-800 */
-      --secondary-foreground: 240 4% 96%; /* zinc-50 */
-
-      /* Muted Colors */
-      --muted: 240 5% 16%; /* zinc-900 */
-      --muted-foreground: 240 5% 64%; /* zinc-400 */
-
-      /* Accent Colors */
-      --accent: 240 5% 26%; /* zinc-700 */
-      --accent-foreground: 240 4% 96%; /* zinc-50 */
-
-      /* Destructive Colors */
-      --destructive: 0 63% 31%; /* red-800 */
-      --destructive-foreground: 240 4% 96%; /* zinc-50 */
-
-      /* Border & Input Colors */
-      --border: 240, 5.26%, 26.08%;
-      --input:  240, 5.26%, 26.08%; /* zinc-900 */
-      --ring: 142 76% 36%; /* green-600 */
-
-      /* Background Colors */
-      --background: 240 5% 4%; /* zinc-950 */
-      --foreground: 240 4% 96%; /* zinc-50 */
-      --foreground-2: ; /* zinc-400 */
-
-      /* Card Colors */
-      --card: 240 5% 11%; /* zinc-900 */
-      --card-foreground: 240 4% 96%; /* zinc-50 */
-
-      /* Popover Colors */
-      --popover: 240 6% 10%; /* zinc-950 */
-      --popover-foreground: 240 4% 96%; /* zinc-50 */
-
-      /* Additional Semantic Colors */
-      --surface: 240 5% 11%; /* zinc-900 */
-      --surface-foreground: 240 4% 96%; /* zinc-50 */
-      --surface-muted: 240 5% 16%; /* zinc-900 */
-      --surface-muted-foreground: 240 5% 64%; /* zinc-400 */
-
-      /* Scrollbar colors for dark mode */
-      --scroll-track: 240 5% 4%; /* zinc-950 */
-      --scroll-thumb: 240 4% 96%; /* zinc-50 */
-    }
+  /* Prevent layout shifts from dynamic content */
+  img,
+  video {
+    max-width: 100%;
+    height: auto;
   }
 
-  @layer base {
-    * {
-      @apply border-border;
-    }
-    body {
-      @apply bg-background text-foreground;
-    }
+  /* Ensure iframes can fill their containers */
+  iframe {
+    max-width: 100%;
   }
 
-  ::-webkit-scrollbar {
-    width: 4px;
+  /* Reserve space for fixed elements */
+  body {
+    min-height: 100vh;
+  }
+}
+
+@layer base {
+  :root {
+    /* Primary Colors */
+    --primary: 120 100% 25%; /* green-700 */
+    --primary-foreground: 0 0% 100%; /* white */
+    --primary-dark: 120 100% 25%; /* green-800 */
+
+    /* Secondary Colors */
+    --secondary: 240 5% 96%; /* blue-100 */
+    --secondary-foreground: 240 5% 4%; /* zinc-950 */
+
+    /* Muted Colors */
+    --muted: 240 4% 96%; /* zinc-50 */
+    --muted-foreground: 240 4% 46%; /* zinc-500 */
+
+    /* Accent Colors */
+    --accent: 240 5% 96%; /* zinc-100 */
+    --accent-foreground: 240 5% 4%; /* zinc-950 */
+
+    /* Destructive Colors */
+    --destructive: 0 84% 60%; /* red-500 */
+    --destructive-foreground: 0 0% 100%; /* white */
+
+    /* Border & Input Colors */
+    /* zinc-300 */
+    --border: 240 4.8% 85.9%; /* #d4d4d8 */
+    --input: 240 4.8% 85.9%; /* #d4d4d8 */
+
+    --ring: 142 76% 36%; /* green-600 */
+
+    /* Background Colors */
+    --background: 240 4% 96%; /* zinc-50 */
+    --foreground: 240 5% 4%; /* zinc-950 */
+    --foreground-2: 0 0% 100%; /* zinc-300 */
+
+    /* Card Colors */
+    --card: 0 0% 100%; /* white */
+    --card-foreground: 240 5% 4%; /* zinc-950 */
+
+    /* Popover Colors */
+    --popover: 0 0% 100%; /* white */
+    --popover-foreground: 240 5% 4%; /* zinc-950 */
+
+    /* Additional Semantic Colors */
+    --surface: 0 0% 100%; /* white */
+    --surface-foreground: 240 5% 4%; /* zinc-950 */
+    --surface-muted: 240 4% 96%; /* zinc-50 */
+    --surface-muted-foreground: 240 4% 46%; /* zinc-500 */
+
+    /* Scrollbar colors for light mode */
+    --scroll-track: 240 4% 96%; /* zinc-50 */
+    --scroll-thumb: 240 5% 4%; /* zinc-950 */
+
+    --radius: 0.5rem;
   }
 
-  ::-webkit-scrollbar-track {
-    background-color: hsl(var(--scroll-track));
+  .dark {
+    /* Primary Colors */
+    --primary: 138 95% 20%; /* green-800 */
+    --primary-foreground: 0 0% 100%; /* white */
+    --primary-dark: 138 95% 15%; /* green-900 */
+
+    /* Secondary Colors */
+    --secondary: 240 5% 20%; /* zinc-800 */
+    --secondary-foreground: 240 4% 96%; /* zinc-50 */
+
+    /* Muted Colors */
+    --muted: 240 5% 16%; /* zinc-900 */
+    --muted-foreground: 240 5% 64%; /* zinc-400 */
+
+    /* Accent Colors */
+    --accent: 240 5% 26%; /* zinc-700 */
+    --accent-foreground: 240 4% 96%; /* zinc-50 */
+
+    /* Destructive Colors */
+    --destructive: 0 63% 31%; /* red-800 */
+    --destructive-foreground: 240 4% 96%; /* zinc-50 */
+
+    /* Border & Input Colors */
+    --border: 240, 5.26%, 26.08%;
+    --input: 240, 5.26%, 26.08%; /* zinc-900 */
+    --ring: 142 76% 36%; /* green-600 */
+
+    /* Background Colors */
+    --background: 240 5% 4%; /* zinc-950 */
+    --foreground: 240 4% 96%; /* zinc-50 */
+    --foreground-2: ; /* zinc-400 */
+
+    /* Card Colors */
+    --card: 240 5% 11%; /* zinc-900 */
+    --card-foreground: 240 4% 96%; /* zinc-50 */
+
+    /* Popover Colors */
+    --popover: 240 6% 10%; /* zinc-950 */
+    --popover-foreground: 240 4% 96%; /* zinc-50 */
+
+    /* Additional Semantic Colors */
+    --surface: 240 5% 11%; /* zinc-900 */
+    --surface-foreground: 240 4% 96%; /* zinc-50 */
+    --surface-muted: 240 5% 16%; /* zinc-900 */
+    --surface-muted-foreground: 240 5% 64%; /* zinc-400 */
+
+    /* Scrollbar colors for dark mode */
+    --scroll-track: 240 5% 4%; /* zinc-950 */
+    --scroll-thumb: 240 4% 96%; /* zinc-50 */
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+}
+
+::-webkit-scrollbar {
+  width: 4px;
+}
+
+::-webkit-scrollbar-track {
+  background-color: hsl(var(--scroll-track));
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: hsl(var(--scroll-thumb));
+  border-radius: 9999px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  filter: brightness(0.9);
+}
+/* Custom animations */
+@keyframes smoothZoom {
+  0% {
+    transform: scale(1);
+  }
+  100% {
+    transform: scale(1.08);
+  }
+}
+
+@keyframes accordion-down {
+  from {
+    height: 0;
+  }
+  to {
+    height: var(--radix-accordion-content-height);
+  }
+}
+
+@keyframes accordion-up {
+  from {
+    height: var(--radix-accordion-content-height);
+  }
+  to {
+    height: 0;
+  }
+}
+
+.animate-accordion-down {
+  animation: accordion-down 0.2s ease-out;
+}
+
+.animate-accordion-up {
+  animation: accordion-up 0.2s ease-out;
+}
+
+.animate-smooth-zoom {
+  animation: smoothZoom 12s ease-out infinite alternate;
+}
+
+/* Mobile viewport fixes */
+@layer utilities {
+  .mobile-viewport-fix {
+    height: 100dvh;
+    height: 100vh;
   }
 
-  ::-webkit-scrollbar-thumb {
-    background-color: hsl(var(--scroll-thumb));
-    border-radius: 9999px;
+  /* Prevent zoom on input focus */
+  input,
+  textarea,
+  select {
+    font-size: 16px !important;
   }
 
-  ::-webkit-scrollbar-thumb:hover {
-    filter: brightness(0.9);
-  }
-  /* Custom animations */
-  @keyframes smoothZoom {
-    0% {
-      transform: scale(1);
-    }
-    100% {
-      transform: scale(1.08);
-    }
-  }
-
-  @keyframes accordion-down {
-    from {
-      height: 0;
-    }
-    to {
-      height: var(--radix-accordion-content-height);
-    }
-  }
-
-  @keyframes accordion-up {
-    from {
-      height: var(--radix-accordion-content-height);
-    }
-    to {
-      height: 0;
-    }
-  }
-
-  .animate-accordion-down {
-    animation: accordion-down 0.2s ease-out;
-  }
-
-  .animate-accordion-up {
-    animation: accordion-up 0.2s ease-out;
-  }
-
-  .animate-smooth-zoom {
-    animation: smoothZoom 12s ease-out infinite alternate;
-  }
-
-  /* Mobile viewport fixes */
-  @layer utilities {
-    .mobile-viewport-fix {
-      height: 100dvh;
-      height: 100vh;
-    }
-
-    /* Prevent zoom on input focus */
-    input,
-    textarea,
-    select {
-      font-size: 16px !important;
-    }
-
-    /* Handle viewport changes */
-    @media screen and (max-width: 768px) {
-      .chat-container {
-        height: 75dvh !important;
-        max-height: 75dvh !important;
-      }
-    }
-  }
-
-  /* Custom animations */
-  @keyframes fadeInUp {
-    from {
-      opacity: 0;
-      transform: translateY(20px);
-    }
-    to {
-      opacity: 1;
-      transform: translateY(0);
-    }
-  }
-
-  @keyframes slideInRight {
-    from {
-      opacity: 0;
-      transform: translateX(20px);
-    }
-    to {
-      opacity: 1;
-      transform: translateX(0);
+  /* Handle viewport changes */
+  @media screen and (max-width: 768px) {
+    .chat-container {
+      height: 75dvh !important;
+      max-height: 75dvh !important;
     }
   }
+}
 
-  .animate-fadeInUp {
-    animation: fadeInUp 0.3s ease-out forwards;
+/* Custom animations */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
   }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
 
-  .animate-slideInRight {
-    animation: slideInRight 0.3s ease-out forwards;
+@keyframes slideInRight {
+  from {
+    opacity: 0;
+    transform: translateX(20px);
   }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
 
-  .loading-overlay {
-    position: fixed;
-    inset: 0;
-    z-index: 999999;
-    background: hsl(var(--background));
-  }
+.animate-fadeInUp {
+  animation: fadeInUp 0.3s ease-out forwards;
+}
+
+.animate-slideInRight {
+  animation: slideInRight 0.3s ease-out forwards;
+}
+
+.loading-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 999999;
+  background: hsl(var(--background));
+}
