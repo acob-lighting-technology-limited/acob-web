@@ -24,3 +24,9 @@ export { categories, tags } from './services-data';
 export { supportMethods, faqItems } from './support-data';
 export { testimonials } from './testimonials-data';
 export { stats } from './transition-data';
+export {
+  aboutImpactMetrics,
+  aboutHighlights,
+  aboutLeadershipQuotes,
+  aboutMediaFeatures,
+} from './about-overview-data';
