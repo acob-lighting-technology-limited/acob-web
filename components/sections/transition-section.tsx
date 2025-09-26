@@ -93,12 +93,12 @@ export function TransitionSection() {
   return (
     <section
       ref={ref}
-      className="relative py-16 bg-cover bg-center bg-no-repeat overflow-hidden transition-colors duration-700"
+      className="relative overflow-hidden bg-cover bg-center bg-no-repeat py-24 transition-colors duration-700"
       style={{
         backgroundImage: `url('${backgroundImage}')`,
       }}
     >
-      <div className="absolute inset-0 bg-black/90 dark:bg-gradient-to-b dark:from-zinc-950 from-0% dark:to-black/5 to-80%  z-0 transition-colors duration-700"></div>
+      <div className="absolute inset-0 bg-gradient-to-b from-black/80 via-black/60 to-black/30 dark:from-zinc-950/90 dark:via-zinc-950/70 dark:to-zinc-950/30" />
       <Container className="relative px-4">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
           <div>
@@ -122,14 +122,14 @@ export function TransitionSection() {
                     delay: index * 0.1 + 0.3,
                     ease: 'easeOut',
                   }}
-                  className="bg-white/5 backdrop-blur-md p-6 rounded-2xl border border-white/10 hover:bg-white/10 transition-all duration-300 hover:scale-[1.02] hover:shadow-2xl hover:shadow-white/5 text-center"
+                  className="rounded-2xl border border-white/15 bg-white/10 p-6 text-center shadow-lg backdrop-blur supports-[backdrop-filter]:backdrop-blur-xl transition-all duration-300 hover:-translate-y-1 hover:border-white/35 hover:bg-white/15"
                 >
                   <CounterAnimation
                     end={stat.number}
                     suffix={stat.suffix}
                     duration={2.5}
                   />
-                  <div className="text-sm text-zinc-300">{stat.label}</div>
+                  <div className="text-sm text-white/80">{stat.label}</div>
                 </motion.div>
               ))}
             </div>

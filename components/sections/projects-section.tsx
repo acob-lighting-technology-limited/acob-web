@@ -1,12 +1,12 @@
 'use client';
 
-import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import { Container } from '@/components/ui/container';
-import { ArrowRight, MapPin } from 'lucide-react';
+import { MaskText } from '@/components/animations/MaskText';
+import { ArrowRight, MapPin, Clock3 } from 'lucide-react';
 import type { Project } from '@/lib/types';
 import { applySanityImagePreset } from '@/lib/utils/sanity-image';
 
@@ -15,206 +15,126 @@ interface ProjectsSectionProps {
 }
 
 export function ProjectsSection({ projects }: ProjectsSectionProps) {
-  const [error, setError] = useState<string | null>(null);
-  const [imageErrors, setImageErrors] = useState<Set<string>>(new Set());
-  const displayProjects = projects.slice(0, 3); // Show only 3 projects
+  const displayProjects = projects.slice(0, 3);
+  const hasProjects = displayProjects.length > 0;
 
-  if (!projects || projects.length === 0) {
+  if (!hasProjects) {
     return (
-      <section className="py-16 bg-background">
-        <div className="container mx-auto px-4">
-          <div className="text-center mb-12">
-            <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">
-              Featured Projects
-            </h2>
-            <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
-              Discover our latest rural electrification projects and mini-grid
-              solutions
+      <section className="border-b border-border/40 bg-background py-20">
+        <Container className="px-4">
+          <div className="mx-auto flex max-w-3xl flex-col items-center text-center">
+            <h2 className="text-3xl font-semibold md:text-4xl">Featured Deployments</h2>
+            <p className="mt-4 text-lg text-muted-foreground">
+              Our project portfolio is being refreshed. Check back soon or explore our full project stories.
             </p>
+            <Link href="/projects" className="mt-8">
+              <Button size="lg">View Projects Archive</Button>
+            </Link>
           </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {[1, 2, 3].map(i => (
-              <div key={i} className="animate-pulse">
-                <div className="bg-muted rounded-lg h-48 mb-4"></div>
-                <div className="space-y-3">
-                  <div className="h-4 bg-muted rounded w-3/4"></div>
-                  <div className="h-4 bg-muted rounded w-1/2"></div>
-                  <div className="h-4 bg-muted rounded w-2/3"></div>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-    );
-  }
-
-  if (error) {
-    return (
-      <section className="py-16 bg-background">
-        <div className="container mx-auto px-4 text-center">
-          <div className="max-w-md mx-auto">
-            <div className="text-red-500 mb-4">
-              <svg
-                className="w-12 h-12 mx-auto"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-2.5L13.732 4c-.77-.833-1.964-.833-2.732 0L3.732 16.5c-.77.833.192 2.5 1.732 2.5z"
-                />
-              </svg>
-            </div>
-            <h3 className="text-lg font-semibold mb-2">
-              Unable to Load Projects
-            </h3>
-            <p className="text-muted-foreground mb-4">{error}</p>
-            <Button onClick={() => window.location.reload()} variant="outline">
-              Try Again
-            </Button>
-          </div>
-        </div>
-      </section>
-    );
-  }
-
-  if (projects.length === 0) {
-    return (
-      <section className="py-16 bg-background">
-        <div className="container mx-auto px-4 text-center">
-          <div className="max-w-md mx-auto">
-            <div className="text-muted-foreground mb-4">
-              <svg
-                className="w-12 h-12 mx-auto"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"
-                />
-              </svg>
-            </div>
-            <h3 className="text-lg font-semibold mb-2">
-              No Projects Available
-            </h3>
-            <p className="text-muted-foreground">
-              Check back soon for our latest projects.
-            </p>
-          </div>
-        </div>
+        </Container>
       </section>
     );
   }
 
   return (
-    <section className="py-16 bg-background">
+    <section className="border-b border-border/40 bg-background py-20">
       <Container className="px-4">
-        {/* Section Header */}
-        <div className="text-center mb-12">
-          <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">
-            Featured Projects
-          </h2>
-          <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
-            Discover our latest rural electrification projects and mini-grid
-            solutions that are powering communities across Nigeria
-          </p>
+        <div className="mb-16 grid gap-10 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.1fr)] lg:items-end">
+          <div className="space-y-4">
+            <MaskText
+              phrases={["Selected Energy Deployments"]}
+              className="text-3xl font-semibold md:text-4xl"
+            />
+            <MaskText
+              phrases={["Each project is engineered to deliver bankable returns, resilient operations, and measurable socio-economic impact for communities across Nigeria."]}
+              className="max-w-xl text-lg text-muted-foreground"
+            />
+          </div>
+          <div className="flex flex-wrap gap-3 text-sm text-muted-foreground">
+            <span className="inline-flex items-center gap-2 rounded-full border border-border px-4 py-2 uppercase tracking-wide">
+              <MapPin className="h-4 w-4" /> Nationwide coverage
+            </span>
+            <span className="inline-flex items-center gap-2 rounded-full border border-border px-4 py-2 uppercase tracking-wide">
+              <Clock3 className="h-4 w-4" /> Active operations
+            </span>
+            <span className="inline-flex items-center gap-2 rounded-full border border-border px-4 py-2 uppercase tracking-wide">
+              Impact-driven delivery
+            </span>
+          </div>
         </div>
 
-        {/* Projects Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-12">
-          {displayProjects.map(project => (
-            <Card
-              key={project._id}
-              className="group overflow-hidden hover:shadow-lg transition-all duration-300 hover:-translate-y-1 p-0"
-            >
-              {/* Project Image */}
-              <div className="aspect-[16/9] overflow-hidden relative bg-muted">
-                <Image
-                  src={
-                    project.projectImage
-                      ? applySanityImagePreset(project.projectImage, 'card')
-                      : '/placeholder.svg'
-                  }
-                  alt={project.title}
-                  fill
-                  className="object-cover group-hover:scale-105 transition-transform duration-300"
-                  sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-                  priority={true}
-                  onError={e => {
-                    const target = e.target as HTMLImageElement;
-                    const currentSrc = target.src;
-                    
-                    // Prevent infinite loop by checking if we've already tried the placeholder
-                    if (!currentSrc.includes('placeholder.svg') && !imageErrors.has(project._id)) {
-                      setImageErrors(prev => new Set(prev).add(project._id));
-                      target.src = '/placeholder.svg';
-                    }
-                  }}
-                  onLoad={e => {
-                    const target = e.target as HTMLImageElement;
-                    target.style.opacity = '1';
-                  }}
-                  style={{ opacity: 0, transition: 'opacity 0.3s ease-in-out' }}
-                />
-                <div className="absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-              </div>
+        <div className="grid gap-8 md:grid-cols-2 xl:grid-cols-3">
+          {displayProjects.map(project => {
+            const projectImage = project.projectImage
+              ? applySanityImagePreset(project.projectImage, 'card')
+              : '/images/olooji-community.jpg?height=600&width=900';
 
-              {/* Project Content */}
-              <CardContent className="p-6">
-                <div className="space-y-4">
-                  {/* Project Meta */}
-                  <div className="flex items-center text-sm text-muted-foreground">
-                    <div className="flex items-center">
-                      <MapPin className="h-4 w-4 mr-1" />
-                      <span>{project.location}</span>
-                    </div>
+            return (
+              <Card
+                key={project._id}
+                className="group flex h-full flex-col overflow-hidden border border-border bg-card/90 shadow-lg transition-all duration-300 hover:-translate-y-1 hover:border-primary/40 hover:shadow-xl p-0"
+              >
+                {/* Project Image */}
+                <div className="aspect-[16/9] overflow-hidden relative bg-muted">
+                  <Image
+                    src={projectImage}
+                    alt={project.title}
+                    fill
+                    className="object-cover transition-transform duration-300 group-hover:scale-105"
+                    sizes="(max-width: 768px) 100vw, (max-width: 1280px) 50vw, 25vw"
+                    priority
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-b from-black/30 via-transparent to-black/70" />
+                  <div className="absolute bottom-4 left-4 right-4 text-sm font-medium uppercase tracking-wide text-white/70">
+                    {project.location || 'Nigeria'}
+                  </div>
+                </div>
+
+                {/* Project Content */}
+                <CardContent className="flex flex-1 flex-col p-6">
+                  <div className="space-y-3">
+                    <h3 className="text-xl font-semibold text-foreground">
+                      {project.title}
+                    </h3>
+                    <p className="text-sm text-muted-foreground line-clamp-4">
+                      {project.excerpt || project.description || 'Project details coming soon.'}
+                    </p>
                   </div>
 
-                  {/* Project Title */}
-                  <h3 className="text-xl font-bold text-foreground group-hover:text-primary transition-colors duration-200 line-clamp-2 h-[50px]">
-                    {project.title}
-                  </h3>
-
-                  {/* Project Description */}
-                  <p className="text-muted-foreground line-clamp-[3]">
-                    {project.excerpt || 'Project details coming soon...'}
-                  </p>
-                </div>
-
-                {/* View Project Button */}
-                <div className="mt-6">
-                  <Link href={`/projects/${project.slug?.current}`}>
-                    <Button
-                      variant="outline"
-                      className="w-full group-hover:bg-primary group-hover:text-primary-foreground transition-colors duration-200"
-                    >
-                      View Project
-                      <ArrowRight className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform duration-200" />
-                    </Button>
-                  </Link>
-                </div>
-              </CardContent>
-            </Card>
-          ))}
+                  <div className="mt-auto pt-6">
+                    <Link href={`/projects/${project.slug?.current}`}>
+                      <Button
+                        variant="outline"
+                        className="w-full justify-center gap-2 border-primary/40 text-primary hover:bg-primary hover:text-primary-foreground"
+                      >
+                        View project
+                        <ArrowRight className="h-4 w-4" />
+                      </Button>
+                    </Link>
+                  </div>
+                </CardContent>
+              </Card>
+            );
+          })}
         </div>
 
-        {/* View All Projects CTA */}
-        <div className="text-center">
-          <Link href="/projects">
-            <Button size="lg" className="bg-primary hover:bg-primary/90">
-              View All Projects
-              <ArrowRight className="ml-2 h-4 w-4" />
-            </Button>
-          </Link>
+        <div className="mt-16 flex flex-wrap items-center justify-between gap-6 rounded-3xl border border-border bg-muted/30 p-8">
+          <div className="space-y-2">
+            <h3 className="text-xl font-semibold text-foreground">Need a tailored clean energy deployment?</h3>
+            <p className="text-sm text-muted-foreground">
+              Our engineers can scope micro-grid, hybrid, or utility-grade systems suited to your load profile and budget.
+            </p>
+          </div>
+          <div className="flex flex-wrap gap-3">
+            <Link href="/contact/quote">
+              <Button size="lg" className="px-6">Request a feasibility study</Button>
+            </Link>
+            <Link href="/projects">
+              <Button size="lg" variant="outline" className="px-6">
+                See full project portfolio
+              </Button>
+            </Link>
+          </div>
         </div>
       </Container>
     </section>
