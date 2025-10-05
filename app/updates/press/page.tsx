@@ -105,11 +105,10 @@ export default async function PressPage() {
                       <div className="mt-auto">
                         <Link 
                           href={`/updates/${post.slug.current}`}
-                          aria-label={`Read more about ${post.title} press release`}
                         >
                           <Button className="w-full">
-                           
-                            Read More
+                            <span className="sr-only">Read more about {post.title}</span>
+                            <span aria-hidden="true">Read More</span>
                             <ArrowRight className="ml-2 h-4 w-4" />
                           </Button>
                         </Link>

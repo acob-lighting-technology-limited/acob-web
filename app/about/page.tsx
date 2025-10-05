@@ -47,28 +47,28 @@ export default function AboutPage() {
               Our Purpose
             </span>
             <h2 className="text-3xl font-bold text-foreground md:text-4xl">
-              <MaskText
-                phrases={["Pioneering Nigeria's Energy Access Revolution"]}
-              />
-            </h2>
+            <MaskText
+              phrases={["Pioneering Nigeria's Energy Access Revolution"]}
+            />
+          </h2>
             <p className="text-lg leading-relaxed text-muted-foreground">
               ACOB Lighting Technology Limited accelerates inclusive economic growth
               by delivering dependable solar energy infrastructure to rural and
               peri-urban communities. We close the energy gap with solutions tailored
               for productive use, helping local businesses, health facilities, and
               households thrive.
-            </p>
-          </div>
+          </p>
+        </div>
         </section>
 
         <section className="mb-20 grid grid-cols-1 gap-10 lg:grid-cols-[1.1fr_0.9fr]">
           <div className="space-y-6 rounded-3xl border border-border bg-gradient-to-br from-background via-background to-primary/5 p-10 shadow-sm">
             <span className="inline-flex items-center rounded-full border border-border px-3 py-1 text-xs font-semibold uppercase tracking-[0.2em] text-muted-foreground">
-              Our Journey
+                Our Journey
             </span>
             <h3 className="text-3xl font-semibold text-foreground">
               From street lighting pioneers to national solar infrastructure partner
-            </h3>
+              </h3>
             <div className="space-y-4 text-base leading-relaxed text-muted-foreground">
               <p>
                 Founded in 2016, ACOB Lighting began by delivering large-scale LED
@@ -164,7 +164,7 @@ export default function AboutPage() {
                     </div>
                     <h4 className="text-xl font-semibold text-foreground">
                       {highlight.title}
-                    </h4>
+              </h4>
                   </div>
                   <p className="text-sm leading-relaxed text-muted-foreground">
                     {highlight.description}
@@ -177,19 +177,19 @@ export default function AboutPage() {
                       className="rounded-full border border-border px-3 py-1 text-xs font-semibold uppercase tracking-[0.2em] text-muted-foreground"
                     >
                       {tag}
-                    </span>
+                  </span>
                   ))}
                 </div>
               </Card>
             ))}
-          </div>
+                </div>
         </section>
 
         <section className="mb-20 rounded-3xl border border-border bg-card/80 p-10 shadow-sm">
           <div className="mb-10 flex flex-col gap-4 text-center">
             <span className="mx-auto inline-flex items-center rounded-full border border-border px-3 py-1 text-xs font-semibold uppercase tracking-[0.3em] text-muted-foreground">
               Project Portfolio
-            </span>
+                  </span>
             <h3 className="text-3xl font-semibold text-foreground md:text-4xl">
               Proven delivery across productive-use mini-grids
             </h3>
@@ -198,7 +198,7 @@ export default function AboutPage() {
               communities, and industrial clients. We deliver dependable power that keeps
               businesses running and families connected.
             </p>
-          </div>
+                </div>
 
           <AutoCarousel
             items={aboutMediaFeatures}
@@ -217,7 +217,7 @@ export default function AboutPage() {
                     <span>{item.category}</span>
                     <span className="h-1 w-1 rounded-full bg-muted-foreground/40" />
                     <span>{item.year}</span>
-                  </div>
+              </div>
                   <h4 className="text-xl font-semibold text-foreground">
                     {item.title}
                   </h4>
@@ -238,43 +238,43 @@ export default function AboutPage() {
             <h3 className="text-2xl font-semibold text-foreground">
               Dive deeper into our story, mission, and operations
             </h3>
-          </div>
+        </div>
 
           <div className="grid grid-cols-1 gap-6 md:grid-cols-2 xl:grid-cols-4">
-            {aboutSections.map(section => (
-              <Link key={section.href} href={section.href}>
+          {aboutSections.map(section => (
+            <Link key={section.href} href={section.href}>
                 <Card className="group flex h-full flex-col overflow-hidden rounded-3xl border border-border bg-card/80 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-lg">
                   <div className="relative aspect-[16/9] w-full overflow-hidden">
-                    <Image
-                      src={section.image || '/placeholder.svg'}
-                      alt={section.title}
-                      fill
+                  <Image
+                    src={section.image || '/placeholder.svg'}
+                    alt={section.title}
+                    fill
                       className="object-cover transition-transform duration-500 group-hover:scale-105"
                       sizes="(max-width: 768px) 100vw, (max-width: 1200px) 66vw, 25vw"
-                    />
+                  />
                     <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/0 to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
-                  </div>
+                </div>
                   <CardContent className="flex flex-1 flex-col gap-4 p-6">
                     <div>
                       <h4 className="text-lg font-semibold text-foreground">
-                        {section.title}
+                    {section.title}
                       </h4>
                       <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
-                        {section.description}
-                      </p>
+                    {section.description}
+                  </p>
                     </div>
-                    <Button
+                  <Button
                       variant="outline"
                       className="mt-auto inline-flex items-center justify-center gap-2 border-primary/40 text-sm"
-                    >
-                      Learn More
+                  >
+                    Learn More
                       <ArrowRight className="h-4 w-4" />
-                    </Button>
-                  </CardContent>
-                </Card>
-              </Link>
-            ))}
-          </div>
+                  </Button>
+                </CardContent>
+              </Card>
+            </Link>
+          ))}
+        </div>
         </section>
       </Container>
     </>
