@@ -11,7 +11,7 @@ export const aboutSections = [
     description:
       'Explore our commitment to sustainable energy access and community empowerment across rural Nigeria.',
     href: '/about/mission',
-    image: '/images/about/mission-vision.png?height=200&width=300',
+    image: '/images/about/mission-vision.webp?height=200&width=300',
   },
   {
     title: 'Meet Our Team',

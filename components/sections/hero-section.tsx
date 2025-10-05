@@ -29,7 +29,7 @@ const HeroSection = React.memo(function HeroSection({
         {
           id: 'fallback',
           title: 'Empowering Communities with Reliable Solar',
-          image: '/images/olooji-community.jpg?height=800&width=1400',
+          image: '/images/olooji-community.webp?height=800&width=1400',
           location: 'Powering communities across Nigeria',
           slug: '',
         },
@@ -41,7 +41,7 @@ const HeroSection = React.memo(function HeroSection({
       title: project.title,
       image: project.projectImage
         ? applySanityImagePreset(project.projectImage, 'card')
-        : '/images/olooji-community.jpg?height=800&width=1400',
+        : '/images/olooji-community.webp?height=800&width=1400',
       location: project.location || 'Across Nigeria',
       slug: project.slug?.current ?? '',
     }));
@@ -98,7 +98,7 @@ const HeroSection = React.memo(function HeroSection({
             </span>
             <div className="space-y-4">
               <MaskText
-                phrases={["Powering sustainable futures for homes, businesses, and communities"]}
+                phrases={["Powering sustainable futures for homes, businesses, and communities."]}
                 className="text-4xl font-bold leading-tight text-foreground sm:text-5xl lg:text-6xl"
               />
               <MaskText
@@ -107,34 +107,34 @@ const HeroSection = React.memo(function HeroSection({
               />
             </div>
 
-            <div className="grid grid-cols-1 gap-4 sm:grid-cols-3">
+            <div className="grid gap-2 sm:gap-4 grid-cols-3">
               {heroMetrics.map(metric => (
                 <div
                   key={metric.label}
                   className="rounded-2xl border border-border bg-card/80 p-4 shadow-sm backdrop-blur supports-[backdrop-filter]:backdrop-blur-xl"
                 >
-                  <div className="text-3xl font-semibold text-foreground">
+                  <div className="text-2xl sm:text-3xl font-semibold text-foreground">
                     {metric.value}
                   </div>
-                  <p className="mt-1 text-sm text-muted-foreground">
+                  <p className="mt-1 text-xs sm:text-sm text-muted-foreground">
                     {metric.label}
                   </p>
                 </div>
               ))}
             </div>
 
-            <div className="flex flex-wrap gap-4">
-              <Link href="/contact/quote">
-                <Button size="lg" className="px-8 py-6 text-base">
+            <div className="flex  flex-wrap gap-4">
+              <Link href="/contact/quote" className="w-full sm:w-auto">
+                <Button size="lg" className="w-full sm:w-auto px-8 py-6 text-base">
                   Request an energy audit
                   <ArrowRight className="ml-2 h-4 w-4" />
                 </Button>
               </Link>
-              <Link href="/projects">
+              <Link href="/projects" className="w-full sm:w-auto">
                 <Button
                   size="lg"
                   variant="outline"
-                  className="px-8 py-6 text-base"
+                  className="w-full sm:w-auto px-8 py-6 text-base"
                 >
                   Explore recent projects
                 </Button>
@@ -144,7 +144,7 @@ const HeroSection = React.memo(function HeroSection({
 
           <div className="relative">
             <div className="absolute -inset-x-6 -inset-y-4 rounded-[2.5rem] bg-primary/10 blur-2xl dark:bg-primary/15" aria-hidden="true" />
-            <div className="relative overflow-hidden rounded-[2.5rem] border border-border bg-card/80 p-6 shadow-xl backdrop-blur supports-[backdrop-filter]:backdrop-blur-xl">
+            <div className="relative overflow-hidden rounded-2xl border border-border bg-card/80  p-4 shadow-xl backdrop-blur supports-[backdrop-filter]:backdrop-blur-xl">
               <div className="flex items-center justify-between text-xs uppercase tracking-wide text-muted-foreground">
                 <span>Featured project</span>
                 <span>{String(currentSlide + 1).padStart(2, '0')}</span>
@@ -166,7 +166,7 @@ const HeroSection = React.memo(function HeroSection({
                   <MapPin className="h-4 w-4" />
                   <span>{currentSlideData.location}</span>
                 </div>
-                <h2 className="text-2xl font-semibold text-foreground">
+                <h2 className="text-2xl font-semibold text-foreground line-clamp-2">
                   {currentSlideData.title}
                 </h2>
               </div>

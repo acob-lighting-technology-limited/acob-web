@@ -137,10 +137,10 @@ const MobileMenu: React.FC<MobileMenuProps> = ({ isOpen, onClose, logoSrc }) => 
               <Image
                 src={logoSrc}
                 alt="ACOB Lighting Logo"
-                width={120}
-                height={32}
+                width={140}
+                height={36}
                 priority
-                className="h-8 w-auto group-hover:scale-105"
+                className="h-9 w-auto group-hover:scale-105"
                 style={{ width: 'auto', height: 'auto' }}
               />
             </Link>
@@ -269,7 +269,7 @@ export function Header() {
   const [activeDropdown, setActiveDropdown] = useState<string | null>(null);
   const timeoutRef = useRef<NodeJS.Timeout | null>(null);
   const [mounted, setMounted] = useState(false);
-  const [logoSrc, setLogoSrc] = useState('/images/acob-logo-light.png'); // Default logo
+  const [logoSrc, setLogoSrc] = useState('/images/acob-logo-light.webp'); // Default logo
   const { resolvedTheme } = useTheme();
   const pathname = usePathname();
 
@@ -298,8 +298,8 @@ export function Header() {
     if (mounted && resolvedTheme) {
       const newLogoSrc =
         resolvedTheme === 'dark'
-          ? '/images/acob-logo-dark.png'
-          : '/images/acob-logo-light.png';
+          ? '/images/acob-logo-dark.webp'
+          : '/images/acob-logo-light.webp';
       setLogoSrc(newLogoSrc);
     }
   }, [mounted, resolvedTheme]);
@@ -412,10 +412,10 @@ export function Header() {
               <Image
                 src={logoSrc}
                 alt="ACOB Lighting Logo"
-                width={120}
-                height={32}
+                width={140}
+                height={36}
                 priority
-                className="h-8 w-auto group-hover:scale-105"
+                className="h-9 w-auto group-hover:scale-105"
                 style={{ width: 'auto', height: 'auto' }}
               />
             </Link>

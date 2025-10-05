@@ -83,7 +83,7 @@ export const aboutLeadershipQuotes = [
 
 export const aboutMediaFeatures = [
   {
-    image: '/images/projects/olooji-community.jpg?height=720&width=1280',
+    image: '/images/olooji-community.webp?height=720&width=1280',
     title: '27 kWp Hybrid Mini-Grid for Olooji Market',
     description:
       'Reliable power for cold storage, welding, and agro-processing businesses supporting over 500 livelihoods.',
@@ -91,7 +91,7 @@ export const aboutMediaFeatures = [
     year: '2024',
   },
   {
-    image: '/images/projects/ibadan-commercial.jpg?height=720&width=1280',
+    image: '/images/airport-road-abuja.webp?height=720&width=1280',
     title: 'Industrial Hybrid System for Ibadan Manufacturing Cluster',
     description:
       'Integrated solar-diesel hybrid solution powering 24/7 production for a multi-tenant industrial estate.',
@@ -99,7 +99,7 @@ export const aboutMediaFeatures = [
     year: '2023',
   },
   {
-    image: '/images/projects/delta-healthcare.jpg?height=720&width=1280',
+    image: '/images/projects/keffi-nassarawa-hospital-1.webp?height=720&width=1280',
     title: 'Essential Power for Delta State Primary Healthcare Centres',
     description:
       'Solar systems ensure reliable cold chain storage and patient care across 12 health facilities.',
@@ -107,7 +107,7 @@ export const aboutMediaFeatures = [
     year: '2022',
   },
   {
-    image: '/images/projects/kwara-agro.jpg?height=720&width=1280',
+    image: '/images/projects/adebayo-palm-oil-milling.webp?height=720&width=1280',
     title: 'Agro-Processing Mini-Grid in Kwara',
     description:
       'Multi-anchor productive-use project powering rice mills, cold rooms, and community SMEs.',
@@ -115,7 +115,7 @@ export const aboutMediaFeatures = [
     year: '2024',
   },
   {
-    image: '/images/projects/abia-streetlighting.jpg?height=720&width=1280',
+    image: '/images/projects/installation-high-density-streetlight-1.webp?height=720&width=1280',
     title: 'Smart Street Lighting for Abia State',
     description:
       'Energy-efficient LED infrastructure improves road safety while cutting public spending on diesel.',

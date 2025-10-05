@@ -4,21 +4,21 @@ export const contactSections = [
     description:
       'Request a personalized energy audit or project quotation for your needs.',
     href: '/contact/quote',
-    image: '/images/contact/get-quote.png?height=200&width=300',
+    image: '/images/contact/contact-us.webp?height=200&width=300',
   },
   {
     title: 'Office Locations',
     description:
       'Find our head office and branch locations, and get directions.',
     href: '/contact/locations',
-    image: '/images/contact/office-location.jpg?height=200&width=300',
+    image: '/images/contact/office-location.webp?height=200&width=300',
   },
   {
     title: 'Support',
     description:
       'Access our support resources or get assistance with your ACOB Lighting products and services.',
     href: '/contact/support',
-    image: '/images/contact/support.jpg?height=200&width=300',
+    image: '/images/contact/support.webp?height=200&width=300',
   },
   {
     title: 'Careers',

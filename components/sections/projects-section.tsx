@@ -67,7 +67,7 @@ export function ProjectsSection({ projects }: ProjectsSectionProps) {
           {displayProjects.map(project => {
             const projectImage = project.projectImage
               ? applySanityImagePreset(project.projectImage, 'card')
-              : '/images/olooji-community.jpg?height=600&width=900';
+              : '/images/olooji-community.webp?height=600&width=900';
 
             return (
               <Card
@@ -91,7 +91,7 @@ export function ProjectsSection({ projects }: ProjectsSectionProps) {
                 </div>
 
                 {/* Project Content */}
-                <CardContent className="flex flex-1 flex-col p-6">
+                <CardContent className="flex flex-1 flex-col p-4 sm:p-6">
                   <div className="space-y-3">
                     <h3 className="text-xl font-semibold text-foreground">
                       {project.title}
@@ -118,19 +118,19 @@ export function ProjectsSection({ projects }: ProjectsSectionProps) {
           })}
         </div>
 
-        <div className="mt-16 flex flex-wrap items-center justify-between gap-6 rounded-3xl border border-border bg-muted/30 p-8">
+        <div className="mt-16 flex flex-wrap items-center justify-between gap-6 rounded-3xl border border-border bg-muted/30 p-4 sm:p-8">
           <div className="space-y-2">
             <h3 className="text-xl font-semibold text-foreground">Need a tailored clean energy deployment?</h3>
             <p className="text-sm text-muted-foreground">
               Our engineers can scope micro-grid, hybrid, or utility-grade systems suited to your load profile and budget.
             </p>
           </div>
-          <div className="flex flex-wrap gap-3">
-            <Link href="/contact/quote">
-              <Button size="lg" className="px-6">Request a feasibility study</Button>
+          <div className="flex flex-col sm:flex-row flex-wrap gap-3 w-full">
+            <Link href="/contact/quote" className="w-full sm:w-auto">
+              <Button size="lg" className="w-full sm:w-auto px-6">Request a feasibility study</Button>
             </Link>
-            <Link href="/projects">
-              <Button size="lg" variant="outline" className="px-6">
+            <Link href="/projects" className="w-full sm:w-auto">
+              <Button size="lg" variant="outline" className="w-full sm:w-auto px-6">
                 See full project portfolio
               </Button>
             </Link>
