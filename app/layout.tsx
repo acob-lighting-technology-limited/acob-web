@@ -1,6 +1,7 @@
 import type React from 'react';
 import './globals.css';
 import '../styles/customShadow.css';
+import '../styles/animations.css';
 import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
 import { Providers } from '@/components/providers/session-provider';
@@ -14,14 +15,14 @@ import { ChatBot } from '@/components/features/chat-bot';
 import { Analytics } from '@vercel/analytics/react';
 import { SpeedInsights } from '@vercel/speed-insights/next';
 
-
-
 const inter = Inter({ subsets: ['latin'] });
 
 export const metadata: Metadata = {
   title: 'ACOB Lighting Technology Limited - Leading Solar Energy Solutions',
-  description: 'ACOB Lighting Technology Limited is a leading supplier of solar materials for manufacturers, installers & contractors. We provide mini-grid solutions, street lighting infrastructure, and comprehensive solar energy services across Nigeria.',
-  keywords: 'solar energy, mini-grid solutions, street lighting, solar materials, renewable energy, Nigeria, ACOB Lighting',
+  description:
+    'ACOB Lighting Technology Limited is a leading supplier of solar materials for manufacturers, installers & contractors. We provide mini-grid solutions, street lighting infrastructure, and comprehensive solar energy services across Nigeria.',
+  keywords:
+    'solar energy, mini-grid solutions, street lighting, solar materials, renewable energy, Nigeria, ACOB Lighting',
   authors: [{ name: 'ACOB Lighting Technology Limited' }],
   creator: 'ACOB Lighting Technology Limited',
   publisher: 'ACOB Lighting Technology Limited',
@@ -36,7 +37,8 @@ export const metadata: Metadata = {
   },
   openGraph: {
     title: 'ACOB Lighting Technology Limited - Leading Solar Energy Solutions',
-    description: 'Leading supplier of solar materials and mini-grid solutions for manufacturers, installers & contractors across Nigeria.',
+    description:
+      'Leading supplier of solar materials and mini-grid solutions for manufacturers, installers & contractors across Nigeria.',
     type: 'website',
     url: 'https://acoblighting.com',
     siteName: 'ACOB Lighting Technology Limited',
@@ -45,7 +47,8 @@ export const metadata: Metadata = {
   twitter: {
     card: 'summary_large_image',
     title: 'ACOB Lighting Technology Limited - Leading Solar Energy Solutions',
-    description: 'Leading supplier of solar materials and mini-grid solutions for manufacturers, installers & contractors across Nigeria.',
+    description:
+      'Leading supplier of solar materials and mini-grid solutions for manufacturers, installers & contractors across Nigeria.',
     creator: '@acoblighting',
   },
   robots: {
@@ -74,10 +77,8 @@ export default function RootLayout({
       <body className={inter.className}>
         <Providers>
           <NProgressProvider>
-           
             <Toaster closeButton position="top-right" />
-                        <div className="flex min-h-screen flex-col w-full bg-background transition-all duration-500 ">
-              
+            <div className="flex min-h-screen flex-col w-full bg-background transition-all duration-500 ">
               <Header />
               <main className="flex-1 border-b border-b-muted">{children}</main>
               <Footer />
