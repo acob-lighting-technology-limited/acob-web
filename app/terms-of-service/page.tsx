@@ -14,7 +14,7 @@ export default function TermsOfServicePage() {
     <>
       <PageHero
         title="Terms of Service"
-        backgroundImage="/images/contact/contact-us.jpg"
+        backgroundImage="/images/contact/contact-us.webp"
       />
 
       <Container className="py-16">

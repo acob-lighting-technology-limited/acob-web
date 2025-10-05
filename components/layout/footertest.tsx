@@ -19,7 +19,7 @@ export function Footer() {
                 {' '}
                 <Link href="/" className="flex items-center space-x-2 group">
                   <Image
-                    src="/images/ACOB-Logo.png"
+                    src="/images/acob-logo-light.webp"
                     alt="ACOB Lighting Logo"
                     width={48}
                     height={48}

@@ -28,7 +28,7 @@ export function Footer() {
                 <div className="space-y-6">
                   <Link href="/" className="inline-block">
                     <Image
-                      src="/images/acob-logo-dark.png"
+                      src="/images/acob-logo-dark.webp"
                       alt="ACOB Lighting Technology Limited"
                       width={180}
                       height={48}

@@ -61,7 +61,7 @@ export function TransitionSection() {
   const isInView = useInView(ref, { once: true, margin: '-50px' });
   const [images, setImages] = useState<StaticImage[]>([]);
   const [backgroundImage, setBackgroundImage] = useState(
-    '/images/transition-bg.jpg',
+      '/images/transition-bg.webp',
   );
   const [isLoading, setIsLoading] = useState(true);
   useEffect(() => {

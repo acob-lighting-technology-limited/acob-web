@@ -59,7 +59,7 @@ export default function MissionPage() {
       <PageHero
         title="Mission & Vision"
         eyebrow="Our Commitment"
-        backgroundImage="/images/about/mission-vision.png?height=800&width=1600"
+        backgroundImage="/images/about/mission-vision.webp?height=800&width=1600"
         align="center"
       >
         <p className="mx-auto max-w-3xl text-balance text-lg text-white/90 md:text-xl">

@@ -41,21 +41,26 @@ export function AutoCarousel<T>({
   useEffect(() => {
     if (!itemsCount) return;
 
-    if (timerRef.current) {
-      clearInterval(timerRef.current);
-    }
+    const startTimer = () => {
+      if (timerRef.current) {
+        clearInterval(timerRef.current);
+      }
+      
+      if (pauseOnHover && isHoveredRef.current) {
+        return;
+      }
 
-    if (pauseOnHover && isHoveredRef.current) {
-      return;
-    }
+      timerRef.current = setInterval(() => {
+        setCurrentIndex(prev => (prev + 1) % itemsCount);
+      }, interval);
+    };
 
-    timerRef.current = setInterval(() => {
-      setCurrentIndex(prev => (prev + 1) % itemsCount);
-    }, interval);
+    startTimer();
 
     return () => {
       if (timerRef.current) {
         clearInterval(timerRef.current);
+        timerRef.current = null;
       }
     };
   }, [itemsCount, interval, pauseOnHover]);

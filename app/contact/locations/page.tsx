@@ -17,7 +17,7 @@ export default function LocationsPage() {
     <>
       <PageHero
         title="Our Office Locations"
-        backgroundImage="/images/contact/office-location-hero.jpg?height=400&width=1200"
+        backgroundImage="/images/contact/office-location-hero.webp?height=400&width=1200"
       >
         <MaskText
           phrases={[

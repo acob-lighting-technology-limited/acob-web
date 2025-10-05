@@ -24,7 +24,7 @@ export const servicesData: ServiceData[] = [
       'Transform rural communities with reliable 24/7 solar power that reduces costs by up to 60% and creates lasting economic opportunities.',
     description:
       'Our comprehensive mini-grid solutions bring sustainable electricity to off-grid communities across Nigeria, serving over 10,000 households to date. These hybrid solar and battery systems provide consistent power for diverse needs - from residential lighting and mobile charging to commercial ice-making, agricultural cold storage, and productive enterprises like grain mills and workshops. Each mini-grid is designed with smart management technology and flexible payment systems, making clean energy accessible and affordable. Our locally-manufactured components and community-centered approach ensure long-term sustainability while creating jobs and enabling economic growth in previously underserved areas.',
-    image: '/images/olooji-community.jpg',
+    image: '/images/olooji-community.webp',
     icon: '/images/mini-grid-solutions.webp',
     features: [
       'Scalable power solutions for communities',
@@ -102,8 +102,8 @@ export const servicesData: ServiceData[] = [
     ],
     gallery: [
       
-      '/images/services/captive-power-solutions.jpeg?height=400&width=600',
-      '/images/services/captive-power-solutions-2.jpeg?height=400&width=600',
+      '/images/services/captive-power-solutions.webp?height=400&width=600',
+      '/images/services/captive-power-solutions-2.webp?height=400&width=600',
     ],
     category: 'Power Solutions',
   },
@@ -207,7 +207,7 @@ export const servicesData: ServiceData[] = [
       'ACOB designs and deploys intelligent solar streetlighting infrastructure that enhances public safety while reducing municipal energy costs by up to 90%. Our high-density LED lighting systems feature advanced photovoltaic panels, long-life lithium batteries, and smart controllers that automatically adjust brightness based on ambient conditions and traffic patterns. Each streetlight is engineered for the harsh Nigerian climate with IP65-rated weatherproofing and can operate reliably for 10+ years with minimal maintenance. Our comprehensive service includes detailed site surveys, custom engineering design, professional installation, and ongoing maintenance programs. Whether for urban highways, rural communities, or commercial districts, our streetlighting solutions improve security, enable extended business hours, and contribute to community development.\n\nWe have successfully completed major streetlighting projects including:\n\n• Installation of High-Density LED Streetlight Infrastructure at Kogi State Government House in Lokoja, Nigeria\n\n• Installation of High-Density LED Streetlight Infrastructure along Stella Obasanjo Way in Lokoja, Kogi State, Nigeria\n\n• Installation of High-Density LED Pilot AC Streetlight Infrastructure across Delta, Ogun, Cross River, Akwa Ibom, and Lagos states\n\n• World Bank Project for the procurement of 418 solar-powered street lights across 11 locations in 11 wards of Akwanga Local Government and Loko Ward in Nasarawa State',
     image:
       '/images/services/streetlighting-infrastructure-project-development.webp?height=400&width=600',
-    icon: '/images/services/street-light-street.png?height=80&width=80',
+    icon: '/images/services/street-light-street.webp?height=80&width=80',
     features: [
       'Solar-powered LED streetlights',
       'Smart lighting controls',
@@ -237,8 +237,8 @@ export const servicesData: ServiceData[] = [
       'Proven installation experience',
     ],
     gallery: [
-      '/images/services/streetlighting_1.jpeg?height=400&width=600',
-      '/images/services/streetlighting_2.jpeg?height=400&width=600',
+      '/images/services/streetlighting_1.webp?height=400&width=600',
+      '/images/services/streetlighting_2.webp?height=400&width=600',
     ],
     category: 'Infrastructure',
   },
@@ -281,7 +281,7 @@ export const servicesData: ServiceData[] = [
       'Comprehensive service agreements',
     ],
     gallery: [
-      '/images/services/operations-maintenance.jpeg?height=400&width=600',
+      '/images/services/operations-maintenance.webp?height=400&width=600',
     ],
     category: 'Maintenance',
   },
