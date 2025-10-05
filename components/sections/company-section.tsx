@@ -3,9 +3,11 @@ import { Button } from '@/components/ui/button';
 import { Container } from '@/components/ui/container';
 import { MaskText } from '../animations/MaskText';
 import { FadeIn } from '../animations/FadeIn';
+import { StaggerChildren, staggerItem } from '../animations/StaggerChildren';
 import Link from 'next/link';
 import Image from 'next/image';
 import { ArrowRight } from 'lucide-react';
+import { motion } from 'framer-motion';
 
 const impactHighlights = [
   {
@@ -145,10 +147,14 @@ export function CompanySection() {
               </div>
 
               {/* Impact Highlights Grid */}
-              <div className="grid gap-3 sm:gap-4 md:gap-6 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-1 2xl:grid-cols-3">
+              <StaggerChildren
+                staggerDelay={0.2}
+                className="grid gap-3 sm:gap-4 md:gap-6 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-1 2xl:grid-cols-3"
+              >
                 {impactHighlights.map(highlight => (
-                  <div
+                  <motion.div
                     key={highlight.title}
+                    variants={staggerItem}
                     className="rounded-xl sm:rounded-2xl border border-border bg-card/80 p-3 sm:p-4 shadow-sm backdrop-blur supports-[backdrop-filter]:backdrop-blur-xl hover:shadow-md transition-shadow duration-200"
                   >
                     <h4 className="text-sm sm:text-base font-semibold text-foreground mb-1 sm:mb-2">
@@ -157,9 +163,9 @@ export function CompanySection() {
                     <p className="text-xs sm:text-sm text-muted-foreground leading-relaxed">
                       {highlight.description}
                     </p>
-                  </div>
+                  </motion.div>
                 ))}
-              </div>
+              </StaggerChildren>
             </div>
           </FadeIn>
         </div>
