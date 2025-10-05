@@ -135,13 +135,14 @@ const MobileMenu: React.FC<MobileMenuProps> = ({ isOpen, onClose, logoSrc }) => 
           <div className="flex items-center justify-between p-6 border-b border-border bg-gradient-to-r from-primary/5 to-primary/10">
           <Link href="/" className="flex items-center space-x-2 group">
               <Image
+                key={logoSrc}
                 src={logoSrc}
                 alt="ACOB Lighting Logo"
                 width={140}
                 height={36}
                 priority
-                className="h-9 w-auto group-hover:scale-105"
-                style={{ width: 'auto', height: 'auto' }}
+                className="h-9 w-auto group-hover:scale-105 transition-none"
+                style={{ width: '140px', height: '36px', objectFit: 'contain' }}
               />
             </Link>
             <button
@@ -269,9 +270,13 @@ export function Header() {
   const [activeDropdown, setActiveDropdown] = useState<string | null>(null);
   const timeoutRef = useRef<NodeJS.Timeout | null>(null);
   const [mounted, setMounted] = useState(false);
-  const [logoSrc, setLogoSrc] = useState('/images/acob-logo-light.webp'); // Default logo
   const { resolvedTheme } = useTheme();
   const pathname = usePathname();
+  
+  // Compute logo source directly from theme (no extra state or effect needed)
+  const logoSrc = mounted && resolvedTheme === 'dark' 
+    ? '/images/acob-logo-dark.webp' 
+    : '/images/acob-logo-light.webp';
 
   // Smart scroll behavior states
   const [isScrollingDown, setIsScrollingDown] = useState(false);
@@ -292,17 +297,6 @@ export function Header() {
   useEffect(() => {
     setMounted(true);
   }, []);
-
-  // Update logo when theme changes
-  useEffect(() => {
-    if (mounted && resolvedTheme) {
-      const newLogoSrc =
-        resolvedTheme === 'dark'
-          ? '/images/acob-logo-dark.webp'
-          : '/images/acob-logo-light.webp';
-      setLogoSrc(newLogoSrc);
-    }
-  }, [mounted, resolvedTheme]);
 
   // Enhanced scroll handling with smart show/hide behavior
   useEffect(() => {
@@ -410,13 +404,14 @@ export function Header() {
             {/* Logo */}
             <Link href="/" className="flex items-center space-x-2 group">
               <Image
+                key={logoSrc}
                 src={logoSrc}
                 alt="ACOB Lighting Logo"
                 width={140}
                 height={36}
                 priority
-                className="h-9 w-auto group-hover:scale-105"
-                style={{ width: 'auto', height: 'auto' }}
+                className="h-9 w-auto group-hover:scale-105 transition-none"
+                style={{ width: '140px', height: '36px', objectFit: 'contain' }}
               />
             </Link>
 

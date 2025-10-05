@@ -7,7 +7,18 @@ import React, {
   useCallback,
 } from 'react';
 import { Button } from '@/components/ui/button';
+import { Badge } from '@/components/ui/badge';
+import { Card } from '@/components/ui/card';
+import {
+  Carousel,
+  CarouselContent,
+  CarouselItem,
+  CarouselNext,
+  CarouselPrevious,
+  type CarouselApi,
+} from '@/components/ui/carousel';
 import { ArrowRight, MapPin } from 'lucide-react';
+import Autoplay from 'embla-carousel-autoplay';
 
 import Link from 'next/link';
 import Image from 'next/image';
@@ -47,22 +58,24 @@ const HeroSection = React.memo(function HeroSection({
     }));
   }, [projects]);
 
-  const [currentSlide, setCurrentSlide] = useState(0);
+  const [api, setApi] = useState<CarouselApi>();
+  const [current, setCurrent] = useState(0);
 
-  const advanceSlide = useCallback(() => {
-    setCurrentSlide(prev => (prev + 1) % allSlides.length);
-  }, [allSlides.length]);
+  const plugin = React.useRef(
+    Autoplay({ delay: 6000, stopOnInteraction: true })
+  );
 
   useEffect(() => {
-    if (allSlides.length <= 1) {
+    if (!api) {
       return;
     }
 
-    const timer = setInterval(advanceSlide, 8000);
-    return () => clearInterval(timer);
-  }, [advanceSlide, allSlides.length]);
+    setCurrent(api.selectedScrollSnap());
 
-  const currentSlideData = allSlides[currentSlide];
+    api.on('select', () => {
+      setCurrent(api.selectedScrollSnap());
+    });
+  }, [api]);
 
   const heroMetrics = useMemo(() => {
     if (!stats || stats.length === 0) {
@@ -93,9 +106,9 @@ const HeroSection = React.memo(function HeroSection({
       <Container className="relative px-4">
         <div className="grid items-start gap-12 lg:grid-cols-[minmax(0,1.1fr)_minmax(0,0.9fr)] xl:gap-20">
           <div className="space-y-8">
-            <span className="inline-flex border border-border items-center rounded-full bg-primary/10 px-4 py-1 text-sm font-medium uppercase tracking-wide text-primary dark:bg-primary/20">
-              Renewable energy experts
-            </span>
+            <Badge className="bg-primary/10 text-primary border-primary/20 text-sm font-medium uppercase tracking-wide">
+              Renewable Energy Experts
+            </Badge>
             <div className="space-y-4">
               <MaskText
                 phrases={["Powering sustainable futures for homes, businesses, and communities."]}
@@ -109,9 +122,9 @@ const HeroSection = React.memo(function HeroSection({
 
             <div className="grid gap-2 sm:gap-4 grid-cols-3">
               {heroMetrics.map(metric => (
-                <div
+                <Card
                   key={metric.label}
-                  className="rounded-2xl border border-border bg-card/80 p-4 shadow-sm backdrop-blur supports-[backdrop-filter]:backdrop-blur-xl"
+                  className="p-4 bg-card border-border hover:border-primary/50 transition-colors"
                 >
                   <div className="text-2xl sm:text-3xl font-semibold text-foreground">
                     {metric.value}
@@ -119,7 +132,7 @@ const HeroSection = React.memo(function HeroSection({
                   <p className="mt-1 text-xs sm:text-sm text-muted-foreground">
                     {metric.label}
                   </p>
-                </div>
+                </Card>
               ))}
             </div>
 
@@ -143,60 +156,90 @@ const HeroSection = React.memo(function HeroSection({
           </div>
 
           <div className="relative">
-            <div className="absolute -inset-x-6 -inset-y-4 rounded-[2.5rem] bg-primary/10 blur-2xl dark:bg-primary/15" aria-hidden="true" />
-            <div className="relative overflow-hidden rounded-2xl border border-border bg-card/80  p-4 shadow-xl backdrop-blur supports-[backdrop-filter]:backdrop-blur-xl">
-              <div className="flex items-center justify-between text-xs uppercase tracking-wide text-muted-foreground">
-                <span>Featured project</span>
-                <span>{String(currentSlide + 1).padStart(2, '0')}</span>
-              </div>
-
-              <div className="relative mt-4 overflow-hidden rounded-2xl border border-border bg-muted/40">
-                <Image
-                  src={currentSlideData.image}
-                  alt={currentSlideData.title}
-                  width={720}
-                  height={480}
-                  className="h-full w-full object-cover transition-transform duration-500 will-change-transform"
-                  priority={currentSlide === 0}
-                />
-              </div>
-
-              <div className="mt-6 space-y-3">
-                <div className="flex items-center gap-2 text-sm text-muted-foreground">
-                  <MapPin className="h-4 w-4" />
-                  <span>{currentSlideData.location}</span>
-                </div>
-                <h2 className="text-2xl font-semibold text-foreground line-clamp-2">
-                  {currentSlideData.title}
-                </h2>
-              </div>
-
-              <div className="mt-6 flex items-center justify-between">
-                <div className="flex items-center gap-2">
-                  {allSlides.map((_, index) => (
-                    <button
-                      key={`${currentSlideData.id}-${index}`}
-                      onClick={() => setCurrentSlide(index)}
-                      className={`h-2 rounded-full transition-all duration-300 ${
-                        currentSlide === index
-                          ? 'w-6 bg-primary'
-                          : 'w-2 bg-border hover:w-4 hover:bg-primary/70'
-                      }`}
-                      aria-label={`Show slide ${index + 1}`}
-                    />
-                  ))}
+            <div
+              className="absolute -inset-x-6 -inset-y-4 rounded-[2.5rem] bg-primary/10 blur-2xl dark:bg-primary/15"
+              aria-hidden="true"
+            />
+            
+            <Carousel
+              setApi={setApi}
+              plugins={[plugin.current]}
+              opts={{
+                align: 'start',
+                loop: true,
+              }}
+              className="w-full"
+            >
+              <Card className="relative overflow-hidden border-border bg-card p-4">
+                
+                <div className="flex items-center justify-between text-xs uppercase tracking-wide text-muted-foreground mb-4">
+                  <span>Featured project</span>
+                  <span>{String(current + 1).padStart(2, '0')}</span>
                 </div>
 
-                {currentSlideData.slug && (
-                  <Link href={`/projects/${currentSlideData.slug}`}>
-                    <Button size="sm" variant="outline" className="gap-2">
-                      View project
-                      <ArrowRight className="h-4 w-4" />
-                    </Button>
-                  </Link>
-                )}
-              </div>
-            </div>
+                <div className="space-y-6">
+                  {/* Carousel - Only image, location, and title slide */}
+                  <div className="relative">
+                    <CarouselContent>
+                      {allSlides.map((slide, index) => (
+                        <CarouselItem key={slide.id}>
+                          <div className="relative overflow-hidden rounded-2xl border border-border bg-muted">
+                            <Image
+                              src={slide.image}
+                              alt={slide.title}
+                              width={720}
+                              height={480}
+                              className="w-full h-full object-cover aspect-[16/10]"
+                              priority={index === 0}
+                            />
+                          </div>
+                          
+                          <div className="mt-6 space-y-3">
+                            <div className="flex items-center gap-2 text-sm text-muted-foreground">
+                              <MapPin className="h-4 w-4" />
+                              <span>{slide.location}</span>
+                            </div>
+                            <h2 className="text-2xl font-semibold text-foreground line-clamp-2">
+                              {slide.title}
+                            </h2>
+                          </div>
+                        </CarouselItem>
+                      ))}
+                    </CarouselContent>
+                    
+                    <CarouselPrevious className="left-2" />
+                    <CarouselNext className="right-2" />
+                  </div>
+
+                  {/* Static Controls - Dots and View Project button */}
+                  <div className="flex items-center justify-between">
+                    <div className="flex items-center gap-2">
+                      {allSlides.map((_, dotIndex) => (
+                        <button
+                          key={dotIndex}
+                          onClick={() => api?.scrollTo(dotIndex)}
+                          className={`h-2 rounded-full transition-all duration-300 ${
+                            current === dotIndex
+                              ? 'w-6 bg-primary'
+                              : 'w-2 bg-border hover:w-4 hover:bg-primary/70'
+                          }`}
+                          aria-label={`Go to slide ${dotIndex + 1}`}
+                        />
+                      ))}
+                    </div>
+
+                    {allSlides[current]?.slug && (
+                      <Link href={`/projects/${allSlides[current].slug}`}>
+                        <Button size="sm" variant="outline" className="gap-2">
+                          View project
+                          <ArrowRight className="h-4 w-4" />
+                        </Button>
+                      </Link>
+                    )}
+                  </div>
+                </div>
+              </Card>
+            </Carousel>
           </div>
         </div>
       </Container>

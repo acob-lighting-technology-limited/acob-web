@@ -34,7 +34,7 @@ const ServicesSection = React.memo(function ServicesSection() {
             <div className="space-y-6">
               <MaskText
                 phrases={['Integrated renewable energy for every scale']}
-                className="text-3xl font-semibold leading-tight md:text-4xl"
+                className="text-3xl font-bold leading-tight md:text-5xl"
               />
               <MaskText
                 phrases={[
@@ -123,7 +123,7 @@ const ServicesSection = React.memo(function ServicesSection() {
                     </p>
                   </div>
 
-                  {Array.isArray(service.features) &&
+                  {/* {Array.isArray(service.features) &&
                     service.features.length > 0 && (
                       <ul className="mt-6 space-y-3 text-sm text-muted-foreground">
                         {service.features.slice(0, 4).map(feature => (
@@ -133,7 +133,7 @@ const ServicesSection = React.memo(function ServicesSection() {
                           </li>
                         ))}
                       </ul>
-                    )}
+                    )} */}
 
                   <div className="mt-8">
                     <Link href={`/services/${service.slug}`}>
