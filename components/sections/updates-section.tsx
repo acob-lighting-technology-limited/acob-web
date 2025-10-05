@@ -45,7 +45,7 @@ export function UpdatesSection({ posts }: UpdatesSectionProps) {
       <Container className="px-4">
         {/* Header */}
         <div className="text-center mb-12">
-          <div className="inline-block bg-primary/10 text-primary border border-border px-4 py-2 rounded-full text-sm font-medium mb-4 dark:bg-primary/20 dark:text-primary transition-colors duration-700">
+          <div className="inline-block bg-primary/20 text-primary border border-primary/30 px-4 py-2 rounded-full text-sm font-medium mb-4 dark:bg-primary/30 dark:text-primary transition-colors duration-700">
             News & Announcements
           </div>
           <h2 className="text-4xl md:text-5xl font-bold  text-zinc-900 dark:text-white transition-colors duration-700">

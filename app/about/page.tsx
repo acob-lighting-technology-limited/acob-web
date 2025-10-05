@@ -27,8 +27,7 @@ export default function AboutPage() {
     <>
       <PageHero
         title="Lighting Nigeria with Trusted Solar Infrastructure"
-        eyebrow="About ACOB Lighting"
-        align="center"
+        // align="center"
         backgroundImage="/images/about/acob-team.webp?height=800&width=1600"
       >
         <p className="mx-auto max-w-3xl text-balance text-lg text-white/90 md:text-xl">
@@ -43,7 +42,7 @@ export default function AboutPage() {
 
         <section className="mb-20 rounded-3xl border border-border bg-card/80 p-10 shadow-sm backdrop-blur">
           <div className="mx-auto max-w-4xl space-y-6 text-center">
-            <span className="inline-flex items-center justify-center rounded-full border border-primary/30 bg-primary/10 px-4 py-1 text-xs font-semibold uppercase tracking-[0.3em] text-primary">
+            <span className="inline-flex items-center justify-center rounded-full border border-primary/40 bg-primary/20 px-4 py-1 text-xs font-semibold uppercase tracking-[0.3em] text-primary">
               Our Purpose
             </span>
             <h2 className="text-3xl font-bold text-foreground md:text-4xl">
