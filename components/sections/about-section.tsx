@@ -23,9 +23,9 @@ export function AboutSection() {
             />
             <MaskText
               phrases={["ACOB Lighting Technology Limited designs and delivers scalable clean energy systems that help households, industries, and governments unlock sustainable growth. From strategy to implementation, our team manages every stage of the clean energy lifecycle."]}
-              className="text-base text-primary-foreground/80 md:text-lg"
+              className="text-base text-primary-foreground/95 md:text-lg"
             />
-            <ul className="space-y-3 text-sm uppercase tracking-wide text-primary-foreground/70">
+            <ul className="space-y-3 text-sm uppercase tracking-wide text-primary-foreground/90">
               {commitments.map(item => (
                 <li key={item} className="flex items-start gap-3">
                   <span className="mt-1.5 h-2 w-2 flex-shrink-0 rounded-full bg-primary-foreground" />
@@ -39,31 +39,31 @@ export function AboutSection() {
           </div>
 
           <div className="space-y-6 rounded-3xl bg-white/10 p-8 shadow-lg backdrop-blur supports-[backdrop-filter]:backdrop-blur-xl">
-            <h3 className="text-xl font-semibold uppercase tracking-wide text-primary-foreground/80">
+            <h3 className="text-xl font-semibold uppercase tracking-wide text-primary-foreground">
               How we support your energy transition
             </h3>
             <div className="grid gap-4 sm:grid-cols-2">
               <div className="rounded-2xl border border-white/20 bg-white/10 p-4">
-                <h4 className="text-lg font-semibold">Advisory & Audits</h4>
-                <p className="mt-2 text-sm text-primary-foreground/80">
+                <h4 className="text-lg font-semibold text-primary-foreground">Advisory & Audits</h4>
+                <p className="mt-2 text-sm text-primary-foreground/95">
                   Site assessments, energy modelling, and regulatory guidance to chart the best path forward.
                 </p>
               </div>
               <div className="rounded-2xl border border-white/20 bg-white/10 p-4">
-                <h4 className="text-lg font-semibold">Engineering & Delivery</h4>
-                <p className="mt-2 text-sm text-primary-foreground/80">
+                <h4 className="text-lg font-semibold text-primary-foreground">Engineering & Delivery</h4>
+                <p className="mt-2 text-sm text-primary-foreground/95">
                   Design, procurement, installation, and commissioning of high-performance solar and storage assets.
                 </p>
               </div>
               <div className="rounded-2xl border border-white/20 bg-white/10 p-4">
-                <h4 className="text-lg font-semibold">Operations & Growth</h4>
-                <p className="mt-2 text-sm text-primary-foreground/80">
+                <h4 className="text-lg font-semibold text-primary-foreground">Operations & Growth</h4>
+                <p className="mt-2 text-sm text-primary-foreground/95">
                   Managed services and training that keep systems productive and communities powered.
                 </p>
               </div>
               <div className="rounded-2xl border border-white/20 bg-white/10 p-4">
-                <h4 className="text-lg font-semibold">Investment Support</h4>
-                <p className="mt-2 text-sm text-primary-foreground/80">
+                <h4 className="text-lg font-semibold text-primary-foreground">Investment Support</h4>
+                <p className="mt-2 text-sm text-primary-foreground/95">
                   Business models and financing structures tuned for rapid scale and measurable impact.
                 </p>
               </div>

@@ -309,11 +309,12 @@ export function QuoteForm() {
               {/* Conditional Contact Inputs */}
               {(formData.contactMethod === 'email' || formData.contactMethod === 'all') && (
                 <div className="mb-4">
-                  <Label htmlFor="email" className="text-foreground">
+                  <Label htmlFor="quote-email" className="text-foreground">
                     Email Address *
                   </Label>
                   <Input
-                    id="email"
+                    id="quote-email"
+                    name="email"
                     type="email"
                     placeholder="Enter your email address"
                     value={formData.email}

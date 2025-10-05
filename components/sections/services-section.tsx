@@ -37,17 +37,17 @@ const ServicesSection = React.memo(function ServicesSection() {
               className="max-w-xl text-lg text-muted-foreground"
             />
             <div className="flex flex-wrap gap-4">
-              <Link href="/services">
-                <Button size="lg" className="px-8 py-6 text-base">
+              <Link href="/services" className="inline-block min-h-[48px]">
+                <Button size="lg" className="px-8 py-6 text-base min-h-[48px]">
                   View all services
                   <ArrowRight className="ml-2 h-4 w-4" />
                 </Button>
               </Link>
-              <Link href="/contact">
+              <Link href="/contact" className="inline-block min-h-[48px]">
                 <Button
                   size="lg"
                   variant="outline"
-                  className="px-8 py-6 text-base"
+                  className="px-8 py-6 text-base min-h-[48px]"
                 >
                   Partner with us
                 </Button>
