@@ -1,9 +1,14 @@
 'use client';
-import { useState, useEffect } from 'react';
 import { Container } from '@/components/ui/container';
 import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
+import { FadeIn } from '@/components/animations/FadeIn';
+import {
+  StaggerChildren,
+  staggerItem,
+} from '@/components/animations/StaggerChildren';
 import { ArrowRight } from 'lucide-react';
+import { motion } from 'framer-motion';
 import Link from 'next/link';
 import Image from 'next/image';
 // Remove direct Sanity import - use API route instead
@@ -16,7 +21,6 @@ interface UpdatesSectionProps {
 }
 
 export function UpdatesSection({ posts }: UpdatesSectionProps) {
-
   const latestPosts = posts.slice(0, 3); // Get only the latest 3 posts
 
   if (!posts || posts.length === 0) {
@@ -44,99 +48,105 @@ export function UpdatesSection({ posts }: UpdatesSectionProps) {
     <section className="py-16 bg-white dark:bg-zinc-950 transition-colors duration-700">
       <Container className="px-4">
         {/* Header */}
-        <div className="text-center mb-12">
-          <div className="inline-block bg-primary/20 text-primary border border-primary/30 px-4 py-2 rounded-full text-sm font-medium mb-4 dark:bg-primary/30 dark:text-primary transition-colors duration-700">
-            News & Announcements
+        <FadeIn delay={0.2}>
+          <div className="text-center mb-12">
+            <div className="inline-block bg-primary/20 text-primary border border-primary/30 px-4 py-2 rounded-full text-sm font-medium mb-4 dark:bg-primary/30 dark:text-primary transition-colors duration-700">
+              News & Announcements
+            </div>
+            <h2 className="text-4xl md:text-5xl font-bold  text-zinc-900 dark:text-white transition-colors duration-700">
+              Recent Updates
+            </h2>{' '}
+            {/* Renamed title */}
           </div>
-          <h2 className="text-4xl md:text-5xl font-bold  text-zinc-900 dark:text-white transition-colors duration-700">
-            Recent Updates
-          </h2>{' '}
-          {/* Renamed title */}
-        </div>
+        </FadeIn>
 
         {/* News Cards */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <StaggerChildren
+          staggerDelay={0.3}
+          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
+        >
           {latestPosts.map((post: UpdatePost) => (
-            <Card
-              key={post._id}
-              className="group overflow-hidden hover:shadow-lg transition-all duration-300 hover:-translate-y-1 p-0"
-            >
-              {/* Image */}
-              <div className="aspect-[16/9] overflow-hidden relative bg-muted">
-                {post.featuredImage ? (
-                  <Image
-                    src={post.featuredImage}
-                    alt={post.title}
-                    fill
-                    className="object-cover transition-transform duration-300 group-hover:scale-105"
-                    sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-                    priority={false}
-                    placeholder="blur"
-                    blurDataURL="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAYEBQYFBAYGBQYHBwYIChAKCgkJChQODwwQFxQYGBcUFhYaHSUfGhsjHBYWICwgIyYnKSopGR8tMC0oMCUoKSj/2wBDAQcHBwoIChMKChMoGhYaKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCj/wAARCAAIAAoDASIAAhEBAxEB/8QAFQABAQAAAAAAAAAAAAAAAAAAAAv/xAAhEAACAQMDBQAAAAAAAAAAAAABAgMABAUGIWGRkqGx0f/EABUBAQEAAAAAAAAAAAAAAAAAAAMF/8QAGhEAAgIDAAAAAAAAAAAAAAAAAAECEgMRkf/aAAwDAQACEQMRAD8AltJagyeH0AthI5xdrLcNM91BF5pX2HaH9bcfaSXWGaRmknyJckliyjqTzSlT54b6bk+h0R//2Q=="
-                  />
-                ) : (
-                  <div className="w-full h-full bg-muted flex items-center justify-center">
-                    <span className="text-muted-foreground text-sm">
-                      No image available
-                    </span>
-                  </div>
-                )}
-              </div>
-
-              <CardContent className="p-6">
-                {/* Date and Author */}
-                <div className="flex items-center text-xs dark:text-zinc-400 text-zinc-600 mb-4">
-                  <span>{post.author}</span> <span className="mx-2">•</span>
-                  <span>{formatDate(post.publishedAt)}</span>
-                  <span className="mx-2">•</span>
-                  {/* Category Tag */}
-                  <div className=" bg-primary text-white px-3 py-1 rounded  font-medium">
-                    {post.category || 'News'}
-                  </div>
-                </div>{' '}
-                <div className="space-y-4">
-                  {/* Title */}
-                  <h3 className="text-xl font-bold text-foreground group-hover:text-primary transition-colors duration-200 line-clamp-2 h-[50px]">
-                    {post.title}
-                  </h3>
-
-                  {/* Excerpt */}
-                  <p className="text-muted-foreground line-clamp-[3]">
-                    {post.excerpt}
-                  </p>
+            <motion.div key={post._id} variants={staggerItem}>
+              <Card className="group overflow-hidden hover:shadow-lg transition-all duration-300 hover:-translate-y-1 p-0">
+                {/* Image */}
+                <div className="aspect-[16/9] overflow-hidden relative bg-muted">
+                  {post.featuredImage ? (
+                    <Image
+                      src={post.featuredImage}
+                      alt={post.title}
+                      fill
+                      className="object-cover transition-transform duration-300 group-hover:scale-105"
+                      sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                      priority={false}
+                      placeholder="blur"
+                      blurDataURL="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAYEBQYFBAYGBQYHBwYIChAKCgkJChQODwwQFxQYGBcUFhYaHSUfGhsjHBYWICwgIyYnKSopGR8tMC0oMCUoKSj/2wBDAQcHBwoIChMKChMoGhYaKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCj/wAARCAAIAAoDASIAAhEBAxEB/8QAFQABAQAAAAAAAAAAAAAAAAAAAAv/xAAhEAACAQMDBQAAAAAAAAAAAAABAgMABAUGIWGRkqGx0f/EABUBAQEAAAAAAAAAAAAAAAAAAAMF/8QAGhEAAgIDAAAAAAAAAAAAAAAAAAECEgMRkf/aAAwDAQACEQMRAD8AltJagyeH0AthI5xdrLcNM91BF5pX2HaH9bcfaSXWGaRmknyJckliyjqTzSlT54b6bk+h0R//2Q=="
+                    />
+                  ) : (
+                    <div className="w-full h-full bg-muted flex items-center justify-center">
+                      <span className="text-muted-foreground text-sm">
+                        No image available
+                      </span>
+                    </div>
+                  )}
                 </div>
-                {/* Read More Button */}
-                <div className="mt-6">
-                  <Link 
-                    href={`/updates/${post.slug.current}`}
-                  >
-                    {' '}
-                    <Button
-                      variant="outline"
-                      className="w-full group-hover:bg-primary group-hover:text-primary-foreground transition-colors duration-200"
-                    >
-                      <span className="sr-only">Read more about {post.title}</span>
-                      <span aria-hidden="true">Read more</span>
-                      <ArrowRight className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform duration-200" />
-                    </Button>
-                  </Link>
-                </div>
-              </CardContent>
-            </Card>
+
+                <CardContent className="p-6">
+                  {/* Date and Author */}
+                  <div className="flex items-center text-xs dark:text-zinc-400 text-zinc-600 mb-4">
+                    <span>{post.author}</span> <span className="mx-2">•</span>
+                    <span>{formatDate(post.publishedAt)}</span>
+                    <span className="mx-2">•</span>
+                    {/* Category Tag */}
+                    <div className=" bg-primary text-white px-3 py-1 rounded  font-medium">
+                      {post.category || 'News'}
+                    </div>
+                  </div>{' '}
+                  <div className="space-y-4">
+                    {/* Title */}
+                    <h3 className="text-xl font-bold text-foreground group-hover:text-primary transition-colors duration-200 line-clamp-2 h-[50px]">
+                      {post.title}
+                    </h3>
+
+                    {/* Excerpt */}
+                    <p className="text-muted-foreground line-clamp-[3]">
+                      {post.excerpt}
+                    </p>
+                  </div>
+                  {/* Read More Button */}
+                  <div className="mt-6">
+                    <Link href={`/updates/${post.slug.current}`}>
+                      {' '}
+                      <Button
+                        variant="outline"
+                        className="w-full group-hover:bg-primary group-hover:text-primary-foreground transition-colors duration-200"
+                      >
+                        <span className="sr-only">
+                          Read more about {post.title}
+                        </span>
+                        <span aria-hidden="true">Read more</span>
+                        <ArrowRight className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform duration-200" />
+                      </Button>
+                    </Link>
+                  </div>
+                </CardContent>
+              </Card>
+            </motion.div>
           ))}
-        </div>
+        </StaggerChildren>
 
         {/* View All Button */}
-        <div className="text-center mt-12">
-          <Link href="/updates">
-            {' '}
-            {/* Changed link to /updates */}
-            <Button className=" px-8 py-3">
-              View All Updates
-              <ArrowRight className="ml-2 h-4 w-4" />
-            </Button>
-          </Link>
-        </div>
+        <FadeIn delay={0.5}>
+          <div className="text-center mt-12">
+            <Link href="/updates">
+              {' '}
+              {/* Changed link to /updates */}
+              <Button className=" px-8 py-3">
+                View All Updates
+                <ArrowRight className="ml-2 h-4 w-4" />
+              </Button>
+            </Link>
+          </div>
+        </FadeIn>
       </Container>
     </section>
   );
