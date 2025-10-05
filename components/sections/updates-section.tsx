@@ -109,14 +109,14 @@ export function UpdatesSection({ posts }: UpdatesSectionProps) {
                 <div className="mt-6">
                   <Link 
                     href={`/updates/${post.slug.current}`}
-                    aria-label={`Read more about ${post.title}`}
                   >
                     {' '}
                     <Button
                       variant="outline"
                       className="w-full group-hover:bg-primary group-hover:text-primary-foreground transition-colors duration-200"
                     >
-                      Read more
+                      <span className="sr-only">Read more about {post.title}</span>
+                      <span aria-hidden="true">Read more</span>
                       <ArrowRight className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform duration-200" />
                     </Button>
                   </Link>

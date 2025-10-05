@@ -348,10 +348,10 @@ export default function ServicesPage() {
                       <div className="mt-auto">
                         <Link 
                           href={`/services/${service.slug}`}
-                          aria-label={`Learn more about ${service.title}`}
                         >
                           <Button className="w-full bg-primary hover:bg-primary/90 text-primary-foreground">
-                            Read More
+                            <span className="sr-only">Learn more about {service.title}</span>
+                            <span aria-hidden="true">Read More</span>
                             <ArrowRight className="ml-2 h-4 w-4" />
                           </Button>
                         </Link>
