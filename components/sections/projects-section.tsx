@@ -26,7 +26,7 @@ export function ProjectsSection({ projects }: ProjectsSectionProps) {
 
   if (!hasProjects) {
     return (
-      <section className="border-b border-border/40 bg-background py-20">
+      <section className="border-b border-border bg-background py-20">
         <Container className="px-4">
           <div className="mx-auto flex max-w-3xl flex-col items-center text-center">
             <h2 className="text-3xl font-semibold md:text-4xl">
@@ -46,14 +46,14 @@ export function ProjectsSection({ projects }: ProjectsSectionProps) {
   }
 
   return (
-    <section className="border-b border-border/40 bg-background py-20">
+    <section className="border-b border-border bg-background py-20">
       <Container className="px-4">
         <div className="mb-16 grid gap-10 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.1fr)] lg:items-end">
           <FadeIn direction="right" delay={0.2}>
             <div className="space-y-4">
               <MaskText
                 phrases={['Selected Energy Deployments']}
-                className="text-3xl font-semibold md:text-4xl"
+                className="text-3xl font-semibold md:text-5xl"
               />
               <MaskText
                 phrases={[

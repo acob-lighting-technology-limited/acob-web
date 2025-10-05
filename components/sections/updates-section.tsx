@@ -103,7 +103,7 @@ export function UpdatesSection({ posts }: UpdatesSectionProps) {
                   </div>{' '}
                   <div className="space-y-4">
                     {/* Title */}
-                    <h3 className="text-xl font-bold text-foreground group-hover:text-primary transition-colors duration-200 line-clamp-2 h-[50px]">
+                    <h3 className="text-xl font-bold text-foreground group-hover:text-primary transition-colors duration-200 line-clamp-2">
                       {post.title}
                     </h3>
 

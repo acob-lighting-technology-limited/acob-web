@@ -33,7 +33,7 @@ export const MaskText: FC<MaskTextProps> = ({ phrases, className }) => {
                 }
                 : {}
             }
-            className="m-0"
+            className="m-2"
           >
             {phrase}
           </motion.p>

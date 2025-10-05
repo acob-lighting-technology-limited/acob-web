@@ -8,7 +8,7 @@ import { FadeIn } from '@/components/animations/FadeIn';
 
 const commitments = [
   'Community-first electrification strategies built with local partners',
-  'Turnkey engineering for solar PV, hybrid mini-grids, and storage',
+  'Complete engineering for solar PV, hybrid mini-grids, and storage',
   'Performance monitoring, O&M, and training for long-term reliability',
 ];
 
@@ -20,14 +20,12 @@ export function AboutSection() {
           <FadeIn direction="right" delay={0.3}>
             <div className="space-y-6">
               <MaskText
-                phrases={[
-                  'Lighting up economies with dependable renewable power',
-                ]}
-                className="text-3xl font-semibold leading-tight md:text-4xl"
+                phrases={['ACOB Lighting Technology Limited']}
+                className="text-4xl font-bold  md:text-5xl text-primary-foreground"
               />
               <MaskText
                 phrases={[
-                  'ACOB Lighting Technology Limited designs and delivers scalable clean energy systems that help households, industries, and governments unlock sustainable growth. From strategy to implementation, our team manages every stage of the clean energy lifecycle.',
+                  'Powering Nigeria with dependable renewable energy systems that help households, industries, and governments unlock sustainable growth. From strategy to implementation, our team manages every stage of the clean energy lifecycle.',
                 ]}
                 className="text-base text-primary-foreground/95 md:text-lg"
               />

@@ -45,7 +45,7 @@ export function CompanySection() {
             <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 sm:gap-6">
               <MaskText
                 phrases={['Why organisations trust ACOB Lighting']}
-                className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-semibold leading-tight max-w-2xl"
+                className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-semibold  max-w-2xl"
               />
               <Link href="/about" className="inline-flex w-full sm:w-auto">
                 <Button
@@ -66,7 +66,7 @@ export function CompanySection() {
           <FadeIn direction="right" delay={0.3}>
             <div className="space-y-6 sm:space-y-8 order-2 xl:order-1">
               {/* Mission Statements */}
-              <div className="space-y-3 sm:space-y-4 md:space-y-6">
+              <div className="space-y-3">
                 {missionStatements.map(statement => (
                   <MaskText
                     key={statement}
@@ -148,7 +148,7 @@ export function CompanySection() {
 
               {/* Impact Highlights Grid */}
               <StaggerChildren
-                staggerDelay={0.2}
+                staggerDelay={0.4}
                 className="grid gap-3 sm:gap-4 md:gap-6 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-1 2xl:grid-cols-3"
               >
                 {impactHighlights.map(highlight => (
