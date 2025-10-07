@@ -47,22 +47,22 @@ export async function getRandomProjectImages(
     // Return fallback images if there's an error
     return [
       {
-        url: '/images/obadore-ondo.jpg',
+        url: '/images/obadore-ondo.webp',
         alt: 'Solar Installation',
         projectTitle: 'Fallback Image',
       },
       {
-        url: '/images/makami-kaduna.jpg',
+        url: '/images/makami-kaduna.webp',
         alt: 'Team at Work',
         projectTitle: 'Fallback Image',
       },
       {
-        url: '/images/olooji-community.jpg',
+        url: '/images/olooji-community.webp',
         alt: 'Solar Panels',
         projectTitle: 'Fallback Image',
       },
       {
-        url: '/images/adebayo-community.jpg',
+        url: '/images/adebayo-community.webp',
         alt: 'Community Impact',
         projectTitle: 'Fallback Image',
       },
@@ -93,9 +93,9 @@ export async function getRandomBackgroundImage(): Promise<string> {
       return allImages[randomIndex];
     }
 
-    return '/images/transition-bg.jpg'; // Fallback
+    return '/images/transition-bg.webp'; // Fallback
   } catch (error) {
     console.error('Error fetching random background image:', error);
-    return '/images/transition-bg.jpg'; // Fallback
+    return '/images/transition-bg.webp'; // Fallback
   }
 }

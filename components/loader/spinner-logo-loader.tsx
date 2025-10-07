@@ -14,7 +14,7 @@ export function SpinnerLogoLoader() {
         className="flex flex-col items-center"
       >
         <Image
-          src="/images/ACOB.png"
+          src="/images/acob-logo-light.webp"
           alt="ACOB Lighting Logo"
           width={600}
           height={600}

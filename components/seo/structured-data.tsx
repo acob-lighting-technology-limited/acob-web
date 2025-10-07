@@ -4,7 +4,7 @@ export function StructuredData() {
     '@type': 'Organization',
     name: 'ACOB Lighting Technology Limited',
     url: 'https://acoblighting.com',
-    logo: 'https://acoblighting.com/images/ACOB-logo.png',
+    logo: 'https://acoblighting.com/images/acob-logo-light.webp',
     description:
       'Leading supplier of solar materials for manufacturers, installers & contractors. Mini-grid solutions, captive power systems, and professional energy audits.',
           address: {

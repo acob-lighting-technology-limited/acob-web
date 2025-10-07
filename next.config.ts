@@ -10,7 +10,6 @@ const nextConfig = {
   images: {
     formats: ['image/webp', 'image/avif'],
     deviceSizes: [640, 750, 828, 1080, 1200, 1920, 2048, 3840],
-    domains: ['cdn.sanity.io'],
     remotePatterns: [
       {
         protocol: 'https',
@@ -19,9 +18,17 @@ const nextConfig = {
         pathname: '/images/**',
       },
     ],
+    // Allow query strings for local images
+    dangerouslyAllowSVG: true,
+    contentSecurityPolicy: "default-src 'self'; script-src 'none'; sandbox;",
   },
   experimental: {
     optimizePackageImports: ['lucide-react', '@radix-ui/react-icons'],
+  },
+  // Memory optimization
+  onDemandEntries: {
+    maxInactiveAge: 25 * 1000,
+    pagesBufferLength: 2,
   },
   ...(process.env.ANALYZE === 'true' && {
     webpack: (config: any) => {

@@ -75,7 +75,7 @@ export default async function GalleryPage() {
 
   return (
     <>
-      <PageHero title="Media Gallery" backgroundImage="/images/services/header.jpg?height=400&width=1200" />
+      <PageHero title="Media Gallery" backgroundImage="/images/services/header.webp?height=400&width=1200" />
 
       <Container className="px-4 py-8">
         <Breadcrumb items={breadcrumbItems} className="mb-8" />

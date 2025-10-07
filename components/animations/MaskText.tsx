@@ -16,7 +16,7 @@ export const MaskText: FC<MaskTextProps> = ({ phrases, className }) => {
   });
 
   return (
-    <div ref={ref} className={className}>
+    <div ref={ref}>
       {phrases.map((phrase, index) => (
         <div key={index} className="overflow-hidden">
           <motion.p
@@ -33,7 +33,7 @@ export const MaskText: FC<MaskTextProps> = ({ phrases, className }) => {
                 }
                 : {}
             }
-            className="m-0"
+            className={`m-2   ${className}`}
           >
             {phrase}
           </motion.p>

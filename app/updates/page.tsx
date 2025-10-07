@@ -35,7 +35,7 @@ export default async function UpdatesPage({ searchParams }: UpdatesPageProps) {
     <>
       <PageHero
         title="Updates & News"
-        backgroundImage="/images/services/header.jpg?height=400&width=1200"
+        backgroundImage="/images/services/header.webp?height=400&width=1200"
       />
 
       <Container className="px-4 py-8">

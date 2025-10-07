@@ -14,7 +14,7 @@ export default function PrivacyPolicyPage() {
     <>
       <PageHero
         title="Privacy Policy"
-        backgroundImage="/images/contact/contact-us.jpg"
+        backgroundImage="/images/contact/contact-us.webp"
       />
 
       <Container className="py-16">

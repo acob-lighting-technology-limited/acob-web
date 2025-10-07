@@ -19,7 +19,7 @@ export default function ContactPage() {
     <>
       <PageHero
         title="Contact Us"
-        backgroundImage="/images/contact/contact-us.jpg?height=400&width=1200"
+        backgroundImage="/images/contact/contact-us.webp?height=400&width=1200"
       >
         <MaskText
           phrases={[
