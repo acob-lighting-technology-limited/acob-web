@@ -110,7 +110,7 @@ export function ServicesCarousel() {
                   className="w-full flex-shrink-0"
                   style={{ width: '100%' }}
                 >
-                  <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center p-8">
+                  <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center p-4 sm:p-6 xl:p-8">
                     {/* Service Image */}
                     <div className="relative aspect-[4/3] overflow-hidden rounded-xl">
                       <Image

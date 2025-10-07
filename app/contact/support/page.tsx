@@ -49,7 +49,7 @@ export default function SupportPage() {
           <div className="lg:col-span-2 ">
             {/* Help Overview */}
             <Card className="border shadow-md border-border bg-surface">
-              <CardContent className="p-8">
+              <CardContent className="p-4 sm:p-6 xl:p-8">
                 <h2 className="text-3xl font-bold mb-6 text-foreground">
                   How Can We Help You?
                 </h2>
@@ -71,7 +71,7 @@ export default function SupportPage() {
 
             {/* Contact Methods */}
             <Card className="border shadow-md border-border bg-surface">
-              <CardContent className="p-8">
+              <CardContent className="p-4 sm:p-6 xl:p-8">
                 <h2 className="text-3xl font-bold mb-6 text-foreground">
                   Contact Our Support Team
                 </h2>
@@ -107,7 +107,7 @@ export default function SupportPage() {
 
             {/* FAQs */}
             <Card className="border shadow-md border-border bg-surface">
-              <CardContent className="p-8">
+              <CardContent className="p-4 sm:p-6 xl:p-8">
                 <h2 className="text-3xl font-bold mb-6 text-foreground">
                   Frequently Asked Questions
                 </h2>
