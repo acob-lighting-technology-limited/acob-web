@@ -17,12 +17,13 @@ export function AboutSection() {
     <section className="border-b border-border bg-primary text-primary-foreground py-16 transition-colors duration-700">
       <Container className="px-4">
         <div className="grid gap-10 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.1fr)] lg:items-center">
-          <FadeIn direction="right" delay={0.3}>
+          <FadeIn delay={0.3}>
             <div className="space-y-6">
               <MaskText
                 phrases={['ACOB Lighting Technology Limited']}
                 className="text-4xl font-bold  md:text-5xl text-primary-foreground"
               />
+           
               <MaskText
                 phrases={[
                   'Powering Nigeria with dependable renewable energy systems that help households, industries, and governments unlock sustainable growth. From strategy to implementation, our team manages every stage of the clean energy lifecycle.',
@@ -43,7 +44,7 @@ export function AboutSection() {
             </div>
           </FadeIn>
 
-          <FadeIn direction="left" delay={0.5}>
+          <FadeIn delay={0.5}>
             <div className="space-y-6 rounded-3xl bg-white/10 p-8 shadow-lg backdrop-blur supports-[backdrop-filter]:backdrop-blur-xl">
               <h3 className="text-xl font-semibold uppercase tracking-wide text-primary-foreground">
                 How we support your energy transition

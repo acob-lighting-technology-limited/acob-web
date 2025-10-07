@@ -67,7 +67,7 @@ export function UpdatesSection({ posts }: UpdatesSectionProps) {
         >
           {latestPosts.map((post: UpdatePost) => (
             <motion.div key={post._id} variants={staggerItem}>
-              <Card className="group overflow-hidden hover:shadow-lg transition-all duration-300 hover:-translate-y-1 p-0">
+              <Card className="group h-full overflow-hidden border-border bg-card hover:border-primary/30 hover:shadow-2xl transition-all duration-500 p-0">
                 {/* Image */}
                 <div className="aspect-[16/9] overflow-hidden relative bg-muted">
                   {post.featuredImage ? (

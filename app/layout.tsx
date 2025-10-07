@@ -3,7 +3,7 @@ import './globals.css';
 import '../styles/customShadow.css';
 import '../styles/animations.css';
 import type { Metadata } from 'next';
-import { Inter } from 'next/font/google';
+import { Inter, Plus_Jakarta_Sans, Geist, Outfit, Poppins, DM_Sans } from 'next/font/google';
 import { Providers } from '@/components/providers/session-provider';
 import { NProgressProvider } from '@/components/providers/nprogress-provider';
 import { Header } from '@/components/layout/header';
@@ -15,7 +15,33 @@ import { ChatBot } from '@/components/features/chat-bot';
 import { Analytics } from '@vercel/analytics/react';
 import { SpeedInsights } from '@vercel/speed-insights/next';
 
+// Modern font options - choose one:
 const inter = Inter({ subsets: ['latin'] });
+const plusJakarta = Plus_Jakarta_Sans({ 
+  subsets: ['latin'],
+  variable: '--font-plus-jakarta',
+  weight: ['200', '300', '400', '500', '600', '700', '800']
+});
+const geist = Geist({ 
+  subsets: ['latin'],
+  variable: '--font-geist',
+  weight: ['100', '200', '300', '400', '500', '600', '700', '800', '900']
+});
+const outfit = Outfit({ 
+  subsets: ['latin'],
+  variable: '--font-outfit',
+  weight: ['100', '200', '300', '400', '500', '600', '700', '800', '900']
+});
+const poppins = Poppins({ 
+  subsets: ['latin'],
+  variable: '--font-poppins',
+  weight: ['100', '200', '300', '400', '500', '600', '700', '800', '900']
+});
+const dmSans = DM_Sans({ 
+  subsets: ['latin'],
+  variable: '--font-dm-sans',
+  weight: ['100', '200', '300', '400', '500', '600', '700', '800', '900']
+});
 
 export const metadata: Metadata = {
   title: 'ACOB Lighting Technology Limited - Leading Solar Energy Solutions',
@@ -74,11 +100,11 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <body className={inter.className}>
+      <body className={`${plusJakarta.className} ${plusJakarta.variable}`} >
         <Providers>
           <NProgressProvider>
             <Toaster closeButton position="top-right" />
-            <div className="flex min-h-screen flex-col w-full bg-background transition-all duration-500 ">
+            <div className="flex min-h-screen flex-col w-full bg-background transition-all duration-500 selection:bg-foreground selection:text-primary">
               <Header />
               <main className="flex-1 border-b border-b-muted">{children}</main>
               <Footer />

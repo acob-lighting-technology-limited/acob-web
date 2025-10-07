@@ -104,16 +104,20 @@ const HeroSection = React.memo(function HeroSection({
       />
 
       <Container className="relative px-4">
-        <div className="grid items-start gap-12 lg:grid-cols-[minmax(0,1.1fr)_minmax(0,0.9fr)] xl:gap-20">
+        <div className="grid items-start gap-12 lg:grid-cols-2 xl:gap-16">
           <div className="space-y-8">
-            <Badge className="bg-primary/10 text-primary border-primary/20 text-sm font-medium uppercase tracking-wide">
+            <Badge className="bg-primary/10 text-foreground/60 border-primary/20 text-sm font-medium uppercase tracking-wide">
               Renewable Energy Experts
             </Badge>
             <div className="space-y-4">
               <MaskText
                 phrases={["Powering sustainable futures for homes, businesses, and communities."]}
-                className="text-4xl font-bold leading-tight text-foreground sm:text-5xl lg:text-6xl"
+                className="text-4xl font-bold leading-tight sm:text-5xl lg:text-6xl bg-six-color-gradient dark:bg-six-color-gradient-dark text-transparent bg-clip-text"
               />
+               {/* <MaskText
+                phrases={["Powering sustainable futures for homes, businesses, and communities."]}
+                className="text-4xl font-bold leading-tight sm:text-5xl lg:text-6xl text-foreground"
+              /> */}
               <MaskText
                 phrases={["We deliver dependable solar, mini-grid, and energy storage solutions that unlock productivity and resilience for communities across Nigeria."]}
                 className="max-w-xl text-lg text-muted-foreground"
@@ -124,12 +128,12 @@ const HeroSection = React.memo(function HeroSection({
               {heroMetrics.map(metric => (
                 <Card
                   key={metric.label}
-                  className="p-4 bg-card border-border hover:border-primary/50 transition-colors"
+                  className="p-3 bg-card border-border hover:border-primary/50 transition-colors"
                 >
-                  <div className="text-2xl sm:text-3xl font-semibold text-foreground">
+                  <div className="text-xl sm:text-2xl font-semibold text-foreground">
                     {metric.value}
                   </div>
-                  <p className="mt-1 text-xs sm:text-sm text-muted-foreground">
+                  <p className="mt-0.5 text-xs text-muted-foreground">
                     {metric.label}
                   </p>
                 </Card>
