@@ -49,7 +49,7 @@ export function ProjectsSection({ projects }: ProjectsSectionProps) {
     <section className="border-b border-border bg-background py-20">
       <Container className="px-4">
         <div className="mb-16 grid gap-10 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.1fr)] lg:items-end">
-          <FadeIn direction="right" delay={0.2}>
+          <FadeIn delay={0.2}>
             <div className="space-y-4">
               <MaskText
                 phrases={['Selected Energy Deployments']}
@@ -63,7 +63,7 @@ export function ProjectsSection({ projects }: ProjectsSectionProps) {
               />
             </div>
           </FadeIn>
-          <FadeIn direction="left" delay={0.3}>
+          <FadeIn delay={0.3}>
             <div className="flex flex-wrap gap-3 text-sm text-muted-foreground">
               <span className="inline-flex items-center gap-2 rounded-full border border-border px-4 py-2 uppercase tracking-wide">
                 <MapPin className="h-4 w-4" /> Nationwide coverage
@@ -89,7 +89,7 @@ export function ProjectsSection({ projects }: ProjectsSectionProps) {
 
             return (
               <motion.div key={project._id} variants={staggerItem}>
-                <Card className="group flex h-full flex-col overflow-hidden border border-border bg-card/90 shadow-lg transition-all duration-300 hover:-translate-y-1 hover:border-primary/40 hover:shadow-xl p-0">
+                <Card className="group h-full overflow-hidden border-border bg-card hover:border-primary/30 hover:shadow-2xl transition-all duration-500 p-0">
                   {/* Project Image */}
                   <div className="aspect-[16/9] overflow-hidden relative bg-muted">
                     <Image

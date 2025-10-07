@@ -43,10 +43,17 @@ export function CompanySection() {
         <FadeIn delay={0.2}>
           <div className="mb-8 sm:mb-12 md:mb-16">
             <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 sm:gap-6">
-              <MaskText
-                phrases={['Why organisations trust ACOB Lighting']}
-                className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-semibold  max-w-2xl"
-              />
+              <div className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-semibold max-w-2xl">
+                <MaskText
+                  phrases={['Why organisations trust']}
+                  className=""
+                />
+
+                <MaskText
+                  phrases={['ACOB Lighting']}
+                  className=" bg-foreground text-white dark:text-primary  p-2 w-fit"
+                />
+              </div>
               <Link href="/about" className="inline-flex w-full sm:w-auto">
                 <Button
                   size="lg"
@@ -63,7 +70,7 @@ export function CompanySection() {
         {/* Main Content Grid - Responsive */}
         <div className="grid gap-8 sm:gap-10 md:gap-12 lg:gap-16 xl:grid-cols-2">
           {/* Left Column - Mission & Capabilities */}
-          <FadeIn direction="right" delay={0.3}>
+          <FadeIn delay={0.3}>
             <div className="space-y-6 sm:space-y-8 order-2 xl:order-1">
               {/* Mission Statements */}
               <div className="space-y-3">
@@ -127,7 +134,7 @@ export function CompanySection() {
           </FadeIn>
 
           {/* Right Column - Image & Impact Highlights */}
-          <FadeIn direction="left" delay={0.4}>
+          <FadeIn delay={0.4}>
             <div className="space-y-6 sm:space-y-8 order-1 xl:order-2">
               {/* Company Image */}
               <div className="relative overflow-hidden rounded-2xl sm:rounded-3xl border border-border bg-card/90 shadow-xl">

@@ -30,7 +30,7 @@ const ServicesSection = React.memo(function ServicesSection() {
     <section className="border-b border-border bg-[radial-gradient(circle_at_top,_rgba(8,_145,_63,_0.07),_transparent_55%)] py-20 transition-colors duration-700 dark:bg-zinc-950">
       <Container className="px-4">
         <div className="mb-16 grid gap-12 lg:grid-cols-[minmax(0,1.1fr)_minmax(0,0.9fr)] lg:items-center">
-          <FadeIn direction="right" delay={0.3}>
+          <FadeIn delay={0.3}>
             <div className="space-y-6">
               <MaskText
                 phrases={['Integrated renewable energy for every scale']}
@@ -99,7 +99,7 @@ const ServicesSection = React.memo(function ServicesSection() {
         >
           {primaryServices.map(service => (
             <motion.div key={service.slug as string} variants={staggerItem}>
-              <Card className="group flex h-full flex-col overflow-hidden border border-border bg-card/90 shadow-lg transition-all duration-300 hover:-translate-y-1 hover:border-primary/40 hover:shadow-xl">
+              <Card className="group flex h-full flex-col overflow-hidden border border-border bg-card/90 shadow-lg transition-all duration-300 hover:-translate-y-1 hover:border-primary/40 hover:shadow-xl !p-0">
                 <div className="relative aspect-[16/10] overflow-hidden">
                   <Image
                     src={service.image || '/placeholder.svg'}
@@ -113,7 +113,7 @@ const ServicesSection = React.memo(function ServicesSection() {
                   </div>
                 </div>
 
-                <CardContent className="flex flex-1 flex-col p-8">
+                <CardContent className="flex flex-1 flex-col p-4">
                   <div className="space-y-3">
                     <h3 className="text-2xl font-semibold leading-snug text-foreground">
                       {service.title}
