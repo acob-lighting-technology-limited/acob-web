@@ -4,7 +4,7 @@ import React from 'react';
 
 const CallToAction = () => {
   return (
-    <div className="bg-primary p-8 rounded-lg text-primary-foreground text-center">
+    <div className="bg-primary p-4 sm:p-6 xl:p-8 rounded-lg text-primary-foreground text-center">
       {/* Icon */}
       <div className="mb-6 flex justify-center">
         <div className="relative">

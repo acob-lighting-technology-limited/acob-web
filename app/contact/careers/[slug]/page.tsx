@@ -91,7 +91,7 @@ export default async function JobPostingPage({ params }: JobPostingPageProps) {
           <div className="lg:col-span-2 ">
             {/* Job Details */}
             <Card className="border shadow-md border-border bg-surface">
-              <CardContent className="p-8">
+              <CardContent className="p-4 sm:p-6 xl:p-8">
                 <div className="mb-6">
                   <h1 className="text-3xl font-bold mb-4 text-foreground">
                     {job.title}

@@ -16,7 +16,7 @@ export function ProjectsSkeleton() {
             style={{ top: `calc(-1vh + ${i * 25}px)` }}
           >
             <div className="relative bg-white dark:bg-gray-800 rounded-2xl shadow-xl overflow-hidden">
-              <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 p-8">
+              <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 p-4 sm:p-6 xl:p-8">
                 {/* Image skeleton */}
                 <div className="relative h-64 lg:h-80">
                   <div className="absolute inset-0 bg-gray-300 dark:bg-gray-700 rounded-lg animate-pulse" />

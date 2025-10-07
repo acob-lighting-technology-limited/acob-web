@@ -52,7 +52,7 @@ export default async function LatestPage() {
                     className="w-full h-full object-cover"
                   />
                 </div>
-                <CardContent className="p-8">
+                <CardContent className="p-4 sm:p-6 xl:p-8">
                   <div className="flex items-center text-sm text-muted-foreground mb-4">
                     <span className="bg-primary/10 text-primary px-2 py-1 rounded-full text-xs font-medium">
                       Featured

@@ -300,7 +300,7 @@ export function GalleryClient({ galleryData }: GalleryClientProps) {
       {/* Category Cards Grid */}
       {filteredData.length === 0 ? (
         <Card className="!border-t-2 !border-t-primary border border-border">
-          <CardContent className="p-8 text-center">
+          <CardContent className="p-4 sm:p-6 xl:p-8 text-center">
             <div className="text-muted-foreground mb-4">
               <Camera className="h-12 w-12 mx-auto mb-4 opacity-50" />
               <h3 className="text-xl font-semibold mb-2">No categories found</h3>

@@ -24,9 +24,9 @@ export default function CertificationsPage() {
     <>
       <PageHero
         title="Certifications that Anchor Our Reliability"
-        eyebrow="Certifications & Awards"
+        // eyebrow="Certifications & Awards"
         backgroundImage="/images/about/acob-team.webp?height=800&width=1600"
-        align="center"
+        // align="center"
       >
         <p className="mx-auto max-w-3xl text-balance text-lg text-white/90 md:text-xl">
           We uphold rigorous quality, safety, and environmental standards so every asset we
@@ -73,7 +73,7 @@ export default function CertificationsPage() {
           </div>
 
           <aside className="space-y-6">
-            <Card className="rounded-3xl border border-border bg-card/80 p-8 shadow-sm">
+            <Card className="rounded-3xl border border-border bg-card/80 p-4 sm:p-6 xl:p-8 shadow-sm">
               <CardContent className="p-0 space-y-4">
                 <h3 className="text-lg font-semibold text-foreground">Accreditation Pillars</h3>
                 <div className="space-y-3 text-sm text-muted-foreground">
@@ -95,7 +95,7 @@ export default function CertificationsPage() {
               </CardContent>
             </Card>
 
-            <Card className="rounded-3xl border border-border bg-primary/5 p-8 text-primary">
+            <Card className="rounded-3xl border border-border bg-primary/5 p-4 sm:p-6 xl:p-8 text-primary">
               <p className="text-sm font-semibold uppercase tracking-[0.2em]">
                 Assurance Statement
               </p>
@@ -222,7 +222,7 @@ export default function CertificationsPage() {
             </div>
           </div>
 
-          <Card className="flex h-full flex-col justify-between gap-4 rounded-3xl border border-primary/30 bg-primary/5 p-8 text-primary">
+          <Card className="flex h-full flex-col justify-between gap-4 rounded-3xl border border-primary/30 bg-primary/5 p-4 sm:p-6 xl:p-8 text-primary">
             <div className="space-y-3">
               <p className="text-sm font-semibold uppercase tracking-[0.2em]">
                 Partner Confidence

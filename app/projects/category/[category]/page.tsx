@@ -150,7 +150,7 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
           <div className="lg:col-span-2">
             {projects.length === 0 ? (
               <Card className="!border-t-2 !border-t-primary border border-border">
-                <CardContent className="p-8 text-center">
+                <CardContent className="p-4 sm:p-6 xl:p-8 text-center">
                   <div className="text-muted-foreground mb-4">
                     <h3 className="text-xl font-semibold mb-2">No projects found</h3>
                     <p>No projects available in this category yet.</p>

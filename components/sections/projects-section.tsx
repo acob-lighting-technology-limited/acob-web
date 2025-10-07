@@ -138,7 +138,7 @@ export function ProjectsSection({ projects }: ProjectsSectionProps) {
         </StaggerChildren>
 
         <FadeIn delay={0.5}>
-          <div className="mt-16 flex flex-wrap items-center justify-between gap-6 rounded-3xl border border-border bg-muted/30 p-4 sm:p-8">
+          <div className="mt-16 flex flex-wrap items-center justify-between gap-6 rounded-3xl border border-border bg-muted/30 p-4 sm:p-6 xl:p-8">
             <div className="space-y-2">
               <h3 className="text-xl font-semibold text-foreground">
                 Need a tailored clean energy deployment?

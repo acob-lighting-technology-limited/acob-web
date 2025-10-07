@@ -45,7 +45,7 @@ export function AboutSection() {
           </FadeIn>
 
           <FadeIn delay={0.5}>
-            <div className="space-y-6 rounded-3xl bg-white/10 p-8 shadow-lg backdrop-blur supports-[backdrop-filter]:backdrop-blur-xl">
+            <div className="space-y-6 rounded-3xl bg-white/10 p-4 sm:p-6 xl:p-8 shadow-lg backdrop-blur supports-[backdrop-filter]:backdrop-blur-xl">
               <h3 className="text-xl font-semibold uppercase tracking-wide text-primary-foreground">
                 How we support your energy transition
               </h3>
