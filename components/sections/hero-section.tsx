@@ -4,7 +4,6 @@ import React, {
   useState,
   useEffect,
   useMemo,
-  useCallback,
 } from 'react';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
@@ -28,7 +27,13 @@ import { applySanityImagePreset } from '@/lib/utils/sanity-image';
 import { stats } from '@/lib/data/transition-data';
 
 interface HeroSectionProps {
-  projects: any[];
+  projects: Array<{
+    _id: string;
+    title: string;
+    projectImage?: string;
+    location?: string;
+    slug?: { current: string };
+  }>;
 }
 
 const HeroSection = React.memo(function HeroSection({
@@ -93,7 +98,7 @@ const HeroSection = React.memo(function HeroSection({
   }, []);
 
   return (
-    <section className="relative isolate overflow-hidden border-b border-border bg-background pb-4 pt-4 sm:pb-4 sm:pt-4">
+    <section className="relative isolate border-b border-border bg-background pb-4 pt-4 sm:pb-4 sm:pt-4 overflow-x-hidden">
       <div
         aria-hidden="true"
         className="absolute inset-x-0 top-0 h-64 bg-gradient-to-b from-primary/10 via-transparent to-transparent blur-3xl dark:from-primary/15"
@@ -103,9 +108,9 @@ const HeroSection = React.memo(function HeroSection({
         className="absolute -right-32 top-16 hidden h-72 w-72 rounded-full bg-primary/20 blur-3xl sm:block dark:bg-primary/25"
       />
 
-      <Container className="relative px-4">
+      <Container className="relative px-4 max-w-full overflow-x-hidden">
         <div className="grid items-start gap-12 lg:grid-cols-2 xl:gap-16">
-          <div className="space-y-8">
+          <div className="space-y-8 min-w-0">
             <Badge className="bg-primary/10 text-foreground/60 border-primary/20 text-sm font-medium uppercase tracking-wide">
               Renewable Energy Experts
             </Badge>
@@ -140,7 +145,7 @@ const HeroSection = React.memo(function HeroSection({
               ))}
             </div>
 
-            <div className="flex  flex-wrap gap-4">
+            <div className="flex flex-wrap gap-4">
               <Link href="/contact/quote" className="w-full sm:w-auto">
                 <Button size="lg" className="w-full sm:w-auto px-8 py-6 text-base">
                   Request an energy audit
@@ -159,9 +164,9 @@ const HeroSection = React.memo(function HeroSection({
             </div>
           </div>
 
-          <div className="relative">
+          <div className="relative min-w-0 w-full">
             <div
-              className="absolute -inset-x-6 -inset-y-4 rounded-[2.5rem] bg-primary/10 blur-2xl dark:bg-primary/15"
+              className="absolute inset-0 sm:-inset-x-4 -inset-y-4 rounded-[2.5rem] bg-primary/10 blur-2xl dark:bg-primary/15"
               aria-hidden="true"
             />
             
@@ -172,21 +177,21 @@ const HeroSection = React.memo(function HeroSection({
                 align: 'start',
                 loop: true,
               }}
-              className="w-full"
+              className="w-full relative"
             >
-              <Card className="relative overflow-hidden border-border bg-card p-4">
+              <Card className="relative overflow-hidden border-border bg-card p-3 sm:p-4">
                 
                 <div className="flex items-center justify-between text-xs uppercase tracking-wide text-muted-foreground mb-4">
                   <span>Featured project</span>
                   <span>{String(current + 1).padStart(2, '0')}</span>
                 </div>
 
-                <div className="space-y-6">
+                <div className="space-y-4 sm:space-y-6">
                   {/* Carousel - Only image, location, and title slide */}
                   <div className="relative">
-                    <CarouselContent>
+                    <CarouselContent className="-ml-2 sm:-ml-4">
                       {allSlides.map((slide, index) => (
-                        <CarouselItem key={slide.id}>
+                        <CarouselItem key={slide.id} className="pl-2 sm:pl-4">
                           <div className="relative overflow-hidden rounded-2xl border border-border bg-muted">
                             <Image
                               src={slide.image}
@@ -198,12 +203,12 @@ const HeroSection = React.memo(function HeroSection({
                             />
                           </div>
                           
-                          <div className="mt-6 space-y-3">
+                          <div className="mt-4 sm:mt-6 space-y-2 sm:space-y-3">
                             <div className="flex items-center gap-2 text-sm text-muted-foreground">
-                              <MapPin className="h-4 w-4" />
-                              <span>{slide.location}</span>
+                              <MapPin className="h-4 w-4 flex-shrink-0" />
+                              <span className="truncate">{slide.location}</span>
                             </div>
-                            <h2 className="text-2xl font-semibold text-foreground line-clamp-2">
+                            <h2 className="text-xl sm:text-2xl font-semibold text-foreground line-clamp-2">
                               {slide.title}
                             </h2>
                           </div>
@@ -211,13 +216,13 @@ const HeroSection = React.memo(function HeroSection({
                       ))}
                     </CarouselContent>
                     
-                    <CarouselPrevious className="left-2" />
-                    <CarouselNext className="right-2" />
+                    <CarouselPrevious className="left-0 sm:left-2 hidden md:flex" />
+                    <CarouselNext className="right-0 sm:right-2 hidden md:flex" />
                   </div>
 
                   {/* Static Controls - Dots and View Project button */}
-                  <div className="flex items-center justify-between">
-                    <div className="flex items-center gap-2">
+                  <div className="flex items-center justify-between gap-4">
+                    <div className="flex items-center gap-2 flex-shrink-0">
                       {allSlides.map((_, dotIndex) => (
                         <button
                           key={dotIndex}
@@ -233,9 +238,10 @@ const HeroSection = React.memo(function HeroSection({
                     </div>
 
                     {allSlides[current]?.slug && (
-                      <Link href={`/projects/${allSlides[current].slug}`}>
+                      <Link href={`/projects/${allSlides[current].slug}`} className="flex-shrink-0">
                         <Button size="sm" variant="outline" className="gap-2">
-                          View project
+                          <span className="hidden sm:inline">View project</span>
+                          <span className="sm:hidden">View</span>
                           <ArrowRight className="h-4 w-4" />
                         </Button>
                       </Link>
