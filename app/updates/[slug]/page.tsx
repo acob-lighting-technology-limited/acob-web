@@ -162,7 +162,7 @@ export default async function UpdatePostPage({ params }: UpdatePostPageProps) {
         {/* Main Content */}
         <div className="lg:col-span-2">
           <Card className="">
-            <CardContent className="p-6 md:p-8 space-y-8">
+            <CardContent className="p-4 sm:p-6 xl:p-8 space-y-8">
               {/* Featured Image */}
               {post.featuredImage && (
                 <div className="aspect-[16/9] overflow-hidden rounded-lg">
@@ -273,7 +273,7 @@ export default async function UpdatePostPage({ params }: UpdatePostPageProps) {
 
           {/* Display Comments */}
           <Card className="mt-12 ">
-            <CardContent className="p-8">
+            <CardContent className="p-4 sm:p-6 xl:p-8">
               <h2 className="text-2xl font-bold mb-6">
                 Comments ({comments.length})
               </h2>

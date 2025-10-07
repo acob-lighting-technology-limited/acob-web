@@ -40,7 +40,7 @@ export default function TermsOfServicePage() {
           {/* Main Content */}
           <div className="space-y-8">
             <Card className="border-border/50 shadow-sm">
-              <CardContent className="p-8 space-y-8">
+              <CardContent className="p-4 sm:p-6 xl:p-8 space-y-8">
                 <section className="group">
                   <div className="flex items-center gap-3 mb-4">
                     <div className="w-8 h-8 bg-primary/10 rounded-full flex items-center justify-center text-primary font-bold text-sm">

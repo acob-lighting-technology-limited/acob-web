@@ -87,7 +87,7 @@ export default function MissionPage() {
               </p>
             </div>
 
-            <div className="rounded-3xl border border-primary/30 bg-primary/5 p-8">
+            <div className="rounded-3xl border border-primary/30 bg-primary/5 p-4 sm:p-6 xl:p-8">
               <h3 className="text-xl font-semibold text-foreground">Our Mission</h3>
               <p className="mt-4 text-base leading-relaxed text-muted-foreground">
                 We deploy scalable mini-grids, hybrid systems, and smart lighting solutions
@@ -99,7 +99,7 @@ export default function MissionPage() {
           </div>
 
           <aside className="space-y-6">
-            <Card className="rounded-3xl border border-border bg-card/80 p-8 shadow-sm">
+            <Card className="rounded-3xl border border-border bg-card/80 p-4 sm:p-6 xl:p-8 shadow-sm">
               <CardContent className="flex flex-col gap-4 p-0">
                 <h3 className="text-lg font-semibold text-foreground">Mission Metrics</h3>
                 <div className="grid gap-4 sm:grid-cols-2">
@@ -120,7 +120,7 @@ export default function MissionPage() {
               </CardContent>
             </Card>
 
-            <Card className="rounded-3xl border border-border bg-card/80 p-8 shadow-sm">
+            <Card className="rounded-3xl border border-border bg-card/80 p-4 sm:p-6 xl:p-8 shadow-sm">
               <CardContent className="p-0">
                 <h3 className="text-lg font-semibold text-foreground">Strategic Pillars</h3>
                 <div className="mt-4 space-y-4">

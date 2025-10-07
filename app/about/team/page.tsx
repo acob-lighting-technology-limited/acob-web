@@ -59,7 +59,7 @@ export default function TeamPage() {
           </div>
 
           <aside className="space-y-6">
-            <Card className="rounded-3xl border border-border bg-card/80 p-8 shadow-sm">
+            <Card className="rounded-3xl border border-border bg-card/80 p-4 sm:p-6 xl:p-8 shadow-sm">
               <CardContent className="p-0 space-y-3">
                 <h3 className="text-lg font-semibold text-foreground">
                   Team Snapshot
@@ -90,7 +90,7 @@ export default function TeamPage() {
               </CardContent>
             </Card>
 
-            <Card className="rounded-3xl border border-border bg-primary/5 p-8 text-primary">
+            <Card className="rounded-3xl border border-border bg-primary/5 p-4 sm:p-6 xl:p-8 text-primary">
               <p className="text-sm font-semibold uppercase tracking-[0.2em]">
                 Team Ethos
               </p>
