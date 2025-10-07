@@ -93,7 +93,7 @@ export default function AboutPage() {
           </div>
 
           <div className="flex flex-col justify-between gap-6">
-            <div className="rounded-3xl border border-border bg-card/90 p-8 shadow-sm">
+            <div className="rounded-3xl border border-border bg-card/90 p-4 sm:p-6 xl:p-8 shadow-sm">
               <h4 className="text-lg font-semibold text-foreground">Impact Snapshot</h4>
               <p className="mt-3 text-sm text-muted-foreground">
                 Our infrastructure powers inclusive growth across Nigeria&apos;s rural and
@@ -116,7 +116,7 @@ export default function AboutPage() {
               </div>
             </div>
 
-            <Card className="flex flex-col gap-4 rounded-3xl border border-primary/30 bg-primary/5 p-8 text-foreground">
+            <Card className="flex flex-col gap-4 rounded-3xl border border-primary/30 bg-primary/5 p-4 sm:p-6 xl:p-8 text-foreground">
               <p className="text-sm font-semibold uppercase tracking-[0.25em] text-primary">
                 Impact Quote
               </p>

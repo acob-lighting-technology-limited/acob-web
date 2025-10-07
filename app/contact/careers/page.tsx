@@ -49,7 +49,7 @@ export default async function CareersPage() {
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 items-start">
           <div className="lg:col-span-2 ">
             <Card className="border shadow-md border-border bg-surface">
-              <CardContent className="p-8">
+              <CardContent className="p-4 sm:p-6 xl:p-8">
                 <h2 className="text-3xl font-bold mb-6 text-foreground">
                   Shape the Future of Energy with Us
                 </h2>
@@ -74,7 +74,7 @@ export default async function CareersPage() {
             </Card>
 
             <Card className="border shadow-md border-border bg-surface">
-              <CardContent className="p-8">
+              <CardContent className="p-4 sm:p-6 xl:p-8">
                 <h2 className="text-3xl font-bold mb-6 text-foreground">
                   Why Work at ACOB Lighting?
                 </h2>
@@ -105,7 +105,7 @@ export default async function CareersPage() {
             </Card>
 
             <Card className="border shadow-md border-border bg-surface">
-              <CardContent className="p-8">
+              <CardContent className="p-4 sm:p-6 xl:p-8">
                 <h2 className="text-3xl font-bold mb-6 text-foreground">
                   {jobPostings.length > 0 ? 'Current Openings' : 'Career Opportunities'}
                 </h2>

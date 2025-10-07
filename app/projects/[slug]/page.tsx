@@ -160,7 +160,7 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
           <div className="lg:col-span-2  ">
             {/* Overview */}
             <Card>
-              <CardContent className="p-8">
+              <CardContent className="p-4 sm:p-6 xl:p-8">
                 <h2 className="text-3xl font-bold mb-6 text-foreground">
                   Project Overview
                 </h2>

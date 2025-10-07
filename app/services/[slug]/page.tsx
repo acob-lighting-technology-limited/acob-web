@@ -84,7 +84,7 @@ export default async function ServicePage({ params }: ServicePageProps) {
           <div className="lg:col-span-2">
             {/* Overview */}
             <Card className="border shadow-md border-border bg-surface">
-              <CardContent className="p-8">
+              <CardContent className="p-4 sm:p-6 xl:p-8">
                 <h2 className="text-3xl font-bold mb-6 text-foreground">
                   Overview
                 </h2>
@@ -117,7 +117,7 @@ export default async function ServicePage({ params }: ServicePageProps) {
 
             {/* Features */}
             {/* <Card className="border shadow-md border-border bg-surface">
-              <CardContent className="p-8">
+              <CardContent className="p-4 sm:p-6 xl:p-8">
                 <h2 className="text-3xl font-bold mb-6 text-foreground">
                   Key Features
                 </h2>
@@ -134,7 +134,7 @@ export default async function ServicePage({ params }: ServicePageProps) {
 
             {/* Applications */}
             {/* <Card className="border shadow-md border-border bg-surface">
-              <CardContent className="p-8">
+              <CardContent className="p-4 sm:p-6 xl:p-8">
                 <h2 className="text-3xl font-bold mb-6 text-foreground">
                   Applications
                 </h2>
@@ -151,7 +151,7 @@ export default async function ServicePage({ params }: ServicePageProps) {
 
             {/* Why Choose Us */}
             {/* <Card className="border shadow-md border-border bg-surface">
-              <CardContent className="p-8">
+              <CardContent className="p-4 sm:p-6 xl:p-8">
                 <h2 className="text-3xl font-bold mb-6 text-foreground">
                   Why Choose Us?
                 </h2>

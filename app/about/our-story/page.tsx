@@ -71,7 +71,7 @@ export default function OurStoryPage() {
           </div>
 
           <aside className="space-y-6">
-            <Card className="rounded-3xl border border-primary/30 bg-primary/5 p-8 text-foreground">
+            <Card className="rounded-3xl border border-primary/30 bg-primary/5 p-4 sm:p-6 xl:p-8 text-foreground">
               <p className="text-sm font-semibold uppercase tracking-[0.25em] text-primary">
                 Leadership Perspective
               </p>
@@ -88,7 +88,7 @@ export default function OurStoryPage() {
               </div>
             </Card>
 
-            <Card className="rounded-3xl border border-border bg-card/80 p-8 shadow-sm">
+            <Card className="rounded-3xl border border-border bg-card/80 p-4 sm:p-6 xl:p-8 shadow-sm">
               <CardContent className="p-0">
                 <h3 className="text-lg font-semibold text-foreground">Quick Facts</h3>
                 <div className="mt-4 grid gap-3">

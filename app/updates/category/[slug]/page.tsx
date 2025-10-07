@@ -73,7 +73,7 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
           <div className="lg:col-span-2">
             {categoryPosts.length === 0 ? (
               <Card>
-                <CardContent className="p-8 text-center">
+                <CardContent className="p-4 sm:p-6 xl:p-8 text-center">
                   <div className="text-muted-foreground mb-4">
                     <Calendar className="h-12 w-12 mx-auto mb-4 opacity-50" />
                     <h3 className="text-xl font-semibold mb-2">

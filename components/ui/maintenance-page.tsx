@@ -15,7 +15,7 @@ export function MaintenancePage({
   return (
     <div className="min-h-[60vh] flex items-center justify-center py-16">
       <Card className="max-w-md mx-auto text-center">
-        <CardContent className="p-8">
+        <CardContent className="p-4 sm:p-6 xl:p-8">
           <div className="mb-6">
             <Wrench className="h-16 w-16 mx-auto text-primary mb-4" />
             <h1 className="text-2xl font-bold text-foreground mb-2">
