@@ -66,9 +66,10 @@ export function CommentForm({ postId }: CommentFormProps) {
         <form onSubmit={handleSubmit} className="space-y-6">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div>
-              <Label htmlFor="name">Name</Label>
+              <Label htmlFor="update-comment-name">Name</Label>
               <Input
-                id="name"
+                id="update-comment-name"
+                name="name"
                 value={name}
                 onChange={e => setName(e.target.value)}
                 placeholder="Your name"
@@ -77,9 +78,10 @@ export function CommentForm({ postId }: CommentFormProps) {
               />
             </div>
             <div>
-              <Label htmlFor="email">Email</Label>
+              <Label htmlFor="update-comment-email">Email</Label>
               <Input
-                id="email"
+                id="update-comment-email"
+                name="email"
                 type="email"
                 value={email}
                 onChange={e => setEmail(e.target.value)}
@@ -90,9 +92,10 @@ export function CommentForm({ postId }: CommentFormProps) {
             </div>
           </div>
           <div>
-            <Label htmlFor="comment">Comment</Label>
+            <Label htmlFor="update-comment-text">Comment</Label>
             <Textarea
-              id="comment"
+              id="update-comment-text"
+              name="comment"
               value={comment}
               onChange={e => setComment(e.target.value)}
               rows={6}

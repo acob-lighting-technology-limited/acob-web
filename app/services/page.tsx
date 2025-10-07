@@ -203,7 +203,7 @@ export default function ServicesPage() {
     <>
       <PageHero
         title="Services"
-        backgroundImage="/images/services/header.jpg?height=400&width=1200"
+        backgroundImage="/images/services/header.webp?height=400&width=1200"
       />
 
       <Container className="px-4 py-8">
@@ -348,10 +348,10 @@ export default function ServicesPage() {
                       <div className="mt-auto">
                         <Link 
                           href={`/services/${service.slug}`}
-                          aria-label={`Learn more about ${service.title}`}
                         >
                           <Button className="w-full bg-primary hover:bg-primary/90 text-primary-foreground">
-                            Read More
+                            <span className="sr-only">Learn more about {service.title}</span>
+                            <span aria-hidden="true">Read More</span>
                             <ArrowRight className="ml-2 h-4 w-4" />
                           </Button>
                         </Link>

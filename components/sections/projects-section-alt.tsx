@@ -81,7 +81,7 @@ export function ProjectsSectionAlt() {
           : [
             {
               asset: {
-                url: '/images/olooji-community.jpg?height=800&width=1400',
+                url: '/images/olooji-community.webp?height=800&width=1400',
               },
             },
           ];

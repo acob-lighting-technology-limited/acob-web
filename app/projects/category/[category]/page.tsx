@@ -24,22 +24,22 @@ const categoryInfo: Record<string, { title: string; description: string; image: 
   'rural-electrification': {
     title: 'Rural Electrification',
     description: 'Bringing reliable power to remote communities across Nigeria',
-    image: '/images/projects/rural-electrification.jpg?height=400&width=1200'
+    image: '/images/adebayo-community.webp?height=400&width=1200'
   },
   'commercial-installations': {
     title: 'Commercial Installations',
     description: 'Solar solutions for businesses and commercial establishments',
-    image: '/images/projects/commercial-installations.jpg?height=400&width=1200'
+    image: '/images/airport-road-abuja.webp?height=400&width=1200'
   },
   'street-lighting': {
     title: 'Street Lighting',
     description: 'Public lighting infrastructure projects for safer communities',
-    image: '/images/projects/street-lighting.jpg?height=400&width=1200'
+    image: '/images/projects/installation-high-density-streetlight-1.webp?height=400&width=1200'
   },
   'healthcare-projects': {
     title: 'Healthcare Projects',
     description: 'Powering hospitals and healthcare facilities with reliable energy',
-    image: '/images/projects/healthcare-projects.jpg?height=400&width=1200'
+    image: '/images/projects/keffi-nassarawa-hospital-1.webp?height=400&width=1200'
   }
 };
 

@@ -38,7 +38,7 @@ export default async function CaseStudiesPage() {
     <>
       <PageHero
         title="Case Studies"
-        backgroundImage="/images/services/header.jpg?height=400&width=1200"
+        backgroundImage="/images/services/header.webp?height=400&width=1200"
       />
 
       <Container className="px-4 py-8">
@@ -103,10 +103,10 @@ export default async function CaseStudiesPage() {
                       <div className="mt-auto">
                         <Link 
                           href={`/updates/${post.slug.current}`}
-                          aria-label={`Read more about ${post.title} case study`}
                         >
                           <Button className="w-full">
-                            Read More
+                            <span className="sr-only">Read more about {post.title}</span>
+                            <span aria-hidden="true">Read More</span>
                             <ArrowRight className="ml-2 h-4 w-4" />
                           </Button>
                         </Link>

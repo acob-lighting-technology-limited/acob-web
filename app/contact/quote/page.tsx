@@ -15,7 +15,7 @@ export default function GetQuotePage() {
     <>
       <PageHero
         title="Request a Quote"
-        backgroundImage="/images/contact/get-quote-hero.jpg?height=400&width=1200"
+        backgroundImage="/images/contact/contact-us.webp?height=400&width=1200"
       >
         <MaskText
           phrases={[

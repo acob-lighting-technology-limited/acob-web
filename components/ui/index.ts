@@ -27,6 +27,7 @@ export {
   CarouselNext,
   CarouselPrevious,
 } from './carousel';
+export { AutoCarousel } from './auto-carousel';
 export {
   NavigationMenu,
   NavigationMenuContent,

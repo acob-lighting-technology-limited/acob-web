@@ -3,17 +3,29 @@
 import React, {
   useState,
   useEffect,
-  useRef,
-  useCallback,
   useMemo,
+  useCallback,
 } from 'react';
 import { Button } from '@/components/ui/button';
-import { ArrowRight, ChevronLeft, ChevronRight } from 'lucide-react';
+import { Badge } from '@/components/ui/badge';
+import { Card } from '@/components/ui/card';
+import {
+  Carousel,
+  CarouselContent,
+  CarouselItem,
+  CarouselNext,
+  CarouselPrevious,
+  type CarouselApi,
+} from '@/components/ui/carousel';
+import { ArrowRight, MapPin } from 'lucide-react';
+import Autoplay from 'embla-carousel-autoplay';
 
-import type { Project } from '@/lib/types';
 import Link from 'next/link';
-import SimpleSpinnerExit from '../loader/simple-spinner-exit';
+import Image from 'next/image';
+import { Container } from '@/components/ui/container';
+import { MaskText } from '@/components/animations/MaskText';
 import { applySanityImagePreset } from '@/lib/utils/sanity-image';
+import { stats } from '@/lib/data/transition-data';
 
 interface HeroSectionProps {
   projects: any[];
@@ -22,299 +34,219 @@ interface HeroSectionProps {
 const HeroSection = React.memo(function HeroSection({
   projects,
 }: HeroSectionProps) {
-  const [currentSlide, setCurrentSlide] = useState(0);
-  const [isTransitioning, setIsTransitioning] = useState(false);
-  const [showContent, setShowContent] = useState(true);
-  const [isPaused] = useState(false);
-  const intervalRef = useRef<NodeJS.Timeout | null>(null);
-
-  // Convert projects to slides format with optimized images
   const allSlides = useMemo(() => {
     if (!projects || projects.length === 0) {
-      return [{
-        id: 'fallback',
-        title: 'ACOB Lighting Technology Limited',
-        image: '/images/olooji-community.jpg?height=800&width=1400',
-        location: 'Powering Communities Across Nigeria',
-        slug: '',
-      }];
+      return [
+        {
+          id: 'fallback',
+          title: 'Empowering Communities with Reliable Solar',
+          image: '/images/olooji-community.webp?height=800&width=1400',
+          location: 'Powering communities across Nigeria',
+          slug: '',
+        },
+      ];
     }
-    
-    // Limit to maximum 6 products/slides
-    const limitedProjects = projects.slice(0, 6);
-    
-    return limitedProjects.map(project => ({
+
+    return projects.slice(0, 6).map(project => ({
       id: `project-${project._id}`,
       title: project.title,
-      image: project.projectImage 
-        ? applySanityImagePreset(project.projectImage, 'hero')
-        : '/images/olooji-community.jpg?height=800&width=1400', // fallback
-      location: project.location,
-      slug: project.slug.current,
+      image: project.projectImage
+        ? applySanityImagePreset(project.projectImage, 'card')
+        : '/images/olooji-community.webp?height=800&width=1400',
+      location: project.location || 'Across Nigeria',
+      slug: project.slug?.current ?? '',
     }));
   }, [projects]);
 
-  const changeSlide = useCallback(
-    (newIndex: number) => {
-      if (isTransitioning || newIndex === currentSlide) {
-        return;
-      }
+  const [api, setApi] = useState<CarouselApi>();
+  const [current, setCurrent] = useState(0);
 
-      setIsTransitioning(true);
-      setShowContent(false);
-
-      setTimeout(() => {
-        setCurrentSlide(newIndex);
-        setTimeout(() => {
-          setShowContent(true);
-          setIsTransitioning(false);
-        }, 200);
-      }, 800);
-    },
-    [isTransitioning, currentSlide],
+  const plugin = React.useRef(
+    Autoplay({ delay: 6000, stopOnInteraction: true })
   );
 
-  const nextSlide = useCallback(() => {
-    changeSlide((currentSlide + 1) % allSlides.length);
-  }, [currentSlide, allSlides.length, changeSlide]);
-
-  const prevSlide = useCallback(() => {
-    changeSlide((currentSlide - 1 + allSlides.length) % allSlides.length);
-  }, [currentSlide, allSlides.length, changeSlide]);
-
-  const goToSlide = (index: number) => {
-    changeSlide(index);
-  };
-
-  // Auto-play functionality with pause on hover
   useEffect(() => {
-    const startAutoPlay = () => {
-      if (intervalRef.current) {
-        clearInterval(intervalRef.current);
-      }
+    if (!api) {
+      return;
+    }
 
-      intervalRef.current = setInterval(() => {
-        if (!isPaused && !isTransitioning) {
-          nextSlide();
-        }
-      }, 10000); // 10 seconds
-    };
+    setCurrent(api.selectedScrollSnap());
 
-    startAutoPlay();
+    api.on('select', () => {
+      setCurrent(api.selectedScrollSnap());
+    });
+  }, [api]);
 
-    return () => {
-      if (intervalRef.current) {
-        clearInterval(intervalRef.current);
-      }
-    };
-  }, [currentSlide, isPaused, isTransitioning, nextSlide]);
+  const heroMetrics = useMemo(() => {
+    if (!stats || stats.length === 0) {
+      return [];
+    }
 
-  const currentSlideData = useMemo(
-    () => allSlides[currentSlide],
-    [currentSlide, allSlides],
-  );
-
-  // // Preload critical images for better LCP
-  // useEffect(() => {
-  //   if (allSlides.length > 0) {
-  //     // Preload first image with high priority
-  //     const preloadImage = new Image();
-  //     preloadImage.src = allSlides[0].image;
-  //     preloadImage.onload = () => {
-  //       console.log('Hero image preloaded successfully');
-  //     };
-
-  //     // Preload second image for smooth transitions
-  //     if (allSlides.length > 1) {
-  //       const preloadImage2 = new Image();
-  //       preloadImage2.src = allSlides[1].image;
-  //     }
-  //   }
-  // }, [allSlides]);
-
-
+    const [miniGrids, totalCapacity, communities, experience] = stats;
+    return [miniGrids, totalCapacity, communities ?? miniGrids, experience]
+      .filter(Boolean)
+      .slice(0, 3)
+      .map(item => ({
+        label: item.label,
+        value: `${item.number}${item.suffix ?? ''}`,
+      }));
+  }, []);
 
   return (
-    <section className="relative h-[70vh] md:h-[80vh] min-h-[300px] md:min-h-[700px] overflow-hidden w-full">
-      <div className="absolute inset-0 bg-black">
-        {allSlides.map((slide, index) => (
-          <div
-            key={`${slide.id}-${index}`}
-            className={`absolute inset-0 ${
-              index === currentSlide ? 'opacity-100' : 'opacity-0'
-            }`}
-          >
-            <div
-              className={`w-full h-full bg-cover bg-center bg-no-repeat ${
-                index === currentSlide && !isPaused ? 'ken-burns-zoom' : ''
-              }`}
-              style={{
-                backgroundImage: `url('${slide.image}')`,
-                transform: 'scale(1.05)',
-                transformOrigin: 'center center',
-              }}
-            />
-            {/* Preload next image for smooth transitions */}
-            {index === (currentSlide + 1) % allSlides.length && (
-              <div
-                className="hidden"
-                style={{
-                  backgroundImage: `url('${slide.image}')`,
-                }}
+    <section className="relative isolate overflow-hidden border-b border-border bg-background pb-4 pt-4 sm:pb-4 sm:pt-4">
+      <div
+        aria-hidden="true"
+        className="absolute inset-x-0 top-0 h-64 bg-gradient-to-b from-primary/10 via-transparent to-transparent blur-3xl dark:from-primary/15"
+      />
+      <div
+        aria-hidden="true"
+        className="absolute -right-32 top-16 hidden h-72 w-72 rounded-full bg-primary/20 blur-3xl sm:block dark:bg-primary/25"
+      />
+
+      <Container className="relative px-4">
+        <div className="grid items-start gap-12 lg:grid-cols-2 xl:gap-16">
+          <div className="space-y-8">
+            <Badge className="bg-primary/10 text-foreground/60 border-primary/20 text-sm font-medium uppercase tracking-wide">
+              Renewable Energy Experts
+            </Badge>
+            <div className="space-y-4">
+              <MaskText
+                phrases={["Powering sustainable futures for homes, businesses, and communities."]}
+                className="text-4xl font-bold leading-tight sm:text-5xl lg:text-6xl bg-six-color-gradient dark:bg-six-color-gradient-dark text-transparent bg-clip-text"
               />
-            )}
-          </div>
-        ))}
-      </div>
-
-      {/* Dark Overlay */}
-      <div className="absolute inset-0 bg-black/50" />
-
-      {/* Navigation Arrows */}
-      <button
-        onClick={prevSlide}
-        disabled={isTransitioning}
-        className="absolute left-0 top-1/2 -translate-y-1/2 z-20 w-12 h-12 rounded-full text-primary-foreground hover:scale-110 transition-all  disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center group"
-        aria-label="Previous slide"
-      >
-        <ChevronLeft className="h-24 w-24 text-primary-foreground opacity-30 hover:opacity-70 hover:text-primary-foreground group-hover:scale-110 transition-transform duration-200" />
-      </button>
-
-      <button
-        onClick={nextSlide}
-        disabled={isTransitioning}
-        className="absolute right-0 top-1/2 -translate-y-1/2 z-20 w-12 h-12 rounded-full text-primary-foreground hover:scale-110 transition-all  disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center group"
-        aria-label="Next slide"
-      >
-        <ChevronRight className="h-24 w-24 text-primary-foreground opacity-30 hover:opacity-70 hover:text-primary-foreground group-hover:scale-110 transition-transform duration-200" />
-      </button>
-
-      {/* Content with smooth animations */}
-      <div className="relative z-10 2xl:max-w-6xl text-primary-foreground  flex items-end p-6 sm:p-12 h-[70vh] sm:h-full min-h-[300px] sm:min-h-[700px] w-full">
-        <div className="2xl:px-8 max-w-7xl ">
-          <div className="w-full max-w-4xl">
-            {/* Animated Title */}
-            <div className="overflow-hidden mb-4 sm:mb-6">
-              <h1
-                className={`text-4xl md:text-7xl font-extrabold leading-tight text-left transition-all duration-1000 ease-out ${
-                  showContent
-                    ? 'transform translate-x-0 opacity-100 blur-0'
-                    : 'transform -translate-x-full opacity-0 '
-                }`}
-                style={{ transitionDelay: showContent ? '400ms' : '0ms' }}
-              >
-                {currentSlideData.title}
-              </h1>
+               {/* <MaskText
+                phrases={["Powering sustainable futures for homes, businesses, and communities."]}
+                className="text-4xl font-bold leading-tight sm:text-5xl lg:text-6xl text-foreground"
+              /> */}
+              <MaskText
+                phrases={["We deliver dependable solar, mini-grid, and energy storage solutions that unlock productivity and resilience for communities across Nigeria."]}
+                className="max-w-xl text-lg text-muted-foreground"
+              />
             </div>
 
-            {/* Animated Description */}
-            <div className="overflow-hidden mb-8">
-              <p
-                className={`text-lg md:text-xl opacity-90 text-left max-w-3xl transition-all duration-1000 ease-out ${
-                  showContent
-                    ? 'transform translate-x-0 opacity-90 blur-0'
-                    : 'transform -translate-x-full opacity-0 '
-                }`}
-                style={{ transitionDelay: showContent ? '600ms' : '0ms' }}
-              >
-                {currentSlideData.location}
-              </p>
-            </div>
-
-            {/* Animated Buttons */}
-            <div className="flex  gap-4 justify-start">
-              {/* View Project - slides in from left */}
-              <div className="overflow-hidden">
-                <Link 
-                  href={`/projects/${currentSlideData.slug}`}
-                  aria-label={`Read more about ${currentSlideData.title} project`}
+            <div className="grid gap-2 sm:gap-4 grid-cols-3">
+              {heroMetrics.map(metric => (
+                <Card
+                  key={metric.label}
+                  className="p-3 bg-card border-border hover:border-primary/50 transition-colors"
                 >
-                  <Button
-                    size="lg"
-                    className={`bg-primary border border-primary hover:border-primary/90   hover:bg-primary/90 text-lg py-6 text-primary-foreground transition-opacity ease-out duration-1000 ${
-                      showContent
-                        ? 'translate-x-0 opacity-100'
-                        : '-translate-x-full opacity-0'
-                    }`}
-                    style={{
-                      transitionDelay: showContent ? '800ms' : '0ms',
-                      transform: showContent
-                        ? 'translateX(0)'
-                        : 'translateX(-100%)',
-                      transition: showContent
-                        ? 'transform 1000ms ease-out 800ms, opacity 1000ms ease-out 800ms'
-                        : 'transform 1000ms ease-out, opacity 1000ms ease-out',
-                    }}
-                  >
-                    Read more
-                    <ArrowRight className="ml-2 h-4 w-4" />
-                  </Button>
-                </Link>
-              </div>
+                  <div className="text-xl sm:text-2xl font-semibold text-foreground">
+                    {metric.value}
+                  </div>
+                  <p className="mt-0.5 text-xs text-muted-foreground">
+                    {metric.label}
+                  </p>
+                </Card>
+              ))}
+            </div>
 
-              {/* Our Projects - slides in from right */}
-              <Link href="/projects">
+            <div className="flex  flex-wrap gap-4">
+              <Link href="/contact/quote" className="w-full sm:w-auto">
+                <Button size="lg" className="w-full sm:w-auto px-8 py-6 text-base">
+                  Request an energy audit
+                  <ArrowRight className="ml-2 h-4 w-4" />
+                </Button>
+              </Link>
+              <Link href="/projects" className="w-full sm:w-auto">
                 <Button
                   size="lg"
-                  className={`text-lg py-6  border border-white/50 bg-white text-primary hover:bg-primary  dark:hover:bg- hover:text-white dark:bg-zinc-950 dark:text-white dark:hover:bg-zinc-900 dark:hover:text-zinc-100  shadow-lg transition-opacity ease-out duration-1000 ${
-                    showContent
-                      ? 'translate-x-0 opacity-100'
-                      : 'translate-x-full opacity-0'
-                  }`}
-                  style={{
-                    transitionDelay: showContent ? '1000ms' : '0ms',
-                    transform: showContent
-                      ? 'translateX(0)'
-                      : 'translateX(100%)',
-                    transition: showContent
-                      ? 'transform 1000ms ease-out 1000ms, opacity 1000ms ease-out 1000ms'
-                      : 'transform 1000ms ease-out, opacity 1000ms ease-out',
-                  }}
+                  variant="outline"
+                  className="w-full sm:w-auto px-8 py-6 text-base"
                 >
-                  Our Projects
+                  Explore recent projects
                 </Button>
               </Link>
             </div>
-            {/* Custom Indicators - directly above title */}
-            <div className="flex space-x-2 mt-8">
-              {allSlides.map((_, index) => (
-                <button
-                  key={index}
-                  onClick={() => goToSlide(index)}
-                  disabled={isTransitioning}
-                  className={`transition-all  rounded-full cursor-pointer hover:opacity-80 disabled:cursor-not-allowed ${
-                    currentSlide === index
-                      ? 'w-8 h-1 bg-primary shadow-lg'
-                      : 'w-6 h-0.5 bg-primary-foreground/50 hover:bg-primary-foreground/70 hover:w-7'
-                  }`}
-                  aria-label={`Go to slide ${index + 1}`}
-                />
-              ))}
-            </div>
+          </div>
+
+          <div className="relative">
+            <div
+              className="absolute -inset-x-6 -inset-y-4 rounded-[2.5rem] bg-primary/10 blur-2xl dark:bg-primary/15"
+              aria-hidden="true"
+            />
+            
+            <Carousel
+              setApi={setApi}
+              plugins={[plugin.current]}
+              opts={{
+                align: 'start',
+                loop: true,
+              }}
+              className="w-full"
+            >
+              <Card className="relative overflow-hidden border-border bg-card p-4">
+                
+                <div className="flex items-center justify-between text-xs uppercase tracking-wide text-muted-foreground mb-4">
+                  <span>Featured project</span>
+                  <span>{String(current + 1).padStart(2, '0')}</span>
+                </div>
+
+                <div className="space-y-6">
+                  {/* Carousel - Only image, location, and title slide */}
+                  <div className="relative">
+                    <CarouselContent>
+                      {allSlides.map((slide, index) => (
+                        <CarouselItem key={slide.id}>
+                          <div className="relative overflow-hidden rounded-2xl border border-border bg-muted">
+                            <Image
+                              src={slide.image}
+                              alt={slide.title}
+                              width={720}
+                              height={480}
+                              className="w-full h-full object-cover aspect-[16/10]"
+                              priority={index === 0}
+                            />
+                          </div>
+                          
+                          <div className="mt-6 space-y-3">
+                            <div className="flex items-center gap-2 text-sm text-muted-foreground">
+                              <MapPin className="h-4 w-4" />
+                              <span>{slide.location}</span>
+                            </div>
+                            <h2 className="text-2xl font-semibold text-foreground line-clamp-2">
+                              {slide.title}
+                            </h2>
+                          </div>
+                        </CarouselItem>
+                      ))}
+                    </CarouselContent>
+                    
+                    <CarouselPrevious className="left-2" />
+                    <CarouselNext className="right-2" />
+                  </div>
+
+                  {/* Static Controls - Dots and View Project button */}
+                  <div className="flex items-center justify-between">
+                    <div className="flex items-center gap-2">
+                      {allSlides.map((_, dotIndex) => (
+                        <button
+                          key={dotIndex}
+                          onClick={() => api?.scrollTo(dotIndex)}
+                          className={`h-2 rounded-full transition-all duration-300 ${
+                            current === dotIndex
+                              ? 'w-6 bg-primary'
+                              : 'w-2 bg-border hover:w-4 hover:bg-primary/70'
+                          }`}
+                          aria-label={`Go to slide ${dotIndex + 1}`}
+                        />
+                      ))}
+                    </div>
+
+                    {allSlides[current]?.slug && (
+                      <Link href={`/projects/${allSlides[current].slug}`}>
+                        <Button size="sm" variant="outline" className="gap-2">
+                          View project
+                          <ArrowRight className="h-4 w-4" />
+                        </Button>
+                      </Link>
+                    )}
+                  </div>
+                </div>
+              </Card>
+            </Carousel>
           </div>
         </div>
-      </div>
-
-      {/* Custom CSS for iPhone-style Ken Burns effect */}
-      <style jsx>{`
-        .ken-burns-zoom {
-          animation: kenBurnsZoom 10s ease-out forwards;
-        }
-
-        @keyframes kenBurnsZoom {
-          0% {
-            transform: scale(1.05);
-          }
-          100% {
-            transform: scale(1.18);
-          }
-        }
-
-        /* Pause animation on hover */
-        .ken-burns-zoom:hover {
-          animation-play-state: paused;
-        }
-      `}</style>
+      </Container>
     </section>
   );
 });

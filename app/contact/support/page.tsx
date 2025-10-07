@@ -30,7 +30,7 @@ export default function SupportPage() {
     <>
       <PageHero
         title="Customer Support"
-        backgroundImage="/images/contact/support.jpg?height=400&width=1200"
+        backgroundImage="/images/contact/support.webp?height=400&width=1200"
       >
         <MaskText
           phrases={[

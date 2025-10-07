@@ -27,28 +27,28 @@ interface SanityProject {
 // Static fallback images with proper dimensions
 const FALLBACK_IMAGES: StaticImage[] = [
   {
-    url: '/images/obadore-ondo.jpg',
+    url: '/images/obadore-ondo.webp',
     alt: 'Solar Installation Project',
     projectTitle: 'Obadore Ondo Solar Project',
     width: 400,
     height: 300,
   },
   {
-    url: '/images/makami-kaduna.jpg',
+    url: '/images/makami-kaduna.webp',
     alt: 'Team Working on Solar Installation',
     projectTitle: 'Makami Kaduna Project',
     width: 400,
     height: 300,
   },
   {
-    url: '/images/olooji-community.jpg',
+    url: '/images/olooji-community.webp',
     alt: 'Solar Panels Installation',
     projectTitle: 'Olooji Community Project',
     width: 400,
     height: 300,
   },
   {
-    url: '/images/adebayo-community.jpg',
+    url: '/images/adebayo-community.webp',
     alt: 'Community Impact Solar Project',
     projectTitle: 'Adebayo Community Project',
     width: 400,
@@ -132,7 +132,7 @@ export function selectImages(images: StaticImage[], count: number = 4): StaticIm
 
 // Get background image (first available or fallback)
 export function getBackgroundImage(images: StaticImage[]): string {
-  return images.length > 0 ? images[0].url : '/images/transition-bg.jpg';
+  return images.length > 0 ? images[0].url : '/images/transition-bg.webp';
 }
 
 // Validate image URL and return fallback if invalid
@@ -145,7 +145,7 @@ export function validateImageUrl(url: string): string {
 
 // Static images - loaded once at build time
 let staticImages: StaticImage[] = [];
-let staticBackgroundImage = '/images/transition-bg.jpg';
+let staticBackgroundImage = '/images/transition-bg.webp';
 
 // Check for preloaded images first
 function getPreloadedImages(): StaticImage[] | null {

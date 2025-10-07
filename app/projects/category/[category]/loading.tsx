@@ -8,7 +8,7 @@ export default function Loading() {
     <>
       <PageHero
         title="Loading..."
-        backgroundImage="/images/services/header.jpg?height=400&width=1200"
+        backgroundImage="/images/services/header.webp?height=400&width=1200"
       />
 
       <Container className="px-4 py-8">
