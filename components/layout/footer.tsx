@@ -17,7 +17,7 @@ export function Footer() {
         {/* Main Footer Content */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-12">
           {/* Company Info */}
-          <div className="space-y-4">
+          <div className="space-y-4 md:col-span-2 lg:col-span-1">
             <Link href="/" className="inline-block">
               <Image
                 src="/images/acob-logo-dark.webp"
@@ -28,8 +28,10 @@ export function Footer() {
               />
             </Link>
             <p className="text-sm text-zinc-400 leading-relaxed">
-              Sustainable energy solutions transforming communities across
-              Nigeria.
+              ACOB Lighting Technology Limited delivers sustainable power solutions 
+              across Nigeria. We specialize in mini-grid systems, solar installations, 
+              and energy storage solutions that empower communities with reliable, 
+              clean energy.
             </p>
             {/* Social Links */}
             <div className="flex space-x-3 pt-2">
@@ -48,42 +50,45 @@ export function Footer() {
             </div>
           </div>
 
-          {/* Quick Links */}
-          <div className="space-y-4">
-            <h3 className="font-semibold text-base text-white">Quick Links</h3>
-            <ul className="space-y-2">
-              {footerLinks.quickLinks.map(item => (
-                <li key={item.href}>
-                  <Link
-                    href={item.href}
-                    className="text-sm text-zinc-400 hover:text-white transition-colors"
-                  >
-                    {item.label}
-                  </Link>
-                </li>
-              ))}
-            </ul>
-          </div>
+          {/* Quick Links and Services - 2 columns on mobile */}
+          <div className="grid grid-cols-2 gap-8 md:col-span-2 lg:col-span-2">
+            {/* Quick Links */}
+            <div className="space-y-4">
+              <h3 className="font-semibold text-base text-white">Quick Links</h3>
+              <ul className="space-y-2">
+                {footerLinks.quickLinks.map(item => (
+                  <li key={item.href}>
+                    <Link
+                      href={item.href}
+                      className="text-sm text-zinc-400 hover:text-white transition-colors"
+                    >
+                      {item.label}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </div>
 
-          {/* Services */}
-          <div className="space-y-4">
-            <h3 className="font-semibold text-base text-white">Services</h3>
-            <ul className="space-y-2">
-              {footerLinks.services.map(item => (
-                <li key={item.href}>
-                  <Link
-                    href={item.href}
-                    className="text-sm text-zinc-400 hover:text-white transition-colors"
-                  >
-                    {item.label}
-                  </Link>
-                </li>
-              ))}
-            </ul>
+            {/* Services */}
+            <div className="space-y-4">
+              <h3 className="font-semibold text-base text-white">Services</h3>
+              <ul className="space-y-2">
+                {footerLinks.services.map(item => (
+                  <li key={item.href}>
+                    <Link
+                      href={item.href}
+                      className="text-sm text-zinc-400 hover:text-white transition-colors"
+                    >
+                      {item.label}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </div>
           </div>
 
           {/* Contact Info */}
-          <div className="space-y-4">
+          <div className="space-y-4 md:col-span-2 lg:col-span-1">
             <h3 className="font-semibold text-base text-white">Contact</h3>
             <div className="space-y-3 text-sm text-zinc-400">
               <p className="leading-relaxed">

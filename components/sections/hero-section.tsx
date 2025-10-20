@@ -1,10 +1,6 @@
 'use client';
 
-import React, {
-  useState,
-  useEffect,
-  useMemo,
-} from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { Card } from '@/components/ui/card';
@@ -25,6 +21,8 @@ import { Container } from '@/components/ui/container';
 import { MaskText } from '@/components/animations/MaskText';
 import { applySanityImagePreset } from '@/lib/utils/sanity-image';
 import { stats } from '@/lib/data/transition-data';
+import { AnimatedFillText } from '../ui/animated-fill-text';
+import { AnimatedCounter } from '../ui/animated-counter';
 
 interface HeroSectionProps {
   projects: Array<{
@@ -93,12 +91,13 @@ const HeroSection = React.memo(function HeroSection({
       .slice(0, 3)
       .map(item => ({
         label: item.label,
-        value: `${item.number}${item.suffix ?? ''}`,
+        number: item.number,
+        suffix: item.suffix ?? '',
       }));
   }, []);
 
   return (
-    <section className="relative isolate border-b border-border bg-background pb-4 pt-4 sm:pb-4 sm:pt-4 overflow-x-hidden">
+    <section className="relative isolate border-b border-border-[0.5px] bg-background pb-4 pt-4 sm:pb-4 sm:pt-12 overflow-x-hidden">
       <div
         aria-hidden="true"
         className="absolute inset-x-0 top-0 h-64 bg-gradient-to-b from-primary/10 via-transparent to-transparent blur-3xl dark:from-primary/15"
@@ -108,23 +107,32 @@ const HeroSection = React.memo(function HeroSection({
         className="absolute -right-32 top-16 hidden h-72 w-72 rounded-full bg-primary/20 blur-3xl sm:block dark:bg-primary/25"
       />
 
-      <Container className="relative px-4 max-w-full overflow-x-hidden">
+      <Container className="relative px-4  overflow-x-hidden">
         <div className="grid items-start gap-12 lg:grid-cols-2 xl:gap-16">
           <div className="space-y-8 min-w-0">
             <Badge className="bg-primary/10 text-foreground/60 border-primary/20 text-sm font-medium uppercase tracking-wide">
               Renewable Energy Experts
             </Badge>
             <div className="space-y-4">
-              <MaskText
+              {/* <MaskText
                 phrases={["Powering sustainable futures for homes, businesses, and communities."]}
                 className="text-4xl font-bold leading-tight sm:text-5xl lg:text-6xl bg-six-color-gradient dark:bg-six-color-gradient-dark text-transparent bg-clip-text"
-              />
-               {/* <MaskText
-                phrases={["Powering sustainable futures for homes, businesses, and communities."]}
-                className="text-4xl font-bold leading-tight sm:text-5xl lg:text-6xl text-foreground"
               /> */}
+              {/* <MaskText
+                phrases={["Powering sustainable futures for homes, businesses, and communities."]}
+                className="text-4xl font-bold leading-tight sm:text-5xl lg:text-6xl bg-six-color-gradient dark:bg-six-color-gradient-dark text-transparent bg-clip-text"
+              /> */}
+
+              <MaskText className="text-4xl font-bold sm:text-5xl lg:text-6xl text-foreground">
+                Powering sustainable futures for{' '}
+                <AnimatedFillText sequential delay={0}>homes</AnimatedFillText>,{' '}
+                <AnimatedFillText sequential delay={600}>businesses</AnimatedFillText>, and{' '}
+                <AnimatedFillText sequential delay={1200}>communities</AnimatedFillText>.
+              </MaskText>
               <MaskText
-                phrases={["We deliver dependable solar, mini-grid, and energy storage solutions that unlock productivity and resilience for communities across Nigeria."]}
+                phrases={[
+                  'We deliver dependable solar, mini-grid, and energy storage solutions that unlock productivity and resilience for communities across Nigeria.',
+                ]}
                 className="max-w-xl text-lg text-muted-foreground"
               />
             </div>
@@ -136,7 +144,11 @@ const HeroSection = React.memo(function HeroSection({
                   className="p-3 bg-card border-border hover:border-primary/50 transition-colors"
                 >
                   <div className="text-xl sm:text-2xl font-semibold text-foreground">
-                    {metric.value}
+                    <AnimatedCounter
+                      end={metric.number}
+                      suffix={metric.suffix}
+                      duration={2000}
+                    />
                   </div>
                   <p className="mt-0.5 text-xs text-muted-foreground">
                     {metric.label}
@@ -147,7 +159,10 @@ const HeroSection = React.memo(function HeroSection({
 
             <div className="flex flex-wrap gap-4">
               <Link href="/contact/quote" className="w-full sm:w-auto">
-                <Button size="lg" className="w-full sm:w-auto px-8 py-6 text-base">
+                <Button
+                  size="lg"
+                  className="w-full sm:w-auto px-8 py-6 text-base"
+                >
                   Request an energy audit
                   <ArrowRight className="ml-2 h-4 w-4" />
                 </Button>
@@ -169,7 +184,7 @@ const HeroSection = React.memo(function HeroSection({
               className="absolute inset-0 sm:-inset-x-4 -inset-y-4 rounded-[2.5rem] bg-primary/10 blur-2xl dark:bg-primary/15"
               aria-hidden="true"
             />
-            
+
             <Carousel
               setApi={setApi}
               plugins={[plugin.current]}
@@ -180,7 +195,6 @@ const HeroSection = React.memo(function HeroSection({
               className="w-full relative"
             >
               <Card className="relative overflow-hidden border-border bg-card p-3 sm:p-4">
-                
                 <div className="flex items-center justify-between text-xs uppercase tracking-wide text-muted-foreground mb-4">
                   <span>Featured project</span>
                   <span>{String(current + 1).padStart(2, '0')}</span>
@@ -202,7 +216,7 @@ const HeroSection = React.memo(function HeroSection({
                               priority={index === 0}
                             />
                           </div>
-                          
+
                           <div className="mt-4 sm:mt-6 space-y-2 sm:space-y-3">
                             <div className="flex items-center gap-2 text-sm text-muted-foreground">
                               <MapPin className="h-4 w-4 flex-shrink-0" />
@@ -215,7 +229,7 @@ const HeroSection = React.memo(function HeroSection({
                         </CarouselItem>
                       ))}
                     </CarouselContent>
-                    
+
                     <CarouselPrevious className="left-0 sm:left-2 hidden md:flex" />
                     <CarouselNext className="right-0 sm:right-2 hidden md:flex" />
                   </div>
@@ -238,7 +252,10 @@ const HeroSection = React.memo(function HeroSection({
                     </div>
 
                     {allSlides[current]?.slug && (
-                      <Link href={`/projects/${allSlides[current].slug}`} className="flex-shrink-0">
+                      <Link
+                        href={`/projects/${allSlides[current].slug}`}
+                        className="flex-shrink-0"
+                      >
                         <Button size="sm" variant="outline" className="gap-2">
                           <span className="hidden sm:inline">View project</span>
                           <span className="sm:hidden">View</span>

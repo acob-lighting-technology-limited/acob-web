@@ -396,13 +396,13 @@ export function Header() {
         animate={{ y: showHeader ? 0 : -100 }}
         transition={{ type: 'spring', damping: 20, stiffness: 100 }}
         className={`
-          sticky top-0 z-40 w-full transition-all duration-300 ease-out
-          bg-background/95 backdrop-blur-sm border-b-[2px] border-border
-          dark:bg-black 
+          fixed top-0 z-40 w-full transition-all duration-300 ease-out
+          backdrop-blur-2xl  border-border 
+          
           ${
             isScrolled
-              ? 'bg-background/75 backdrop-blur-3xl shadow-lg border-b-[1px] border-border dark:bg-background'
-              : 'bg-background/95 backdrop-blur-sm border-b border-border dark:bg-background'
+              ? ' backdrop-blur-3xl bg-white/60 dark:bg-black/60 shadow-lg  border-border '
+              : ' backdrop-blur-2xl   border-border '
           }
         `}
       >

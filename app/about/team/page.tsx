@@ -38,7 +38,7 @@ export default function TeamPage() {
         <Breadcrumb items={breadcrumbItems} className="mb-10" />
 
         <section className="mb-16 grid items-start gap-12 lg:grid-cols-[1.1fr_0.9fr]">
-          <div className="space-y-6 rounded-3xl border border-border bg-card/80 p-10 shadow-sm">
+          <div className="space-y-6 rounded-3xl border border-border bg-card/80 p-4 sm:p-6 xl:p-8 shadow-sm">
             <span className="inline-flex items-center rounded-full border border-border px-3 py-1 text-xs font-semibold uppercase tracking-[0.2em] text-muted-foreground">
               Leadership Philosophy
             </span>
@@ -176,7 +176,7 @@ export default function TeamPage() {
           </div>
         </section>
 
-        <section className="mb-16 rounded-3xl border border-border bg-card/80 p-10 shadow-sm">
+        <section className="mb-16 rounded-3xl border border-border bg-card/80 p-4 sm:p-6 xl:p-8 shadow-sm">
           <div className="grid gap-10 lg:grid-cols-[1.1fr_0.9fr]">
             <div className="space-y-6">
               <span className="inline-flex items-center rounded-full border border-border px-3 py-1 text-xs font-semibold uppercase tracking-[0.2em] text-muted-foreground">
