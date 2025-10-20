@@ -27,7 +27,7 @@ const ServicesSection = React.memo(function ServicesSection() {
   const additionalServices = useMemo(() => servicesData.slice(3, 6), []);
 
   return (
-    <section className="border-b border-border bg-[radial-gradient(circle_at_top,_rgba(8,_145,_63,_0.07),_transparent_55%)] py-20 transition-colors duration-700 dark:bg-zinc-950">
+    <section className="border-b border-border-[0.5px] bg-[radial-gradient(circle_at_top,_rgba(8,_145,_63,_0.07),_transparent_55%)] py-20 transition-colors duration-700 dark:bg-zinc-950">
       <Container className="px-4">
         <div className="mb-16 grid gap-12 lg:grid-cols-[minmax(0,1.1fr)_minmax(0,0.9fr)] lg:items-center">
           <FadeIn delay={0.3}>

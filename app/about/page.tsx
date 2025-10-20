@@ -40,7 +40,7 @@ export default function AboutPage() {
       <Container>
         <Breadcrumb items={breadcrumbItems} className="mb-8" />
 
-        <section className="mb-20 rounded-3xl border border-border bg-card/80 p-10 shadow-sm backdrop-blur">
+        <section className="mb-20 rounded-3xl border border-border bg-card/80 p-4 sm:p-6 xl:p-8 shadow-sm backdrop-blur">
           <div className="mx-auto max-w-4xl space-y-6 text-center">
             <span className="inline-flex items-center justify-center rounded-full border border-primary/40 bg-primary/20 px-4 py-1 text-xs font-semibold uppercase tracking-[0.3em] text-primary">
               Our Purpose
@@ -61,7 +61,7 @@ export default function AboutPage() {
         </section>
 
         <section className="mb-20 grid grid-cols-1 gap-10 lg:grid-cols-[1.1fr_0.9fr]">
-          <div className="space-y-6 rounded-3xl border border-border bg-gradient-to-br from-background via-background to-primary/5 p-10 shadow-sm">
+          <div className="space-y-6 rounded-3xl border border-border bg-gradient-to-br from-background via-background to-primary/5 p-4 sm:p-6 xl:p-8 shadow-sm">
             <span className="inline-flex items-center rounded-full border border-border px-3 py-1 text-xs font-semibold uppercase tracking-[0.2em] text-muted-foreground">
                 Our Journey
             </span>
@@ -184,7 +184,7 @@ export default function AboutPage() {
                 </div>
         </section>
 
-        <section className="mb-20 rounded-3xl border border-border bg-card/80 p-10 shadow-sm">
+        {/* <section className="mb-20 rounded-3xl border border-border bg-card/80 p-4 sm:p-6 xl:p-8 shadow-sm">
           <div className="mb-10 flex flex-col gap-4 text-center">
             <span className="mx-auto inline-flex items-center rounded-full border border-border px-3 py-1 text-xs font-semibold uppercase tracking-[0.3em] text-muted-foreground">
               Project Portfolio
@@ -227,7 +227,7 @@ export default function AboutPage() {
               </Card>
             )}
           />
-        </section>
+        </section> */}
 
         <section className="mb-10">
           <div className="mb-8 flex flex-col gap-3 text-center">
