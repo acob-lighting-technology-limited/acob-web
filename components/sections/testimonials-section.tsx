@@ -39,7 +39,7 @@ export function TestimonialsSection() {
   };
 
   return (
-    <section className="border-b border-border bg-muted/20 py-12 sm:py-16 md:py-20 lg:py-24">
+    <section className="border-b border-border-[0.5px] bg-muted/20 py-12 sm:py-16 md:py-20 lg:py-24">
       <Container className="px-4">
         {/* Header Section - Stack on mobile, side-by-side on larger screens */}
         <FadeIn delay={0.2}>
