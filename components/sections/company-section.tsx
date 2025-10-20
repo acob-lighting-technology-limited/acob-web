@@ -8,6 +8,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { ArrowRight } from 'lucide-react';
 import { motion } from 'framer-motion';
+import { AnimatedFillText } from '../ui/animated-fill-text';
 
 const impactHighlights = [
   {
@@ -35,7 +36,7 @@ const missionStatements = [
 
 export function CompanySection() {
   return (
-    <section className="relative overflow-hidden bg-background py-12 sm:py-16 md:py-20 lg:py-24">
+    <section className="relative overflow-hidden bg-background py-12 sm:py-16 md:py-20 ">
       <div className="absolute inset-0 bg-[radial-gradient(circle_at_top,_rgba(24,_24,_27,_0.04),_transparent_55%)]" />
 
       <Container className="relative px-4">
@@ -44,17 +45,17 @@ export function CompanySection() {
           <div className="mb-8 sm:mb-12 md:mb-16">
             <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 sm:gap-6">
               <div className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-semibold max-w-2xl">
-                <MaskText
-                  phrases={['Why organisations trust']}
-                  className=""
-                />
+                <MaskText phrases={['Why organisations trust']} className="" />
 
-                <MaskText
+                {/* <MaskText
                   phrases={['ACOB Lighting']}
                   className=" bg-foreground text-white dark:text-primary  p-2 w-fit"
-                />
+                /> */}
+                <AnimatedFillText >
+                  <h1>ACOB Lighting</h1>
+                </AnimatedFillText>
               </div>
-              <Link href="/about" className="inline-flex w-full sm:w-auto">
+              <Link href="/about" className="hidden sm:inline-flex  w-full sm:w-auto">
                 <Button
                   size="lg"
                   className="w-full sm:w-auto px-6 sm:px-8 py-4 sm:py-6 text-sm sm:text-base"
@@ -82,7 +83,15 @@ export function CompanySection() {
                   />
                 ))}
               </div>
-
+              <Link href="/about" className="inline-flex sm:hidden w-full sm:w-auto">
+                <Button
+                  size="lg"
+                  className="w-full sm:w-auto px-6 sm:px-8 py-4 sm:py-6 text-sm sm:text-base"
+                >
+                  Learn about our leadership
+                  <ArrowRight className="ml-2 h-4 w-4" />
+                </Button>
+              </Link>
               {/* Strategic Capabilities Card */}
               <div className="rounded-2xl sm:rounded-3xl border border-border bg-card/80 p-4 sm:p-6 shadow-lg backdrop-blur supports-[backdrop-filter]:backdrop-blur-xl">
                 <h3 className="text-base sm:text-lg font-semibold uppercase tracking-wide text-primary mb-3 sm:mb-4">

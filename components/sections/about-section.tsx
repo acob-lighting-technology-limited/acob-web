@@ -14,7 +14,7 @@ const commitments = [
 
 export function AboutSection() {
   return (
-    <section className="border-b border-border bg-primary text-primary-foreground py-16 transition-colors duration-700">
+    <section className="border-b border-border-[0.5px] bg-primary text-primary-foreground py-16 transition-colors duration-700">
       <Container className="px-4">
         <div className="grid gap-10 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.1fr)] lg:items-center">
           <FadeIn delay={0.3}>
@@ -33,7 +33,7 @@ export function AboutSection() {
               <ul className="space-y-3 text-sm uppercase tracking-wide text-primary-foreground/90">
                 {commitments.map(item => (
                   <li key={item} className="flex items-start gap-3">
-                    <span className="mt-1.5 h-2 w-2 flex-shrink-0 rounded-full bg-primary-foreground" />
+                    <span className=" h-2 w-2 mt-5 flex-shrink-0 rounded-full bg-primary-foreground" />
                     <MaskText
                       phrases={[item]}
                       className="leading-relaxed text-left normal-case text-base md:text-lg"
