@@ -19,6 +19,7 @@ export default function CertificationsPage() {
     { label: 'About Us', href: '/about' },
     { label: 'Certifications' },
   ];
+  
 
   return (
     <>
