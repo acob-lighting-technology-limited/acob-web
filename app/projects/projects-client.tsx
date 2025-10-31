@@ -1,7 +1,7 @@
 'use client';
 
-import { useState, useEffect } from 'react';
-import { useRouter, useSearchParams } from 'next/navigation';
+import { useState } from 'react';
+import { useRouter } from 'next/navigation';
 import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -38,11 +38,9 @@ export default function ProjectsClient({
   uniqueStates,
   currentSearch,
   currentState,
-  currentPage,
 }: ProjectsClientProps) {
   const router = useRouter();
-  const searchParams = useSearchParams();
-  
+
   const [projects, setProjects] = useState(initialProjects);
   const [pagination, setPagination] = useState(initialPagination);
   const [searchQuery, setSearchQuery] = useState(currentSearch);
@@ -53,17 +51,17 @@ export default function ProjectsClient({
   // Update URL and fetch new data when filters change
   const updateFilters = async (newSearch: string, newState: string, newPage: number = 1) => {
     setIsLoading(true);
-    
+
     const params = new URLSearchParams();
-    if (newSearch.trim()) params.set('search', newSearch);
-    if (newState.trim()) params.set('state', newState);
-    if (newPage > 1) params.set('page', newPage.toString());
-    
+    if (newSearch.trim()) {params.set('search', newSearch);}
+    if (newState.trim()) {params.set('state', newState);}
+    if (newPage > 1) {params.set('page', newPage.toString());}
+
     const queryString = params.toString();
     const newUrl = queryString ? `/projects?${queryString}` : '/projects';
-    
+
     router.push(newUrl);
-    
+
     try {
       const response = await fetch(`/api/projects?${params.toString()}`);
       if (!response.ok) {
@@ -242,7 +240,7 @@ export default function ProjectsClient({
         </div>
 
         {/* Search Results Info */}
-        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-4">
           <div className="flex-1">
             {(searchQuery || selectedState) && (
               <Card className="!border-t-2 !border-t-primary border border-border">
@@ -267,7 +265,7 @@ export default function ProjectsClient({
               </Card>
             )}
           </div>
-          
+
           {/* Results count for mobile - always visible */}
           <div className="lg:hidden">
             <p className="text-sm text-muted-foreground text-right">
@@ -368,13 +366,13 @@ export default function ProjectsClient({
                 <Pagination>
                   <PaginationContent>
                     <PaginationItem>
-                      <PaginationPrevious 
+                      <PaginationPrevious
                         onClick={() => handlePageChange(Math.max(1, pagination.currentPage - 1))}
                         className={pagination.currentPage === 1 ? 'pointer-events-none opacity-50' : 'cursor-pointer'}
                         size="default"
                       />
                     </PaginationItem>
-                    
+
                     {Array.from({ length: pagination.totalPages }, (_, i) => i + 1).map((page) => {
                       // Show first page, last page, current page, and pages around current
                       if (
@@ -406,9 +404,9 @@ export default function ProjectsClient({
                       }
                       return null;
                     })}
-                    
+
                     <PaginationItem>
-                      <PaginationNext 
+                      <PaginationNext
                         onClick={() => handlePageChange(Math.min(pagination.totalPages, pagination.currentPage + 1))}
                         className={pagination.currentPage === pagination.totalPages ? 'pointer-events-none opacity-50' : 'cursor-pointer'}
                         size="default"

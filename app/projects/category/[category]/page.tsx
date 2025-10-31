@@ -24,29 +24,29 @@ const categoryInfo: Record<string, { title: string; description: string; image: 
   'rural-electrification': {
     title: 'Rural Electrification',
     description: 'Bringing reliable power to remote communities across Nigeria',
-    image: '/images/adebayo-community.webp?height=400&width=1200'
+    image: '/images/adebayo-community.webp?height=400&width=1200',
   },
   'commercial-installations': {
     title: 'Commercial Installations',
     description: 'Solar solutions for businesses and commercial establishments',
-    image: '/images/airport-road-abuja.webp?height=400&width=1200'
+    image: '/images/airport-road-abuja.webp?height=400&width=1200',
   },
   'street-lighting': {
     title: 'Street Lighting',
     description: 'Public lighting infrastructure projects for safer communities',
-    image: '/images/projects/installation-high-density-streetlight-1.webp?height=400&width=1200'
+    image: '/images/projects/installation-high-density-streetlight-1.webp?height=400&width=1200',
   },
   'healthcare-projects': {
     title: 'Healthcare Projects',
     description: 'Powering hospitals and healthcare facilities with reliable energy',
-    image: '/images/projects/keffi-nassarawa-hospital-1.webp?height=400&width=1200'
-  }
+    image: '/images/projects/keffi-nassarawa-hospital-1.webp?height=400&width=1200',
+  },
 };
 
 export async function generateMetadata({ params }: { params: Promise<{ category: string }> }): Promise<Metadata> {
   const { category } = await params;
   const info = categoryInfo[category];
-  
+
   if (!info) {
     return {
       title: 'Category Not Found - ACOB Lighting Technology Limited',
@@ -75,14 +75,14 @@ export async function generateMetadata({ params }: { params: Promise<{ category:
 export default async function CategoryPage({ params }: CategoryPageProps) {
   const { category } = await params;
   const info = categoryInfo[category];
-  
+
   if (!info) {
     notFound();
   }
 
   const [projects, allProjects] = await Promise.all([
     getProjectsByCategory(category),
-    getProjects()
+    getProjects(),
   ]);
 
   // Get unique states for filtering
@@ -124,7 +124,7 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
         .map(extractStateFromLocation),
     ),
   ).sort() as string[];
-  
+
   const breadcrumbItems = [
     { label: 'Home', href: '/' },
     { label: 'Projects', href: '/projects' },

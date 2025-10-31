@@ -24,7 +24,7 @@ export function TestimonialsSection() {
       { label: 'Energy assets delivered', value: '500+' },
       { label: 'Active partnerships', value: '30+' },
     ],
-    []
+    [],
   );
 
   const renderStars = (rating: number) => {

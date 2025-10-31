@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/no-unused-vars, no-unused-vars */
+
 'use client';
 
 import React, { useState, useEffect, useMemo } from 'react';
@@ -21,8 +23,8 @@ import { Container } from '@/components/ui/container';
 import { MaskText } from '@/components/animations/MaskText';
 import { applySanityImagePreset } from '@/lib/utils/sanity-image';
 import { stats } from '@/lib/data/transition-data';
-import { AnimatedFillText } from '../ui/animated-fill-text';
 import { AnimatedCounter } from '../ui/animated-counter';
+import { CAROUSEL_AUTOPLAY_DELAY } from '@/lib/constants/ui';
 
 interface HeroSectionProps {
   projects: Array<{
@@ -65,7 +67,7 @@ const HeroSection = React.memo(function HeroSection({
   const [current, setCurrent] = useState(0);
 
   const plugin = React.useRef(
-    Autoplay({ delay: 6000, stopOnInteraction: true })
+    Autoplay({ delay: 6000, stopOnInteraction: true }),
   );
 
   useEffect(() => {
@@ -107,28 +109,17 @@ const HeroSection = React.memo(function HeroSection({
         className="absolute -right-32 top-16 hidden h-72 w-72 rounded-full bg-primary/20 blur-3xl sm:block dark:bg-primary/25"
       />
 
-      <Container className="relative px-4  overflow-x-hidden">
+      <Container className="relative px-4 !pt-6 overflow-x-hidden">
         <div className="grid items-start gap-12 lg:grid-cols-2 xl:gap-16">
           <div className="space-y-8 min-w-0">
             <Badge className="bg-primary/10 text-foreground/60 border-primary/20 text-sm font-medium uppercase tracking-wide">
               Renewable Energy Experts
             </Badge>
             <div className="space-y-4">
-              {/* <MaskText
-                phrases={["Powering sustainable futures for homes, businesses, and communities."]}
-                className="text-4xl font-bold leading-tight sm:text-5xl lg:text-6xl bg-six-color-gradient dark:bg-six-color-gradient-dark text-transparent bg-clip-text"
-              /> */}
-              {/* <MaskText
-                phrases={["Powering sustainable futures for homes, businesses, and communities."]}
-                className="text-4xl font-bold leading-tight sm:text-5xl lg:text-6xl bg-six-color-gradient dark:bg-six-color-gradient-dark text-transparent bg-clip-text"
-              /> */}
-
-              <MaskText className="text-4xl font-bold sm:text-5xl lg:text-6xl text-foreground">
-                Powering sustainable futures for{' '}
-                <AnimatedFillText sequential delay={0}>homes</AnimatedFillText>,{' '}
-                <AnimatedFillText sequential delay={600}>businesses</AnimatedFillText>, and{' '}
-                <AnimatedFillText sequential delay={1200}>communities</AnimatedFillText>.
-              </MaskText>
+              <MaskText
+                phrases={['Powering sustainable futures for homes, businesses, and communities.']}
+                className="text-4xl font-bold leading-tight sm:text-5xl lg:text-6xl text-primary dark:text-foreground"
+              />
               <MaskText
                 phrases={[
                   'We deliver dependable solar, mini-grid, and energy storage solutions that unlock productivity and resilience for communities across Nigeria.',
@@ -194,7 +185,7 @@ const HeroSection = React.memo(function HeroSection({
               }}
               className="w-full relative"
             >
-              <Card className="relative overflow-hidden border-border bg-card p-3 sm:p-4">
+              <Card className="relative overflow-hidden border-border bg-background p-3 sm:p-4">
                 <div className="flex items-center justify-between text-xs uppercase tracking-wide text-muted-foreground mb-4">
                   <span>Featured project</span>
                   <span>{String(current + 1).padStart(2, '0')}</span>

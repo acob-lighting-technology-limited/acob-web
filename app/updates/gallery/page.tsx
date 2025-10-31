@@ -21,10 +21,10 @@ export default async function GalleryPage() {
 
   // Fetch projects with gallery images
   const projects = await getProjectsForGallery();
-  
+
   // Get actual categories from projects and convert to title case
   const actualCategories = Array.from(new Set(projects.map((p: Project) => p.category))).filter(Boolean);
-  
+
   // Convert kebab-case to title case
   const formatCategoryName = (category: string) => {
     return category
@@ -32,21 +32,21 @@ export default async function GalleryPage() {
       .map(word => word.charAt(0).toUpperCase() + word.slice(1))
       .join(' ');
   };
-  
+
   // Define the 4 project categories (use actual categories if available)
   const projectCategories = actualCategories.length > 0 ? actualCategories : [
     'rural-electrification',
-    'commercial-installations', 
+    'commercial-installations',
     'street-lighting',
-    'healthcare-projects'
+    'healthcare-projects',
   ];
 
   // Process projects to extract gallery images by category
   const galleryData = projectCategories.map(category => {
-    const categoryProjects = projects.filter((project: Project) => 
-      project.category === category
+    const categoryProjects = projects.filter((project: Project) =>
+      project.category === category,
     );
-    
+
     // Extract all images from projects in this category
     const allImages: string[] = [];
     categoryProjects.forEach((project: Project) => {
@@ -54,7 +54,7 @@ export default async function GalleryPage() {
       if (project.projectImage) {
         allImages.push(project.projectImage);
       }
-      
+
       // Add gallery images if they exist
       if (project.galleryImages && Array.isArray(project.galleryImages)) {
         allImages.push(...project.galleryImages.filter(Boolean));
@@ -65,7 +65,7 @@ export default async function GalleryPage() {
       category: formatCategoryName(category as string),
       projects: categoryProjects,
       images: allImages,
-      totalImages: allImages.length
+      totalImages: allImages.length,
     };
   });
 

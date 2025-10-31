@@ -1,10 +1,10 @@
 import Image from 'next/image';
 import Link from 'next/link';
 
-import { PortableText } from '@portabletext/react';
-import type {
-  PortableTextBlock,
-  PortableTextComponentProps,
+import {
+  PortableText,
+  type PortableTextBlock,
+  type PortableTextComponentProps,
 } from '@portabletext/react';
 import { urlFor, getUpdatePosts, getUpdatePost, getApprovedCommentsForPost, getRelatedUpdatePosts } from '@/sanity/lib/client';
 import { notFound } from 'next/navigation';
@@ -250,7 +250,7 @@ export default async function UpdatePostPage({ params }: UpdatePostPageProps) {
                       </>
                     );
 
-                    const cardClass = "overflow-hidden p-0 border-2 hover:shadow-lg transition-shadow" + (href ? " cursor-pointer" : " opacity-90");
+                    const cardClass = `overflow-hidden p-0 border-2 hover:shadow-lg transition-shadow${href ? ' cursor-pointer' : ' opacity-90'}`;
 
                     return href ? (
                       <Link key={item._id} href={href}>
@@ -323,7 +323,7 @@ export default async function UpdatePostPage({ params }: UpdatePostPageProps) {
 
         {/* Sidebar */}
         <div className="space-y-6 sticky top-20 self-start">
-       
+
           {/* Categories */}
           <Card className="!border-t-2 !border-t-primary border border-border">
             <CardContent className="p-6">
@@ -384,7 +384,7 @@ export default async function UpdatePostPage({ params }: UpdatePostPageProps) {
           </Card>
 
           {/* Related Updates */}
-         
+
         </div>
       </div>
     </Container>

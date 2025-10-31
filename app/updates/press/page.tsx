@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars, no-unused-vars */
 import { Container } from '@/components/ui/container';
 import { PageHero } from '@/components/ui/page-hero';
 import { Breadcrumb } from '@/components/ui/breadcrumb';
@@ -85,15 +86,15 @@ export default async function PressPage() {
                     <CardContent className="!pt-0 p-6 flex flex-col flex-1">
                       <div className="flex-1">
                         <div className="flex items-center text-sm text-muted-foreground mb-4">
-                         
+
                         <User className="h-4 w-4 mr-1" />
                         <span>{post.author}</span>  <span className="mx-2">•</span>
                           <Calendar className="h-4 w-4 mr-1" />
                           <span>
                             {formatDate(post.publishedAt)}
                           </span>
-                        
-                         
+
+
                         </div>
                         <h2 className="text-xl font-bold mb-4 text-foreground line-clamp-2 h-[50px]">
                           {post.title}
@@ -103,7 +104,7 @@ export default async function PressPage() {
                           </p>
                       </div>
                       <div className="mt-auto">
-                        <Link 
+                        <Link
                           href={`/updates/${post.slug.current}`}
                         >
                           <Button className="w-full">

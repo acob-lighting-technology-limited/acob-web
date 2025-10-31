@@ -4,14 +4,14 @@ import { useState, useEffect } from 'react';
 
 interface SpamProtectionProps {
   children: React.ReactNode;
-  onValidation: (isValid: boolean) => void;
+  onValidation: (_valid: boolean) => void;
 }
 
 export function SpamProtection({
   children,
   onValidation,
 }: SpamProtectionProps) {
-  const [isValid, setIsValid] = useState(false);
+  // Spam protection state
   const [honeypotValue, setHoneypotValue] = useState('');
   const [timeOnPage, setTimeOnPage] = useState(0);
   const [mouseMovements, setMouseMovements] = useState(0);
@@ -52,7 +52,6 @@ export function SpamProtection({
         keyStrokes >= 1 && // At least 1 keystroke
         honeypotValue === ''; // Honeypot field should be empty
 
-      setIsValid(isHuman);
       onValidation(isHuman);
     };
 

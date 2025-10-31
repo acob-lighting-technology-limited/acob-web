@@ -1,7 +1,7 @@
-import { NextRequest, NextResponse } from 'next/server';
+import { NextResponse } from 'next/server';
 import { getAllProjectImages, selectImages, getBackgroundImage } from '@/lib/utils/static-images';
 
-export async function GET(request: NextRequest) {
+export async function GET() {
   try {
     // This endpoint can be called during build time to preload images
     const allImages = await getAllProjectImages();
@@ -17,12 +17,12 @@ export async function GET(request: NextRequest) {
   } catch (error) {
     console.error('Error preloading images:', error);
     return NextResponse.json(
-      { 
-        success: false, 
+      {
+        success: false,
         error: 'Failed to preload images',
-        message: error instanceof Error ? error.message : 'Unknown error'
+        message: error instanceof Error ? error.message : 'Unknown error',
       },
-      { status: 500 }
+      { status: 500 },
     );
   }
 }

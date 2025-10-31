@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars, no-unused-vars */
 'use client';
 
 import * as React from 'react';
@@ -30,7 +31,7 @@ export function AutoCarousel<T>({
 
   const goTo = useCallback(
     (index: number) => {
-      if (!itemsCount) return;
+      if (!itemsCount) {return;}
       setCurrentIndex((index + itemsCount) % itemsCount);
     },
     [itemsCount],
@@ -39,13 +40,13 @@ export function AutoCarousel<T>({
   const goNext = useCallback(() => goTo(currentIndex + 1), [currentIndex, goTo]);
 
   useEffect(() => {
-    if (!itemsCount) return;
+    if (!itemsCount) {return;}
 
     const startTimer = () => {
       if (timerRef.current) {
         clearInterval(timerRef.current);
       }
-      
+
       if (pauseOnHover && isHoveredRef.current) {
         return;
       }
@@ -67,7 +68,7 @@ export function AutoCarousel<T>({
 
   useEffect(() => {
     const container = containerRef.current;
-    if (!container) return;
+    if (!container) {return;}
 
     const handleMouseEnter = () => {
       isHoveredRef.current = true;

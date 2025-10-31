@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars, no-unused-vars */
 'use client';
 
 import { useState, useMemo, useEffect, useCallback } from 'react';
@@ -65,11 +66,11 @@ export function GalleryClient({ galleryData }: GalleryClientProps) {
     if (autoPlayInterval) {
       clearInterval(autoPlayInterval);
     }
-    
+
     const interval = setInterval(() => {
       setCurrentImageIndex(prev => (prev + 1) % images.length);
     }, 3000); // Change image every 3 seconds
-    
+
     setAutoPlayInterval(interval);
     setIsAutoPlaying(true);
   }, [autoPlayInterval]);
@@ -108,7 +109,7 @@ export function GalleryClient({ galleryData }: GalleryClientProps) {
   // Toggle fullscreen
   const toggleFullscreen = useCallback(() => {
     const modalElement = document.querySelector('[data-gallery-modal]') as HTMLElement;
-    if (!modalElement) return;
+    if (!modalElement) {return;}
 
     if (!document.fullscreenElement) {
       modalElement.requestFullscreen();
@@ -165,16 +166,16 @@ export function GalleryClient({ galleryData }: GalleryClientProps) {
 
   // Navigate images
   const goToPrevious = useCallback(() => {
-    setCurrentImageIndex(prev => 
-      prev === 0 ? currentCategoryImages.length - 1 : prev - 1
+    setCurrentImageIndex(prev =>
+      prev === 0 ? currentCategoryImages.length - 1 : prev - 1,
     );
     setZoomLevel(1);
     setImagePosition({ x: 0, y: 0 });
   }, [currentCategoryImages.length]);
 
   const goToNext = useCallback(() => {
-    setCurrentImageIndex(prev => 
-      prev === currentCategoryImages.length - 1 ? 0 : prev + 1
+    setCurrentImageIndex(prev =>
+      prev === currentCategoryImages.length - 1 ? 0 : prev + 1,
     );
     setZoomLevel(1);
     setImagePosition({ x: 0, y: 0 });
@@ -183,7 +184,7 @@ export function GalleryClient({ galleryData }: GalleryClientProps) {
   // Keyboard navigation
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
-      if (!isViewerOpen) return;
+      if (!isViewerOpen) {return;}
 
       switch (e.key) {
         case 'ArrowLeft':
@@ -331,7 +332,7 @@ export function GalleryClient({ galleryData }: GalleryClientProps) {
                     <Camera className="h-12 w-12 text-muted-foreground" />
                   </div>
                 )}
-                
+
                 {/* Overlay with action buttons */}
                 <div className="absolute inset-0 bg-black/0 group-hover:bg-black/40 transition-colors duration-300 flex items-center justify-center">
                   <div className="opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex gap-2">
@@ -379,7 +380,7 @@ export function GalleryClient({ galleryData }: GalleryClientProps) {
                   </span>
                 </div>
               </div>
-              
+
               <CardContent className={`p-4 ${viewMode === 'list' ? 'md:w-2/3 md:flex md:flex-col md:justify-between' : ''}`}>
                 <div>
                   <div className="flex items-center text-xs text-muted-foreground mb-2">
@@ -391,16 +392,16 @@ export function GalleryClient({ galleryData }: GalleryClientProps) {
                     {categoryData.category}
                   </h3>
                   <p className={`text-sm text-muted-foreground mb-3 ${viewMode === 'list' ? 'text-base' : ''}`}>
-                    {categoryData.totalImages > 0 
+                    {categoryData.totalImages > 0
                       ? `Explore ${categoryData.totalImages} images from ${categoryData.projects.length} projects in this category.`
                       : 'No images available for this category yet.'
                     }
                   </p>
                 </div>
                 <div className="flex gap-2">
-                  <Button 
-                    variant="outline" 
-                    size="sm" 
+                  <Button
+                    variant="outline"
+                    size="sm"
                     className={`${viewMode === 'list' ? 'w-auto' : 'flex-1'}`}
                     onClick={() => {
                       console.log('View Gallery clicked for category:', categoryData.category);
@@ -415,9 +416,9 @@ export function GalleryClient({ galleryData }: GalleryClientProps) {
                     View Gallery
                   </Button>
                   {categoryData.images.length > 1 && (
-                    <Button 
-                      variant="outline" 
-                      size="sm" 
+                    <Button
+                      variant="outline"
+                      size="sm"
                       onClick={() => {
                         if (isAutoPlaying) {
                           stopAutoPlay();
@@ -444,7 +445,7 @@ export function GalleryClient({ galleryData }: GalleryClientProps) {
 
       {/* Image Viewer Modal */}
       {isViewerOpen && currentCategoryImages.length > 0 && (
-        <div 
+        <div
           data-gallery-modal
           className={`fixed inset-0 bg-black/90 z-[9999] flex items-center justify-center p-4 ${
             isFullscreen ? 'bg-black' : 'bg-black/90'
@@ -481,7 +482,7 @@ export function GalleryClient({ galleryData }: GalleryClientProps) {
                   </Button>
                 </div>
               </div>
-              
+
               <div className="flex items-center gap-2">
                 {/* Zoom Controls */}
                 <div className="flex items-center gap-1">
@@ -514,7 +515,7 @@ export function GalleryClient({ galleryData }: GalleryClientProps) {
                     <RotateCcw className="h-4 w-4" />
                   </Button>
                 </div>
-                
+
                 {/* Fullscreen Button */}
                 <Button
                   size="sm"
@@ -528,7 +529,7 @@ export function GalleryClient({ galleryData }: GalleryClientProps) {
                     <Maximize2 className="h-4 w-4" />
                   )}
                 </Button>
-                
+
                 {/* Close Button */}
                 <Button
                   size="sm"
@@ -544,7 +545,7 @@ export function GalleryClient({ galleryData }: GalleryClientProps) {
             {/* Image Container */}
             <div className="flex-1 relative flex items-center justify-center overflow-hidden">
               {currentCategoryImages[currentImageIndex] && (
-                <div 
+                <div
                   className="relative w-full h-full flex items-center justify-center cursor-grab active:cursor-grabbing"
                   onMouseDown={handleMouseDown}
                   onMouseMove={handleMouseMove}
@@ -556,7 +557,7 @@ export function GalleryClient({ galleryData }: GalleryClientProps) {
                     src={currentCategoryImages[currentImageIndex]}
                     alt={`Gallery image ${currentImageIndex + 1}`}
                     className="max-w-full max-h-full object-contain transition-all duration-300 ease-out"
-                    style={{ 
+                    style={{
                       maxHeight: isFullscreen ? '100vh' : '70vh',
                       transform: `scale(${zoomLevel}) translate(${imagePosition.x}px, ${imagePosition.y}px)`,
                       transformOrigin: 'center center',

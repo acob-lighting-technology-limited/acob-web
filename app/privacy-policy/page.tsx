@@ -2,7 +2,7 @@ import { Container } from '@/components/ui/container';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { PageHero } from '@/components/ui/page-hero';
 import { Breadcrumb } from '@/components/ui/breadcrumb';
-import { Shield, Lock, Calendar, Mail, Phone, MapPin } from 'lucide-react';
+import { Lock, Calendar } from 'lucide-react';
 
 export default function PrivacyPolicyPage() {
   const breadcrumbItems = [
@@ -82,7 +82,7 @@ export default function PrivacyPolicyPage() {
                           'Request quotes or services',
                           'Subscribe to our newsletter',
                           'Apply for careers',
-                          'Contact our support team'
+                          'Contact our support team',
                         ].map((action, index) => (
                           <div key={index} className="flex items-center gap-2 text-muted-foreground">
                             <div className="w-2 h-2 bg-primary rounded-full"></div>
@@ -107,7 +107,7 @@ export default function PrivacyPolicyPage() {
                           'Operating system',
                           'Pages visited and time spent',
                           'Referring website',
-                          'Device information'
+                          'Device information',
                         ].map((info, index) => (
                           <div key={index} className="flex items-center gap-2 text-muted-foreground">
                             <div className="w-2 h-2 bg-primary rounded-full"></div>
@@ -140,7 +140,7 @@ export default function PrivacyPolicyPage() {
                         'To improve our website and services',
                         'To analyze website usage and trends',
                         'To comply with legal obligations',
-                        'To protect against fraud and security threats'
+                        'To protect against fraud and security threats',
                       ].map((purpose, index) => (
                         <div key={index} className="flex items-center gap-2 text-muted-foreground">
                           <div className="w-2 h-2 bg-primary rounded-full"></div>
@@ -212,7 +212,7 @@ export default function PrivacyPolicyPage() {
                         'To comply with legal obligations',
                         'To protect our rights and safety',
                         'With trusted service providers who assist in our operations',
-                        'In connection with a business transfer or merger'
+                        'In connection with a business transfer or merger',
                       ].map((circumstance, index) => (
                         <div key={index} className="flex items-center gap-2 text-muted-foreground">
                           <div className="w-2 h-2 bg-primary rounded-full"></div>
@@ -265,7 +265,7 @@ export default function PrivacyPolicyPage() {
                         'Right to restrict processing',
                         'Right to data portability',
                         'Right to object to processing',
-                        'Right to withdraw consent'
+                        'Right to withdraw consent',
                       ].map((right, index) => (
                         <div key={index} className="flex items-center gap-2 text-muted-foreground">
                           <div className="w-2 h-2 bg-primary rounded-full"></div>

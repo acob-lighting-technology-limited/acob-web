@@ -101,7 +101,7 @@ export default async function CaseStudiesPage() {
                       </div>
 
                       <div className="mt-auto">
-                        <Link 
+                        <Link
                           href={`/updates/${post.slug.current}`}
                         >
                           <Button className="w-full">

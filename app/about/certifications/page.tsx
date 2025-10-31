@@ -1,4 +1,4 @@
-"use client";
+'use client';
 
 import Link from 'next/link';
 import { ArrowLeft } from 'lucide-react';
@@ -19,7 +19,7 @@ export default function CertificationsPage() {
     { label: 'About Us', href: '/about' },
     { label: 'Certifications' },
   ];
-  
+
 
   return (
     <>
@@ -44,7 +44,7 @@ export default function CertificationsPage() {
               Why It Matters
             </span>
             <h2 className="text-3xl font-semibold text-foreground md:text-4xl">
-              <MaskText phrases={["Compliance frameworks for bankable energy assets"]} />
+              <MaskText phrases={['Compliance frameworks for bankable energy assets']} />
             </h2>
             <p className="text-base leading-relaxed text-muted-foreground">
               Our certifications go beyond checklists—they signal the diligence, safety

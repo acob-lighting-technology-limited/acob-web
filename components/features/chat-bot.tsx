@@ -6,6 +6,7 @@ import { useState, useRef, useEffect } from 'react';
 // Third-party library imports
 import { useChat } from 'ai/react';
 import type { Message } from 'ai';
+import DOMPurify from 'isomorphic-dompurify';
 import {
   Send,
   MessageSquare,
@@ -68,7 +69,11 @@ const formatMessage = (content: string) => {
   formatted = formatted.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
   formatted = formatted.replace(/\*(.*?)\*/g, '<em>$1</em>');
 
-  return formatted;
+  // Sanitize with DOMPurify to prevent XSS attacks
+  return DOMPurify.sanitize(formatted, {
+    ALLOWED_TAGS: ['a', 'br', 'strong', 'em'],
+    ALLOWED_ATTR: ['href', 'target', 'rel', 'class'],
+  });
 };
 
 // Get current time in WhatsApp format

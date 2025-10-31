@@ -28,9 +28,9 @@ export function Footer() {
               />
             </Link>
             <p className="text-sm text-zinc-400 leading-relaxed">
-              ACOB Lighting Technology Limited delivers sustainable power solutions 
-              across Nigeria. We specialize in mini-grid systems, solar installations, 
-              and energy storage solutions that empower communities with reliable, 
+              ACOB Lighting Technology Limited delivers sustainable power solutions
+              across Nigeria. We specialize in mini-grid systems, solar installations,
+              and energy storage solutions that empower communities with reliable,
               clean energy.
             </p>
             {/* Social Links */}

@@ -15,7 +15,7 @@ const nprogressStyles = `
   #nprogress {
     pointer-events: none;
   }
-  
+
   #nprogress .bar {
     background: hsl(var(--primary));
     position: fixed;
@@ -25,7 +25,7 @@ const nprogressStyles = `
     width: 100%;
     height: 3px;
   }
-  
+
   #nprogress .peg {
     display: block;
     position: absolute;
@@ -36,17 +36,17 @@ const nprogressStyles = `
     opacity: 1.0;
     transform: rotate(3deg) translate(0px, -4px);
   }
-  
+
   #nprogress .spinner {
     display: none;
   }
-  
+
   /* Dark mode support */
   @media (prefers-color-scheme: dark) {
     #nprogress .bar {
       background: hsl(var(--primary));
     }
-    
+
     #nprogress .peg {
       box-shadow: 0 0 10px hsl(var(--primary)), 0 0 5px hsl(var(--primary));
     }

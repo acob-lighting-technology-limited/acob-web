@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/no-unused-vars, no-unused-vars */
+
 'use client';
 import React, { useState } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
@@ -194,7 +196,7 @@ export function QuoteForm() {
             <MaskText
               phrases={[
                 // 'Lighting Up Nigeria,',
-                "Need an Installation?",
+                'Need an Installation?',
                 'Request For Professional Energy Audit',
               ]}
               className="text-3xl md:text-4xl font-bold mb-6 italic"

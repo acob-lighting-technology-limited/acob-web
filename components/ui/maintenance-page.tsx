@@ -8,9 +8,9 @@ interface MaintenancePageProps {
   description?: string;
 }
 
-export function MaintenancePage({ 
-  routeName, 
-  description = "We're currently working on improving this page. Please check back soon!" 
+export function MaintenancePage({
+  routeName,
+  description = "We're currently working on improving this page. Please check back soon!",
 }: MaintenancePageProps) {
   return (
     <div className="min-h-[60vh] flex items-center justify-center py-16">
@@ -25,12 +25,12 @@ export function MaintenancePage({
               {description}
             </p>
           </div>
-          
+
           <div className="space-y-4">
             <p className="text-sm text-muted-foreground">
               We're working hard to bring you an improved experience.
             </p>
-            
+
             <div className="pt-4">
               <Link href="/">
                 <Button className="w-full">

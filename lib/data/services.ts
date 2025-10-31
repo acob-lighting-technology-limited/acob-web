@@ -101,7 +101,7 @@ export const servicesData: ServiceData[] = [
       'Competitive pricing and financing options',
     ],
     gallery: [
-      
+
       '/images/services/captive-power-solutions.webp?height=400&width=600',
       '/images/services/captive-power-solutions-2.webp?height=400&width=600',
     ],
@@ -250,7 +250,7 @@ export const servicesData: ServiceData[] = [
       'Maximize your renewable energy ROI with 24/7 monitoring and proactive maintenance that ensures 99%+ system uptime year-round.',
     description:
       'Our comprehensive Operations & Maintenance services protect your renewable energy investment through continuous monitoring, preventive care, and rapid response support. Using advanced SCADA systems and IoT sensors, we track performance metrics in real-time, identifying potential issues before they impact energy production. Our certified technicians conduct regular inspections, cleaning, and component testing following manufacturer specifications and industry best practices. Emergency response teams are available 24/7 to address system faults, weather damage, or equipment failures with guaranteed response times. We maintain detailed maintenance logs, performance reports, and warranty compliance documentation to ensure your systems operate at peak efficiency throughout their 25+ year lifespan. Our service agreements are flexible and scalable, covering everything from small residential installations to large utility-scale facilities.\n\nWe have successfully completed routine maintenance projects including:\n• Routine Maintenance on Streetlight Infrastructure along Airport road, Abuja\n• Routine Maintenance on Streetlight Infrastructure along Bannex Round-About, Abuja',
-    image: '/images/services/operations-and-maintenance.webp',
+    image: '/images/services/operations-maintenance.webp',
     icon: '/images/operations-and-maintenance.svg',
     features: [
       '24/7 system monitoring and surveillance',
