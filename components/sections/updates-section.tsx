@@ -53,7 +53,7 @@ export function UpdatesSection({ posts }: UpdatesSectionProps) {
             <div className="inline-block bg-primary/20 text-primary border border-primary/30 px-4 py-2 rounded-full text-sm font-medium mb-4 dark:bg-primary/30 dark:text-primary transition-colors duration-700">
               News & Announcements
             </div>
-            <h2 className="text-4xl md:text-5xl font-bold  text-zinc-900 dark:text-white transition-colors duration-700">
+            <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-zinc-900 dark:text-white transition-colors duration-700">
               Recent Updates
             </h2>{' '}
             {/* Renamed title */}
@@ -103,12 +103,12 @@ export function UpdatesSection({ posts }: UpdatesSectionProps) {
                   </div>{' '}
                   <div className="space-y-4">
                     {/* Title */}
-                    <h3 className="text-xl font-bold text-foreground group-hover:text-primary transition-colors duration-200 line-clamp-2">
+                    <h3 className="text-xl md:text-2xl font-bold text-foreground group-hover:text-primary transition-colors duration-200 line-clamp-2">
                       {post.title}
                     </h3>
 
                     {/* Excerpt */}
-                    <p className="text-muted-foreground line-clamp-[3]">
+                    <p className="text-sm md:text-base text-muted-foreground line-clamp-[3]">
                       {post.excerpt}
                     </p>
                   </div>

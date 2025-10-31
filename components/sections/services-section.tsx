@@ -34,13 +34,13 @@ const ServicesSection = React.memo(function ServicesSection() {
             <div className="space-y-6">
               <MaskText
                 phrases={['Integrated renewable energy for every scale']}
-                className="text-3xl font-bold leading-tight md:text-5xl"
+                className="text-3xl font-bold leading-tight md:text-4xl lg:text-5xl"
               />
               <MaskText
                 phrases={[
                   'Our multidisciplinary team supports governments, developers, and operators with end-to-end solar, hybrid mini-grid, and clean energy infrastructure. From concept to long term O&M, we help you unlock reliable, efficient power.',
                 ]}
-                className="max-w-xl text-lg text-muted-foreground"
+                className="max-w-xl text-base md:text-lg text-muted-foreground"
               />
               <div className="flex flex-wrap gap-4">
                 <Link href="/services" className="inline-block min-h-[48px]">
@@ -115,10 +115,10 @@ const ServicesSection = React.memo(function ServicesSection() {
 
                 <CardContent className="flex flex-1 flex-col p-4">
                   <div className="space-y-3">
-                    <h3 className="text-2xl font-semibold leading-snug text-foreground">
+                    <h3 className="text-xl md:text-2xl font-semibold leading-snug text-foreground">
                       {service.title}
                     </h3>
-                    <p className="text-base text-muted-foreground">
+                    <p className="text-sm md:text-base text-muted-foreground">
                       {service.fullDescription ?? service.excerpt}
                     </p>
                   </div>

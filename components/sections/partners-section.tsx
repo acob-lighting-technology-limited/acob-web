@@ -56,10 +56,10 @@ export function PartnersSection() {
             <Badge className="bg-primary/10 text-primary border-primary/20">
               Trusted Partnerships
             </Badge>
-            <h2 className="text-2xl sm:text-3xl md:text-4xl font-semibold text-foreground transition-colors duration-700">
+            <h2 className="text-3xl md:text-4xl lg:text-5xl font-semibold text-foreground transition-colors duration-700">
               Powering Progress Together
             </h2>
-            <p className="text-base sm:text-lg text-muted-foreground max-w-2xl mx-auto transition-colors duration-700">
+            <p className="text-base md:text-lg text-muted-foreground max-w-2xl mx-auto transition-colors duration-700">
               Collaborating with leading organizations and government agencies
               across Nigeria
             </p>
