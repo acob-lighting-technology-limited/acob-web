@@ -148,65 +148,62 @@ export function findMatchingRoute(userInput: string): string | null {
 }
 
 // Function to extract navigation intent from AI response
+// Only extracts when there's an EXPLICIT navigation suggestion with the page name right after
 export function extractNavigationIntent(response: string): string | null {
-  const lowerResponse = response.toLowerCase();
+  // Extract the page name that comes right after navigation phrases
+  // Pattern: "you can visit our [PAGE NAME] page"
+  const patterns = [
+    /you can visit (?:our |the )?([a-z\s-]+?) page/i,
+    /check out (?:our |the )?([a-z\s-]+?) page/i,
+    /visit (?:our |the )?([a-z\s-]+?) page/i,
+    /navigate to (?:our |the )?([a-z\s-]+?) page/i,
+    /go to (?:our |the )?([a-z\s-]+?) page/i,
+  ];
 
-  // Look for navigation patterns in the response
-  if (
-    lowerResponse.includes('navigate') ||
-    lowerResponse.includes('visit') ||
-    lowerResponse.includes('go to')
-  ) {
-    // Check for specific page mentions first (order matters - more specific first)
-    if (
-      lowerResponse.includes('case study') ||
-      lowerResponse.includes('case studies') ||
-      lowerResponse.includes('case-studies')
-    ) {
-      return '/updates/case-studies';
-    }
-    if (
-      lowerResponse.includes('quote') ||
-      lowerResponse.includes('get quote')
-    ) {
-      return '/contact/quote';
-    }
-    if (lowerResponse.includes('service')) {
-      return '/services';
-    }
-    if (
-      lowerResponse.includes('gallery') ||
-      lowerResponse.includes('picture') ||
-      lowerResponse.includes('media')
-    ) {
-      return '/updates/gallery';
-    }
-    if (lowerResponse.includes('project')) {
-      return '/projects';
-    }
-    if (lowerResponse.includes('support')) {
-      return '/contact/support';
-    }
-    if (
-      lowerResponse.includes('location') ||
-      lowerResponse.includes('office')
-    ) {
-      return '/contact/locations';
-    }
-    if (lowerResponse.includes('career') || lowerResponse.includes('job')) {
-      return '/contact/careers';
-    }
-    if (lowerResponse.includes('about')) {
-      return '/about';
-    }
-    if (lowerResponse.includes('home')) {
-      return '/';
-    }
+  for (const pattern of patterns) {
+    const match = response.match(pattern);
+    if (match && match[1]) {
+      const pageName = match[1].toLowerCase().trim();
 
-    // Fallback: Extract route from response
-    for (const [key, route] of Object.entries(ROUTE_MAP)) {
-      if (lowerResponse.includes(route) || lowerResponse.includes(key)) {
-        return route;
+      // Map page names to routes
+      if (pageName.includes('about')) {
+        return '/about';
+      }
+      if (pageName.includes('service')) {
+        return '/services';
+      }
+      if (pageName.includes('project')) {
+        return '/projects';
+      }
+      if (pageName.includes('contact')) {
+        return '/contact';
+      }
+      if (pageName.includes('quote')) {
+        return '/contact/quote';
+      }
+      if (pageName.includes('support')) {
+        return '/contact/support';
+      }
+      if (pageName.includes('location') || pageName.includes('office')) {
+        return '/contact/locations';
+      }
+      if (pageName.includes('career') || pageName.includes('job')) {
+        return '/contact/careers';
+      }
+      if (pageName.includes('gallery') || pageName.includes('photo')) {
+        return '/updates/gallery';
+      }
+      if (pageName.includes('case stud')) {
+        return '/updates/case-studies';
+      }
+      if (pageName.includes('press')) {
+        return '/updates/press';
+      }
+      if (pageName.includes('update')) {
+        return '/updates';
+      }
+      if (pageName.includes('home')) {
+        return '/';
       }
     }
   }
