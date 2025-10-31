@@ -1,11 +1,6 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  eslint: {
-    ignoreDuringBuilds: true,
-  },
-  typescript: {
-    ignoreBuildErrors: true,
-  },
+  // TypeScript and ESLint checks enabled for production safety
   outputFileTracingRoot: process.cwd(),
   images: {
     formats: ['image/webp', 'image/avif'],
@@ -43,17 +38,6 @@ const nextConfig = {
       return config;
     },
   }),
-
-  // Bundle analyzer (uncomment for debugging)
-  // webpack: (config, { isServer }) => {
-  //   if (!isServer) {
-  //     config.resolve.fallback = {
-  //       ...config.resolve.fallback,
-  //       fs: false,
-  //     };
-  //   }
-  //   return config;
-  // },
 
   // Security headers
   headers: async () => {

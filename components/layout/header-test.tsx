@@ -23,13 +23,13 @@ import {
   SheetTrigger,
 } from '@/components/ui/sheet';
 import { Container } from '@/components/ui/container';
-import { 
-  Menu, 
-  X, 
-  ChevronDown, 
-  Home, 
-  Users, 
-  Settings, 
+import {
+  Menu,
+  X,
+  ChevronDown,
+  Home,
+  Users,
+  Settings,
   FileText,
   Phone,
   Lightbulb,
@@ -39,7 +39,7 @@ import {
   MapPin,
   MessageCircle,
   Briefcase,
-  Newspaper
+  Newspaper,
 } from 'lucide-react';
 import { cn } from '@/lib/utils';
 
@@ -227,10 +227,10 @@ export function HeaderTest() {
                   <NavigationMenuItem key={item.name}>
                     {item.subItems ? (
                       <>
-                        <NavigationMenuTrigger 
+                        <NavigationMenuTrigger
                           className={cn(
-                            "text-sm font-medium transition-colors hover:text-primary",
-                            isActive(item.href) && "text-primary"
+                            'text-sm font-medium transition-colors hover:text-primary',
+                            isActive(item.href) && 'text-primary',
                           )}
                         >
                           {item.name}
@@ -245,8 +245,8 @@ export function HeaderTest() {
                                     <Link
                                       href={subItem.href}
                                       className={cn(
-                                        "block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground",
-                                        isActive(subItem.href) && "bg-accent text-accent-foreground"
+                                        'block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground',
+                                        isActive(subItem.href) && 'bg-accent text-accent-foreground',
                                       )}
                                     >
                                       <div className="flex items-center space-x-2">
@@ -272,8 +272,8 @@ export function HeaderTest() {
                           href={item.href}
                           className={cn(
                             navigationMenuTriggerStyle(),
-                            "text-sm font-medium transition-colors hover:text-primary",
-                            isActive(item.href) && "text-primary"
+                            'text-sm font-medium transition-colors hover:text-primary',
+                            isActive(item.href) && 'text-primary',
                           )}
                         >
                           {item.name}
@@ -322,17 +322,17 @@ export function HeaderTest() {
                             href={item.href}
                             onClick={() => setIsOpen(false)}
                             className={cn(
-                              "flex items-center space-x-2 px-3 py-2 rounded-lg text-sm font-medium transition-colors",
+                              'flex items-center space-x-2 px-3 py-2 rounded-lg text-sm font-medium transition-colors',
                               isActive(item.href)
-                                ? "bg-primary text-primary-foreground"
-                                : "hover:bg-accent hover:text-accent-foreground"
+                                ? 'bg-primary text-primary-foreground'
+                                : 'hover:bg-accent hover:text-accent-foreground',
                             )}
                           >
                             <IconComponent className="w-4 h-4" />
                             <span>{item.name}</span>
                             {item.subItems && <ChevronDown className="w-4 h-4 ml-auto" />}
                           </Link>
-                          
+
                           {item.subItems && (
                             <div className="ml-6 space-y-1">
                               {item.subItems.map((subItem) => {
@@ -343,10 +343,10 @@ export function HeaderTest() {
                                     href={subItem.href}
                                     onClick={() => setIsOpen(false)}
                                     className={cn(
-                                      "flex items-center space-x-2 px-3 py-2 rounded-lg text-sm transition-colors",
+                                      'flex items-center space-x-2 px-3 py-2 rounded-lg text-sm transition-colors',
                                       isActive(subItem.href)
-                                        ? "bg-primary/10 text-primary"
-                                        : "text-muted-foreground hover:text-foreground hover:bg-accent"
+                                        ? 'bg-primary/10 text-primary'
+                                        : 'text-muted-foreground hover:text-foreground hover:bg-accent',
                                     )}
                                   >
                                     <SubIconComponent className="w-4 h-4" />
@@ -360,7 +360,7 @@ export function HeaderTest() {
                       );
                     })}
                   </nav>
-                  
+
                   <div className="mt-8 space-y-2">
                     <Button className="w-full" size="sm">
                       Get Quote

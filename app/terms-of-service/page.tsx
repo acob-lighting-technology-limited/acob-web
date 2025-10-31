@@ -2,7 +2,7 @@ import { Container } from '@/components/ui/container';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { PageHero } from '@/components/ui/page-hero';
 import { Breadcrumb } from '@/components/ui/breadcrumb';
-import { Shield, FileText, Calendar, Mail, Phone, MapPin } from 'lucide-react';
+import { Shield, Calendar, Mail, Phone, MapPin } from 'lucide-react';
 
 export default function TermsOfServicePage() {
   const breadcrumbItems = [
@@ -79,7 +79,7 @@ export default function TermsOfServicePage() {
                         'Captive power systems for industrial applications',
                         'Professional energy audit services',
                         'Solar panel supply and installation',
-                        'Energy consulting and project management'
+                        'Energy consulting and project management',
                       ].map((service, index) => (
                         <div key={index} className="flex items-center gap-2 text-muted-foreground">
                           <div className="w-2 h-2 bg-primary rounded-full"></div>
@@ -110,7 +110,7 @@ export default function TermsOfServicePage() {
                         'Use our services only for lawful purposes',
                         'Not interfere with or disrupt our services',
                         'Respect intellectual property rights',
-                        'Comply with all applicable laws and regulations'
+                        'Comply with all applicable laws and regulations',
                       ].map((responsibility, index) => (
                         <div key={index} className="flex items-center gap-2 text-muted-foreground">
                           <div className="w-2 h-2 bg-primary rounded-full"></div>
@@ -209,7 +209,7 @@ export default function TermsOfServicePage() {
                         'Loss of profits, data, or use',
                         'Business interruption',
                         'Personal injury or property damage',
-                        'Any damages arising from the use of our services'
+                        'Any damages arising from the use of our services',
                       ].map((damage, index) => (
                         <div key={index} className="flex items-center gap-2 text-muted-foreground">
                           <div className="w-2 h-2 bg-primary rounded-full"></div>
@@ -259,7 +259,7 @@ export default function TermsOfServicePage() {
                         'Warranties of merchantability',
                         'Fitness for a particular purpose',
                         'Non-infringement',
-                        'Accuracy or completeness of information'
+                        'Accuracy or completeness of information',
                       ].map((disclaimer, index) => (
                         <div key={index} className="flex items-center gap-2 text-muted-foreground">
                           <div className="w-2 h-2 bg-primary rounded-full"></div>

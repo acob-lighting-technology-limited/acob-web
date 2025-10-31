@@ -3,7 +3,6 @@ import Link from 'next/link';
 import { ArrowLeft } from 'lucide-react';
 
 import { MaskText } from '@/components/animations/MaskText';
-import { AutoCarousel } from '@/components/ui/auto-carousel';
 import { Button } from '@/components/ui/button';
 import { Breadcrumb } from '@/components/ui/breadcrumb';
 import { Card, CardContent } from '@/components/ui/card';
@@ -25,13 +24,13 @@ export default function TeamPage() {
         title="Meet the Leaders Powering Nigeria's Energy Transition"
         backgroundImage="/images/about/acob-team.webp?height=800&width=1600"
         eyebrow="Our Team"
-        align="center"
+        align="left"
       >
-        <p className="mx-auto max-w-3xl text-balance text-lg text-white/90 md:text-xl">
+        {/* <p className="mx-auto max-w-3xl text-balance text-lg text-white/90 md:text-xl">
           A multidisciplinary team of engineers, project managers, community specialists,
           and support professionals delivering bankable clean energy infrastructure across
           Nigeria.
-        </p>
+        </p> */}
       </PageHero>
 
       <Container>
@@ -43,7 +42,7 @@ export default function TeamPage() {
               Leadership Philosophy
             </span>
             <h2 className="text-3xl font-semibold text-foreground md:text-4xl">
-              <MaskText phrases={["People-first execution, engineering-led delivery"]} />
+              <MaskText phrases={['People-first execution, engineering-led delivery']} />
             </h2>
             <p className="text-base leading-relaxed text-muted-foreground">
               Our team blends local expertise with international best practices to deliver

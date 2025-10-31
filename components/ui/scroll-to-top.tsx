@@ -25,16 +25,11 @@ export function ScrollToTop() {
   }, []);
 
   const scrollToTop = () => {
-    const scrollDuration = 1000; // 1 second duration
-    const scrollStep = -window.scrollY / (scrollDuration / 15);
-
-    const scrollInterval = setInterval(() => {
-      if (window.scrollY !== 0) {
-        window.scrollBy(0, scrollStep);
-      } else {
-        clearInterval(scrollInterval);
-      }
-    }, 15);
+    // Use native smooth scroll - faster and smoother
+    window.scrollTo({
+      top: 0,
+      behavior: 'smooth',
+    });
   };
 
   return (

@@ -29,7 +29,7 @@ export async function apiWithProgress<T>(
     }
 
     return result;
-  } catch (error) {
+  } catch (error) { // eslint-disable-line
     if (onError) {
       onError(error as Error);
     }

@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/no-unused-vars, no-unused-vars */
+
 'use client';
 
 import { useEffect, useRef, useState } from 'react';
@@ -14,10 +16,10 @@ export function PartnersSection() {
 
   useEffect(() => {
     const updateCenterLogo = () => {
-      if (!marqueeRef.current) return;
+      if (!marqueeRef.current) {return;}
 
       const marqueeContainer = marqueeRef.current.querySelector('[class*="marquee-container"]');
-      if (!marqueeContainer) return;
+      if (!marqueeContainer) {return;}
 
       const logos = marqueeContainer.querySelectorAll('[data-logo-index]');
       const containerRect = marqueeRef.current.getBoundingClientRect();

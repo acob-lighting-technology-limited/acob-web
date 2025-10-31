@@ -1,0 +1,14 @@
+Contact: mailto:security@acoblighting.com
+Expires: 2025-12-31T23:59:59.000Z
+Preferred-Languages: en
+Canonical: https://acoblighting.com/.well-known/security.txt
+
+# Security Policy
+# If you discover a security vulnerability, please report it to us.
+# We appreciate your help in keeping ACOB Lighting secure.
+
+# Response Time
+# We aim to respond to security reports within 48 hours.
+
+# Acknowledgments
+# We thank all security researchers who help us maintain the security of our platform.

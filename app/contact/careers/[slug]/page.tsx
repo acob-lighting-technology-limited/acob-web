@@ -6,7 +6,7 @@ import { Button } from '@/components/ui/button';
 import { ArrowLeft, Calendar, MapPin, Briefcase, Mail, Phone } from 'lucide-react';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
-import { getJobPosting, getJobPostings } from '@/sanity/lib/client';
+import { getJobPosting } from '@/sanity/lib/client';
 import { Metadata } from 'next';
 
 interface JobPostingPageProps {
@@ -60,7 +60,7 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
 export default async function JobPostingPage({ params }: JobPostingPageProps) {
   const { slug } = await params;
   console.log('Job posting page accessed with slug:', slug);
-  
+
   const job = await getJobPosting(slug);
   console.log('Job found:', job ? 'Yes' : 'No');
 
@@ -96,7 +96,7 @@ export default async function JobPostingPage({ params }: JobPostingPageProps) {
                   <h1 className="text-3xl font-bold mb-4 text-foreground">
                     {job.title}
                   </h1>
-                  
+
                   {/* Job Meta Information */}
                   <div className="flex flex-wrap gap-4 text-sm text-muted-foreground mb-6">
                     {job.department && (

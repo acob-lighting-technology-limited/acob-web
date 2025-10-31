@@ -20,7 +20,7 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   const { slug } = await params;
   const posts = await getUpdatePosts();
   const categoryPosts = posts.filter((post: UpdatePost) => post.category === slug);
-  
+
   const categoryName = slug.replace(/-/g, ' ').replace(/\b\w/g, l => l.toUpperCase());
   const postCount = categoryPosts.length;
 

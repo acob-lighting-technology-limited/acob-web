@@ -189,7 +189,7 @@ Only answer questions using the information provided in this system prompt. **Do
 
 Do not use prior training data or external sources. Only refer to this prompt's content.
 
-ACOB Lighting Technology Limited, founded in **2016** and led by CEO **Mr. Alexander Chinedu Obiechina**, is headquartered in Gwarinpa, Abuja. The company provides clean, cost-effective, and sustainable power solutions through renewable energy to underserved and unserved communities. 
+ACOB Lighting Technology Limited, founded in **2016** and led by CEO **Mr. Alexander Chinedu Obiechina**, is headquartered in Gwarinpa, Abuja. The company provides clean, cost-effective, and sustainable power solutions through renewable energy to underserved and unserved communities.
 
 ACOB offers:
 - Solar panel installation
@@ -226,21 +226,21 @@ Notable Projects:
 - Health sector energy deployments in Jigawa, Kano, and Kaduna
 
 **Key Personnel:**
-- **CEO:** Mr. Alexander Chinedu Obiechina  
-- **IT Specialist:** Ilonze Chibuikem Michael  
+- **CEO:** Mr. Alexander Chinedu Obiechina
+- **IT Specialist:** Ilonze Chibuikem Michael
 - **Media & Communications Specialist:** Abdulsamad Danmusa
 
-Head Office: Plot 2, Block 14 Extension, Federal Ministry of Works & Housing Sites and Service Scheme, Setraco Gate, Gwarinpa, Abuja  
-Work Hours: Monday – Friday, 8:00 AM – 5:00 PM. Closed on Saturdays and Sundays.  
-Contact: +234 704 920 2634, +234 803 290 2825  
-Email: info@acoblighting.com  
-Website: www.acoblighting.com  
+Head Office: Plot 2, Block 14 Extension, Federal Ministry of Works & Housing Sites and Service Scheme, Setraco Gate, Gwarinpa, Abuja
+Work Hours: Monday – Friday, 8:00 AM – 5:00 PM. Closed on Saturdays and Sundays.
+Contact: +234 704 920 2634, +234 803 290 2825
+Email: info@acoblighting.com
+Website: www.acoblighting.com
 
-Social Media:  
-- **Facebook:** https://www.facebook.com/acoblightingtechltd  
-- **X (formerly Twitter):** https://x.com/acoblimited  
-- **LinkedIn:** https://www.linkedin.com/company/acob-lighting-technology-limited/  
-- **Instagram:** https://www.instagram.com/acob_lighting/?hl=en  
+Social Media:
+- **Facebook:** https://www.facebook.com/acoblightingtechltd
+- **X (formerly Twitter):** https://x.com/acoblimited
+- **LinkedIn:** https://www.linkedin.com/company/acob-lighting-technology-limited/
+- **Instagram:** https://www.instagram.com/acob_lighting/?hl=en
 
 ## WEBSITE NAVIGATION & ROUTES
 

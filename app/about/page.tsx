@@ -5,7 +5,6 @@ import Image from 'next/image';
 import Link from 'next/link';
 
 import { MaskText } from '@/components/animations/MaskText';
-import { AutoCarousel } from '@/components/ui/auto-carousel';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import { Container } from '@/components/ui/container';
@@ -16,9 +15,7 @@ import {
   aboutImpactMetrics,
   aboutHighlights,
   aboutLeadershipQuotes,
-  aboutMediaFeatures,
 } from '@/lib/data/about-overview-data';
-import { cn } from '@/lib/utils';
 
 export default function AboutPage() {
   const breadcrumbItems = [{ label: 'Home', href: '/' }, { label: 'About Us' }];
@@ -30,11 +27,11 @@ export default function AboutPage() {
         // align="center"
         backgroundImage="/images/about/acob-team.webp?height=800&width=1600"
       >
-        <p className="mx-auto max-w-3xl text-balance text-lg text-white/90 md:text-xl">
+        {/* <p className="mx-auto max-w-3xl text-balance text-lg text-white/90 md:text-xl">
           We are a vertically integrated renewable energy company delivering
           solar mini-grids, industrial hybrid systems, and smart lighting
           solutions that power economic inclusion across Nigeria.
-        </p>
+        </p> */}
       </PageHero>
 
       <Container>

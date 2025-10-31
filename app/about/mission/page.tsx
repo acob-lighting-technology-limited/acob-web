@@ -3,7 +3,6 @@ import Link from 'next/link';
 import { ArrowLeft } from 'lucide-react';
 
 import { MaskText } from '@/components/animations/MaskText';
-import { AutoCarousel } from '@/components/ui/auto-carousel';
 import { Button } from '@/components/ui/button';
 import { Breadcrumb } from '@/components/ui/breadcrumb';
 import { Card, CardContent } from '@/components/ui/card';
@@ -73,13 +72,13 @@ export default function MissionPage() {
         title="Mission & Vision"
         eyebrow="Our Commitment"
         backgroundImage="/images/about/mission-vision.webp?height=800&width=1600"
-        align="center"
+        align="left"
       >
-        <p className="mx-auto max-w-3xl text-balance text-lg text-white/90 md:text-xl">
+        {/* <p className="mx-auto max-w-3xl text-balance text-lg text-white/90 md:text-xl">
           We build resilient energy infrastructure that connects communities to
           the opportunities, services, and livelihoods powered by reliable
           electricity.
-        </p>
+        </p> */}
       </PageHero>
 
       <Container>
@@ -98,13 +97,10 @@ export default function MissionPage() {
                 </MaskText>
               </h2>
               <p className="text-lg leading-relaxed text-muted-foreground">
-                To be{' '}
-                <AnimatedFillText>
-                  Nigeria's flagship renewable energy partner{' '}
-                </AnimatedFillText>{' '}
-                delivering resilient, technology-driven power systems that
-                expand economic opportunity while safeguarding the environment
-                for future generations.
+                To be Nigeria's flagship renewable energy partner delivering
+                resilient, technology-driven power systems that expand economic
+                opportunity while safeguarding the environment for future
+                generations.
               </p>
             </div>
 

@@ -6,7 +6,7 @@ import { Breadcrumb } from '@/components/ui/breadcrumb';
 import { Container } from '@/components/ui/container';
 import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
-import { ArrowRight, Search, X, Filter, SlidersHorizontal } from 'lucide-react';
+import { ArrowRight, Search, X, Filter } from 'lucide-react';
 import { Input } from '@/components/ui/input';
 import Link from 'next/link';
 import { servicesData, categories, tags } from '@/lib/data';
@@ -298,7 +298,7 @@ export default function ServicesPage() {
                   </Card>
                 )}
               </div>
-              
+
               {/* Results count for mobile - always visible */}
               <div className="lg:hidden">
                 <p className="text-sm text-muted-foreground text-right">
@@ -346,7 +346,7 @@ export default function ServicesPage() {
                         </p>
                       </div>
                       <div className="mt-auto">
-                        <Link 
+                        <Link
                           href={`/services/${service.slug}`}
                         >
                           <Button className="w-full bg-primary hover:bg-primary/90 text-primary-foreground">

@@ -162,7 +162,7 @@ export default function SupportPage() {
                   </div>
                   <div className="p-3 rounded-lg bg-muted/30 border border-border">
                     <p className="text-xs text-muted-foreground mb-1">Business Hours</p>
-                    <p className="text-sm font-semibold">Mon - Fri: 8AM - 6PM</p>
+                    <p className="text-sm font-semibold">Mon - Fri: 8AM - 5PM</p>
                   </div>
                 </div>
               </CardContent>

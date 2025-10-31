@@ -99,7 +99,8 @@ export default [
       'comma-dangle': ['error', 'always-multiline'],
       semi: ['error', 'always'],
       quotes: ['error', 'single', { avoidEscape: true }],
-      indent: ['error', 2],
+      // Disable indent rule to avoid stack overflow issues - using Prettier for indentation
+      indent: 'off',
       'no-trailing-spaces': 'error',
       'eol-last': ['error', 'always'],
     },

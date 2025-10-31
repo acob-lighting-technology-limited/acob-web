@@ -91,7 +91,7 @@ export default async function ServicePage({ params }: ServicePageProps) {
                 <div className="text-muted-foreground leading-relaxed text-lg whitespace-pre-line">
                   {service.description}
                 </div>
-                
+
                 {/* Gallery */}
                 {service.gallery.length > 0 && (
                   <div className="grid grid-cols-1  gap-4 mt-6">

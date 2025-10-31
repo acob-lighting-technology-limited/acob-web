@@ -3,7 +3,7 @@ import { PageHero } from '@/components/ui/page-hero';
 import { Breadcrumb } from '@/components/ui/breadcrumb';
 import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
-import { ArrowRight, Lightbulb, Users, Award, Heart, Mail, Phone, MapPin, Calendar, MapPin as LocationIcon, Briefcase } from 'lucide-react';
+import { ArrowRight, Lightbulb, Users, Award, Heart, Calendar, MapPin as LocationIcon, Briefcase } from 'lucide-react';
 import Link from 'next/link';
 import { MaskText } from '@/components/animations/MaskText';
 import { whyWorkItems, contactLinks } from '@/lib/data/contact-data';
@@ -109,7 +109,7 @@ export default async function CareersPage() {
                 <h2 className="text-3xl font-bold mb-6 text-foreground">
                   {jobPostings.length > 0 ? 'Current Openings' : 'Career Opportunities'}
                 </h2>
-                
+
                 {jobPostings.length > 0 ? (
                   <div className="space-y-6">
                     {jobPostings.map((job: any) => (
@@ -142,11 +142,11 @@ export default async function CareersPage() {
                             )}
                           </div>
                         </div>
-                        
+
                         <p className="text-muted-foreground mb-4 leading-relaxed">
                           {job.description}
                         </p>
-                        
+
                         <div className="flex flex-col sm:flex-row gap-3">
                           <Link href={`/contact/careers/${job.slug.current}`}>
                             <Button className="bg-primary hover:bg-primary/90 text-primary-foreground">
@@ -167,7 +167,7 @@ export default async function CareersPage() {
                 ) : (
                   <div className="text-center">
                     <p className="text-muted-foreground leading-relaxed mb-8 text-lg max-w-2xl mx-auto">
-                      We're always looking for talented individuals who are passionate about clean energy 
+                      We're always looking for talented individuals who are passionate about clean energy
                       and innovation to join our growing team.
                     </p>
                     <div className="p-6 bg-muted/30 rounded-xl border border-border mb-8">

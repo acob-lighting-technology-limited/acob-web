@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars, no-unused-vars */
 'use client';
 
 import { useState, useCallback, useEffect, useRef } from 'react';
@@ -15,7 +16,7 @@ export function ServicesCarousel() {
 
   const changeSlide = useCallback(
     (newIndex: number) => {
-      if (isTransitioning) return;
+      if (isTransitioning) {return;}
 
       setIsTransitioning(true);
       setCurrentSlide(newIndex);

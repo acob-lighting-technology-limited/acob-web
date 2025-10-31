@@ -1,7 +1,28 @@
 // app/api/send-email/route.ts (App Router)
 import { NextRequest, NextResponse } from 'next/server';
+import { rateLimit } from '@/lib/utils/rate-limit';
+import { RATE_LIMITS } from '@/lib/constants/ui';
 
 export async function POST(request: NextRequest) {
+  // Apply rate limiting
+  const isRateLimited = rateLimit(request, {
+    interval: RATE_LIMITS.EMAIL_API.interval,
+    uniqueTokenPerInterval: RATE_LIMITS.EMAIL_API.maxRequests,
+  });
+
+  if (isRateLimited) {
+    return NextResponse.json(
+      {
+        error: 'Too many requests. Please try again in a few minutes.',
+        code: 'RATE_LIMIT_EXCEEDED',
+      },
+      {
+        status: 429,
+        headers: { 'Retry-After': '300' },
+      },
+    );
+  }
+
   try {
     const formData = await request.json();
 
@@ -77,14 +98,14 @@ export async function POST(request: NextRequest) {
         </head>
         <body style="margin: 0; padding: 0; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif; background-color: #fafafa; line-height: 1.6;">
           <div class="email-container" style="max-width: 600px; margin: 0 auto; background-color: #ffffff; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);">
-            
+
             <!-- Header with Company Logo -->
             <div class="header-content" style="background: linear-gradient(135deg, #15803d 0%, #166534 100%); padding: 40px 30px; text-align: center; position: relative;">
               <!-- Company Logo -->
               <div style="margin-bottom: 25px;">
                 <img src="https://acoblighting.com/images/acob-logo-light.webp" alt="ACOB Lighting Technology" style="height: 60px; width: auto; max-width: 200px;">
               </div>
-              
+
               <!-- Header Text -->
               <h1 style="color: #ffffff; margin: 0; font-size: 28px; font-weight: 700; letter-spacing: -0.5px; text-shadow: 0 2px 4px rgba(0,0,0,0.1);">
                 New Quote Request
@@ -92,63 +113,63 @@ export async function POST(request: NextRequest) {
               <p style="color: rgba(255,255,255,0.95); margin: 10px 0 0; font-size: 16px; font-weight: 400;">
                 You have received a new solar energy quote inquiry
               </p>
-              
+
               <!-- Decorative Element -->
               <div style="width: 60px; height: 4px; background: linear-gradient(90deg, #22c55e, #16a34a); margin: 20px auto 0; border-radius: 2px;"></div>
             </div>
 
             <!-- Content Section -->
             <div class="content-section" style="padding: 40px 30px;">
-              
+
               <!-- Quote Information Card -->
               <div style="background: linear-gradient(135deg, #f0fdf4 0%, #ecfdf5 100%); border-radius: 12px; padding: 25px; margin-bottom: 30px; border-left: 4px solid #15803d; box-shadow: 0 2px 8px rgba(21, 128, 61, 0.1);">
                 <h2 style="color: #166534; margin: 0 0 20px; font-size: 20px; font-weight: 700; display: flex; align-items: center;">
                   <span style="margin-right: 12px; font-size: 24px;">⚡</span>Quote Request Details
                 </h2>
-                
+
                 <div style="display: grid; gap: 15px;">
                   <div style="display: flex; align-items: center; flex-wrap: wrap;">
                     <span style="font-weight: 600; color: #374151; min-width: 120px; margin-right: 15px;">Installer:</span>
                     <span style="color: #1f2937; font-size: 16px; font-weight: 500;">${formData.installer}</span>
                   </div>
-                  
+
                   <div style="display: flex; align-items: center; flex-wrap: wrap;">
                     <span style="font-weight: 600; color: #374151; min-width: 120px; margin-right: 15px;">Completion Time:</span>
                     <span style="color: #1f2937; font-size: 16px; font-weight: 500;">${formData.completionTime}</span>
                   </div>
-                  
+
                   <div style="display: flex; align-items: center; flex-wrap: wrap;">
                     <span style="font-weight: 600; color: #374151; min-width: 120px; margin-right: 15px;">Monthly Usage:</span>
                     <span style="color: #1f2937; font-size: 16px; font-weight: 500;">${formData.monthlyUsage || '<em style="color: #6b7280; font-style: italic;">Not specified</em>'}</span>
                   </div>
-                  
+
                   <div style="display: flex; align-items: center; flex-wrap: wrap;">
                     <span style="font-weight: 600; color: #374151; min-width: 120px; margin-right: 15px;">System Type:</span>
                     <span style="color: #1f2937; font-size: 16px; font-weight: 500;">${formData.systemType}</span>
                   </div>
-                  
+
                   <div style="display: flex; align-items: center; flex-wrap: wrap;">
                     <span style="font-weight: 600; color: #374151; min-width: 120px; margin-right: 15px;">Panel Place:</span>
                     <span style="color: #1f2937; font-size: 16px; font-weight: 500;">${formData.panelPlace}</span>
                   </div>
-                  
+
                   <div style="display: flex; align-items: center; flex-wrap: wrap;">
                     <span style="font-weight: 600; color: #374151; min-width: 120px; margin-right: 15px;">Roof Material:</span>
                     <span style="color: #1f2937; font-size: 16px; font-weight: 500;">${formData.roofMaterial}</span>
                   </div>
-                  
+
                   <div style="display: flex; align-items: center; flex-wrap: wrap;">
                     <span style="font-weight: 600; color: #374151; min-width: 120px; margin-right: 15px;">Contact Method:</span>
                     <span style="color: #1f2937; font-size: 16px; font-weight: 500;">${formData.contactMethod}</span>
                   </div>
-                  
+
                   ${formData.email ? `
                   <div style="display: flex; align-items: center; flex-wrap: wrap;">
                     <span style="font-weight: 600; color: #374151; min-width: 120px; margin-right: 15px;">Email:</span>
                     <span style="color: #1f2937; font-size: 16px; font-weight: 500;">${formData.email}</span>
                   </div>
                   ` : ''}
-                  
+
                   ${formData.phone ? `
                   <div style="display: flex; align-items: center; flex-wrap: wrap;">
                     <span style="font-weight: 600; color: #374151; min-width: 120px; margin-right: 15px;">Phone:</span>
@@ -166,7 +187,7 @@ export async function POST(request: NextRequest) {
                 <h2 style="color: #166534; margin: 0 0 20px; font-size: 20px; font-weight: 700; display: flex; align-items: center;">
                   <span style="margin-right: 12px; font-size: 24px;">📝</span>Additional Information
                 </h2>
-                
+
                 <div style="background: linear-gradient(135deg, #f9fafb 0%, #f3f4f6 100%); border-radius: 8px; padding: 20px; border-left: 4px solid #22c55e; line-height: 1.6;">
                   <div style="color: #374151; font-size: 15px; white-space: pre-line;">${formData.additionalInfo.replace(/\n/g, '<br>')}</div>
                 </div>
@@ -195,7 +216,7 @@ export async function POST(request: NextRequest) {
                   Leading supplier of solar materials for manufacturers, installers & contractors
                 </p>
               </div>
-              
+
               <!-- Timestamp -->
               <div style="border-top: 1px solid #e5e7eb; padding-top: 15px;">
                 <p style="margin: 0; color: #6b7280; font-size: 12px; line-height: 1.5;">

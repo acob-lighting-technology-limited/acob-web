@@ -1,5 +1,3 @@
-'use client';
-
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { Card, CardContent } from '@/components/ui/card';
@@ -32,10 +30,10 @@ export default function UpdatesClient({
   initialPosts,
   initialPagination,
   currentSearch,
-  currentPage,
+
 }: UpdatesClientProps) {
   const router = useRouter();
-  
+
   const [posts, setPosts] = useState(initialPosts);
   const [pagination, setPagination] = useState(initialPagination);
   const [searchQuery, setSearchQuery] = useState(currentSearch);
@@ -45,16 +43,16 @@ export default function UpdatesClient({
   // Update URL and fetch new data when filters change
   const updateFilters = async (newSearch: string, newPage: number = 1) => {
     setIsLoading(true);
-    
+
     const params = new URLSearchParams();
-    if (newSearch.trim()) params.set('search', newSearch);
-    if (newPage > 1) params.set('page', newPage.toString());
-    
+    if (newSearch.trim()) {params.set('search', newSearch);}
+    if (newPage > 1) {params.set('page', newPage.toString());}
+
     const queryString = params.toString();
     const newUrl = queryString ? `/updates?${queryString}` : '/updates';
-    
+
     router.push(newUrl);
-    
+
     try {
       const response = await fetch(`/api/updates?${params.toString()}`);
       if (!response.ok) {
@@ -164,7 +162,7 @@ export default function UpdatesClient({
               </div>
             )}
           </div>
-          
+
           {/* Results count for mobile - always visible */}
           <div className="lg:hidden">
             <p className="text-sm text-muted-foreground text-right">
@@ -223,7 +221,7 @@ export default function UpdatesClient({
                       </p>
                     </div>
                     <div className="mt-auto">
-                      <Link 
+                      <Link
                         href={`/updates/${post.slug?.current || '#'}`}
                       >
                         <Button className="w-full">
@@ -247,13 +245,13 @@ export default function UpdatesClient({
                 <Pagination>
                   <PaginationContent>
                     <PaginationItem>
-                      <PaginationPrevious 
+                      <PaginationPrevious
                         onClick={() => handlePageChange(Math.max(1, pagination.currentPage - 1))}
                         className={pagination.currentPage === 1 ? 'pointer-events-none opacity-50' : 'cursor-pointer'}
                         size="default"
                       />
                     </PaginationItem>
-                    
+
                     {Array.from({ length: pagination.totalPages }, (_, i) => i + 1).map((page) => {
                       // Show first page, last page, current page, and pages around current
                       if (
@@ -285,9 +283,9 @@ export default function UpdatesClient({
                       }
                       return null;
                     })}
-                    
+
                     <PaginationItem>
-                      <PaginationNext 
+                      <PaginationNext
                         onClick={() => handlePageChange(Math.min(pagination.totalPages, pagination.currentPage + 1))}
                         className={pagination.currentPage === pagination.totalPages ? 'pointer-events-none opacity-50' : 'cursor-pointer'}
                         size="default"

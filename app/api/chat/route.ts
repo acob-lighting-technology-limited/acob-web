@@ -1,33 +1,44 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { groq } from '@ai-sdk/groq';
 import { streamText } from 'ai';
-
-// Helper function to get a more detailed error message
-function getErrorMessage(error: unknown): string {
-  if (error === null) {
-    return 'unknown error';
-  }
-  if (typeof error === 'string') {
-    return error;
-  }
-  if (error instanceof Error) {
-    return error.message;
-  }
-  return JSON.stringify(error);
-}
+import { rateLimit } from '@/lib/utils/rate-limit';
+import {
+  createErrorResponse,
+  ApiErrorCode,
+  handleApiError,
+} from '@/lib/utils/api-error-handler';
+import { RATE_LIMITS } from '@/lib/constants/ui';
 
 export async function POST(req: NextRequest) {
+  // Apply rate limiting
+  const isRateLimited = rateLimit(req, {
+    interval: RATE_LIMITS.CHAT_API.interval,
+    uniqueTokenPerInterval: RATE_LIMITS.CHAT_API.maxRequests,
+  });
+
+  if (isRateLimited) {
+    return NextResponse.json(
+      {
+        error: {
+          message: 'Too many requests. Please try again later.',
+          code: 'RATE_LIMIT_EXCEEDED',
+        },
+      },
+      {
+        status: 429,
+        headers: { 'Retry-After': '60' },
+      },
+    );
+  }
+
   try {
     const GROQ_API_KEY = process.env.GROQ_API_KEY;
 
-    console.log('GROQ_API_KEY exists:', !!GROQ_API_KEY);
-
     if (!GROQ_API_KEY) {
-      return NextResponse.json(
-        {
-          error: { message: 'Groq API key is missing', code: 'CONFIG_MISSING' },
-        },
-        { status: 500 },
+      return createErrorResponse(
+        ApiErrorCode.INTERNAL_SERVER_ERROR,
+        'AI service configuration is missing',
+        500,
       );
     }
 
@@ -35,26 +46,18 @@ export async function POST(req: NextRequest) {
     const messages = body.messages;
 
     if (!Array.isArray(messages)) {
-      return NextResponse.json(
-        {
-          error: {
-            message: 'Invalid messages format: must be an array',
-            code: 'BAD_REQUEST',
-          },
-        },
-        { status: 400 },
+      return createErrorResponse(
+        ApiErrorCode.BAD_REQUEST,
+        'Invalid messages format: must be an array',
+        400,
       );
     }
 
     if (messages.length === 0) {
-      return NextResponse.json(
-        {
-          error: {
-            message: 'Messages array cannot be empty',
-            code: 'BAD_REQUEST',
-          },
-        },
-        { status: 400 },
+      return createErrorResponse(
+        ApiErrorCode.BAD_REQUEST,
+        'Messages array cannot be empty',
+        400,
       );
     }
 
@@ -63,14 +66,10 @@ export async function POST(req: NextRequest) {
       const msg = messages[i];
 
       if (!msg.role || !msg.content) {
-        return NextResponse.json(
-          {
-            error: {
-              message: `Invalid message at index ${i}: must have 'role' and 'content'`,
-              code: 'BAD_REQUEST',
-            },
-          },
-          { status: 400 },
+        return createErrorResponse(
+          ApiErrorCode.VALIDATION_ERROR,
+          `Invalid message at index ${i}: must have 'role' and 'content'`,
+          400,
         );
       }
     }
@@ -92,12 +91,6 @@ export async function POST(req: NextRequest) {
 
     return result.toDataStreamResponse();
   } catch (err: unknown) {
-    console.error('Chat API error:', err);
-    return NextResponse.json(
-      {
-        error: { message: getErrorMessage(err), code: 'INTERNAL_SERVER_ERROR' },
-      },
-      { status: 500 },
-    );
+    return handleApiError(err);
   }
 }

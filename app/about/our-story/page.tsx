@@ -6,12 +6,11 @@ import { Button } from '@/components/ui/button';
 import { Breadcrumb } from '@/components/ui/breadcrumb';
 import { Card, CardContent } from '@/components/ui/card';
 import { Container } from '@/components/ui/container';
-import { ImageWithFallback } from '@/components/ui/image-with-fallback';
 import { PageHero } from '@/components/ui/page-hero';
 import { Timeline, TimelineMobile } from '@/components/ui/timeline';
 import {
   aboutLeadershipQuotes,
-  aboutMediaFeatures,
+
 } from '@/lib/data/about-overview-data';
 import { milestones } from '@/lib/data/about-data';
 
@@ -29,11 +28,11 @@ export default function OurStoryPage() {
         eyebrow="Our Story"
         backgroundImage="/images/about/acob-team.webp?height=800&width=1600"
       >
-        <p className="max-w-3xl text-balance text-lg text-white/90 md:text-xl">
+        {/* <p className="max-w-3xl text-balance text-lg text-white/90 md:text-xl">
           From street lighting origins to hybrid mini-grids and productive-use energy
           hubs, ACOB Lighting grows by listening to communities and delivering bankable
           infrastructure that evolves with their needs.
-        </p>
+        </p> */}
       </PageHero>
 
       <Container>
@@ -132,7 +131,7 @@ export default function OurStoryPage() {
               of the energy infrastructure we deliver across Nigeria.
             </p>
               </div>
-           
+
                 <div className="hidden md:block">
                   <Timeline items={milestones} />
                 </div>
