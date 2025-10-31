@@ -196,16 +196,18 @@ export default function MissionPage() {
               {coreValues.map(value => (
                 <div
                   key={value.title}
-                  className="flex items-start gap-4 rounded-3xl bg-white/10 p-4 backdrop-blur"
+                  className="group flex items-start gap-4 rounded-3xl bg-white/10 p-4 backdrop-blur transition-all duration-300 hover:bg-white/15 hover:shadow-lg cursor-pointer"
                 >
-                  <div className="rounded-full bg-white/20 p-3 text-white">
-                    <value.icon className="h-6 w-6" />
+                  <div className="relative rounded-full bg-white/20 p-3 text-white overflow-hidden transition-all duration-500 group-hover:bg-white group-hover:text-primary group-hover:scale-110">
+                    {/* Animated fill effect */}
+                    <div className="absolute inset-0 bg-white transform scale-0 transition-transform duration-500 ease-out group-hover:scale-100 rounded-full origin-center" />
+                    <value.icon className="h-6 w-6 relative z-10 transition-colors duration-500" />
                   </div>
-                  <div>
-                    <h4 className="text-lg font-semibold uppercase tracking-[0.2em]">
+                  <div className="flex-1">
+                    <h4 className="text-lg font-semibold uppercase tracking-[0.2em] transition-colors duration-300 group-hover:text-white">
                       {value.title}
                     </h4>
-                    <p className="mt-2 text-sm leading-relaxed text-white/80">
+                    <p className="mt-2 text-sm leading-relaxed text-white/80 transition-colors duration-300 group-hover:text-white/95">
                       {value.description}
                     </p>
                   </div>
