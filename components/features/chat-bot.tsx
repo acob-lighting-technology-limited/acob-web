@@ -24,11 +24,7 @@ import { Button, Textarea } from '@/components/ui';
 import { ACOB_SYSTEM_PROMPT, suggestedMessages } from '@/lib/data';
 
 // Navigation imports
-import {
-  findMatchingRoute,
-  extractNavigationIntent,
-  useNavigation,
-} from '@/lib/utils/navigation';
+import { extractNavigationIntent, useNavigation } from '@/lib/utils/navigation';
 
 const formatMessage = (content: string) => {
   if (!content) {
@@ -47,19 +43,19 @@ const formatMessage = (content: string) => {
   // Convert URLs to clickable links
   formatted = formatted.replace(
     /(https?:\/\/[^\s<]+)/g,
-    '<a href="$1" target="_blank" rel="noopener noreferrer" class="text-blue-600 hover:text-blue-800 underline">$1</a>',
+    '<a href="$1" target="_blank" rel="noopener noreferrer" class="text-blue-600 hover:text-blue-800 underline">$1</a>'
   );
 
   // Convert email addresses
   formatted = formatted.replace(
     /([a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,})/g,
-    '<a href="mailto:$1" class="text-blue-600 hover:text-blue-800 underline">$1</a>',
+    '<a href="mailto:$1" class="text-blue-600 hover:text-blue-800 underline">$1</a>'
   );
 
   // Convert phone numbers
   formatted = formatted.replace(
     /(\d{4}\s?\d{3}\s?\d{4})/g,
-    '<a href="tel:$1" class="text-blue-600 hover:text-blue-800 underline">$1</a>',
+    '<a href="tel:$1" class="text-blue-600 hover:text-blue-800 underline">$1</a>'
   );
 
   // Convert line breaks
@@ -87,16 +83,49 @@ const getCurrentTime = () => {
 
 export function ChatBot() {
   const [isOpen, setIsOpen] = useState(false);
-  const [navigationRoute, setNavigationRoute] = useState<string | null>(null);
+  const [navigationRoutes, setNavigationRoutes] = useState<Map<string, string>>(
+    new Map()
+  );
+  const [messageCount, setMessageCount] = useState(0);
+  const [rateLimitReached, setRateLimitReached] = useState(false);
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const messagesContainerRef = useRef<HTMLDivElement>(null);
   const { navigateTo } = useNavigation();
+
+  const MESSAGE_LIMIT = 5;
+  const RATE_LIMIT_KEY = 'acob_chat_messages';
+  const RATE_LIMIT_TIMESTAMP_KEY = 'acob_chat_timestamp';
+
+  // Check rate limit on mount
+  useEffect(() => {
+    const storedCount = localStorage.getItem(RATE_LIMIT_KEY);
+    const storedTimestamp = localStorage.getItem(RATE_LIMIT_TIMESTAMP_KEY);
+
+    if (storedCount && storedTimestamp) {
+      const timestamp = parseInt(storedTimestamp);
+      const now = Date.now();
+      const hoursElapsed = (now - timestamp) / (1000 * 60 * 60);
+
+      if (hoursElapsed < 24) {
+        // Within 24 hours, keep the count
+        const count = parseInt(storedCount);
+        setMessageCount(count);
+        setRateLimitReached(count >= MESSAGE_LIMIT);
+      } else {
+        // Reset after 24 hours
+        localStorage.removeItem(RATE_LIMIT_KEY);
+        localStorage.removeItem(RATE_LIMIT_TIMESTAMP_KEY);
+        setMessageCount(0);
+        setRateLimitReached(false);
+      }
+    }
+  }, []);
 
   const {
     messages,
     input,
     handleInputChange,
-    handleSubmit,
+    handleSubmit: originalHandleSubmit,
     isLoading,
     setInput,
     error,
@@ -108,13 +137,41 @@ export function ChatBot() {
       // Check for navigation intent in the response
       const route = extractNavigationIntent(message.content);
       if (route) {
-        setNavigationRoute(route);
+        setNavigationRoutes(prev => new Map(prev).set(message.id, route));
       }
     },
-    onError: (error) => {
+    onError: error => {
       console.error('Chat error:', error);
     },
   });
+
+  // Wrap handleSubmit with rate limit check
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+
+    // Check rate limit
+    if (rateLimitReached) {
+      return;
+    }
+
+    // Increment message count
+    const newCount = messageCount + 1;
+    setMessageCount(newCount);
+
+    // Store in localStorage
+    if (!localStorage.getItem(RATE_LIMIT_TIMESTAMP_KEY)) {
+      localStorage.setItem(RATE_LIMIT_TIMESTAMP_KEY, Date.now().toString());
+    }
+    localStorage.setItem(RATE_LIMIT_KEY, newCount.toString());
+
+    // Check if limit reached
+    if (newCount >= MESSAGE_LIMIT) {
+      setRateLimitReached(true);
+    }
+
+    // Call original submit
+    originalHandleSubmit(e);
+  };
 
   const scrollToBottom = () => {
     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
@@ -258,14 +315,8 @@ export function ChatBot() {
   }, [isOpen]);
 
   const handleQuickReply = (message: string) => {
-    // Check if this is a navigation request
-    const route = findMatchingRoute(message);
-    if (route) {
-      navigateTo(route);
-      setIsOpen(false);
-      return;
-    }
-
+    // All suggestions trigger AI chat response
+    // The AI will naturally suggest visiting pages at the end if relevant
     setInput(message);
     setTimeout(() => {
       const form = document.getElementById('chat-form') as HTMLFormElement;
@@ -363,7 +414,7 @@ export function ChatBot() {
               {/* WhatsApp Messages Area with Chat Wallpaper */}
               <div
                 ref={messagesContainerRef}
-                className="flex-1 overflow-y-auto px-4 py-2 space-y-2 bg-background"
+                className="flex-1 overflow-y-auto px-4 py-2 space-y-2 bg-background relative"
                 style={{
                   backgroundImage:
                     "url(\"data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23000000' fill-opacity='0.02'%3E%3Cpath d='m36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm-16-16v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E\")",
@@ -374,6 +425,17 @@ export function ChatBot() {
                 onTouchStart={e => e.stopPropagation()}
                 onTouchMove={e => e.stopPropagation()}
               >
+                {/* Sticky Rate Limit Counter */}
+                {displayMessages.length > 0 && !rateLimitReached && (
+                  <div className="sticky top-0 z-10 flex justify-center py-2 backdrop-blur-sm">
+                    <div className="bg-muted/80 px-3 py-1 rounded-full shadow-sm border border-muted-foreground/20">
+                      <p className="text-xs text-muted-foreground">
+                        {MESSAGE_LIMIT - messageCount} messages remaining today
+                      </p>
+                    </div>
+                  </div>
+                )}
+
                 {/* Welcome Message */}
                 {displayMessages.length === 0 && (
                   <div className="flex justify-center my-4">
@@ -382,114 +444,198 @@ export function ChatBot() {
                         You&apos;re chatting with <strong>ACOBot</strong> — your
                         virtual assistant from ACOB Lighting. Have a question?
                         Just ask — I&apos;m here to help!
+                        <br />
+                        <span className="text-xs text-muted-foreground/70 mt-1 block">
+                          ({MESSAGE_LIMIT - messageCount} messages remaining
+                          today)
+                        </span>
                       </p>
                     </div>
                   </div>
                 )}
 
-                {/* Messages */}
-                {displayMessages.map((m: Message) => (
-                  <div
-                    key={m.id}
-                    className={`flex ${m.role === 'user' ? 'justify-end' : 'justify-start'} mb-2`}
+                {/* Rate Limit Message */}
+                {rateLimitReached && (
+                  <motion.div
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    className="flex justify-center my-4"
                   >
-                    <div
-                      className={`max-w-[85%] relative group ${
-                        m.role === 'user'
-                          ? 'bg-primary/10 rounded-t-2xl rounded-bl-2xl rounded-br-md'
-                          : 'bg-surface rounded-t-2xl rounded-br-2xl rounded-bl-md'
-                      } shadow-sm`}
-                    >
-                      <div className="px-3 py-2">
+                    <div className="bg-amber-500/10 border border-amber-500/20 rounded-lg px-4 py-2 shadow-sm">
+                      <p className="text-amber-700 dark:text-amber-400 text-sm text-center">
+                        <strong>Daily message limit reached.</strong>{' '}
+                        You&apos;ve used all {MESSAGE_LIMIT} messages for today.
+                        Please try again in 24 hours or contact us directly at{' '}
+                        <a href="tel:+2347049202634" className="underline">
+                          +234 704 920 2634
+                        </a>
+                        .
+                      </p>
+                    </div>
+                  </motion.div>
+                )}
+
+                {/* Messages */}
+                {displayMessages.map((m: Message) => {
+                  const messageRoute = navigationRoutes.get(m.id);
+
+                  return (
+                    <div key={m.id}>
+                      <div
+                        className={`flex ${m.role === 'user' ? 'justify-end' : 'justify-start'} mb-2`}
+                      >
                         <div
-                          className="text-sm leading-relaxed text-foreground"
-                          style={{
-                            overflowWrap: 'break-word',
-                            wordBreak: 'break-word',
-                            minWidth: 0,
-                            width: '100%',
-                          }}
-                          dangerouslySetInnerHTML={{
-                            __html: formatMessage(m.content),
-                          }}
-                        />
-                        <div className="flex items-center justify-end gap-1 mt-1 text-muted-foreground">
-                          <span className="text-xs">{getCurrentTime()}</span>
-                          {m.role === 'user' && (
-                            <div className="flex">
-                              <div className="w-4 h-3 flex items-end justify-end">
-                                <svg
-                                  viewBox="0 0 16 15"
-                                  width="16"
-                                  height="15"
-                                  className="text-muted-foreground"
-                                >
-                                  <path
-                                    fill="currentColor"
-                                    d="M15.01 3.316l-.478-.372a.365.365 0 0 0-.51.063L8.666 9.879a.32.32 0 0 1-.484.033l-.358-.325a.319.319 0 0 0-.484.032l-.378.483a.418.418 0 0 0 .036.541l1.32 1.266c.143.14.361.125.484-.033l6.272-8.048a.366.366 0 0 0-.063-.51zm-4.1 0l-.478-.372a.365.365 0 0 0-.51.063L4.566 9.879a.32.32 0 0 1-.484.033L1.891 7.769a.319.319 0 0 0-.484.032l-.378.483a.418.418 0 0 0 .036.541l3.132 3.006c.143.14.361.125.484-.033l5.929-7.615a.366.366 0 0 0-.063-.51z"
-                                  />
-                                </svg>
-                              </div>
+                          className={`max-w-[85%] relative group ${
+                            m.role === 'user'
+                              ? 'bg-primary/10 rounded-t-2xl rounded-bl-2xl rounded-br-md'
+                              : 'bg-surface rounded-t-2xl rounded-br-2xl rounded-bl-md'
+                          } shadow-sm`}
+                        >
+                          <div className="px-3 py-2">
+                            <div
+                              className="text-sm leading-relaxed text-foreground"
+                              style={{
+                                overflowWrap: 'break-word',
+                                wordBreak: 'break-word',
+                                minWidth: 0,
+                                width: '100%',
+                              }}
+                              dangerouslySetInnerHTML={{
+                                __html: formatMessage(m.content),
+                              }}
+                            />
+                            <div className="flex items-center justify-end gap-1 mt-1 text-muted-foreground">
+                              <span className="text-xs">
+                                {getCurrentTime()}
+                              </span>
+                              {m.role === 'user' && (
+                                <div className="flex">
+                                  <div className="w-4 h-3 flex items-end justify-end">
+                                    <svg
+                                      viewBox="0 0 16 15"
+                                      width="16"
+                                      height="15"
+                                      className="text-muted-foreground"
+                                    >
+                                      <path
+                                        fill="currentColor"
+                                        d="M15.01 3.316l-.478-.372a.365.365 0 0 0-.51.063L8.666 9.879a.32.32 0 0 1-.484.033l-.358-.325a.319.319 0 0 0-.484.032l-.378.483a.418.418 0 0 0 .036.541l1.32 1.266c.143.14.361.125.484-.033l6.272-8.048a.366.366 0 0 0-.063-.51zm-4.1 0l-.478-.372a.365.365 0 0 0-.51.063L4.566 9.879a.32.32 0 0 1-.484.033L1.891 7.769a.319.319 0 0 0-.484.032l-.378.483a.418.418 0 0 0 .036.541l3.132 3.006c.143.14.361.125.484-.033l5.929-7.615a.366.366 0 0 0-.063-.51z"
+                                      />
+                                    </svg>
+                                  </div>
+                                </div>
+                              )}
                             </div>
-                          )}
+                          </div>
+
+                          {/* WhatsApp-style message tail */}
+                          <div
+                            className={`absolute top-0 ${
+                              m.role === 'user' ? '-right-1' : '-left-1'
+                            } w-3 h-3 transform rotate-45 ${
+                              m.role === 'user' ? 'bg-primary/10' : 'bg-surface'
+                            }`}
+                          />
                         </div>
                       </div>
 
-                      {/* WhatsApp-style message tail */}
-                      <div
-                        className={`absolute top-0 ${
-                          m.role === 'user' ? '-right-1' : '-left-1'
-                        } w-3 h-3 transform rotate-45 ${
-                          m.role === 'user' ? 'bg-primary/10' : 'bg-surface'
-                        }`}
-                      />
+                      {/* Navigation Button for this message */}
+                      {messageRoute && m.role === 'assistant' && (
+                        <motion.div
+                          initial={{ opacity: 0, y: 10 }}
+                          animate={{ opacity: 1, y: 0 }}
+                          className="flex justify-start mb-2 ml-2"
+                        >
+                          <Button
+                            onClick={() => {
+                              navigateTo(messageRoute);
+                              setIsOpen(false);
+                              setNavigationRoutes(prev => {
+                                const newMap = new Map(prev);
+                                newMap.delete(m.id);
+                                return newMap;
+                              });
+                            }}
+                            className="bg-primary hover:bg-primary/90 text-primary-foreground px-4 py-2 text-xs rounded-full shadow-lg flex items-center gap-2"
+                          >
+                            <ExternalLink className="h-3 w-3" />
+                            Navigate to{' '}
+                            {messageRoute === '/'
+                              ? 'Home'
+                              : messageRoute === '/contact/quote'
+                                ? 'Get Quote Page'
+                                : messageRoute === '/services'
+                                  ? 'Services Page'
+                                  : messageRoute === '/projects'
+                                    ? 'Projects Page'
+                                    : messageRoute === '/contact/support'
+                                      ? 'Support Page'
+                                      : messageRoute === '/contact/locations'
+                                        ? 'Office Locations'
+                                        : messageRoute === '/contact/careers'
+                                          ? 'Careers Page'
+                                          : messageRoute === '/about'
+                                            ? 'About Us Page'
+                                            : messageRoute ===
+                                                '/updates/gallery'
+                                              ? 'Gallery Page'
+                                              : messageRoute ===
+                                                  '/updates/case-studies'
+                                                ? 'Case Studies Page'
+                                                : messageRoute
+                                                    .split('/')
+                                                    .pop()
+                                                    ?.replace(/-/g, ' ')}
+                          </Button>
+                        </motion.div>
+                      )}
                     </div>
-                  </div>
-                ))}
+                  );
+                })}
 
                 {/* WhatsApp Typing Indicator */}
                 {isLoading &&
                   displayMessages[displayMessages.length - 1]?.role ===
                     'user' && (
-                  <motion.div
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    className="flex justify-start mb-2"
-                  >
-                    <div className="bg-surface rounded-t-2xl rounded-br-2xl rounded-bl-md shadow-sm px-4 py-3 relative">
-                      <div className="flex items-center gap-1">
-                        <motion.div
-                          animate={{ scale: [1, 1.2, 1] }}
-                          transition={{
-                            duration: 0.6,
-                            repeat: Number.POSITIVE_INFINITY,
-                            delay: 0,
-                          }}
-                          className="w-2 h-2 bg-primary rounded-full"
-                        />
-                        <motion.div
-                          animate={{ scale: [1, 1.2, 1] }}
-                          transition={{
-                            duration: 0.6,
-                            repeat: Number.POSITIVE_INFINITY,
-                            delay: 0.2,
-                          }}
-                          className="w-2 h-2 bg-primary rounded-full"
-                        />
-                        <motion.div
-                          animate={{ scale: [1, 1.2, 1] }}
-                          transition={{
-                            duration: 0.6,
-                            repeat: Number.POSITIVE_INFINITY,
-                            delay: 0.4,
-                          }}
-                          className="w-2 h-2 bg-primary rounded-full"
-                        />
+                    <motion.div
+                      initial={{ opacity: 0, y: 20 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      className="flex justify-start mb-2"
+                    >
+                      <div className="bg-surface rounded-t-2xl rounded-br-2xl rounded-bl-md shadow-sm px-4 py-3 relative">
+                        <div className="flex items-center gap-1">
+                          <motion.div
+                            animate={{ scale: [1, 1.2, 1] }}
+                            transition={{
+                              duration: 0.6,
+                              repeat: Number.POSITIVE_INFINITY,
+                              delay: 0,
+                            }}
+                            className="w-2 h-2 bg-primary rounded-full"
+                          />
+                          <motion.div
+                            animate={{ scale: [1, 1.2, 1] }}
+                            transition={{
+                              duration: 0.6,
+                              repeat: Number.POSITIVE_INFINITY,
+                              delay: 0.2,
+                            }}
+                            className="w-2 h-2 bg-primary rounded-full"
+                          />
+                          <motion.div
+                            animate={{ scale: [1, 1.2, 1] }}
+                            transition={{
+                              duration: 0.6,
+                              repeat: Number.POSITIVE_INFINITY,
+                              delay: 0.4,
+                            }}
+                            className="w-2 h-2 bg-primary rounded-full"
+                          />
+                        </div>
+                        <div className="absolute top-0 -left-1 w-3 h-3 transform rotate-45 bg-surface" />
                       </div>
-                      <div className="absolute top-0 -left-1 w-3 h-3 transform rotate-45 bg-surface" />
-                    </div>
-                  </motion.div>
-                )}
+                    </motion.div>
+                  )}
 
                 {/* Error Message */}
                 {error && (
@@ -507,56 +653,10 @@ export function ChatBot() {
                 )}
 
                 <div ref={messagesEndRef} />
-
-                {/* Navigation Button */}
-                {navigationRoute && (
-                  <motion.div
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    className="flex justify-center my-4"
-                  >
-                    <Button
-                      onClick={() => {
-                        navigateTo(navigationRoute);
-                        setIsOpen(false);
-                        setNavigationRoute(null);
-                      }}
-                      className="bg-primary hover:bg-primary/90 text-primary-foreground px-6 py-2 rounded-full shadow-lg flex items-center gap-2"
-                    >
-                      <ExternalLink className="h-4 w-4" />
-                      Navigate to{' '}
-                      {navigationRoute === '/'
-                        ? 'Home'
-                        : navigationRoute === '/contact/quote'
-                          ? 'Get Quote Page'
-                          : navigationRoute === '/services'
-                            ? 'Services Page'
-                            : navigationRoute === '/projects'
-                              ? 'Projects Page'
-                              : navigationRoute === '/contact/support'
-                                ? 'Support Page'
-                                : navigationRoute === '/contact/locations'
-                                  ? 'Office Locations'
-                                  : navigationRoute === '/contact/careers'
-                                    ? 'Careers Page'
-                                    : navigationRoute === '/about'
-                                      ? 'About Us Page'
-                                      : navigationRoute === '/updates/gallery'
-                                        ? 'Gallery Page'
-                                        : navigationRoute ===
-                                            '/updates/case-studies'
-                                          ? 'Case Studies Page'
-                                          : navigationRoute
-                                            .split('/')
-                                            .pop()
-                                            ?.replace(/-/g, ' ')}
-                    </Button>
-                  </motion.div>
-                )}
               </div>
 
               {/* Suggested Messages */}
-              {displayMessages.length === 0 && (
+              {displayMessages.length === 0 && !rateLimitReached && (
                 <div className="px-4 py-2 bg-transparent">
                   <div className="flex flex-wrap gap-2">
                     {suggestedMessages.map((msg, index) => (
@@ -571,7 +671,7 @@ export function ChatBot() {
                           size="sm"
                           onClick={() => handleQuickReply(msg)}
                           className="rounded-full text-xs px-3 py-1 h-auto bg-surface !border border-muted text-muted-foreground hover:bg-muted transition-all duration-200 disabled:opacity-50"
-                          disabled={isChatting}
+                          disabled={isChatting || rateLimitReached}
                         >
                           {msg}
                         </Button>
@@ -597,26 +697,32 @@ export function ChatBot() {
                     <Textarea
                       value={input}
                       onChange={handleInputChange}
-                      placeholder="Type a message..."
+                      placeholder={
+                        rateLimitReached
+                          ? 'Message limit reached'
+                          : 'Type a message...'
+                      }
                       className="flex-1 flex text-foreground justify-end !bg-transparent items-end min-h-9 max-h-28 resize-none border-0 focus:ring-0 focus:outline-none text-sm focus-visible:ring-0 placeholder:text-muted-foreground outline-none py-1 rounded-full"
                       rows={1}
                       onKeyDown={e => {
                         if (e.key === 'Enter' && !e.shiftKey) {
                           e.preventDefault();
-                          // Trigger form submission manually
-                          const form = document.getElementById(
-                            'chat-form',
-                          ) as HTMLFormElement;
-                          if (form) {
-                            const submitEvent = new Event('submit', {
-                              bubbles: true,
-                              cancelable: true,
-                            });
-                            form.dispatchEvent(submitEvent);
+                          if (!rateLimitReached) {
+                            // Trigger form submission manually
+                            const form = document.getElementById(
+                              'chat-form'
+                            ) as HTMLFormElement;
+                            if (form) {
+                              const submitEvent = new Event('submit', {
+                                bubbles: true,
+                                cancelable: true,
+                              });
+                              form.dispatchEvent(submitEvent);
+                            }
                           }
                         }
                       }}
-                      disabled={isChatting}
+                      disabled={isChatting || rateLimitReached}
                       style={{
                         scrollbarWidth: 'none',
                         msOverflowStyle: 'none',
@@ -639,7 +745,7 @@ export function ChatBot() {
                     <Button
                       type="submit"
                       size="icon"
-                      disabled={!input.trim()}
+                      disabled={!input.trim() || rateLimitReached}
                       className="self-stretch min-h-12 w-12 rounded-full bg-primary hover:bg-primary/90 text-primary-foreground transition-all duration-200 flex-shrink-0 disabled:opacity-50"
                     >
                       <Send className="h-4 w-4" />
