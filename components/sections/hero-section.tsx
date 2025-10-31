@@ -118,13 +118,13 @@ const HeroSection = React.memo(function HeroSection({
             <div className="space-y-4">
               <MaskText
                 phrases={['Powering sustainable futures for homes, businesses, and communities.']}
-                className="text-4xl font-bold leading-tight sm:text-5xl lg:text-6xl text-primary dark:text-foreground"
+                className="text-3xl font-bold leading-tight md:text-4xl lg:text-5xl text-primary dark:text-foreground"
               />
               <MaskText
                 phrases={[
                   'We deliver dependable solar, mini-grid, and energy storage solutions that unlock productivity and resilience for communities across Nigeria.',
                 ]}
-                className="max-w-xl text-lg text-muted-foreground"
+                className="max-w-xl text-base md:text-lg text-muted-foreground"
               />
             </div>
 

@@ -53,13 +53,13 @@ export function ProjectsSection({ projects }: ProjectsSectionProps) {
             <div className="space-y-4">
               <MaskText
                 phrases={['Selected Energy Deployments']}
-                className="text-3xl font-semibold md:text-5xl"
+                className="text-3xl font-semibold md:text-4xl lg:text-5xl"
               />
               <MaskText
                 phrases={[
                   'Each project is engineered to deliver bankable returns, resilient operations, and measurable socio-economic impact for communities across Nigeria.',
                 ]}
-                className="max-w-xl text-lg text-muted-foreground"
+                className="max-w-xl text-base md:text-lg text-muted-foreground"
               />
             </div>
           </FadeIn>
@@ -109,10 +109,10 @@ export function ProjectsSection({ projects }: ProjectsSectionProps) {
                   {/* Project Content */}
                   <CardContent className="flex flex-1 flex-col p-4 sm:p-6">
                     <div className="space-y-3">
-                      <h3 className="text-xl font-semibold text-foreground">
+                      <h3 className="text-xl md:text-2xl font-semibold text-foreground">
                         {project.title}
                       </h3>
-                      <p className="text-sm text-muted-foreground line-clamp-4">
+                      <p className="text-sm md:text-base text-muted-foreground line-clamp-4">
                         {project.excerpt ||
                           project.description ||
                           'Project details coming soon.'}
