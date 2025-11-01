@@ -20,7 +20,10 @@ interface CategoryPageProps {
 }
 
 // Category mapping for display names and descriptions
-const categoryInfo: Record<string, { title: string; description: string; image: string }> = {
+const categoryInfo: Record<
+  string,
+  { title: string; description: string; image: string }
+> = {
   'rural-electrification': {
     title: 'Rural Electrification',
     description: 'Bringing reliable power to remote communities across Nigeria',
@@ -33,17 +36,25 @@ const categoryInfo: Record<string, { title: string; description: string; image: 
   },
   'street-lighting': {
     title: 'Street Lighting',
-    description: 'Public lighting infrastructure projects for safer communities',
-    image: '/images/projects/installation-high-density-streetlight-1.webp?height=400&width=1200',
+    description:
+      'Public lighting infrastructure projects for safer communities',
+    image:
+      '/images/projects/installation-high-density-streetlight-1.webp?height=400&width=1200',
   },
   'healthcare-projects': {
     title: 'Healthcare Projects',
-    description: 'Powering hospitals and healthcare facilities with reliable energy',
-    image: '/images/projects/keffi-nassarawa-hospital-1.webp?height=400&width=1200',
+    description:
+      'Powering hospitals and healthcare facilities with reliable energy',
+    image:
+      '/images/projects/keffi-nassarawa-hospital-1.webp?height=400&width=1200',
   },
 };
 
-export async function generateMetadata({ params }: { params: Promise<{ category: string }> }): Promise<Metadata> {
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ category: string }>;
+}): Promise<Metadata> {
   const { category } = await params;
   const info = categoryInfo[category];
 
@@ -121,8 +132,8 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
       allProjects
         .map((p: Project) => p.location)
         .filter(Boolean)
-        .map(extractStateFromLocation),
-    ),
+        .map(extractStateFromLocation)
+    )
   ).sort() as string[];
 
   const breadcrumbItems = [
@@ -133,10 +144,7 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
 
   return (
     <>
-      <PageHero
-        title={info.title}
-        backgroundImage={info.image}
-      >
+      <PageHero title={info.title} backgroundImage={info.image}>
         <p className="text-lg md:text-xl opacity-90 max-w-3xl leading-relaxed">
           {info.description}
         </p>
@@ -152,22 +160,25 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
               <Card className="!border-t-2 !border-t-primary border border-border">
                 <CardContent className="p-4 sm:p-6 xl:p-8 text-center">
                   <div className="text-muted-foreground mb-4">
-                    <h3 className="text-xl font-semibold mb-2">No projects found</h3>
+                    <h3 className="text-xl font-semibold mb-2">
+                      No projects found
+                    </h3>
                     <p>No projects available in this category yet.</p>
                   </div>
                   <Link href="/projects">
-                    <Button variant="outline">
-                      View All Projects
-                    </Button>
+                    <Button variant="outline">View All Projects</Button>
                   </Link>
                 </CardContent>
               </Card>
             ) : (
               <>
                 <div className="mb-8">
-                  <h2 className="text-2xl font-bold mb-2">{info.title} Projects</h2>
+                  <h2 className="text-2xl font-bold mb-2">
+                    {info.title} Projects
+                  </h2>
                   <p className="text-muted-foreground">
-                    {projects.length} project{projects.length !== 1 ? 's' : ''} found
+                    {projects.length} project{projects.length !== 1 ? 's' : ''}{' '}
+                    found
                   </p>
                 </div>
 
@@ -180,10 +191,13 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
                       <div className="aspect-[16/9] overflow-hidden relative flex-shrink-0">
                         {project.projectImage ? (
                           <Image
-                            src={applySanityImagePreset(project.projectImage, 'card')}
+                            src={applySanityImagePreset(
+                              project.projectImage,
+                              'card'
+                            )}
                             alt={project.title}
                             fill
-                            className="hover:scale-105 object-cover transition-transform duration-300"
+                            className="hover:scale-105 object-cover transition-transform duration-500"
                             sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                           />
                         ) : (
@@ -200,7 +214,8 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
                             {project.title}
                           </h3>
                           <p className="text-muted-foreground mb-4 leading-relaxed line-clamp-3">
-                            {project.excerpt || 'Project details coming soon...'}
+                            {project.excerpt ||
+                              'Project details coming soon...'}
                           </p>
                           <div className="flex items-center text-sm text-muted-foreground mb-6">
                             <MapPin className="h-4 w-4 mr-1" />
@@ -250,7 +265,7 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
                         <Link
                           key={state}
                           href={`/projects?state=${encodeURIComponent(state)}`}
-                          className="block w-full text-left p-3 rounded-lg transition-colors duration-200 text-sm font-medium border border-border bg-muted/30 hover:bg-muted/50 text-foreground"
+                          className="block w-full text-left p-3 rounded-lg transition-colors duration-500 text-sm font-medium border border-border bg-muted/30 hover:bg-muted/50 text-foreground"
                         >
                           <div className="flex items-center justify-between">
                             <span>{state}</span>
@@ -258,8 +273,12 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
                               (
                               {
                                 allProjects.filter((p: Project) => {
-                                  if (!p.location) {return false;}
-                                  const projectState = extractStateFromLocation(p.location);
+                                  if (!p.location) {
+                                    return false;
+                                  }
+                                  const projectState = extractStateFromLocation(
+                                    p.location
+                                  );
                                   return projectState === state;
                                 }).length
                               }
@@ -281,7 +300,7 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
                         <Link
                           key={project._id}
                           href={`/projects/${project.slug.current}`}
-                          className="block p-3 rounded-lg bg-muted/30 hover:bg-muted/50 transition-colors duration-200 border border-border group"
+                          className="block p-3 rounded-lg bg-muted/30 hover:bg-muted/50 transition-colors duration-500 border border-border group"
                         >
                           <h4 className="text-sm font-medium text-foreground group-hover:text-primary mb-1">
                             {project.title}

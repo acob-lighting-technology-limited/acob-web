@@ -14,7 +14,6 @@ import {
   getStaticBackgroundImage,
 } from '@/lib/utils/static-images';
 
-
 function CounterAnimation({
   end,
   suffix,
@@ -61,7 +60,7 @@ export function TransitionSection() {
   const isInView = useInView(ref, { once: true, margin: '-50px' });
   const [images, setImages] = useState<StaticImage[]>([]);
   const [backgroundImage, setBackgroundImage] = useState(
-      '/images/transition-bg.webp',
+    '/images/transition-bg.webp'
   );
   const [isLoading, setIsLoading] = useState(true);
   useEffect(() => {
@@ -70,7 +69,10 @@ export function TransitionSection() {
         await initializeStaticImages();
         const staticImages = getStaticImages();
         const staticBg = getStaticBackgroundImage();
-        console.log('🖼️ Transition section - Images loaded:', staticImages.length);
+        console.log(
+          '🖼️ Transition section - Images loaded:',
+          staticImages.length
+        );
         console.log('🖼️ Transition section - Background image:', staticBg);
         setImages(staticImages);
         setBackgroundImage(staticBg);
@@ -79,7 +81,10 @@ export function TransitionSection() {
         // Fallback images are already set in initializeStaticImages
         const staticImages = getStaticImages();
         const staticBg = getStaticBackgroundImage();
-        console.log('🔄 Using fallback images in transition section:', staticImages.length);
+        console.log(
+          '🔄 Using fallback images in transition section:',
+          staticImages.length
+        );
         setImages(staticImages);
         setBackgroundImage(staticBg);
       } finally {
@@ -93,7 +98,7 @@ export function TransitionSection() {
   return (
     <section
       ref={ref}
-      className="relative overflow-hidden bg-cover bg-center bg-no-repeat py-24 transition-colors duration-700"
+      className="relative overflow-hidden bg-cover bg-center bg-no-repeat py-24 transition-all duration-500"
       style={{
         backgroundImage: `url('${backgroundImage}')`,
       }}
@@ -107,7 +112,7 @@ export function TransitionSection() {
                 'Feeling The Transition To Renewable Power,',
                 'To deploy 100 micro-grids impacting the lives of over ten thousand Nigerians by 2030.',
               ]}
-              className="text-3xl md:text-4xl font-bold mb-6 text-primary-foreground transition-colors duration-700"
+              className="text-3xl md:text-4xl font-bold mb-6 text-primary-foreground transition-colors duration-500"
             />
             <div className="grid grid-cols-2 gap-6">
               {stats.map((stat, index) => (
@@ -122,7 +127,7 @@ export function TransitionSection() {
                     delay: index * 0.1 + 0.3,
                     ease: 'easeOut',
                   }}
-                  className="rounded-2xl border border-white/15 bg-white/10 p-6 text-center shadow-lg backdrop-blur supports-[backdrop-filter]:backdrop-blur-xl transition-all duration-300 hover:-translate-y-1 hover:border-white/35 hover:bg-white/15"
+                  className="rounded-2xl border border-white/15 bg-white/10 p-6 text-center shadow-lg backdrop-blur supports-[backdrop-filter]:backdrop-blur-xl transition-all duration-500 hover:-translate-y-1 hover:border-white/35 hover:bg-white/15"
                 >
                   <CounterAnimation
                     end={stat.number}

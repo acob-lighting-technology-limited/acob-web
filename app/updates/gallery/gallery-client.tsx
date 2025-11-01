@@ -44,9 +44,12 @@ export function GalleryClient({ galleryData }: GalleryClientProps) {
   const [viewMode, setViewMode] = useState<'grid' | 'list'>('grid');
   const [isViewerOpen, setIsViewerOpen] = useState(false);
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
-  const [currentCategoryImages, setCurrentCategoryImages] = useState<string[]>([]);
+  const [currentCategoryImages, setCurrentCategoryImages] = useState<string[]>(
+    []
+  );
   const [isAutoPlaying, setIsAutoPlaying] = useState(false);
-  const [autoPlayInterval, setAutoPlayInterval] = useState<NodeJS.Timeout | null>(null);
+  const [autoPlayInterval, setAutoPlayInterval] =
+    useState<NodeJS.Timeout | null>(null);
   const [isFullscreen, setIsFullscreen] = useState(false);
   const [zoomLevel, setZoomLevel] = useState(1);
   const [imagePosition, setImagePosition] = useState({ x: 0, y: 0 });
@@ -62,18 +65,21 @@ export function GalleryClient({ galleryData }: GalleryClientProps) {
   }, [selectedCategory, galleryData]);
 
   // Auto-play functionality
-  const startAutoPlay = useCallback((images: string[]) => {
-    if (autoPlayInterval) {
-      clearInterval(autoPlayInterval);
-    }
+  const startAutoPlay = useCallback(
+    (images: string[]) => {
+      if (autoPlayInterval) {
+        clearInterval(autoPlayInterval);
+      }
 
-    const interval = setInterval(() => {
-      setCurrentImageIndex(prev => (prev + 1) % images.length);
-    }, 3000); // Change image every 3 seconds
+      const interval = setInterval(() => {
+        setCurrentImageIndex(prev => (prev + 1) % images.length);
+      }, 3000); // Change image every 3 seconds
 
-    setAutoPlayInterval(interval);
-    setIsAutoPlaying(true);
-  }, [autoPlayInterval]);
+      setAutoPlayInterval(interval);
+      setIsAutoPlaying(true);
+    },
+    [autoPlayInterval]
+  );
 
   const stopAutoPlay = useCallback(() => {
     if (autoPlayInterval) {
@@ -84,14 +90,17 @@ export function GalleryClient({ galleryData }: GalleryClientProps) {
   }, [autoPlayInterval]);
 
   // Open image viewer
-  const openImageViewer = useCallback((images: string[], startIndex: number = 0) => {
-    console.log('Opening image viewer with images:', images);
-    console.log('Start index:', startIndex);
-    setCurrentCategoryImages(images);
-    setCurrentImageIndex(startIndex);
-    setIsViewerOpen(true);
-    stopAutoPlay(); // Stop any existing auto-play
-  }, [stopAutoPlay]);
+  const openImageViewer = useCallback(
+    (images: string[], startIndex: number = 0) => {
+      console.log('Opening image viewer with images:', images);
+      console.log('Start index:', startIndex);
+      setCurrentCategoryImages(images);
+      setCurrentImageIndex(startIndex);
+      setIsViewerOpen(true);
+      stopAutoPlay(); // Stop any existing auto-play
+    },
+    [stopAutoPlay]
+  );
 
   // Close image viewer
   const closeImageViewer = useCallback(() => {
@@ -108,8 +117,12 @@ export function GalleryClient({ galleryData }: GalleryClientProps) {
 
   // Toggle fullscreen
   const toggleFullscreen = useCallback(() => {
-    const modalElement = document.querySelector('[data-gallery-modal]') as HTMLElement;
-    if (!modalElement) {return;}
+    const modalElement = document.querySelector(
+      '[data-gallery-modal]'
+    ) as HTMLElement;
+    if (!modalElement) {
+      return;
+    }
 
     if (!document.fullscreenElement) {
       modalElement.requestFullscreen();
@@ -135,21 +148,30 @@ export function GalleryClient({ galleryData }: GalleryClientProps) {
   }, []);
 
   // Drag functions
-  const handleMouseDown = useCallback((e: React.MouseEvent) => {
-    if (zoomLevel > 1) {
-      setIsDragging(true);
-      setDragStart({ x: e.clientX - imagePosition.x, y: e.clientY - imagePosition.y });
-    }
-  }, [zoomLevel, imagePosition]);
+  const handleMouseDown = useCallback(
+    (e: React.MouseEvent) => {
+      if (zoomLevel > 1) {
+        setIsDragging(true);
+        setDragStart({
+          x: e.clientX - imagePosition.x,
+          y: e.clientY - imagePosition.y,
+        });
+      }
+    },
+    [zoomLevel, imagePosition]
+  );
 
-  const handleMouseMove = useCallback((e: React.MouseEvent) => {
-    if (isDragging && zoomLevel > 1) {
-      setImagePosition({
-        x: e.clientX - dragStart.x,
-        y: e.clientY - dragStart.y,
-      });
-    }
-  }, [isDragging, dragStart, zoomLevel]);
+  const handleMouseMove = useCallback(
+    (e: React.MouseEvent) => {
+      if (isDragging && zoomLevel > 1) {
+        setImagePosition({
+          x: e.clientX - dragStart.x,
+          y: e.clientY - dragStart.y,
+        });
+      }
+    },
+    [isDragging, dragStart, zoomLevel]
+  );
 
   const handleMouseUp = useCallback(() => {
     setIsDragging(false);
@@ -167,7 +189,7 @@ export function GalleryClient({ galleryData }: GalleryClientProps) {
   // Navigate images
   const goToPrevious = useCallback(() => {
     setCurrentImageIndex(prev =>
-      prev === 0 ? currentCategoryImages.length - 1 : prev - 1,
+      prev === 0 ? currentCategoryImages.length - 1 : prev - 1
     );
     setZoomLevel(1);
     setImagePosition({ x: 0, y: 0 });
@@ -175,7 +197,7 @@ export function GalleryClient({ galleryData }: GalleryClientProps) {
 
   const goToNext = useCallback(() => {
     setCurrentImageIndex(prev =>
-      prev === currentCategoryImages.length - 1 ? 0 : prev + 1,
+      prev === currentCategoryImages.length - 1 ? 0 : prev + 1
     );
     setZoomLevel(1);
     setImagePosition({ x: 0, y: 0 });
@@ -184,7 +206,9 @@ export function GalleryClient({ galleryData }: GalleryClientProps) {
   // Keyboard navigation
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
-      if (!isViewerOpen) {return;}
+      if (!isViewerOpen) {
+        return;
+      }
 
       switch (e.key) {
         case 'ArrowLeft':
@@ -222,7 +246,16 @@ export function GalleryClient({ galleryData }: GalleryClientProps) {
 
     window.addEventListener('keydown', handleKeyDown);
     return () => window.removeEventListener('keydown', handleKeyDown);
-  }, [isViewerOpen, goToPrevious, goToNext, closeImageViewer, toggleFullscreen, zoomIn, zoomOut, resetZoom]);
+  }, [
+    isViewerOpen,
+    goToPrevious,
+    goToNext,
+    closeImageViewer,
+    toggleFullscreen,
+    zoomIn,
+    zoomOut,
+    resetZoom,
+  ]);
 
   // Cleanup auto-play on unmount
   useEffect(() => {
@@ -240,7 +273,8 @@ export function GalleryClient({ galleryData }: GalleryClientProps) {
     };
 
     document.addEventListener('fullscreenchange', handleFullscreenChange);
-    return () => document.removeEventListener('fullscreenchange', handleFullscreenChange);
+    return () =>
+      document.removeEventListener('fullscreenchange', handleFullscreenChange);
   }, []);
 
   return (
@@ -286,7 +320,11 @@ export function GalleryClient({ galleryData }: GalleryClientProps) {
             {galleryData.map(categoryData => (
               <Button
                 key={categoryData.category}
-                variant={selectedCategory === categoryData.category ? 'default' : 'outline'}
+                variant={
+                  selectedCategory === categoryData.category
+                    ? 'default'
+                    : 'outline'
+                }
                 size="sm"
                 className="text-xs"
                 onClick={() => setSelectedCategory(categoryData.category)}
@@ -304,29 +342,45 @@ export function GalleryClient({ galleryData }: GalleryClientProps) {
           <CardContent className="p-4 sm:p-6 xl:p-8 text-center">
             <div className="text-muted-foreground mb-4">
               <Camera className="h-12 w-12 mx-auto mb-4 opacity-50" />
-              <h3 className="text-xl font-semibold mb-2">No categories found</h3>
+              <h3 className="text-xl font-semibold mb-2">
+                No categories found
+              </h3>
               <p>No gallery categories match the selected filter.</p>
             </div>
-            <Button variant="outline" onClick={() => setSelectedCategory('All')}>
+            <Button
+              variant="outline"
+              onClick={() => setSelectedCategory('All')}
+            >
               View All Categories
             </Button>
           </CardContent>
         </Card>
       ) : (
-        <div className={viewMode === 'grid' ? 'grid grid-cols-1 md:grid-cols-2 gap-6' : 'space-y-6'}>
+        <div
+          className={
+            viewMode === 'grid'
+              ? 'grid grid-cols-1 md:grid-cols-2 gap-6'
+              : 'space-y-6'
+          }
+        >
           {filteredData.map(categoryData => (
-            <Card key={categoryData.category} className={`overflow-hidden hover:shadow-lg transition-shadow duration-300 group ${
-              viewMode === 'list' ? 'flex flex-col md:flex-row' : ''
-            }`}>
-              <div className={`${viewMode === 'list' ? 'md:w-1/3' : ''} aspect-[4/3] overflow-hidden relative`}>
+            <Card
+              key={categoryData.category}
+              className={`overflow-hidden hover:shadow-lg transition-shadow duration-500 group ${
+                viewMode === 'list' ? 'flex flex-col md:flex-row' : ''
+              }`}
+            >
+              <div
+                className={`${viewMode === 'list' ? 'md:w-1/3' : ''} aspect-[4/3] overflow-hidden relative`}
+              >
                 {categoryData.images.length > 0 ? (
-                    <Image
-                      src={applySanityImagePreset(categoryData.images[0], 'card')}
-                      alt={categoryData.category}
-                      fill
-                      sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 50vw"
-                      className="object-cover group-hover:scale-105 transition-transform duration-300"
-                    />
+                  <Image
+                    src={applySanityImagePreset(categoryData.images[0], 'card')}
+                    alt={categoryData.category}
+                    fill
+                    sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 50vw"
+                    className="object-cover group-hover:scale-105 transition-transform duration-500"
+                  />
                 ) : (
                   <div className="w-full h-full bg-muted flex items-center justify-center">
                     <Camera className="h-12 w-12 text-muted-foreground" />
@@ -334,15 +388,18 @@ export function GalleryClient({ galleryData }: GalleryClientProps) {
                 )}
 
                 {/* Overlay with action buttons */}
-                <div className="absolute inset-0 bg-black/0 group-hover:bg-black/40 transition-colors duration-300 flex items-center justify-center">
-                  <div className="opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex gap-2">
+                <div className="absolute inset-0 bg-black/0 group-hover:bg-black/40 transition-colors duration-500 flex items-center justify-center">
+                  <div className="opacity-0 group-hover:opacity-100 transition-opacity duration-500 flex gap-2">
                     <Button
                       size="sm"
-                    onClick={() => {
-                      console.log('View All clicked for category:', categoryData.category);
-                      console.log('Images:', categoryData.images);
-                      openImageViewer(categoryData.images, 0);
-                    }}
+                      onClick={() => {
+                        console.log(
+                          'View All clicked for category:',
+                          categoryData.category
+                        );
+                        console.log('Images:', categoryData.images);
+                        openImageViewer(categoryData.images, 0);
+                      }}
                       className="bg-white/90 text-black hover:bg-white"
                     >
                       <Maximize2 className="h-4 w-4 mr-2" />
@@ -381,21 +438,28 @@ export function GalleryClient({ galleryData }: GalleryClientProps) {
                 </div>
               </div>
 
-              <CardContent className={`p-4 ${viewMode === 'list' ? 'md:w-2/3 md:flex md:flex-col md:justify-between' : ''}`}>
+              <CardContent
+                className={`p-4 ${viewMode === 'list' ? 'md:w-2/3 md:flex md:flex-col md:justify-between' : ''}`}
+              >
                 <div>
                   <div className="flex items-center text-xs text-muted-foreground mb-2">
-                    <span className="bg-muted px-2 py-1 rounded text-xs">{categoryData.category}</span>
+                    <span className="bg-muted px-2 py-1 rounded text-xs">
+                      {categoryData.category}
+                    </span>
                     <span className="mx-2">•</span>
                     <span>{categoryData.projects.length} projects</span>
                   </div>
-                  <h3 className={`font-semibold mb-2 text-foreground ${viewMode === 'list' ? 'text-lg' : ''}`}>
+                  <h3
+                    className={`font-semibold mb-2 text-foreground ${viewMode === 'list' ? 'text-lg' : ''}`}
+                  >
                     {categoryData.category}
                   </h3>
-                  <p className={`text-sm text-muted-foreground mb-3 ${viewMode === 'list' ? 'text-base' : ''}`}>
+                  <p
+                    className={`text-sm text-muted-foreground mb-3 ${viewMode === 'list' ? 'text-base' : ''}`}
+                  >
                     {categoryData.totalImages > 0
                       ? `Explore ${categoryData.totalImages} images from ${categoryData.projects.length} projects in this category.`
-                      : 'No images available for this category yet.'
-                    }
+                      : 'No images available for this category yet.'}
                   </p>
                 </div>
                 <div className="flex gap-2">
@@ -404,7 +468,10 @@ export function GalleryClient({ galleryData }: GalleryClientProps) {
                     size="sm"
                     className={`${viewMode === 'list' ? 'w-auto' : 'flex-1'}`}
                     onClick={() => {
-                      console.log('View Gallery clicked for category:', categoryData.category);
+                      console.log(
+                        'View Gallery clicked for category:',
+                        categoryData.category
+                      );
                       console.log('Images:', categoryData.images);
                       setIsViewerOpen(true);
                       setCurrentCategoryImages(categoryData.images);
@@ -451,9 +518,11 @@ export function GalleryClient({ galleryData }: GalleryClientProps) {
             isFullscreen ? 'bg-black' : 'bg-black/90'
           }`}
         >
-          <div className={`relative w-full h-full flex flex-col ${
-            isFullscreen ? 'max-w-none max-h-none' : 'max-w-7xl max-h-[90vh]'
-          }`}>
+          <div
+            className={`relative w-full h-full flex flex-col ${
+              isFullscreen ? 'max-w-none max-h-none' : 'max-w-7xl max-h-[90vh]'
+            }`}
+          >
             {/* Header */}
             <div className="flex items-center justify-between p-4 bg-black/50 text-white">
               <div className="flex items-center gap-4">
@@ -495,7 +564,9 @@ export function GalleryClient({ galleryData }: GalleryClientProps) {
                   >
                     <ZoomOut className="h-4 w-4" />
                   </Button>
-                  <span className="text-sm px-2">{Math.round(zoomLevel * 100)}%</span>
+                  <span className="text-sm px-2">
+                    {Math.round(zoomLevel * 100)}%
+                  </span>
                   <Button
                     size="sm"
                     variant="outline"
@@ -556,19 +627,27 @@ export function GalleryClient({ galleryData }: GalleryClientProps) {
                   <img
                     src={currentCategoryImages[currentImageIndex]}
                     alt={`Gallery image ${currentImageIndex + 1}`}
-                    className="max-w-full max-h-full object-contain transition-all duration-300 ease-out"
+                    className="max-w-full max-h-full object-contain transition-all duration-500 ease-out"
                     style={{
                       maxHeight: isFullscreen ? '100vh' : '70vh',
                       transform: `scale(${zoomLevel}) translate(${imagePosition.x}px, ${imagePosition.y}px)`,
                       transformOrigin: 'center center',
-                      transition: isDragging ? 'none' : 'transform 0.3s ease-out',
+                      transition: isDragging
+                        ? 'none'
+                        : 'transform 0.3s ease-out',
                     }}
-                    onError={(e) => {
-                      console.error('Image failed to load:', currentCategoryImages[currentImageIndex]);
+                    onError={e => {
+                      console.error(
+                        'Image failed to load:',
+                        currentCategoryImages[currentImageIndex]
+                      );
                       console.error('Error:', e);
                     }}
                     onLoad={() => {
-                      console.log('Image loaded successfully:', currentCategoryImages[currentImageIndex]);
+                      console.log(
+                        'Image loaded successfully:',
+                        currentCategoryImages[currentImageIndex]
+                      );
                     }}
                     draggable={false}
                   />
@@ -601,7 +680,10 @@ export function GalleryClient({ galleryData }: GalleryClientProps) {
             {/* Instructions */}
             <div className="absolute bottom-4 left-1/2 -translate-x-1/2 text-white/70 text-sm text-center">
               <div>Use arrow keys to navigate • Press ESC to close</div>
-              <div>F for fullscreen • +/- to zoom • 0 to reset • Double-click to zoom</div>
+              <div>
+                F for fullscreen • +/- to zoom • 0 to reset • Double-click to
+                zoom
+              </div>
             </div>
           </div>
         </div>

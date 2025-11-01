@@ -156,7 +156,7 @@ export default function AboutPage() {
             {aboutHighlights.map((highlight: (typeof aboutHighlights)[0]) => (
               <Card
                 key={highlight.title}
-                className="group flex h-full flex-col justify-between rounded-3xl border border-border bg-card/80 p-6 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-lg"
+                className="group flex h-full flex-col justify-between rounded-3xl border border-border bg-card/80 p-6 shadow-sm transition-all duration-500 hover:-translate-y-1 hover:shadow-lg"
               >
                 <div className="flex flex-col gap-4">
                   <div className="flex items-center gap-3">
@@ -244,7 +244,7 @@ export default function AboutPage() {
           <div className="grid grid-cols-1 gap-6 md:grid-cols-2 xl:grid-cols-4">
             {aboutSections.map(section => (
               <Link key={section.href} href={section.href}>
-                <Card className="group flex h-full flex-col overflow-hidden rounded-3xl border border-border bg-card/80 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-lg">
+                <Card className="group flex h-full flex-col overflow-hidden rounded-3xl border border-border bg-card/80 shadow-sm transition-all duration-500 hover:-translate-y-1 hover:shadow-lg">
                   <div className="relative aspect-[16/9] w-full overflow-hidden">
                     <Image
                       src={section.image || '/placeholder.svg'}
@@ -253,7 +253,7 @@ export default function AboutPage() {
                       className="object-cover transition-transform duration-500 group-hover:scale-105"
                       sizes="(max-width: 768px) 100vw, (max-width: 1200px) 66vw, 25vw"
                     />
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/0 to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/0 to-transparent opacity-0 transition-opacity duration-500 group-hover:opacity-100" />
                   </div>
                   <CardContent className="flex flex-1 flex-col gap-4 p-4">
                     <div>

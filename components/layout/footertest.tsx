@@ -23,7 +23,7 @@ export function Footer() {
                     alt="ACOB Lighting Logo"
                     width={48}
                     height={48}
-                    className="h-12 w-auto transition-transform duration-200 group-hover:scale-105"
+                    className="h-12 w-auto transition-transform duration-500 group-hover:scale-105"
                   />
                 </Link>
                 <p className="text-lg">

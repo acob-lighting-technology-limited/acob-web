@@ -183,19 +183,19 @@ export default async function GalleryPage() {
                 <div className="space-y-2">
                   <Link
                     href="/updates/latest"
-                    className="block p-3 rounded-lg bg-muted/30 hover:bg-muted/50 transition-colors duration-200 text-sm font-medium border border-border"
+                    className="block p-3 rounded-lg bg-muted/30 hover:bg-muted/50 transition-colors duration-500 text-sm font-medium border border-border"
                   >
                     Latest Updates
                   </Link>
                   <Link
                     href="/updates/press"
-                    className="block p-3 rounded-lg bg-muted/30 hover:bg-muted/50 transition-colors duration-200 text-sm font-medium border border-border"
+                    className="block p-3 rounded-lg bg-muted/30 hover:bg-muted/50 transition-colors duration-500 text-sm font-medium border border-border"
                   >
                     Press Releases
                   </Link>
                   <Link
                     href="/updates/case-studies"
-                    className="block p-3 rounded-lg bg-muted/30 hover:bg-muted/50 transition-colors duration-200 text-sm font-medium border border-border"
+                    className="block p-3 rounded-lg bg-muted/30 hover:bg-muted/50 transition-colors duration-500 text-sm font-medium border border-border"
                   >
                     Case Studies
                   </Link>

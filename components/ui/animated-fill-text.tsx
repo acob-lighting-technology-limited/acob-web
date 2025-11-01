@@ -33,7 +33,7 @@ export function AnimatedFillText({
           observer.unobserve(entry.target);
         }
       },
-      { threshold: 0.1 },
+      { threshold: 0.1 }
     );
 
     if (ref.current) {
@@ -44,14 +44,17 @@ export function AnimatedFillText({
   }, [sequential, delay]);
 
   return (
-    <div ref={ref} className="relative inline-block m-1">
+    <div
+      ref={ref}
+      className="relative inline-block m-1 transition-all duration-500"
+    >
       <div
-        className={`relative z-10 ${className} text-white dark:text-primary p-2 w-fit h-fit`}
+        className={`relative z-10 ${className} text-primary-foreground dark:text-primary p-2 w-fit h-fit`}
       >
         {children}
       </div>
       <div
-        className={`absolute inset-0 bg-foreground rounded-sm transition-all ease-out ${
+        className={`absolute inset-0 bg-primary rounded-sm transition-all ease-out ${
           isVisible ? 'w-full' : 'w-0'
         }`}
         style={{

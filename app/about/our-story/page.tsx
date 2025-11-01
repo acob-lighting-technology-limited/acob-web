@@ -8,10 +8,7 @@ import { Card, CardContent } from '@/components/ui/card';
 import { Container } from '@/components/ui/container';
 import { PageHero } from '@/components/ui/page-hero';
 import { Timeline, TimelineMobile } from '@/components/ui/timeline';
-import {
-  aboutLeadershipQuotes,
-
-} from '@/lib/data/about-overview-data';
+import { aboutLeadershipQuotes } from '@/lib/data/about-overview-data';
 import { milestones } from '@/lib/data/about-data';
 
 export default function OurStoryPage() {
@@ -44,27 +41,32 @@ export default function OurStoryPage() {
               Foundations
             </span>
             <h2 className="text-3xl font-semibold text-foreground md:text-4xl">
-              <MaskText phrases={["ACOB's Journey to Powering Rural Communities"]} />
-                </h2>
+              <MaskText
+                phrases={["ACOB's Journey to Powering Rural Communities"]}
+              />
+            </h2>
             <div className="space-y-5 text-base leading-relaxed text-muted-foreground">
               <p>
-                ACOB Lighting Technology Limited was established in 2016 with a pioneering
-                focus on large-scale LED street lighting. We delivered rollout programs
-                across 23 states, maintaining 25 kilometres of critical lighting
-                infrastructure from the National Stadium to the Airport City Gate for the
-                FCDA and state governments.
+                ACOB Lighting Technology Limited was established in 2016 with a
+                pioneering focus on large-scale LED street lighting. We
+                delivered rollout programs across 23 states, maintaining 25
+                kilometres of critical lighting infrastructure from the National
+                Stadium to the Airport City Gate for the FCDA and state
+                governments.
               </p>
               <p>
-                Recognizing the urgency of energy poverty, we transitioned into solar EPC
-                and hybrid mini-grid development in 2018. As early partners of the Rural
-                Electrification Agency&apos;s pilot program, we combined local knowledge with
-                global engineering standards to build bankable clean energy assets.
+                Recognizing the urgency of energy poverty, we transitioned into
+                solar EPC and hybrid mini-grid development in 2018. As early
+                partners of the Rural Electrification Agency&apos;s pilot
+                program, we combined local knowledge with global engineering
+                standards to build bankable clean energy assets.
               </p>
               <p>
-                Today our teams work across Nigeria delivering productive-use systems that
-                power agro-processing, markets, health centres, and community facilities.
-                Each project is supported by robust financing structures, responsive O&M,
-                and digital monitoring to ensure long-term reliability.
+                Today our teams work across Nigeria delivering productive-use
+                systems that power agro-processing, markets, health centres, and
+                community facilities. Each project is supported by robust
+                financing structures, responsive O&M, and digital monitoring to
+                ensure long-term reliability.
               </p>
             </div>
           </div>
@@ -89,7 +91,9 @@ export default function OurStoryPage() {
 
             <Card className="rounded-3xl border border-border bg-card/80 p-4 sm:p-6 xl:p-8 shadow-sm">
               <CardContent className="p-0">
-                <h3 className="text-lg font-semibold text-foreground">Quick Facts</h3>
+                <h3 className="text-lg font-semibold text-foreground">
+                  Quick Facts
+                </h3>
                 <div className="mt-4 grid gap-3">
                   {[
                     { label: 'Founded', value: '2016' },
@@ -108,9 +112,9 @@ export default function OurStoryPage() {
                         </p>
                         <p className="text-sm font-medium text-foreground">
                           {item.value}
-                    </p>
-                  </div>
-                  </div>
+                        </p>
+                      </div>
+                    </div>
                   ))}
                 </div>
               </CardContent>
@@ -127,17 +131,17 @@ export default function OurStoryPage() {
               Milestones that shaped our growth
             </h3>
             <p className="mx-auto max-w-3xl text-lg text-muted-foreground">
-              Each stage in our evolution has expanded the scale, reliability, and impact
-              of the energy infrastructure we deliver across Nigeria.
+              Each stage in our evolution has expanded the scale, reliability,
+              and impact of the energy infrastructure we deliver across Nigeria.
             </p>
-              </div>
+          </div>
 
-                <div className="hidden md:block">
-                  <Timeline items={milestones} />
-                </div>
-                <div className="md:hidden">
-                  <TimelineMobile items={milestones} />
-                </div>
+          <div className="hidden md:block">
+            <Timeline items={milestones} />
+          </div>
+          <div className="md:hidden">
+            <TimelineMobile items={milestones} />
+          </div>
         </section>
 
         {/* <section className="mb-16 grid gap-10 lg:grid-cols-2">
@@ -159,7 +163,7 @@ export default function OurStoryPage() {
             {aboutMediaFeatures.slice(0, 2).map(feature => (
               <Card
                 key={feature.title}
-                className="group overflow-hidden rounded-3xl border border-border bg-card/80 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-lg"
+                className="group overflow-hidden rounded-3xl border border-border bg-card/80 shadow-sm transition-all duration-500 hover:-translate-y-1 hover:shadow-lg"
               >
                 <div className="relative aspect-[16/9] w-full overflow-hidden">
                   <ImageWithFallback

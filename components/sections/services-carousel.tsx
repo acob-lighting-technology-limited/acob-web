@@ -16,7 +16,9 @@ export function ServicesCarousel() {
 
   const changeSlide = useCallback(
     (newIndex: number) => {
-      if (isTransitioning) {return;}
+      if (isTransitioning) {
+        return;
+      }
 
       setIsTransitioning(true);
       setCurrentSlide(newIndex);
@@ -25,7 +27,7 @@ export function ServicesCarousel() {
         setIsTransitioning(false);
       }, 300);
     },
-    [isTransitioning],
+    [isTransitioning]
   );
 
   const nextSlide = useCallback(() => {
@@ -64,7 +66,7 @@ export function ServicesCarousel() {
   }, [currentSlide, isTransitioning, nextSlide]);
 
   return (
-    <section className="py-16 bg-muted/30">
+    <section className="py-16 bg-muted/30 transition-all duration-500">
       <div className="container mx-auto px-4">
         {/* Header */}
         <div className="text-center mb-12">
@@ -82,7 +84,7 @@ export function ServicesCarousel() {
           <button
             onClick={prevSlide}
             disabled={isTransitioning}
-            className="absolute left-4 top-1/2 -translate-y-1/2 z-20 w-12 h-12 rounded-full bg-background/80 backdrop-blur-md hover:bg-background/90 text-foreground hover:scale-110 transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center border border-border"
+            className="absolute left-4 top-1/2 -translate-y-1/2 z-20 w-12 h-12 rounded-full bg-background/80 backdrop-blur-md hover:bg-background/90 text-foreground hover:scale-110 transition-all duration-500 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center border border-border"
             aria-label="Previous service"
           >
             <ChevronLeft className="h-6 w-6" />
@@ -91,7 +93,7 @@ export function ServicesCarousel() {
           <button
             onClick={nextSlide}
             disabled={isTransitioning}
-            className="absolute right-4 top-1/2 -translate-y-1/2 z-20 w-12 h-12 rounded-full bg-background/80 backdrop-blur-md hover:bg-background/90 text-foreground hover:scale-110 transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center border border-border"
+            className="absolute right-4 top-1/2 -translate-y-1/2 z-20 w-12 h-12 rounded-full bg-background/80 backdrop-blur-md hover:bg-background/90 text-foreground hover:scale-110 transition-all duration-500 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center border border-border"
             aria-label="Next service"
           >
             <ChevronRight className="h-6 w-6" />
@@ -100,14 +102,18 @@ export function ServicesCarousel() {
           {/* Carousel Content */}
           <div className="overflow-hidden rounded-2xl">
             <div
-              className="flex transition-transform duration-300 ease-in-out"
+              className="flex transition-transform duration-500 ease-in-out"
               style={{
                 transform: `translateX(-${currentSlide * 100}%)`,
               }}
             >
               {servicesData.map((service, index) => (
                 <div
-                  key={typeof service.slug === 'string' ? service.slug : service.slug.current}
+                  key={
+                    typeof service.slug === 'string'
+                      ? service.slug
+                      : service.slug.current
+                  }
                   className="w-full flex-shrink-0"
                   style={{ width: '100%' }}
                 >
@@ -118,7 +124,7 @@ export function ServicesCarousel() {
                         src={service.image || '/placeholder.svg'}
                         alt={service.title}
                         fill
-                        className="object-cover hover:scale-105 transition-transform duration-300"
+                        className="object-cover hover:scale-105 transition-transform duration-500"
                         sizes="(max-width: 768px) 100vw, 50vw"
                       />
                     </div>
@@ -141,15 +147,17 @@ export function ServicesCarousel() {
                             Key Features:
                           </h4>
                           <ul className="space-y-2">
-                            {service.features.slice(0, 4).map((feature, idx) => (
-                              <li
-                                key={idx}
-                                className="flex items-start space-x-3 text-muted-foreground"
-                              >
-                                <div className="w-2 h-2 bg-primary rounded-full mt-2 flex-shrink-0" />
-                                <span>{feature}</span>
-                              </li>
-                            ))}
+                            {service.features
+                              .slice(0, 4)
+                              .map((feature, idx) => (
+                                <li
+                                  key={idx}
+                                  className="flex items-start space-x-3 text-muted-foreground"
+                                >
+                                  <div className="w-2 h-2 bg-primary rounded-full mt-2 flex-shrink-0" />
+                                  <span>{feature}</span>
+                                </li>
+                              ))}
                           </ul>
                         </div>
                       )}
@@ -159,7 +167,7 @@ export function ServicesCarousel() {
                         <Link href={`/services/${service.slug}`}>
                           <Button size="lg" className="group">
                             Learn More
-                            <ArrowRight className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform duration-200" />
+                            <ArrowRight className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform duration-500" />
                           </Button>
                         </Link>
                       </div>
@@ -177,7 +185,7 @@ export function ServicesCarousel() {
                 key={index}
                 onClick={() => goToSlide(index)}
                 disabled={isTransitioning}
-                className={`transition-all duration-300 rounded-full cursor-pointer hover:opacity-80 disabled:cursor-not-allowed ${
+                className={`transition-all duration-500 rounded-full cursor-pointer hover:opacity-80 disabled:cursor-not-allowed ${
                   currentSlide === index
                     ? 'w-8 h-2 bg-primary shadow-lg'
                     : 'w-6 h-2 bg-muted-foreground/30 hover:bg-muted-foreground/50'

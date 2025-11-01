@@ -84,7 +84,7 @@
 
   .dark {
     /* Primary Colors */
-    --primary: 138 95% 20%; /* green-800 */
+    --primary: 120 100% 25%; /* green-700 */
     --primary-foreground: 0 0% 100%; /* white */
     --primary-dark: 138 95% 15%; /* green-900 */
 
@@ -315,7 +315,7 @@
     transition-duration: 0.01ms !important;
     scroll-behavior: auto !important;
   }
-  
+
   /* Disable smooth zoom animation */
   .animate-smooth-zoom {
     animation: none !important;
@@ -328,10 +328,9 @@
     outline: 2px solid hsl(var(--ring));
     outline-offset: 2px;
   }
-  
+
   /* Remove outline for mouse users */
   *:focus:not(:focus-visible) {
     outline: none;
   }
 }
-
