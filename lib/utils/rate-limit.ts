@@ -25,7 +25,7 @@ export function rateLimit(
   config: RateLimitConfig = {
     interval: RATE_LIMITS.GENERAL_API.interval,
     uniqueTokenPerInterval: RATE_LIMITS.GENERAL_API.maxRequests,
-  },
+  }
 ): boolean {
   // Get client identifier (IP address or custom header)
   const identifier =
@@ -71,8 +71,9 @@ export function rateLimit(
  * Middleware wrapper for rate limiting
  */
 export function withRateLimit(
-  handler: (req: NextRequest) => Promise<NextResponse>,  // eslint-disable-line @typescript-eslint/no-unused-vars
-  config?: RateLimitConfig,
+  // eslint-disable-next-line no-unused-vars
+  handler: (req: NextRequest) => Promise<NextResponse>,
+  config?: RateLimitConfig
 ) {
   return async (request: NextRequest): Promise<NextResponse> => {
     const isRateLimited = rateLimit(request, config);
@@ -89,10 +90,10 @@ export function withRateLimit(
           status: 429,
           headers: {
             'Retry-After': String(
-              Math.ceil((config?.interval || 60000) / 1000),
+              Math.ceil((config?.interval || 60000) / 1000)
             ),
           },
-        },
+        }
       );
     }
 
@@ -114,5 +115,5 @@ setInterval(
       }
     }
   },
-  10 * 60 * 1000,
+  10 * 60 * 1000
 ); // Run every 10 minutes

@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import NProgress from '@/lib/nprogress';
 
 interface ApiWithProgressOptions {
@@ -9,7 +10,7 @@ interface ApiWithProgressOptions {
 
 export async function apiWithProgress<T>(
   apiCall: () => Promise<T>,
-  options: ApiWithProgressOptions = {},
+  options: ApiWithProgressOptions = {}
 ): Promise<T> {
   const { showProgress = true, onStart, onComplete, onError } = options;
 
@@ -29,7 +30,7 @@ export async function apiWithProgress<T>(
     }
 
     return result;
-  } catch (error) { // eslint-disable-line
+  } catch (error: unknown) {
     if (onError) {
       onError(error as Error);
     }
@@ -45,7 +46,7 @@ export async function apiWithProgress<T>(
 export async function fetchWithProgress<T>(
   url: string,
   options: RequestInit = {},
-  progressOptions: ApiWithProgressOptions = {},
+  progressOptions: ApiWithProgressOptions = {}
 ): Promise<T> {
   return apiWithProgress(async () => {
     const response = await fetch(url, options);
