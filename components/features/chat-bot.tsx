@@ -341,7 +341,7 @@ export function ChatBot() {
         <Button
           size="icon"
           onClick={() => setIsOpen(!isOpen)}
-          className="h-12 w-12 sm:h-16 sm:w-16 rounded-full border border-muted-foreground bg-primary hover:bg-primary/90 text-primary-foreground shadow-2xl hover:shadow-lg hover:scale-110 transition-all duration-300"
+          className="h-12 w-12 sm:h-16 sm:w-16 rounded-full border border-muted-foreground bg-primary hover:bg-primary/90 text-primary-foreground shadow-2xl hover:shadow-lg hover:scale-110 transition-all duration-500"
           aria-label="Open chat"
         >
           <motion.div
@@ -376,7 +376,7 @@ export function ChatBot() {
               animate={{ opacity: 1, scale: 1, y: 0 }}
               exit={{ opacity: 0, scale: 0.95, y: 20 }}
               transition={{ duration: 0.3, ease: 'easeOut' }}
-              className="fixed bottom-2 right-2 sm:bottom-4 sm:right-4 w-[calc(100vw-2rem)] sm:w-[380px] h-[75dvh] sm:h-[80vh] max-h-[600px] rounded-lg overflow-hidden shadow-2xl bg-background border border-border flex flex-col z-50 transition-colors duration-700 chat-container"
+              className="fixed bottom-2 right-2 sm:bottom-4 sm:right-4 w-[calc(100vw-2rem)] sm:w-[380px] h-[75dvh] sm:h-[80vh] max-h-[600px] rounded-lg overflow-hidden shadow-2xl bg-background border border-border flex flex-col z-50 transition-colors duration-500 chat-container"
               onTouchStart={e => e.stopPropagation()}
               onTouchMove={e => e.stopPropagation()}
             >
@@ -670,7 +670,7 @@ export function ChatBot() {
                           variant="ghost"
                           size="sm"
                           onClick={() => handleQuickReply(msg)}
-                          className="rounded-full text-xs px-3 py-1 h-auto bg-surface !border border-muted text-muted-foreground hover:bg-muted transition-all duration-200 disabled:opacity-50"
+                          className="rounded-full text-xs px-3 py-1 h-auto bg-surface !border border-muted text-muted-foreground hover:bg-muted transition-all duration-500 disabled:opacity-50"
                           disabled={isChatting || rateLimitReached}
                         >
                           {msg}
@@ -735,7 +735,7 @@ export function ChatBot() {
                       type="button"
                       size="icon"
                       onClick={stop}
-                      className="self-stretch w-10 rounded-full bg-destructive hover:bg-destructive/90 text-destructive-foreground transition-all duration-200 flex-shrink-0"
+                      className="self-stretch w-10 rounded-full bg-destructive hover:bg-destructive/90 text-destructive-foreground transition-all duration-500 flex-shrink-0"
                       disabled={!isChatting}
                     >
                       <StopCircle className="h-4 w-4" />
@@ -746,7 +746,7 @@ export function ChatBot() {
                       type="submit"
                       size="icon"
                       disabled={!input.trim() || rateLimitReached}
-                      className="self-stretch min-h-12 w-12 rounded-full bg-primary hover:bg-primary/90 text-primary-foreground transition-all duration-200 flex-shrink-0 disabled:opacity-50"
+                      className="self-stretch min-h-12 w-12 rounded-full bg-primary hover:bg-primary/90 text-primary-foreground transition-all duration-500 flex-shrink-0 disabled:opacity-50"
                     >
                       <Send className="h-4 w-4" />
                       <span className="sr-only">Send message</span>

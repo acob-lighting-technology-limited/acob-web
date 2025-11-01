@@ -360,19 +360,19 @@ export default async function UpdatePostPage({ params }: UpdatePostPageProps) {
               <div className="space-y-2">
                 <Link
                   href="/updates/case-studies"
-                  className="block p-3 rounded-lg bg-muted/30 hover:bg-muted/50 transition-colors duration-200 text-sm font-medium border border-border"
+                  className="block p-3 rounded-lg bg-muted/30 hover:bg-muted/50 transition-colors duration-500 text-sm font-medium border border-border"
                 >
                   Case Studies
                 </Link>
                 <Link
                   href="/updates/press"
-                  className="block p-3 rounded-lg bg-muted/30 hover:bg-muted/50 transition-colors duration-200 text-sm font-medium border border-border"
+                  className="block p-3 rounded-lg bg-muted/30 hover:bg-muted/50 transition-colors duration-500 text-sm font-medium border border-border"
                 >
                   Press Releases
                 </Link>
                 <Link
                   href="/updates"
-                  className="block p-3 rounded-lg bg-muted/30 hover:bg-muted/50 transition-colors duration-200 text-sm font-medium border border-border"
+                  className="block p-3 rounded-lg bg-muted/30 hover:bg-muted/50 transition-colors duration-500 text-sm font-medium border border-border"
                 >
                   All Updates
                 </Link>
@@ -389,7 +389,7 @@ export default async function UpdatePostPage({ params }: UpdatePostPageProps) {
                   <Link
                     key={item._id}
                     href={`/updates/${item.slug.current}`}
-                    className="block p-3 rounded-lg bg-muted/30 hover:bg-muted/50 transition-colors duration-200 border border-border group"
+                    className="block p-3 rounded-lg bg-muted/30 hover:bg-muted/50 transition-colors duration-500 border border-border group"
                   >
                     <h4 className="text-sm font-medium text-foreground group-hover:text-primary mb-1">
                       {item.title}

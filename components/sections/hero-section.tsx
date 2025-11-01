@@ -99,7 +99,7 @@ const HeroSection = React.memo(function HeroSection({
   }, []);
 
   return (
-    <section className="relative isolate border-b border-border-[0.5px] bg-background pb-4 pt-4 sm:pb-4 sm:pt-12 overflow-x-hidden">
+    <section className="relative transition-all duration-500 isolate border-b border-border-[0.5px] bg-background pb-4 pt-4 sm:pb-4 sm:pt-12 overflow-x-hidden">
       <div
         aria-hidden="true"
         className="absolute inset-x-0 top-0 h-64 bg-gradient-to-b from-primary/10 via-transparent to-transparent blur-3xl dark:from-primary/15"
@@ -134,7 +134,7 @@ const HeroSection = React.memo(function HeroSection({
               {heroMetrics.map(metric => (
                 <Card
                   key={metric.label}
-                  className="p-3 bg-card border-border hover:border-primary/50 transition-colors"
+                  className="p-3 bg-card border-border hover:border-primary/50 "
                 >
                   <div className="text-xl sm:text-2xl font-semibold text-foreground">
                     <AnimatedCounter
@@ -234,7 +234,7 @@ const HeroSection = React.memo(function HeroSection({
                         <button
                           key={dotIndex}
                           onClick={() => api?.scrollTo(dotIndex)}
-                          className={`h-2 rounded-full transition-all duration-300 ${
+                          className={`h-2 rounded-full transition-all duration-500 ${
                             current === dotIndex
                               ? 'w-6 bg-primary'
                               : 'w-2 bg-border hover:w-4 hover:bg-primary/70'

@@ -81,7 +81,7 @@ export default function SupportPage() {
                     ({ icon: Icon, title, description, contacts }) => (
                       <div
                         key={title}
-                        className="flex items-start gap-4 p-6 rounded-xl bg-muted/30 border border-border hover:bg-muted/50 transition-colors duration-200"
+                        className="flex items-start gap-4 p-6 rounded-xl bg-muted/30 border border-border hover:bg-muted/50 transition-colors duration-500"
                       >
                         <div className="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center flex-shrink-0">
                           <Icon className="h-6 w-6 text-primary" />
@@ -126,7 +126,7 @@ export default function SupportPage() {
                     <AccordionItem
                       key={question}
                       value={`item-${index}`}
-                      className="border border-border rounded-lg px-6 bg-muted/30 hover:bg-muted/50 transition-colors duration-200"
+                      className="border border-border rounded-lg px-6 bg-muted/30 hover:bg-muted/50 transition-colors duration-500"
                     >
                       <AccordionTrigger className="text-left font-semibold text-foreground hover:text-primary hover:no-underline py-4">
                         {question}
@@ -191,7 +191,7 @@ export default function SupportPage() {
                     <Link
                       key={href}
                       href={href}
-                      className="block p-3 rounded-lg bg-muted/30 hover:bg-muted/50 transition-colors duration-200 text-sm font-medium border border-border"
+                      className="block p-3 rounded-lg bg-muted/30 hover:bg-muted/50 transition-colors duration-500 text-sm font-medium border border-border"
                     >
                       {label}
                     </Link>

@@ -92,7 +92,7 @@ export default async function CareersPage() {
                     return (
                       <div
                         key={title}
-                        className="flex items-start gap-4 p-6 rounded-xl bg-muted/30 border border-border hover:bg-muted/50 transition-colors duration-200"
+                        className="flex items-start gap-4 p-6 rounded-xl bg-muted/30 border border-border hover:bg-muted/50 transition-colors duration-500"
                       >
                         <div className="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center flex-shrink-0">
                           <IconComponent className="h-6 w-6 text-primary" />
@@ -125,7 +125,7 @@ export default async function CareersPage() {
                     {jobPostings.map((job: any) => (
                       <div
                         key={job._id}
-                        className="p-6 rounded-xl border border-border bg-muted/30 hover:bg-muted/50 transition-colors duration-200"
+                        className="p-6 rounded-xl border border-border bg-muted/30 hover:bg-muted/50 transition-colors duration-500"
                       >
                         <div className="mb-4">
                           <h3 className="text-xl font-semibold text-foreground mb-2">
@@ -214,11 +214,11 @@ export default async function CareersPage() {
                     <Link
                       key={href}
                       href={href}
-                      className="block p-3 rounded-lg bg-muted/30 hover:bg-muted/50 transition-colors duration-200 text-sm font-medium border border-border group"
+                      className="block p-3 rounded-lg bg-muted/30 hover:bg-muted/50 transition-colors duration-500 text-sm font-medium border border-border group"
                     >
                       <div className="flex items-center justify-between">
                         <span>{label}</span>
-                        <ArrowRight className="h-4 w-4 group-hover:translate-x-1 transition-transform duration-200" />
+                        <ArrowRight className="h-4 w-4 group-hover:translate-x-1 transition-transform duration-500" />
                       </div>
                     </Link>
                   ))}

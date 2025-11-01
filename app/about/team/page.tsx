@@ -42,18 +42,22 @@ export default function TeamPage() {
               Leadership Philosophy
             </span>
             <h2 className="text-3xl font-semibold text-foreground md:text-4xl">
-              <MaskText phrases={['People-first execution, engineering-led delivery']} />
+              <MaskText
+                phrases={['People-first execution, engineering-led delivery']}
+              />
             </h2>
             <p className="text-base leading-relaxed text-muted-foreground">
-              Our team blends local expertise with international best practices to deliver
-              resilient energy infrastructure. Each project is championed by
-              cross-functional squads—engineering, community engagement, finance, and
-              operations—ensuring communities stay powered long after commissioning.
+              Our team blends local expertise with international best practices
+              to deliver resilient energy infrastructure. Each project is
+              championed by cross-functional squads—engineering, community
+              engagement, finance, and operations—ensuring communities stay
+              powered long after commissioning.
             </p>
             <p className="text-base leading-relaxed text-muted-foreground">
-              With regional hubs and on-the-ground maintenance crews, we continue to invest
-              in capacity-building, safety, and innovation so every installation improves
-              quality of life and economic opportunity.
+              With regional hubs and on-the-ground maintenance crews, we
+              continue to invest in capacity-building, safety, and innovation so
+              every installation improves quality of life and economic
+              opportunity.
             </p>
           </div>
 
@@ -94,8 +98,9 @@ export default function TeamPage() {
                 Team Ethos
               </p>
               <p className="mt-4 text-base leading-relaxed text-primary/90">
-                "We build generational infrastructure by mentoring the next wave of
-                Nigerian engineers and project managers to own the energy transition."
+                "We build generational infrastructure by mentoring the next wave
+                of Nigerian engineers and project managers to own the energy
+                transition."
               </p>
               <div className="mt-6">
                 <p className="text-sm font-semibold">Alex Obiechina</p>
@@ -116,9 +121,9 @@ export default function TeamPage() {
               Specialist teams driving project delivery
             </h3>
             <p className="mx-auto max-w-3xl text-base leading-relaxed text-muted-foreground">
-              Our leadership combines engineering, finance, community development, and
-              operational excellence to ensure every asset performs reliably and delivers
-              measurable impact.
+              Our leadership combines engineering, finance, community
+              development, and operational excellence to ensure every asset
+              performs reliably and delivers measurable impact.
             </p>
           </div>
 
@@ -126,7 +131,7 @@ export default function TeamPage() {
             {teamMembers.map(member => (
               <Card
                 key={member.id}
-                className="group flex h-full flex-col overflow-hidden rounded-3xl border border-border bg-card/80 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-lg"
+                className="group flex h-full flex-col overflow-hidden rounded-3xl border border-border bg-card/80 shadow-sm transition-all duration-500 hover:-translate-y-1 hover:shadow-lg"
               >
                 <div className="relative aspect-[3/4] w-full overflow-hidden">
                   <ImageWithFallback
@@ -185,10 +190,10 @@ export default function TeamPage() {
                 Agile teams aligned to project lifecycle phases
               </h3>
               <p className="text-base leading-relaxed text-muted-foreground">
-                Every deployment is executed by cross-functional pods—combining design
-                engineering, procurement, field construction, community engagement, and
-                ongoing maintenance. This structure keeps our assets dependable and
-                responsive to evolving community needs.
+                Every deployment is executed by cross-functional pods—combining
+                design engineering, procurement, field construction, community
+                engagement, and ongoing maintenance. This structure keeps our
+                assets dependable and responsive to evolving community needs.
               </p>
               <div className="grid gap-3 md:grid-cols-2">
                 {[

@@ -115,7 +115,7 @@ export default function UpdatesClient({
                 {/* Filter Toggle Button */}
                 <button
                   onClick={() => setShowMobileFilters(!showMobileFilters)}
-                  className="flex items-center gap-2 px-3 py-2 h-10 bg-muted/30 hover:bg-muted/50 border border-border rounded-lg transition-colors duration-200"
+                  className="flex items-center gap-2 px-3 py-2 h-10 bg-muted/30 hover:bg-muted/50 border border-border rounded-lg transition-colors duration-500"
                 >
                   <Filter className="h-4 w-4" />
                   <span className="text-sm font-medium">Filter</span>
@@ -125,7 +125,7 @@ export default function UpdatesClient({
                     </span>
                   )}
                   <div
-                    className={`transition-transform duration-200 ${showMobileFilters ? 'rotate-180' : ''}`}
+                    className={`transition-transform duration-500 ${showMobileFilters ? 'rotate-180' : ''}`}
                   >
                     <svg
                       className="w-3 h-3"
@@ -146,7 +146,7 @@ export default function UpdatesClient({
 
               {/* Expandable Filter Content */}
               {showMobileFilters && (
-                <div className="border-t border-border p-4 animate-in slide-in-from-top-5 duration-300">
+                <div className="border-t border-border p-4 animate-in slide-in-from-top-5 duration-500">
                   {/* Clear button for mobile */}
                   <div className="mt-6 pt-4 border-t">
                     <Button
@@ -208,7 +208,7 @@ export default function UpdatesClient({
               {posts.map((post: UpdatePost) => (
                 <Card
                   key={post._id}
-                  className="overflow-hidden p-0 hover:shadow-lg transition-shadow duration-300 flex flex-col"
+                  className="overflow-hidden p-0 hover:shadow-lg transition-shadow duration-500 flex flex-col"
                 >
                   <div className="aspect-[16/9] overflow-hidden flex-shrink-0">
                     <Image
@@ -385,25 +385,25 @@ export default function UpdatesClient({
                 <div className="space-y-2">
                   <Link
                     href="/updates/case-studies"
-                    className="block p-3 rounded-lg bg-muted/30 hover:bg-muted/50 transition-colors duration-200 text-sm font-medium border border-border"
+                    className="block p-3 rounded-lg bg-muted/30 hover:bg-muted/50 transition-colors duration-500 text-sm font-medium border border-border"
                   >
                     Case Studies
                   </Link>
                   <Link
                     href="/updates/press"
-                    className="block p-3 rounded-lg bg-muted/30 hover:bg-muted/50 transition-colors duration-200 text-sm font-medium border border-border"
+                    className="block p-3 rounded-lg bg-muted/30 hover:bg-muted/50 transition-colors duration-500 text-sm font-medium border border-border"
                   >
                     Press Releases
                   </Link>
                   <Link
                     href="/updates/latest"
-                    className="block p-3 rounded-lg bg-muted/30 hover:bg-muted/50 transition-colors duration-200 text-sm font-medium border border-border"
+                    className="block p-3 rounded-lg bg-muted/30 hover:bg-muted/50 transition-colors duration-500 text-sm font-medium border border-border"
                   >
                     Latest Updates
                   </Link>
                   <Link
                     href="/updates/gallery"
-                    className="block p-3 rounded-lg bg-muted/30 hover:bg-muted/50 transition-colors duration-200 text-sm font-medium border border-border"
+                    className="block p-3 rounded-lg bg-muted/30 hover:bg-muted/50 transition-colors duration-500 text-sm font-medium border border-border"
                   >
                     Gallery
                   </Link>
