@@ -47,26 +47,29 @@ export default function ContactPage() {
           {contactSections.map(section => {
             return (
               <Link key={section.href} href={section.href}>
-                <Card className="overflow-hidden bg-surface border-0 custom-shadow  p-0 hover:shadow-lg  h-full flex flex-col">
-                  <div className="aspect-[4/3] overflow-hidden flex items-center justify-center bg-primary/5 relative">
+                <Card className="group flex h-full flex-col overflow-hidden rounded-3xl border border-border bg-card/80 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-lg">
+                  <div className="relative aspect-[16/9] w-full overflow-hidden">
                     <Image
                       src={section.image || '/placeholder.svg'}
                       alt={section.title}
                       fill
-                      className="hover:scale-105 object-cover"
+                      className="object-cover transition-transform duration-500 group-hover:scale-105"
                       sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 25vw"
                     />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/0 to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
                   </div>
-                  <CardContent className="p-4 flex flex-col flex-1">
-                    <h3 className="text-xl font-bold mb-3 text-foreground">
-                      {section.title}
-                    </h3>
-                    <p className="text-muted-foreground text-sm leading-relaxed mb-4 flex-1">
-                      {section.description}
-                    </p>
+                  <CardContent className="flex flex-1 flex-col gap-4 p-4">
+                    <div>
+                      <h4 className="text-lg font-semibold text-foreground">
+                        {section.title}
+                      </h4>
+                      <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
+                        {section.description}
+                      </p>
+                    </div>
                     <Button
-                      variant="link"
-                      className="bg-primary w-full text-center px-4 py-2 text-primary-foreground hover:text-primary/80   mt-auto"
+                      variant="default"
+                      className="w-full text-center px-4 py-2 mt-auto bg-primary text-primary-foreground hover:bg-primary/70"
                     >
                       Learn More
                       <ArrowRight className="ml-2 h-4 w-4" />

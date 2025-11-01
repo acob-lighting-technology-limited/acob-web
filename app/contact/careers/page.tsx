@@ -3,9 +3,17 @@ import { PageHero } from '@/components/ui/page-hero';
 import { Breadcrumb } from '@/components/ui/breadcrumb';
 import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
-import { ArrowRight, Lightbulb, Users, Award, Heart, Calendar, MapPin as LocationIcon, Briefcase } from 'lucide-react';
+import {
+  ArrowRight,
+  Lightbulb,
+  Users,
+  Award,
+  Heart,
+  Calendar,
+  MapPin as LocationIcon,
+  Briefcase,
+} from 'lucide-react';
 import Link from 'next/link';
-import { MaskText } from '@/components/animations/MaskText';
 import { whyWorkItems, contactLinks } from '@/lib/data/contact-data';
 import { getJobPostings } from '@/sanity/lib/client';
 
@@ -34,20 +42,20 @@ export default async function CareersPage() {
         title="Careers at ACOB Lighting"
         backgroundImage="/images/contact/careers.webp?height=400&width=1200"
       >
-        <MaskText
+        {/* <MaskText
           phrases={[
             'Join our team and power the future of clean energy in Nigeria.',
             'Innovate, grow, and make a real impact.',
           ]}
           className="text-lg md:text-xl opacity-90 max-w-3xl leading-relaxed"
-        />
+        /> */}
       </PageHero>
 
       <Container className="px-4 py-8">
         <Breadcrumb items={breadcrumbItems} className="mb-8" />
 
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 items-start">
-          <div className="lg:col-span-2 ">
+          <div className="lg:col-span-2 lg:space-y-4">
             <Card className="border shadow-md border-border bg-surface">
               <CardContent className="p-4 sm:p-6 xl:p-8">
                 <h2 className="text-3xl font-bold mb-6 text-foreground">
@@ -55,12 +63,12 @@ export default async function CareersPage() {
                 </h2>
                 <div className="text-muted-foreground leading-relaxed space-y-4 text-lg">
                   <p>
-                    At ACOB Lighting Technology Limited, we believe that our people are our
-                    greatest asset. We are a dynamic and growing company at the
-                    forefront of Nigeria&apos;s clean energy revolution. Joining
-                    our team means becoming part of a mission-driven
-                    organization dedicated to innovation, sustainability, and
-                    community empowerment.
+                    At ACOB Lighting Technology Limited, we believe that our
+                    people are our greatest asset. We are a dynamic and growing
+                    company at the forefront of Nigeria&apos;s clean energy
+                    revolution. Joining our team means becoming part of a
+                    mission-driven organization dedicated to innovation,
+                    sustainability, and community empowerment.
                   </p>
                   <p>
                     We offer a collaborative work environment where creativity
@@ -107,7 +115,9 @@ export default async function CareersPage() {
             <Card className="border shadow-md border-border bg-surface">
               <CardContent className="p-4 sm:p-6 xl:p-8">
                 <h2 className="text-3xl font-bold mb-6 text-foreground">
-                  {jobPostings.length > 0 ? 'Current Openings' : 'Career Opportunities'}
+                  {jobPostings.length > 0
+                    ? 'Current Openings'
+                    : 'Career Opportunities'}
                 </h2>
 
                 {jobPostings.length > 0 ? (
@@ -157,7 +167,12 @@ export default async function CareersPage() {
                           {job.applicationDeadline && (
                             <div className="text-sm text-muted-foreground flex items-center gap-1">
                               <Calendar className="h-4 w-4" />
-                              <span>Deadline: {new Date(job.applicationDeadline).toLocaleDateString()}</span>
+                              <span>
+                                Deadline:{' '}
+                                {new Date(
+                                  job.applicationDeadline
+                                ).toLocaleDateString()}
+                              </span>
                             </div>
                           )}
                         </div>
@@ -167,12 +182,14 @@ export default async function CareersPage() {
                 ) : (
                   <div className="text-center">
                     <p className="text-muted-foreground leading-relaxed mb-8 text-lg max-w-2xl mx-auto">
-                      We're always looking for talented individuals who are passionate about clean energy
-                      and innovation to join our growing team.
+                      We're always looking for talented individuals who are
+                      passionate about clean energy and innovation to join our
+                      growing team.
                     </p>
                     <div className="p-6 bg-muted/30 rounded-xl border border-border mb-8">
                       <p className="text-muted-foreground text-base">
-                        Please check this page regularly for current job openings and opportunities.
+                        Please check this page regularly for current job
+                        openings and opportunities.
                       </p>
                     </div>
                     <Link href="/contact">
@@ -215,14 +232,20 @@ export default async function CareersPage() {
                 <div className="space-y-3">
                   <div className="p-3 rounded-lg bg-muted/30 border border-border">
                     <p className="text-xs text-muted-foreground mb-1">Email</p>
-                    <p className="text-sm font-semibold text-primary">careers@acoblighting.com</p>
+                    <p className="text-sm font-semibold text-primary">
+                      careers@acoblighting.com
+                    </p>
                   </div>
                   <div className="p-3 rounded-lg bg-muted/30 border border-border">
                     <p className="text-xs text-muted-foreground mb-1">Phone</p>
-                    <p className="text-sm font-semibold text-primary">+234 704 920 2634</p>
+                    <p className="text-sm font-semibold text-primary">
+                      +234 704 920 2634
+                    </p>
                   </div>
                   <div className="p-3 rounded-lg bg-muted/30 border border-border">
-                    <p className="text-xs text-muted-foreground mb-1">Location</p>
+                    <p className="text-xs text-muted-foreground mb-1">
+                      Location
+                    </p>
                     <p className="text-sm font-semibold">Abuja, Nigeria</p>
                   </div>
                 </div>
