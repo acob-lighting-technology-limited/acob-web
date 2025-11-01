@@ -125,7 +125,7 @@ export default function ProjectsClient({
             <button
               key={state}
               onClick={() => handleStateChange(state)}
-              className={`w-full text-left p-3 rounded-lg transition-colors duration-200 text-sm font-medium border border-border ${
+              className={`w-full text-left p-3 rounded-lg transition-colors duration-500 text-sm font-medium border border-border ${
                 selectedState === state
                   ? 'bg-primary text-primary-foreground'
                   : 'bg-muted/30 hover:bg-muted/50 text-foreground'
@@ -213,7 +213,7 @@ export default function ProjectsClient({
                 {/* Filter Toggle Button */}
                 <button
                   onClick={() => setShowMobileFilters(!showMobileFilters)}
-                  className="flex items-center gap-2 px-3 py-2 h-10 bg-muted/30 hover:bg-muted/50 border border-border rounded-lg transition-colors duration-200"
+                  className="flex items-center gap-2 px-3 py-2 h-10 bg-muted/30 hover:bg-muted/50 border border-border rounded-lg transition-colors duration-500"
                 >
                   <Filter className="h-4 w-4" />
                   <span className="text-sm font-medium">Filter</span>
@@ -223,7 +223,7 @@ export default function ProjectsClient({
                     </span>
                   )}
                   <div
-                    className={`transition-transform duration-200 ${showMobileFilters ? 'rotate-180' : ''}`}
+                    className={`transition-transform duration-500 ${showMobileFilters ? 'rotate-180' : ''}`}
                   >
                     <svg
                       className="w-3 h-3"
@@ -244,7 +244,7 @@ export default function ProjectsClient({
 
               {/* Expandable Filter Content */}
               {showMobileFilters && (
-                <div className="border-t border-border p-4 animate-in slide-in-from-top-5 duration-300">
+                <div className="border-t border-border p-4 animate-in slide-in-from-top-5 duration-500">
                   <MobileFilterContent />
                   {/* Clear button for mobile */}
                   <div className="mt-6 pt-4 border-t">
@@ -503,7 +503,7 @@ export default function ProjectsClient({
                     <button
                       key={state}
                       onClick={() => handleStateChange(state)}
-                      className={`w-full text-left p-3 rounded-lg transition-colors duration-200 text-sm font-medium border border-border ${
+                      className={`w-full text-left p-3 rounded-lg transition-colors duration-500 text-sm font-medium border border-border ${
                         selectedState === state
                           ? 'bg-primary text-primary-foreground'
                           : 'bg-muted/30 hover:bg-muted/50 text-foreground'
@@ -542,7 +542,7 @@ export default function ProjectsClient({
                     <Link
                       key={project._id}
                       href={`/projects/${project.slug.current}`}
-                      className="block p-3 rounded-lg bg-muted/30 hover:bg-muted/50 transition-colors duration-200 border border-border group"
+                      className="block p-3 rounded-lg bg-muted/30 hover:bg-muted/50 transition-colors duration-500 border border-border group"
                     >
                       <h4 className="text-sm font-medium text-foreground group-hover:text-primary mb-1">
                         {project.title}

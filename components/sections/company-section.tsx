@@ -36,7 +36,7 @@ const missionStatements = [
 
 export function CompanySection() {
   return (
-    <section className="relative overflow-hidden bg-background py-12 sm:py-16 md:py-20 ">
+    <section className="relative overflow-hidden bg-background transition-all duration-500 py-12 sm:py-16 md:py-20 ">
       <div className="absolute inset-0 bg-[radial-gradient(circle_at_top,_rgba(24,_24,_27,_0.04),_transparent_55%)]" />
 
       <Container className="relative px-4">
@@ -51,11 +51,14 @@ export function CompanySection() {
                   phrases={['ACOB Lighting']}
                   className=" bg-foreground text-white dark:text-primary  p-2 w-fit"
                 /> */}
-                <AnimatedFillText >
+                <AnimatedFillText>
                   <h1>ACOB Lighting</h1>
                 </AnimatedFillText>
               </div>
-              <Link href="/about" className="hidden sm:inline-flex  w-full sm:w-auto">
+              <Link
+                href="/about"
+                className="hidden sm:inline-flex  w-full sm:w-auto"
+              >
                 <Button
                   size="lg"
                   className="w-full sm:w-auto px-6 sm:px-8 py-4 sm:py-6 text-sm sm:text-base"
@@ -83,7 +86,10 @@ export function CompanySection() {
                   />
                 ))}
               </div>
-              <Link href="/about" className="inline-flex sm:hidden w-full sm:w-auto">
+              <Link
+                href="/about"
+                className="inline-flex sm:hidden w-full sm:w-auto"
+              >
                 <Button
                   size="lg"
                   className="w-full sm:w-auto px-6 sm:px-8 py-4 sm:py-6 text-sm sm:text-base"
@@ -98,7 +104,7 @@ export function CompanySection() {
                   Strategic capabilities
                 </h3>
                 <div className="grid gap-3 sm:gap-4 grid-cols-1 sm:grid-cols-2">
-                  <div className="rounded-xl sm:rounded-2xl border border-border bg-background/60 p-3 sm:p-4 hover:shadow-md transition-shadow duration-200">
+                  <div className="rounded-xl sm:rounded-2xl border border-border bg-background/60 p-3 sm:p-4 hover:shadow-md transition-shadow duration-500">
                     <h4 className="text-sm sm:text-base font-semibold text-foreground mb-1 sm:mb-2">
                       Advisory & development
                     </h4>
@@ -107,7 +113,7 @@ export function CompanySection() {
                       and project structuring.
                     </p>
                   </div>
-                  <div className="rounded-xl sm:rounded-2xl border border-border bg-background/60 p-3 sm:p-4 hover:shadow-md transition-shadow duration-200">
+                  <div className="rounded-xl sm:rounded-2xl border border-border bg-background/60 p-3 sm:p-4 hover:shadow-md transition-shadow duration-500">
                     <h4 className="text-sm sm:text-base font-semibold text-foreground mb-1 sm:mb-2">
                       Engineering & operations
                     </h4>
@@ -171,7 +177,7 @@ export function CompanySection() {
                   <motion.div
                     key={highlight.title}
                     variants={staggerItem}
-                    className="rounded-xl sm:rounded-2xl border border-border bg-card/80 p-3 sm:p-4 shadow-sm backdrop-blur supports-[backdrop-filter]:backdrop-blur-xl hover:shadow-md transition-shadow duration-200"
+                    className="rounded-xl sm:rounded-2xl border border-border bg-card/80 p-3 sm:p-4 shadow-sm backdrop-blur supports-[backdrop-filter]:backdrop-blur-xl hover:shadow-md transition-shadow duration-500"
                   >
                     <h4 className="text-sm sm:text-base font-semibold text-foreground mb-1 sm:mb-2">
                       {highlight.title}

@@ -24,7 +24,7 @@ export function TestimonialsSection() {
       { label: 'Energy assets delivered', value: '500+' },
       { label: 'Active partnerships', value: '30+' },
     ],
-    [],
+    []
   );
 
   const renderStars = (rating: number) => {
@@ -39,7 +39,7 @@ export function TestimonialsSection() {
   };
 
   return (
-    <section className="border-b border-border-[0.5px] bg-muted/20 py-12 sm:py-16 md:py-20 lg:py-24">
+    <section className="border-b border-border-[0.5px] bg-muted/20 py-12 sm:py-16 md:py-20 lg:py-24 transition-all duration-500">
       <Container className="px-4">
         {/* Header Section - Stack on mobile, side-by-side on larger screens */}
         <FadeIn delay={0.2}>
@@ -71,7 +71,7 @@ export function TestimonialsSection() {
               <motion.div
                 key={stat.label}
                 variants={staggerItem}
-                className="rounded-xl sm:rounded-2xl border border-border bg-background/80 p-4 sm:p-6 text-center shadow-sm hover:shadow-md transition-shadow duration-200"
+                className="rounded-xl sm:rounded-2xl border border-border bg-background/80 p-4 sm:p-6 text-center shadow-sm hover:shadow-md transition-shadow duration-500"
               >
                 <div className="text-xl sm:text-2xl md:text-3xl font-semibold text-foreground mb-1 sm:mb-2">
                   {stat.value}
@@ -91,7 +91,7 @@ export function TestimonialsSection() {
         >
           {testimonialHighlight.map(testimonial => (
             <motion.div key={testimonial.name} variants={staggerItem}>
-              <Card className="relative overflow-hidden border border-border bg-card/90 shadow-lg hover:shadow-xl transition-shadow duration-300 h-full">
+              <Card className="relative overflow-hidden border border-border bg-card/90 shadow-lg hover:shadow-xl transition-shadow duration-500 h-full">
                 <CardContent className="space-y-3 sm:space-y-4 md:space-y-6 p-3 sm:p-4 md:p-6 lg:p-8 h-full flex flex-col">
                   {/* Quote Icon - Responsive positioning */}
                   <div className="absolute top-2 right-2 sm:top-3 sm:right-3 md:top-4 md:right-4 lg:top-6 lg:right-6 text-primary/20">

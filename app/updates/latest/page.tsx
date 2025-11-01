@@ -42,7 +42,7 @@ export default async function LatestPage() {
           <div className="lg:col-span-2 lg:space-y-4">
             {/* Featured Post */}
             {latestPosts.length > 0 && (
-              <Card className="overflow-hidden  p-0 hover:shadow-lg transition-shadow duration-300">
+              <Card className="overflow-hidden  p-0 hover:shadow-lg transition-shadow duration-500">
                 <div className="aspect-[21/9] overflow-hidden">
                   <Image
                     src={latestPosts[0].featuredImage || '/placeholder.svg'}
@@ -85,7 +85,7 @@ export default async function LatestPage() {
               {latestPosts.slice(1).map((post: UpdatePost) => (
                 <Card
                   key={post._id}
-                  className="overflow-hidden p-0 hover:shadow-lg transition-shadow duration-300 flex flex-col"
+                  className="overflow-hidden p-0 hover:shadow-lg transition-shadow duration-500 flex flex-col"
                 >
                   <div className="aspect-[16/9] overflow-hidden flex-shrink-0">
                     <Image
@@ -168,19 +168,19 @@ export default async function LatestPage() {
                 <div className="space-y-2">
                   <Link
                     href="/updates/press"
-                    className="block p-3 rounded-lg bg-muted/30 hover:bg-muted/50 transition-colors duration-200 text-sm font-medium border border-border"
+                    className="block p-3 rounded-lg bg-muted/30 hover:bg-muted/50 transition-colors duration-500 text-sm font-medium border border-border"
                   >
                     Press Releases
                   </Link>
                   <Link
                     href="/updates/case-studies"
-                    className="block p-3 rounded-lg bg-muted/30 hover:bg-muted/50 transition-colors duration-200 text-sm font-medium border border-border"
+                    className="block p-3 rounded-lg bg-muted/30 hover:bg-muted/50 transition-colors duration-500 text-sm font-medium border border-border"
                   >
                     Case Studies
                   </Link>
                   <Link
                     href="/updates/gallery"
-                    className="block p-3 rounded-lg bg-muted/30 hover:bg-muted/50 transition-colors duration-200 text-sm font-medium border border-border"
+                    className="block p-3 rounded-lg bg-muted/30 hover:bg-muted/50 transition-colors duration-500 text-sm font-medium border border-border"
                   >
                     Media Gallery
                   </Link>
@@ -197,7 +197,7 @@ export default async function LatestPage() {
                     <Link
                       key={post._id}
                       href={`/updates/${post.slug?.current || '#'}`}
-                      className="block p-3 rounded-lg bg-muted/30 hover:bg-muted/50 transition-colors duration-200 border border-border group"
+                      className="block p-3 rounded-lg bg-muted/30 hover:bg-muted/50 transition-colors duration-500 border border-border group"
                     >
                       <h4 className="text-sm font-medium text-foreground group-hover:text-primary mb-1">
                         {post.title}

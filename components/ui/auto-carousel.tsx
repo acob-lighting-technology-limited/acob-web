@@ -31,16 +31,23 @@ export function AutoCarousel<T>({
 
   const goTo = useCallback(
     (index: number) => {
-      if (!itemsCount) {return;}
+      if (!itemsCount) {
+        return;
+      }
       setCurrentIndex((index + itemsCount) % itemsCount);
     },
-    [itemsCount],
+    [itemsCount]
   );
 
-  const goNext = useCallback(() => goTo(currentIndex + 1), [currentIndex, goTo]);
+  const goNext = useCallback(
+    () => goTo(currentIndex + 1),
+    [currentIndex, goTo]
+  );
 
   useEffect(() => {
-    if (!itemsCount) {return;}
+    if (!itemsCount) {
+      return;
+    }
 
     const startTimer = () => {
       if (timerRef.current) {
@@ -68,7 +75,9 @@ export function AutoCarousel<T>({
 
   useEffect(() => {
     const container = containerRef.current;
-    if (!container) {return;}
+    if (!container) {
+      return;
+    }
 
     const handleMouseEnter = () => {
       isHoveredRef.current = true;
@@ -99,14 +108,17 @@ export function AutoCarousel<T>({
   }
 
   return (
-    <div className={cn('relative flex flex-col gap-6', className)} ref={containerRef}>
+    <div
+      className={cn('relative flex flex-col gap-6', className)}
+      ref={containerRef}
+    >
       <div className="grid gap-6 md:grid-cols-2 xl:grid-cols-3">
         {items.map((item, index) => (
           <div
             key={index}
             className={cn(
               'transition-all duration-500',
-              index === currentIndex ? 'opacity-100' : 'opacity-40',
+              index === currentIndex ? 'opacity-100' : 'opacity-40'
             )}
             aria-hidden={index !== currentIndex}
           >
@@ -123,10 +135,10 @@ export function AutoCarousel<T>({
               type="button"
               onClick={() => goTo(index)}
               className={cn(
-                'h-2 rounded-full transition-all duration-300',
+                'h-2 rounded-full transition-all duration-500',
                 index === currentIndex
                   ? 'w-8 bg-primary'
-                  : 'w-3 bg-border hover:w-5 hover:bg-primary/70',
+                  : 'w-3 bg-border hover:w-5 hover:bg-primary/70'
               )}
               aria-label={`Show carousel item ${index + 1}`}
             />
@@ -138,4 +150,3 @@ export function AutoCarousel<T>({
 }
 
 AutoCarousel.displayName = 'AutoCarousel';
-

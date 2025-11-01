@@ -96,7 +96,7 @@ export function ProjectsSection({ projects }: ProjectsSectionProps) {
                       src={projectImage}
                       alt={project.title}
                       fill
-                      className="object-cover transition-transform duration-300 group-hover:scale-105"
+                      className="object-cover transition-transform duration-500 group-hover:scale-105"
                       sizes="(max-width: 768px) 100vw, (max-width: 1280px) 50vw, 25vw"
                       priority
                     />
@@ -123,7 +123,7 @@ export function ProjectsSection({ projects }: ProjectsSectionProps) {
                       <Link href={`/projects/${project.slug?.current}`}>
                         <Button
                           variant="outline"
-                          className="relative w-full justify-center gap-2 border-primary/40 text-primary-foreground bg-primary overflow-hidden transition-colors duration-300"
+                          className="relative w-full justify-center gap-2 border-primary/40 text-primary-foreground bg-primary overflow-hidden transition-colors duration-500"
                         >
                           <span className="absolute inset-0 bg-primary/90 transform scale-x-0 origin-left transition-transform duration-500 ease-out group-hover:scale-x-100" />
                           <span className="relative z-10 flex items-center gap-2">

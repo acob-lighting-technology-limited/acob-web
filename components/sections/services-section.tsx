@@ -27,7 +27,7 @@ const ServicesSection = React.memo(function ServicesSection() {
   const additionalServices = useMemo(() => servicesData.slice(3, 6), []);
 
   return (
-    <section className="border-b border-border-[0.5px] bg-[radial-gradient(circle_at_top,_rgba(8,_145,_63,_0.07),_transparent_55%)] py-20 transition-colors duration-700 dark:bg-zinc-950">
+    <section className="border-b border-border-[0.5px] bg-[radial-gradient(circle_at_top,_rgba(8,_145,_63,_0.07),_transparent_55%)] py-20 transition-all duration-500 dark:bg-zinc-950">
       <Container className="px-4">
         <div className="mb-16 grid gap-12 lg:grid-cols-[minmax(0,1.1fr)_minmax(0,0.9fr)] lg:items-center">
           <FadeIn delay={0.3}>
@@ -70,7 +70,7 @@ const ServicesSection = React.memo(function ServicesSection() {
               <motion.div
                 key={service.slug as string}
                 variants={staggerItem}
-                className="group flex items-start gap-4 rounded-2xl border border-border bg-card/80 p-4 shadow-sm backdrop-blur supports-[backdrop-filter]:backdrop-blur-xl transition-all duration-300 hover:shadow-lg cursor-pointer"
+                className="group flex items-start gap-4 rounded-2xl border border-border bg-card/80 p-4 shadow-sm backdrop-blur supports-[backdrop-filter]:backdrop-blur-xl transition-all duration-500 hover:shadow-lg cursor-pointer"
               >
                 <div className="relative h-16 w-36 overflow-hidden rounded-xl bg-primary/10 transition-all duration-500 group-hover:bg-primary group-hover:scale-105">
                   {/* Animated fill effect */}
@@ -83,10 +83,10 @@ const ServicesSection = React.memo(function ServicesSection() {
                   />
                 </div>
                 <div className="space-y-2">
-                  <h4 className="text-lg font-semibold text-foreground transition-colors duration-300 group-hover:text-primary">
+                  <h4 className="text-lg font-semibold text-foreground transition-colors duration-500 group-hover:text-primary">
                     {service.title}
                   </h4>
-                  <p className="text-sm text-muted-foreground transition-colors duration-300 group-hover:text-foreground">
+                  <p className="text-sm text-muted-foreground transition-colors duration-500 group-hover:text-foreground">
                     {service.excerpt}
                   </p>
                 </div>
@@ -107,7 +107,7 @@ const ServicesSection = React.memo(function ServicesSection() {
                     src={service.image || '/placeholder.svg'}
                     alt={service.title}
                     fill
-                    className="object-cover transition-transform duration-300 group-hover:scale-105"
+                    className="object-cover transition-transform duration-500 group-hover:scale-105"
                     sizes="(max-width: 768px) 100vw, (max-width: 1280px) 50vw, 33vw"
                   />
                   <div className="absolute inset-0 bg-gradient-to-b from-black/30 via-transparent to-black/70" />
@@ -130,7 +130,7 @@ const ServicesSection = React.memo(function ServicesSection() {
                     <Link href={`/services/${service.slug}`}>
                       <Button
                         variant="outline"
-                        className="relative w-full justify-center gap-2 border-primary/40 text-primary-foreground bg-primary overflow-hidden transition-colors duration-300"
+                        className="relative w-full justify-center gap-2 border-primary/40 text-primary-foreground bg-primary overflow-hidden transition-colors duration-500"
                       >
                         <span className="absolute inset-0 bg-primary/90 transform scale-x-0 origin-left transition-transform duration-500 ease-out group-hover:scale-x-100" />
                         <span className="relative z-10 flex items-center gap-2">

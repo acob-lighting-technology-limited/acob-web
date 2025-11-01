@@ -79,12 +79,12 @@ export function ProjectsSectionAlt() {
         project.images && project.images.length > 0
           ? project.images
           : [
-            {
-              asset: {
-                url: '/images/olooji-community.webp?height=800&width=1400',
+              {
+                asset: {
+                  url: '/images/olooji-community.webp?height=800&width=1400',
+                },
               },
-            },
-          ];
+            ];
 
       return {
         ...project,
@@ -101,7 +101,7 @@ export function ProjectsSectionAlt() {
 
   if (error) {
     return (
-      <section className="py-16 bg-zinc-50 dark:bg-zinc-950 text-center transition-colors duration-700">
+      <section className="py-16 bg-zinc-50 dark:bg-zinc-950 text-center transition-colors duration-500">
         <p className="text-red-500">{error}</p>
       </section>
     );
@@ -110,7 +110,7 @@ export function ProjectsSectionAlt() {
   return (
     <main
       ref={container}
-      className="relative py-16 bg-zinc-50 dark:bg-zinc-950 transition-colors duration-700"
+      className="relative py-16 bg-zinc-50 dark:bg-zinc-950 transition-colors duration-500"
     >
       <div className="text-center mb-12">
         <MaskText
@@ -118,7 +118,7 @@ export function ProjectsSectionAlt() {
             'Latest 3 Rural Electrification Projects,',
             'Mini-Grid Solutions & Energizing Supplies',
           ]}
-          className="text-3xl md:text-4xl font-bold text-foreground transition-colors duration-700"
+          className="text-3xl md:text-4xl font-bold text-foreground transition-colors duration-500"
         />
       </div>
       {processedProjects.map((project, i) => (

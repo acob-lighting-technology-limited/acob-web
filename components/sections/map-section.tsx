@@ -4,7 +4,7 @@ import Image from 'next/image';
 
 export function MapSection() {
   return (
-    <footer className="  transition-colors duration-700">
+    <footer className="  transition-all duration-500">
       <Container className="flex justify-between px-4 py-16 pt-20 w-full">
         <div className=" w-1/2 flex flex-col gap-8 max-w-md">
           {' '}
@@ -14,10 +14,10 @@ export function MapSection() {
               alt="ACOB Lighting Logo"
               width={48}
               height={48}
-              className="h-12 w-auto transition-transform duration-200 group-hover:scale-105"
+              className="h-12 w-auto transition-transform duration-500 group-hover:scale-105"
             />
           </Link>
-          <p className="text-lg dark:text-white transition-colors duration-700">
+          <p className="text-lg dark:text-white transition-colors duration-500">
             ACOB provides mini grid solutions that serve a wide range of
             customers which include private households, commercial businesses
             such as shops, ice makers and mobile phone chargers, agricultural

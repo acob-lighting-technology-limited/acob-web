@@ -1,6 +1,6 @@
 export function ProjectsSkeleton() {
   return (
-    <section className="py-16 bg-zinc-50 dark:bg-zinc-950 transition-colors duration-700">
+    <section className="py-16 bg-zinc-50 dark:bg-zinc-950 transition-colors duration-500">
       {/* Title skeleton */}
       <div className="text-center mb-12">
         <div className="h-10 bg-gray-300 dark:bg-gray-700 rounded-lg animate-pulse mx-auto max-w-2xl mb-4" />

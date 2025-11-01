@@ -25,7 +25,7 @@ export function UpdatesSection({ posts }: UpdatesSectionProps) {
 
   if (!posts || posts.length === 0) {
     return (
-      <section className="py-16 bg-white dark:bg-zinc-950 transition-colors duration-700">
+      <section className="py-16 bg-white dark:bg-zinc-950 transition-colors duration-500">
         <Container className="px-4">
           <div className="text-center">
             <div className="h-8 bg-gray-300 dark:bg-gray-700 rounded animate-pulse mx-auto max-w-md mb-4" />
@@ -45,15 +45,15 @@ export function UpdatesSection({ posts }: UpdatesSectionProps) {
   }
 
   return (
-    <section className="py-16 bg-white dark:bg-zinc-950 transition-colors duration-700">
+    <section className="py-16 bg-white dark:bg-zinc-950 transition-all duration-500">
       <Container className="px-4">
         {/* Header */}
         <FadeIn delay={0.2}>
           <div className="text-center mb-12">
-            <div className="inline-block bg-primary/20 text-primary border border-primary/30 px-4 py-2 rounded-full text-sm font-medium mb-4 dark:bg-primary/30 dark:text-primary transition-colors duration-700">
+            <div className="inline-block bg-primary/20 text-primary border border-primary/30 px-4 py-2 rounded-full text-sm font-medium mb-4 dark:bg-primary/30 dark:text-primary transition-colors duration-500">
               News & Announcements
             </div>
-            <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-zinc-900 dark:text-white transition-colors duration-700">
+            <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-zinc-900 dark:text-white transition-colors duration-500">
               Recent Updates
             </h2>{' '}
             {/* Renamed title */}
@@ -75,7 +75,7 @@ export function UpdatesSection({ posts }: UpdatesSectionProps) {
                       src={post.featuredImage}
                       alt={post.title}
                       fill
-                      className="object-cover transition-transform duration-300 group-hover:scale-105"
+                      className="object-cover transition-transform duration-500 group-hover:scale-105"
                       sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                       priority={false}
                       placeholder="blur"
@@ -119,7 +119,7 @@ export function UpdatesSection({ posts }: UpdatesSectionProps) {
                     <Link href={`/updates/${post.slug.current}`}>
                       <Button
                         variant="outline"
-                        className="relative w-full justify-center gap-2 border-primary/40 text-primary-foreground bg-primary overflow-hidden transition-colors duration-300"
+                        className="relative w-full justify-center gap-2 border-primary/40 text-primary-foreground bg-primary overflow-hidden transition-colors duration-500"
                       >
                         <span className="absolute inset-0 bg-primary/90 transform scale-x-0 origin-left transition-transform duration-500 ease-out group-hover:scale-x-100" />
                         <span className="relative z-10 flex items-center gap-2">
