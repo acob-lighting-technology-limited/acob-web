@@ -67,7 +67,7 @@ const HeroSection = React.memo(function HeroSection({
   const [current, setCurrent] = useState(0);
 
   const plugin = React.useRef(
-    Autoplay({ delay: 6000, stopOnInteraction: true }),
+    Autoplay({ delay: 6000, stopOnInteraction: true })
   );
 
   useEffect(() => {
@@ -117,8 +117,10 @@ const HeroSection = React.memo(function HeroSection({
             </Badge>
             <div className="space-y-4">
               <MaskText
-                phrases={['Powering sustainable futures for homes, businesses, and communities.']}
-                className="text-3xl font-bold leading-tight md:text-4xl lg:text-5xl text-primary dark:text-foreground"
+                phrases={[
+                  'Powering sustainable futures for homes, businesses, and communities.',
+                ]}
+                className="text-3xl font-bold leading-tight md:text-4xl lg:text-5.5xl text-primary dark:text-foreground"
               />
               <MaskText
                 phrases={[
