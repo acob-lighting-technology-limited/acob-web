@@ -115,7 +115,7 @@ export default async function ServicePage({ params }: ServicePageProps) {
                           alt={`${service.title} project ${index + 1}`}
                           width={400}
                           height={300}
-                          className="w-full h-full object-cover  transition-transform duration-300"
+                          className="w-full h-full object-cover  transition-transform duration-500"
                           sizes="(max-width: 768px) 100vw, 50vw"
                         />
                       </div>
@@ -191,7 +191,7 @@ export default async function ServicePage({ params }: ServicePageProps) {
                       key={idx}
                       href={link.href}
                       className={`
-                        block p-3 rounded-lg transition-all duration-200 text-sm border border-border
+                        block p-3 rounded-lg transition-all duration-500 text-sm border border-border
                         ${
                           link.isActive
                             ? 'bg-primary text-primary-foreground shadow-sm'

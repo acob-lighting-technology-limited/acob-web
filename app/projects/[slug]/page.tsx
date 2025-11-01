@@ -12,7 +12,10 @@ import type { Project } from '@/lib/types';
 import { Card, CardContent } from '@/components/ui/card';
 import { ShareCopy } from '@/components/updates/share-copy';
 import { Metadata } from 'next';
-import { PortableText, type PortableTextComponentProps } from '@portabletext/react';
+import {
+  PortableText,
+  type PortableTextComponentProps,
+} from '@portabletext/react';
 import type { PortableTextBlock } from '@portabletext/types';
 
 interface ProjectPageProps {
@@ -98,7 +101,11 @@ export async function generateStaticParams() {
   }));
 }
 
-export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ slug: string }>;
+}): Promise<Metadata> {
   const { slug } = await params;
   const project = await getProject(slug);
 
@@ -111,18 +118,24 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
 
   return {
     title: `${project.title} - ACOB Lighting Technology Limited`,
-    description: project.description || `Explore ${project.title} project by ACOB Lighting Technology Limited. We provide comprehensive solar energy solutions and mini-grid installations across Nigeria.`,
+    description:
+      project.description ||
+      `Explore ${project.title} project by ACOB Lighting Technology Limited. We provide comprehensive solar energy solutions and mini-grid installations across Nigeria.`,
     keywords: `${project.title}, solar energy project, mini-grid installation, renewable energy, ACOB Lighting, Nigeria solar projects`,
     openGraph: {
       title: `${project.title} - ACOB Lighting Technology Limited`,
-      description: project.description || `Explore ${project.title} project by ACOB Lighting.`,
+      description:
+        project.description ||
+        `Explore ${project.title} project by ACOB Lighting.`,
       type: 'website',
       url: `https://acoblighting.com/projects/${slug}`,
     },
     twitter: {
       card: 'summary_large_image',
       title: `${project.title} - ACOB Lighting Technology Limited`,
-      description: project.description || `Explore ${project.title} project by ACOB Lighting.`,
+      description:
+        project.description ||
+        `Explore ${project.title} project by ACOB Lighting.`,
     },
   };
 }
@@ -179,7 +192,10 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
                 {/* Project Content */}
                 {project.content && (
                   <div className="mt-6 prose prose-lg max-w-none flex flex-wrap -mx-2">
-                    <PortableText value={project.content} components={components} />
+                    <PortableText
+                      value={project.content}
+                      components={components}
+                    />
                   </div>
                 )}
 
@@ -202,16 +218,24 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
                     <div className="flex items-start space-x-2 p-3 rounded-lg bg-muted/30 border border-border">
                       <MapPin className="h-4 w-4 text-primary mt-0.5 flex-shrink-0" />
                       <div>
-                        <p className="text-xs text-muted-foreground">Location</p>
-                        <p className="text-sm font-medium">{project.location}</p>
+                        <p className="text-xs text-muted-foreground">
+                          Location
+                        </p>
+                        <p className="text-sm font-medium">
+                          {project.location}
+                        </p>
                       </div>
                     </div>
                   )}
                   <div className="flex items-start space-x-2 p-3 rounded-lg bg-muted/30 border border-border">
                     <div className="h-4 w-4 bg-primary rounded-sm mt-0.5 flex-shrink-0"></div>
                     <div>
-                      <p className="text-xs text-muted-foreground">Project Type</p>
-                      <p className="text-sm font-medium">Solar Energy Solution</p>
+                      <p className="text-xs text-muted-foreground">
+                        Project Type
+                      </p>
+                      <p className="text-sm font-medium">
+                        Solar Energy Solution
+                      </p>
                     </div>
                   </div>
                 </div>
@@ -221,9 +245,7 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
             {/* Quick Contact */}
             <Card className="border-t-2 border-t-primary border border-border">
               <CardContent className="p-6">
-                <h3 className="font-semibold mb-4">
-                  Need a Similar Project?
-                </h3>
+                <h3 className="font-semibold mb-4">Need a Similar Project?</h3>
                 <p className="text-sm text-muted-foreground mb-4">
                   Get a customized solution for your energy needs.
                 </p>
@@ -251,7 +273,7 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
                       <Link
                         key={relatedProject._id}
                         href={`/projects/${relatedProject.slug.current}`}
-                        className="block p-3 rounded-lg bg-muted/30 hover:bg-muted/50 transition-colors duration-200 group border border-border"
+                        className="block p-3 rounded-lg bg-muted/30 hover:bg-muted/50 transition-colors duration-500 group border border-border"
                       >
                         <h4 className="text-sm font-medium text-foreground group-hover:text-primary mb-1 line-clamp-2">
                           {relatedProject.title}

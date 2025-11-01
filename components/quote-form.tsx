@@ -58,7 +58,7 @@ export function QuoteForm() {
   const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
 
   const handleInputChange = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ): void => {
     const { id, value } = e.target;
     setFormData(prev => ({
@@ -108,7 +108,7 @@ export function QuoteForm() {
       if (!response.ok) {
         const errorData = await response.json();
         throw new Error(
-          errorData.error || `HTTP error! status: ${response.status}`,
+          errorData.error || `HTTP error! status: ${response.status}`
         );
       }
 
@@ -132,7 +132,7 @@ export function QuoteForm() {
       'roofMaterial',
     ];
     const missingFields = requiredFields.filter(
-      field => !formData[field].trim(),
+      field => !formData[field].trim()
     );
 
     if (missingFields.length > 0) {
@@ -189,7 +189,7 @@ export function QuoteForm() {
   };
 
   return (
-    <section className="py-16  bg-primary text-primary-foreground transition-colors duration-700">
+    <section className="py-16  bg-primary text-primary-foreground transition-colors duration-500">
       <Container className="px-4">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
           <div>
@@ -309,7 +309,8 @@ export function QuoteForm() {
               </div>
 
               {/* Conditional Contact Inputs */}
-              {(formData.contactMethod === 'email' || formData.contactMethod === 'all') && (
+              {(formData.contactMethod === 'email' ||
+                formData.contactMethod === 'all') && (
                 <div className="mb-4">
                   <Label htmlFor="quote-email" className="text-foreground">
                     Email Address *
@@ -326,7 +327,8 @@ export function QuoteForm() {
                 </div>
               )}
 
-              {(formData.contactMethod === 'phone' || formData.contactMethod === 'all') && (
+              {(formData.contactMethod === 'phone' ||
+                formData.contactMethod === 'all') && (
                 <div className="mb-4">
                   <Label htmlFor="phone" className="text-foreground">
                     Phone Number *

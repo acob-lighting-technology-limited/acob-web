@@ -100,14 +100,14 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
               categoryPosts.map((post: UpdatePost) => (
                 <Card
                   key={post._id}
-                  className="overflow-hidden p-0 hover:shadow-lg transition-shadow duration-300"
+                  className="overflow-hidden p-0 hover:shadow-lg transition-shadow duration-500"
                 >
                   <div className="aspect-[16/9] overflow-hidden relative">
                     <Image
                       src={post.featuredImage || '/placeholder.svg'}
                       alt={post.title}
                       fill
-                      className="object-cover hover:scale-105 transition-transform duration-300"
+                      className="object-cover hover:scale-105 transition-transform duration-500"
                       sizes="(max-width: 768px) 100vw, 66vw"
                     />
                   </div>

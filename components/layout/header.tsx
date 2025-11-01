@@ -57,7 +57,7 @@ const DropdownMenu: React.FC<DropdownMenuProps> = ({
           animate={{ opacity: 1, y: 0, scale: 1 }}
           exit={{ opacity: 0, y: -10, scale: 0.95 }}
           transition={{ duration: 0.2, ease: 'easeOut' }}
-          className="absolute top-full left-0 mt-2 w-full max-w-[600px] min-w-[400px] bg-popover dark:bg-popover rounded-lg shadow-2xl border-[0.5px] border-border"
+          className="absolute top-full left-0 mt-2 w-full max-w-[600px] min-w-[400px] bg-popover dark:bg-popover rounded-lg shadow-2xl border-[0.5px] border-border transition-colors duration-500"
           style={{
             left: '50%',
             transform: 'translateX(-50%)',
@@ -77,7 +77,7 @@ const DropdownMenu: React.FC<DropdownMenuProps> = ({
                     <Link
                       href={subItem.href}
                       onClick={onClose}
-                      className="group block p-3 rounded-lg hover:bg-gradient-to-r hover:from-primary/5 hover:to-primary/10 dark:hover:bg-zinc-950 hover:shadow-md transform hover:scale-105 hover:-translate-y-1 transition-all duration-200"
+                      className="group block p-3 rounded-lg hover:bg-gradient-to-r hover:from-primary/5 hover:to-primary/10 dark:hover:bg-zinc-950 hover:shadow-md transform hover:scale-105 hover:-translate-y-1 transition-all duration-500"
                     >
                       <div className="flex gap-3 items-start">
                         {IconComponent && (
@@ -88,10 +88,10 @@ const DropdownMenu: React.FC<DropdownMenuProps> = ({
                           </div>
                         )}
                         <div className="flex-1">
-                          <div className="text-sm font-bold text-foreground group-hover:text-primary break-words transition-colors duration-300">
+                          <div className="text-sm font-bold text-foreground group-hover:text-primary break-words transition-colors duration-500">
                             {subItem.name}
                           </div>
-                          <div className="text-xs text-left text-muted-foreground mt-1 group-hover:text-foreground break-words transition-colors duration-300">
+                          <div className="text-xs text-left text-muted-foreground mt-1 group-hover:text-foreground break-words transition-colors duration-500">
                             {subItem.description}
                           </div>
                         </div>
@@ -144,7 +144,7 @@ const MobileMenu: React.FC<MobileMenuProps> = ({
             animate={{ x: 0 }}
             exit={{ x: '100%' }}
             transition={{ type: 'spring', damping: 25, stiffness: 200 }}
-            className="absolute right-0 top-0 h-full w-80 bg-popover shadow-2xl border-l border-border"
+            className="absolute right-0 top-0 h-full w-80 bg-popover shadow-2xl border-l border-border transition-colors duration-500"
           >
             <div className="flex flex-col h-full">
               {/* Header */}
@@ -162,7 +162,7 @@ const MobileMenu: React.FC<MobileMenuProps> = ({
                     width={140}
                     height={36}
                     priority
-                    className="h-9 w-auto group-hover:scale-105 transition-transform duration-200"
+                    className="h-9 w-auto group-hover:scale-105 transition-transform duration-500"
                     style={{
                       width: '140px',
                       height: '36px',
@@ -172,7 +172,7 @@ const MobileMenu: React.FC<MobileMenuProps> = ({
                 </Link>
                 <button
                   onClick={onClose}
-                  className="p-2 hover:bg-destructive/10 hover:text-destructive rounded-full transition-all duration-200 hover:scale-110 active:scale-95"
+                  className="p-2 hover:bg-destructive/10 hover:text-destructive rounded-full transition-all duration-500 hover:scale-110 active:scale-95"
                   aria-label="Close menu"
                 >
                   <X className="h-5 w-5" />
@@ -189,12 +189,12 @@ const MobileMenu: React.FC<MobileMenuProps> = ({
                     transition={{ delay: 0.1 + index * 0.05, duration: 0.3 }}
                   >
                     {/* Main Navigation Item */}
-                    <div className="flex items-center rounded-lg overflow-hidden border border-transparent hover:border-border/50 transition-all duration-200">
+                    <div className="flex items-center rounded-lg overflow-hidden border border-transparent hover:border-border/50 transition-all duration-500">
                       {/* Clickable main link */}
                       <Link
                         href={item.href}
                         onClick={onClose}
-                        className="flex-1 flex items-center p-3 text-left hover:bg-primary/5 transition-colors duration-200"
+                        className="flex-1 flex items-center p-3 text-left hover:bg-primary/5 transition-colors duration-500"
                       >
                         <span className="font-medium text-foreground hover:text-primary transition-colors">
                           {item.name}
@@ -204,7 +204,7 @@ const MobileMenu: React.FC<MobileMenuProps> = ({
                       {/* Expand/collapse button */}
                       <button
                         onClick={() => toggleExpanded(item.name)}
-                        className="p-3 hover:bg-muted transition-colors duration-200 border-l border-border/20"
+                        className="p-3 hover:bg-muted transition-colors duration-500 border-l border-border/20"
                         aria-label={`${expandedItems[item.name] ? 'Collapse' : 'Expand'} ${item.name} menu`}
                       >
                         <motion.div
@@ -245,7 +245,7 @@ const MobileMenu: React.FC<MobileMenuProps> = ({
                                   <Link
                                     href={subItem.href}
                                     onClick={onClose}
-                                    className="group flex items-start gap-3 p-3 text-sm rounded-lg hover:bg-gradient-to-r hover:from-primary/5 hover:to-primary/10 transition-all duration-200 hover:scale-[1.02]"
+                                    className="group flex items-start gap-3 p-3 text-sm rounded-lg hover:bg-gradient-to-r hover:from-primary/5 hover:to-primary/10 transition-all duration-500 hover:scale-[1.02]"
                                   >
                                     {IconComponent && (
                                       <div className="relative w-8 h-8 rounded-full bg-primary/10 p-1.5 overflow-hidden transition-all duration-500 group-hover:bg-primary group-hover:scale-110 flex items-center justify-center flex-shrink-0">
@@ -255,10 +255,10 @@ const MobileMenu: React.FC<MobileMenuProps> = ({
                                       </div>
                                     )}
                                     <div className="min-w-0 flex-1">
-                                      <div className="font-medium text-foreground group-hover:text-primary transition-colors duration-300 break-words">
+                                      <div className="font-medium text-foreground group-hover:text-primary transition-colors duration-500 break-words">
                                         {subItem.name}
                                       </div>
-                                      <div className="text-xs text-muted-foreground group-hover:text-foreground/80 mt-1 break-words leading-relaxed transition-colors duration-300">
+                                      <div className="text-xs text-muted-foreground group-hover:text-foreground/80 mt-1 break-words leading-relaxed transition-colors duration-500">
                                         {subItem.description}
                                       </div>
                                     </div>
@@ -284,7 +284,7 @@ const MobileMenu: React.FC<MobileMenuProps> = ({
                 <Link
                   href="/contact/quote"
                   onClick={onClose}
-                  className="w-full bg-primary hover:bg-primary/90 text-primary-foreground font-medium py-3 px-4 rounded-lg transition-all duration-200 hover:shadow-lg hover:scale-[1.02] active:scale-[0.98] flex items-center justify-center group"
+                  className="w-full bg-primary hover:bg-primary/90 text-primary-foreground font-medium py-3 px-4 rounded-lg transition-all duration-500 hover:shadow-lg hover:scale-[1.02] active:scale-[0.98] flex items-center justify-center group"
                 >
                   <Phone className="mr-2 h-4 w-4 group-hover:animate-pulse" />
                   Get Quote
@@ -411,7 +411,7 @@ export function Header() {
         animate={{ y: showHeader ? 0 : -100 }}
         transition={{ type: 'spring', damping: 20, stiffness: 100 }}
         className={`
-          sticky border-b border-border top-0 z-40 w-full transition-all duration-300 ease-out
+          sticky border-b border-border top-0 z-40 w-full transition-all duration-500 ease-out
           backdrop-blur-sm
 
           ${
@@ -436,7 +436,7 @@ export function Header() {
                   width={140}
                   height={36}
                   priority
-                  className="h-9 w-auto group-hover:scale-105 transition-transform duration-200"
+                  className="h-9 w-auto group-hover:scale-105 transition-transform duration-500"
                   style={{
                     width: '140px',
                     height: '36px',
@@ -463,7 +463,7 @@ export function Header() {
                     <Link
                       href={item.href}
                       className={`
-                        relative flex items-center space-x-1 h-full font-medium transition-all duration-300 ease-out px-2
+                        relative flex items-center space-x-1 h-full font-medium transition-all duration-500 ease-out px-2
                         ${isActive ? 'text-primary' : 'text-foreground hover:text-primary'}
                       `}
                     >

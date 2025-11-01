@@ -20,7 +20,6 @@ export default function CertificationsPage() {
     { label: 'Certifications' },
   ];
 
-
   return (
     <>
       <PageHero
@@ -30,8 +29,8 @@ export default function CertificationsPage() {
         // align="center"
       >
         <p className="mx-auto max-w-3xl text-balance text-lg text-white/90 md:text-xl">
-          We uphold rigorous quality, safety, and environmental standards so every asset we
-          deliver remains trusted, bankable, and future-ready.
+          We uphold rigorous quality, safety, and environmental standards so
+          every asset we deliver remains trusted, bankable, and future-ready.
         </p>
       </PageHero>
 
@@ -44,22 +43,33 @@ export default function CertificationsPage() {
               Why It Matters
             </span>
             <h2 className="text-3xl font-semibold text-foreground md:text-4xl">
-              <MaskText phrases={['Compliance frameworks for bankable energy assets']} />
+              <MaskText
+                phrases={['Compliance frameworks for bankable energy assets']}
+              />
             </h2>
             <p className="text-base leading-relaxed text-muted-foreground">
-              Our certifications go beyond checklists—they signal the diligence, safety
-              processes, and governance systems that inspire investor and community trust.
-              Every deployment is audited for quality, health & safety, and environmental
-              performance.
+              Our certifications go beyond checklists—they signal the diligence,
+              safety processes, and governance systems that inspire investor and
+              community trust. Every deployment is audited for quality, health &
+              safety, and environmental performance.
             </p>
             <div className="grid gap-4 sm:grid-cols-2">
               {[
                 { label: 'ISO-aligned quality assurance', value: '9001:2015' },
-                { label: 'Regulatory compliance', value: 'NERC & REA standards' },
+                {
+                  label: 'Regulatory compliance',
+                  value: 'NERC & REA standards',
+                },
                 { label: 'Safety protocols', value: 'HSE Level 3' },
-                { label: 'Environmental stewardship', value: 'Sustainable procurement' },
+                {
+                  label: 'Environmental stewardship',
+                  value: 'Sustainable procurement',
+                },
               ].map(item => (
-                <Card key={item.label} className="h-full border border-border bg-muted/20">
+                <Card
+                  key={item.label}
+                  className="h-full border border-border bg-muted/20"
+                >
                   <CardContent className="p-4">
                     <p className="text-xs uppercase tracking-[0.2em] text-muted-foreground">
                       {item.label}
@@ -76,21 +86,25 @@ export default function CertificationsPage() {
           <aside className="space-y-6">
             <Card className="rounded-3xl border border-border bg-card/80 p-4 sm:p-6 xl:p-8 shadow-sm">
               <CardContent className="p-0 space-y-4">
-                <h3 className="text-lg font-semibold text-foreground">Accreditation Pillars</h3>
+                <h3 className="text-lg font-semibold text-foreground">
+                  Accreditation Pillars
+                </h3>
                 <div className="space-y-3 text-sm text-muted-foreground">
                   <p>
-                    • Quality management systems that guarantee consistent delivery and
-                    documentation oversight.
+                    • Quality management systems that guarantee consistent
+                    delivery and documentation oversight.
                   </p>
                   <p>
-                    • Licensed operations under NERC mini-grid regulations and REA oversight.
+                    • Licensed operations under NERC mini-grid regulations and
+                    REA oversight.
                   </p>
                   <p>
-                    • Certified technical teams trained by leading global solar institutions.
+                    • Certified technical teams trained by leading global solar
+                    institutions.
                   </p>
                   <p>
-                    • Environmental and social impact frameworks aligned with international
-                    best practices.
+                    • Environmental and social impact frameworks aligned with
+                    international best practices.
                   </p>
                 </div>
               </CardContent>
@@ -101,9 +115,9 @@ export default function CertificationsPage() {
                 Assurance Statement
               </p>
               <p className="mt-4 text-base leading-relaxed text-primary/90">
-                "Our certification portfolio gives financiers and communities confidence
-                that every project we deliver will perform safely and sustainably for the
-                long term."
+                "Our certification portfolio gives financiers and communities
+                confidence that every project we deliver will perform safely and
+                sustainably for the long term."
               </p>
               <div className="mt-6">
                 <p className="text-sm font-semibold">Grace Adebayo</p>
@@ -124,8 +138,8 @@ export default function CertificationsPage() {
               Standards that underpin our operations
             </h3>
             <p className="mx-auto max-w-3xl text-base leading-relaxed text-muted-foreground">
-              Each certification represents a rigorous assessment of our processes, safety
-              culture, and technical capabilities.
+              Each certification represents a rigorous assessment of our
+              processes, safety culture, and technical capabilities.
             </p>
           </div>
 
@@ -133,7 +147,7 @@ export default function CertificationsPage() {
             {certifications.map(certification => (
               <Card
                 key={certification.name}
-                className="group flex h-full flex-col gap-4 rounded-3xl border border-border bg-card/80 p-6 text-left shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-lg"
+                className="group flex h-full flex-col gap-4 rounded-3xl border border-border bg-card/80 p-6 text-left shadow-sm transition-all duration-500 hover:-translate-y-1 hover:shadow-lg"
               >
                 <div className="flex items-center gap-3">
                   <div className="rounded-full bg-primary/10 p-3 text-primary">
@@ -160,22 +174,27 @@ export default function CertificationsPage() {
               Industry recognition for impact and reliability
             </h3>
             <p className="mx-auto max-w-3xl text-base leading-relaxed text-muted-foreground">
-              Our projects and leadership have been recognized by national and international
-              partners for advancing clean energy access.
+              Our projects and leadership have been recognized by national and
+              international partners for advancing clean energy access.
             </p>
           </div>
 
           <AutoCarousel
             items={recognitions}
-            renderItem={(item: typeof recognitions[0]) => (
+            renderItem={(item: (typeof recognitions)[0]) => (
               <Card className="flex h-full flex-col gap-4 rounded-3xl border border-border bg-card/80 p-6 shadow-sm">
                 <div className="flex items-center gap-2 text-xs uppercase tracking-[0.2em] text-muted-foreground">
-                  <Badge variant="outline" className="border-primary/40 text-primary">
+                  <Badge
+                    variant="outline"
+                    className="border-primary/40 text-primary"
+                  >
                     {item.year}
                   </Badge>
                   <span>{item.organizer}</span>
                 </div>
-                <h4 className="text-xl font-semibold text-foreground">{item.title}</h4>
+                <h4 className="text-xl font-semibold text-foreground">
+                  {item.title}
+                </h4>
                 <p className="text-sm leading-relaxed text-muted-foreground">
                   {item.description}
                 </p>
@@ -196,24 +215,33 @@ export default function CertificationsPage() {
               {[
                 {
                   title: 'Design & Engineering',
-                  details: 'Peer-reviewed designs, environmental and social impact assessments, and HSE planning before mobilisation.',
+                  details:
+                    'Peer-reviewed designs, environmental and social impact assessments, and HSE planning before mobilisation.',
                 },
                 {
                   title: 'Construction & Commissioning',
-                  details: 'Licensed technicians, quality audits, and independent testing protocols before handover.',
+                  details:
+                    'Licensed technicians, quality audits, and independent testing protocols before handover.',
                 },
                 {
                   title: 'Operations & Maintenance',
-                  details: 'Remote monitoring, scheduled maintenance, and rapid response teams for uptime assurance.',
+                  details:
+                    'Remote monitoring, scheduled maintenance, and rapid response teams for uptime assurance.',
                 },
                 {
                   title: 'Stakeholder Reporting',
-                  details: 'Transparent performance dashboards for investors, regulators, and community leaders.',
+                  details:
+                    'Transparent performance dashboards for investors, regulators, and community leaders.',
                 },
               ].map(item => (
-                <Card key={item.title} className="border border-border bg-muted/20">
+                <Card
+                  key={item.title}
+                  className="border border-border bg-muted/20"
+                >
                   <CardContent className="space-y-2 p-5">
-                    <h4 className="text-lg font-semibold text-foreground">{item.title}</h4>
+                    <h4 className="text-lg font-semibold text-foreground">
+                      {item.title}
+                    </h4>
                     <p className="text-sm leading-relaxed text-muted-foreground">
                       {item.details}
                     </p>
@@ -229,13 +257,19 @@ export default function CertificationsPage() {
                 Partner Confidence
               </p>
               <p className="text-base leading-relaxed text-primary/90">
-                Our compliance track record has enabled us to secure NGN 1.51 billion in
-                green infrastructure financing and longstanding partnerships with
-                international technology providers.
+                Our compliance track record has enabled us to secure NGN 1.51
+                billion in green infrastructure financing and longstanding
+                partnerships with international technology providers.
               </p>
             </div>
-            <Button asChild variant="outline" className="border-primary/40 text-primary hover:bg-primary/10">
-              <Link href="/contact/quote">Request compliance documentation</Link>
+            <Button
+              asChild
+              variant="outline"
+              className="border-primary/40 text-primary hover:bg-primary/10"
+            >
+              <Link href="/contact/quote">
+                Request compliance documentation
+              </Link>
             </Button>
           </Card>
         </section>

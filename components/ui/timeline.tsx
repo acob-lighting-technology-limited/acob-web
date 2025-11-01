@@ -26,7 +26,9 @@ export function Timeline({ items, className }: TimelineProps) {
 
       <div className="space-y-6">
         {items.map((item, index) => {
-          const IconComponent = LucideIcons[item.icon as keyof typeof LucideIcons] as React.ComponentType<any>;
+          const IconComponent = LucideIcons[
+            item.icon as keyof typeof LucideIcons
+          ] as React.ComponentType<any>;
           const isEven = index % 2 === 0;
 
           return (
@@ -38,22 +40,28 @@ export function Timeline({ items, className }: TimelineProps) {
               transition={{ duration: 0.6, delay: index * 0.1 }}
               className={cn(
                 'relative flex items-center',
-                isEven ? 'flex-row' : 'flex-row-reverse',
+                isEven ? 'flex-row' : 'flex-row-reverse'
               )}
             >
               {/* Content Card */}
-              <div className={cn(
-                'flex-1 max-w-sm',
-                isEven ? 'pr-6 text-right' : 'pl-6 text-left',
-              )}>
-                <Card className="group hover:shadow-lg transition-all duration-300 border-l-4 border-l-primary/20 hover:border-l-primary">
+              <div
+                className={cn(
+                  'flex-1 max-w-sm',
+                  isEven ? 'pr-6 text-right' : 'pl-6 text-left'
+                )}
+              >
+                <Card className="group hover:shadow-lg transition-all duration-500 border-l-4 border-l-primary/20 hover:border-l-primary">
                   <CardContent className="p-4">
-                    <div className={cn(
-                      'flex items-center gap-3 mb-3',
-                      isEven ? 'justify-end' : 'justify-start',
-                    )}>
+                    <div
+                      className={cn(
+                        'flex items-center gap-3 mb-3',
+                        isEven ? 'justify-end' : 'justify-start'
+                      )}
+                    >
                       <div className="w-8 h-8 bg-primary/10 rounded-full flex items-center justify-center group-hover:bg-primary/20 transition-colors">
-                        {IconComponent && <IconComponent className="w-4 h-4 text-primary" />}
+                        {IconComponent && (
+                          <IconComponent className="w-4 h-4 text-primary" />
+                        )}
                       </div>
                       <span className="text-xs font-semibold text-primary bg-primary/10 px-2 py-1 rounded-full">
                         {item.year}
@@ -90,7 +98,9 @@ export function TimelineMobile({ items, className }: TimelineProps) {
 
       <div className="space-y-8">
         {items.map((item, index) => {
-          const IconComponent = LucideIcons[item.icon as keyof typeof LucideIcons] as React.ComponentType<any>;
+          const IconComponent = LucideIcons[
+            item.icon as keyof typeof LucideIcons
+          ] as React.ComponentType<any>;
 
           return (
             <motion.div
@@ -106,7 +116,7 @@ export function TimelineMobile({ items, className }: TimelineProps) {
 
               {/* Content Card */}
               <div className="flex-1 ml-12">
-                <Card className="group hover:shadow-lg transition-all duration-300 border-l-4 border-l-primary/20 hover:border-l-primary">
+                <Card className="group hover:shadow-lg transition-all duration-500 border-l-4 border-l-primary/20 hover:border-l-primary">
                   <CardContent className="p-6">
                     <div className="flex items-center gap-3 mb-3">
                       <div className="w-10 h-10 bg-primary/10 rounded-full flex items-center justify-center group-hover:bg-primary/20 transition-colors">
