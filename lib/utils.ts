@@ -11,8 +11,8 @@ export function cn(...inputs: ClassValue[]) {
  * @returns Plain text string
  */
 export function extractTextFromPortableText(content: unknown[]): string {
-  if (!Array.isArray(content)) return '';
-  
+  if (!Array.isArray(content)) {return '';}
+
   return content
     .map((block: any) => {
       if (block._type === 'block' && block.children) {
@@ -36,6 +36,6 @@ export function formatDate(dateString: string): string {
   return date.toLocaleDateString('en-US', {
     year: 'numeric',
     month: 'short',
-    day: 'numeric'
+    day: 'numeric',
   });
 }

@@ -6,7 +6,7 @@ import { Breadcrumb } from '@/components/ui/breadcrumb';
 import { Container } from '@/components/ui/container';
 import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
-import { ArrowRight, Search, X, Filter, SlidersHorizontal } from 'lucide-react';
+import { ArrowRight, Search, X, Filter } from 'lucide-react';
 import { Input } from '@/components/ui/input';
 import Link from 'next/link';
 import { servicesData, categories, tags } from '@/lib/data';
@@ -24,10 +24,11 @@ export default function ServicesPage() {
 
     // Filter by search query
     if (searchQuery.trim()) {
-      filtered = filtered.filter(service =>
-        service.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
-        service.excerpt.toLowerCase().includes(searchQuery.toLowerCase()) ||
-        service.description.toLowerCase().includes(searchQuery.toLowerCase()),
+      filtered = filtered.filter(
+        service =>
+          service.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
+          service.excerpt.toLowerCase().includes(searchQuery.toLowerCase()) ||
+          service.description.toLowerCase().includes(searchQuery.toLowerCase())
       );
     }
 
@@ -39,11 +40,13 @@ export default function ServicesPage() {
           'Mini-Grid Solutions': ['Power Solutions'],
           'Captive Power': ['Power Solutions'],
           'Energy Audit': ['Consulting'],
-          'Installation': ['Construction'],
-          'Maintenance': ['Infrastructure', 'Construction'],
+          Installation: ['Construction'],
+          Maintenance: ['Infrastructure', 'Construction'],
         };
 
-        const targetCategories = categoryMapping[selectedCategory] || [selectedCategory];
+        const targetCategories = categoryMapping[selectedCategory] || [
+          selectedCategory,
+        ];
         return targetCategories.includes(service.category);
       });
     }
@@ -58,7 +61,7 @@ export default function ServicesPage() {
 
   const breadcrumbItems = [{ label: 'Home', href: '/' }, { label: 'Services' }];
 
-  const activeFiltersCount = (selectedCategory ? 1 : 0); // Only count category filters for mobile button
+  const activeFiltersCount = selectedCategory ? 1 : 0; // Only count category filters for mobile button
 
   // Mobile Filter components (excluding search)
   const MobileFilterContent = () => (
@@ -70,7 +73,11 @@ export default function ServicesPage() {
           {categories.map(category => (
             <button
               key={category}
-              onClick={() => setSelectedCategory(selectedCategory === category ? null : category)}
+              onClick={() =>
+                setSelectedCategory(
+                  selectedCategory === category ? null : category
+                )
+              }
               className={`w-full text-left p-3 rounded-lg transition-colors duration-200 text-sm font-medium border border-border ${
                 selectedCategory === category
                   ? 'bg-primary text-primary-foreground'
@@ -80,18 +87,26 @@ export default function ServicesPage() {
               <div className="flex items-center justify-between">
                 <span>{category}</span>
                 <span className="text-xs opacity-70">
-                  ({(() => {
-                    if (category === 'All Services') {return servicesData.length;}
+                  (
+                  {(() => {
+                    if (category === 'All Services') {
+                      return servicesData.length;
+                    }
                     const categoryMapping: { [key: string]: string[] } = {
                       'Mini-Grid Solutions': ['Power Solutions'],
                       'Captive Power': ['Power Solutions'],
                       'Energy Audit': ['Consulting'],
-                      'Installation': ['Construction'],
-                      'Maintenance': ['Infrastructure', 'Construction'],
+                      Installation: ['Construction'],
+                      Maintenance: ['Infrastructure', 'Construction'],
                     };
-                    const targetCategories = categoryMapping[category] || [category];
-                    return servicesData.filter(s => targetCategories.includes(s.category)).length;
-                  })()})
+                    const targetCategories = categoryMapping[category] || [
+                      category,
+                    ];
+                    return servicesData.filter(s =>
+                      targetCategories.includes(s.category)
+                    ).length;
+                  })()}
+                  )
                 </span>
               </div>
             </button>
@@ -128,7 +143,7 @@ export default function ServicesPage() {
             <Input
               placeholder="Search services..."
               value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
+              onChange={e => setSearchQuery(e.target.value)}
               className="pr-10"
             />
             <Search className="absolute right-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
@@ -144,7 +159,11 @@ export default function ServicesPage() {
             {categories.map(category => (
               <button
                 key={category}
-                onClick={() => setSelectedCategory(selectedCategory === category ? null : category)}
+                onClick={() =>
+                  setSelectedCategory(
+                    selectedCategory === category ? null : category
+                  )
+                }
                 className={`w-full text-left p-3 rounded-lg transition-colors duration-200 text-sm font-medium border border-border ${
                   selectedCategory === category
                     ? 'bg-primary text-primary-foreground'
@@ -154,18 +173,26 @@ export default function ServicesPage() {
                 <div className="flex items-center justify-between">
                   <span>{category}</span>
                   <span className="text-xs opacity-70">
-                    ({(() => {
-                      if (category === 'All Services') {return servicesData.length;}
+                    (
+                    {(() => {
+                      if (category === 'All Services') {
+                        return servicesData.length;
+                      }
                       const categoryMapping: { [key: string]: string[] } = {
                         'Mini-Grid Solutions': ['Power Solutions'],
                         'Captive Power': ['Power Solutions'],
                         'Energy Audit': ['Consulting'],
-                        'Installation': ['Construction'],
-                        'Maintenance': ['Infrastructure', 'Construction'],
+                        Installation: ['Construction'],
+                        Maintenance: ['Infrastructure', 'Construction'],
                       };
-                      const targetCategories = categoryMapping[category] || [category];
-                      return servicesData.filter(s => targetCategories.includes(s.category)).length;
-                    })()})
+                      const targetCategories = categoryMapping[category] || [
+                        category,
+                      ];
+                      return servicesData.filter(s =>
+                        targetCategories.includes(s.category)
+                      ).length;
+                    })()}
+                    )
                   </span>
                 </div>
               </button>
@@ -220,7 +247,7 @@ export default function ServicesPage() {
                   <Input
                     placeholder="Search services..."
                     value={searchQuery}
-                    onChange={(e) => setSearchQuery(e.target.value)}
+                    onChange={e => setSearchQuery(e.target.value)}
                     className="pr-10 h-10"
                   />
                   <Search className="absolute right-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
@@ -238,9 +265,21 @@ export default function ServicesPage() {
                       {activeFiltersCount}
                     </span>
                   )}
-                  <div className={`transition-transform duration-200 ${showMobileFilters ? 'rotate-180' : ''}`}>
-                    <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                  <div
+                    className={`transition-transform duration-200 ${showMobileFilters ? 'rotate-180' : ''}`}
+                  >
+                    <svg
+                      className="w-3 h-3"
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth={2}
+                        d="M19 9l-7 7-7-7"
+                      />
                     </svg>
                   </div>
                 </button>
@@ -271,7 +310,7 @@ export default function ServicesPage() {
 
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 items-start">
           {/* Main Content */}
-          <div className="lg:col-span-2 ">
+          <div className="lg:col-span-2 lg:space-y-4">
             {/* Search Results Info */}
             <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
               <div className="flex-1">
@@ -298,7 +337,7 @@ export default function ServicesPage() {
                   </Card>
                 )}
               </div>
-              
+
               {/* Results count for mobile - always visible */}
               <div className="lg:hidden">
                 <p className="text-sm text-muted-foreground text-right">
@@ -312,8 +351,12 @@ export default function ServicesPage() {
                 <CardContent className="p-4 sm:p-6 xl:p-8 text-center">
                   <div className="text-muted-foreground mb-4">
                     <Search className="h-12 w-12 mx-auto mb-4 opacity-50" />
-                    <h3 className="text-xl font-semibold mb-2">No services found</h3>
-                    <p>Try adjusting your search terms or browse all services.</p>
+                    <h3 className="text-xl font-semibold mb-2">
+                      No services found
+                    </h3>
+                    <p>
+                      Try adjusting your search terms or browse all services.
+                    </p>
                   </div>
                   <Button variant="outline" onClick={handleClearSearch}>
                     View All Services
@@ -346,11 +389,11 @@ export default function ServicesPage() {
                         </p>
                       </div>
                       <div className="mt-auto">
-                        <Link 
-                          href={`/services/${service.slug}`}
-                        >
+                        <Link href={`/services/${service.slug}`}>
                           <Button className="w-full bg-primary hover:bg-primary/90 text-primary-foreground">
-                            <span className="sr-only">Learn more about {service.title}</span>
+                            <span className="sr-only">
+                              Learn more about {service.title}
+                            </span>
                             <span aria-hidden="true">Read More</span>
                             <ArrowRight className="ml-2 h-4 w-4" />
                           </Button>

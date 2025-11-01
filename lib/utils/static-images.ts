@@ -1,5 +1,5 @@
 import { getProjects } from '@/sanity/lib/client';
-import Image from 'next/image';
+
 
 export interface StaticImage {
   url: string;
@@ -62,7 +62,7 @@ export async function getAllProjectImages(): Promise<StaticImage[]> {
     console.log('🔄 Fetching projects from Sanity...');
     const projects = await getProjects();
     console.log('📊 Projects fetched:', projects.length);
-    
+
     const allImages: StaticImage[] = [];
 
     projects.forEach((project: SanityProject) => {
@@ -95,7 +95,7 @@ export async function getAllProjectImages(): Promise<StaticImage[]> {
 
     console.log('🖼️ Total images found:', allImages.length);
     console.log('📝 Sample image:', allImages[0]);
-    
+
     // Force return Sanity images for testing
     if (allImages.length > 0) {
       console.log('✅ Returning Sanity images (not fallbacks)');
@@ -116,17 +116,17 @@ export function selectImages(images: StaticImage[], count: number = 4): StaticIm
   // Use a deterministic approach based on array length
   const step = Math.max(1, Math.floor(images.length / count));
   const selected: StaticImage[] = [];
-  
+
   for (let i = 0; i < count && i * step < images.length; i++) {
     selected.push(images[i * step]);
   }
-  
+
   // Fill remaining slots with fallbacks if needed
   while (selected.length < count) {
     const fallbackIndex = selected.length % FALLBACK_IMAGES.length;
     selected.push(FALLBACK_IMAGES[fallbackIndex]);
   }
-  
+
   return selected;
 }
 
@@ -153,20 +153,16 @@ function getPreloadedImages(): StaticImage[] | null {
     return null;
   }
 
-  try {
-    // In a real implementation, you would fetch from /preloaded-images.json
-    // For now, return null to fall back to dynamic loading
-    return null;
-  } catch {
-    return null;
-  }
+  // In a real implementation, you would fetch from /preloaded-images.json
+  // For now, return null to fall back to dynamic loading
+  return null;
 }
 
 // Initialize static images (called during build or first render)
 export async function initializeStaticImages() {
   if (staticImages.length === 0) {
     console.log('🚀 Initializing static images...');
-    
+
     // First, try to get preloaded images
     const preloaded = getPreloadedImages();
     if (preloaded) {

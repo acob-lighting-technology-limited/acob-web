@@ -44,7 +44,7 @@ export function CompanySection() {
         <FadeIn delay={0.2}>
           <div className="mb-8 sm:mb-12 md:mb-16">
             <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 sm:gap-6">
-              <div className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-semibold max-w-2xl">
+              <div className="text-3xl md:text-4xl lg:text-5xl font-semibold max-w-2xl">
                 <MaskText phrases={['Why organisations trust']} className="" />
 
                 {/* <MaskText

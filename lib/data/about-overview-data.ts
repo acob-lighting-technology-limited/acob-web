@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/no-unused-vars, no-unused-vars */
+
 import {
   Building2,
   CircuitBoard,
@@ -11,15 +13,15 @@ import {
 export const aboutImpactMetrics = [
   {
     label: 'Communities Electrified',
-    value: '9+',
+    value: '15+',
   },
   {
     label: 'Connections Energized',
-    value: '2,306',
+    value: '5,306',
   },
   {
     label: 'Installed Capacity',
-    value: '690 kWp',
+    value: '1500 kWp',
   },
   {
     label: 'Projects Underway',

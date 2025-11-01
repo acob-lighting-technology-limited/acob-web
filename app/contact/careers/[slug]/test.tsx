@@ -1,6 +1,6 @@
 export default async function TestPage({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
-  
+
   return (
     <div className="p-4 sm:p-6 xl:p-8">
       <h1>Test Page</h1>

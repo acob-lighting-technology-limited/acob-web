@@ -4,11 +4,11 @@ import { Container } from '@/components/ui/container';
 import { Button } from '@/components/ui/button';
 import { ArrowRight, MapPin } from 'lucide-react';
 import { notFound } from 'next/navigation';
-import { getProjects, getProject, getRelatedProjects, urlFor } from '@/sanity/lib/client';
+import { getProjects, getProject, urlFor } from '@/sanity/lib/client';
 import Image from 'next/image';
 import Link from 'next/link';
 import { PageHero } from '@/components/ui/page-hero';
-import type { Project, SanityImageUrl } from '@/lib/types';
+import type { Project } from '@/lib/types';
 import { Card, CardContent } from '@/components/ui/card';
 import { ShareCopy } from '@/components/updates/share-copy';
 import { Metadata } from 'next';
@@ -175,14 +175,14 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
                     <span className="text-lg">{project.location}</span>
                   </div>
                 )}
-                
+
                 {/* Project Content */}
                 {project.content && (
                   <div className="mt-6 prose prose-lg max-w-none flex flex-wrap -mx-2">
                     <PortableText value={project.content} components={components} />
                   </div>
                 )}
-                
+
                 {/* Share Buttons */}
                 <div className="flex items-center gap-4 pt-8 border-t mt-6">
                   <ShareCopy className="rounded-full bg-transparent" />

@@ -24,7 +24,7 @@ export function TestimonialsSection() {
       { label: 'Energy assets delivered', value: '500+' },
       { label: 'Active partnerships', value: '30+' },
     ],
-    []
+    [],
   );
 
   const renderStars = (rating: number) => {
@@ -52,13 +52,13 @@ export function TestimonialsSection() {
                 phrases={[
                   'Verified testimonials from the organisations we power',
                 ]}
-                className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-semibold leading-tight mb-4 sm:mb-6"
+                className="text-3xl md:text-4xl lg:text-5xl font-semibold leading-tight mb-4 sm:mb-6"
               />
               <MaskText
                 phrases={[
                   'Utilities, enterprises, and development agencies across Nigeria choose ACOB Lighting for dependable clean energy infrastructure and measurable local impact.',
                 ]}
-                className="text-base sm:text-lg md:text-xl text-muted-foreground max-w-4xl mx-auto sm:mx-0"
+                className="text-base md:text-lg text-muted-foreground max-w-4xl mx-auto sm:mx-0"
               />
             </div>
           </div>

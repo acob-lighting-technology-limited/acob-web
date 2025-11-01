@@ -12,13 +12,13 @@ export default function Loading() {
       />
 
       <Container className="px-4 py-8">
-        <Breadcrumb 
+        <Breadcrumb
           items={[
             { label: 'Home', href: '/' },
             { label: 'Projects', href: '/projects' },
-            { label: 'Loading...' }
-          ]} 
-          className="mb-8" 
+            { label: 'Loading...' },
+          ]}
+          className="mb-8"
         />
 
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 items-start">

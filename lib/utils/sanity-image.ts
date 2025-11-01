@@ -14,19 +14,19 @@ export function addSanityImageParams(
     fit?: 'crop' | 'fill' | 'fillmax' | 'max' | 'scale' | 'min';
     auto?: 'format';
     q?: number;
-  }
+  },
 ): string {
-  if (!imageUrl) return imageUrl;
+  if (!imageUrl) {return imageUrl;}
 
   // Parse existing URL and query parameters
   const url = new URL(imageUrl);
-  
+
   // Add or update parameters
-  if (params.w !== undefined) url.searchParams.set('w', params.w.toString());
-  if (params.h !== undefined) url.searchParams.set('h', params.h.toString());
-  if (params.fit !== undefined) url.searchParams.set('fit', params.fit);
-  if (params.auto !== undefined) url.searchParams.set('auto', params.auto);
-  if (params.q !== undefined) url.searchParams.set('q', params.q.toString());
+  if (params.w !== undefined) {url.searchParams.set('w', params.w.toString());}
+  if (params.h !== undefined) {url.searchParams.set('h', params.h.toString());}
+  if (params.fit !== undefined) {url.searchParams.set('fit', params.fit);}
+  if (params.auto !== undefined) {url.searchParams.set('auto', params.auto);}
+  if (params.q !== undefined) {url.searchParams.set('q', params.q.toString());}
 
   return url.toString();
 }
@@ -47,7 +47,7 @@ export const SANITY_IMAGE_PRESETS = {
  */
 export function applySanityImagePreset(
   imageUrl: string,
-  preset: keyof typeof SANITY_IMAGE_PRESETS
+  preset: keyof typeof SANITY_IMAGE_PRESETS,
 ): string {
   return addSanityImageParams(imageUrl, SANITY_IMAGE_PRESETS[preset]);
 }

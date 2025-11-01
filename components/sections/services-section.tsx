@@ -34,13 +34,13 @@ const ServicesSection = React.memo(function ServicesSection() {
             <div className="space-y-6">
               <MaskText
                 phrases={['Integrated renewable energy for every scale']}
-                className="text-3xl font-bold leading-tight md:text-5xl"
+                className="text-3xl font-bold leading-tight md:text-4xl lg:text-5xl"
               />
               <MaskText
                 phrases={[
                   'Our multidisciplinary team supports governments, developers, and operators with end-to-end solar, hybrid mini-grid, and clean energy infrastructure. From concept to long term O&M, we help you unlock reliable, efficient power.',
                 ]}
-                className="max-w-xl text-lg text-muted-foreground"
+                className="max-w-xl text-base md:text-lg text-muted-foreground"
               />
               <div className="flex flex-wrap gap-4">
                 <Link href="/services" className="inline-block min-h-[48px]">
@@ -56,7 +56,7 @@ const ServicesSection = React.memo(function ServicesSection() {
                   <Button
                     size="lg"
                     variant="outline"
-                    className="px-8 py-6 text-base min-h-[48px]"
+                    className="px-8 py-6 text-base min-h-[48px] "
                   >
                     Partner with us
                   </Button>
@@ -70,21 +70,23 @@ const ServicesSection = React.memo(function ServicesSection() {
               <motion.div
                 key={service.slug as string}
                 variants={staggerItem}
-                className="flex items-start gap-4 rounded-2xl border border-border bg-card/80 p-4 shadow-sm backdrop-blur supports-[backdrop-filter]:backdrop-blur-xl"
+                className="group flex items-start gap-4 rounded-2xl border border-border bg-card/80 p-4 shadow-sm backdrop-blur supports-[backdrop-filter]:backdrop-blur-xl transition-all duration-300 hover:shadow-lg cursor-pointer"
               >
-                <div className="relative h-16 w-36 overflow-hidden rounded-xl bg-muted">
+                <div className="relative h-16 w-36 overflow-hidden rounded-xl bg-primary/10 transition-all duration-500 group-hover:bg-primary group-hover:scale-105">
+                  {/* Animated fill effect */}
+                  <div className="absolute inset-0 bg-primary transform scale-0 transition-transform duration-500 ease-out group-hover:scale-100 origin-center" />
                   <Image
                     src={service.icon || service.image || '/placeholder.svg'}
                     alt={service.title}
                     fill
-                    className="object-contain p-1"
+                    className="object-contain p-1 relative z-10 transition-all duration-500 group-hover:brightness-0 group-hover:invert"
                   />
                 </div>
                 <div className="space-y-2">
-                  <h4 className="text-lg font-semibold text-foreground">
+                  <h4 className="text-lg font-semibold text-foreground transition-colors duration-300 group-hover:text-primary">
                     {service.title}
                   </h4>
-                  <p className="text-sm text-muted-foreground">
+                  <p className="text-sm text-muted-foreground transition-colors duration-300 group-hover:text-foreground">
                     {service.excerpt}
                   </p>
                 </div>
@@ -99,51 +101,42 @@ const ServicesSection = React.memo(function ServicesSection() {
         >
           {primaryServices.map(service => (
             <motion.div key={service.slug as string} variants={staggerItem}>
-              <Card className="group flex h-full flex-col overflow-hidden border border-border bg-card/90 shadow-lg transition-all duration-300 hover:-translate-y-1 hover:border-primary/40 hover:shadow-xl !p-0">
-                <div className="relative aspect-[16/10] overflow-hidden">
+              <Card className="group h-full overflow-hidden border-border bg-card hover:border-primary/30 hover:shadow-2xl transition-all duration-500 p-0">
+                <div className="aspect-[16/9] overflow-hidden relative bg-muted">
                   <Image
                     src={service.image || '/placeholder.svg'}
                     alt={service.title}
                     fill
-                    className="object-cover transition-transform duration-500 group-hover:scale-105"
+                    className="object-cover transition-transform duration-300 group-hover:scale-105"
+                    sizes="(max-width: 768px) 100vw, (max-width: 1280px) 50vw, 33vw"
                   />
-                  <div className="absolute inset-0 bg-gradient-to-b from-black/20 via-transparent to-black/60" />
-                  <div className="absolute bottom-4 left-4 text-sm font-medium uppercase tracking-wide text-white/80">
+                  <div className="absolute inset-0 bg-gradient-to-b from-black/30 via-transparent to-black/70" />
+                  <div className="absolute bottom-4 left-4 right-4 text-sm font-medium uppercase tracking-wide text-white/70">
                     {service.category ?? 'Renewable Solutions'}
                   </div>
                 </div>
 
-                <CardContent className="flex flex-1 flex-col p-4">
+                <CardContent className="flex flex-1 flex-col p-4 sm:p-6">
                   <div className="space-y-3">
-                    <h3 className="text-2xl font-semibold leading-snug text-foreground">
+                    <h3 className="text-xl md:text-2xl font-semibold text-foreground line-clamp-2">
                       {service.title}
                     </h3>
-                    <p className="text-base text-muted-foreground">
+                    <p className="text-sm md:text-base text-muted-foreground line-clamp-3">
                       {service.fullDescription ?? service.excerpt}
                     </p>
                   </div>
 
-                  {/* {Array.isArray(service.features) &&
-                    service.features.length > 0 && (
-                      <ul className="mt-6 space-y-3 text-sm text-muted-foreground">
-                        {service.features.slice(0, 4).map(feature => (
-                          <li key={feature} className="flex items-start gap-3">
-                            <span className="mt-2 h-1.5 w-1.5 rounded-full bg-primary" />
-                            <span>{feature}</span>
-                          </li>
-                        ))}
-                      </ul>
-                    )} */}
-
-                  <div className="mt-8">
+                  <div className="mt-auto pt-6">
                     <Link href={`/services/${service.slug}`}>
                       <Button
-                        size="lg"
-                        variant="secondary"
-                        className="group-hover:bg-primary group-hover:text-primary-foreground"
+                        variant="outline"
+                        className="relative w-full justify-center gap-2 border-primary/40 text-primary-foreground bg-primary overflow-hidden transition-colors duration-300"
                       >
-                        See solution details
-                        <ArrowRight className="ml-2 h-4 w-4" />
+                        <span className="absolute inset-0 bg-primary/90 transform scale-x-0 origin-left transition-transform duration-500 ease-out group-hover:scale-x-100" />
+                        <span className="relative z-10 flex items-center gap-2">
+                          See solution details
+                          <ArrowRight className="h-4 w-4" />
+                        </span>
                       </Button>
                     </Link>
                   </div>

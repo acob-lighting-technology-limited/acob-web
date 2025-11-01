@@ -90,28 +90,28 @@ export const navigationItems = [
         href: '/projects/category/rural-electrification',
         description: 'Projects bringing power to remote areas',
         icon: 'Home',
-       
+
       },
       {
         name: 'Commercial Installations',
         href: '/projects/category/commercial-installations',
         description: 'Solar solutions for businesses',
         icon: 'Building2',
-       
+
       },
       {
         name: 'Street Lighting',
         href: '/projects/category/street-lighting',
         description: 'Public lighting infrastructure projects',
         icon: 'Lightbulb',
-        
+
       },
       {
         name: 'Healthcare Projects',
         href: '/projects/category/healthcare-projects',
         description: 'Powering hospitals and clinics',
         icon: 'Heart',
-       
+
       },
     ],
   },

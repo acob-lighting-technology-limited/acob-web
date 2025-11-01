@@ -53,7 +53,7 @@ export function UpdatesSection({ posts }: UpdatesSectionProps) {
             <div className="inline-block bg-primary/20 text-primary border border-primary/30 px-4 py-2 rounded-full text-sm font-medium mb-4 dark:bg-primary/30 dark:text-primary transition-colors duration-700">
               News & Announcements
             </div>
-            <h2 className="text-4xl md:text-5xl font-bold  text-zinc-900 dark:text-white transition-colors duration-700">
+            <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-zinc-900 dark:text-white transition-colors duration-700">
               Recent Updates
             </h2>{' '}
             {/* Renamed title */}
@@ -88,43 +88,47 @@ export function UpdatesSection({ posts }: UpdatesSectionProps) {
                       </span>
                     </div>
                   )}
+                  <div className="absolute inset-0 bg-gradient-to-b from-black/30 via-transparent to-black/70" />
+                  <div className="absolute bottom-4 left-4 right-4 text-sm font-medium uppercase tracking-wide text-white/70">
+                    {post.category || 'News'}
+                  </div>
                 </div>
 
-                <CardContent className="p-6">
+                <CardContent className="flex flex-1 flex-col p-4 sm:p-6">
                   {/* Date and Author */}
-                  <div className="flex items-center text-xs dark:text-zinc-400 text-zinc-600 mb-4">
-                    <span>{post.author}</span> <span className="mx-2">•</span>
-                    <span>{formatDate(post.publishedAt)}</span>
+                  <div className="flex items-center text-xs text-muted-foreground mb-3">
+                    <span>{post.author}</span>
                     <span className="mx-2">•</span>
-                    {/* Category Tag */}
-                    <div className=" bg-primary text-white px-3 py-1 rounded  font-medium">
-                      {post.category || 'News'}
-                    </div>
-                  </div>{' '}
-                  <div className="space-y-4">
+                    <span>{formatDate(post.publishedAt)}</span>
+                  </div>
+
+                  <div className="space-y-3">
                     {/* Title */}
-                    <h3 className="text-xl font-bold text-foreground group-hover:text-primary transition-colors duration-200 line-clamp-2">
+                    <h3 className="text-xl md:text-2xl font-semibold text-foreground line-clamp-2">
                       {post.title}
                     </h3>
 
                     {/* Excerpt */}
-                    <p className="text-muted-foreground line-clamp-[3]">
+                    <p className="text-sm md:text-base text-muted-foreground line-clamp-3">
                       {post.excerpt}
                     </p>
                   </div>
+
                   {/* Read More Button */}
-                  <div className="mt-6">
+                  <div className="mt-auto pt-6">
                     <Link href={`/updates/${post.slug.current}`}>
-                      {' '}
                       <Button
                         variant="outline"
-                        className="w-full group-hover:bg-primary group-hover:text-primary-foreground transition-colors duration-200"
+                        className="relative w-full justify-center gap-2 border-primary/40 text-primary-foreground bg-primary overflow-hidden transition-colors duration-300"
                       >
-                        <span className="sr-only">
-                          Read more about {post.title}
+                        <span className="absolute inset-0 bg-primary/90 transform scale-x-0 origin-left transition-transform duration-500 ease-out group-hover:scale-x-100" />
+                        <span className="relative z-10 flex items-center gap-2">
+                          <span className="sr-only">
+                            Read more about {post.title}
+                          </span>
+                          <span aria-hidden="true">Read more</span>
+                          <ArrowRight className="h-4 w-4" />
                         </span>
-                        <span aria-hidden="true">Read more</span>
-                        <ArrowRight className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform duration-200" />
                       </Button>
                     </Link>
                   </div>

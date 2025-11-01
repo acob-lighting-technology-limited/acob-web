@@ -3,12 +3,7 @@ import { PageHero } from '@/components/ui/page-hero';
 import { Breadcrumb } from '@/components/ui/breadcrumb';
 import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
-import {
-  ArrowRight,
-  Calendar,
-  User,
-  FileText,
-} from 'lucide-react';
+import { ArrowRight, Calendar, User, FileText } from 'lucide-react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { getUpdatePosts } from '@/sanity/lib/client';
@@ -23,9 +18,9 @@ export default async function CaseStudiesPage() {
     (post: UpdatePost) =>
       post.category === 'case-studies' ||
       post.tags?.some((tag: string) =>
-        tag.toLowerCase().includes('case study'),
+        tag.toLowerCase().includes('case study')
       ) ||
-      post.title?.toLowerCase().includes('case study'),
+      post.title?.toLowerCase().includes('case study')
   );
 
   const breadcrumbItems = [
@@ -46,7 +41,7 @@ export default async function CaseStudiesPage() {
 
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 items-start">
           {/* Main Content */}
-          <div className="lg:col-span-2">
+          <div className="lg:col-span-2 space-y-4">
             {caseStudies.length === 0 ? (
               <Card>
                 <CardContent className="p-4 sm:p-6 xl:p-8 text-center">
@@ -88,24 +83,22 @@ export default async function CaseStudiesPage() {
                           <span>{post.author}</span>{' '}
                           <span className="mx-2">•</span>
                           <Calendar className="h-4 w-4 mr-1" />
-                          <span>
-                            {formatDate(post.publishedAt)}
-                          </span>
+                          <span>{formatDate(post.publishedAt)}</span>
                         </div>
                         <h2 className="text-xl font-bold mb-4 text-foreground line-clamp-2 h-[50px]">
                           {post.title}
-                          </h2>
-                          <p className="text-muted-foreground mb-6 leading-relaxed line-clamp-[3]">
-                            {post.excerpt}
-                          </p>
+                        </h2>
+                        <p className="text-muted-foreground mb-6 leading-relaxed line-clamp-[3]">
+                          {post.excerpt}
+                        </p>
                       </div>
 
                       <div className="mt-auto">
-                        <Link 
-                          href={`/updates/${post.slug.current}`}
-                        >
+                        <Link href={`/updates/${post.slug.current}`}>
                           <Button className="w-full">
-                            <span className="sr-only">Read more about {post.title}</span>
+                            <span className="sr-only">
+                              Read more about {post.title}
+                            </span>
                             <span aria-hidden="true">Read More</span>
                             <ArrowRight className="ml-2 h-4 w-4" />
                           </Button>
