@@ -189,7 +189,7 @@ export function QuoteForm() {
   };
 
   return (
-    <section className="py-16  bg-primary text-primary-foreground transition-colors duration-500">
+    <section className="py-16 selection:bg-primary-foreground selection:text-primary  bg-primary text-primary-foreground transition-colors duration-500">
       <Container className="px-4">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
           <div>
