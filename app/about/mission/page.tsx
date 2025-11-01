@@ -8,6 +8,7 @@ import { Breadcrumb } from '@/components/ui/breadcrumb';
 import { Card, CardContent } from '@/components/ui/card';
 import { Container } from '@/components/ui/container';
 import { PageHero } from '@/components/ui/page-hero';
+import { InfoCard } from '@/components/ui/info-card';
 import { coreValues } from '@/lib/data/mission-data';
 import { AnimatedFillText } from '@/components/ui/animated-fill-text';
 
@@ -78,7 +79,7 @@ export default function MissionPage() {
         <Breadcrumb items={breadcrumbItems} className="mb-8" />
 
         <section className="mb-16 grid gap-12 lg:grid-cols-[1.1fr_0.9fr] ">
-          <div className="space-y-8 rounded-3xl border border-border bg-card/80 p-4 sm:p-6 xl:p-8 shadow-sm h-fit sticky top-10">
+          <Card className="space-y-8 rounded-3xl border border-border bg-surface p-4 sm:p-6 xl:p-8 shadow-sm h-fit sticky top-10">
             <span className="inline-flex items-center rounded-full border border-border px-3 py-1 text-xs font-semibold uppercase tracking-[0.2em] text-muted-foreground">
               Vision
             </span>
@@ -109,33 +110,28 @@ export default function MissionPage() {
                 people by 2030.
               </p>
             </div>
-          </div>
+          </Card>
 
           <aside className="space-y-6">
-            <Card className="rounded-3xl border border-border bg-card/80 p-4 sm:p-6 xl:p-8 shadow-sm">
+            <Card className="rounded-3xl border border-border bg-surface p-4 sm:p-6 xl:p-8 shadow-sm">
               <CardContent className="flex flex-col gap-4 p-0">
                 <h3 className="text-lg font-semibold text-foreground">
                   Mission Metrics
                 </h3>
                 <div className="grid gap-4 sm:grid-cols-2">
                   {missionMetrics.map(metric => (
-                    <div
+                    <InfoCard
                       key={metric.label}
-                      className="rounded-2xl border border-border bg-muted/20 p-4"
-                    >
-                      <p className="text-2xl font-semibold text-foreground">
-                        {metric.value}
-                      </p>
-                      <p className="mt-1 text-xs uppercase tracking-[0.2em] text-muted-foreground">
-                        {metric.label}
-                      </p>
-                    </div>
+                      variant="metric"
+                      value={metric.value}
+                      label={metric.label}
+                    />
                   ))}
                 </div>
               </CardContent>
             </Card>
 
-            <Card className="rounded-3xl border border-border bg-card/80 p-4 sm:p-6 xl:p-8 shadow-sm">
+            <Card className="rounded-3xl border border-border bg-surface p-4 sm:p-6 xl:p-8 shadow-sm">
               <CardContent className="p-0">
                 <h3 className="text-lg font-semibold text-foreground">
                   Strategic Pillars
@@ -171,7 +167,7 @@ export default function MissionPage() {
         </section>
 
         <section className="mb-16">
-          <div className="grid items-center gap-8 rounded-3xl border border-border bg-gradient-to-r from-primary to-primary-dark p-4 sm:p-6 xl:p-8 text-white lg:grid-cols-2">
+          <Card className="grid items-center gap-8 rounded-3xl border border-border bg-gradient-to-r from-primary to-primary-dark p-4 sm:p-6 xl:p-8 text-white lg:grid-cols-2">
             <div className="space-y-6 sticky top-10">
               <span className="inline-flex items-center rounded-full border border-white/20 px-3 py-1 text-xs font-semibold uppercase tracking-[0.25em] text-white/80">
                 Our Core Values
@@ -207,10 +203,10 @@ export default function MissionPage() {
                 </div>
               ))}
             </div>
-          </div>
+          </Card>
         </section>
 
-        {/* <section className="mb-16 rounded-3xl border border-border bg-card/80 p-4 sm:p-6 xl:p-8 shadow-sm">
+        {/* <section className="mb-16 rounded-3xl border border-border bg-surface p-4 sm:p-6 xl:p-8 shadow-sm">
           <div className="mb-8 flex flex-col gap-3 text-center">
             <span className="mx-auto inline-flex items-center rounded-full border border-border px-3 py-1 text-xs font-semibold uppercase tracking-[0.2em] text-muted-foreground">
               Mission in Action
@@ -227,7 +223,7 @@ export default function MissionPage() {
           <AutoCarousel
             items={strategicPillars}
             renderItem={(pillar: typeof strategicPillars[0]) => (
-              <Card className="h-full rounded-3xl border border-border bg-card/80 p-6 shadow-sm">
+              <Card className="h-full rounded-3xl border border-border bg-surface p-6 shadow-sm">
                 <h4 className="text-xl font-semibold text-foreground">{pillar.title}</h4>
                 <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
                   {pillar.description}

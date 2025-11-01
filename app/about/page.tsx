@@ -10,6 +10,8 @@ import { Card, CardContent } from '@/components/ui/card';
 import { Container } from '@/components/ui/container';
 import { Breadcrumb } from '@/components/ui/breadcrumb';
 import { PageHero } from '@/components/ui/page-hero';
+import { SectionHeader } from '@/components/ui/section-header';
+import { InfoCard } from '@/components/ui/info-card';
 import { aboutSections } from '@/lib/data/about-data';
 import {
   aboutImpactMetrics,
@@ -37,7 +39,7 @@ export default function AboutPage() {
       <Container>
         <Breadcrumb items={breadcrumbItems} className="mb-8" />
 
-        <section className="mb-20 rounded-3xl border border-border bg-card/80 p-4 sm:p-6 xl:p-8 shadow-sm backdrop-blur">
+        <section className="mb-20 rounded-3xl border border-border bg-surface p-4 sm:p-6 xl:p-8 shadow-sm backdrop-blur">
           <div className="mx-auto max-w-4xl space-y-6 text-center">
             <span className="inline-flex items-center justify-center rounded-full border border-primary/40 bg-primary/20 px-4 py-1 text-xs font-semibold uppercase tracking-[0.3em] text-primary">
               Our Purpose
@@ -58,7 +60,7 @@ export default function AboutPage() {
         </section>
 
         <section className="mb-20 grid grid-cols-1 gap-10 lg:grid-cols-[1.1fr_0.9fr]">
-          <div className="space-y-6 rounded-3xl border border-border bg-gradient-to-br from-background via-background to-primary/5 p-4 sm:p-6 xl:p-8 shadow-sm">
+          <Card className="space-y-6 rounded-3xl border border-border bg-gradient-to-br from-background via-background to-primary/5 p-4 sm:p-6 xl:p-8 shadow-sm">
             <span className="inline-flex items-center rounded-full border border-border px-3 py-1 text-xs font-semibold uppercase tracking-[0.2em] text-muted-foreground">
               Our Journey
             </span>
@@ -88,10 +90,10 @@ export default function AboutPage() {
                 long-term reliability and community impact wherever we operate.
               </p>
             </div>
-          </div>
+          </Card>
 
           <div className="flex flex-col justify-between gap-6">
-            <div className="rounded-3xl border border-border bg-card/90 p-4 sm:p-6 xl:p-8 shadow-sm">
+            <Card className="rounded-3xl border border-border bg-surface p-4 sm:p-6 xl:p-8 shadow-sm">
               <h4 className="text-lg font-semibold text-foreground">
                 Impact Snapshot
               </h4>
@@ -102,21 +104,16 @@ export default function AboutPage() {
               <div className="mt-6 grid gap-4 sm:grid-cols-2">
                 {aboutImpactMetrics.map(
                   (metric: (typeof aboutImpactMetrics)[0]) => (
-                    <div
+                    <InfoCard
                       key={metric.label}
-                      className="rounded-2xl border border-border/70 bg-surface p-4 shadow-sm"
-                    >
-                      <div className="text-3xl font-semibold text-foreground">
-                        {metric.value}
-                      </div>
-                      <p className="mt-1 text-xs uppercase tracking-wide text-muted-foreground">
-                        {metric.label}
-                      </p>
-                    </div>
+                      variant="metric"
+                      value={metric.value}
+                      label={metric.label}
+                    />
                   )
                 )}
               </div>
-            </div>
+            </Card>
 
             <Card className="flex flex-col gap-4 rounded-3xl border border-primary/30 bg-primary/5 p-4 sm:p-6 xl:p-8 text-foreground">
               <p className="text-sm font-semibold uppercase tracking-[0.25em] text-primary">
@@ -138,25 +135,18 @@ export default function AboutPage() {
         </section>
 
         <section className="mb-20">
-          <div className="mb-10 flex flex-col items-center gap-4 text-center">
-            <span className="inline-flex items-center rounded-full border border-border px-3 py-1 text-xs font-semibold uppercase tracking-[0.2em] text-muted-foreground">
-              What Sets Us Apart
-            </span>
-            <h3 className="text-3xl font-semibold text-foreground md:text-4xl">
-              Our integrated capabilities deliver bankable energy assets
-            </h3>
-            <p className="max-w-3xl text-lg text-muted-foreground">
-              From project origination to long-term operations, we de-risk
-              energy access projects with robust governance, in-house
-              engineering, and community-focused service delivery.
-            </p>
-          </div>
+          <SectionHeader
+            badge="What Sets Us Apart"
+            title="Our integrated capabilities deliver bankable energy assets"
+            description="From project origination to long-term operations, we de-risk energy access projects with robust governance, in-house engineering, and community-focused service delivery."
+            className="mb-10"
+          />
 
           <div className="grid gap-6 md:grid-cols-2 xl:grid-cols-3">
             {aboutHighlights.map((highlight: (typeof aboutHighlights)[0]) => (
               <Card
                 key={highlight.title}
-                className="group flex h-full flex-col justify-between rounded-3xl border border-border bg-card/80 p-6 shadow-sm transition-all duration-500 hover:-translate-y-1 hover:shadow-lg"
+                className="group flex h-full flex-col justify-between rounded-3xl border border-border bg-surface p-6 shadow-sm transition-all duration-500 hover:-translate-y-1 hover:shadow-lg"
               >
                 <div className="flex flex-col gap-4">
                   <div className="flex items-center gap-3">
@@ -232,19 +222,16 @@ export default function AboutPage() {
         </section> */}
 
         <section className="mb-10">
-          <div className="mb-8 flex flex-col gap-3 text-center">
-            <span className="mx-auto inline-flex items-center rounded-full border border-border px-3 py-1 text-xs font-semibold uppercase tracking-[0.2em] text-muted-foreground">
-              Discover More
-            </span>
-            <h3 className="text-2xl font-semibold text-foreground">
-              Dive deeper into our story, mission, and operations
-            </h3>
-          </div>
+          <SectionHeader
+            badge="Discover More"
+            title="Dive deeper into our story, mission, and operations"
+            className="mb-8"
+          />
 
           <div className="grid grid-cols-1 gap-6 md:grid-cols-2 xl:grid-cols-4">
             {aboutSections.map(section => (
               <Link key={section.href} href={section.href}>
-                <Card className="group flex h-full flex-col overflow-hidden rounded-3xl border border-border bg-card/80 shadow-sm transition-all duration-500 hover:-translate-y-1 hover:shadow-lg">
+                <Card className="group flex h-full flex-col overflow-hidden rounded-3xl border border-border bg-surface shadow-sm transition-all duration-500 hover:-translate-y-1 hover:shadow-lg">
                   <div className="relative aspect-[16/9] w-full overflow-hidden">
                     <Image
                       src={section.image || '/placeholder.svg'}
@@ -264,10 +251,7 @@ export default function AboutPage() {
                         {section.description}
                       </p>
                     </div>
-                    <Button
-                      variant="default"
-                      className="w-full text-center px-4 py-2 mt-auto bg-primary text-primary-foreground hover:bg-primary/70"
-                    >
+                    <Button variant="default" className="w-full mt-auto">
                       Learn More
                       <ArrowRight className="ml-2 h-4 w-4" />
                     </Button>

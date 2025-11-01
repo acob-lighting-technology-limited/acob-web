@@ -50,7 +50,7 @@ export default function SupportPage() {
             {/* Help Overview */}
             <Card className="border shadow-md border-border bg-surface">
               <CardContent className="p-4 sm:p-6 xl:p-8">
-                <h2 className="text-3xl font-bold mb-6 text-foreground">
+                <h2 className="text-3xl md:text-4xl font-bold mb-6 text-foreground">
                   How Can We Help You?
                 </h2>
                 <div className="text-muted-foreground leading-relaxed space-y-4 text-lg">
@@ -73,7 +73,7 @@ export default function SupportPage() {
             {/* Contact Methods */}
             <Card className="border shadow-md border-border bg-surface">
               <CardContent className="p-4 sm:p-6 xl:p-8">
-                <h2 className="text-3xl font-bold mb-6 text-foreground">
+                <h2 className="text-3xl md:text-4xl font-bold mb-6 text-foreground">
                   Contact Our Support Team
                 </h2>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -114,7 +114,7 @@ export default function SupportPage() {
             {/* FAQs */}
             <Card className="border shadow-md border-border bg-surface">
               <CardContent className="p-4 sm:p-6 xl:p-8">
-                <h2 className="text-3xl font-bold mb-6 text-foreground">
+                <h2 className="text-3xl md:text-4xl font-bold mb-6 text-foreground">
                   Frequently Asked Questions
                 </h2>
                 <Accordion

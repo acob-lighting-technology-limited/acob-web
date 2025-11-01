@@ -390,7 +390,7 @@ export default function ServicesPage() {
                       </div>
                       <div className="mt-auto">
                         <Link href={`/services/${service.slug}`}>
-                          <Button className="w-full bg-primary hover:bg-primary/90 text-primary-foreground">
+                          <Button variant="default" className="w-full">
                             <span className="sr-only">
                               Learn more about {service.title}
                             </span>
