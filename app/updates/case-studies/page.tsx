@@ -32,7 +32,7 @@ export default async function CaseStudiesPage() {
   return (
     <>
       <PageHero
-        title="Case Studies"
+        description="Real Impact Stories from the Field"
         backgroundImage="/images/services/header.webp?height=400&width=1200"
       />
 

@@ -85,7 +85,7 @@ export default async function ServicePage({ params }: ServicePageProps) {
 
   return (
     <>
-      <PageHero title={service.title} backgroundImage={service.image} />
+      <PageHero description={service.title} backgroundImage={service.image} />
       <Container>
         <Breadcrumb items={breadcrumbItems} className="mb-8" />
 

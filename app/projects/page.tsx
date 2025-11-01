@@ -15,7 +15,9 @@ interface ProjectsPageProps {
   }>;
 }
 
-export default async function ProjectsPage({ searchParams }: ProjectsPageProps) {
+export default async function ProjectsPage({
+  searchParams,
+}: ProjectsPageProps) {
   const params = await searchParams;
   const page = parseInt(params.page || '1');
   const search = params.search || '';
@@ -82,8 +84,8 @@ export default async function ProjectsPage({ searchParams }: ProjectsPageProps) 
       allProjects
         .map((p: Project) => p.location)
         .filter(Boolean)
-        .map(extractStateFromLocation),
-    ),
+        .map(extractStateFromLocation)
+    )
   ).sort() as string[];
 
   const breadcrumbItems = [{ label: 'Home', href: '/' }, { label: 'Projects' }];
@@ -91,7 +93,7 @@ export default async function ProjectsPage({ searchParams }: ProjectsPageProps) 
   return (
     <>
       <PageHero
-        title="Our Projects"
+        description="Transforming Communities with Solar Power"
         backgroundImage="/images/services/header.webp?height=400&width=1200"
       />
 

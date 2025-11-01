@@ -21,16 +21,9 @@ export default function OurStoryPage() {
   return (
     <>
       <PageHero
-        title="A Journey Fueled by Community-Centered Innovation"
-        eyebrow="Our Story"
+        description="Community-Centered Innovation Since Day One"
         backgroundImage="/images/about/acob-team.webp?height=800&width=1600"
-      >
-        {/* <p className="max-w-3xl text-balance text-lg text-white/90 md:text-xl">
-          From street lighting origins to hybrid mini-grids and productive-use energy
-          hubs, ACOB Lighting grows by listening to communities and delivering bankable
-          infrastructure that evolves with their needs.
-        </p> */}
-      </PageHero>
+      />
 
       <Container>
         <Breadcrumb items={breadcrumbItems} className="mb-10" />

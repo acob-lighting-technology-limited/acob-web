@@ -30,7 +30,7 @@ export default async function LatestPage() {
   return (
     <>
       <PageHero
-        title="Latest Updates"
+        description="Stay Updated with Our Recent Work"
         backgroundImage="/images/services/header.webp?height=400&width=1200"
       />
 

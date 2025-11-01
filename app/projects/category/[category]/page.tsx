@@ -144,11 +144,11 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
 
   return (
     <>
-      <PageHero title={info.title} backgroundImage={info.image}>
-        <p className="text-lg md:text-xl opacity-90 max-w-3xl leading-relaxed">
-          {info.description}
-        </p>
-      </PageHero>
+      <PageHero
+        description={info.title}
+        backgroundImage={info.image}
+        title={info.title}
+      />
 
       <Container className="px-4 py-8">
         <Breadcrumb items={breadcrumbItems} className="mb-8" />

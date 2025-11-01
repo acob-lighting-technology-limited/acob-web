@@ -13,7 +13,7 @@ export default function TermsOfServicePage() {
   return (
     <>
       <PageHero
-        title="Terms of Service"
+        description="Terms and Conditions of Use"
         backgroundImage="/images/contact/contact-us.webp"
       />
 
@@ -51,11 +51,11 @@ export default function TermsOfServicePage() {
                     </h2>
                   </div>
                   <p className="text-muted-foreground leading-relaxed text-base pl-11">
-                    By accessing and using the website of ACOB Lighting Technology
-                    Limited (&quot;we,&quot; &quot;our,&quot; or &quot;us&quot;),
-                    you accept and agree to be bound by the terms and provision of
-                    this agreement. If you do not agree to abide by the above,
-                    please do not use this service.
+                    By accessing and using the website of ACOB Lighting
+                    Technology Limited (&quot;we,&quot; &quot;our,&quot; or
+                    &quot;us&quot;), you accept and agree to be bound by the
+                    terms and provision of this agreement. If you do not agree
+                    to abide by the above, please do not use this service.
                   </p>
                 </section>
 
@@ -81,7 +81,10 @@ export default function TermsOfServicePage() {
                         'Solar panel supply and installation',
                         'Energy consulting and project management',
                       ].map((service, index) => (
-                        <div key={index} className="flex items-center gap-2 text-muted-foreground">
+                        <div
+                          key={index}
+                          className="flex items-center gap-2 text-muted-foreground"
+                        >
                           <div className="w-2 h-2 bg-primary rounded-full"></div>
                           <span className="text-sm">{service}</span>
                         </div>
@@ -112,7 +115,10 @@ export default function TermsOfServicePage() {
                         'Respect intellectual property rights',
                         'Comply with all applicable laws and regulations',
                       ].map((responsibility, index) => (
-                        <div key={index} className="flex items-center gap-2 text-muted-foreground">
+                        <div
+                          key={index}
+                          className="flex items-center gap-2 text-muted-foreground"
+                        >
                           <div className="w-2 h-2 bg-primary rounded-full"></div>
                           <span className="text-sm">{responsibility}</span>
                         </div>
@@ -133,14 +139,15 @@ export default function TermsOfServicePage() {
                   <div className="pl-11 space-y-3">
                     <p className="text-muted-foreground leading-relaxed text-base">
                       The content on this website, including but not limited to
-                      text, graphics, images, logos, and software, is the property
-                      of ACOB Lighting Technology Limited and is protected by
-                      copyright and other intellectual property laws.
+                      text, graphics, images, logos, and software, is the
+                      property of ACOB Lighting Technology Limited and is
+                      protected by copyright and other intellectual property
+                      laws.
                     </p>
                     <p className="text-muted-foreground text-base">
                       You may not reproduce, distribute, modify, or create
-                      derivative works from this content without our express written
-                      consent.
+                      derivative works from this content without our express
+                      written consent.
                     </p>
                   </div>
                 </section>
@@ -163,8 +170,8 @@ export default function TermsOfServicePage() {
                       >
                         Privacy Policy
                       </a>
-                      , which also governs your use of our services, to understand
-                      our practices.
+                      , which also governs your use of our services, to
+                      understand our practices.
                     </p>
                   </div>
                 </section>
@@ -181,9 +188,9 @@ export default function TermsOfServicePage() {
                   <div className="pl-11">
                     <p className="text-muted-foreground leading-relaxed text-base">
                       We strive to maintain the availability of our website and
-                      services, but we do not guarantee uninterrupted access. We may
-                      temporarily suspend or restrict access for maintenance,
-                      updates, or other operational reasons.
+                      services, but we do not guarantee uninterrupted access. We
+                      may temporarily suspend or restrict access for
+                      maintenance, updates, or other operational reasons.
                     </p>
                   </div>
                 </section>
@@ -211,7 +218,10 @@ export default function TermsOfServicePage() {
                         'Personal injury or property damage',
                         'Any damages arising from the use of our services',
                       ].map((damage, index) => (
-                        <div key={index} className="flex items-center gap-2 text-muted-foreground">
+                        <div
+                          key={index}
+                          className="flex items-center gap-2 text-muted-foreground"
+                        >
                           <div className="w-2 h-2 bg-primary rounded-full"></div>
                           <span className="text-sm">{damage}</span>
                         </div>
@@ -232,9 +242,10 @@ export default function TermsOfServicePage() {
                   <div className="pl-11">
                     <p className="text-muted-foreground leading-relaxed text-base">
                       You agree to indemnify and hold harmless ACOB Lighting
-                      Technology Limited, its officers, directors, employees, and
-                      agents from any claims, damages, losses, or expenses arising
-                      from your use of our services or violation of these terms.
+                      Technology Limited, its officers, directors, employees,
+                      and agents from any claims, damages, losses, or expenses
+                      arising from your use of our services or violation of
+                      these terms.
                     </p>
                   </div>
                 </section>
@@ -251,8 +262,8 @@ export default function TermsOfServicePage() {
                   <div className="pl-11">
                     <p className="text-muted-foreground mb-4 text-base">
                       Our services are provided &quot;as is&quot; and &quot;as
-                      available&quot; without warranties of any kind, either express
-                      or implied, including but not limited to:
+                      available&quot; without warranties of any kind, either
+                      express or implied, including but not limited to:
                     </p>
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-2">
                       {[
@@ -261,7 +272,10 @@ export default function TermsOfServicePage() {
                         'Non-infringement',
                         'Accuracy or completeness of information',
                       ].map((disclaimer, index) => (
-                        <div key={index} className="flex items-center gap-2 text-muted-foreground">
+                        <div
+                          key={index}
+                          className="flex items-center gap-2 text-muted-foreground"
+                        >
                           <div className="w-2 h-2 bg-primary rounded-full"></div>
                           <span className="text-sm">{disclaimer}</span>
                         </div>
@@ -281,10 +295,11 @@ export default function TermsOfServicePage() {
                   </div>
                   <div className="pl-11">
                     <p className="text-muted-foreground leading-relaxed text-base">
-                      These terms shall be governed by and construed in accordance
-                      with the laws of Nigeria. Any disputes arising from these
-                      terms or your use of our services shall be subject to the
-                      exclusive jurisdiction of the courts in Nigeria.
+                      These terms shall be governed by and construed in
+                      accordance with the laws of Nigeria. Any disputes arising
+                      from these terms or your use of our services shall be
+                      subject to the exclusive jurisdiction of the courts in
+                      Nigeria.
                     </p>
                   </div>
                 </section>
@@ -301,10 +316,11 @@ export default function TermsOfServicePage() {
                   <div className="pl-11">
                     <p className="text-muted-foreground leading-relaxed text-base">
                       We reserve the right to modify these terms at any time. We
-                      will notify users of any material changes by posting the new
-                      terms on this page and updating the &quot;Last updated&quot;
-                      date. Your continued use of our services after such changes
-                      constitutes acceptance of the new terms.
+                      will notify users of any material changes by posting the
+                      new terms on this page and updating the &quot;Last
+                      updated&quot; date. Your continued use of our services
+                      after such changes constitutes acceptance of the new
+                      terms.
                     </p>
                   </div>
                 </section>
@@ -320,10 +336,11 @@ export default function TermsOfServicePage() {
                   </div>
                   <div className="pl-11">
                     <p className="text-muted-foreground leading-relaxed text-base">
-                      If any provision of these terms is found to be unenforceable
-                      or invalid, that provision will be limited or eliminated to
-                      the minimum extent necessary so that these terms will
-                      otherwise remain in full force and effect.
+                      If any provision of these terms is found to be
+                      unenforceable or invalid, that provision will be limited
+                      or eliminated to the minimum extent necessary so that
+                      these terms will otherwise remain in full force and
+                      effect.
                     </p>
                   </div>
                 </section>
@@ -339,8 +356,8 @@ export default function TermsOfServicePage() {
                   </div>
                   <div className="pl-11">
                     <p className="text-muted-foreground mb-4 text-base">
-                      If you have any questions about these Terms of Service, please
-                      contact us:
+                      If you have any questions about these Terms of Service,
+                      please contact us:
                     </p>
                     <div className="space-y-3">
                       <div className="flex items-center gap-3 text-muted-foreground">
@@ -353,7 +370,11 @@ export default function TermsOfServicePage() {
                       </div>
                       <div className="flex items-center gap-3 text-muted-foreground">
                         <MapPin className="w-4 h-4 text-primary" />
-                        <span>Plot 2. Block 14 Extension, Federal Ministry of Works And Housing Sites and Service Scheme, Setraco Gate Gwarinpa, Abuja, Nigeria</span>
+                        <span>
+                          Plot 2. Block 14 Extension, Federal Ministry of Works
+                          And Housing Sites and Service Scheme, Setraco Gate
+                          Gwarinpa, Abuja, Nigeria
+                        </span>
                       </div>
                     </div>
                   </div>

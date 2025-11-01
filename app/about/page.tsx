@@ -23,7 +23,7 @@ export default function AboutPage() {
   return (
     <>
       <PageHero
-        title="Lighting Nigeria with Trusted Solar Infrastructure"
+        description="Trusted Solar Infrastructure Across Nigeria"
         // align="center"
         backgroundImage="/images/about/acob-team.webp?height=800&width=1600"
       >

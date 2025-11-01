@@ -23,16 +23,9 @@ export default function CertificationsPage() {
   return (
     <>
       <PageHero
-        title="Certifications that Anchor Our Reliability"
-        // eyebrow="Certifications & Awards"
+        description="Certified Excellence in Renewable Energy"
         backgroundImage="/images/about/acob-team.webp?height=800&width=1600"
-        // align="center"
-      >
-        <p className="mx-auto max-w-3xl text-balance text-lg text-white/90 md:text-xl">
-          We uphold rigorous quality, safety, and environmental standards so
-          every asset we deliver remains trusted, bankable, and future-ready.
-        </p>
-      </PageHero>
+      />
 
       <Container>
         <Breadcrumb items={breadcrumbItems} className="mb-10" />

@@ -39,7 +39,7 @@ export default async function CareersPage() {
   return (
     <>
       <PageHero
-        title="Careers at ACOB Lighting"
+        description="Join Our Mission to Power Nigeria"
         backgroundImage="/images/contact/careers.webp?height=400&width=1200"
       >
         {/* <MaskText

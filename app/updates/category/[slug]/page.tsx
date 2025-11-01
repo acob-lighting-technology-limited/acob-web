@@ -68,7 +68,7 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
   return (
     <>
       <PageHero
-        title={`${slug.replace(/-/g, ' ')} Updates`}
+        description={`${slug.replace(/-/g, ' ')} Updates`}
         backgroundImage="/images/services/header.webp?height=400&width=1200"
       />
 

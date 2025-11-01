@@ -21,9 +21,8 @@ export default function TeamPage() {
   return (
     <>
       <PageHero
-        title="Meet the Leaders Powering Nigeria's Energy Transition"
+        description="Meet the Leaders Powering Nigeria's Energy Transition"
         backgroundImage="/images/about/acob-team.webp?height=800&width=1600"
-        eyebrow="Our Team"
         align="left"
       >
         {/* <p className="mx-auto max-w-3xl text-balance text-lg text-white/90 md:text-xl">

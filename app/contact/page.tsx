@@ -18,7 +18,7 @@ export default function ContactPage() {
   return (
     <>
       <PageHero
-        title="Contact Us"
+        description="Get in Touch with Our Team"
         backgroundImage="/images/contact/contact-us.webp?height=400&width=1200"
       >
         <MaskText
