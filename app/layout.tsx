@@ -15,6 +15,8 @@ import { SkipNavigation } from '@/components/ui/skip-navigation';
 import { ChatErrorBoundary } from '@/components/error-boundary/error-boundary';
 import { Analytics } from '@vercel/analytics/react';
 import { SpeedInsights } from '@vercel/speed-insights/next';
+import { AnnouncementBanner } from '@/components/ui/announcement-banner';
+import { getActiveJobCount } from '@/sanity/lib/client';
 
 const plusJakarta = Plus_Jakarta_Sans({
   subsets: ['latin'],
@@ -73,21 +75,29 @@ export const metadata: Metadata = {
   },
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
+  const jobCount = await getActiveJobCount();
+
   return (
     <html lang="en" suppressHydrationWarning>
-      <body className={`${plusJakarta.className} ${plusJakarta.variable}`} >
+      <body className={`${plusJakarta.className} ${plusJakarta.variable}`}>
         <Providers>
           <NProgressProvider>
             <SkipNavigation />
             <Toaster closeButton position="top-right" />
             <div className="flex min-h-screen flex-col w-full bg-background transition-all duration-500 selection:bg-foreground selection:text-primary ">
+              <AnnouncementBanner jobCount={jobCount} />
               <Header />
-              <main id="main-content" className="flex-1 border-b border-b-muted">{children}</main>
+              <main
+                id="main-content"
+                className="flex-1 border-b border-b-muted"
+              >
+                {children}
+              </main>
               <Footer />
               <div className="z-50 fixed bottom-2 right-2 flex flex-col gap-2 items-center w-16 h-32 sm:w-20 sm:h-40">
                 <ScrollToTop />

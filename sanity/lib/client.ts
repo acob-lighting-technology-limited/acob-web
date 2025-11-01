@@ -10,11 +10,15 @@ const token = process.env.SANITY_API_TOKEN;
 
 // Validate required environment variables
 if (!projectId) {
-  throw new Error('SANITY_STUDIO_PROJECT_ID or NEXT_PUBLIC_SANITY_PROJECT_ID is required');
+  throw new Error(
+    'SANITY_STUDIO_PROJECT_ID or NEXT_PUBLIC_SANITY_PROJECT_ID is required'
+  );
 }
 
 if (!dataset) {
-  throw new Error('SANITY_STUDIO_DATASET or NEXT_PUBLIC_SANITY_DATASET is required');
+  throw new Error(
+    'SANITY_STUDIO_DATASET or NEXT_PUBLIC_SANITY_DATASET is required'
+  );
 }
 
 if (!token) {
@@ -70,7 +74,7 @@ export async function getUpdatePosts() {
 export async function getUpdatePostsPaginated({
   page = 1,
   limit = 8,
-  search = ''
+  search = '',
 }: {
   page?: number;
   limit?: number;
@@ -78,11 +82,11 @@ export async function getUpdatePostsPaginated({
 }) {
   try {
     const offset = (page - 1) * limit;
-    
+
     // Build the base query
-    let query = `*[_type == "updatePost"`;
-    let params: Record<string, any> = {};
-    
+    let query = '*[_type == "updatePost"';
+    const params: Record<string, any> = {};
+
     // Add search filter
     if (search.trim()) {
       query += ` && (
@@ -94,7 +98,7 @@ export async function getUpdatePostsPaginated({
       )`;
       params.search = `*${search}*`;
     }
-    
+
     // Complete the query with ordering and pagination
     query += `] | order(publishedAt desc)[${offset}...${offset + limit}] {
       _id,
@@ -108,9 +112,9 @@ export async function getUpdatePostsPaginated({
       "featuredImage": featuredImage.asset->url + "?w=800&h=600&fit=crop&auto=format&q=75",
       content
     }`;
-    
+
     // Get total count for pagination
-    let countQuery = `count(*[_type == "updatePost"`;
+    let countQuery = 'count(*[_type == "updatePost"';
     if (search.trim()) {
       countQuery += ` && (
         title match $search ||
@@ -120,16 +124,16 @@ export async function getUpdatePostsPaginated({
         pt::text(content) match $search
       )`;
     }
-    countQuery += `])`;
-    
+    countQuery += '])';
+
     // Execute both queries
     const [posts, totalCount] = await Promise.all([
       client.fetch(query, params),
-      client.fetch(countQuery, params)
+      client.fetch(countQuery, params),
     ]);
-    
+
     const totalPages = Math.ceil(totalCount / limit);
-    
+
     return {
       posts,
       pagination: {
@@ -138,8 +142,8 @@ export async function getUpdatePostsPaginated({
         totalCount,
         limit,
         hasNextPage: page < totalPages,
-        hasPreviousPage: page > 1
-      }
+        hasPreviousPage: page > 1,
+      },
     };
   } catch (error) {
     console.error('Error fetching paginated update posts from Sanity:', error);
@@ -151,8 +155,8 @@ export async function getUpdatePostsPaginated({
         totalCount: 0,
         limit,
         hasNextPage: false,
-        hasPreviousPage: false
-      }
+        hasPreviousPage: false,
+      },
     };
   }
 }
@@ -278,12 +282,12 @@ export async function getProjectsForGallery() {
     // Process the projects to extract images from content
     const processedProjects = projects.map((project: any) => {
       const galleryImages: string[] = [];
-      
+
       // Add the main project image
       if (project.projectImage) {
         galleryImages.push(project.projectImage);
       }
-      
+
       // Extract images from content blocks
       if (project.content && Array.isArray(project.content)) {
         project.content.forEach((block: any) => {
@@ -292,10 +296,10 @@ export async function getProjectsForGallery() {
           }
         });
       }
-      
+
       return {
         ...project,
-        galleryImages
+        galleryImages,
       };
     });
 
@@ -345,7 +349,7 @@ export async function getProjectsPaginated({
   page = 1,
   limit = 6,
   search = '',
-  state = ''
+  state = '',
 }: {
   page?: number;
   limit?: number;
@@ -354,11 +358,11 @@ export async function getProjectsPaginated({
 }) {
   try {
     const offset = (page - 1) * limit;
-    
+
     // Build the base query
-    let query = `*[_type == "project"`;
-    let params: Record<string, any> = {};
-    
+    let query = '*[_type == "project"';
+    const params: Record<string, any> = {};
+
     // Add search filter
     if (search.trim()) {
       query += ` && (
@@ -369,13 +373,13 @@ export async function getProjectsPaginated({
       )`;
       params.search = `*${search}*`;
     }
-    
+
     // Add state filter
     if (state.trim()) {
-      query += ` && location match $state`;
+      query += ' && location match $state';
       params.state = `*${state}*`;
     }
-    
+
     // Complete the query with ordering and pagination
     query += `] | order(projectDate desc, _createdAt desc)[${offset}...${offset + limit}] {
       _id,
@@ -398,9 +402,9 @@ export async function getProjectsPaginated({
         isApproved
       }
     }`;
-    
+
     // Get total count for pagination
-    let countQuery = `count(*[_type == "project"`;
+    let countQuery = 'count(*[_type == "project"';
     if (search.trim()) {
       countQuery += ` && (
         title match $search ||
@@ -410,18 +414,18 @@ export async function getProjectsPaginated({
       )`;
     }
     if (state.trim()) {
-      countQuery += ` && location match $state`;
+      countQuery += ' && location match $state';
     }
-    countQuery += `])`;
-    
+    countQuery += '])';
+
     // Execute both queries
     const [projects, totalCount] = await Promise.all([
       client.fetch(query, params),
-      client.fetch(countQuery, params)
+      client.fetch(countQuery, params),
     ]);
-    
+
     const totalPages = Math.ceil(totalCount / limit);
-    
+
     return {
       projects,
       pagination: {
@@ -430,8 +434,8 @@ export async function getProjectsPaginated({
         totalCount,
         limit,
         hasNextPage: page < totalPages,
-        hasPreviousPage: page > 1
-      }
+        hasPreviousPage: page > 1,
+      },
     };
   } catch (error) {
     console.error('Error fetching paginated projects from Sanity:', error);
@@ -443,8 +447,8 @@ export async function getProjectsPaginated({
         totalCount: 0,
         limit,
         hasNextPage: false,
-        hasPreviousPage: false
-      }
+        hasPreviousPage: false,
+      },
     };
   }
 }
@@ -479,7 +483,9 @@ export async function getProject(slug: string) {
       { slug }
     );
 
-    if (!project) return null;
+    if (!project) {
+      return null;
+    }
 
     return project;
   } catch (error) {
@@ -524,7 +530,11 @@ export async function getProjectsByCategory(category: string) {
 }
 
 // Helper function to get related projects by category (excluding current slug)
-export async function getRelatedProjects(category: string, currentSlug: string, limit: number = 3) {
+export async function getRelatedProjects(
+  category: string,
+  currentSlug: string,
+  limit: number = 3
+) {
   try {
     const relatedProjects = await client.fetch(
       `
@@ -595,12 +605,12 @@ export async function getJobPosting(slug: string) {
     `,
       { slug }
     );
-    
+
     if (!job) {
       console.log(`Job posting with slug "${slug}" not found or not active`);
       return null;
     }
-    
+
     return job;
   } catch (error) {
     console.error('Error fetching job posting from Sanity:', error);
@@ -608,11 +618,27 @@ export async function getJobPosting(slug: string) {
   }
 }
 
+// Helper function to get active job count
+export async function getActiveJobCount(): Promise<number> {
+  try {
+    const count = await client.fetch(`
+      count(*[_type == "jobPosting" && isActive == true])
+    `);
+    return count || 0;
+  } catch (error) {
+    console.error('Error fetching job count from Sanity:', error);
+    return 0;
+  }
+}
+
 // Test function to verify Sanity connection
 export async function testSanityConnection() {
   try {
     const result = await client.fetch('*[_type == "project"][0...1]');
-    console.log('Sanity connection successful:', result.length > 0 ? 'Found projects' : 'No projects found');
+    console.log(
+      'Sanity connection successful:',
+      result.length > 0 ? 'Found projects' : 'No projects found'
+    );
     return true;
   } catch (error) {
     console.error('Sanity connection failed:', error);
