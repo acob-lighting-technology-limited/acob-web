@@ -18,25 +18,24 @@ const config: Config = {
       },
     },
     extend: {
-        backgroundImage: {
-          // Radial gradient versions (commented out)
-          // 'six-color-gradient':
-          //   'radial-gradient(circle at top left, #000000 0% 15%, #15803d 15% 30%, #facc15 30% 45%, #22c55e 45% 60%, #000000 60% 75%, #15803d 75% 90%, #facc15 90% 100%)',
-          // 'six-color-gradient-dark':
-          //   'radial-gradient(circle at top left, #ffffff 0% 15%, #15803d 15% 30%, #facc15 30% 45%, #22c55e 45% 60%, #ffffff 60% 75%, #15803d 75% 90%, #facc15 90% 100%)',
-          
-          // Linear gradient versions (active)
-          // 'six-color-gradient':
-          //   'linear-gradient(-39deg, #000000 0% 15%, #15803d 15% 30%, #facc15 30% 45%, #22c55e 45% 60%, #000000 60% 75%, #15803d 75% 90%, #facc15 90% 100%)',
-          // 'six-color-gradient-dark':
-          //   'linear-gradient(-39deg, #ffffff 0% 15%, #15803d 15% 30%, #facc15 30% 45%, #22c55e 45% 60%, #ffffff 60% 75%, #15803d 75% 90%, #facc15 90% 100%)',
-          'six-color-gradient':
-  'linear-gradient(-39deg, #000000 0% 15%, #15803d 15% 30%, #ffffff 30% 45%, #22c55e 45% 60%, #000000 60% 75%, #15803d 75% 90%, #ffffff 90% 100%)',
+      backgroundImage: {
+        // Radial gradient versions (commented out)
+        // 'six-color-gradient':
+        //   'radial-gradient(circle at top left, #000000 0% 15%, #15803d 15% 30%, #facc15 30% 45%, #22c55e 45% 60%, #000000 60% 75%, #15803d 75% 90%, #facc15 90% 100%)',
+        // 'six-color-gradient-dark':
+        //   'radial-gradient(circle at top left, #ffffff 0% 15%, #15803d 15% 30%, #facc15 30% 45%, #22c55e 45% 60%, #ffffff 60% 75%, #15803d 75% 90%, #facc15 90% 100%)',
 
-'six-color-gradient-dark':
-  'linear-gradient(-39deg, #ffffff 0% 15%, #15803d 15% 30%, #ffffff 30% 45%, #22c55e 45% 60%, #ffffff 60% 75%, #15803d 75% 90%, #ffffff 90% 100%)',
+        // Linear gradient versions (active)
+        // 'six-color-gradient':
+        //   'linear-gradient(-39deg, #000000 0% 15%, #15803d 15% 30%, #facc15 30% 45%, #22c55e 45% 60%, #000000 60% 75%, #15803d 75% 90%, #facc15 90% 100%)',
+        // 'six-color-gradient-dark':
+        //   'linear-gradient(-39deg, #ffffff 0% 15%, #15803d 15% 30%, #facc15 30% 45%, #22c55e 45% 60%, #ffffff 60% 75%, #15803d 75% 90%, #facc15 90% 100%)',
+        'six-color-gradient':
+          'linear-gradient(-39deg, #000000 0% 15%, #15803d 15% 30%, #ffffff 30% 45%, #22c55e 45% 60%, #000000 60% 75%, #15803d 75% 90%, #ffffff 90% 100%)',
 
-        },
+        'six-color-gradient-dark':
+          'linear-gradient(-39deg, #ffffff 0% 15%, #15803d 15% 30%, #ffffff 30% 45%, #22c55e 45% 60%, #ffffff 60% 75%, #15803d 75% 90%, #ffffff 90% 100%)',
+      },
       colors: {
         border: 'hsl(var(--border))',
         input: 'hsl(var(--input))',
@@ -83,6 +82,9 @@ const config: Config = {
         lg: 'var(--radius)',
         md: 'calc(var(--radius) - 2px)',
         sm: 'calc(var(--radius) - 4px)',
+      },
+      fontSize: {
+        '5.5xl': ['3.35rem', { lineHeight: '1' }],
       },
       fontFamily: {
         sans: [
