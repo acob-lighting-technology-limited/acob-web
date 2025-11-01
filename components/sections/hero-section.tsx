@@ -174,7 +174,7 @@ const HeroSection = React.memo(function HeroSection({
 
           <div className="relative min-w-0 w-full">
             <div
-              className="absolute inset-0 sm:-inset-x-4 -inset-y-4 rounded-[2.5rem] bg-primary/10 blur-2xl dark:bg-primary/15"
+              className="absolute inset-0 sm:-inset-x-4 -inset-y-4 rounded-[3.5rem] bg-primary/10 blur-2xl dark:bg-primary/15"
               aria-hidden="true"
             />
 
@@ -187,7 +187,7 @@ const HeroSection = React.memo(function HeroSection({
               }}
               className="w-full relative"
             >
-              <Card className="relative overflow-hidden border-border bg-background p-3 sm:p-4">
+              <Card className="relative overflow-hidden border-border rounded-3xl bg-background p-3 sm:p-4">
                 <div className="flex items-center justify-between text-xs uppercase tracking-wide text-muted-foreground mb-4">
                   <span>Featured project</span>
                   <span>{String(current + 1).padStart(2, '0')}</span>

@@ -49,13 +49,23 @@ export default function ProjectsClient({
   const [showMobileFilters, setShowMobileFilters] = useState(false);
 
   // Update URL and fetch new data when filters change
-  const updateFilters = async (newSearch: string, newState: string, newPage: number = 1) => {
+  const updateFilters = async (
+    newSearch: string,
+    newState: string,
+    newPage: number = 1
+  ) => {
     setIsLoading(true);
 
     const params = new URLSearchParams();
-    if (newSearch.trim()) {params.set('search', newSearch);}
-    if (newState.trim()) {params.set('state', newState);}
-    if (newPage > 1) {params.set('page', newPage.toString());}
+    if (newSearch.trim()) {
+      params.set('search', newSearch);
+    }
+    if (newState.trim()) {
+      params.set('state', newState);
+    }
+    if (newPage > 1) {
+      params.set('page', newPage.toString());
+    }
 
     const queryString = params.toString();
     const newUrl = queryString ? `/projects?${queryString}` : '/projects';
@@ -127,7 +137,9 @@ export default function ProjectsClient({
                   (
                   {
                     allProjects.filter(p => {
-                      if (!p.location) {return false;}
+                      if (!p.location) {
+                        return false;
+                      }
                       const projectState = extractStateFromLocation(p.location);
                       return projectState === state;
                     }).length
@@ -180,7 +192,7 @@ export default function ProjectsClient({
   return (
     <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 items-start">
       {/* Main Content */}
-      <div className="lg:col-span-2 ">
+      <div className="lg:col-span-2 lg:space-y-4">
         {/* Mobile Search & Filter - Combined */}
         <div className="lg:hidden mb-2">
           <Card className="!border-t-2 !border-t-primary border border-border !py-0">
@@ -210,9 +222,21 @@ export default function ProjectsClient({
                       {activeFiltersCount}
                     </span>
                   )}
-                  <div className={`transition-transform duration-200 ${showMobileFilters ? 'rotate-180' : ''}`}>
-                    <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                  <div
+                    className={`transition-transform duration-200 ${showMobileFilters ? 'rotate-180' : ''}`}
+                  >
+                    <svg
+                      className="w-3 h-3"
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth={2}
+                        d="M19 9l-7 7-7-7"
+                      />
                     </svg>
                   </div>
                 </button>
@@ -297,9 +321,7 @@ export default function ProjectsClient({
                 <h3 className="text-xl font-semibold mb-2">
                   No projects found
                 </h3>
-                <p>
-                  Try adjusting your search terms or browse all projects.
-                </p>
+                <p>Try adjusting your search terms or browse all projects.</p>
               </div>
               <Button variant="outline" onClick={handleClearSearch}>
                 View All Projects
@@ -317,7 +339,10 @@ export default function ProjectsClient({
                   <div className="aspect-[16/9] overflow-hidden relative flex-shrink-0">
                     {project.projectImage ? (
                       <Image
-                        src={applySanityImagePreset(project.projectImage, 'card')}
+                        src={applySanityImagePreset(
+                          project.projectImage,
+                          'card'
+                        )}
                         alt={project.title}
                         fill
                         className="hover:scale-105 object-cover"
@@ -337,7 +362,8 @@ export default function ProjectsClient({
                         {project.title}
                       </h2>
                       <p className="text-muted-foreground mb-4 leading-relaxed line-clamp-2">
-                        {project.excerpt || extractTextFromPortableText(project.content)}
+                        {project.excerpt ||
+                          extractTextFromPortableText(project.content)}
                       </p>
                       <div className="flex items-center text-sm text-muted-foreground mb-6">
                         <MapPin className="h-4 w-4 mr-1" />
@@ -361,24 +387,41 @@ export default function ProjectsClient({
             {pagination.totalPages > 1 && (
               <div className="mt-8">
                 <div className="text-sm text-muted-foreground text-center mb-4">
-                  Showing {((pagination.currentPage - 1) * pagination.limit) + 1}-{Math.min(pagination.currentPage * pagination.limit, pagination.totalCount)} of {pagination.totalCount} projects
+                  Showing {(pagination.currentPage - 1) * pagination.limit + 1}-
+                  {Math.min(
+                    pagination.currentPage * pagination.limit,
+                    pagination.totalCount
+                  )}{' '}
+                  of {pagination.totalCount} projects
                 </div>
                 <Pagination>
                   <PaginationContent>
                     <PaginationItem>
                       <PaginationPrevious
-                        onClick={() => handlePageChange(Math.max(1, pagination.currentPage - 1))}
-                        className={pagination.currentPage === 1 ? 'pointer-events-none opacity-50' : 'cursor-pointer'}
+                        onClick={() =>
+                          handlePageChange(
+                            Math.max(1, pagination.currentPage - 1)
+                          )
+                        }
+                        className={
+                          pagination.currentPage === 1
+                            ? 'pointer-events-none opacity-50'
+                            : 'cursor-pointer'
+                        }
                         size="default"
                       />
                     </PaginationItem>
 
-                    {Array.from({ length: pagination.totalPages }, (_, i) => i + 1).map((page) => {
+                    {Array.from(
+                      { length: pagination.totalPages },
+                      (_, i) => i + 1
+                    ).map(page => {
                       // Show first page, last page, current page, and pages around current
                       if (
                         page === 1 ||
                         page === pagination.totalPages ||
-                        (page >= pagination.currentPage - 1 && page <= pagination.currentPage + 1)
+                        (page >= pagination.currentPage - 1 &&
+                          page <= pagination.currentPage + 1)
                       ) {
                         return (
                           <PaginationItem key={page}>
@@ -407,8 +450,19 @@ export default function ProjectsClient({
 
                     <PaginationItem>
                       <PaginationNext
-                        onClick={() => handlePageChange(Math.min(pagination.totalPages, pagination.currentPage + 1))}
-                        className={pagination.currentPage === pagination.totalPages ? 'pointer-events-none opacity-50' : 'cursor-pointer'}
+                        onClick={() =>
+                          handlePageChange(
+                            Math.min(
+                              pagination.totalPages,
+                              pagination.currentPage + 1
+                            )
+                          )
+                        }
+                        className={
+                          pagination.currentPage === pagination.totalPages
+                            ? 'pointer-events-none opacity-50'
+                            : 'cursor-pointer'
+                        }
                         size="default"
                       />
                     </PaginationItem>
@@ -461,8 +515,12 @@ export default function ProjectsClient({
                           (
                           {
                             allProjects.filter(p => {
-                              if (!p.location) {return false;}
-                              const projectState = extractStateFromLocation(p.location);
+                              if (!p.location) {
+                                return false;
+                              }
+                              const projectState = extractStateFromLocation(
+                                p.location
+                              );
                               return projectState === state;
                             }).length
                           }
