@@ -11,6 +11,7 @@ import { Breadcrumb } from '@/components/ui/breadcrumb';
 import { Card, CardContent } from '@/components/ui/card';
 import { Container } from '@/components/ui/container';
 import { PageHero } from '@/components/ui/page-hero';
+import { SectionHeader } from '@/components/ui/section-header';
 import { certifications, recognitions } from '@/lib/data/certifications-data';
 
 export default function CertificationsPage() {
@@ -31,7 +32,7 @@ export default function CertificationsPage() {
         <Breadcrumb items={breadcrumbItems} className="mb-10" />
 
         <section className="mb-16 grid gap-12 lg:grid-cols-[1.1fr_0.9fr]">
-          <div className="space-y-8 rounded-3xl border border-border bg-card/80 p-4 sm:p-6 xl:p-8 shadow-sm">
+          <Card className="space-y-8 rounded-3xl border border-border bg-surface p-4 sm:p-6 xl:p-8 shadow-sm">
             <span className="inline-flex items-center rounded-full border border-border px-3 py-1 text-xs font-semibold uppercase tracking-[0.2em] text-muted-foreground">
               Why It Matters
             </span>
@@ -74,10 +75,10 @@ export default function CertificationsPage() {
                 </Card>
               ))}
             </div>
-          </div>
+          </Card>
 
           <aside className="space-y-6">
-            <Card className="rounded-3xl border border-border bg-card/80 p-4 sm:p-6 xl:p-8 shadow-sm">
+            <Card className="rounded-3xl border border-border bg-surface p-4 sm:p-6 xl:p-8 shadow-sm">
               <CardContent className="p-0 space-y-4">
                 <h3 className="text-lg font-semibold text-foreground">
                   Accreditation Pillars
@@ -123,24 +124,18 @@ export default function CertificationsPage() {
         </section>
 
         <section className="mb-16">
-          <div className="mb-10 flex flex-col gap-3 text-center">
-            <span className="mx-auto inline-flex items-center rounded-full border border-border px-3 py-1 text-xs font-semibold uppercase tracking-[0.2em] text-muted-foreground">
-              Core Certifications
-            </span>
-            <h3 className="text-3xl font-semibold text-foreground md:text-4xl">
-              Standards that underpin our operations
-            </h3>
-            <p className="mx-auto max-w-3xl text-base leading-relaxed text-muted-foreground">
-              Each certification represents a rigorous assessment of our
-              processes, safety culture, and technical capabilities.
-            </p>
-          </div>
+          <SectionHeader
+            badge="Core Certifications"
+            title="Standards that underpin our operations"
+            description="Each certification represents a rigorous assessment of our processes, safety culture, and technical capabilities."
+            className="mb-10"
+          />
 
           <div className="grid gap-6 md:grid-cols-2 xl:grid-cols-4">
             {certifications.map(certification => (
               <Card
                 key={certification.name}
-                className="group flex h-full flex-col gap-4 rounded-3xl border border-border bg-card/80 p-6 text-left shadow-sm transition-all duration-500 hover:-translate-y-1 hover:shadow-lg"
+                className="group flex h-full flex-col gap-4 rounded-3xl border border-border bg-surface p-6 text-left shadow-sm transition-all duration-500 hover:-translate-y-1 hover:shadow-lg"
               >
                 <div className="flex items-center gap-3">
                   <div className="rounded-full bg-primary/10 p-3 text-primary">
@@ -158,24 +153,18 @@ export default function CertificationsPage() {
           </div>
         </section>
 
-        <section className="mb-16 rounded-3xl border border-border bg-card/80 p-4 sm:p-6 xl:p-8 shadow-sm">
-          <div className="mb-8 flex flex-col gap-3 text-center">
-            <span className="mx-auto inline-flex items-center rounded-full border border-border px-3 py-1 text-xs font-semibold uppercase tracking-[0.2em] text-muted-foreground">
-              Recognitions & Awards
-            </span>
-            <h3 className="text-2xl font-semibold text-foreground md:text-3xl">
-              Industry recognition for impact and reliability
-            </h3>
-            <p className="mx-auto max-w-3xl text-base leading-relaxed text-muted-foreground">
-              Our projects and leadership have been recognized by national and
-              international partners for advancing clean energy access.
-            </p>
-          </div>
+        <section className="mb-16 rounded-3xl border border-border bg-surface p-4 sm:p-6 xl:p-8 shadow-sm">
+          <SectionHeader
+            badge="Recognitions & Awards"
+            title="Industry recognition for impact and reliability"
+            description="Our projects and leadership have been recognized by national and international partners for advancing clean energy access."
+            className="mb-8"
+          />
 
           <AutoCarousel
             items={recognitions}
             renderItem={(item: (typeof recognitions)[0]) => (
-              <Card className="flex h-full flex-col gap-4 rounded-3xl border border-border bg-card/80 p-6 shadow-sm">
+              <Card className="flex h-full flex-col gap-4 rounded-3xl border border-border bg-surface p-6 shadow-sm">
                 <div className="flex items-center gap-2 text-xs uppercase tracking-[0.2em] text-muted-foreground">
                   <Badge
                     variant="outline"

@@ -46,7 +46,7 @@ export const MaskText: FC<MaskTextProps> = ({
                   }
                 : {}
             }
-            className={`p-4 !pl-0  ${className}`}
+            className={`p-2 !pl-0  ${className}`}
           >
             {child}
           </motion.div>

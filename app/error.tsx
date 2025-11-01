@@ -88,7 +88,8 @@ export default function Error({ error, reset }: ErrorProps) {
             <div className="space-y-4">
               <Button
                 onClick={() => window.location.reload()}
-                className="w-full bg-primary hover:bg-primary/90"
+                variant="default"
+                className="w-full"
                 size="lg"
               >
                 <RefreshCw className="h-5 w-5 mr-2" />
@@ -123,7 +124,8 @@ export default function Error({ error, reset }: ErrorProps) {
           <div className="space-y-4">
             <Button
               onClick={reset}
-              className="w-full bg-primary hover:bg-primary/90"
+              variant="default"
+              className="w-full"
               size="lg"
             >
               <RefreshCw className="h-5 w-5 mr-2" />

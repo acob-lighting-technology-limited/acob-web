@@ -372,7 +372,7 @@ export default function ProjectsClient({
                     </div>
                     <div className="mt-auto">
                       <Link href={`/projects/${project.slug.current}`}>
-                        <Button className="w-full bg-primary hover:bg-primary/90 text-primary-foreground">
+                        <Button variant="default" className="w-full">
                           View Project
                           <ArrowRight className="ml-2 h-4 w-4" />
                         </Button>
