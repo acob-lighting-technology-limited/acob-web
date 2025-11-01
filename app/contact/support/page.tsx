@@ -29,7 +29,7 @@ export default function SupportPage() {
   return (
     <>
       <PageHero
-        title="Customer Support"
+        description="We're Here to Help You"
         backgroundImage="/images/contact/support.webp?height=400&width=1200"
       >
         <MaskText

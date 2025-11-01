@@ -69,17 +69,10 @@ export default function MissionPage() {
   return (
     <>
       <PageHero
-        title="Mission & Vision"
-        eyebrow="Our Commitment"
+        description="Building Resilient Energy Infrastructure"
         backgroundImage="/images/about/mission-vision.webp?height=800&width=1600"
         align="left"
-      >
-        {/* <p className="mx-auto max-w-3xl text-balance text-lg text-white/90 md:text-xl">
-          We build resilient energy infrastructure that connects communities to
-          the opportunities, services, and livelihoods powered by reliable
-          electricity.
-        </p> */}
-      </PageHero>
+      />
 
       <Container>
         <Breadcrumb items={breadcrumbItems} className="mb-8" />

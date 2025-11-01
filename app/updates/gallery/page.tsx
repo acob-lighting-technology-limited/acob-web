@@ -81,7 +81,7 @@ export default async function GalleryPage() {
   return (
     <>
       <PageHero
-        title="Media Gallery"
+        description="Explore Our Project Portfolio"
         backgroundImage="/images/services/header.webp?height=400&width=1200"
       />
 

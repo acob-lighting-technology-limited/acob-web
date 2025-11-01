@@ -229,7 +229,7 @@ export default function ServicesPage() {
   return (
     <>
       <PageHero
-        title="Services"
+        description="Comprehensive Solar Energy Solutions"
         backgroundImage="/images/services/header.webp?height=400&width=1200"
       />
 

@@ -162,6 +162,7 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
     <>
       <PageHero
         title={project.title}
+        description={project.title}
         backgroundImage={project.projectImage || '/placeholder.svg'}
       />
 

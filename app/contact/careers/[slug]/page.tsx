@@ -96,7 +96,8 @@ export default async function JobPostingPage({ params }: JobPostingPageProps) {
   return (
     <>
       <PageHero
-        title={job.title}
+        title="Careers"
+        description={job.title}
         backgroundImage="/images/contact/careers.webp?height=400&width=1200"
       />
 

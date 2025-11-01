@@ -24,7 +24,7 @@ export function Timeline({ items, className }: TimelineProps) {
       {/* Vertical line */}
       <div className="absolute left-1/2 transform -translate-x-1/2 w-0.5 bg-gradient-to-b from-primary/20 via-primary to-primary/20 h-full " />
 
-      <div className="space-y-6">
+      <div className="space-y-3">
         {items.map((item, index) => {
           const IconComponent = LucideIcons[
             item.icon as keyof typeof LucideIcons
@@ -96,7 +96,7 @@ export function TimelineMobile({ items, className }: TimelineProps) {
       {/* Vertical line */}
       <div className="absolute left-6 w-0.5 bg-gradient-to-b from-primary/20 via-primary to-primary/20 h-full" />
 
-      <div className="space-y-8">
+      <div className="space-y-4">
         {items.map((item, index) => {
           const IconComponent = LucideIcons[
             item.icon as keyof typeof LucideIcons

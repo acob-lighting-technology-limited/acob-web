@@ -49,7 +49,7 @@ export function AnimatedFillText({
       className="relative inline-block m-1 transition-all duration-500"
     >
       <div
-        className={`relative z-10 ${className} text-primary-foreground dark:text-primary p-2 w-fit h-fit`}
+        className={`relative z-10 ${className} text-primary-foreground dark:text-primary-foreground p-2 w-fit h-fit`}
       >
         {children}
       </div>

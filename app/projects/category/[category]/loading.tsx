@@ -1,13 +1,16 @@
 import { Container } from '@/components/ui/container';
 import { PageHero } from '@/components/ui/page-hero';
 import { Breadcrumb } from '@/components/ui/breadcrumb';
-import { ProjectsGridSkeleton, ProjectsSidebarSkeleton } from '@/components/ui/projects-grid-skeleton';
+import {
+  ProjectsGridSkeleton,
+  ProjectsSidebarSkeleton,
+} from '@/components/ui/projects-grid-skeleton';
 
 export default function Loading() {
   return (
     <>
       <PageHero
-        title="Loading..."
+        description="Loading..."
         backgroundImage="/images/services/header.webp?height=400&width=1200"
       />
 
