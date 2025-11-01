@@ -304,3 +304,34 @@
   z-index: 999999;
   background: hsl(var(--background));
 }
+
+/* Accessibility: Respect prefers-reduced-motion */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+  
+  /* Disable smooth zoom animation */
+  .animate-smooth-zoom {
+    animation: none !important;
+  }
+}
+
+/* Focus visible styles for keyboard navigation */
+@layer base {
+  *:focus-visible {
+    outline: 2px solid hsl(var(--ring));
+    outline-offset: 2px;
+  }
+  
+  /* Remove outline for mouse users */
+  *:focus:not(:focus-visible) {
+    outline: none;
+  }
+}
+

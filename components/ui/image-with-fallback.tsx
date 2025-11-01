@@ -58,7 +58,7 @@ export function ImageWithFallback({
         fill={fill}
         className={cn(
           'h-full w-full transition-opacity duration-300',
-          isLoading ? 'opacity-0' : 'opacity-100'
+          isLoading ? 'opacity-0' : 'opacity-100',
         )}
         style={{ objectFit }}
         priority={priority}

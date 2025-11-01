@@ -1,15 +1,10 @@
+/* eslint-disable @typescript-eslint/no-unused-vars, no-unused-vars */
 import { Container } from '@/components/ui/container';
 import { PageHero } from '@/components/ui/page-hero';
 import { Breadcrumb } from '@/components/ui/breadcrumb';
 import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
-import {
-  ArrowRight,
-  Calendar,
-  User,
-  FileText,
-  Target,
-} from 'lucide-react';
+import { ArrowRight, Calendar, User, FileText, Target } from 'lucide-react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { getUpdatePosts } from '@/sanity/lib/client';
@@ -24,9 +19,9 @@ export default async function PressPage() {
     (post: UpdatePost) =>
       post.category === 'press-releases' ||
       post.tags?.some((tag: string) =>
-        tag.toLowerCase().includes('press release'),
+        tag.toLowerCase().includes('press release')
       ) ||
-      post.title?.toLowerCase().includes('press release'),
+      post.title?.toLowerCase().includes('press release')
   );
 
   const breadcrumbItems = [
@@ -47,7 +42,7 @@ export default async function PressPage() {
 
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 items-start">
           {/* Main Content */}
-          <div className="lg:col-span-2 ">
+          <div className="lg:col-span-2 lg:space-y-4">
             {pressReleases.length === 0 ? (
               <Card>
                 <CardContent className="p-4 sm:p-6 xl:p-8 text-center">
@@ -85,29 +80,25 @@ export default async function PressPage() {
                     <CardContent className="!pt-0 p-6 flex flex-col flex-1">
                       <div className="flex-1">
                         <div className="flex items-center text-sm text-muted-foreground mb-4">
-                         
-                        <User className="h-4 w-4 mr-1" />
-                        <span>{post.author}</span>  <span className="mx-2">•</span>
+                          <User className="h-4 w-4 mr-1" />
+                          <span>{post.author}</span>{' '}
+                          <span className="mx-2">•</span>
                           <Calendar className="h-4 w-4 mr-1" />
-                          <span>
-                            {formatDate(post.publishedAt)}
-                          </span>
-                        
-                         
+                          <span>{formatDate(post.publishedAt)}</span>
                         </div>
                         <h2 className="text-xl font-bold mb-4 text-foreground line-clamp-2 h-[50px]">
                           {post.title}
-                          </h2>
-                          <p className="text-muted-foreground mb-6 leading-relaxed line-clamp-[3]">
-                            {post.excerpt}
-                          </p>
+                        </h2>
+                        <p className="text-muted-foreground mb-6 leading-relaxed line-clamp-[3]">
+                          {post.excerpt}
+                        </p>
                       </div>
                       <div className="mt-auto">
-                        <Link 
-                          href={`/updates/${post.slug.current}`}
-                        >
+                        <Link href={`/updates/${post.slug.current}`}>
                           <Button className="w-full">
-                            <span className="sr-only">Read more about {post.title}</span>
+                            <span className="sr-only">
+                              Read more about {post.title}
+                            </span>
                             <span aria-hidden="true">Read More</span>
                             <ArrowRight className="ml-2 h-4 w-4" />
                           </Button>

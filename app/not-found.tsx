@@ -13,7 +13,7 @@ export default function NotFound() {
     <div className="min-h-screen bg-background relative overflow-hidden">
       {/* Simple Background Pattern */}
       <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(0,0,0,0.02)_0%,transparent_50%)] dark:bg-[radial-gradient(circle_at_50%_50%,rgba(255,255,255,0.02)_0%,transparent_50%)]"></div>
-      
+
       {/* Decorative Elements */}
       <div className="absolute top-20 left-20 w-32 h-32 bg-primary/5 rounded-full blur-3xl"></div>
       <div className="absolute bottom-20 right-20 w-40 h-40 bg-primary/5 rounded-full blur-3xl"></div>
@@ -70,7 +70,7 @@ export default function NotFound() {
                   <h4 className="font-medium text-foreground text-sm">Services</h4>
                 </div>
               </Link>
-              
+
               <Link href="/projects" className="group">
                 <div className="p-3 rounded-lg bg-muted/50 hover:bg-muted border border-border transition-colors">
                   <div className="w-8 h-8 bg-primary rounded-md flex items-center justify-center mb-2 mx-auto">
@@ -79,7 +79,7 @@ export default function NotFound() {
                   <h4 className="font-medium text-foreground text-sm">Projects</h4>
                 </div>
               </Link>
-              
+
               <Link href="/contact" className="group">
                 <div className="p-3 rounded-lg bg-muted/50 hover:bg-muted border border-border transition-colors">
                   <div className="w-8 h-8 bg-primary rounded-md flex items-center justify-center mb-2 mx-auto">

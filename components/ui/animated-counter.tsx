@@ -27,7 +27,7 @@ export function AnimatedCounter({
           observer.unobserve(entry.target);
         }
       },
-      { threshold: 0.1 }
+      { threshold: 0.1 },
     );
 
     if (ref.current) {
@@ -38,19 +38,19 @@ export function AnimatedCounter({
   }, [isVisible]);
 
   useEffect(() => {
-    if (!isVisible) return;
+    if (!isVisible) {return;}
 
     let startTime: number;
     let animationFrame: number;
 
     const animate = (currentTime: number) => {
-      if (!startTime) startTime = currentTime;
+      if (!startTime) {startTime = currentTime;}
       const progress = Math.min((currentTime - startTime) / duration, 1);
-      
+
       // Easing function for smooth animation
       const easeOutQuart = 1 - Math.pow(1 - progress, 4);
       const currentCount = Math.floor(start + (end - start) * easeOutQuart);
-      
+
       setCount(currentCount);
 
       if (progress < 1) {

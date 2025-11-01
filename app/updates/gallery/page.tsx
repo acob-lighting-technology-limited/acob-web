@@ -3,10 +3,7 @@ import { PageHero } from '@/components/ui/page-hero';
 import { Breadcrumb } from '@/components/ui/breadcrumb';
 import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
-import {
-  ArrowRight,
-  Camera,
-} from 'lucide-react';
+import { ArrowRight, Camera } from 'lucide-react';
 import Link from 'next/link';
 import { GalleryClient } from './gallery-client';
 import { getProjectsForGallery } from '@/sanity/lib/client';
@@ -21,10 +18,12 @@ export default async function GalleryPage() {
 
   // Fetch projects with gallery images
   const projects = await getProjectsForGallery();
-  
+
   // Get actual categories from projects and convert to title case
-  const actualCategories = Array.from(new Set(projects.map((p: Project) => p.category))).filter(Boolean);
-  
+  const actualCategories = Array.from(
+    new Set(projects.map((p: Project) => p.category))
+  ).filter(Boolean);
+
   // Convert kebab-case to title case
   const formatCategoryName = (category: string) => {
     return category
@@ -32,21 +31,24 @@ export default async function GalleryPage() {
       .map(word => word.charAt(0).toUpperCase() + word.slice(1))
       .join(' ');
   };
-  
+
   // Define the 4 project categories (use actual categories if available)
-  const projectCategories = actualCategories.length > 0 ? actualCategories : [
-    'rural-electrification',
-    'commercial-installations', 
-    'street-lighting',
-    'healthcare-projects'
-  ];
+  const projectCategories =
+    actualCategories.length > 0
+      ? actualCategories
+      : [
+          'rural-electrification',
+          'commercial-installations',
+          'street-lighting',
+          'healthcare-projects',
+        ];
 
   // Process projects to extract gallery images by category
   const galleryData = projectCategories.map(category => {
-    const categoryProjects = projects.filter((project: Project) => 
-      project.category === category
+    const categoryProjects = projects.filter(
+      (project: Project) => project.category === category
     );
-    
+
     // Extract all images from projects in this category
     const allImages: string[] = [];
     categoryProjects.forEach((project: Project) => {
@@ -54,7 +56,7 @@ export default async function GalleryPage() {
       if (project.projectImage) {
         allImages.push(project.projectImage);
       }
-      
+
       // Add gallery images if they exist
       if (project.galleryImages && Array.isArray(project.galleryImages)) {
         allImages.push(...project.galleryImages.filter(Boolean));
@@ -65,24 +67,30 @@ export default async function GalleryPage() {
       category: formatCategoryName(category as string),
       projects: categoryProjects,
       images: allImages,
-      totalImages: allImages.length
+      totalImages: allImages.length,
     };
   });
 
   // Calculate total stats
-  const totalImages = galleryData.reduce((sum, cat) => sum + cat.totalImages, 0);
+  const totalImages = galleryData.reduce(
+    (sum, cat) => sum + cat.totalImages,
+    0
+  );
   const totalProjects = projects.length;
 
   return (
     <>
-      <PageHero title="Media Gallery" backgroundImage="/images/services/header.webp?height=400&width=1200" />
+      <PageHero
+        title="Media Gallery"
+        backgroundImage="/images/services/header.webp?height=400&width=1200"
+      />
 
       <Container className="px-4 py-8">
         <Breadcrumb items={breadcrumbItems} className="mb-8" />
 
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 items-start">
           {/* Main Content */}
-          <div className="lg:col-span-2">
+          <div className="lg:col-span-2 space-y-4">
             <GalleryClient galleryData={galleryData} />
           </div>
 
@@ -94,9 +102,12 @@ export default async function GalleryPage() {
                 <h3 className="font-semibold mb-4">Media Gallery</h3>
                 <div className="bg-muted/30 p-4 rounded-lg border border-border">
                   <Camera className="h-8 w-8 text-primary mb-2" />
-                  <h4 className="font-medium text-primary mb-2">Project Visuals</h4>
+                  <h4 className="font-medium text-primary mb-2">
+                    Project Visuals
+                  </h4>
                   <p className="text-sm text-muted-foreground">
-                    Explore photos and images from our projects organized by category.
+                    Explore photos and images from our projects organized by
+                    category.
                   </p>
                   <div className="flex justify-between text-xs text-muted-foreground mt-2">
                     <span>{totalImages} images</span>
@@ -114,19 +125,27 @@ export default async function GalleryPage() {
                   <div className="p-3 rounded-lg bg-muted/30 border border-border">
                     <div className="flex justify-between items-center">
                       <span className="text-sm font-medium">Total Images</span>
-                      <span className="text-sm font-medium text-primary">{totalImages}</span>
+                      <span className="text-sm font-medium text-primary">
+                        {totalImages}
+                      </span>
                     </div>
                   </div>
                   <div className="p-3 rounded-lg bg-muted/30 border border-border">
                     <div className="flex justify-between items-center">
-                      <span className="text-sm font-medium">Total Projects</span>
-                      <span className="text-sm font-medium text-primary">{totalProjects}</span>
+                      <span className="text-sm font-medium">
+                        Total Projects
+                      </span>
+                      <span className="text-sm font-medium text-primary">
+                        {totalProjects}
+                      </span>
                     </div>
                   </div>
                   <div className="p-3 rounded-lg bg-muted/30 border border-border">
                     <div className="flex justify-between items-center">
                       <span className="text-sm font-medium">Categories</span>
-                      <span className="text-sm font-medium text-primary">{projectCategories.length}</span>
+                      <span className="text-sm font-medium text-primary">
+                        {projectCategories.length}
+                      </span>
                     </div>
                   </div>
                 </div>
@@ -138,11 +157,18 @@ export default async function GalleryPage() {
               <CardContent className="p-6">
                 <h3 className="font-semibold mb-4">By Category</h3>
                 <div className="space-y-2">
-                  {galleryData.map((categoryData) => (
-                    <div key={categoryData.category} className="p-3 rounded-lg bg-muted/30 border border-border">
+                  {galleryData.map(categoryData => (
+                    <div
+                      key={categoryData.category}
+                      className="p-3 rounded-lg bg-muted/30 border border-border"
+                    >
                       <div className="flex justify-between items-center">
-                        <span className="text-sm font-medium">{categoryData.category}</span>
-                        <span className="text-sm font-medium text-primary">{categoryData.totalImages}</span>
+                        <span className="text-sm font-medium">
+                          {categoryData.category}
+                        </span>
+                        <span className="text-sm font-medium text-primary">
+                          {categoryData.totalImages}
+                        </span>
                       </div>
                     </div>
                   ))}
@@ -181,7 +207,9 @@ export default async function GalleryPage() {
             <Card className="!border-t-2 !border-t-primary border border-border">
               <CardContent className="p-6">
                 <h3 className="font-semibold mb-4">Request Media</h3>
-                <p className="text-sm text-muted-foreground mb-4">Need high-resolution images or video content for media use?</p>
+                <p className="text-sm text-muted-foreground mb-4">
+                  Need high-resolution images or video content for media use?
+                </p>
                 <Link href="/contact">
                   <Button variant="outline" className="w-full">
                     Contact Media Team

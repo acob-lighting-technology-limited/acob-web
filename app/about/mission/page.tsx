@@ -3,7 +3,6 @@ import Link from 'next/link';
 import { ArrowLeft } from 'lucide-react';
 
 import { MaskText } from '@/components/animations/MaskText';
-import { AutoCarousel } from '@/components/ui/auto-carousel';
 import { Button } from '@/components/ui/button';
 import { Breadcrumb } from '@/components/ui/breadcrumb';
 import { Card, CardContent } from '@/components/ui/card';
@@ -73,13 +72,13 @@ export default function MissionPage() {
         title="Mission & Vision"
         eyebrow="Our Commitment"
         backgroundImage="/images/about/mission-vision.webp?height=800&width=1600"
-        align="center"
+        align="left"
       >
-        <p className="mx-auto max-w-3xl text-balance text-lg text-white/90 md:text-xl">
+        {/* <p className="mx-auto max-w-3xl text-balance text-lg text-white/90 md:text-xl">
           We build resilient energy infrastructure that connects communities to
           the opportunities, services, and livelihoods powered by reliable
           electricity.
-        </p>
+        </p> */}
       </PageHero>
 
       <Container>
@@ -98,13 +97,10 @@ export default function MissionPage() {
                 </MaskText>
               </h2>
               <p className="text-lg leading-relaxed text-muted-foreground">
-                To be{' '}
-                <AnimatedFillText>
-                  Nigeria's flagship renewable energy partner{' '}
-                </AnimatedFillText>{' '}
-                delivering resilient, technology-driven power systems that
-                expand economic opportunity while safeguarding the environment
-                for future generations.
+                To be Nigeria's flagship renewable energy partner delivering
+                resilient, technology-driven power systems that expand economic
+                opportunity while safeguarding the environment for future
+                generations.
               </p>
             </div>
 
@@ -200,16 +196,18 @@ export default function MissionPage() {
               {coreValues.map(value => (
                 <div
                   key={value.title}
-                  className="flex items-start gap-4 rounded-3xl bg-white/10 p-4 backdrop-blur"
+                  className="group flex items-start gap-4 rounded-3xl bg-white/10 p-4 backdrop-blur transition-all duration-300 hover:bg-white/15 hover:shadow-lg cursor-pointer"
                 >
-                  <div className="rounded-full bg-white/20 p-3 text-white">
-                    <value.icon className="h-6 w-6" />
+                  <div className="relative rounded-full bg-white/20 p-3 text-white overflow-hidden transition-all duration-500 group-hover:bg-white group-hover:text-primary group-hover:scale-110">
+                    {/* Animated fill effect */}
+                    <div className="absolute inset-0 bg-white transform scale-0 transition-transform duration-500 ease-out group-hover:scale-100 rounded-full origin-center" />
+                    <value.icon className="h-6 w-6 relative z-10 transition-colors duration-500" />
                   </div>
-                  <div>
-                    <h4 className="text-lg font-semibold uppercase tracking-[0.2em]">
+                  <div className="flex-1">
+                    <h4 className="text-lg font-semibold uppercase tracking-[0.2em] transition-colors duration-300 group-hover:text-white">
                       {value.title}
                     </h4>
-                    <p className="mt-2 text-sm leading-relaxed text-white/80">
+                    <p className="mt-2 text-sm leading-relaxed text-white/80 transition-colors duration-300 group-hover:text-white/95">
                       {value.description}
                     </p>
                   </div>

@@ -1,6 +1,5 @@
 'use client';
 
-import type React from 'react';
 import { useState, useRef, useEffect } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
@@ -12,6 +11,13 @@ import { ChevronDown, Menu, X, Phone } from 'lucide-react';
 import { navigationItems } from '@/lib/data/navigation-data';
 import { LucideIcons } from '@/lib/data/lucide-icons';
 import { motion, AnimatePresence } from 'framer-motion';
+import {
+  SCROLL_THRESHOLD,
+  HEADER_SHOW_THRESHOLD,
+  SCROLL_DIFFERENCE_THRESHOLD,
+  DROPDOWN_CLOSE_DELAY,
+  SCROLL_STOP_TIMEOUT,
+} from '@/lib/constants/ui';
 
 interface SubItem {
   name: string;
@@ -57,7 +63,7 @@ const DropdownMenu: React.FC<DropdownMenuProps> = ({
             transform: 'translateX(-50%)',
           }}
         >
-          <div className="p-6">
+          <div className="p-4">
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               {item.subItems.map((subItem, index) => {
                 const IconComponent = LucideIcons[subItem.icon];
@@ -75,13 +81,17 @@ const DropdownMenu: React.FC<DropdownMenuProps> = ({
                     >
                       <div className="flex gap-3 items-start">
                         {IconComponent && (
-                          <IconComponent className="w-12 h-auto text-muted-foreground group-hover:text-primary transition-colors duration-200 mt-0.5" />
+                          <div className="relative w-10 h-10 rounded-full bg-primary/10 p-2 overflow-hidden transition-all duration-500 group-hover:bg-primary group-hover:scale-110 flex items-center justify-center">
+                            {/* Animated fill effect */}
+                            <div className="absolute inset-0 bg-primary transform scale-0 transition-transform duration-500 ease-out group-hover:scale-100 rounded-full origin-center" />
+                            <IconComponent className="w-5 h-5 relative z-10 text-muted-foreground group-hover:text-primary-foreground transition-colors duration-500" />
+                          </div>
                         )}
-                        <div>
-                          <div className="text-sm font-bold text-foreground group-hover:text-primary break-words">
+                        <div className="flex-1">
+                          <div className="text-sm font-bold text-foreground group-hover:text-primary break-words transition-colors duration-300">
                             {subItem.name}
                           </div>
-                          <div className="text-xs text-left text-muted-foreground mt-1 group-hover:text-foreground break-words">
+                          <div className="text-xs text-left text-muted-foreground mt-1 group-hover:text-foreground break-words transition-colors duration-300">
                             {subItem.description}
                           </div>
                         </div>
@@ -238,13 +248,17 @@ const MobileMenu: React.FC<MobileMenuProps> = ({
                                     className="group flex items-start gap-3 p-3 text-sm rounded-lg hover:bg-gradient-to-r hover:from-primary/5 hover:to-primary/10 transition-all duration-200 hover:scale-[1.02]"
                                   >
                                     {IconComponent && (
-                                      <IconComponent className="w-5 h-5 text-muted-foreground group-hover:text-primary transition-colors duration-200 mt-0.5 flex-shrink-0" />
+                                      <div className="relative w-8 h-8 rounded-full bg-primary/10 p-1.5 overflow-hidden transition-all duration-500 group-hover:bg-primary group-hover:scale-110 flex items-center justify-center flex-shrink-0">
+                                        {/* Animated fill effect */}
+                                        <div className="absolute inset-0 bg-primary transform scale-0 transition-transform duration-500 ease-out group-hover:scale-100 rounded-full origin-center" />
+                                        <IconComponent className="w-4 h-4 relative z-10 text-muted-foreground group-hover:text-primary-foreground transition-colors duration-500" />
+                                      </div>
                                     )}
                                     <div className="min-w-0 flex-1">
-                                      <div className="font-medium text-foreground group-hover:text-primary transition-colors break-words">
+                                      <div className="font-medium text-foreground group-hover:text-primary transition-colors duration-300 break-words">
                                         {subItem.name}
                                       </div>
-                                      <div className="text-xs text-muted-foreground group-hover:text-foreground/80 mt-1 break-words leading-relaxed">
+                                      <div className="text-xs text-muted-foreground group-hover:text-foreground/80 mt-1 break-words leading-relaxed transition-colors duration-300">
                                         {subItem.description}
                                       </div>
                                     </div>
@@ -300,14 +314,14 @@ export function Header() {
     mounted && resolvedTheme === 'dark'
       ? '/images/acob-logo-dark.webp'
       : '/images/acob-logo-light.webp';
-
-  const [isScrollingDown, setIsScrollingDown] = useState(false);
   const [showHeader, setShowHeader] = useState(true);
   const [lastScrollY, setLastScrollY] = useState(0);
   const scrollTimeoutRef = useRef<NodeJS.Timeout | null>(null);
 
   const isActiveRoute = (item: NavigationItem) => {
-    if (pathname === item.href) return true;
+    if (pathname === item.href) {
+      return true;
+    }
 
     return item.subItems.some(subItem => pathname.startsWith(subItem.href));
   };
@@ -321,17 +335,18 @@ export function Header() {
       const currentScrollY = window.scrollY;
       const scrollDifference = Math.abs(currentScrollY - lastScrollY);
 
-      if (scrollDifference < 5) return;
+      if (scrollDifference < SCROLL_THRESHOLD) {
+        return;
+      }
 
       setIsScrolled(currentScrollY > 10);
 
       const scrollingDown = currentScrollY > lastScrollY;
-      setIsScrollingDown(scrollingDown);
 
-      if (currentScrollY < 100) {
+      if (currentScrollY < HEADER_SHOW_THRESHOLD) {
         setShowHeader(true);
       } else if (scrollingDown && currentScrollY > lastScrollY) {
-        if (scrollDifference > 10) {
+        if (scrollDifference > SCROLL_DIFFERENCE_THRESHOLD) {
           setShowHeader(false);
         }
       } else if (!scrollingDown) {
@@ -348,7 +363,7 @@ export function Header() {
 
       scrollTimeoutRef.current = setTimeout(() => {
         setShowHeader(true);
-      }, 1000);
+      }, SCROLL_STOP_TIMEOUT);
     };
 
     let ticking = false;
@@ -382,7 +397,7 @@ export function Header() {
   const handleMouseLeave = () => {
     timeoutRef.current = setTimeout(() => {
       setActiveDropdown(null);
-    }, 150);
+    }, DROPDOWN_CLOSE_DELAY);
   };
 
   const handleDropdownClose = () => {
@@ -396,13 +411,13 @@ export function Header() {
         animate={{ y: showHeader ? 0 : -100 }}
         transition={{ type: 'spring', damping: 20, stiffness: 100 }}
         className={`
-          fixed top-0 z-40 w-full transition-all duration-300 ease-out
-          backdrop-blur-2xl  border-border 
-          
+          sticky border-b border-border top-0 z-40 w-full transition-all duration-300 ease-out
+          backdrop-blur-sm
+
           ${
             isScrolled
-              ? ' backdrop-blur-3xl bg-white/60 dark:bg-black/60 shadow-lg  border-border '
-              : ' backdrop-blur-2xl   border-border '
+              ? ' backdrop-blur-3xl shadow-lg  border-border '
+              : ' backdrop-blur-sm  border-border '
           }
         `}
       >

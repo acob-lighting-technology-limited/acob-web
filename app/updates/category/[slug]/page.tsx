@@ -11,17 +11,24 @@ import type { UpdatePost } from '@/lib/types';
 import { formatDate } from '@/lib/utils';
 import { Metadata } from 'next';
 
-
 interface CategoryPageProps {
   params: Promise<{ slug: string }>;
 }
 
-export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ slug: string }>;
+}): Promise<Metadata> {
   const { slug } = await params;
   const posts = await getUpdatePosts();
-  const categoryPosts = posts.filter((post: UpdatePost) => post.category === slug);
-  
-  const categoryName = slug.replace(/-/g, ' ').replace(/\b\w/g, l => l.toUpperCase());
+  const categoryPosts = posts.filter(
+    (post: UpdatePost) => post.category === slug
+  );
+
+  const categoryName = slug
+    .replace(/-/g, ' ')
+    .replace(/\b\w/g, l => l.toUpperCase());
   const postCount = categoryPosts.length;
 
   return {
@@ -48,7 +55,7 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
 
   // Filter posts by category using the new string-based system
   const categoryPosts = posts.filter(
-    (post: UpdatePost) => post.category === slug,
+    (post: UpdatePost) => post.category === slug
   );
 
   const breadcrumbItems = [
@@ -70,7 +77,7 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
 
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 items-start">
           {/* Main Content */}
-          <div className="lg:col-span-2">
+          <div className="lg:col-span-2 lg:space-y-4">
             {categoryPosts.length === 0 ? (
               <Card>
                 <CardContent className="p-4 sm:p-6 xl:p-8 text-center">
@@ -107,9 +114,7 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
                   <CardContent className="p-6">
                     <div className="flex items-center text-sm text-muted-foreground mb-4">
                       <Calendar className="h-4 w-4 mr-1" />
-                      <span>
-                                                  {formatDate(post.publishedAt)}
-                      </span>
+                      <span>{formatDate(post.publishedAt)}</span>
                       <span className="mx-2">•</span>
                       <User className="h-4 w-4 mr-1" />
                       <span>{post.author}</span>

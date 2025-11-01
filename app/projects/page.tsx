@@ -2,9 +2,8 @@ import { Suspense } from 'react';
 import { Container } from '@/components/ui/container';
 import { PageHero } from '@/components/ui/page-hero';
 import { Breadcrumb } from '@/components/ui/breadcrumb';
-import { ProjectsGridSkeleton, ProjectsSidebarSkeleton } from '@/components/ui/projects-grid-skeleton';
+import { ProjectsGridSkeleton } from '@/components/ui/projects-grid-skeleton';
 import { getProjectsPaginated } from '@/sanity/lib/client';
-import { extractTextFromPortableText } from '@/lib/utils';
 import type { Project } from '@/lib/types';
 import ProjectsClient from './projects-client';
 
@@ -28,7 +27,7 @@ export default async function ProjectsPage({ searchParams }: ProjectsPageProps) 
     page,
     limit,
     search,
-    state
+    state,
   });
 
   const { projects, pagination } = result;
@@ -38,7 +37,7 @@ export default async function ProjectsPage({ searchParams }: ProjectsPageProps) 
     page: 1,
     limit: 1000, // Get all for filtering
     search: '',
-    state: ''
+    state: '',
   });
 
   const allProjects = allProjectsResult.projects;

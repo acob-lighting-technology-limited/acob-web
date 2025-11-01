@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars, no-unused-vars */
 import { Suspense } from 'react';
 import { Container } from '@/components/ui/container';
 import { PageHero } from '@/components/ui/page-hero';
@@ -24,7 +25,7 @@ export default async function UpdatesPage({ searchParams }: UpdatesPageProps) {
   const result = await getUpdatePostsPaginated({
     page,
     limit,
-    search
+    search,
   });
 
   const { posts, pagination } = result;

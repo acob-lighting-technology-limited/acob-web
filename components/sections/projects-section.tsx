@@ -53,13 +53,13 @@ export function ProjectsSection({ projects }: ProjectsSectionProps) {
             <div className="space-y-4">
               <MaskText
                 phrases={['Selected Energy Deployments']}
-                className="text-3xl font-semibold md:text-5xl"
+                className="text-3xl font-semibold md:text-4xl lg:text-5xl"
               />
               <MaskText
                 phrases={[
                   'Each project is engineered to deliver bankable returns, resilient operations, and measurable socio-economic impact for communities across Nigeria.',
                 ]}
-                className="max-w-xl text-lg text-muted-foreground"
+                className="max-w-xl text-base md:text-lg text-muted-foreground"
               />
             </div>
           </FadeIn>
@@ -109,10 +109,10 @@ export function ProjectsSection({ projects }: ProjectsSectionProps) {
                   {/* Project Content */}
                   <CardContent className="flex flex-1 flex-col p-4 sm:p-6">
                     <div className="space-y-3">
-                      <h3 className="text-xl font-semibold text-foreground">
+                      <h3 className="text-xl md:text-2xl font-semibold text-foreground line-clamp-2">
                         {project.title}
                       </h3>
-                      <p className="text-sm text-muted-foreground line-clamp-4">
+                      <p className="text-sm md:text-base text-muted-foreground line-clamp-3">
                         {project.excerpt ||
                           project.description ||
                           'Project details coming soon.'}
@@ -123,10 +123,13 @@ export function ProjectsSection({ projects }: ProjectsSectionProps) {
                       <Link href={`/projects/${project.slug?.current}`}>
                         <Button
                           variant="outline"
-                          className="w-full justify-center gap-2 border-primary/40 text-primary hover:bg-primary hover:text-primary-foreground"
+                          className="relative w-full justify-center gap-2 border-primary/40 text-primary-foreground bg-primary overflow-hidden transition-colors duration-300"
                         >
-                          View project
-                          <ArrowRight className="h-4 w-4" />
+                          <span className="absolute inset-0 bg-primary/90 transform scale-x-0 origin-left transition-transform duration-500 ease-out group-hover:scale-x-100" />
+                          <span className="relative z-10 flex items-center gap-2">
+                            View project
+                            <ArrowRight className="h-4 w-4" />
+                          </span>
                         </Button>
                       </Link>
                     </div>

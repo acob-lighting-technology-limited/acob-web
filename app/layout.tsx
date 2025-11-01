@@ -3,7 +3,7 @@ import './globals.css';
 import '../styles/customShadow.css';
 import '../styles/animations.css';
 import type { Metadata } from 'next';
-import { Inter, Plus_Jakarta_Sans, Geist, Outfit, Poppins, DM_Sans } from 'next/font/google';
+import { Plus_Jakarta_Sans } from 'next/font/google';
 import { Providers } from '@/components/providers/session-provider';
 import { NProgressProvider } from '@/components/providers/nprogress-provider';
 import { Header } from '@/components/layout/header';
@@ -11,36 +11,18 @@ import { Footer } from '@/components/layout/footer';
 import { ScrollToTop } from '@/components/ui/scroll-to-top';
 import { Toaster } from 'sonner';
 import { ChatBot } from '@/components/features/chat-bot';
-// import { LazyCookieConsent } from '@/components/lazy-components';
+import { SkipNavigation } from '@/components/ui/skip-navigation';
+import { ChatErrorBoundary } from '@/components/error-boundary/error-boundary';
 import { Analytics } from '@vercel/analytics/react';
 import { SpeedInsights } from '@vercel/speed-insights/next';
+import { AnnouncementBanner } from '@/components/ui/announcement-banner';
+import { getActiveJobCount } from '@/sanity/lib/client';
 
-// Modern font options - choose one:
-const inter = Inter({ subsets: ['latin'] });
-const plusJakarta = Plus_Jakarta_Sans({ 
+const plusJakarta = Plus_Jakarta_Sans({
   subsets: ['latin'],
   variable: '--font-plus-jakarta',
-  weight: ['200', '300', '400', '500', '600', '700', '800']
-});
-const geist = Geist({ 
-  subsets: ['latin'],
-  variable: '--font-geist',
-  weight: ['100', '200', '300', '400', '500', '600', '700', '800', '900']
-});
-const outfit = Outfit({ 
-  subsets: ['latin'],
-  variable: '--font-outfit',
-  weight: ['100', '200', '300', '400', '500', '600', '700', '800', '900']
-});
-const poppins = Poppins({ 
-  subsets: ['latin'],
-  variable: '--font-poppins',
-  weight: ['100', '200', '300', '400', '500', '600', '700', '800', '900']
-});
-const dmSans = DM_Sans({ 
-  subsets: ['latin'],
-  variable: '--font-dm-sans',
-  weight: ['100', '200', '300', '400', '500', '600', '700', '800', '900']
+  weight: ['200', '300', '400', '500', '600', '700', '800'],
+  display: 'swap',
 });
 
 export const metadata: Metadata = {
@@ -93,26 +75,36 @@ export const metadata: Metadata = {
   },
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
+  const jobCount = await getActiveJobCount();
+
   return (
     <html lang="en" suppressHydrationWarning>
-      <body className={`${plusJakarta.className} ${plusJakarta.variable}`} >
+      <body className={`${plusJakarta.className} ${plusJakarta.variable}`}>
         <Providers>
           <NProgressProvider>
+            <SkipNavigation />
             <Toaster closeButton position="top-right" />
-            <div className="flex min-h-screen flex-col w-full bg-background transition-all duration-500 selection:bg-foreground selection:text-primary">
+            <div className="flex min-h-screen flex-col w-full bg-background transition-all duration-500 selection:bg-foreground selection:text-primary ">
+              <AnnouncementBanner jobCount={jobCount} />
               <Header />
-              <main className="flex-1 border-b border-b-muted">{children}</main>
+              <main
+                id="main-content"
+                className="flex-1 border-b border-b-muted"
+              >
+                {children}
+              </main>
               <Footer />
               <div className="z-50 fixed bottom-2 right-2 flex flex-col gap-2 items-center w-16 h-32 sm:w-20 sm:h-40">
                 <ScrollToTop />
-                <ChatBot />
+                <ChatErrorBoundary>
+                  <ChatBot />
+                </ChatErrorBoundary>
               </div>
-              {/* <LazyCookieConsent /> */}
               <Analytics />
               <SpeedInsights />
             </div>

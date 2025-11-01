@@ -21,9 +21,9 @@ export function AboutSection() {
             <div className="space-y-6">
               <MaskText
                 phrases={['ACOB Lighting Technology Limited']}
-                className="text-4xl font-bold  md:text-5xl text-primary-foreground"
+                className="text-3xl font-bold md:text-4xl lg:text-5xl text-primary-foreground"
               />
-           
+
               <MaskText
                 phrases={[
                   'Powering Nigeria with dependable renewable energy systems that help households, industries, and governments unlock sustainable growth. From strategy to implementation, our team manages every stage of the clean energy lifecycle.',

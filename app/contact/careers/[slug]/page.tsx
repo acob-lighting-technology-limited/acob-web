@@ -3,10 +3,17 @@ import { PageHero } from '@/components/ui/page-hero';
 import { Breadcrumb } from '@/components/ui/breadcrumb';
 import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
-import { ArrowLeft, Calendar, MapPin, Briefcase, Mail, Phone } from 'lucide-react';
+import {
+  ArrowLeft,
+  Calendar,
+  MapPin,
+  Briefcase,
+  Mail,
+  Phone,
+} from 'lucide-react';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
-import { getJobPosting, getJobPostings } from '@/sanity/lib/client';
+import { getJobPosting } from '@/sanity/lib/client';
 import { Metadata } from 'next';
 
 interface JobPostingPageProps {
@@ -28,7 +35,11 @@ interface JobPostingPageProps {
 //   }
 // }
 
-export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ slug: string }>;
+}): Promise<Metadata> {
   const { slug } = await params;
   const job = await getJobPosting(slug);
 
@@ -41,18 +52,24 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
 
   return {
     title: `${job.title} - ACOB Lighting Technology Limited`,
-    description: job.description || `Join ACOB Lighting Technology Limited as ${job.title}. We are looking for talented individuals to be part of Nigeria's energy access revolution in solar energy and mini-grid solutions.`,
+    description:
+      job.description ||
+      `Join ACOB Lighting Technology Limited as ${job.title}. We are looking for talented individuals to be part of Nigeria's energy access revolution in solar energy and mini-grid solutions.`,
     keywords: `${job.title}, ACOB Lighting careers, solar energy jobs, renewable energy careers, Nigeria solar jobs, energy access jobs`,
     openGraph: {
       title: `${job.title} - ACOB Lighting Technology Limited`,
-      description: job.description || `Join ACOB Lighting as ${job.title} and be part of Nigeria's energy access revolution.`,
+      description:
+        job.description ||
+        `Join ACOB Lighting as ${job.title} and be part of Nigeria's energy access revolution.`,
       type: 'website',
       url: `https://acoblighting.com/contact/careers/${slug}`,
     },
     twitter: {
       card: 'summary_large_image',
       title: `${job.title} - ACOB Lighting Technology Limited`,
-      description: job.description || `Join ACOB Lighting as ${job.title} and be part of Nigeria's energy access revolution.`,
+      description:
+        job.description ||
+        `Join ACOB Lighting as ${job.title} and be part of Nigeria's energy access revolution.`,
     },
   };
 }
@@ -60,7 +77,7 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
 export default async function JobPostingPage({ params }: JobPostingPageProps) {
   const { slug } = await params;
   console.log('Job posting page accessed with slug:', slug);
-  
+
   const job = await getJobPosting(slug);
   console.log('Job found:', job ? 'Yes' : 'No');
 
@@ -96,7 +113,7 @@ export default async function JobPostingPage({ params }: JobPostingPageProps) {
                   <h1 className="text-3xl font-bold mb-4 text-foreground">
                     {job.title}
                   </h1>
-                  
+
                   {/* Job Meta Information */}
                   <div className="flex flex-wrap gap-4 text-sm text-muted-foreground mb-6">
                     {job.department && (
@@ -136,11 +153,13 @@ export default async function JobPostingPage({ params }: JobPostingPageProps) {
                         Requirements
                       </h2>
                       <ul className="list-disc list-inside space-y-2 text-muted-foreground">
-                        {job.requirements.map((requirement: string, index: number) => (
-                          <li key={index} className="leading-relaxed">
-                            {requirement}
-                          </li>
-                        ))}
+                        {job.requirements.map(
+                          (requirement: string, index: number) => (
+                            <li key={index} className="leading-relaxed">
+                              {requirement}
+                            </li>
+                          )
+                        )}
                       </ul>
                     </div>
                   )}
@@ -151,7 +170,10 @@ export default async function JobPostingPage({ params }: JobPostingPageProps) {
                       <div className="flex items-center gap-2 text-sm text-muted-foreground">
                         <Calendar className="h-4 w-4" />
                         <span>
-                          <strong>Application Deadline:</strong> {new Date(job.applicationDeadline).toLocaleDateString()}
+                          <strong>Application Deadline:</strong>{' '}
+                          {new Date(
+                            job.applicationDeadline
+                          ).toLocaleDateString()}
                         </span>
                       </div>
                     </div>
@@ -166,10 +188,8 @@ export default async function JobPostingPage({ params }: JobPostingPageProps) {
                       Back to Careers
                     </Button>
                   </Link>
-                  <Link href="/contact">
-                    <Button className="w-full sm:w-auto">
-                      Apply Now
-                    </Button>
+                  <Link href={`/contact/careers/${slug}/apply`}>
+                    <Button className="w-full sm:w-auto">Apply Now</Button>
                   </Link>
                 </div>
               </CardContent>
@@ -186,13 +206,23 @@ export default async function JobPostingPage({ params }: JobPostingPageProps) {
                   Interested in this role? Get in touch with us to apply.
                 </p>
                 <div className="space-y-3">
-                  <a href="mailto:careers@acoblighting.com" className="flex items-center gap-2 text-primary hover:text-primary/80 transition-colors">
+                  <a
+                    href="mailto:careers@acoblighting.com"
+                    className="flex items-center gap-2 text-primary hover:text-primary/80 transition-colors"
+                  >
                     <Mail className="h-4 w-4" />
-                    <span className="text-sm font-medium">careers@acoblighting.com</span>
+                    <span className="text-sm font-medium">
+                      careers@acoblighting.com
+                    </span>
                   </a>
-                  <a href="tel:+2347049202634" className="flex items-center gap-2 text-primary hover:text-primary/80 transition-colors">
+                  <a
+                    href="tel:+2347049202634"
+                    className="flex items-center gap-2 text-primary hover:text-primary/80 transition-colors"
+                  >
                     <Phone className="h-4 w-4" />
-                    <span className="text-sm font-medium">+234 704 920 2634</span>
+                    <span className="text-sm font-medium">
+                      +234 704 920 2634
+                    </span>
                   </a>
                 </div>
               </CardContent>
@@ -224,7 +254,9 @@ export default async function JobPostingPage({ params }: JobPostingPageProps) {
                   {job.publishedAt && (
                     <div>
                       <span className="text-muted-foreground">Posted:</span>
-                      <p className="font-medium">{new Date(job.publishedAt).toLocaleDateString()}</p>
+                      <p className="font-medium">
+                        {new Date(job.publishedAt).toLocaleDateString()}
+                      </p>
                     </div>
                   )}
                 </div>
