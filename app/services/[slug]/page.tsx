@@ -23,7 +23,11 @@ export async function generateStaticParams() {
   }));
 }
 
-export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ slug: string }>;
+}): Promise<Metadata> {
   const { slug } = await params;
   const service = getServiceBySlug(slug);
 
@@ -36,18 +40,24 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
 
   return {
     title: `${service.title} - ACOB Lighting Technology Limited`,
-    description: service.excerpt || `Learn about ${service.title} services from ACOB Lighting Technology Limited. We provide comprehensive solar energy solutions including ${service.title.toLowerCase()} across Nigeria.`,
+    description:
+      service.excerpt ||
+      `Learn about ${service.title} services from ACOB Lighting Technology Limited. We provide comprehensive solar energy solutions including ${service.title.toLowerCase()} across Nigeria.`,
     keywords: `${service.title}, solar energy, ${service.title.toLowerCase()}, ACOB Lighting, Nigeria solar services, renewable energy`,
     openGraph: {
       title: `${service.title} - ACOB Lighting Technology Limited`,
-      description: service.excerpt || `Learn about ${service.title} services from ACOB Lighting.`,
+      description:
+        service.excerpt ||
+        `Learn about ${service.title} services from ACOB Lighting.`,
       type: 'website',
       url: `https://acoblighting.com/services/${slug}`,
     },
     twitter: {
       card: 'summary_large_image',
       title: `${service.title} - ACOB Lighting Technology Limited`,
-      description: service.excerpt || `Learn about ${service.title} services from ACOB Lighting.`,
+      description:
+        service.excerpt ||
+        `Learn about ${service.title} services from ACOB Lighting.`,
     },
   };
 }
@@ -81,7 +91,7 @@ export default async function ServicePage({ params }: ServicePageProps) {
 
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 items-start">
           {/* Main Content */}
-          <div className="lg:col-span-2">
+          <div className="lg:col-span-2 lg:space-y-4">
             {/* Overview */}
             <Card className="border shadow-md border-border bg-surface">
               <CardContent className="p-4 sm:p-6 xl:p-8">
@@ -183,10 +193,10 @@ export default async function ServicePage({ params }: ServicePageProps) {
                       className={`
                         block p-3 rounded-lg transition-all duration-200 text-sm border border-border
                         ${
-                    link.isActive
-                      ? 'bg-primary text-primary-foreground shadow-sm'
-                      : 'bg-muted/30 text-foreground hover:bg-muted/50 hover:text-foreground'
-                    }
+                          link.isActive
+                            ? 'bg-primary text-primary-foreground shadow-sm'
+                            : 'bg-muted/30 text-foreground hover:bg-muted/50 hover:text-foreground'
+                        }
                       `}
                     >
                       <div className="flex items-center justify-between">
@@ -224,7 +234,10 @@ export default async function ServicePage({ params }: ServicePageProps) {
                   <h2 className="font-semibold mb-4">Key Features</h2>
                   <ul className="space-y-2">
                     {service.features.slice(0, 4).map((feature, index) => (
-                      <li key={index} className="flex items-start space-x-2 text-sm p-2 rounded-lg bg-muted/30 border border-border">
+                      <li
+                        key={index}
+                        className="flex items-start space-x-2 text-sm p-2 rounded-lg bg-muted/30 border border-border"
+                      >
                         <CheckCircle className="h-4 w-4 text-primary mt-0.5 flex-shrink-0" />
                         <span className="text-foreground">{feature}</span>
                       </li>

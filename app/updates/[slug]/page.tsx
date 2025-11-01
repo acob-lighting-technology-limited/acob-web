@@ -6,7 +6,13 @@ import {
   type PortableTextBlock,
   type PortableTextComponentProps,
 } from '@portabletext/react';
-import { urlFor, getUpdatePosts, getUpdatePost, getApprovedCommentsForPost, getRelatedUpdatePosts } from '@/sanity/lib/client';
+import {
+  urlFor,
+  getUpdatePosts,
+  getUpdatePost,
+  getApprovedCommentsForPost,
+  getRelatedUpdatePosts,
+} from '@/sanity/lib/client';
 import { notFound } from 'next/navigation';
 import type { UpdatePost, Comment } from '@/lib/types';
 import { Container } from '@/components/ui/container';
@@ -32,7 +38,11 @@ export async function generateStaticParams() {
     }));
 }
 
-export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ slug: string }>;
+}): Promise<Metadata> {
   const { slug } = await params;
   const post = await getUpdatePost(slug);
 
@@ -45,11 +55,14 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
 
   return {
     title: `${post.title} - ACOB Lighting Technology Limited`,
-    description: post.excerpt || `Read about ${post.title} from ACOB Lighting Technology Limited. Stay updated with our latest news, case studies, and developments in solar energy solutions across Nigeria.`,
+    description:
+      post.excerpt ||
+      `Read about ${post.title} from ACOB Lighting Technology Limited. Stay updated with our latest news, case studies, and developments in solar energy solutions across Nigeria.`,
     keywords: `${post.title}, ACOB Lighting news, solar energy updates, renewable energy, Nigeria solar news, ${post.category || 'news'}`,
     openGraph: {
       title: `${post.title} - ACOB Lighting Technology Limited`,
-      description: post.excerpt || `Read about ${post.title} from ACOB Lighting.`,
+      description:
+        post.excerpt || `Read about ${post.title} from ACOB Lighting.`,
       type: 'article',
       url: `https://acoblighting.com/updates/${slug}`,
       publishedTime: post.publishedAt,
@@ -58,7 +71,8 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
     twitter: {
       card: 'summary_large_image',
       title: `${post.title} - ACOB Lighting Technology Limited`,
-      description: post.excerpt || `Read about ${post.title} from ACOB Lighting.`,
+      description:
+        post.excerpt || `Read about ${post.title} from ACOB Lighting.`,
     },
   };
 }
@@ -160,7 +174,7 @@ export default async function UpdatePostPage({ params }: UpdatePostPageProps) {
 
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
         {/* Main Content */}
-        <div className="lg:col-span-2">
+        <div className="lg:col-span-2 space-y-4">
           <Card className="">
             <CardContent className="p-4 sm:p-6 xl:p-8 space-y-8">
               {/* Featured Image */}
@@ -186,10 +200,13 @@ export default async function UpdatePostPage({ params }: UpdatePostPageProps) {
                     <>
                       <span className="mx-2">•</span>
                       <span className="bg-primary text-white px-2 py-1 rounded text-xs">
-                        {post.category === 'news' ? 'News' :
-                          post.category === 'case-studies' ? 'Case Studies' :
-                            post.category === 'press-releases' ? 'Press Releases' :
-                              post.category}
+                        {post.category === 'news'
+                          ? 'News'
+                          : post.category === 'case-studies'
+                            ? 'Case Studies'
+                            : post.category === 'press-releases'
+                              ? 'Press Releases'
+                              : post.category}
                       </span>
                     </>
                   )}
@@ -207,7 +224,9 @@ export default async function UpdatePostPage({ params }: UpdatePostPageProps) {
               {/* Tags */}
               {post.tags && post.tags.length > 0 && (
                 <div className="flex items-center flex-wrap gap-2 pt-8 border-t">
-                  <span className="text-sm font-medium text-gray-700">Tags:</span>
+                  <span className="text-sm font-medium text-gray-700">
+                    Tags:
+                  </span>
                   {post.tags.map((tag: string, index: number) => (
                     <span
                       key={index}
@@ -223,51 +242,56 @@ export default async function UpdatePostPage({ params }: UpdatePostPageProps) {
                 <ShareCopy className="rounded-full bg-transparent" />
               </div>
               {Array.isArray(related) && related.length > 0 && (
-              <div className="pt-8 border-t">
-                <h2 className="text-xl font-semibold mb-4">Related Updates</h2>
-                <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
-                  {related.map((item: any) => {
-                    const href = item?.slug?.current ? `/updates/${item.slug.current}` : null;
-                    const CardInner = (
-                      <>
-                        <div className="aspect-[16/9] overflow-hidden">
-                          <Image
-                            src={item.featuredImage || '/placeholder.svg'}
-                            alt={item.title}
-                            width={1200}
-                            height={675}
-                            className="w-full h-full object-cover"
-                          />
-                        </div>
-                        <CardContent className="p-4">
-                          <div className="text-sm text-muted-foreground mb-2">
-                            {new Date(item.publishedAt).toLocaleDateString()}
+                <div className="pt-8 border-t">
+                  <h2 className="text-xl font-semibold mb-4">
+                    Related Updates
+                  </h2>
+                  <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
+                    {related.map((item: any) => {
+                      const href = item?.slug?.current
+                        ? `/updates/${item.slug.current}`
+                        : null;
+                      const CardInner = (
+                        <>
+                          <div className="aspect-[16/9] overflow-hidden">
+                            <Image
+                              src={item.featuredImage || '/placeholder.svg'}
+                              alt={item.title}
+                              width={1200}
+                              height={675}
+                              className="w-full h-full object-cover"
+                            />
                           </div>
-                          <h4 className="text-xs font-semibold text-foreground leading-snug line-clamp-2">
-                            {item.title}
-                          </h4>
-                        </CardContent>
-                      </>
-                    );
+                          <CardContent className="p-4">
+                            <div className="text-sm text-muted-foreground mb-2">
+                              {new Date(item.publishedAt).toLocaleDateString()}
+                            </div>
+                            <h4 className="text-xs font-semibold text-foreground leading-snug line-clamp-2">
+                              {item.title}
+                            </h4>
+                          </CardContent>
+                        </>
+                      );
 
-                    const cardClass = `overflow-hidden p-0 border-2 hover:shadow-lg transition-shadow${href ? ' cursor-pointer' : ' opacity-90'}`;
+                      const cardClass = `overflow-hidden p-0 border-2 hover:shadow-lg transition-shadow${href ? ' cursor-pointer' : ' opacity-90'}`;
 
-                    return href ? (
-                      <Link key={item._id} href={href}>
-                        <Card className={cardClass}>{CardInner}</Card>
-                      </Link>
-                    ) : (
-                      <Card key={item._id} className={cardClass} aria-disabled="true">
-                        {CardInner}
-                      </Card>
-                    );
-                  })}
+                      return href ? (
+                        <Link key={item._id} href={href}>
+                          <Card className={cardClass}>{CardInner}</Card>
+                        </Link>
+                      ) : (
+                        <Card
+                          key={item._id}
+                          className={cardClass}
+                          aria-disabled="true"
+                        >
+                          {CardInner}
+                        </Card>
+                      );
+                    })}
+                  </div>
                 </div>
-              </div>
-            )}
-
-
-
+              )}
             </CardContent>
           </Card>
 
@@ -280,8 +304,12 @@ export default async function UpdatePostPage({ params }: UpdatePostPageProps) {
               {comments.length > 0 ? (
                 <div className="space-y-4">
                   {comments.map((comment: Comment) => {
-                    const initial = (comment.name || '?').charAt(0).toUpperCase();
-                    const dateStr = new Date(comment.createdAt).toLocaleDateString(undefined, {
+                    const initial = (comment.name || '?')
+                      .charAt(0)
+                      .toUpperCase();
+                    const dateStr = new Date(
+                      comment.createdAt
+                    ).toLocaleDateString(undefined, {
                       year: 'numeric',
                       month: 'short',
                       day: 'numeric',
@@ -299,7 +327,9 @@ export default async function UpdatePostPage({ params }: UpdatePostPageProps) {
                             <p className="font-semibold text-gray-900 dark:text-gray-100 line-clamp-1">
                               {comment.name}
                             </p>
-                            <p className="text-xs text-gray-500 whitespace-nowrap">{dateStr}</p>
+                            <p className="text-xs text-gray-500 whitespace-nowrap">
+                              {dateStr}
+                            </p>
                           </div>
                           <p className="mt-1 text-gray-700 dark:text-gray-300 leading-relaxed">
                             {comment.comment}
@@ -323,7 +353,6 @@ export default async function UpdatePostPage({ params }: UpdatePostPageProps) {
 
         {/* Sidebar */}
         <div className="space-y-6 sticky top-20 self-start">
-
           {/* Categories */}
           <Card className="!border-t-2 !border-t-primary border border-border">
             <CardContent className="p-6">
@@ -384,7 +413,6 @@ export default async function UpdatePostPage({ params }: UpdatePostPageProps) {
           </Card>
 
           {/* Related Updates */}
-
         </div>
       </div>
     </Container>

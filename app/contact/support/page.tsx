@@ -46,7 +46,7 @@ export default function SupportPage() {
 
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 items-start">
           {/* Main Content */}
-          <div className="lg:col-span-2 ">
+          <div className="lg:col-span-2 lg:space-y-4">
             {/* Help Overview */}
             <Card className="border shadow-md border-border bg-surface">
               <CardContent className="p-4 sm:p-6 xl:p-8">
@@ -55,10 +55,11 @@ export default function SupportPage() {
                 </h2>
                 <div className="text-muted-foreground leading-relaxed space-y-4 text-lg">
                   <p>
-                    At ACOB Lighting Technology Limited, we are committed to providing excellent
-                    support for all our products and services. Whether you have
-                    a technical question, need assistance with an installation,
-                    or require maintenance, our team is ready to help.
+                    At ACOB Lighting Technology Limited, we are committed to
+                    providing excellent support for all our products and
+                    services. Whether you have a technical question, need
+                    assistance with an installation, or require maintenance, our
+                    team is ready to help.
                   </p>
                   <p>
                     We strive to ensure your experience with our clean energy
@@ -89,17 +90,22 @@ export default function SupportPage() {
                           <h3 className="text-xl font-semibold text-foreground mb-2">
                             {title}
                           </h3>
-                          <p className="text-muted-foreground mb-3 leading-relaxed">{description}</p>
+                          <p className="text-muted-foreground mb-3 leading-relaxed">
+                            {description}
+                          </p>
                           <div className="space-y-1">
                             {contacts.map((item, i) => (
-                              <div key={i} className="text-primary font-semibold text-lg">
+                              <div
+                                key={i}
+                                className="text-primary font-semibold text-lg"
+                              >
                                 {item}
                               </div>
                             ))}
                           </div>
                         </div>
                       </div>
-                    ),
+                    )
                   )}
                 </div>
               </CardContent>
@@ -154,15 +160,23 @@ export default function SupportPage() {
                 <div className="space-y-3">
                   <div className="p-3 rounded-lg bg-muted/30 border border-border">
                     <p className="text-xs text-muted-foreground mb-1">Phone</p>
-                    <p className="text-sm font-semibold text-primary">+234 704 920 2634</p>
+                    <p className="text-sm font-semibold text-primary">
+                      +234 704 920 2634
+                    </p>
                   </div>
                   <div className="p-3 rounded-lg bg-muted/30 border border-border">
                     <p className="text-xs text-muted-foreground mb-1">Email</p>
-                    <p className="text-sm font-semibold text-primary">info@acoblighting.com</p>
+                    <p className="text-sm font-semibold text-primary">
+                      info@acoblighting.com
+                    </p>
                   </div>
                   <div className="p-3 rounded-lg bg-muted/30 border border-border">
-                    <p className="text-xs text-muted-foreground mb-1">Business Hours</p>
-                    <p className="text-sm font-semibold">Mon - Fri: 8AM - 5PM</p>
+                    <p className="text-xs text-muted-foreground mb-1">
+                      Business Hours
+                    </p>
+                    <p className="text-sm font-semibold">
+                      Mon - Fri: 8AM - 5PM
+                    </p>
                   </div>
                 </div>
               </CardContent>
