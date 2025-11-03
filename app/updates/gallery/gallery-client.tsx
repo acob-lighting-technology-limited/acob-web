@@ -45,7 +45,7 @@ export function GalleryClient({ galleryData }: GalleryClientProps) {
   const [isViewerOpen, setIsViewerOpen] = useState(false);
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const [currentCategoryImages, setCurrentCategoryImages] = useState<string[]>(
-    []
+    [],
   );
   const [isAutoPlaying, setIsAutoPlaying] = useState(false);
   const [autoPlayInterval, setAutoPlayInterval] =
@@ -78,7 +78,7 @@ export function GalleryClient({ galleryData }: GalleryClientProps) {
       setAutoPlayInterval(interval);
       setIsAutoPlaying(true);
     },
-    [autoPlayInterval]
+    [autoPlayInterval],
   );
 
   const stopAutoPlay = useCallback(() => {
@@ -99,7 +99,7 @@ export function GalleryClient({ galleryData }: GalleryClientProps) {
       setIsViewerOpen(true);
       stopAutoPlay(); // Stop any existing auto-play
     },
-    [stopAutoPlay]
+    [stopAutoPlay],
   );
 
   // Close image viewer
@@ -118,7 +118,7 @@ export function GalleryClient({ galleryData }: GalleryClientProps) {
   // Toggle fullscreen
   const toggleFullscreen = useCallback(() => {
     const modalElement = document.querySelector(
-      '[data-gallery-modal]'
+      '[data-gallery-modal]',
     ) as HTMLElement;
     if (!modalElement) {
       return;
@@ -158,7 +158,7 @@ export function GalleryClient({ galleryData }: GalleryClientProps) {
         });
       }
     },
-    [zoomLevel, imagePosition]
+    [zoomLevel, imagePosition],
   );
 
   const handleMouseMove = useCallback(
@@ -170,7 +170,7 @@ export function GalleryClient({ galleryData }: GalleryClientProps) {
         });
       }
     },
-    [isDragging, dragStart, zoomLevel]
+    [isDragging, dragStart, zoomLevel],
   );
 
   const handleMouseUp = useCallback(() => {
@@ -189,7 +189,7 @@ export function GalleryClient({ galleryData }: GalleryClientProps) {
   // Navigate images
   const goToPrevious = useCallback(() => {
     setCurrentImageIndex(prev =>
-      prev === 0 ? currentCategoryImages.length - 1 : prev - 1
+      prev === 0 ? currentCategoryImages.length - 1 : prev - 1,
     );
     setZoomLevel(1);
     setImagePosition({ x: 0, y: 0 });
@@ -197,7 +197,7 @@ export function GalleryClient({ galleryData }: GalleryClientProps) {
 
   const goToNext = useCallback(() => {
     setCurrentImageIndex(prev =>
-      prev === currentCategoryImages.length - 1 ? 0 : prev + 1
+      prev === currentCategoryImages.length - 1 ? 0 : prev + 1,
     );
     setZoomLevel(1);
     setImagePosition({ x: 0, y: 0 });
@@ -395,7 +395,7 @@ export function GalleryClient({ galleryData }: GalleryClientProps) {
                       onClick={() => {
                         console.log(
                           'View All clicked for category:',
-                          categoryData.category
+                          categoryData.category,
                         );
                         console.log('Images:', categoryData.images);
                         openImageViewer(categoryData.images, 0);
@@ -470,7 +470,7 @@ export function GalleryClient({ galleryData }: GalleryClientProps) {
                     onClick={() => {
                       console.log(
                         'View Gallery clicked for category:',
-                        categoryData.category
+                        categoryData.category,
                       );
                       console.log('Images:', categoryData.images);
                       setIsViewerOpen(true);
@@ -639,14 +639,14 @@ export function GalleryClient({ galleryData }: GalleryClientProps) {
                     onError={e => {
                       console.error(
                         'Image failed to load:',
-                        currentCategoryImages[currentImageIndex]
+                        currentCategoryImages[currentImageIndex],
                       );
                       console.error('Error:', e);
                     }}
                     onLoad={() => {
                       console.log(
                         'Image loaded successfully:',
-                        currentCategoryImages[currentImageIndex]
+                        currentCategoryImages[currentImageIndex],
                       );
                     }}
                     draggable={false}

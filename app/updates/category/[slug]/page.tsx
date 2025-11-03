@@ -23,7 +23,7 @@ export async function generateMetadata({
   const { slug } = await params;
   const posts = await getUpdatePosts();
   const categoryPosts = posts.filter(
-    (post: UpdatePost) => post.category === slug
+    (post: UpdatePost) => post.category === slug,
   );
 
   const categoryName = slug
@@ -55,7 +55,7 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
 
   // Filter posts by category using the new string-based system
   const categoryPosts = posts.filter(
-    (post: UpdatePost) => post.category === slug
+    (post: UpdatePost) => post.category === slug,
   );
 
   const breadcrumbItems = [
@@ -68,7 +68,7 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
   return (
     <>
       <PageHero
-        title={`${slug.replace(/-/g, ' ')} Updates`}
+        description={`${slug.replace(/-/g, ' ')} Updates`}
         backgroundImage="/images/services/header.webp?height=400&width=1200"
       />
 

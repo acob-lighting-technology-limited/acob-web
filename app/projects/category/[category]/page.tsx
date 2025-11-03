@@ -132,8 +132,8 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
       allProjects
         .map((p: Project) => p.location)
         .filter(Boolean)
-        .map(extractStateFromLocation)
-    )
+        .map(extractStateFromLocation),
+    ),
   ).sort() as string[];
 
   const breadcrumbItems = [
@@ -144,11 +144,11 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
 
   return (
     <>
-      <PageHero title={info.title} backgroundImage={info.image}>
-        <p className="text-lg md:text-xl opacity-90 max-w-3xl leading-relaxed">
-          {info.description}
-        </p>
-      </PageHero>
+      <PageHero
+        description={info.title}
+        backgroundImage={info.image}
+        title={info.title}
+      />
 
       <Container className="px-4 py-8">
         <Breadcrumb items={breadcrumbItems} className="mb-8" />
@@ -193,7 +193,7 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
                           <Image
                             src={applySanityImagePreset(
                               project.projectImage,
-                              'card'
+                              'card',
                             )}
                             alt={project.title}
                             fill
@@ -224,7 +224,7 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
                         </div>
                         <div className="mt-auto">
                           <Link href={`/projects/${project.slug.current}`}>
-                            <Button className="w-full bg-primary hover:bg-primary/90 text-primary-foreground">
+                            <Button variant="default" className="w-full">
                               View Project
                               <ArrowRight className="ml-2 h-4 w-4" />
                             </Button>
@@ -277,7 +277,7 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
                                     return false;
                                   }
                                   const projectState = extractStateFromLocation(
-                                    p.location
+                                    p.location,
                                   );
                                   return projectState === state;
                                 }).length

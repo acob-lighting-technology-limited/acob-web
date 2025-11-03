@@ -19,9 +19,9 @@ export default async function PressPage() {
     (post: UpdatePost) =>
       post.category === 'press-releases' ||
       post.tags?.some((tag: string) =>
-        tag.toLowerCase().includes('press release')
+        tag.toLowerCase().includes('press release'),
       ) ||
-      post.title?.toLowerCase().includes('press release')
+      post.title?.toLowerCase().includes('press release'),
   );
 
   const breadcrumbItems = [
@@ -33,7 +33,7 @@ export default async function PressPage() {
   return (
     <>
       <PageHero
-        title="Press Releases"
+        description="Official Press Releases and Announcements"
         backgroundImage="/images/services/header.webp?height=400&width=1200"
       />
 

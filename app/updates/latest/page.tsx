@@ -17,7 +17,7 @@ export default async function LatestPage() {
   const latestPosts = posts
     .sort(
       (a: UpdatePost, b: UpdatePost) =>
-        new Date(b.publishedAt).getTime() - new Date(a.publishedAt).getTime()
+        new Date(b.publishedAt).getTime() - new Date(a.publishedAt).getTime(),
     )
     .slice(0, 10);
 
@@ -30,7 +30,7 @@ export default async function LatestPage() {
   return (
     <>
       <PageHero
-        title="Latest Updates"
+        description="Stay Updated with Our Recent Work"
         backgroundImage="/images/services/header.webp?height=400&width=1200"
       />
 

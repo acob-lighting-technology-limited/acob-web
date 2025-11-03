@@ -18,9 +18,9 @@ export default async function CaseStudiesPage() {
     (post: UpdatePost) =>
       post.category === 'case-studies' ||
       post.tags?.some((tag: string) =>
-        tag.toLowerCase().includes('case study')
+        tag.toLowerCase().includes('case study'),
       ) ||
-      post.title?.toLowerCase().includes('case study')
+      post.title?.toLowerCase().includes('case study'),
   );
 
   const breadcrumbItems = [
@@ -32,7 +32,7 @@ export default async function CaseStudiesPage() {
   return (
     <>
       <PageHero
-        title="Case Studies"
+        description="Real Impact Stories from the Field"
         backgroundImage="/images/services/header.webp?height=400&width=1200"
       />
 

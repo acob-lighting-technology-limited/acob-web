@@ -14,7 +14,7 @@ export default function GetQuotePage() {
   return (
     <>
       <PageHero
-        title="Request a Quote"
+        description="Request Your Custom Solar Solution"
         backgroundImage="/images/contact/contact-us.webp?height=400&width=1200"
       >
         <MaskText

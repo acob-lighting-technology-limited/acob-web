@@ -16,7 +16,7 @@ export default function LocationsPage() {
   return (
     <>
       <PageHero
-        title="Our Office Locations"
+        description="Find Us Across Nigeria"
         backgroundImage="/images/contact/office-location-hero.webp?height=400&width=1200"
       >
         <MaskText
@@ -57,9 +57,9 @@ export default function LocationsPage() {
                     <div>
                       <p className="text-xs text-muted-foreground">Address</p>
                       <p className="text-sm font-medium">
-                        Plot 2. Block 14 Extension, Federal Ministry of Works And
-                        Housing Sites and Service Scheme, Setraco Gate Gwarinpa,
-                        Abuja, Nigeria.
+                        Plot 2. Block 14 Extension, Federal Ministry of Works
+                        And Housing Sites and Service Scheme, Setraco Gate
+                        Gwarinpa, Abuja, Nigeria.
                       </p>
                     </div>
                   </div>

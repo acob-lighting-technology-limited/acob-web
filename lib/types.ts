@@ -27,7 +27,7 @@ export interface Project {
   content: unknown[]; // Portable Text for rich formatting
   location: string;
   projectImage: string; // Single project image URL
-  images?: any[]; // Add images field for compatibility
+  images?: unknown[]; // Add images field for compatibility
   galleryImages?: string[]; // Add gallery images from content
   isFeatured?: boolean;
   featuredRank?: number;

@@ -56,7 +56,8 @@ export default async function ApplyPage({ params }: ApplyPageProps) {
   return (
     <>
       <PageHero
-        title={`Apply for ${job.title}`}
+        title="Apply Now"
+        description={job.title}
         backgroundImage="/images/contact/careers.webp?height=400&width=1200"
       />
 

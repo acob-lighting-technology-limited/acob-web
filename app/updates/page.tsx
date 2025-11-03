@@ -35,7 +35,7 @@ export default async function UpdatesPage({ searchParams }: UpdatesPageProps) {
   return (
     <>
       <PageHero
-        title="Updates & News"
+        description="Latest News and Insights"
         backgroundImage="/images/services/header.webp?height=400&width=1200"
       />
 

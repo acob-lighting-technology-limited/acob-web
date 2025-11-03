@@ -85,7 +85,7 @@ export default async function ServicePage({ params }: ServicePageProps) {
 
   return (
     <>
-      <PageHero title={service.title} backgroundImage={service.image} />
+      <PageHero description={service.title} backgroundImage={service.image} />
       <Container>
         <Breadcrumb items={breadcrumbItems} className="mb-8" />
 
@@ -219,7 +219,7 @@ export default async function ServicePage({ params }: ServicePageProps) {
                   Get a customized quote for {service.title.toLowerCase()}.
                 </p>
                 <Link href="/contact/quote">
-                  <Button className="w-full bg-primary hover:bg-primary/90 text-primary-foreground">
+                  <Button variant="default" className="w-full">
                     Get Quote
                     <ArrowRight className="ml-2 h-4 w-4" />
                   </Button>

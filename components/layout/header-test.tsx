@@ -3,7 +3,6 @@
 import React, { useState } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { motion } from 'framer-motion';
 import { Button } from '@/components/ui/button';
 import {
   NavigationMenu,
@@ -25,9 +24,7 @@ import {
 import { Container } from '@/components/ui/container';
 import {
   Menu,
-  X,
   ChevronDown,
-  Home,
   Users,
   Settings,
   FileText,

@@ -7,6 +7,7 @@ import { Breadcrumb } from '@/components/ui/breadcrumb';
 import { Card, CardContent } from '@/components/ui/card';
 import { Container } from '@/components/ui/container';
 import { PageHero } from '@/components/ui/page-hero';
+import { SectionHeader } from '@/components/ui/section-header';
 import { Timeline, TimelineMobile } from '@/components/ui/timeline';
 import { aboutLeadershipQuotes } from '@/lib/data/about-overview-data';
 import { milestones } from '@/lib/data/about-data';
@@ -21,22 +22,15 @@ export default function OurStoryPage() {
   return (
     <>
       <PageHero
-        title="A Journey Fueled by Community-Centered Innovation"
-        eyebrow="Our Story"
+        description="Community-Centered Innovation Since Day One"
         backgroundImage="/images/about/acob-team.webp?height=800&width=1600"
-      >
-        {/* <p className="max-w-3xl text-balance text-lg text-white/90 md:text-xl">
-          From street lighting origins to hybrid mini-grids and productive-use energy
-          hubs, ACOB Lighting grows by listening to communities and delivering bankable
-          infrastructure that evolves with their needs.
-        </p> */}
-      </PageHero>
+      />
 
       <Container>
         <Breadcrumb items={breadcrumbItems} className="mb-10" />
 
         <section className="mb-16 grid gap-12 lg:grid-cols-[1.1fr_0.9fr]">
-          <div className="space-y-8 rounded-3xl border border-border bg-card/80 p-4 sm:p-6 xl:p-8 shadow-sm">
+          <Card className="space-y-8 rounded-3xl border border-border bg-surface p-4 sm:p-6 xl:p-8 shadow-sm">
             <span className="inline-flex items-center rounded-full border border-border px-3 py-1 text-xs font-semibold uppercase tracking-[0.2em] text-muted-foreground">
               Foundations
             </span>
@@ -69,7 +63,7 @@ export default function OurStoryPage() {
                 ensure long-term reliability.
               </p>
             </div>
-          </div>
+          </Card>
 
           <aside className="space-y-6">
             <Card className="rounded-3xl border border-primary/30 bg-primary/5 p-4 sm:p-6 xl:p-8 text-foreground">
@@ -89,7 +83,7 @@ export default function OurStoryPage() {
               </div>
             </Card>
 
-            <Card className="rounded-3xl border border-border bg-card/80 p-4 sm:p-6 xl:p-8 shadow-sm">
+            <Card className="rounded-3xl border border-border bg-surface p-4 sm:p-6 xl:p-8 shadow-sm">
               <CardContent className="p-0">
                 <h3 className="text-lg font-semibold text-foreground">
                   Quick Facts
@@ -122,19 +116,13 @@ export default function OurStoryPage() {
           </aside>
         </section>
 
-        <section className="mb-16 rounded-3xl border border-border bg-card/80 p-4 sm:p-6 xl:p-8 shadow-sm">
-          <div className="mb-10 flex flex-col gap-4 text-center">
-            <span className="mx-auto inline-flex items-center rounded-full border border-border px-3 py-1 text-xs font-semibold uppercase tracking-[0.3em] text-muted-foreground">
-              Strategic Inflection Points
-            </span>
-            <h3 className="text-3xl font-semibold text-foreground md:text-4xl">
-              Milestones that shaped our growth
-            </h3>
-            <p className="mx-auto max-w-3xl text-lg text-muted-foreground">
-              Each stage in our evolution has expanded the scale, reliability,
-              and impact of the energy infrastructure we deliver across Nigeria.
-            </p>
-          </div>
+        <section className="mb-16 rounded-3xl border border-border bg-surface p-4 sm:p-6 xl:p-8 shadow-sm">
+          <SectionHeader
+            badge="Strategic Inflection Points"
+            title="Milestones that shaped our growth"
+            description="Each stage in our evolution has expanded the scale, reliability, and impact of the energy infrastructure we deliver across Nigeria."
+            className="mb-10"
+          />
 
           <div className="hidden md:block">
             <Timeline items={milestones} />
@@ -163,7 +151,7 @@ export default function OurStoryPage() {
             {aboutMediaFeatures.slice(0, 2).map(feature => (
               <Card
                 key={feature.title}
-                className="group overflow-hidden rounded-3xl border border-border bg-card/80 shadow-sm transition-all duration-500 hover:-translate-y-1 hover:shadow-lg"
+                className="group overflow-hidden rounded-3xl border border-border bg-surface shadow-sm transition-all duration-500 hover:-translate-y-1 hover:shadow-lg"
               >
                 <div className="relative aspect-[16/9] w-full overflow-hidden">
                   <ImageWithFallback

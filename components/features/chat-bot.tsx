@@ -43,19 +43,19 @@ const formatMessage = (content: string) => {
   // Convert URLs to clickable links
   formatted = formatted.replace(
     /(https?:\/\/[^\s<]+)/g,
-    '<a href="$1" target="_blank" rel="noopener noreferrer" class="text-blue-600 hover:text-blue-800 underline">$1</a>'
+    '<a href="$1" target="_blank" rel="noopener noreferrer" class="text-blue-600 hover:text-blue-800 underline">$1</a>',
   );
 
   // Convert email addresses
   formatted = formatted.replace(
     /([a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,})/g,
-    '<a href="mailto:$1" class="text-blue-600 hover:text-blue-800 underline">$1</a>'
+    '<a href="mailto:$1" class="text-blue-600 hover:text-blue-800 underline">$1</a>',
   );
 
   // Convert phone numbers
   formatted = formatted.replace(
     /(\d{4}\s?\d{3}\s?\d{4})/g,
-    '<a href="tel:$1" class="text-blue-600 hover:text-blue-800 underline">$1</a>'
+    '<a href="tel:$1" class="text-blue-600 hover:text-blue-800 underline">$1</a>',
   );
 
   // Convert line breaks
@@ -84,7 +84,7 @@ const getCurrentTime = () => {
 export function ChatBot() {
   const [isOpen, setIsOpen] = useState(false);
   const [navigationRoutes, setNavigationRoutes] = useState<Map<string, string>>(
-    new Map()
+    new Map(),
   );
   const [messageCount, setMessageCount] = useState(0);
   const [rateLimitReached, setRateLimitReached] = useState(false);
@@ -710,7 +710,7 @@ export function ChatBot() {
                           if (!rateLimitReached) {
                             // Trigger form submission manually
                             const form = document.getElementById(
-                              'chat-form'
+                              'chat-form',
                             ) as HTMLFormElement;
                             if (form) {
                               const submitEvent = new Event('submit', {
