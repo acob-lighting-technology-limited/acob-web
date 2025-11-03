@@ -52,7 +52,7 @@ export default function ProjectsClient({
   const updateFilters = async (
     newSearch: string,
     newState: string,
-    newPage: number = 1
+    newPage: number = 1,
   ) => {
     setIsLoading(true);
 
@@ -341,7 +341,7 @@ export default function ProjectsClient({
                       <Image
                         src={applySanityImagePreset(
                           project.projectImage,
-                          'card'
+                          'card',
                         )}
                         alt={project.title}
                         fill
@@ -372,7 +372,7 @@ export default function ProjectsClient({
                     </div>
                     <div className="mt-auto">
                       <Link href={`/projects/${project.slug.current}`}>
-                        <Button className="w-full bg-primary hover:bg-primary/90 text-primary-foreground">
+                        <Button variant="default" className="w-full">
                           View Project
                           <ArrowRight className="ml-2 h-4 w-4" />
                         </Button>
@@ -390,7 +390,7 @@ export default function ProjectsClient({
                   Showing {(pagination.currentPage - 1) * pagination.limit + 1}-
                   {Math.min(
                     pagination.currentPage * pagination.limit,
-                    pagination.totalCount
+                    pagination.totalCount,
                   )}{' '}
                   of {pagination.totalCount} projects
                 </div>
@@ -400,7 +400,7 @@ export default function ProjectsClient({
                       <PaginationPrevious
                         onClick={() =>
                           handlePageChange(
-                            Math.max(1, pagination.currentPage - 1)
+                            Math.max(1, pagination.currentPage - 1),
                           )
                         }
                         className={
@@ -414,7 +414,7 @@ export default function ProjectsClient({
 
                     {Array.from(
                       { length: pagination.totalPages },
-                      (_, i) => i + 1
+                      (_, i) => i + 1,
                     ).map(page => {
                       // Show first page, last page, current page, and pages around current
                       if (
@@ -454,8 +454,8 @@ export default function ProjectsClient({
                           handlePageChange(
                             Math.min(
                               pagination.totalPages,
-                              pagination.currentPage + 1
-                            )
+                              pagination.currentPage + 1,
+                            ),
                           )
                         }
                         className={
@@ -519,7 +519,7 @@ export default function ProjectsClient({
                                 return false;
                               }
                               const projectState = extractStateFromLocation(
-                                p.location
+                                p.location,
                               );
                               return projectState === state;
                             }).length

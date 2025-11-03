@@ -21,7 +21,7 @@ export default async function GalleryPage() {
 
   // Get actual categories from projects and convert to title case
   const actualCategories = Array.from(
-    new Set(projects.map((p: Project) => p.category))
+    new Set(projects.map((p: Project) => p.category)),
   ).filter(Boolean);
 
   // Convert kebab-case to title case
@@ -46,7 +46,7 @@ export default async function GalleryPage() {
   // Process projects to extract gallery images by category
   const galleryData = projectCategories.map(category => {
     const categoryProjects = projects.filter(
-      (project: Project) => project.category === category
+      (project: Project) => project.category === category,
     );
 
     // Extract all images from projects in this category
@@ -74,14 +74,14 @@ export default async function GalleryPage() {
   // Calculate total stats
   const totalImages = galleryData.reduce(
     (sum, cat) => sum + cat.totalImages,
-    0
+    0,
   );
   const totalProjects = projects.length;
 
   return (
     <>
       <PageHero
-        title="Media Gallery"
+        description="Explore Our Project Portfolio"
         backgroundImage="/images/services/header.webp?height=400&width=1200"
       />
 

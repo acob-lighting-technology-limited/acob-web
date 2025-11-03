@@ -33,7 +33,7 @@ const nextConfig = {
           analyzerMode: 'static',
           reportFilename: 'bundle-report.html',
           openAnalyzer: true,
-        })
+        }),
       );
       return config;
     },

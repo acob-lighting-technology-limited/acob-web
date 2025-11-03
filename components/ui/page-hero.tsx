@@ -1,11 +1,12 @@
 'use client';
 import type React from 'react';
+import { usePathname } from 'next/navigation';
 import { Container } from '@/components/ui/container';
 import { MaskText } from '../animations/MaskText';
 
 interface PageHeroProps {
-  title: string;
-  eyebrow?: string;
+  title?: string; // Now optional, auto-generated from route
+  description: string; // Short 1-line description (old title)
   backgroundImage: string;
   backgroundPosition?: string;
   align?: 'left' | 'center' | 'right';
@@ -13,17 +14,81 @@ interface PageHeroProps {
   children?: React.ReactNode;
 }
 
+// Helper function to generate title from pathname
+function generateTitleFromPath(pathname: string): string {
+  const segments = pathname.split('/').filter(Boolean);
+
+  if (segments.length === 0) {
+    return 'Home';
+  }
+
+  // Get the last segment or second-to-last if it's a specific page
+  const lastSegment = segments[segments.length - 1];
+
+  // Common route mappings
+  const routeMap: Record<string, string> = {
+    // About pages
+    about: 'About Us',
+    mission: 'Mission & Vision',
+    'our-story': 'Our Story',
+    team: 'Our Team',
+    certifications: 'Certifications & Awards',
+
+    // Contact pages
+    contact: 'Contact Us',
+    quote: 'Request a Quote',
+    careers: 'Careers',
+    support: 'Customer Support',
+    locations: 'Office Locations',
+
+    // Projects
+    projects: 'Our Project',
+    residential: 'Residential Projects',
+    commercial: 'Commercial Projects',
+    industrial: 'Industrial Projects',
+    'mini-grid': 'Mini-Grid Projects',
+    'street-lighting': 'Street Lighting Projects',
+
+    // Services
+    services: 'Our Services',
+
+    // Updates
+    updates: 'Updates & News',
+    latest: 'Latest Updates',
+    press: 'Press Releases',
+    'case-studies': 'Case Studies',
+    gallery: 'Media Gallery',
+
+    // Legal
+    'privacy-policy': 'Privacy Policy',
+    'terms-of-service': 'Terms of Service',
+  };
+
+  // Check if we have a mapping
+  if (routeMap[lastSegment]) {
+    return routeMap[lastSegment];
+  }
+
+  // Format the segment as title case
+  return lastSegment
+    .split('-')
+    .map(word => word.charAt(0).toUpperCase() + word.slice(1))
+    .join(' ');
+}
+
 export function PageHero({
   title,
-  eyebrow,
+  description,
   backgroundImage,
   backgroundPosition = 'bg-center',
   align = 'left',
   className = '',
   children,
 }: PageHeroProps) {
-  // Truncate title to max 60 characters
-  const truncatedTitle = title.length > 60 ? `${title.substring(0, 60)}...` : title;
+  const pathname = usePathname();
+
+  // Use provided title or auto-generate from pathname
+  const displayTitle = title || generateTitleFromPath(pathname);
 
   const alignmentClass = {
     left: 'text-left items-start',
@@ -49,16 +114,20 @@ export function PageHero({
         noPadding
         className={`relative z-10 w-full h-full flex items-end pb-10 px-4 justify-${align}`}
       >
-        <div className={`text-white ${alignmentClass} max-w-4xl`}>
-          {eyebrow && (
-            <p className="text-sm md:text-base font-medium text-white/80 mb-2 uppercase tracking-wider">
-              {eyebrow}
+        <div className={`text-white ${alignmentClass} max-w-5xl space-y-3`}>
+          {/* Title with background */}
+          <div className="inline-block">
+            <p className="text-sm md:text-base font-semibold text-white bg-primary/90 px-4 py-2 rounded-md uppercase tracking-wider backdrop-blur-sm">
+              {displayTitle}
             </p>
-          )}
-          <MaskText
-            phrases={[truncatedTitle]}
-            className="text-4xl md:text-7xl font-bold"
-          />
+          </div>
+
+          {/* Description (old title) */}
+
+          <MaskText className="text-3xl md:text-4xl lg:text-5xl font-bold line-clamp-2">
+            {description}
+          </MaskText>
+
           {children && <div className="mt-4">{children}</div>}
         </div>
       </Container>

@@ -24,11 +24,11 @@ export function Timeline({ items, className }: TimelineProps) {
       {/* Vertical line */}
       <div className="absolute left-1/2 transform -translate-x-1/2 w-0.5 bg-gradient-to-b from-primary/20 via-primary to-primary/20 h-full " />
 
-      <div className="space-y-6">
+      <div className="space-y-3">
         {items.map((item, index) => {
           const IconComponent = LucideIcons[
             item.icon as keyof typeof LucideIcons
-          ] as React.ComponentType<any>;
+          ] as React.ComponentType<{ className?: string }>;
           const isEven = index % 2 === 0;
 
           return (
@@ -40,14 +40,14 @@ export function Timeline({ items, className }: TimelineProps) {
               transition={{ duration: 0.6, delay: index * 0.1 }}
               className={cn(
                 'relative flex items-center',
-                isEven ? 'flex-row' : 'flex-row-reverse'
+                isEven ? 'flex-row' : 'flex-row-reverse',
               )}
             >
               {/* Content Card */}
               <div
                 className={cn(
                   'flex-1 max-w-sm',
-                  isEven ? 'pr-6 text-right' : 'pl-6 text-left'
+                  isEven ? 'pr-6 text-right' : 'pl-6 text-left',
                 )}
               >
                 <Card className="group hover:shadow-lg transition-all duration-500 border-l-4 border-l-primary/20 hover:border-l-primary">
@@ -55,7 +55,7 @@ export function Timeline({ items, className }: TimelineProps) {
                     <div
                       className={cn(
                         'flex items-center gap-3 mb-3',
-                        isEven ? 'justify-end' : 'justify-start'
+                        isEven ? 'justify-end' : 'justify-start',
                       )}
                     >
                       <div className="w-8 h-8 bg-primary/10 rounded-full flex items-center justify-center group-hover:bg-primary/20 transition-colors">
@@ -96,11 +96,11 @@ export function TimelineMobile({ items, className }: TimelineProps) {
       {/* Vertical line */}
       <div className="absolute left-6 w-0.5 bg-gradient-to-b from-primary/20 via-primary to-primary/20 h-full" />
 
-      <div className="space-y-8">
+      <div className="space-y-4">
         {items.map((item, index) => {
           const IconComponent = LucideIcons[
             item.icon as keyof typeof LucideIcons
-          ] as React.ComponentType<any>;
+          ] as React.ComponentType<{ className?: string }>;
 
           return (
             <motion.div

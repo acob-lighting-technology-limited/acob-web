@@ -39,7 +39,7 @@ export default async function CareersPage() {
   return (
     <>
       <PageHero
-        title="Careers at ACOB Lighting"
+        description="Join Our Mission to Power Nigeria"
         backgroundImage="/images/contact/careers.webp?height=400&width=1200"
       >
         {/* <MaskText
@@ -58,7 +58,7 @@ export default async function CareersPage() {
           <div className="lg:col-span-2 lg:space-y-4">
             <Card className="border shadow-md border-border bg-surface">
               <CardContent className="p-4 sm:p-6 xl:p-8">
-                <h2 className="text-3xl font-bold mb-6 text-foreground">
+                <h2 className="text-3xl md:text-4xl font-bold mb-6 text-foreground">
                   Shape the Future of Energy with Us
                 </h2>
                 <div className="text-muted-foreground leading-relaxed space-y-4 text-lg">
@@ -83,7 +83,7 @@ export default async function CareersPage() {
 
             <Card className="border shadow-md border-border bg-surface">
               <CardContent className="p-4 sm:p-6 xl:p-8">
-                <h2 className="text-3xl font-bold mb-6 text-foreground">
+                <h2 className="text-3xl md:text-4xl font-bold mb-6 text-foreground">
                   Why Work at ACOB Lighting?
                 </h2>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -114,7 +114,7 @@ export default async function CareersPage() {
 
             <Card className="border shadow-md border-border bg-surface">
               <CardContent className="p-4 sm:p-6 xl:p-8">
-                <h2 className="text-3xl font-bold mb-6 text-foreground">
+                <h2 className="text-3xl md:text-4xl font-bold mb-6 text-foreground">
                   {jobPostings.length > 0
                     ? 'Current Openings'
                     : 'Career Opportunities'}
@@ -122,7 +122,16 @@ export default async function CareersPage() {
 
                 {jobPostings.length > 0 ? (
                   <div className="space-y-6">
-                    {jobPostings.map((job: any) => (
+                    {jobPostings.map((job: {
+                      _id: string;
+                      title: string;
+                      department?: string;
+                      location?: string;
+                      employmentType?: string;
+                      description?: string;
+                      applicationDeadline?: string;
+                      slug: { current: string };
+                    }) => (
                       <div
                         key={job._id}
                         className="p-6 rounded-xl border border-border bg-muted/30 hover:bg-muted/50 transition-colors duration-500"
@@ -159,7 +168,7 @@ export default async function CareersPage() {
 
                         <div className="flex flex-col sm:flex-row gap-3">
                           <Link href={`/contact/careers/${job.slug.current}`}>
-                            <Button className="bg-primary hover:bg-primary/90 text-primary-foreground">
+                            <Button variant="default">
                               View Details
                               <ArrowRight className="ml-2 h-4 w-4" />
                             </Button>
@@ -170,7 +179,7 @@ export default async function CareersPage() {
                               <span>
                                 Deadline:{' '}
                                 {new Date(
-                                  job.applicationDeadline
+                                  job.applicationDeadline,
                                 ).toLocaleDateString()}
                               </span>
                             </div>
@@ -193,7 +202,7 @@ export default async function CareersPage() {
                       </p>
                     </div>
                     <Link href="/contact">
-                      <Button className="bg-primary hover:bg-primary/90 text-primary-foreground px-8 py-3 text-lg">
+                      <Button variant="default" size="lg">
                         Contact Us
                         <ArrowRight className="ml-2 h-5 w-5" />
                       </Button>

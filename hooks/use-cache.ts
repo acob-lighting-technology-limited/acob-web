@@ -16,7 +16,7 @@ interface CacheOptions {
 export function useCache<T>(
   key: string,
   fetcher: () => Promise<T>,
-  options: CacheOptions = {}
+  options: CacheOptions = {},
 ) {
   const { ttl = 5 * 60 * 1000, maxSize = 100 } = options;
   const [data, setData] = useState<T | null>(null);
@@ -46,7 +46,7 @@ export function useCache<T>(
       }
       return null;
     },
-    [cleanupCache]
+    [cleanupCache],
   );
 
   // Set data in cache
@@ -68,7 +68,7 @@ export function useCache<T>(
         ttl: customTtl || ttl,
       });
     },
-    [cleanupCache, maxSize, ttl]
+    [cleanupCache, maxSize, ttl],
   );
 
   // Fetch data with caching
@@ -100,7 +100,7 @@ export function useCache<T>(
         setLoading(false);
       }
     },
-    [key, fetcher, getFromCache, setInCache]
+    [key, fetcher, getFromCache, setInCache],
   );
 
   // Invalidate cache for specific key
@@ -109,7 +109,7 @@ export function useCache<T>(
       const keyToInvalidate = cacheKey || key;
       cacheRef.current.delete(keyToInvalidate);
     },
-    [key]
+    [key],
   );
 
   // Clear all cache
@@ -140,7 +140,7 @@ export function useApiCache<T>(
     headers?: Record<string, string>;
     method?: 'GET' | 'POST' | 'PUT' | 'DELETE';
     body?: any;
-  } = {}
+  } = {},
 ) {
   const { headers = {}, method = 'GET', body, ...cacheOptions } = options;
 

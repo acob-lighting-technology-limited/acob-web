@@ -50,7 +50,7 @@ async function findBrokenAssets() {
         console.log(`   Valid Images: ${project.validImageCount}`);
         console.log(`   Broken Images: ${project.brokenImages.length}`);
         console.log(
-          `   Broken Image Keys: ${project.brokenImages.map(img => img._key).join(', ')}`
+          `   Broken Image Keys: ${project.brokenImages.map(img => img._key).join(', ')}`,
         );
         console.log('');
       }
@@ -94,7 +94,7 @@ async function cleanBrokenAssets() {
         // Update the project to remove broken assets
         await client.patch(project._id).set({ images: validImages }).commit();
 
-        console.log(`   ✅ Fixed!\n`);
+        console.log('   ✅ Fixed!\n');
       }
     }
 

@@ -96,7 +96,8 @@ export default async function JobPostingPage({ params }: JobPostingPageProps) {
   return (
     <>
       <PageHero
-        title={job.title}
+        title="Careers"
+        description={job.title}
         backgroundImage="/images/contact/careers.webp?height=400&width=1200"
       />
 
@@ -110,7 +111,7 @@ export default async function JobPostingPage({ params }: JobPostingPageProps) {
             <Card className="border shadow-md border-border bg-surface">
               <CardContent className="p-4 sm:p-6 xl:p-8">
                 <div className="mb-6">
-                  <h1 className="text-3xl font-bold mb-4 text-foreground">
+                  <h1 className="text-3xl md:text-4xl font-bold mb-4 text-foreground">
                     {job.title}
                   </h1>
 
@@ -158,7 +159,7 @@ export default async function JobPostingPage({ params }: JobPostingPageProps) {
                             <li key={index} className="leading-relaxed">
                               {requirement}
                             </li>
-                          )
+                          ),
                         )}
                       </ul>
                     </div>
@@ -172,7 +173,7 @@ export default async function JobPostingPage({ params }: JobPostingPageProps) {
                         <span>
                           <strong>Application Deadline:</strong>{' '}
                           {new Date(
-                            job.applicationDeadline
+                            job.applicationDeadline,
                           ).toLocaleDateString()}
                         </span>
                       </div>

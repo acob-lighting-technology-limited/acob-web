@@ -161,7 +161,8 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
   return (
     <>
       <PageHero
-        title={project.title}
+        title="Our Projects"
+        description={project.title}
         backgroundImage={project.projectImage || '/placeholder.svg'}
       />
 
@@ -250,7 +251,7 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
                   Get a customized solution for your energy needs.
                 </p>
                 <Link href="/contact/quote">
-                  <Button className="w-full bg-primary hover:bg-primary/90 text-primary-foreground mb-2">
+                  <Button variant="default" className="w-full mb-2">
                     Get Quote
                     <ArrowRight className="ml-1 h-4 w-4" />
                   </Button>
