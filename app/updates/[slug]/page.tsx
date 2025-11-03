@@ -21,6 +21,7 @@ import { Card, CardContent } from '@/components/ui/card';
 import { ArrowRight } from 'lucide-react';
 import { ShareCopy } from '@/components/updates/share-copy';
 import { CommentForm } from '@/components/updates/comment-form';
+import { PageHero } from '@/components/ui/page-hero';
 import { Metadata } from 'next';
 
 interface UpdatePostPageProps {
@@ -169,8 +170,15 @@ export default async function UpdatePostPage({ params }: UpdatePostPageProps) {
   ];
 
   return (
-    <Container className="px-4 py-8">
-      <Breadcrumb items={breadcrumbItems} className="mb-8" />
+    <>
+      <PageHero
+        title="Updates"
+        description={post.title}
+        backgroundImage={post.featuredImage || '/images/hero-bg.webp'}
+      />
+
+      <Container className="px-4 py-8">
+        <Breadcrumb items={breadcrumbItems} className="mb-8" />
 
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
         {/* Main Content */}
@@ -247,7 +255,13 @@ export default async function UpdatePostPage({ params }: UpdatePostPageProps) {
                     Related Updates
                   </h2>
                   <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
-                    {related.map((item: any) => {
+                    {related.map((item: {
+                      _id: string;
+                      slug?: { current?: string };
+                      title?: string;
+                      featuredImage?: string;
+                      publishedAt?: string;
+                    }) => {
                       const href = item?.slug?.current
                         ? `/updates/${item.slug.current}`
                         : null;
@@ -256,7 +270,7 @@ export default async function UpdatePostPage({ params }: UpdatePostPageProps) {
                           <div className="aspect-[16/9] overflow-hidden">
                             <Image
                               src={item.featuredImage || '/placeholder.svg'}
-                              alt={item.title}
+                              alt={item.title || 'Related update'}
                               width={1200}
                               height={675}
                               className="w-full h-full object-cover"
@@ -264,7 +278,7 @@ export default async function UpdatePostPage({ params }: UpdatePostPageProps) {
                           </div>
                           <CardContent className="p-4">
                             <div className="text-sm text-muted-foreground mb-2">
-                              {new Date(item.publishedAt).toLocaleDateString()}
+                              {item.publishedAt ? new Date(item.publishedAt).toLocaleDateString() : ''}
                             </div>
                             <h4 className="text-xs font-semibold text-foreground leading-snug line-clamp-2">
                               {item.title}
@@ -308,7 +322,7 @@ export default async function UpdatePostPage({ params }: UpdatePostPageProps) {
                       .charAt(0)
                       .toUpperCase();
                     const dateStr = new Date(
-                      comment.createdAt
+                      comment.createdAt,
                     ).toLocaleDateString(undefined, {
                       year: 'numeric',
                       month: 'short',
@@ -416,5 +430,6 @@ export default async function UpdatePostPage({ params }: UpdatePostPageProps) {
         </div>
       </div>
     </Container>
+    </>
   );
 }

@@ -21,7 +21,7 @@ export function PartnersSection() {
       }
 
       const marqueeContainer = marqueeRef.current.querySelector(
-        '[class*="marquee-container"]'
+        '[class*="marquee-container"]',
       );
       if (!marqueeContainer) {
         return;

@@ -28,7 +28,7 @@ export const FormInput = forwardRef<HTMLInputElement, FormFieldProps>(
         {error && <p className="text-xs text-destructive">{error}</p>}
       </div>
     );
-  }
+  },
 );
 
 FormInput.displayName = 'FormInput';
@@ -52,7 +52,7 @@ export const FormTextarea = forwardRef<HTMLTextAreaElement, FormTextareaProps>(
         {error && <p className="text-xs text-destructive">{error}</p>}
       </div>
     );
-  }
+  },
 );
 
 FormTextarea.displayName = 'FormTextarea';

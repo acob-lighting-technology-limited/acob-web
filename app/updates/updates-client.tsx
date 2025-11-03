@@ -218,7 +218,7 @@ export default function UpdatesClient({
                         post.featuredImage
                           ? applySanityImagePreset(
                               post.featuredImage,
-                              'featured'
+                              'featured',
                             )
                           : '/placeholder.svg'
                       }
@@ -265,7 +265,7 @@ export default function UpdatesClient({
                   Showing {(pagination.currentPage - 1) * pagination.limit + 1}-
                   {Math.min(
                     pagination.currentPage * pagination.limit,
-                    pagination.totalCount
+                    pagination.totalCount,
                   )}{' '}
                   of {pagination.totalCount} posts
                 </div>
@@ -275,7 +275,7 @@ export default function UpdatesClient({
                       <PaginationPrevious
                         onClick={() =>
                           handlePageChange(
-                            Math.max(1, pagination.currentPage - 1)
+                            Math.max(1, pagination.currentPage - 1),
                           )
                         }
                         className={
@@ -289,7 +289,7 @@ export default function UpdatesClient({
 
                     {Array.from(
                       { length: pagination.totalPages },
-                      (_, i) => i + 1
+                      (_, i) => i + 1,
                     ).map(page => {
                       // Show first page, last page, current page, and pages around current
                       if (
@@ -329,8 +329,8 @@ export default function UpdatesClient({
                           handlePageChange(
                             Math.min(
                               pagination.totalPages,
-                              pagination.currentPage + 1
-                            )
+                              pagination.currentPage + 1,
+                            ),
                           )
                         }
                         className={

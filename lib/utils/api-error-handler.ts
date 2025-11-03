@@ -1,8 +1,7 @@
 
 import { NextResponse } from 'next/server';
 
-
-
+/* eslint-disable no-unused-vars */
 export enum ApiErrorCode {
   BAD_REQUEST = 'BAD_REQUEST',
   UNAUTHORIZED = 'UNAUTHORIZED',
@@ -14,6 +13,7 @@ export enum ApiErrorCode {
   SERVICE_UNAVAILABLE = 'SERVICE_UNAVAILABLE',
   EXTERNAL_API_ERROR = 'EXTERNAL_API_ERROR',
 }
+/* eslint-enable no-unused-vars */
 
 export interface ApiError {
   code: ApiErrorCode;

@@ -30,7 +30,7 @@ export function SectionHeader({
       className={cn(
         'flex flex-col gap-3',
         isCenter && 'items-center text-center',
-        className
+        className,
       )}
     >
       {badge && (
@@ -38,7 +38,7 @@ export function SectionHeader({
           className={cn(
             'inline-flex items-center rounded-full border px-3 py-1 text-xs font-semibold uppercase tracking-[0.2em]',
             badgeClasses,
-            isCenter && 'justify-center mx-auto'
+            isCenter && 'justify-center mx-auto',
           )}
         >
           {badge}
@@ -55,7 +55,7 @@ export function SectionHeader({
         <p
           className={cn(
             'text-base leading-relaxed text-muted-foreground md:text-lg',
-            isCenter && 'max-w-3xl'
+            isCenter && 'max-w-3xl',
           )}
         >
           {description}

@@ -6,7 +6,7 @@ export function useLenis() {
 
   useEffect(() => {
     // Only initialize Lenis on client side
-    if (typeof window === 'undefined') return;
+    if (typeof window === 'undefined') {return;}
 
     // Initialize Lenis with performance optimizations
     lenisRef.current = new Lenis({

@@ -11,19 +11,19 @@ const token = process.env.SANITY_API_TOKEN;
 // Validate required environment variables
 if (!projectId) {
   throw new Error(
-    'SANITY_STUDIO_PROJECT_ID or NEXT_PUBLIC_SANITY_PROJECT_ID is required'
+    'SANITY_STUDIO_PROJECT_ID or NEXT_PUBLIC_SANITY_PROJECT_ID is required',
   );
 }
 
 if (!dataset) {
   throw new Error(
-    'SANITY_STUDIO_DATASET or NEXT_PUBLIC_SANITY_DATASET is required'
+    'SANITY_STUDIO_DATASET or NEXT_PUBLIC_SANITY_DATASET is required',
   );
 }
 
 if (!token) {
   console.warn(
-    'Sanity API token not found. Some features may not work properly.'
+    'Sanity API token not found. Some features may not work properly.',
   );
 }
 
@@ -178,7 +178,7 @@ export async function getUpdatePost(slug: string) {
       content
     }
   `,
-    { slug }
+    { slug },
   );
 }
 
@@ -186,7 +186,7 @@ export async function getUpdatePost(slug: string) {
 export async function getRelatedUpdatePosts(
   category: string,
   currentSlug: string,
-  limit: number = 3
+  limit: number = 3,
 ) {
   return await client.fetch(
     `
@@ -202,7 +202,7 @@ export async function getRelatedUpdatePosts(
       "featuredImage": featuredImage.asset->url + "?w=800&h=600&fit=crop&auto=format&q=75"
     }
   `,
-    { category, currentSlug, limit }
+    { category, currentSlug, limit },
   );
 }
 
@@ -218,7 +218,7 @@ export async function getApprovedCommentsForPost(postId: string) {
       website
     }
   `,
-    { postId }
+    { postId },
   );
 }
 
@@ -480,7 +480,7 @@ export async function getProject(slug: string) {
         }
       }
     `,
-      { slug }
+      { slug },
     );
 
     if (!project) {
@@ -519,7 +519,7 @@ export async function getProjectsByCategory(category: string) {
         }
       }
     `,
-      { category }
+      { category },
     );
 
     return projects;
@@ -533,7 +533,7 @@ export async function getProjectsByCategory(category: string) {
 export async function getRelatedProjects(
   category: string,
   currentSlug: string,
-  limit: number = 3
+  limit: number = 3,
 ) {
   try {
     const relatedProjects = await client.fetch(
@@ -551,7 +551,7 @@ export async function getRelatedProjects(
         }
       }
     `,
-      { category, currentSlug, limit }
+      { category, currentSlug, limit },
     );
 
     return relatedProjects;
@@ -603,7 +603,7 @@ export async function getJobPosting(slug: string) {
         slug
       }
     `,
-      { slug }
+      { slug },
     );
 
     if (!job) {
@@ -637,7 +637,7 @@ export async function testSanityConnection() {
     const result = await client.fetch('*[_type == "project"][0...1]');
     console.log(
       'Sanity connection successful:',
-      result.length > 0 ? 'Found projects' : 'No projects found'
+      result.length > 0 ? 'Found projects' : 'No projects found',
     );
     return true;
   } catch (error) {

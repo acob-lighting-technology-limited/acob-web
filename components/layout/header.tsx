@@ -114,7 +114,7 @@ const MobileMenu: React.FC<MobileMenuProps> = ({
   logoSrc,
 }) => {
   const [expandedItems, setExpandedItems] = useState<Record<string, boolean>>(
-    {}
+    {},
   );
 
   const toggleExpanded = (itemName: string) => {

@@ -13,11 +13,11 @@ export function cn(...inputs: ClassValue[]) {
 export function extractTextFromPortableText(content: unknown[]): string {
   if (!Array.isArray(content)) {return '';}
 
-  return content
-    .map((block: any) => {
+  return (content as Array<{ _type?: string; children?: Array<{ text?: string }> }>)
+    .map((block) => {
       if (block._type === 'block' && block.children) {
         return block.children
-          .map((child: any) => child.text || '')
+          .map((child) => child.text || '')
           .join('');
       }
       return '';

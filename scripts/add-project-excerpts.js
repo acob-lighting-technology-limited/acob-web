@@ -29,8 +29,8 @@ const client = createClient({
 
 // Helper function to extract text from Portable Text content
 function extractTextFromPortableText(content) {
-  if (!Array.isArray(content)) return '';
-  
+  if (!Array.isArray(content)) {return '';}
+
   return content
     .map((block) => {
       if (block._type === 'block' && block.children) {
@@ -47,7 +47,7 @@ function extractTextFromPortableText(content) {
 async function addProjectExcerpts() {
   try {
     console.log('Fetching existing projects...');
-    
+
     // Get all projects that don't have excerpts
     const projects = await client.fetch(`
       *[_type == "project" && !defined(excerpt)] {

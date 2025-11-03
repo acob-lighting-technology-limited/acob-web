@@ -84,8 +84,8 @@ export default async function ProjectsPage({
       allProjects
         .map((p: Project) => p.location)
         .filter(Boolean)
-        .map(extractStateFromLocation)
-    )
+        .map(extractStateFromLocation),
+    ),
   ).sort() as string[];
 
   const breadcrumbItems = [{ label: 'Home', href: '/' }, { label: 'Projects' }];

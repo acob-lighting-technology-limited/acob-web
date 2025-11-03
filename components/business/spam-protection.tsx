@@ -4,7 +4,8 @@ import { useState, useEffect } from 'react';
 
 interface SpamProtectionProps {
   children: React.ReactNode;
-  onValidation: (_valid: boolean) => void;
+  // eslint-disable-next-line no-unused-vars
+  onValidation: (valid: boolean) => void;
 }
 
 export function SpamProtection({

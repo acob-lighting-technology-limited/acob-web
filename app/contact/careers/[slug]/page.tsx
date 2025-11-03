@@ -159,7 +159,7 @@ export default async function JobPostingPage({ params }: JobPostingPageProps) {
                             <li key={index} className="leading-relaxed">
                               {requirement}
                             </li>
-                          )
+                          ),
                         )}
                       </ul>
                     </div>
@@ -173,7 +173,7 @@ export default async function JobPostingPage({ params }: JobPostingPageProps) {
                         <span>
                           <strong>Application Deadline:</strong>{' '}
                           {new Date(
-                            job.applicationDeadline
+                            job.applicationDeadline,
                           ).toLocaleDateString()}
                         </span>
                       </div>
