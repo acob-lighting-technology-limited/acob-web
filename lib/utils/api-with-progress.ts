@@ -10,7 +10,7 @@ interface ApiWithProgressOptions {
 
 export async function apiWithProgress<T>(
   apiCall: () => Promise<T>,
-  options: ApiWithProgressOptions = {}
+  options: ApiWithProgressOptions = {},
 ): Promise<T> {
   const { showProgress = true, onStart, onComplete, onError } = options;
 
@@ -46,7 +46,7 @@ export async function apiWithProgress<T>(
 export async function fetchWithProgress<T>(
   url: string,
   options: RequestInit = {},
-  progressOptions: ApiWithProgressOptions = {}
+  progressOptions: ApiWithProgressOptions = {},
 ): Promise<T> {
   return apiWithProgress(async () => {
     const response = await fetch(url, options);

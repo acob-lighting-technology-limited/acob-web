@@ -13,7 +13,7 @@ const IMAGES_CACHE_FILE = path.join(process.cwd(), 'public', 'preloaded-images.j
 async function preloadImages() {
   try {
     console.log('🔄 Preloading images...');
-    
+
     // In a real implementation, you would call your Sanity API here
     // For now, we'll create a fallback structure
     const fallbackImages = {
@@ -59,10 +59,10 @@ async function preloadImages() {
 
     // Write the cache file
     fs.writeFileSync(IMAGES_CACHE_FILE, JSON.stringify(fallbackImages, null, 2));
-    
+
     console.log('✅ Images preloaded successfully');
     console.log(`📁 Cache file created: ${IMAGES_CACHE_FILE}`);
-    
+
   } catch (error) {
     console.error('❌ Error preloading images:', error);
     process.exit(1);

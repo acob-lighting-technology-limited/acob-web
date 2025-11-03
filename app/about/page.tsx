@@ -110,7 +110,7 @@ export default function AboutPage() {
                       value={metric.value}
                       label={metric.label}
                     />
-                  )
+                  ),
                 )}
               </div>
             </Card>

@@ -11,7 +11,7 @@ const client = createClient({
 async function migrateCategories() {
   try {
     console.log('Starting category migration...');
-    
+
     // Get all update posts
     const posts = await client.fetch(`
       *[_type == "updatePost"] {
@@ -21,23 +21,23 @@ async function migrateCategories() {
         "oldCategory": category
       }
     `);
-    
+
     console.log(`Found ${posts.length} posts to process`);
-    
+
     for (const post of posts) {
       console.log(`Processing post: ${post.title}`);
-      
+
       // If category is null or undefined, set it to 'news' as default
       const newCategory = post.category || 'news';
-      
+
       // Update the post
       await client.patch(post._id)
         .set({ category: newCategory })
         .commit();
-      
+
       console.log(`Updated ${post.title} with category: ${newCategory}`);
     }
-    
+
     console.log('Migration completed successfully!');
   } catch (error) {
     console.error('Migration failed:', error);

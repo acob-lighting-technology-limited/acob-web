@@ -127,7 +127,7 @@ export function ProjectsSectionAlt() {
           i={i}
           title={project.title}
           description={project.description || project.excerpt || ''}
-          images={project.projectImages || []}
+          images={(project.projectImages as { asset: { url: string } }[]) || []}
           location={project.location}
           gradientFrom={project.gradientConfig.from}
           gradientTo={project.gradientConfig.to}

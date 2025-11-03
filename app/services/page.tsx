@@ -28,7 +28,7 @@ export default function ServicesPage() {
         service =>
           service.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
           service.excerpt.toLowerCase().includes(searchQuery.toLowerCase()) ||
-          service.description.toLowerCase().includes(searchQuery.toLowerCase())
+          service.description.toLowerCase().includes(searchQuery.toLowerCase()),
       );
     }
 
@@ -75,7 +75,7 @@ export default function ServicesPage() {
               key={category}
               onClick={() =>
                 setSelectedCategory(
-                  selectedCategory === category ? null : category
+                  selectedCategory === category ? null : category,
                 )
               }
               className={`w-full text-left p-3 rounded-lg transition-colors duration-500 text-sm font-medium border border-border ${
@@ -103,7 +103,7 @@ export default function ServicesPage() {
                       category,
                     ];
                     return servicesData.filter(s =>
-                      targetCategories.includes(s.category)
+                      targetCategories.includes(s.category),
                     ).length;
                   })()}
                   )
@@ -161,7 +161,7 @@ export default function ServicesPage() {
                 key={category}
                 onClick={() =>
                   setSelectedCategory(
-                    selectedCategory === category ? null : category
+                    selectedCategory === category ? null : category,
                   )
                 }
                 className={`w-full text-left p-3 rounded-lg transition-colors duration-500 text-sm font-medium border border-border ${
@@ -189,7 +189,7 @@ export default function ServicesPage() {
                         category,
                       ];
                       return servicesData.filter(s =>
-                        targetCategories.includes(s.category)
+                        targetCategories.includes(s.category),
                       ).length;
                     })()}
                     )

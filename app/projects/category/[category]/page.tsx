@@ -132,8 +132,8 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
       allProjects
         .map((p: Project) => p.location)
         .filter(Boolean)
-        .map(extractStateFromLocation)
-    )
+        .map(extractStateFromLocation),
+    ),
   ).sort() as string[];
 
   const breadcrumbItems = [
@@ -193,7 +193,7 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
                           <Image
                             src={applySanityImagePreset(
                               project.projectImage,
-                              'card'
+                              'card',
                             )}
                             alt={project.title}
                             fill
@@ -277,7 +277,7 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
                                     return false;
                                   }
                                   const projectState = extractStateFromLocation(
-                                    p.location
+                                    p.location,
                                   );
                                   return projectState === state;
                                 }).length

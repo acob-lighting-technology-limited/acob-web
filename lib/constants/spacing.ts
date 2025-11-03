@@ -41,8 +41,8 @@ export const SPACING = {
 // Helper function to get spacing value
 export function getSpacing(
   type: keyof typeof SPACING,
-  variant: string = 'default'
+  variant: string = 'default',
 ): string {
   const spacingGroup = SPACING[type];
-  return (spacingGroup as any)[variant] || (spacingGroup as any).default;
+  return (spacingGroup as Record<string, string>)[variant] || (spacingGroup as Record<string, string>).default;
 }

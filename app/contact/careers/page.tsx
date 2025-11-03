@@ -122,7 +122,16 @@ export default async function CareersPage() {
 
                 {jobPostings.length > 0 ? (
                   <div className="space-y-6">
-                    {jobPostings.map((job: any) => (
+                    {jobPostings.map((job: {
+                      _id: string;
+                      title: string;
+                      department?: string;
+                      location?: string;
+                      employmentType?: string;
+                      description?: string;
+                      applicationDeadline?: string;
+                      slug: { current: string };
+                    }) => (
                       <div
                         key={job._id}
                         className="p-6 rounded-xl border border-border bg-muted/30 hover:bg-muted/50 transition-colors duration-500"
@@ -170,7 +179,7 @@ export default async function CareersPage() {
                               <span>
                                 Deadline:{' '}
                                 {new Date(
-                                  job.applicationDeadline
+                                  job.applicationDeadline,
                                 ).toLocaleDateString()}
                               </span>
                             </div>

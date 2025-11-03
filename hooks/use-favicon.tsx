@@ -9,7 +9,7 @@ export function useFavicon() {
       theme === 'dark' ? '/favicon-dark.ico' : '/favicon-light.ico';
 
     let faviconLink = document.querySelector(
-      "link[rel='icon']"
+      "link[rel='icon']",
     ) as HTMLLinkElement;
 
     if (!faviconLink) {

@@ -67,7 +67,7 @@ const HeroSection = React.memo(function HeroSection({
   const [current, setCurrent] = useState(0);
 
   const plugin = React.useRef(
-    Autoplay({ delay: 6000, stopOnInteraction: true })
+    Autoplay({ delay: 6000, stopOnInteraction: true }),
   );
 
   useEffect(() => {

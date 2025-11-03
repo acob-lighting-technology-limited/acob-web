@@ -5,13 +5,13 @@ import { ChevronRight, MoreHorizontal } from 'lucide-react';
 
 import { cn } from '@/lib/utils';
 
-interface BreadcrumbItem {
+interface BreadcrumbItemData {
   label: string;
   href?: string;
 }
 
 interface BreadcrumbProps {
-  items: BreadcrumbItem[];
+  items: BreadcrumbItemData[];
   className?: string;
 }
 

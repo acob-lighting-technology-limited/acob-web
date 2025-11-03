@@ -59,7 +59,7 @@ export function JobApplicationForm({
   const [fileName, setFileName] = useState<string>('');
 
   const handleInputChange = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
   ): void => {
     const { id, value } = e.target;
     setFormData(prev => ({
@@ -109,7 +109,7 @@ export function JobApplicationForm({
   };
 
   const sendApplication = async (
-    formData: ApplicationFormData
+    formData: ApplicationFormData,
   ): Promise<unknown> => {
     try {
       const formDataToSend = new globalThis.FormData();
@@ -141,7 +141,7 @@ export function JobApplicationForm({
       if (!response.ok) {
         const errorData = await response.json();
         throw new Error(
-          errorData.error || `HTTP error! status: ${response.status}`
+          errorData.error || `HTTP error! status: ${response.status}`,
         );
       }
 

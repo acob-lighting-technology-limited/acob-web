@@ -42,7 +42,7 @@ function generateTitleFromPath(pathname: string): string {
     locations: 'Office Locations',
 
     // Projects
-    projects: 'Our Projects',
+    projects: 'Our Project',
     residential: 'Residential Projects',
     commercial: 'Commercial Projects',
     industrial: 'Industrial Projects',
