@@ -1,5 +1,3 @@
-/* eslint-disable @typescript-eslint/no-unused-vars, no-unused-vars */
-
 'use client';
 
 import React, { useState, useEffect, useMemo } from 'react';
@@ -21,10 +19,8 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { Container } from '@/components/ui/container';
 import { MaskText } from '@/components/animations/MaskText';
-import { applySanityImagePreset } from '@/lib/utils/sanity-image';
 import { stats } from '@/lib/data/transition-data';
 import { AnimatedCounter } from '../ui/animated-counter';
-import { CAROUSEL_AUTOPLAY_DELAY } from '@/lib/constants/ui';
 
 interface HeroSectionProps {
   projects: Array<{
@@ -32,6 +28,7 @@ interface HeroSectionProps {
     title: string;
     projectImage?: string;
     location?: string;
+    state?: string;
     slug?: { current: string };
   }>;
 }
@@ -56,9 +53,12 @@ const HeroSection = React.memo(function HeroSection({
       id: `project-${project._id}`,
       title: project.title,
       image: project.projectImage
-        ? applySanityImagePreset(project.projectImage, 'card')
+        ? project.projectImage
         : '/images/olooji-community.webp?height=800&width=1400',
-      location: project.location || 'Across Nigeria',
+      location:
+        project.location && project.state
+          ? `${project.location}, ${project.state}`
+          : project.location || project.state || 'Across Nigeria',
       slug: project.slug?.current ?? '',
     }));
   }, [projects]);
@@ -67,7 +67,7 @@ const HeroSection = React.memo(function HeroSection({
   const [current, setCurrent] = useState(0);
 
   const plugin = React.useRef(
-    Autoplay({ delay: 6000, stopOnInteraction: true }),
+    Autoplay({ delay: 6000, stopOnInteraction: true })
   );
 
   useEffect(() => {
@@ -120,7 +120,7 @@ const HeroSection = React.memo(function HeroSection({
                 phrases={[
                   'Powering sustainable futures for homes, businesses, and communities.',
                 ]}
-                className="text-3xl font-bold leading-tight md:text-4xl lg:text-5.5xl text-primary dark:text-foreground"
+                className=" font-bold leading-tight text-4.5xl lg:text-5.5xl text-primary dark:text-foreground"
               />
               <MaskText
                 phrases={[

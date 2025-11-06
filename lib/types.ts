@@ -26,6 +26,7 @@ export interface Project {
   projectDate?: string;
   content: unknown[]; // Portable Text for rich formatting
   location: string;
+  state?: string; // Nigerian state where project is located
   projectImage: string; // Single project image URL
   images?: unknown[]; // Add images field for compatibility
   galleryImages?: string[]; // Add gallery images from content
@@ -205,8 +206,6 @@ export interface TeamMember {
   email?: string;
   linkedin?: string;
 }
-
-
 
 // Web Vitals Types
 export interface WebVitalsMetric {

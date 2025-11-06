@@ -114,7 +114,7 @@ const MobileMenu: React.FC<MobileMenuProps> = ({
   logoSrc,
 }) => {
   const [expandedItems, setExpandedItems] = useState<Record<string, boolean>>(
-    {},
+    {}
   );
 
   const toggleExpanded = (itemName: string) => {
@@ -433,13 +433,13 @@ export function Header() {
                   key={logoSrc}
                   src={logoSrc || '/placeholder.svg'}
                   alt="ACOB Lighting Logo"
-                  width={140}
-                  height={36}
+                  width={250}
+                  height={60}
                   priority
-                  className="h-9 w-auto group-hover:scale-105 transition-transform duration-500"
+                  className="h-12 w-auto group-hover:scale-105 transition-transform duration-500"
                   style={{
-                    width: '140px',
-                    height: '36px',
+                    width: '180px',
+                    height: '40px',
                     objectFit: 'contain',
                   }}
                 />

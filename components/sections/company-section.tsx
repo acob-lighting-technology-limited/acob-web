@@ -154,13 +154,13 @@ export function CompanySection() {
               {/* Company Image */}
               <div className="relative overflow-hidden rounded-2xl sm:rounded-3xl border border-border bg-card/90 shadow-xl">
                 <Image
-                  src="/images/company-team.webp"
+                  src="/images/company-team.webp?v=2"
                   alt="ACOB Lighting field engineers on-site"
                   width={1200}
                   height={900}
                   className="h-full w-full object-cover"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent" />
+
                 <div className="absolute bottom-3 left-3 right-3 sm:bottom-4 sm:left-4 sm:right-4 md:bottom-6 md:left-6 md:right-6 rounded-xl sm:rounded-2xl bg-background/80 p-3 sm:p-4 text-xs sm:text-sm text-muted-foreground backdrop-blur supports-[backdrop-filter]:backdrop-blur-xl">
                   We deploy skilled engineers nationwide, building
                   climate-resilient micro-grids that power households, schools,

@@ -44,48 +44,9 @@ export default async function ProjectsPage({
 
   const allProjects = allProjectsResult.projects;
 
-  // Extract unique states for filtering
-  const extractStateFromLocation = (location: string): string => {
-    // Special handling for Abuja/FCT
-    if (
-      location.toLowerCase().includes('abuja') ||
-      location.toLowerCase().includes('fct')
-    ) {
-      return 'Abuja';
-    }
-
-    // Special handling for Northern Region
-    if (location.toLowerCase().includes('northern region')) {
-      return 'Northern Region';
-    }
-
-    // Common patterns to extract state names
-    const statePatterns = [
-      /,\s*([^,]+)\s*State/i, // "City, State State"
-      /,\s*([^,]+)\s*State\./i, // "City, State State."
-      /,\s*([^,]+)\s*State$/i, // "City, State State" (end of string)
-      /,\s*([^,]+)$/i, // "City, State" (end of string)
-      /,\s*([^,]+)\.$/i, // "City, State." (end of string)
-    ];
-
-    for (const pattern of statePatterns) {
-      const match = location.match(pattern);
-      if (match) {
-        return match[1].trim();
-      }
-    }
-
-    // If no pattern matches, return the original location
-    return location;
-  };
-
+  // Extract unique states for filtering - now using the state field directly
   const uniqueStates = Array.from(
-    new Set(
-      allProjects
-        .map((p: Project) => p.location)
-        .filter(Boolean)
-        .map(extractStateFromLocation),
-    ),
+    new Set(allProjects.map((p: Project) => p.state).filter(Boolean))
   ).sort() as string[];
 
   const breadcrumbItems = [{ label: 'Home', href: '/' }, { label: 'Projects' }];
