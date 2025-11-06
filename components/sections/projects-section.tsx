@@ -102,7 +102,9 @@ export function ProjectsSection({ projects }: ProjectsSectionProps) {
                     />
                     <div className="absolute inset-0 bg-gradient-to-b from-black/30 via-transparent to-black/70" />
                     <div className="absolute bottom-4 left-4 right-4 text-sm font-medium uppercase tracking-wide text-white/70">
-                      {project.location || 'Nigeria'}
+                      {project.location && project.state
+                        ? `${project.location}, ${project.state}`
+                        : project.location || project.state || 'Nigeria'}
                     </div>
                   </div>
 

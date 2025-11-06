@@ -96,44 +96,9 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
     getProjects(),
   ]);
 
-  // Get unique states for filtering
-  const extractStateFromLocation = (location: string): string => {
-    if (
-      location.toLowerCase().includes('abuja') ||
-      location.toLowerCase().includes('fct')
-    ) {
-      return 'Abuja';
-    }
-
-    if (location.toLowerCase().includes('northern region')) {
-      return 'Northern Region';
-    }
-
-    const statePatterns = [
-      /,\s*([^,]+)\s*State/i,
-      /,\s*([^,]+)\s*State\./i,
-      /,\s*([^,]+)\s*State$/i,
-      /,\s*([^,]+)$/i,
-      /,\s*([^,]+)\.$/i,
-    ];
-
-    for (const pattern of statePatterns) {
-      const match = location.match(pattern);
-      if (match) {
-        return match[1].trim();
-      }
-    }
-
-    return location;
-  };
-
+  // Get unique states for filtering - now using the state field directly
   const uniqueStates = Array.from(
-    new Set(
-      allProjects
-        .map((p: Project) => p.location)
-        .filter(Boolean)
-        .map(extractStateFromLocation),
-    ),
+    new Set(allProjects.map((p: Project) => p.state).filter(Boolean))
   ).sort() as string[];
 
   const breadcrumbItems = [
@@ -193,7 +158,7 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
                           <Image
                             src={applySanityImagePreset(
                               project.projectImage,
-                              'card',
+                              'card'
                             )}
                             alt={project.title}
                             fill
@@ -219,7 +184,10 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
                           </p>
                           <div className="flex items-center text-sm text-muted-foreground mb-6">
                             <MapPin className="h-4 w-4 mr-1" />
-                            <span>{project.location}</span>
+                            <span>
+                              {project.location}
+                              {project.state && `, ${project.state}`}
+                            </span>
                           </div>
                         </div>
                         <div className="mt-auto">
@@ -272,15 +240,9 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
                             <span className="text-xs opacity-70">
                               (
                               {
-                                allProjects.filter((p: Project) => {
-                                  if (!p.location) {
-                                    return false;
-                                  }
-                                  const projectState = extractStateFromLocation(
-                                    p.location,
-                                  );
-                                  return projectState === state;
-                                }).length
+                                allProjects.filter(
+                                  (p: Project) => p.state === state
+                                ).length
                               }
                               )
                             </span>
@@ -308,7 +270,10 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
                           {project.location && (
                             <div className="flex items-center text-xs text-muted-foreground">
                               <MapPin className="h-3 w-3 mr-1" />
-                              <span>{project.location}</span>
+                              <span>
+                                {project.location}
+                                {project.state && `, ${project.state}`}
+                              </span>
                             </div>
                           )}
                         </Link>

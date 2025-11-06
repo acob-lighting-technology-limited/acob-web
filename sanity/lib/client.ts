@@ -11,19 +11,19 @@ const token = process.env.SANITY_API_TOKEN;
 // Validate required environment variables
 if (!projectId) {
   throw new Error(
-    'SANITY_STUDIO_PROJECT_ID or NEXT_PUBLIC_SANITY_PROJECT_ID is required',
+    'SANITY_STUDIO_PROJECT_ID or NEXT_PUBLIC_SANITY_PROJECT_ID is required'
   );
 }
 
 if (!dataset) {
   throw new Error(
-    'SANITY_STUDIO_DATASET or NEXT_PUBLIC_SANITY_DATASET is required',
+    'SANITY_STUDIO_DATASET or NEXT_PUBLIC_SANITY_DATASET is required'
   );
 }
 
 if (!token) {
   console.warn(
-    'Sanity API token not found. Some features may not work properly.',
+    'Sanity API token not found. Some features may not work properly.'
   );
 }
 
@@ -64,7 +64,7 @@ export async function getUpdatePosts() {
       author,
       category,
       tags,
-      "featuredImage": featuredImage.asset->url + "?w=800&h=600&fit=crop&auto=format&q=75",
+      "featuredImage": featuredImage.asset->url + "?w=800&h=600&fit=crop&auto=format&q=95",
       content
     }
   `);
@@ -109,7 +109,7 @@ export async function getUpdatePostsPaginated({
       author,
       category,
       tags,
-      "featuredImage": featuredImage.asset->url + "?w=800&h=600&fit=crop&auto=format&q=75",
+      "featuredImage": featuredImage.asset->url + "?w=800&h=600&fit=crop&auto=format&q=95",
       content
     }`;
 
@@ -174,11 +174,11 @@ export async function getUpdatePost(slug: string) {
       author,
       category,
       tags,
-      "featuredImage": featuredImage.asset->url + "?w=800&h=600&fit=crop&auto=format&q=75",
+      "featuredImage": featuredImage.asset->url + "?w=800&h=600&fit=crop&auto=format&q=95",
       content
     }
   `,
-    { slug },
+    { slug }
   );
 }
 
@@ -186,7 +186,7 @@ export async function getUpdatePost(slug: string) {
 export async function getRelatedUpdatePosts(
   category: string,
   currentSlug: string,
-  limit: number = 3,
+  limit: number = 3
 ) {
   return await client.fetch(
     `
@@ -202,7 +202,7 @@ export async function getRelatedUpdatePosts(
       "featuredImage": featuredImage.asset->url + "?w=800&h=600&fit=crop&auto=format&q=75"
     }
   `,
-    { category, currentSlug, limit },
+    { category, currentSlug, limit }
   );
 }
 
@@ -218,7 +218,7 @@ export async function getApprovedCommentsForPost(postId: string) {
       website
     }
   `,
-    { postId },
+    { postId }
   );
 }
 
@@ -235,6 +235,7 @@ export async function getProjects() {
         projectDate,
         content,
         location,
+        state,
         isFeatured,
         featuredRank,
         "projectImage": projectImage.asset->url,
@@ -272,6 +273,7 @@ export async function getProjectsForGallery() {
         projectDate,
         content,
         location,
+        state,
         isFeatured,
         featuredRank,
         "projectImage": projectImage.asset->url,
@@ -314,7 +316,7 @@ export async function getProjectsForGallery() {
 export async function getFeaturedProjects() {
   try {
     const projects = await client.fetch(`
-      *[_type == "project" && isFeatured == true] | order(featuredRank asc) {
+      *[_type == "project" && isFeatured == true] | order(orderRank) {
         _id,
         title,
         excerpt,
@@ -323,8 +325,9 @@ export async function getFeaturedProjects() {
         projectDate,
         content,
         location,
+        state,
         isFeatured,
-        featuredRank,
+        orderRank,
         "projectImage": projectImage.asset->url,
         comments[]{
           _key,
@@ -369,6 +372,7 @@ export async function getProjectsPaginated({
         title match $search ||
         excerpt match $search ||
         location match $search ||
+        state match $search ||
         pt::text(content) match $search
       )`;
       params.search = `*${search}*`;
@@ -376,8 +380,8 @@ export async function getProjectsPaginated({
 
     // Add state filter
     if (state.trim()) {
-      query += ' && location match $state';
-      params.state = `*${state}*`;
+      query += ' && state == $state';
+      params.state = state;
     }
 
     // Complete the query with ordering and pagination
@@ -390,6 +394,7 @@ export async function getProjectsPaginated({
       projectDate,
       content,
       location,
+      state,
       isFeatured,
       featuredRank,
       "projectImage": projectImage.asset->url,
@@ -410,11 +415,12 @@ export async function getProjectsPaginated({
         title match $search ||
         excerpt match $search ||
         location match $search ||
+        state match $search ||
         pt::text(content) match $search
       )`;
     }
     if (state.trim()) {
-      countQuery += ' && location match $state';
+      countQuery += ' && state == $state';
     }
     countQuery += '])';
 
@@ -467,6 +473,7 @@ export async function getProject(slug: string) {
         projectDate,
         content,
         location,
+        state,
         isFeatured,
         featuredRank,
         "projectImage": projectImage.asset->url,
@@ -480,7 +487,7 @@ export async function getProject(slug: string) {
         }
       }
     `,
-      { slug },
+      { slug }
     );
 
     if (!project) {
@@ -508,6 +515,7 @@ export async function getProjectsByCategory(category: string) {
         projectDate,
         content,
         location,
+        state,
         "projectImage": projectImage.asset->url,
         comments[]{
           _key,
@@ -519,7 +527,7 @@ export async function getProjectsByCategory(category: string) {
         }
       }
     `,
-      { category },
+      { category }
     );
 
     return projects;
@@ -533,7 +541,7 @@ export async function getProjectsByCategory(category: string) {
 export async function getRelatedProjects(
   category: string,
   currentSlug: string,
-  limit: number = 3,
+  limit: number = 3
 ) {
   try {
     const relatedProjects = await client.fetch(
@@ -546,12 +554,13 @@ export async function getRelatedProjects(
         category,
         projectDate,
         location,
+        state,
         images[]{
           asset->{url}
         }
       }
     `,
-      { category, currentSlug, limit },
+      { category, currentSlug, limit }
     );
 
     return relatedProjects;
@@ -603,7 +612,7 @@ export async function getJobPosting(slug: string) {
         slug
       }
     `,
-      { slug },
+      { slug }
     );
 
     if (!job) {
@@ -637,7 +646,7 @@ export async function testSanityConnection() {
     const result = await client.fetch('*[_type == "project"][0...1]');
     console.log(
       'Sanity connection successful:',
-      result.length > 0 ? 'Found projects' : 'No projects found',
+      result.length > 0 ? 'Found projects' : 'No projects found'
     );
     return true;
   } catch (error) {

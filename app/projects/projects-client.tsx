@@ -52,7 +52,7 @@ export default function ProjectsClient({
   const updateFilters = async (
     newSearch: string,
     newState: string,
-    newPage: number = 1,
+    newPage: number = 1
   ) => {
     setIsLoading(true);
 
@@ -134,17 +134,7 @@ export default function ProjectsClient({
               <div className="flex items-center justify-between">
                 <span>{state}</span>
                 <span className="text-xs opacity-70">
-                  (
-                  {
-                    allProjects.filter(p => {
-                      if (!p.location) {
-                        return false;
-                      }
-                      const projectState = extractStateFromLocation(p.location);
-                      return projectState === state;
-                    }).length
-                  }
-                  )
+                  ({allProjects.filter(p => p.state === state).length})
                 </span>
               </div>
             </button>
@@ -153,41 +143,6 @@ export default function ProjectsClient({
       </div>
     </div>
   );
-
-  // Get unique states for filtering - extract state names from location strings.
-  const extractStateFromLocation = (location: string): string => {
-    // Special handling for Abuja/FCT
-    if (
-      location.toLowerCase().includes('abuja') ||
-      location.toLowerCase().includes('fct')
-    ) {
-      return 'Abuja';
-    }
-
-    // Special handling for Northern Region
-    if (location.toLowerCase().includes('northern region')) {
-      return 'Northern Region';
-    }
-
-    // Common patterns to extract state names
-    const statePatterns = [
-      /,\s*([^,]+)\s*State/i, // "City, State State"
-      /,\s*([^,]+)\s*State\./i, // "City, State State."
-      /,\s*([^,]+)\s*State$/i, // "City, State State" (end of string)
-      /,\s*([^,]+)$/i, // "City, State" (end of string)
-      /,\s*([^,]+)\.$/i, // "City, State." (end of string)
-    ];
-
-    for (const pattern of statePatterns) {
-      const match = location.match(pattern);
-      if (match) {
-        return match[1].trim();
-      }
-    }
-
-    // If no pattern matches, return the original location
-    return location;
-  };
 
   return (
     <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 items-start">
@@ -341,7 +296,7 @@ export default function ProjectsClient({
                       <Image
                         src={applySanityImagePreset(
                           project.projectImage,
-                          'card',
+                          'card'
                         )}
                         alt={project.title}
                         fill
@@ -358,17 +313,34 @@ export default function ProjectsClient({
                   </div>
                   <CardContent className="!pt-0 p-6 flex flex-col flex-1">
                     <div className="flex-1">
+                      <div className="flex items-center text-sm text-muted-foreground mb-4">
+                        {(project.location || project.state) && (
+                          <>
+                            <MapPin className="h-4 w-4 mr-1" />
+                            <span>
+                              {project.location}
+                              {project.location && project.state && ', '}
+                              {project.state}
+                            </span>
+                          </>
+                        )}
+                        {(project.location || project.state) &&
+                          project.projectDate && (
+                            <span className="mx-2">•</span>
+                          )}
+                        {project.projectDate && (
+                          <span>
+                            {new Date(project.projectDate).getFullYear()}
+                          </span>
+                        )}
+                      </div>
                       <h2 className="text-xl font-bold mb-4 text-foreground">
                         {project.title}
                       </h2>
-                      <p className="text-muted-foreground mb-4 leading-relaxed line-clamp-2">
+                      <p className="text-muted-foreground mb-6 leading-relaxed line-clamp-2">
                         {project.excerpt ||
                           extractTextFromPortableText(project.content)}
                       </p>
-                      <div className="flex items-center text-sm text-muted-foreground mb-6">
-                        <MapPin className="h-4 w-4 mr-1" />
-                        <span>{project.location}</span>
-                      </div>
                     </div>
                     <div className="mt-auto">
                       <Link href={`/projects/${project.slug.current}`}>
@@ -390,7 +362,7 @@ export default function ProjectsClient({
                   Showing {(pagination.currentPage - 1) * pagination.limit + 1}-
                   {Math.min(
                     pagination.currentPage * pagination.limit,
-                    pagination.totalCount,
+                    pagination.totalCount
                   )}{' '}
                   of {pagination.totalCount} projects
                 </div>
@@ -400,7 +372,7 @@ export default function ProjectsClient({
                       <PaginationPrevious
                         onClick={() =>
                           handlePageChange(
-                            Math.max(1, pagination.currentPage - 1),
+                            Math.max(1, pagination.currentPage - 1)
                           )
                         }
                         className={
@@ -414,7 +386,7 @@ export default function ProjectsClient({
 
                     {Array.from(
                       { length: pagination.totalPages },
-                      (_, i) => i + 1,
+                      (_, i) => i + 1
                     ).map(page => {
                       // Show first page, last page, current page, and pages around current
                       if (
@@ -454,8 +426,8 @@ export default function ProjectsClient({
                           handlePageChange(
                             Math.min(
                               pagination.totalPages,
-                              pagination.currentPage + 1,
-                            ),
+                              pagination.currentPage + 1
+                            )
                           )
                         }
                         className={
@@ -512,19 +484,7 @@ export default function ProjectsClient({
                       <div className="flex items-center justify-between">
                         <span>{state}</span>
                         <span className="text-xs opacity-70">
-                          (
-                          {
-                            allProjects.filter(p => {
-                              if (!p.location) {
-                                return false;
-                              }
-                              const projectState = extractStateFromLocation(
-                                p.location,
-                              );
-                              return projectState === state;
-                            }).length
-                          }
-                          )
+                          ({allProjects.filter(p => p.state === state).length})
                         </span>
                       </div>
                     </button>
@@ -550,7 +510,10 @@ export default function ProjectsClient({
                       {project.location && (
                         <div className="flex items-center text-xs text-muted-foreground">
                           <MapPin className="h-3 w-3 mr-1" />
-                          <span>{project.location}</span>
+                          <span>
+                            {project.location}
+                            {project.state && `, ${project.state}`}
+                          </span>
                         </div>
                       )}
                     </Link>

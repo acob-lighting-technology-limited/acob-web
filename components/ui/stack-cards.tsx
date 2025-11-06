@@ -19,6 +19,7 @@ interface CardProps {
   description: string;
   images: { asset: { url: string } }[]; // Updated to match Sanity image asset structure
   location: string;
+  state?: string;
   url?: string;
   color?: string;
   gradientFrom: string;
@@ -34,6 +35,7 @@ const Card: React.FC<CardProps> = ({
   description = '',
   images = [], // Default to empty array
   location = 'Nigeria',
+  state,
   url = '#',
 
   gradientFrom = '#000000',
@@ -53,7 +55,7 @@ const Card: React.FC<CardProps> = ({
   // Memoize expensive computations
   const processedTitle = useMemo(
     () => (title.length > 50 ? `${title.slice(0, 50)}...` : title),
-    [title],
+    [title]
   );
 
   const processedDescription = useMemo(
@@ -61,7 +63,7 @@ const Card: React.FC<CardProps> = ({
       description.split(' ').length > 40
         ? `${description.split(' ').slice(0, 40).join(' ')}...`
         : description,
-    [description],
+    [description]
   );
 
   const backgroundStyle = useMemo(
@@ -70,7 +72,7 @@ const Card: React.FC<CardProps> = ({
       scale,
       top: `calc(-1vh + ${i * 25}px)`,
     }),
-    [gradientFrom, gradientTo, scale, i],
+    [gradientFrom, gradientTo, scale, i]
   );
 
   return (
@@ -98,6 +100,7 @@ const Card: React.FC<CardProps> = ({
               <p className="flex gap-2 text-lg items-center">
                 <MapPin />
                 {location}
+                {state && `, ${state}`}
               </p>
             </div>
 
@@ -123,7 +126,10 @@ const Card: React.FC<CardProps> = ({
                 return (
                   <div className="relative rounded-[16px] overflow-hidden h-full">
                     <Image
-                      src={applySanityImagePreset(validImages[0].asset.url, 'card')}
+                      src={applySanityImagePreset(
+                        validImages[0].asset.url,
+                        'card'
+                      )}
                       alt={title}
                       fill
                       className="object-cover"
@@ -136,7 +142,10 @@ const Card: React.FC<CardProps> = ({
                   <div className="grid grid-cols-2 gap-4 h-full">
                     <div className="relative rounded-[16px] overflow-hidden">
                       <Image
-                        src={applySanityImagePreset(validImages[0].asset.url, 'thumbnail')}
+                        src={applySanityImagePreset(
+                          validImages[0].asset.url,
+                          'thumbnail'
+                        )}
                         alt={title}
                         fill
                         className="object-cover"
@@ -144,7 +153,10 @@ const Card: React.FC<CardProps> = ({
                     </div>
                     <div className="relative rounded-[16px] overflow-hidden">
                       <Image
-                        src={applySanityImagePreset(validImages[1].asset.url, 'thumbnail')}
+                        src={applySanityImagePreset(
+                          validImages[1].asset.url,
+                          'thumbnail'
+                        )}
                         alt={title}
                         fill
                         className="object-cover"
@@ -158,7 +170,10 @@ const Card: React.FC<CardProps> = ({
                   <div className="grid grid-rows-2 grid-cols-2 gap-4 h-full">
                     <div className="row-span-1 col-span-2 relative rounded-[16px] overflow-hidden">
                       <Image
-                        src={applySanityImagePreset(validImages[0].asset.url, 'card')}
+                        src={applySanityImagePreset(
+                          validImages[0].asset.url,
+                          'card'
+                        )}
                         alt={title}
                         fill
                         className="object-cover"
@@ -166,7 +181,10 @@ const Card: React.FC<CardProps> = ({
                     </div>
                     <div className="relative rounded-[16px] overflow-hidden">
                       <Image
-                        src={applySanityImagePreset(validImages[1].asset.url, 'thumbnail')}
+                        src={applySanityImagePreset(
+                          validImages[1].asset.url,
+                          'thumbnail'
+                        )}
                         alt={title}
                         fill
                         className="object-cover"
@@ -174,7 +192,10 @@ const Card: React.FC<CardProps> = ({
                     </div>
                     <div className="relative rounded-[16px] overflow-hidden">
                       <Image
-                        src={applySanityImagePreset(validImages[2].asset.url, 'thumbnail')}
+                        src={applySanityImagePreset(
+                          validImages[2].asset.url,
+                          'thumbnail'
+                        )}
                         alt={title}
                         fill
                         className="object-cover"

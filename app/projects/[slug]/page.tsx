@@ -186,7 +186,10 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
                 {project.location && (
                   <div className="flex items-center text-muted-foreground mt-6">
                     <MapPin className="h-5 w-5 mr-2" />
-                    <span className="text-lg">{project.location}</span>
+                    <span className="text-lg">
+                      {project.location}
+                      {project.state && `, ${project.state}`}
+                    </span>
                   </div>
                 )}
 
@@ -224,6 +227,7 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
                         </p>
                         <p className="text-sm font-medium">
                           {project.location}
+                          {project.state && `, ${project.state}`}
                         </p>
                       </div>
                     </div>
@@ -282,7 +286,11 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
                         {relatedProject.location && (
                           <div className="flex items-center text-xs text-muted-foreground">
                             <MapPin className="h-3 w-3 mr-1" />
-                            <span>{relatedProject.location}</span>
+                            <span>
+                              {relatedProject.location}
+                              {relatedProject.state &&
+                                `, ${relatedProject.state}`}
+                            </span>
                           </div>
                         )}
                       </Link>

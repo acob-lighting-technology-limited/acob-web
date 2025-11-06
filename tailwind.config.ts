@@ -85,6 +85,7 @@ const config: Config = {
       },
       fontSize: {
         '5.5xl': ['3.35rem', { lineHeight: '1' }],
+        '4.5xl': ['2.5rem', { lineHeight: '1' }],
       },
       fontFamily: {
         sans: [

@@ -1,12 +1,36 @@
 import { defineField, defineType } from 'sanity';
 import { PackageIcon } from '@sanity/icons';
+import {
+  orderRankField,
+  orderRankOrdering,
+} from '@sanity/orderable-document-list';
 
 export const projectType = defineType({
   name: 'project',
   title: 'Project',
   type: 'document',
   icon: PackageIcon,
+  orderings: [
+    orderRankOrdering,
+    {
+      title: 'Project Date, New',
+      name: 'projectDateDesc',
+      by: [{ field: 'projectDate', direction: 'desc' }],
+    },
+    {
+      title: 'Project Date, Old',
+      name: 'projectDateAsc',
+      by: [{ field: 'projectDate', direction: 'asc' }],
+    },
+    {
+      title: 'Creation Date, New',
+      name: 'createdAtDesc',
+      by: [{ field: '_createdAt', direction: 'desc' }],
+    },
+  ],
   fields: [
+    // Add orderRank field for drag-and-drop functionality
+    orderRankField({ type: 'project', hidden: true }),
     defineField({
       name: 'title',
       title: 'Title',
@@ -28,8 +52,10 @@ export const projectType = defineType({
       title: 'Excerpt',
       type: 'text',
       rows: 3,
-      description: 'A short summary of the project (recommended: 150-200 characters)',
-      validation: Rule => Rule.max(200).warning('Excerpt should be under 200 characters'),
+      description:
+        'A short summary of the project (recommended: 150-200 characters)',
+      validation: Rule =>
+        Rule.max(200).warning('Excerpt should be under 200 characters'),
     }),
     defineField({
       name: 'category',
@@ -38,7 +64,10 @@ export const projectType = defineType({
       options: {
         list: [
           { title: 'Rural Electrification', value: 'rural-electrification' },
-          { title: 'Commercial Installations', value: 'commercial-installations' },
+          {
+            title: 'Commercial Installations',
+            value: 'commercial-installations',
+          },
           { title: 'Street Lighting', value: 'street-lighting' },
           { title: 'Healthcare Projects', value: 'healthcare-projects' },
         ],
@@ -102,55 +131,65 @@ export const projectType = defineType({
       name: 'location',
       title: 'Location',
       type: 'string',
+      description:
+        'Specific location/community name (e.g., "Olooji Community")',
+      validation: Rule => Rule.required(),
+    }),
+    defineField({
+      name: 'state',
+      title: 'State',
+      type: 'string',
+      description: 'The Nigerian state where the project is located',
+      options: {
+        list: [
+          { title: 'Abia', value: 'Abia' },
+          { title: 'Adamawa', value: 'Adamawa' },
+          { title: 'Akwa Ibom', value: 'Akwa Ibom' },
+          { title: 'Anambra', value: 'Anambra' },
+          { title: 'Bauchi', value: 'Bauchi' },
+          { title: 'Bayelsa', value: 'Bayelsa' },
+          { title: 'Benue', value: 'Benue' },
+          { title: 'Borno', value: 'Borno' },
+          { title: 'Cross River', value: 'Cross River' },
+          { title: 'Delta', value: 'Delta' },
+          { title: 'Ebonyi', value: 'Ebonyi' },
+          { title: 'Edo', value: 'Edo' },
+          { title: 'Ekiti', value: 'Ekiti' },
+          { title: 'Enugu', value: 'Enugu' },
+          { title: 'FCT', value: 'FCT' },
+          { title: 'Gombe', value: 'Gombe' },
+          { title: 'Imo', value: 'Imo' },
+          { title: 'Jigawa', value: 'Jigawa' },
+          { title: 'Kaduna', value: 'Kaduna' },
+          { title: 'Kano', value: 'Kano' },
+          { title: 'Katsina', value: 'Katsina' },
+          { title: 'Kebbi', value: 'Kebbi' },
+          { title: 'Kogi', value: 'Kogi' },
+          { title: 'Kwara', value: 'Kwara' },
+          { title: 'Lagos', value: 'Lagos' },
+          { title: 'Nasarawa', value: 'Nasarawa' },
+          { title: 'Niger', value: 'Niger' },
+          { title: 'Ogun', value: 'Ogun' },
+          { title: 'Ondo', value: 'Ondo' },
+          { title: 'Osun', value: 'Osun' },
+          { title: 'Oyo', value: 'Oyo' },
+          { title: 'Plateau', value: 'Plateau' },
+          { title: 'Rivers', value: 'Rivers' },
+          { title: 'Sokoto', value: 'Sokoto' },
+          { title: 'Taraba', value: 'Taraba' },
+          { title: 'Yobe', value: 'Yobe' },
+          { title: 'Zamfara', value: 'Zamfara' },
+        ],
+      },
       validation: Rule => Rule.required(),
     }),
     defineField({
       name: 'isFeatured',
       title: 'Featured Project',
       type: 'boolean',
-      description: 'Toggle to feature this project in the hero section',
+      description:
+        'Toggle to feature this project in the hero section (maximum 6 projects). Use "Featured Projects Order" in the sidebar to drag and reorder.',
       initialValue: false,
-      validation: Rule =>
-        Rule.custom(async (value, context) => {
-          if (!value) {return true;} // Skip validation if not featured
-
-          const { getClient } = context;
-          const client = getClient({ apiVersion: '2025-07-16' });
-
-          // Count existing featured projects
-          const featuredCount = await client.fetch(
-            'count(*[_type == "project" && isFeatured == true && _id != $currentId])',
-            { currentId: context.document?._id },
-          );
-
-          if (featuredCount >= 6) {
-            return 'Maximum 6 projects can be featured. Please unfeature another project first.';
-          }
-
-          return true;
-        }),
-    }),
-    defineField({
-      name: 'featuredRank',
-      title: 'Featured Rank',
-      type: 'number',
-      description: 'Ranking for featured projects (1-6). Lower numbers appear first in hero section.',
-      hidden: ({ document }) => !document?.isFeatured,
-      validation: Rule =>
-        Rule.custom((value, context) => {
-          const isFeatured = context.document?.isFeatured;
-          if (!isFeatured) {return true;} // Skip validation if not featured
-
-          if (value === undefined || value === null) {
-            return 'Featured rank is required when project is featured';
-          }
-
-          if (value < 1 || value > 6) {
-            return 'Featured rank must be between 1 and 6';
-          }
-
-          return true;
-        }),
     }),
     defineField({
       name: 'comments',
@@ -203,7 +242,9 @@ export const projectType = defineType({
             prepare({ title, subtitle, media }) {
               return {
                 title: title,
-                subtitle: subtitle?.substring(0, 50) + (subtitle?.length > 50 ? '...' : ''),
+                subtitle:
+                  subtitle?.substring(0, 50) +
+                  (subtitle?.length > 50 ? '...' : ''),
                 media: media ? '✓' : '⏳',
               };
             },
@@ -221,13 +262,14 @@ export const projectType = defineType({
       date: 'projectDate',
       media: 'projectImage',
       isFeatured: 'isFeatured',
-      featuredRank: 'featuredRank',
     },
-    prepare({ title, date, media, isFeatured, featuredRank }) {
+    prepare({ title, date, media, isFeatured }) {
       const subtitle = [
         date ? new Date(date).toISOString().split('T')[0] : 'No date set',
-        isFeatured ? `⭐ Featured (Rank ${featuredRank})` : null,
-      ].filter(Boolean).join(' • ');
+        isFeatured ? '⭐ Featured' : null,
+      ]
+        .filter(Boolean)
+        .join(' • ');
 
       return {
         title: title,
@@ -236,35 +278,4 @@ export const projectType = defineType({
       };
     },
   },
-  orderings: [
-    {
-      title: 'Featured Projects (by Rank)',
-      name: 'featuredRankAsc',
-      by: [
-        { field: 'isFeatured', direction: 'desc' },
-        { field: 'featuredRank', direction: 'asc' },
-      ],
-    },
-    {
-      title: 'Project Date, New',
-      name: 'projectDateDesc',
-      by: [
-        { field: 'projectDate', direction: 'desc' },
-      ],
-    },
-    {
-      title: 'Project Date, Old',
-      name: 'projectDateAsc',
-      by: [
-        { field: 'projectDate', direction: 'asc' },
-      ],
-    },
-    {
-      title: 'Creation Date, New',
-      name: 'createdAtDesc',
-      by: [
-        { field: '_createdAt', direction: 'desc' },
-      ],
-    },
-  ],
 });
