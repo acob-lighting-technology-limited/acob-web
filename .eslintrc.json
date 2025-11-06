@@ -1,0 +1,7 @@
+{
+  "extends": "next/core-web-vitals",
+  "rules": {
+    "comma-dangle": "off",
+    "@typescript-eslint/comma-dangle": "off"
+  }
+}
