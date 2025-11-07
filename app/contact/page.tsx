@@ -1,6 +1,6 @@
 import { Button } from '@/components/ui/button';
 import { Container } from '@/components/ui/container';
-import { PageHero } from '@/components/ui/page-hero';
+import { PageHeroCarousel } from '@/components/ui/page-hero-carousel';
 import { Breadcrumb } from '@/components/ui/breadcrumb';
 import { Card, CardContent } from '@/components/ui/card';
 import { ArrowRight } from 'lucide-react';
@@ -16,11 +16,20 @@ export default function ContactPage() {
     { label: 'Contact Us' },
   ];
 
+  // Images from contact sub-routes
+  const contactImages = [
+    { src: '/images/contact/contact-us.webp', alt: 'Contact Us' },
+    { src: '/images/contact/careers.webp', alt: 'Careers' },
+    { src: '/images/contact/support.webp', alt: 'Support' },
+    { src: '/images/contact/office-location-hero.webp', alt: 'Our Locations' },
+  ];
+
   return (
     <>
-      <PageHero
-        description="Get in Touch with Our Team"
-        backgroundImage="/images/contact/contact-us.webp?height=400&width=1200"
+      <PageHeroCarousel
+        images={contactImages}
+        title="Contact Us"
+        description="Get in Touch with ACOB Lighting Technology"
       />
 
       <Container className="px-4 py-8 ">

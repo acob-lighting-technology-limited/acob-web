@@ -9,7 +9,7 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import { Container } from '@/components/ui/container';
 import { Breadcrumb } from '@/components/ui/breadcrumb';
-import { PageHero } from '@/components/ui/page-hero';
+import { PageHeroCarousel } from '@/components/ui/page-hero-carousel';
 import { SectionHeader } from '@/components/ui/section-header';
 import { InfoCard } from '@/components/ui/info-card';
 import { aboutSections } from '@/lib/data/about-data';
@@ -22,19 +22,20 @@ import {
 export default function AboutPage() {
   const breadcrumbItems = [{ label: 'Home', href: '/' }, { label: 'About Us' }];
 
+  // Images from about sub-routes
+  const aboutImages = [
+    { src: '/images/about/acob-team.webp', alt: 'ACOB Team' },
+    { src: '/images/about/mission-vision.webp', alt: 'Our Mission & Vision' },
+    { src: '/images/company-team.webp', alt: 'Our Company' },
+  ];
+
   return (
     <>
-      <PageHero
-        description="Trusted Solar Infrastructure Across Nigeria"
-        // align="center"
-        backgroundImage="/images/about/acob-team.webp?height=800&width=1600"
-      >
-        {/* <p className="mx-auto max-w-3xl text-balance text-lg text-white/90 md:text-xl">
-          We are a vertically integrated renewable energy company delivering
-          solar mini-grids, industrial hybrid systems, and smart lighting
-          solutions that power economic inclusion across Nigeria.
-        </p> */}
-      </PageHero>
+      <PageHeroCarousel
+        images={aboutImages}
+        title="About ACOB Lighting"
+        description="Pioneering Nigeria's Energy Access Revolution with Sustainable Solar Solutions"
+      />
 
       <Container>
         <Breadcrumb items={breadcrumbItems} className="mb-8" />
@@ -110,7 +111,7 @@ export default function AboutPage() {
                       value={metric.value}
                       label={metric.label}
                     />
-                  ),
+                  )
                 )}
               </div>
             </Card>

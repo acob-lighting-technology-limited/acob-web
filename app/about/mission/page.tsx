@@ -114,7 +114,7 @@ export default function MissionPage() {
 
           <aside className="space-y-6">
             <Card className="rounded-3xl border border-border bg-surface p-4 sm:p-6 xl:p-8 shadow-sm">
-              <CardContent className="flex flex-col gap-4 p-0">
+              <CardContent className="flex flex-col gap-4">
                 <h3 className="text-lg font-semibold text-foreground">
                   Mission Metrics
                 </h3>
@@ -132,7 +132,7 @@ export default function MissionPage() {
             </Card>
 
             <Card className="rounded-3xl border border-border bg-surface p-4 sm:p-6 xl:p-8 shadow-sm">
-              <CardContent className="p-0">
+              <CardContent>
                 <h3 className="text-lg font-semibold text-foreground">
                   Strategic Pillars
                 </h3>

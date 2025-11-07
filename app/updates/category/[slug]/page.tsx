@@ -23,7 +23,7 @@ export async function generateMetadata({
   const { slug } = await params;
   const posts = await getUpdatePosts();
   const categoryPosts = posts.filter(
-    (post: UpdatePost) => post.category === slug,
+    (post: UpdatePost) => post.category === slug
   );
 
   const categoryName = slug
@@ -55,7 +55,7 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
 
   // Filter posts by category using the new string-based system
   const categoryPosts = posts.filter(
-    (post: UpdatePost) => post.category === slug,
+    (post: UpdatePost) => post.category === slug
   );
 
   const breadcrumbItems = [
@@ -100,7 +100,7 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
               categoryPosts.map((post: UpdatePost) => (
                 <Card
                   key={post._id}
-                  className="overflow-hidden p-0 hover:shadow-lg transition-shadow duration-500"
+                  className="overflow-hidden hover:shadow-lg transition-shadow duration-500"
                 >
                   <div className="aspect-[16/9] overflow-hidden relative">
                     <Image

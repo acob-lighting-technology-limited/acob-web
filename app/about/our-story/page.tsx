@@ -84,7 +84,7 @@ export default function OurStoryPage() {
             </Card>
 
             <Card className="rounded-3xl border border-border bg-surface p-4 sm:p-6 xl:p-8 shadow-sm">
-              <CardContent className="p-0">
+              <CardContent>
                 <h3 className="text-lg font-semibold text-foreground">
                   Quick Facts
                 </h3>

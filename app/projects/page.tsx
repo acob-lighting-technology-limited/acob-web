@@ -1,7 +1,6 @@
 import { Suspense } from 'react';
 import { Container } from '@/components/ui/container';
-import { PageHero } from '@/components/ui/page-hero';
-import { Breadcrumb } from '@/components/ui/breadcrumb';
+import { PageHeroCarousel } from '@/components/ui/page-hero-carousel';
 import { ProjectsGridSkeleton } from '@/components/ui/projects-grid-skeleton';
 import { getProjectsPaginated } from '@/sanity/lib/client';
 import type { Project } from '@/lib/types';
@@ -51,16 +50,24 @@ export default async function ProjectsPage({
 
   const breadcrumbItems = [{ label: 'Home', href: '/' }, { label: 'Projects' }];
 
+  // Get first 5 project images for carousel
+  const projectImages = allProjects
+    .slice(0, 5)
+    .filter((p: Project) => p.projectImage)
+    .map((p: Project) => ({
+      src: p.projectImage,
+      alt: p.title,
+    }));
+
   return (
     <>
-      <PageHero
-        description="Transforming Communities with Solar Power"
-        backgroundImage="/images/services/header.webp?height=400&width=1200"
+      <PageHeroCarousel
+        images={projectImages}
+        title="Our Projects"
+        description="Delivering Reliable Solar Energy Infrastructure Across Nigeria"
       />
 
       <Container className="px-4 py-8">
-        <Breadcrumb items={breadcrumbItems} className="mb-8" />
-
         <Suspense fallback={<ProjectsGridSkeleton />}>
           <ProjectsClient
             initialProjects={projects}
@@ -70,6 +77,7 @@ export default async function ProjectsPage({
             currentSearch={search}
             currentState={state}
             currentPage={page}
+            breadcrumbItems={breadcrumbItems}
           />
         </Suspense>
       </Container>

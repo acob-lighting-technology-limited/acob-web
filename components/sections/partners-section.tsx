@@ -21,7 +21,7 @@ export function PartnersSection() {
       }
 
       const marqueeContainer = marqueeRef.current.querySelector(
-        '[class*="marquee-container"]',
+        '[class*="marquee-container"]'
       );
       if (!marqueeContainer) {
         return;
@@ -75,16 +75,16 @@ export function PartnersSection() {
         <FadeIn delay={0.4}>
           <div
             ref={marqueeRef}
-            className="relative w-full overflow-hidden rounded-2xl bg-muted/30 dark:bg-muted/70 py-8"
+            className="relative w-full overflow-hidden rounded-2xl "
           >
-            <div
+            {/* <div
               aria-hidden="true"
               className="pointer-events-none absolute inset-y-0 left-0 w-52 z-10 bg-gradient-to-r from-background/80 via-background/40 to-transparent dark:from-muted/80 dark:via-muted/40"
             />
             <div
               aria-hidden="true"
               className="pointer-events-none absolute inset-y-0 right-0 w-52 z-10 bg-gradient-to-l from-background/80 via-background/40 to-transparent dark:from-muted/80 dark:via-muted/40"
-            />
+            /> */}
             <Marquee
               speed={40}
               gradient={false}
@@ -101,9 +101,9 @@ export function PartnersSection() {
                     <Image
                       src={partner.logo}
                       alt={partner.name}
-                      width={80}
-                      height={80}
-                      className="h-12 sm:h-16 w-auto"
+                      width={120}
+                      height={120}
+                      className="h-16 sm:h-20 md:h-24 w-auto"
                     />
                   </div>
                 </div>

@@ -17,7 +17,7 @@ export default async function LatestPage() {
   const latestPosts = posts
     .sort(
       (a: UpdatePost, b: UpdatePost) =>
-        new Date(b.publishedAt).getTime() - new Date(a.publishedAt).getTime(),
+        new Date(b.publishedAt).getTime() - new Date(a.publishedAt).getTime()
     )
     .slice(0, 10);
 
@@ -42,7 +42,7 @@ export default async function LatestPage() {
           <div className="lg:col-span-2 lg:space-y-4">
             {/* Featured Post */}
             {latestPosts.length > 0 && (
-              <Card className="overflow-hidden  p-0 hover:shadow-lg transition-shadow duration-500">
+              <Card className="overflow-hidden hover:shadow-lg transition-shadow duration-500">
                 <div className="aspect-[21/9] overflow-hidden">
                   <Image
                     src={latestPosts[0].featuredImage || '/placeholder.svg'}
@@ -85,7 +85,7 @@ export default async function LatestPage() {
               {latestPosts.slice(1).map((post: UpdatePost) => (
                 <Card
                   key={post._id}
-                  className="overflow-hidden p-0 hover:shadow-lg transition-shadow duration-500 flex flex-col"
+                  className="overflow-hidden hover:shadow-lg transition-shadow duration-500 flex flex-col"
                 >
                   <div className="aspect-[16/9] overflow-hidden flex-shrink-0">
                     <Image

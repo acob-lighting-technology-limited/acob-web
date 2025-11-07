@@ -17,7 +17,7 @@ export function ProjectsGridSkeleton() {
       {/* Projects Grid Skeleton */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
         {Array.from({ length: 6 }).map((_, index) => (
-          <Card key={index} className="overflow-hidden p-0">
+          <Card key={index} className="overflow-hidden">
             <div className="aspect-[16/9] overflow-hidden relative">
               <Skeleton className="w-full h-full" />
             </div>
@@ -84,7 +84,10 @@ export function ProjectsSidebarSkeleton() {
           <Skeleton className="h-5 w-32 mb-4" />
           <div className="space-y-2">
             {Array.from({ length: 5 }).map((_, index) => (
-              <div key={index} className="p-3 rounded-lg bg-muted/30 border border-border">
+              <div
+                key={index}
+                className="p-3 rounded-lg bg-muted/30 border border-border"
+              >
                 <Skeleton className="h-4 w-3/4 mb-2" />
                 <div className="flex items-center space-x-2">
                   <Skeleton className="h-3 w-3" />
