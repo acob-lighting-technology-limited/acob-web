@@ -79,7 +79,7 @@ export default function CertificationsPage() {
 
           <aside className="space-y-6">
             <Card className="rounded-3xl border border-border bg-surface p-4 sm:p-6 xl:p-8 shadow-sm">
-              <CardContent className="p-0 space-y-4">
+              <CardContent className="space-y-4">
                 <h3 className="text-lg font-semibold text-foreground">
                   Accreditation Pillars
                 </h3>

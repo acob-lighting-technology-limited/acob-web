@@ -412,12 +412,12 @@ export function Header() {
         transition={{ type: 'spring', damping: 20, stiffness: 100 }}
         className={`
           sticky border-b border-border top-0 z-40 w-full transition-all duration-500 ease-out
-          backdrop-blur-sm
+          backdrop-blur-md bg-background/80
 
           ${
             isScrolled
-              ? ' backdrop-blur-3xl shadow-lg  border-border '
-              : ' backdrop-blur-sm  border-border '
+              ? ' backdrop-blur-xl bg-background/95 shadow-lg  border-border '
+              : ' backdrop-blur-md bg-background/80  border-border '
           }
         `}
       >

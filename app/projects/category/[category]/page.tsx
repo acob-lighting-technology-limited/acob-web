@@ -151,7 +151,7 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
                   {projects.map((project: Project) => (
                     <Card
                       key={project._id}
-                      className="overflow-hidden p-0 hover:shadow-lg transition-shadow flex flex-col"
+                      className="overflow-hidden  hover:shadow-lg transition-shadow flex flex-col"
                     >
                       <div className="aspect-[16/9] overflow-hidden relative flex-shrink-0">
                         {project.projectImage ? (

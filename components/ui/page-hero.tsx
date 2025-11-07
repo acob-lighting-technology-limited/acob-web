@@ -1,7 +1,6 @@
 'use client';
 import type React from 'react';
 import { usePathname } from 'next/navigation';
-import { Container } from '@/components/ui/container';
 import { MaskText } from '../animations/MaskText';
 
 interface PageHeroProps {
@@ -98,7 +97,7 @@ export function PageHero({
 
   return (
     <section
-      className={`relative h-[400px] flex items-end justify-start overflow-hidden ${className}`}
+      className={`relative h-[50vh] md:h-[60vh] flex items-end justify-start overflow-hidden ${className}`}
     >
       {/* Background Image with Animation */}
       <div
@@ -110,27 +109,26 @@ export function PageHero({
       <div className="absolute inset-0 bg-black/60" />
 
       {/* Content */}
-      <Container
-        noPadding
-        className={`relative z-10 w-full h-full flex items-end pb-10 px-4 justify-${align}`}
-      >
-        <div className={`text-white ${alignmentClass} max-w-5xl space-y-3`}>
-          {/* Title with background */}
-          <div className="inline-block">
-            <p className="text-sm md:text-base font-semibold text-white bg-primary/90 px-4 py-2 rounded-md uppercase tracking-wider backdrop-blur-sm">
-              {displayTitle}
-            </p>
+      <div className="absolute inset-0 z-10 flex items-end pb-10">
+        <div className="2xl:container max-w-7xl mx-auto px-4 w-full">
+          <div className={`text-white ${alignmentClass} max-w-5xl space-y-3`}>
+            {/* Title with background */}
+            <div className="inline-block">
+              <p className="text-sm md:text-base font-semibold text-white bg-primary/90 px-4 py-2 rounded-md uppercase tracking-wider backdrop-blur-sm">
+                {displayTitle}
+              </p>
+            </div>
+
+            {/* Description (old title) */}
+
+            <MaskText className="text-3xl md:text-4xl lg:text-5xl font-bold line-clamp-2">
+              {description}
+            </MaskText>
+
+            {children && <div className="mt-4">{children}</div>}
           </div>
-
-          {/* Description (old title) */}
-
-          <MaskText className="text-3xl md:text-4xl lg:text-5xl font-bold line-clamp-2">
-            {description}
-          </MaskText>
-
-          {children && <div className="mt-4">{children}</div>}
         </div>
-      </Container>
+      </div>
     </section>
   );
 }
