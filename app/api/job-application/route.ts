@@ -87,16 +87,22 @@ export async function POST(request: NextRequest) {
     const RESEND_API_KEY = process.env.RESEND_API_KEY;
 
     if (!RESEND_API_KEY) {
-      console.error('RESEND_API_KEY is not configured');
+      if (process.env.NODE_ENV === 'development') {
+        console.error('RESEND_API_KEY is not configured');
+      }
       return NextResponse.json(
         { error: 'Server configuration error' },
         { status: 500 },
       );
     }
 
+    // Use environment variable for recipient email, fallback to careers email only
+    const CAREERS_RECIPIENT_EMAIL =
+      process.env.CAREERS_RECIPIENT_EMAIL || 'careers@acoblighting.com';
+
     const emailBody = {
       from: 'onboarding@resend.dev',
-      to: ['careers@acoblighting.com', 'chibuikemichaelilonze@gmail.com'],
+      to: [CAREERS_RECIPIENT_EMAIL],
       subject: `New Job Application - ${jobTitle}`,
       html: `
         <!DOCTYPE html>
