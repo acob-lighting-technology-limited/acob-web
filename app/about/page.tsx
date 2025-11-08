@@ -53,51 +53,6 @@ export default function AboutPage() {
           </div>
         </section>
 
-        {/* <section className="mb-20 rounded-3xl border border-border bg-card/80 p-4 sm:p-6 xl:p-8 shadow-sm">
-          <div className="mb-10 flex flex-col gap-4 text-center">
-            <span className="mx-auto inline-flex items-center rounded-full border border-border px-3 py-1 text-xs font-semibold uppercase tracking-[0.3em] text-muted-foreground">
-              Project Portfolio
-                  </span>
-            <h3 className="text-3xl font-semibold text-foreground md:text-4xl">
-              Proven delivery across productive-use mini-grids
-            </h3>
-            <p className="mx-auto max-w-3xl text-lg text-muted-foreground">
-              Our track record spans commercial estates, government programs, rural
-              communities, and industrial clients. We deliver dependable power that keeps
-              businesses running and families connected.
-            </p>
-                </div>
-
-          <AutoCarousel
-            items={aboutMediaFeatures}
-            renderItem={(item: typeof aboutMediaFeatures[0]) => (
-              <Card className="relative h-full overflow-hidden rounded-3xl border border-border bg-surface shadow-sm">
-                <div className="relative aspect-[16/9] w-full overflow-hidden">
-                  <Image
-                    src={item.image}
-                    alt={item.title}
-                    fill
-                    className="object-cover transition-transform duration-500 group-hover:scale-105"
-                  />
-                </div>
-                <CardContent className="flex flex-col gap-3 p-6">
-                  <div className="flex items-center gap-2 text-xs uppercase tracking-[0.2em] text-muted-foreground">
-                    <span>{item.category}</span>
-                    <span className="h-1 w-1 rounded-full bg-muted-foreground/40" />
-                    <span>{item.year}</span>
-              </div>
-                  <h4 className="text-xl font-semibold text-foreground">
-                    {item.title}
-                  </h4>
-                  <p className="text-sm leading-relaxed text-muted-foreground">
-                    {item.description}
-                  </p>
-                </CardContent>
-              </Card>
-            )}
-          />
-        </section> */}
-
         <section className="mb-10">
           <SectionHeader
             badge="Discover More"
