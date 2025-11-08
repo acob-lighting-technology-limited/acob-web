@@ -591,6 +591,43 @@ export async function getRelatedProjects(
   }
 }
 
+// Helper function to get unique states from all projects
+export async function getUniqueProjectStates(): Promise<string[]> {
+  try {
+    const result = await client.fetch(`
+      array::unique(*[_type == "project" && defined(state)].state) | order(@)
+    `);
+    return result || [];
+  } catch (error) {
+    if (process.env.NODE_ENV === 'development') {
+      console.error('Error fetching unique project states from Sanity:', error);
+    }
+    return [];
+  }
+}
+
+// Helper function to get recent project images for carousel
+export async function getRecentProjectImages(limit: number = 5) {
+  try {
+    const projects = await client.fetch(
+      `
+      *[_type == "project" && defined(projectImage)] | order(projectDate desc, _createdAt desc)[0...$limit] {
+        _id,
+        title,
+        "projectImage": projectImage.asset->url
+      }
+    `,
+      { limit: limit - 1 }
+    );
+    return projects;
+  } catch (error) {
+    if (process.env.NODE_ENV === 'development') {
+      console.error('Error fetching recent project images from Sanity:', error);
+    }
+    return [];
+  }
+}
+
 // Helper function to get active job postings
 export async function getJobPostings() {
   try {
