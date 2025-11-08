@@ -1,3 +1,5 @@
+import type { PortableTextBlock } from '@portabletext/types';
+
 // Sanity Types
 export interface SanityImage {
   asset: {
@@ -24,7 +26,7 @@ export interface Project {
   };
   category: string;
   projectDate?: string;
-  content: unknown[]; // Portable Text for rich formatting
+  content: PortableTextBlock[]; // Portable Text for rich formatting
   location: string;
   state?: string; // Nigerian state where project is located
   projectImage: string; // Single project image URL
@@ -52,7 +54,7 @@ export interface UpdatePost {
   slug: {
     current: string;
   };
-  content: unknown[]; // Portable Text
+  content: PortableTextBlock[]; // Portable Text
   excerpt: string;
   publishedAt: string;
   author: string;
@@ -69,7 +71,7 @@ export interface BlogPost {
   slug: {
     current: string;
   };
-  content: unknown[]; // Portable Text
+  content: PortableTextBlock[]; // Portable Text
   excerpt: string;
   publishedAt: string;
   author: {
