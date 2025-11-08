@@ -79,18 +79,18 @@ export default function MissionPage() {
         <Breadcrumb items={breadcrumbItems} className="mb-8" />
 
         <section className="mb-16 grid gap-12 lg:grid-cols-[1.1fr_0.9fr] ">
-          <Card className="space-y-8 rounded-3xl border border-border bg-surface p-4 sm:p-6 xl:p-8 shadow-sm h-fit sticky top-10">
+          <Card className="space-y-6 rounded-3xl border border-border bg-surface p-4 sm:p-6 xl:p-8 shadow-sm h-fit">
             <span className="inline-flex items-center rounded-full border border-border px-3 py-1 text-xs font-semibold uppercase tracking-[0.2em] text-muted-foreground">
               Vision
             </span>
-            <div className="space-y-4">
-              <h2 className="text-3xl font-semibold text-foreground md:text-4xl">
+            <div className="space-y-3">
+              <h2 className="text-2xl font-semibold text-foreground md:text-3xl">
                 <MaskText>
                   Our <AnimatedFillText>Vision </AnimatedFillText> for Energy
                   Equity{' '}
                 </MaskText>
               </h2>
-              <p className="text-lg leading-relaxed text-muted-foreground">
+              <p className="text-base leading-relaxed text-muted-foreground">
                 To be Nigeria's flagship renewable energy partner delivering
                 resilient, technology-driven power systems that expand economic
                 opportunity while safeguarding the environment for future
@@ -98,11 +98,11 @@ export default function MissionPage() {
               </p>
             </div>
 
-            <div className="rounded-3xl border border-primary/30 bg-primary/5 p-4 sm:p-6 xl:p-8">
-              <h3 className="text-xl font-semibold text-foreground">
+            <div className="rounded-3xl border border-primary/30 bg-primary/5 p-4 sm:p-5 xl:p-6">
+              <h3 className="text-lg font-semibold text-foreground">
                 Our Mission
               </h3>
-              <p className="mt-4 text-base leading-relaxed text-muted-foreground">
+              <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
                 We deploy scalable mini-grids, hybrid systems, and smart
                 lighting solutions that deliver clean, reliable, and affordable
                 energy to underserved communities. Through innovation,

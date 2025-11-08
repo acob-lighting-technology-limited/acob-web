@@ -1,5 +1,6 @@
 import Link from 'next/link';
 import { ArrowLeft } from 'lucide-react';
+import * as LucideIcons from 'lucide-react';
 
 import { MaskText } from '@/components/animations/MaskText';
 import { Button } from '@/components/ui/button';
@@ -8,7 +9,6 @@ import { Card, CardContent } from '@/components/ui/card';
 import { Container } from '@/components/ui/container';
 import { PageHero } from '@/components/ui/page-hero';
 import { SectionHeader } from '@/components/ui/section-header';
-import { Timeline, TimelineMobile } from '@/components/ui/timeline';
 import { aboutLeadershipQuotes } from '@/lib/data/about-overview-data';
 import { milestones } from '@/lib/data/about-data';
 
@@ -120,15 +120,43 @@ export default function OurStoryPage() {
           <SectionHeader
             badge="Strategic Inflection Points"
             title="Milestones that shaped our growth"
-            description="Each stage in our evolution has expanded the scale, reliability, and impact of the energy infrastructure we deliver across Nigeria."
-            className="mb-10"
+            className="mb-8"
           />
 
-          <div className="hidden md:block">
-            <Timeline items={milestones} />
-          </div>
-          <div className="md:hidden">
-            <TimelineMobile items={milestones} />
+          <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+            {milestones.map(milestone => {
+              const IconComponent = LucideIcons[
+                milestone.icon as keyof typeof LucideIcons
+              ] as React.ComponentType<{ className?: string }>;
+
+              return (
+                <Card
+                  key={milestone.year}
+                  className="group relative overflow-hidden rounded-3xl border border-border bg-background shadow-sm transition-all duration-500 hover:-translate-y-1 hover:shadow-lg"
+                >
+                  <CardContent className="p-5">
+                    <div className="mb-4 flex items-center justify-between">
+                      <div className="flex h-12 w-12 items-center justify-center rounded-full bg-primary/10 transition-all duration-500 group-hover:bg-primary group-hover:scale-110">
+                        {IconComponent && (
+                          <IconComponent className="h-6 w-6 text-primary transition-colors duration-500 group-hover:text-white" />
+                        )}
+                      </div>
+                      <span className="rounded-full bg-primary/10 px-3 py-1 text-xs font-bold text-primary">
+                        {milestone.year}
+                      </span>
+                    </div>
+
+                    <h3 className="mb-3 text-lg font-bold text-foreground transition-colors duration-500 group-hover:text-primary">
+                      {milestone.title}
+                    </h3>
+
+                    <p className="text-sm leading-relaxed text-muted-foreground">
+                      {milestone.description}
+                    </p>
+                  </CardContent>
+                </Card>
+              );
+            })}
           </div>
         </section>
 

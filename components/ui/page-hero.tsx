@@ -121,7 +121,7 @@ export function PageHero({
 
             {/* Description (old title) */}
 
-            <MaskText className="text-3xl md:text-4xl lg:text-5xl font-bold line-clamp-2">
+            <MaskText className="text-3xl md:text-4xl lg:text-5xl font-bold">
               {description}
             </MaskText>
 
