@@ -34,14 +34,6 @@ export function PartnersSection() {
             ref={marqueeRef}
             className="relative w-full overflow-hidden rounded-2xl "
           >
-            {/* <div
-              aria-hidden="true"
-              className="pointer-events-none absolute inset-y-0 left-0 w-52 z-10 bg-gradient-to-r from-background/80 via-background/40 to-transparent dark:from-muted/80 dark:via-muted/40"
-            />
-            <div
-              aria-hidden="true"
-              className="pointer-events-none absolute inset-y-0 right-0 w-52 z-10 bg-gradient-to-l from-background/80 via-background/40 to-transparent dark:from-muted/80 dark:via-muted/40"
-            /> */}
             <Marquee
               speed={40}
               gradient={false}
