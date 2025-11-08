@@ -30,11 +30,7 @@ import {
 interface ProjectsClientProps {
   initialProjects: Project[];
   initialPagination: PaginationInfo;
-  allProjects: Project[];
-  uniqueStates: string[];
   currentSearch: string;
-  currentState: string;
-  currentPage: number;
   breadcrumbItems: Array<{ label: string; href?: string }>;
 }
 

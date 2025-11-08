@@ -2,8 +2,10 @@ import { Suspense } from 'react';
 import { Container } from '@/components/ui/container';
 import { PageHeroCarousel } from '@/components/ui/page-hero-carousel';
 import { ProjectsGridSkeleton } from '@/components/ui/projects-grid-skeleton';
-import { getProjectsPaginated } from '@/sanity/lib/client';
-import type { Project } from '@/lib/types';
+import {
+  getProjectsPaginated,
+  getRecentProjectImages,
+} from '@/sanity/lib/client';
 import ProjectsClient from './projects-client';
 
 interface ProjectsPageProps {
@@ -33,31 +35,18 @@ export default async function ProjectsPage({
 
   const { projects, pagination } = result;
 
-  // Get all projects for sidebar filters (we'll optimize this later)
-  const allProjectsResult = await getProjectsPaginated({
-    page: 1,
-    limit: 1000, // Get all for filtering
-    search: '',
-    state: '',
-  });
-
-  const allProjects = allProjectsResult.projects;
-
-  // Extract unique states for filtering - now using the state field directly
-  const uniqueStates = Array.from(
-    new Set(allProjects.map((p: Project) => p.state).filter(Boolean))
-  ).sort() as string[];
+  // Fetch recent images efficiently (no need to fetch all projects)
+  const recentProjects = await getRecentProjectImages(5);
 
   const breadcrumbItems = [{ label: 'Home', href: '/' }, { label: 'Projects' }];
 
-  // Get first 5 project images for carousel
-  const projectImages = allProjects
-    .slice(0, 5)
-    .filter((p: Project) => p.projectImage)
-    .map((p: Project) => ({
+  // Map recent project images for carousel
+  const projectImages = recentProjects.map(
+    (p: { title: string; projectImage: string }) => ({
       src: p.projectImage,
       alt: p.title,
-    }));
+    })
+  );
 
   return (
     <>
@@ -72,11 +61,7 @@ export default async function ProjectsPage({
           <ProjectsClient
             initialProjects={projects}
             initialPagination={pagination}
-            allProjects={allProjects}
-            uniqueStates={uniqueStates}
             currentSearch={search}
-            currentState={state}
-            currentPage={page}
             breadcrumbItems={breadcrumbItems}
           />
         </Suspense>
