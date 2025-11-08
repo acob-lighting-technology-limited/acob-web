@@ -2,12 +2,6 @@ import Image from 'next/image';
 import Link from 'next/link';
 
 import {
-  PortableText,
-  type PortableTextBlock,
-  type PortableTextComponentProps,
-} from '@portabletext/react';
-import {
-  urlFor,
   getUpdatePosts,
   getUpdatePost,
   getApprovedCommentsForPost,
@@ -23,6 +17,7 @@ import { ShareCopy } from '@/components/updates/share-copy';
 import { CommentForm } from '@/components/updates/comment-form';
 import { PageHero } from '@/components/ui/page-hero';
 import { Metadata } from 'next';
+import { UpdateContent } from './update-content';
 
 interface UpdatePostPageProps {
   params: Promise<{
@@ -78,78 +73,6 @@ export async function generateMetadata({
   };
 }
 
-// Custom Portable Text Components
-const components = {
-  types: {
-    image: ({
-      value,
-    }: {
-      value: { asset: { _ref: string }; alt?: string };
-    }) => {
-      if (!value.asset) {
-        return null;
-      }
-      const imageUrl = urlFor(value)
-        .width(800)
-        .height(600)
-        .fit('crop')
-        .auto('format')
-        .quality(75)
-        .url();
-      return (
-        <div className="w-full md:w-1/2 px-2 my-4">
-          {' '}
-          {/* Each image takes half width, with horizontal padding */}
-          <Image
-            src={imageUrl || '/placeholder.svg'}
-            alt={value.alt || 'Update post image'}
-            width={800} // Provide a default width/height, ideally from image metadata
-            height={600} // Provide a default width/height
-            className="rounded-lg object-cover w-full h-auto"
-          />
-        </div>
-      );
-    },
-  },
-  block: {
-    h1: ({ children }: PortableTextComponentProps<PortableTextBlock>) => (
-      <h1 className="text-4xl font-bold my-4">{children}</h1>
-    ),
-    h2: ({ children }: PortableTextComponentProps<PortableTextBlock>) => (
-      <h2 className="text-3xl font-bold my-3">{children}</h2>
-    ),
-    h3: ({ children }: PortableTextComponentProps<PortableTextBlock>) => (
-      <h3 className="text-2xl font-bold my-2">{children}</h3>
-    ),
-    normal: ({ children }: PortableTextComponentProps<PortableTextBlock>) => (
-      <p className="my-2">{children}</p>
-    ),
-    blockquote: ({
-      children,
-    }: PortableTextComponentProps<PortableTextBlock>) => (
-      <blockquote className="border-l-4 border-primary pl-4 italic my-4">
-        {children}
-      </blockquote>
-    ),
-  },
-  list: {
-    bullet: ({ children }: PortableTextComponentProps<PortableTextBlock>) => (
-      <ul className="list-disc pl-5 my-2">{children}</ul>
-    ),
-    number: ({ children }: PortableTextComponentProps<PortableTextBlock>) => (
-      <ol className="list-decimal pl-5 my-2">{children}</ol>
-    ),
-  },
-  listItem: {
-    bullet: ({ children }: PortableTextComponentProps<PortableTextBlock>) => (
-      <li className="my-1">{children}</li>
-    ),
-    number: ({ children }: PortableTextComponentProps<PortableTextBlock>) => (
-      <li className="my-1">{children}</li>
-    ),
-  },
-};
-
 export default async function UpdatePostPage({ params }: UpdatePostPageProps) {
   const { slug } = await params;
 
@@ -185,19 +108,6 @@ export default async function UpdatePostPage({ params }: UpdatePostPageProps) {
           <div className="lg:col-span-2 space-y-4">
             <Card className="">
               <CardContent className="p-4 sm:p-6 xl:p-8 space-y-8">
-                {/* Featured Image */}
-                {post.featuredImage && (
-                  <div className="aspect-[16/9] overflow-hidden rounded-lg">
-                    <Image
-                      src={post.featuredImage || '/placeholder.svg'}
-                      alt={post.title}
-                      width={1200}
-                      height={675}
-                      className="w-full h-full object-cover"
-                    />
-                  </div>
-                )}
-
                 {/* Post Header */}
                 <div>
                   <div className="flex items-center text-sm text-gray-600 mb-4">
@@ -227,9 +137,7 @@ export default async function UpdatePostPage({ params }: UpdatePostPageProps) {
                 </div>
 
                 {/* Post Content - Wrapped in flex for image grid */}
-                <div className="prose prose-lg max-w-none flex flex-wrap -mx-2">
-                  <PortableText value={post.content} components={components} />
-                </div>
+                <UpdateContent content={post.content} />
 
                 {/* Tags */}
                 {post.tags && post.tags.length > 0 && (

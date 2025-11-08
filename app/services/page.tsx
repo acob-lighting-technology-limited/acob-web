@@ -11,6 +11,11 @@ import { Input } from '@/components/ui/input';
 import Link from 'next/link';
 import { servicesData } from '@/lib/data';
 import Image from 'next/image';
+import { motion } from 'framer-motion';
+import {
+  StaggerChildren,
+  staggerItem,
+} from '@/components/animations/StaggerChildren';
 
 export default function ServicesPage() {
   const [searchQuery, setSearchQuery] = useState('');
@@ -124,44 +129,49 @@ export default function ServicesPage() {
             </CardContent>
           </Card>
         ) : (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <StaggerChildren
+            staggerDelay={0.1}
+            className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
+          >
             {filteredServices.map(service => (
-              <Link key={service.id} href={service.slug} className="group">
-                <Card className="overflow-hidden h-full flex flex-col transition-all duration-300 hover:shadow-xl hover:-translate-y-1 border-border hover:border-primary/50">
-                  {/* Image */}
-                  <div className="aspect-[16/9] overflow-hidden relative bg-muted">
-                    <Image
-                      src={service.image}
-                      alt={service.title}
-                      fill
-                      className="object-cover transition-transform duration-500 group-hover:scale-110"
-                      sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-                    />
-                    {/* Gradient overlay */}
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/0 to-black/0 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-                  </div>
-
-                  <CardContent className="p-6 flex flex-col flex-1">
-                    {/* Title */}
-                    <h3 className="text-lg font-bold mb-3 text-foreground group-hover:text-primary transition-colors duration-300 line-clamp-2">
-                      {service.title}
-                    </h3>
-
-                    {/* Description */}
-                    <p className="text-sm text-muted-foreground leading-relaxed line-clamp-3 mb-4 flex-1">
-                      {service.excerpt}
-                    </p>
-
-                    {/* View Service Link */}
-                    <div className="flex items-center text-sm font-medium text-primary group-hover:gap-2 transition-all duration-300">
-                      Learn More
-                      <ArrowRight className="h-4 w-4 ml-1 group-hover:translate-x-1 transition-transform duration-300" />
+              <motion.div key={service.id} variants={staggerItem}>
+                <Link href={`/services/${service.slug}`} className="group">
+                  <Card className="overflow-hidden h-full flex flex-col transition-all duration-300 hover:shadow-xl hover:-translate-y-1 border-border hover:border-primary/50">
+                    {/* Image */}
+                    <div className="aspect-[16/9] overflow-hidden relative bg-muted">
+                      <Image
+                        src={service.image}
+                        alt={service.title}
+                        fill
+                        className="object-cover transition-transform duration-500 group-hover:scale-110"
+                        sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                      />
+                      {/* Gradient overlay */}
+                      <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/0 to-black/0 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
                     </div>
-                  </CardContent>
-                </Card>
-              </Link>
+
+                    <CardContent className="p-6 flex flex-col flex-1">
+                      {/* Title */}
+                      <h3 className="text-lg font-bold mb-3 text-foreground group-hover:text-primary transition-colors duration-300 line-clamp-2">
+                        {service.title}
+                      </h3>
+
+                      {/* Description */}
+                      <p className="text-sm text-muted-foreground leading-relaxed line-clamp-3 mb-4 flex-1">
+                        {service.excerpt}
+                      </p>
+
+                      {/* View Service Link */}
+                      <div className="flex items-center text-sm font-medium text-primary group-hover:gap-2 transition-all duration-300">
+                        Learn More
+                        <ArrowRight className="h-4 w-4 ml-1 group-hover:translate-x-1 transition-transform duration-300" />
+                      </div>
+                    </CardContent>
+                  </Card>
+                </Link>
+              </motion.div>
             ))}
-          </div>
+          </StaggerChildren>
         )}
       </Container>
     </>

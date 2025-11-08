@@ -3,6 +3,7 @@
 import React, { useState, useEffect, useMemo } from 'react';
 import Image from 'next/image';
 import { cn } from '@/lib/utils';
+import { MaskText } from '../animations/MaskText';
 
 interface PageHeroCarouselProps {
   images: Array<{
@@ -109,9 +110,9 @@ export const PageHeroCarousel = React.memo(function PageHeroCarousel({
 
               {/* Description as main heading */}
               {description && (
-                <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold text-white line-clamp-2">
+                <MaskText className="text-3xl md:text-4xl lg:text-5xl font-bold line-clamp-2">
                   {description}
-                </h1>
+                </MaskText>
               )}
             </div>
           </div>
