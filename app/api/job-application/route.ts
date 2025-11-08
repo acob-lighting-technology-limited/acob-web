@@ -1,4 +1,3 @@
-/* eslint-disable no-undef */
 import { NextRequest, NextResponse } from 'next/server';
 import { rateLimit } from '@/lib/utils/rate-limit';
 import { RATE_LIMITS } from '@/lib/constants/ui';
@@ -19,7 +18,7 @@ export async function POST(request: NextRequest) {
       {
         status: 429,
         headers: { 'Retry-After': '300' },
-      },
+      }
     );
   }
 
@@ -38,6 +37,8 @@ export async function POST(request: NextRequest) {
     const experience = formData.get('experience') as string;
     const education = formData.get('education') as string;
     const availability = formData.get('availability') as string;
+    // Blob is a global browser type used by FormData
+    // eslint-disable-next-line no-undef
     const resumeFile = formData.get('resume') as Blob | null;
 
     // Validate required fields
@@ -49,13 +50,13 @@ export async function POST(request: NextRequest) {
       'coverLetter',
     ];
     const missingFields = requiredFields.filter(
-      field => !formData.get(field)?.toString().trim(),
+      field => !formData.get(field)?.toString().trim()
     );
 
     if (missingFields.length > 0) {
       return NextResponse.json(
         { error: 'Missing required fields', fields: missingFields },
-        { status: 400 },
+        { status: 400 }
       );
     }
 
@@ -64,13 +65,15 @@ export async function POST(request: NextRequest) {
     if (!emailRegex.test(email)) {
       return NextResponse.json(
         { error: 'Invalid email format' },
-        { status: 400 },
+        { status: 400 }
       );
     }
 
     // Handle resume file
     let resumeAttachment = null;
     let resumeFileName = '';
+    // File is a global browser type for uploaded files
+    // eslint-disable-next-line no-undef
     if (resumeFile && resumeFile instanceof File) {
       const bytes = await resumeFile.arrayBuffer();
       const buffer = Buffer.from(bytes);
@@ -92,7 +95,7 @@ export async function POST(request: NextRequest) {
       }
       return NextResponse.json(
         { error: 'Server configuration error' },
-        { status: 500 },
+        { status: 500 }
       );
     }
 
@@ -288,7 +291,7 @@ export async function POST(request: NextRequest) {
                       day: 'numeric',
                       hour: '2-digit',
                       minute: '2-digit',
-                    },
+                    }
                   )}</span>
                 </p>
               </div>
@@ -315,7 +318,7 @@ export async function POST(request: NextRequest) {
       console.error('Resend API error:', errorData);
       return NextResponse.json(
         { error: 'Failed to send application' },
-        { status: 500 },
+        { status: 500 }
       );
     }
 
@@ -325,7 +328,7 @@ export async function POST(request: NextRequest) {
     console.error('Error in job-application API:', error);
     return NextResponse.json(
       { error: 'Internal server error' },
-      { status: 500 },
+      { status: 500 }
     );
   }
 }

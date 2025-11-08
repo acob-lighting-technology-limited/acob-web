@@ -1,10 +1,9 @@
-/* eslint-disable @typescript-eslint/no-unused-vars, no-unused-vars */
 import { Container } from '@/components/ui/container';
 import { PageHero } from '@/components/ui/page-hero';
 import { Breadcrumb } from '@/components/ui/breadcrumb';
 import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
-import { ArrowRight, Calendar, User, FileText, Target } from 'lucide-react';
+import { ArrowRight, Calendar, User, Target } from 'lucide-react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { getUpdatePosts } from '@/sanity/lib/client';
@@ -19,9 +18,9 @@ export default async function PressPage() {
     (post: UpdatePost) =>
       post.category === 'press-releases' ||
       post.tags?.some((tag: string) =>
-        tag.toLowerCase().includes('press release'),
+        tag.toLowerCase().includes('press release')
       ) ||
-      post.title?.toLowerCase().includes('press release'),
+      post.title?.toLowerCase().includes('press release')
   );
 
   const breadcrumbItems = [
