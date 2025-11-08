@@ -1,8 +1,6 @@
-/* eslint-disable @typescript-eslint/no-unused-vars, no-unused-vars */
 import { Suspense } from 'react';
 import { Container } from '@/components/ui/container';
 import { PageHeroCarousel } from '@/components/ui/page-hero-carousel';
-import { Breadcrumb } from '@/components/ui/breadcrumb';
 import { UpdatesGridSkeleton } from '@/components/ui/updates-grid-skeleton';
 import { getUpdatePostsPaginated } from '@/sanity/lib/client';
 import type { UpdatePost } from '@/lib/types';
