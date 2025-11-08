@@ -37,8 +37,6 @@ export async function POST(request: NextRequest) {
     const experience = formData.get('experience') as string;
     const education = formData.get('education') as string;
     const availability = formData.get('availability') as string;
-    // Blob is a global browser type used by FormData
-    // eslint-disable-next-line no-undef
     const resumeFile = formData.get('resume') as Blob | null;
 
     // Validate required fields
@@ -72,8 +70,6 @@ export async function POST(request: NextRequest) {
     // Handle resume file
     let resumeAttachment = null;
     let resumeFileName = '';
-    // File is a global browser type for uploaded files
-    // eslint-disable-next-line no-undef
     if (resumeFile && resumeFile instanceof File) {
       const bytes = await resumeFile.arrayBuffer();
       const buffer = Buffer.from(bytes);
@@ -315,7 +311,9 @@ export async function POST(request: NextRequest) {
 
     if (!response.ok) {
       const errorData = await response.text();
-      console.error('Resend API error:', errorData);
+      if (process.env.NODE_ENV === 'development') {
+        console.error('Resend API error:', errorData);
+      }
       return NextResponse.json(
         { error: 'Failed to send application' },
         { status: 500 }
@@ -325,7 +323,9 @@ export async function POST(request: NextRequest) {
     const result = await response.json();
     return NextResponse.json({ success: true, messageId: result.id });
   } catch (error) {
-    console.error('Error in job-application API:', error);
+    if (process.env.NODE_ENV === 'development') {
+      console.error('Error in job-application API:', error);
+    }
     return NextResponse.json(
       { error: 'Internal server error' },
       { status: 500 }
