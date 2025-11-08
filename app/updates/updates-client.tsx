@@ -12,6 +12,11 @@ import Image from 'next/image';
 import type { UpdatePost, PaginationInfo } from '@/lib/types';
 import { formatDate } from '@/lib/utils';
 import { applySanityImagePreset } from '@/lib/utils/sanity-image';
+import { motion } from 'framer-motion';
+import {
+  StaggerChildren,
+  staggerItem,
+} from '@/components/animations/StaggerChildren';
 import {
   Pagination,
   PaginationContent,
@@ -85,6 +90,8 @@ export default function UpdatesClient({
   };
 
   const handlePageChange = (page: number) => {
+    // Scroll to top immediately before fetching
+    window.scrollTo({ top: 0, behavior: 'smooth' });
     updateSearch(searchQuery, page);
   };
 
@@ -179,79 +186,81 @@ export default function UpdatesClient({
         </Card>
       ) : (
         <>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <StaggerChildren
+            staggerDelay={0.1}
+            className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
+          >
             {posts.map((post: UpdatePost) => (
-              <Link
-                key={post._id}
-                href={`/updates/${post.slug.current}`}
-                className="group"
-              >
-                <Card className="overflow-hidden h-full flex flex-col transition-all duration-300 hover:shadow-xl hover:-translate-y-1 border-border hover:border-primary/50">
-                  {/* Image */}
-                  <div className="aspect-[16/9] overflow-hidden relative bg-muted">
-                    {post.featuredImage ? (
-                      <Image
-                        src={applySanityImagePreset(post.featuredImage, 'card')}
-                        alt={post.title}
-                        fill
-                        className="object-cover transition-transform duration-500 group-hover:scale-110"
-                        sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-                      />
-                    ) : (
-                      <div className="w-full h-full flex items-center justify-center">
-                        <span className="text-muted-foreground text-sm">
-                          No image
-                        </span>
-                      </div>
-                    )}
-                    {/* Gradient overlay */}
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/0 to-black/0 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-                  </div>
-
-                  <CardContent className="p-6 flex flex-col flex-1">
-                    {/* Category & Date */}
-                    <div className="flex items-center gap-4 text-xs text-muted-foreground mb-3 flex-wrap">
-                      {post.category && (
-                        <span className="px-2 py-1 bg-primary/10 text-primary rounded-full font-medium">
-                          {post.category}
-                        </span>
-                      )}
-                      {post.publishedAt && (
-                        <div className="flex items-center gap-1">
-                          <Calendar className="h-3.5 w-3.5" />
-                          <span>{formatDate(post.publishedAt)}</span>
+              <motion.div key={post._id} variants={staggerItem}>
+                <Link href={`/updates/${post.slug.current}`} className="group">
+                  <Card className="overflow-hidden h-full flex flex-col transition-all duration-300 hover:shadow-xl hover:-translate-y-1 border-border hover:border-primary/50">
+                    {/* Image */}
+                    <div className="aspect-[16/9] overflow-hidden relative bg-muted">
+                      {post.featuredImage ? (
+                        <Image
+                          src={applySanityImagePreset(
+                            post.featuredImage,
+                            'card'
+                          )}
+                          alt={post.title}
+                          fill
+                          className="object-cover transition-transform duration-500 group-hover:scale-110"
+                          sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                        />
+                      ) : (
+                        <div className="w-full h-full flex items-center justify-center">
+                          <span className="text-muted-foreground text-sm">
+                            No image
+                          </span>
                         </div>
                       )}
+                      {/* Gradient overlay */}
+                      <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/0 to-black/0 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
                     </div>
 
-                    {/* Title */}
-                    <h3 className="text-lg font-bold mb-3 text-foreground group-hover:text-primary transition-colors duration-300 line-clamp-2">
-                      {post.title}
-                    </h3>
-
-                    {/* Excerpt */}
-                    <p className="text-sm text-muted-foreground leading-relaxed line-clamp-3 mb-4 flex-1">
-                      {post.excerpt}
-                    </p>
-
-                    {/* Author */}
-                    {post.author && (
-                      <div className="flex items-center gap-2 text-xs text-muted-foreground mb-4">
-                        <User className="h-3.5 w-3.5" />
-                        <span>{post.author}</span>
+                    <CardContent className="p-6 flex flex-col flex-1">
+                      {/* Category, Author & Date */}
+                      <div className="flex items-center gap-3 text-xs text-muted-foreground mb-3 flex-wrap">
+                        {post.category && (
+                          <span className="px-2 py-1 bg-primary/10 text-primary rounded font-medium">
+                            {post.category}
+                          </span>
+                        )}
+                        {post.author && (
+                          <div className="flex items-center gap-1">
+                            <User className="h-3.5 w-3.5" />
+                            <span>{post.author}</span>
+                          </div>
+                        )}
+                        {post.publishedAt && (
+                          <div className="flex items-center gap-1">
+                            <Calendar className="h-3.5 w-3.5" />
+                            <span>{formatDate(post.publishedAt)}</span>
+                          </div>
+                        )}
                       </div>
-                    )}
 
-                    {/* Read More Link */}
-                    <div className="flex items-center text-sm font-medium text-primary group-hover:gap-2 transition-all duration-300">
-                      Read More
-                      <ArrowRight className="h-4 w-4 ml-1 group-hover:translate-x-1 transition-transform duration-300" />
-                    </div>
-                  </CardContent>
-                </Card>
-              </Link>
+                      {/* Title */}
+                      <h3 className="text-lg font-bold mb-3 text-foreground group-hover:text-primary transition-colors duration-300 line-clamp-2">
+                        {post.title}
+                      </h3>
+
+                      {/* Excerpt */}
+                      <p className="text-sm text-muted-foreground leading-relaxed line-clamp-3 mb-4 flex-1">
+                        {post.excerpt}
+                      </p>
+
+                      {/* Read More Link */}
+                      <div className="flex items-center text-sm font-medium text-primary group-hover:gap-2 transition-all duration-300">
+                        Read More
+                        <ArrowRight className="h-4 w-4 ml-1 group-hover:translate-x-1 transition-transform duration-300" />
+                      </div>
+                    </CardContent>
+                  </Card>
+                </Link>
+              </motion.div>
             ))}
-          </div>
+          </StaggerChildren>
 
           {/* Pagination */}
           {pagination.totalPages > 1 && (
