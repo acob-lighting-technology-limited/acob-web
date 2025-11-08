@@ -77,7 +77,7 @@ export function ImageLightbox({
 
   return (
     <div
-      className="fixed inset-0 z-[100] bg-black/95 backdrop-blur-sm"
+      className="fixed inset-0 z-[9999] bg-black/95 backdrop-blur-sm"
       onClick={onClose}
     >
       {/* Header */}
