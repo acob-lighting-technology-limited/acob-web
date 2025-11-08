@@ -45,27 +45,53 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    // Send email using Resend
-    const RESEND_API_KEY = process.env.RESEND_API_KEY;
-
-    if (!RESEND_API_KEY) {
-      console.error('RESEND_API_KEY is not configured');
-      return NextResponse.json(
-        { error: 'Server configuration error' },
-        { status: 500 },
-      );
-    }
-
-    const response = await fetch('https://api.resend.com/emails', {
-      method: 'POST',
-      headers: {
-        Authorization: `Bearer ${RESEND_API_KEY}`,
-        'Content-Type': 'application/json',
+    // TEMPORARILY DISABLED: Quote email sending is disabled pending proper email configuration
+    // TODO: Configure QUOTE_RECIPIENT_EMAIL environment variable before re-enabling
+    // See CODEBASE_AUDIT_REPORT.md Issue #1 for details
+    return NextResponse.json(
+      {
+        success: true,
+        message:
+          'Quote request received. Our team will contact you shortly via your preferred contact method.',
+        disabled: true,
       },
-      body: JSON.stringify({
-        from: 'onboarding@resend.dev',
-        to: ['chibuikemichaelilonze@gmail.com'], // Replace with your business email
-        subject: `New Solar Quote Request - ${formData.systemType} System`,
+      { status: 200 },
+    );
+
+    // Send email using Resend
+    // const RESEND_API_KEY = process.env.RESEND_API_KEY;
+    // const QUOTE_RECIPIENT_EMAIL = process.env.QUOTE_RECIPIENT_EMAIL;
+
+    // if (!RESEND_API_KEY) {
+    //   if (process.env.NODE_ENV === 'development') {
+    //     console.error('RESEND_API_KEY is not configured');
+    //   }
+    //   return NextResponse.json(
+    //     { error: 'Server configuration error' },
+    //     { status: 500 },
+    //   );
+    // }
+
+    // if (!QUOTE_RECIPIENT_EMAIL) {
+    //   if (process.env.NODE_ENV === 'development') {
+    //     console.error('QUOTE_RECIPIENT_EMAIL is not configured');
+    //   }
+    //   return NextResponse.json(
+    //     { error: 'Server configuration error' },
+    //     { status: 500 },
+    //   );
+    // }
+
+    // const response = await fetch('https://api.resend.com/emails', {
+    //   method: 'POST',
+    //   headers: {
+    //     Authorization: `Bearer ${RESEND_API_KEY}`,
+    //     'Content-Type': 'application/json',
+    //   },
+    //   body: JSON.stringify({
+    //     from: 'onboarding@resend.dev',
+    //     to: [QUOTE_RECIPIENT_EMAIL], // Now uses environment variable
+    //     subject: `New Solar Quote Request - ${formData.systemType} System`,
         html: `
         <!DOCTYPE html>
         <html lang="en">
@@ -239,23 +265,27 @@ export async function POST(request: NextRequest) {
         </body>
         </html>
         `,
-        reply_to: formData.email,
-      }),
-    });
+    //     reply_to: formData.email,
+    //   }),
+    // });
 
-    if (!response.ok) {
-      const errorData = await response.text();
-      console.error('Resend API error:', errorData);
-      return NextResponse.json(
-        { error: 'Failed to send email' },
-        { status: 500 },
-      );
-    }
+    // if (!response.ok) {
+    //   const errorData = await response.text();
+    //   if (process.env.NODE_ENV === 'development') {
+    //     console.error('Resend API error:', errorData);
+    //   }
+    //   return NextResponse.json(
+    //     { error: 'Failed to send email' },
+    //     { status: 500 },
+    //   );
+    // }
 
-    const result = await response.json();
-    return NextResponse.json({ success: true, messageId: result.id });
+    // const result = await response.json();
+    // return NextResponse.json({ success: true, messageId: result.id });
   } catch (error) {
-    console.error('Error in send-email API:', error);
+    if (process.env.NODE_ENV === 'development') {
+      console.error('Error in send-email API:', error);
+    }
     return NextResponse.json(
       { error: 'Internal server error' },
       { status: 500 },

@@ -70,9 +70,8 @@ export const metadata: Metadata = {
       'max-snippet': -1,
     },
   },
-  verification: {
-    google: 'your-google-verification-code',
-  },
+  // Google Search Console verification removed - using Vercel Analytics for site monitoring
+  // If you need GSC verification later, add: verification: { google: 'your-actual-code' }
 };
 
 export default async function RootLayout({
