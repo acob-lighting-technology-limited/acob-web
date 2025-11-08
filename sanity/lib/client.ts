@@ -22,9 +22,11 @@ if (!dataset) {
 }
 
 if (!token) {
-  console.warn(
-    'Sanity API token not found. Some features may not work properly.'
-  );
+  if (process.env.NODE_ENV === 'development') {
+    console.warn(
+      'Sanity API token not found. Some features may not work properly.'
+    );
+  }
 }
 
 // Server-side client (for API routes and SSR)
@@ -146,7 +148,12 @@ export async function getUpdatePostsPaginated({
       },
     };
   } catch (error) {
-    console.error('Error fetching paginated update posts from Sanity:', error);
+    if (process.env.NODE_ENV === 'development') {
+      console.error(
+        'Error fetching paginated update posts from Sanity:',
+        error
+      );
+    }
     return {
       posts: [],
       pagination: {
@@ -256,7 +263,9 @@ export async function getProjects() {
 
     return projects;
   } catch (error) {
-    console.error('Error fetching projects from Sanity:', error);
+    if (process.env.NODE_ENV === 'development') {
+      console.error('Error fetching projects from Sanity:', error);
+    }
     return [];
   }
 }
@@ -307,7 +316,9 @@ export async function getProjectsForGallery() {
 
     return processedProjects;
   } catch (error) {
-    console.error('Error fetching projects for gallery from Sanity:', error);
+    if (process.env.NODE_ENV === 'development') {
+      console.error('Error fetching projects for gallery from Sanity:', error);
+    }
     return [];
   }
 }
@@ -342,7 +353,9 @@ export async function getFeaturedProjects() {
 
     return projects;
   } catch (error) {
-    console.error('Error fetching featured projects from Sanity:', error);
+    if (process.env.NODE_ENV === 'development') {
+      console.error('Error fetching featured projects from Sanity:', error);
+    }
     return [];
   }
 }
@@ -444,7 +457,9 @@ export async function getProjectsPaginated({
       },
     };
   } catch (error) {
-    console.error('Error fetching paginated projects from Sanity:', error);
+    if (process.env.NODE_ENV === 'development') {
+      console.error('Error fetching paginated projects from Sanity:', error);
+    }
     return {
       projects: [],
       pagination: {
@@ -496,7 +511,9 @@ export async function getProject(slug: string) {
 
     return project;
   } catch (error) {
-    console.error('Error fetching project from Sanity:', error);
+    if (process.env.NODE_ENV === 'development') {
+      console.error('Error fetching project from Sanity:', error);
+    }
     return null;
   }
 }
@@ -532,7 +549,9 @@ export async function getProjectsByCategory(category: string) {
 
     return projects;
   } catch (error) {
-    console.error('Error fetching projects by category from Sanity:', error);
+    if (process.env.NODE_ENV === 'development') {
+      console.error('Error fetching projects by category from Sanity:', error);
+    }
     return [];
   }
 }
@@ -565,7 +584,9 @@ export async function getRelatedProjects(
 
     return relatedProjects;
   } catch (error) {
-    console.error('Error fetching related projects from Sanity:', error);
+    if (process.env.NODE_ENV === 'development') {
+      console.error('Error fetching related projects from Sanity:', error);
+    }
     return [];
   }
 }
@@ -589,7 +610,9 @@ export async function getJobPostings() {
     `);
     return jobs;
   } catch (error) {
-    console.error('Error fetching job postings from Sanity:', error);
+    if (process.env.NODE_ENV === 'development') {
+      console.error('Error fetching job postings from Sanity:', error);
+    }
     return [];
   }
 }
@@ -616,13 +639,17 @@ export async function getJobPosting(slug: string) {
     );
 
     if (!job) {
-      console.log(`Job posting with slug "${slug}" not found or not active`);
+      if (process.env.NODE_ENV === 'development') {
+        console.log(`Job posting with slug "${slug}" not found or not active`);
+      }
       return null;
     }
 
     return job;
   } catch (error) {
-    console.error('Error fetching job posting from Sanity:', error);
+    if (process.env.NODE_ENV === 'development') {
+      console.error('Error fetching job posting from Sanity:', error);
+    }
     return null;
   }
 }
@@ -635,7 +662,9 @@ export async function getActiveJobCount(): Promise<number> {
     `);
     return count || 0;
   } catch (error) {
-    console.error('Error fetching job count from Sanity:', error);
+    if (process.env.NODE_ENV === 'development') {
+      console.error('Error fetching job count from Sanity:', error);
+    }
     return 0;
   }
 }
@@ -644,13 +673,17 @@ export async function getActiveJobCount(): Promise<number> {
 export async function testSanityConnection() {
   try {
     const result = await client.fetch('*[_type == "project"][0...1]');
-    console.log(
-      'Sanity connection successful:',
-      result.length > 0 ? 'Found projects' : 'No projects found'
-    );
+    if (process.env.NODE_ENV === 'development') {
+      console.log(
+        'Sanity connection successful:',
+        result.length > 0 ? 'Found projects' : 'No projects found'
+      );
+    }
     return true;
   } catch (error) {
-    console.error('Sanity connection failed:', error);
+    if (process.env.NODE_ENV === 'development') {
+      console.error('Sanity connection failed:', error);
+    }
     return false;
   }
 }
