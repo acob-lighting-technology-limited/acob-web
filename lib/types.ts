@@ -30,7 +30,7 @@ export interface Project {
   location: string;
   state?: string; // Nigerian state where project is located
   projectImage: string; // Single project image URL
-  images?: unknown[]; // Add images field for compatibility
+  images?: SanityImage[]; // Sanity image references for compatibility
   galleryImages?: string[]; // Add gallery images from content
   isFeatured?: boolean;
   featuredRank?: number;
@@ -136,7 +136,7 @@ export interface ChatResponse {
 }
 
 // API Response Types
-export interface ApiResponse<T = unknown> {
+export interface ApiResponse<T = Record<string, unknown>> {
   success: boolean;
   data?: T;
   error?: string;
@@ -163,8 +163,8 @@ export interface PaginatedUpdatesResponse<T> {
   pagination: PaginationInfo;
 }
 
-export interface SanityApiResponse {
-  result: unknown[];
+export interface SanityApiResponse<T = Record<string, unknown>> {
+  result: T[];
   error?: {
     description: string;
     type: string;
@@ -233,7 +233,7 @@ export interface AppError {
   message: string;
   code?: string;
   status?: number;
-  details?: unknown;
+  details?: Record<string, unknown>;
 }
 
 // Utility Types
