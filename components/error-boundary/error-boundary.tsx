@@ -1,5 +1,3 @@
-/* eslint-disable no-unused-vars */
-
 'use client';
 
 import { Component, type ReactNode } from 'react';
@@ -9,7 +7,6 @@ import { AlertCircle, RefreshCw } from 'lucide-react';
 interface ErrorBoundaryProps {
   children: ReactNode;
   fallback?: ReactNode;
-  onError?: (error: Error, errorInfo: React.ErrorInfo) => void;
 }
 
 interface ErrorBoundaryState {
@@ -35,9 +32,6 @@ export class ErrorBoundary extends Component<
     if (process.env.NODE_ENV === 'development') {
       console.error('Error caught by boundary:', error, errorInfo);
     }
-
-    // Call optional error handler
-    this.props.onError?.(error, errorInfo);
 
     // In production, you would send this to an error tracking service
     // Example: Sentry.captureException(error, { extra: errorInfo });

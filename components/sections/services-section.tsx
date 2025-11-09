@@ -101,7 +101,7 @@ const ServicesSection = React.memo(function ServicesSection() {
         >
           {primaryServices.map(service => (
             <motion.div key={service.slug as string} variants={staggerItem}>
-              <Card className="group h-full overflow-hidden border-border bg-card hover:border-primary/30 hover:shadow-2xl transition-all duration-500 p-0">
+              <Card className="group h-full overflow-hidden border-border bg-card hover:border-primary/30 hover:shadow-2xl transition-all duration-500">
                 <div className="aspect-[16/9] overflow-hidden relative bg-muted">
                   <Image
                     src={service.image || '/placeholder.svg'}

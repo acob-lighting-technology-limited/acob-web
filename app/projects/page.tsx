@@ -1,10 +1,11 @@
 import { Suspense } from 'react';
 import { Container } from '@/components/ui/container';
-import { PageHero } from '@/components/ui/page-hero';
-import { Breadcrumb } from '@/components/ui/breadcrumb';
+import { PageHeroCarousel } from '@/components/ui/page-hero-carousel';
 import { ProjectsGridSkeleton } from '@/components/ui/projects-grid-skeleton';
-import { getProjectsPaginated } from '@/sanity/lib/client';
-import type { Project } from '@/lib/types';
+import {
+  getProjectsPaginated,
+  getRecentProjectImages,
+} from '@/sanity/lib/client';
 import ProjectsClient from './projects-client';
 
 interface ProjectsPageProps {
@@ -34,42 +35,34 @@ export default async function ProjectsPage({
 
   const { projects, pagination } = result;
 
-  // Get all projects for sidebar filters (we'll optimize this later)
-  const allProjectsResult = await getProjectsPaginated({
-    page: 1,
-    limit: 1000, // Get all for filtering
-    search: '',
-    state: '',
-  });
-
-  const allProjects = allProjectsResult.projects;
-
-  // Extract unique states for filtering - now using the state field directly
-  const uniqueStates = Array.from(
-    new Set(allProjects.map((p: Project) => p.state).filter(Boolean))
-  ).sort() as string[];
+  // Fetch recent images efficiently (no need to fetch all projects)
+  const recentProjects = await getRecentProjectImages(5);
 
   const breadcrumbItems = [{ label: 'Home', href: '/' }, { label: 'Projects' }];
 
+  // Map recent project images for carousel
+  const projectImages = recentProjects.map(
+    (p: { title: string; projectImage: string }) => ({
+      src: p.projectImage,
+      alt: p.title,
+    })
+  );
+
   return (
     <>
-      <PageHero
-        description="Transforming Communities with Solar Power"
-        backgroundImage="/images/services/header.webp?height=400&width=1200"
+      <PageHeroCarousel
+        images={projectImages}
+        title="Our Projects"
+        description="Delivering Reliable Solar Energy Infrastructure Across Nigeria"
       />
 
       <Container className="px-4 py-8">
-        <Breadcrumb items={breadcrumbItems} className="mb-8" />
-
         <Suspense fallback={<ProjectsGridSkeleton />}>
           <ProjectsClient
             initialProjects={projects}
             initialPagination={pagination}
-            allProjects={allProjects}
-            uniqueStates={uniqueStates}
             currentSearch={search}
-            currentState={state}
-            currentPage={page}
+            breadcrumbItems={breadcrumbItems}
           />
         </Suspense>
       </Container>

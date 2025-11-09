@@ -1,10 +1,9 @@
 import { Breadcrumb } from '@/components/ui/breadcrumb';
 import { Container } from '@/components/ui/container';
-
 import { Button } from '@/components/ui/button';
 import { ArrowRight, MapPin } from 'lucide-react';
 import { notFound } from 'next/navigation';
-import { getProjects, getProject, urlFor } from '@/sanity/lib/client';
+import { getProjects, getProject } from '@/sanity/lib/client';
 import Image from 'next/image';
 import Link from 'next/link';
 import { PageHero } from '@/components/ui/page-hero';
@@ -12,87 +11,13 @@ import type { Project } from '@/lib/types';
 import { Card, CardContent } from '@/components/ui/card';
 import { ShareCopy } from '@/components/updates/share-copy';
 import { Metadata } from 'next';
-import {
-  PortableText,
-  type PortableTextComponentProps,
-} from '@portabletext/react';
-import type { PortableTextBlock } from '@portabletext/types';
+import { ProjectContent } from './project-content';
 
 interface ProjectPageProps {
   params: Promise<{
     slug: string;
   }>;
 }
-
-// Custom Portable Text Components
-const components = {
-  types: {
-    image: ({
-      value,
-    }: {
-      value: { asset: { _ref: string }; alt?: string };
-    }) => {
-      if (!value.asset) {
-        return null;
-      }
-      const imageUrl = urlFor(value)
-        .width(800)
-        .height(600)
-        .fit('crop')
-        .auto('format')
-        .quality(75)
-        .url();
-      return (
-        <div className="w-full md:w-1/2 px-2 my-4">
-          <Image
-            src={imageUrl || '/placeholder.svg'}
-            alt={value.alt || 'Project image'}
-            width={800}
-            height={600}
-            className="rounded-lg object-cover w-full h-auto"
-          />
-        </div>
-      );
-    },
-  },
-  block: {
-    h1: ({ children }: PortableTextComponentProps<PortableTextBlock>) => (
-      <h1 className="text-4xl font-bold my-4">{children}</h1>
-    ),
-    h2: ({ children }: PortableTextComponentProps<PortableTextBlock>) => (
-      <h2 className="text-3xl font-bold my-3">{children}</h2>
-    ),
-    h3: ({ children }: PortableTextComponentProps<PortableTextBlock>) => (
-      <h3 className="text-2xl font-bold my-2">{children}</h3>
-    ),
-    normal: ({ children }: PortableTextComponentProps<PortableTextBlock>) => (
-      <p className="my-2 text-muted-foreground leading-relaxed">{children}</p>
-    ),
-    blockquote: ({
-      children,
-    }: PortableTextComponentProps<PortableTextBlock>) => (
-      <blockquote className="border-l-4 border-primary pl-4 italic my-4">
-        {children}
-      </blockquote>
-    ),
-  },
-  list: {
-    bullet: ({ children }: PortableTextComponentProps<PortableTextBlock>) => (
-      <ul className="list-disc list-inside my-4 space-y-2">{children}</ul>
-    ),
-    number: ({ children }: PortableTextComponentProps<PortableTextBlock>) => (
-      <ol className="list-decimal list-inside my-4 space-y-2">{children}</ol>
-    ),
-  },
-  listItem: {
-    bullet: ({ children }: PortableTextComponentProps<PortableTextBlock>) => (
-      <li className="text-muted-foreground">{children}</li>
-    ),
-    number: ({ children }: PortableTextComponentProps<PortableTextBlock>) => (
-      <li className="text-muted-foreground">{children}</li>
-    ),
-  },
-};
 
 export async function generateStaticParams() {
   const projects = await getProjects();
@@ -169,149 +94,93 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
       <Container className="px-4 py-8 relative">
         <Breadcrumb items={breadcrumbItems} className="mb-8" />
 
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 items-start">
-          {/* Main  */}
-          <div className="lg:col-span-2  ">
-            {/* Overview */}
-            <Card>
-              <CardContent className="p-4 sm:p-6 xl:p-8">
-                <h2 className="text-3xl font-bold mb-6 text-foreground">
-                  Project Overview
-                </h2>
-                <p className="text-muted-foreground leading-relaxed text-lg">
-                  {project.description}
-                </p>
+        {/* Overview */}
+        <Card>
+          <CardContent className="p-4 sm:p-6 xl:p-8">
+            <h2 className="text-3xl font-bold mb-6 text-foreground">
+              Project Overview
+            </h2>
+            <p className="text-muted-foreground leading-relaxed text-lg">
+              {project.description}
+            </p>
 
-                {/* Project Location */}
-                {project.location && (
-                  <div className="flex items-center text-muted-foreground mt-6">
-                    <MapPin className="h-5 w-5 mr-2" />
-                    <span className="text-lg">
-                      {project.location}
-                      {project.state && `, ${project.state}`}
-                    </span>
-                  </div>
-                )}
-
-                {/* Project Content */}
-                {project.content && (
-                  <div className="mt-6 prose prose-lg max-w-none flex flex-wrap -mx-2">
-                    <PortableText
-                      value={project.content}
-                      components={components}
-                    />
-                  </div>
-                )}
-
-                {/* Share Buttons */}
-                <div className="flex items-center gap-4 pt-8 border-t mt-6">
-                  <ShareCopy className="rounded-full bg-transparent" />
-                </div>
-              </CardContent>
-            </Card>
-          </div>
-
-          {/* Sidebar */}
-          <div className="space-y-6 sticky top-20 self-start">
-            {/* Project Info */}
-            <Card className="!border-t-2 !border-t-primary border border-border">
-              <CardContent className="p-6 ">
-                <h3 className="font-semibold mb-4">Project Details</h3>
-                <div className="space-y-3">
-                  {project.location && (
-                    <div className="flex items-start space-x-2 p-3 rounded-lg bg-muted/30 border border-border">
-                      <MapPin className="h-4 w-4 text-primary mt-0.5 flex-shrink-0" />
-                      <div>
-                        <p className="text-xs text-muted-foreground">
-                          Location
-                        </p>
-                        <p className="text-sm font-medium">
-                          {project.location}
-                          {project.state && `, ${project.state}`}
-                        </p>
-                      </div>
-                    </div>
-                  )}
-                  <div className="flex items-start space-x-2 p-3 rounded-lg bg-muted/30 border border-border">
-                    <div className="h-4 w-4 bg-primary rounded-sm mt-0.5 flex-shrink-0"></div>
-                    <div>
-                      <p className="text-xs text-muted-foreground">
-                        Project Type
-                      </p>
-                      <p className="text-sm font-medium">
-                        Solar Energy Solution
-                      </p>
-                    </div>
-                  </div>
-                </div>
-              </CardContent>
-            </Card>
-
-            {/* Quick Contact */}
-            <Card className="border-t-2 border-t-primary border border-border">
-              <CardContent className="p-6">
-                <h3 className="font-semibold mb-4">Need a Similar Project?</h3>
-                <p className="text-sm text-muted-foreground mb-4">
-                  Get a customized solution for your energy needs.
-                </p>
-                <Link href="/contact/quote">
-                  <Button variant="default" className="w-full mb-2">
-                    Get Quote
-                    <ArrowRight className="ml-1 h-4 w-4" />
-                  </Button>
-                </Link>
-                <Link href="/contact">
-                  <Button variant="outline" className="w-full">
-                    Contact Us
-                  </Button>
-                </Link>
-              </CardContent>
-            </Card>
-
-            {/* Related Projects */}
-            {relatedProjects.length > 0 && (
-              <Card className="!border-t-2 !border-t-primary border border-border">
-                <CardContent className="p-6">
-                  <h3 className="font-semibold mb-4">Related Projects</h3>
-                  <div className="space-y-2">
-                    {relatedProjects.map((relatedProject: Project) => (
-                      <Link
-                        key={relatedProject._id}
-                        href={`/projects/${relatedProject.slug.current}`}
-                        className="block p-3 rounded-lg bg-muted/30 hover:bg-muted/50 transition-colors duration-500 group border border-border"
-                      >
-                        <h4 className="text-sm font-medium text-foreground group-hover:text-primary mb-1 line-clamp-2">
-                          {relatedProject.title}
-                        </h4>
-                        {relatedProject.location && (
-                          <div className="flex items-center text-xs text-muted-foreground">
-                            <MapPin className="h-3 w-3 mr-1" />
-                            <span>
-                              {relatedProject.location}
-                              {relatedProject.state &&
-                                `, ${relatedProject.state}`}
-                            </span>
-                          </div>
-                        )}
-                      </Link>
-                    ))}
-                  </div>
-
-                  {/* View All Projects Link */}
-                  <div className="pt-4 border-t">
-                    <Link
-                      href="/projects"
-                      className="text-sm text-primary hover:text-primary/80 flex items-center font-medium"
-                    >
-                      View All Projects
-                      <ArrowRight className="ml-1 h-3 w-3" />
-                    </Link>
-                  </div>
-                </CardContent>
-              </Card>
+            {/* Project Location */}
+            {project.location && (
+              <div className="flex items-center text-muted-foreground mt-6">
+                <MapPin className="h-5 w-5 mr-2" />
+                <span className="text-lg">
+                  {project.location}
+                  {project.state && `, ${project.state}`}
+                </span>
+              </div>
             )}
+
+            {/* Project Content */}
+            {project.content && (
+              <div className="mt-6 prose prose-lg max-w-none flex flex-wrap -mx-2">
+                <ProjectContent content={project.content} />
+              </div>
+            )}
+
+            {/* Share Buttons */}
+            <div className="flex items-center gap-4 pt-8 border-t mt-6">
+              <ShareCopy className="rounded-full bg-transparent" />
+            </div>
+          </CardContent>
+        </Card>
+
+        {/* Related Projects */}
+        {relatedProjects.length > 0 && (
+          <div className="mt-8">
+            <h3 className="text-2xl font-bold mb-4">Related Projects</h3>
+            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4">
+              {relatedProjects.map((relatedProject: Project) => (
+                <Link
+                  key={relatedProject._id}
+                  href={`/projects/${relatedProject.slug.current}`}
+                  className="group"
+                >
+                  <Card className="overflow-hidden h-full transition-all duration-300 hover:shadow-xl hover:-translate-y-1 border-border hover:border-primary/50">
+                    <div className="aspect-square overflow-hidden relative bg-muted">
+                      {relatedProject.projectImage && (
+                        <Image
+                          src={relatedProject.projectImage}
+                          alt={relatedProject.title}
+                          fill
+                          className="object-cover transition-transform duration-500 group-hover:scale-110"
+                        />
+                      )}
+                      <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/0 to-black/0 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                    </div>
+                    <CardContent className="p-3">
+                      <h4 className="text-sm font-semibold text-foreground group-hover:text-primary mb-1 line-clamp-2 transition-colors duration-300">
+                        {relatedProject.title}
+                      </h4>
+                      {relatedProject.location && (
+                        <div className="flex items-center text-xs text-muted-foreground">
+                          <MapPin className="h-3 w-3 mr-1 flex-shrink-0" />
+                          <span className="line-clamp-1">
+                            {relatedProject.location}
+                            {relatedProject.state &&
+                              `, ${relatedProject.state}`}
+                          </span>
+                        </div>
+                      )}
+                    </CardContent>
+                  </Card>
+                </Link>
+              ))}
+            </div>
+            <div className="mt-6 text-center">
+              <Link href="/projects">
+                <Button variant="outline">
+                  View All Projects
+                  <ArrowRight className="ml-2 h-4 w-4" />
+                </Button>
+              </Link>
+            </div>
           </div>
-        </div>
+        )}
       </Container>
     </>
   );

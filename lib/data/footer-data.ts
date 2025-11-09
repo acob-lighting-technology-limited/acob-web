@@ -11,12 +11,26 @@ export const footerLinks = {
     { href: '/services', label: 'Services' },
   ],
   services: [
-    { href: '/services/mini-grid', label: 'Mini-Grid Solutions' },
-    { href: '/services/captive-power', label: 'Captive Power Solutions' },
-    { href: '/services/energy-audit', label: 'Professional Energy Audit' },
+    { href: '/services/mini-grid-solutions', label: 'Mini-Grid Solutions' },
     {
-      href: '/services/engineering',
+      href: '/services/captive-power-solutions',
+      label: 'Captive Power Solutions',
+    },
+    {
+      href: '/services/professional-energy-audit',
+      label: 'Professional Energy Audit',
+    },
+    {
+      href: '/services/engineering-procurement-construction',
       label: 'Engineering Procurement & Construction',
+    },
+    {
+      href: '/services/streetlighting-infrastructure',
+      label: 'Streetlighting Infrastructure',
+    },
+    {
+      href: '/services/operations-and-maintenance',
+      label: 'Operations and Maintenance',
     },
   ],
   support: [

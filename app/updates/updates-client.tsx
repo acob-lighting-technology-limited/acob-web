@@ -5,12 +5,18 @@ import { useRouter } from 'next/navigation';
 import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
-import { ArrowRight, Search, Filter } from 'lucide-react';
+import { Breadcrumb } from '@/components/ui/breadcrumb';
+import { ArrowRight, Search, X, Calendar, User } from 'lucide-react';
 import Link from 'next/link';
 import Image from 'next/image';
 import type { UpdatePost, PaginationInfo } from '@/lib/types';
 import { formatDate } from '@/lib/utils';
 import { applySanityImagePreset } from '@/lib/utils/sanity-image';
+import { motion } from 'framer-motion';
+import {
+  StaggerChildren,
+  staggerItem,
+} from '@/components/animations/StaggerChildren';
 import {
   Pagination,
   PaginationContent,
@@ -26,12 +32,14 @@ interface UpdatesClientProps {
   initialPagination: PaginationInfo;
   currentSearch: string;
   currentPage: number;
+  breadcrumbItems: Array<{ label: string; href?: string }>;
 }
 
 export default function UpdatesClient({
   initialPosts,
   initialPagination,
   currentSearch,
+  breadcrumbItems,
 }: UpdatesClientProps) {
   const router = useRouter();
 
@@ -39,10 +47,9 @@ export default function UpdatesClient({
   const [pagination, setPagination] = useState(initialPagination);
   const [searchQuery, setSearchQuery] = useState(currentSearch);
   const [isLoading, setIsLoading] = useState(false);
-  const [showMobileFilters, setShowMobileFilters] = useState(false);
 
-  // Update URL and fetch new data when filters change
-  const updateFilters = async (newSearch: string, newPage: number = 1) => {
+  // Update URL and fetch new data when search changes
+  const updateSearch = async (newSearch: string, newPage: number = 1) => {
     setIsLoading(true);
 
     const params = new URLSearchParams();
@@ -77,344 +84,283 @@ export default function UpdatesClient({
     setSearchQuery(value);
     // Debounce search
     const timeoutId = setTimeout(() => {
-      updateFilters(value, 1);
+      updateSearch(value, 1);
     }, 500);
     return () => clearTimeout(timeoutId);
   };
 
   const handlePageChange = (page: number) => {
-    updateFilters(searchQuery, page);
+    // Scroll to top immediately before fetching
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+    updateSearch(searchQuery, page);
   };
 
   const handleClearSearch = () => {
     setSearchQuery('');
-    updateFilters('', 1);
+    updateSearch('', 1);
   };
 
-  const activeFiltersCount = searchQuery ? 1 : 0;
-
   return (
-    <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 items-start">
-      {/* Main Content */}
-      <div className="lg:col-span-2 lg:space-y-4">
-        {/* Mobile Search & Filter - Combined */}
-        <div className="lg:hidden mb-2">
-          <Card className="!border-t-2 !border-t-primary border border-border !py-0">
-            <CardContent className="p-0">
-              {/* Search and Filter Header */}
-              <div className="flex items-center gap-2 p-3">
-                {/* Search Input */}
-                <div className="relative flex-1">
-                  <Input
-                    placeholder="Search updates..."
-                    value={searchQuery}
-                    onChange={e => handleSearchChange(e.target.value)}
-                    className="pr-10 h-10"
-                  />
-                  <Search className="absolute right-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
-                </div>
+    <>
+      {/* Breadcrumb with Search */}
+      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-8">
+        <Breadcrumb items={breadcrumbItems} />
 
-                {/* Filter Toggle Button */}
-                <button
-                  onClick={() => setShowMobileFilters(!showMobileFilters)}
-                  className="flex items-center gap-2 px-3 py-2 h-10 bg-muted/30 hover:bg-muted/50 border border-border rounded-lg transition-colors duration-500"
+        <div className="relative w-full sm:w-96">
+          <Input
+            placeholder="Search updates..."
+            value={searchQuery}
+            onChange={e => handleSearchChange(e.target.value)}
+            className="h-11 pl-10 pr-10 bg-background border-2 focus:border-primary transition-all duration-300"
+          />
+          <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+          {searchQuery && (
+            <button
+              onClick={handleClearSearch}
+              className="absolute right-3 top-1/2 -translate-y-1/2 p-1 hover:bg-muted rounded-full transition-colors"
+            >
+              <X className="h-4 w-4 text-muted-foreground" />
+            </button>
+          )}
+        </div>
+      </div>
+
+      {/* Search Results Info */}
+      {searchQuery && (
+        <div className="mb-6">
+          <Card className="border-primary/20 bg-primary/5">
+            <CardContent className="p-4">
+              <div className="flex items-center justify-between">
+                <p className="text-sm">
+                  <span className="font-medium">{pagination.totalCount}</span>{' '}
+                  update
+                  {pagination.totalCount !== 1 ? 's' : ''} found for{' '}
+                  <span className="font-medium">"{searchQuery}"</span>
+                </p>
+                <Button
+                  variant="ghost"
+                  size="sm"
+                  onClick={handleClearSearch}
+                  className="text-xs"
                 >
-                  <Filter className="h-4 w-4" />
-                  <span className="text-sm font-medium">Filter</span>
-                  {activeFiltersCount > 0 && (
-                    <span className="bg-primary text-primary-foreground rounded-full px-1.5 py-0.5 text-xs font-medium min-w-[18px] text-center">
-                      {activeFiltersCount}
-                    </span>
-                  )}
-                  <div
-                    className={`transition-transform duration-500 ${showMobileFilters ? 'rotate-180' : ''}`}
-                  >
-                    <svg
-                      className="w-3 h-3"
-                      fill="none"
-                      stroke="currentColor"
-                      viewBox="0 0 24 24"
-                    >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth={2}
-                        d="M19 9l-7 7-7-7"
-                      />
-                    </svg>
-                  </div>
-                </button>
+                  <X className="h-3 w-3 mr-1" />
+                  Clear
+                </Button>
               </div>
-
-              {/* Expandable Filter Content */}
-              {showMobileFilters && (
-                <div className="border-t border-border p-4 animate-in slide-in-from-top-5 duration-500">
-                  {/* Clear button for mobile */}
-                  <div className="mt-6 pt-4 border-t">
-                    <Button
-                      variant="outline"
-                      onClick={handleClearSearch}
-                      className="w-full"
-                      disabled={activeFiltersCount === 0}
-                    >
-                      Clear Filters
-                    </Button>
-                  </div>
-                </div>
-              )}
             </CardContent>
           </Card>
         </div>
+      )}
 
-        {/* Search Results Info */}
-        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
-          <div className="flex-1">
-            {searchQuery && (
-              <div className="p-4 bg-muted rounded-lg">
-                <p className="text-sm text-muted-foreground">
-                  {pagination.totalCount} result
-                  {pagination.totalCount !== 1 ? 's' : ''} found for "
-                  {searchQuery}"
-                </p>
-              </div>
-            )}
-          </div>
-
-          {/* Results count for mobile - always visible */}
-          <div className="lg:hidden">
-            <p className="text-sm text-muted-foreground text-right">
-              {pagination.totalCount} updates
-            </p>
-          </div>
+      {/* Updates Grid */}
+      {isLoading ? (
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {Array.from({ length: 6 }).map((_, i) => (
+            <Card key={i} className="overflow-hidden animate-pulse">
+              <div className="aspect-[16/9] bg-muted" />
+              <CardContent className="p-6">
+                <div className="h-4 bg-muted rounded mb-3 w-2/3" />
+                <div className="h-6 bg-muted rounded mb-4" />
+                <div className="h-4 bg-muted rounded mb-2" />
+                <div className="h-4 bg-muted rounded mb-4 w-5/6" />
+                <div className="h-10 bg-muted rounded mt-6" />
+              </CardContent>
+            </Card>
+          ))}
         </div>
-
-        {/* Posts Grid */}
-        {isLoading ? (
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            {Array.from({ length: 8 }).map((_, i) => (
-              <Card key={i} className="overflow-hidden p-0 animate-pulse">
-                <div className="aspect-[16/9] bg-muted" />
-                <CardContent className="p-6">
-                  <div className="h-4 bg-muted rounded mb-4" />
-                  <div className="h-6 bg-muted rounded mb-4" />
-                  <div className="h-4 bg-muted rounded mb-2" />
-                  <div className="h-4 bg-muted rounded mb-6" />
-                  <div className="h-10 bg-muted rounded" />
-                </CardContent>
-              </Card>
-            ))}
-          </div>
-        ) : posts.length > 0 ? (
-          <>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              {posts.map((post: UpdatePost) => (
-                <Card
-                  key={post._id}
-                  className="overflow-hidden p-0 hover:shadow-lg transition-shadow duration-500 flex flex-col"
-                >
-                  <div className="aspect-[16/9] overflow-hidden flex-shrink-0">
-                    <Image
-                      src={
-                        post.featuredImage
-                          ? applySanityImagePreset(
-                              post.featuredImage,
-                              'featured',
-                            )
-                          : '/placeholder.svg'
-                      }
-                      alt={post.title}
-                      width={1200}
-                      height={675}
-                      className="w-full h-full object-cover"
-                    />
-                  </div>
-                  <CardContent className="!pt-0 p-6 flex flex-col flex-1">
-                    <div className="flex-1">
-                      <div className="flex items-center text-sm text-muted-foreground mb-4">
-                        <span>{post.author}</span>
-                        <span className="mx-2">•</span>
-                        <span>{formatDate(post.publishedAt)}</span>
-                      </div>
-                      <h2 className="text-xl font-bold mb-4 text-foreground line-clamp-2 h-[50px]">
-                        {post.title}
-                      </h2>
-                      <p className="text-muted-foreground mb-6 leading-relaxed line-clamp-[3]">
-                        {post.excerpt}
-                      </p>
-                    </div>
-                    <div className="mt-auto">
-                      <Link href={`/updates/${post.slug?.current || '#'}`}>
-                        <Button className="w-full">
-                          <span className="sr-only">
-                            Read more about {post.title}
-                          </span>
-                          <span aria-hidden="true">Read More</span>
-                          <ArrowRight className="ml-2 h-4 w-4" />
-                        </Button>
-                      </Link>
-                    </div>
-                  </CardContent>
-                </Card>
-              ))}
+      ) : posts.length === 0 ? (
+        <Card className="border-2 border-dashed">
+          <CardContent className="p-12 text-center">
+            <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-muted mb-4">
+              <Search className="h-8 w-8 text-muted-foreground" />
             </div>
-
-            {/* Pagination */}
-            {pagination.totalPages > 1 && (
-              <div className="mt-12">
-                <div className="text-sm text-muted-foreground text-center mb-4">
-                  Showing {(pagination.currentPage - 1) * pagination.limit + 1}-
-                  {Math.min(
-                    pagination.currentPage * pagination.limit,
-                    pagination.totalCount,
-                  )}{' '}
-                  of {pagination.totalCount} posts
-                </div>
-                <Pagination>
-                  <PaginationContent>
-                    <PaginationItem>
-                      <PaginationPrevious
-                        onClick={() =>
-                          handlePageChange(
-                            Math.max(1, pagination.currentPage - 1),
-                          )
-                        }
-                        className={
-                          pagination.currentPage === 1
-                            ? 'pointer-events-none opacity-50'
-                            : 'cursor-pointer'
-                        }
-                        size="default"
-                      />
-                    </PaginationItem>
-
-                    {Array.from(
-                      { length: pagination.totalPages },
-                      (_, i) => i + 1,
-                    ).map(page => {
-                      // Show first page, last page, current page, and pages around current
-                      if (
-                        page === 1 ||
-                        page === pagination.totalPages ||
-                        (page >= pagination.currentPage - 1 &&
-                          page <= pagination.currentPage + 1)
-                      ) {
-                        return (
-                          <PaginationItem key={page}>
-                            <PaginationLink
-                              onClick={() => handlePageChange(page)}
-                              isActive={pagination.currentPage === page}
-                              className="cursor-pointer"
-                              size="default"
-                            >
-                              {page}
-                            </PaginationLink>
-                          </PaginationItem>
-                        );
-                      } else if (
-                        page === pagination.currentPage - 2 ||
-                        page === pagination.currentPage + 2
-                      ) {
-                        return (
-                          <PaginationItem key={page}>
-                            <PaginationEllipsis />
-                          </PaginationItem>
-                        );
-                      }
-                      return null;
-                    })}
-
-                    <PaginationItem>
-                      <PaginationNext
-                        onClick={() =>
-                          handlePageChange(
-                            Math.min(
-                              pagination.totalPages,
-                              pagination.currentPage + 1,
-                            ),
-                          )
-                        }
-                        className={
-                          pagination.currentPage === pagination.totalPages
-                            ? 'pointer-events-none opacity-50'
-                            : 'cursor-pointer'
-                        }
-                        size="default"
-                      />
-                    </PaginationItem>
-                  </PaginationContent>
-                </Pagination>
-              </div>
-            )}
-          </>
-        ) : (
-          <div className="text-center py-12">
-            <Search className="h-12 w-12 text-muted-foreground mx-auto mb-4" />
-            <h3 className="text-lg font-semibold mb-2">No results found</h3>
-            <p className="text-muted-foreground mb-4">
+            <h3 className="text-2xl font-semibold mb-2">No updates found</h3>
+            <p className="text-muted-foreground mb-6">
               Try adjusting your search terms or browse all updates.
             </p>
-            <Button variant="outline" onClick={handleClearSearch}>
-              Clear Search
+            <Button onClick={handleClearSearch}>
+              <X className="mr-2 h-4 w-4" />
+              View All Updates
             </Button>
-          </div>
-        )}
-      </div>
+          </CardContent>
+        </Card>
+      ) : (
+        <>
+          <StaggerChildren
+            staggerDelay={0.1}
+            className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
+          >
+            {posts.map((post: UpdatePost) => (
+              <motion.div key={post._id} variants={staggerItem}>
+                <Link href={`/updates/${post.slug.current}`} className="group">
+                  <Card className="overflow-hidden h-full flex flex-col transition-all duration-300 hover:shadow-xl hover:-translate-y-1 border-border hover:border-primary/50">
+                    {/* Image */}
+                    <div className="aspect-[16/9] overflow-hidden relative bg-muted">
+                      {post.featuredImage ? (
+                        <Image
+                          src={applySanityImagePreset(
+                            post.featuredImage,
+                            'card'
+                          )}
+                          alt={post.title}
+                          fill
+                          className="object-cover transition-transform duration-500 group-hover:scale-110"
+                          sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                        />
+                      ) : (
+                        <div className="w-full h-full flex items-center justify-center">
+                          <span className="text-muted-foreground text-sm">
+                            No image
+                          </span>
+                        </div>
+                      )}
+                      {/* Gradient overlay */}
+                      <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/0 to-black/0 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                    </div>
 
-      {/* Desktop Sidebar - Hidden on mobile */}
-      <div className="hidden lg:block">
-        <div className="sticky top-20 self-start">
-          <div className="space-y-6">
-            {/* Search */}
-            <Card className="!border-t-2 !border-t-primary border border-border">
-              <CardContent className="p-6">
-                <h3 className="font-semibold mb-4">Search Updates</h3>
-                <div className="relative">
-                  <Input
-                    placeholder="Search updates..."
-                    className="pr-10"
-                    value={searchQuery}
-                    onChange={e => handleSearchChange(e.target.value)}
-                  />
-                  <Search className="absolute right-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
-                </div>
-              </CardContent>
-            </Card>
+                    <CardContent className="p-6 flex flex-col flex-1">
+                      {/* Category, Author & Date */}
+                      <div className="flex items-center gap-3 text-xs text-muted-foreground mb-3 flex-wrap">
+                        {post.category && (
+                          <span className="px-2 py-1 bg-primary/10 text-primary rounded font-medium">
+                            {post.category}
+                          </span>
+                        )}
+                        {post.author && (
+                          <div className="flex items-center gap-1">
+                            <User className="h-3.5 w-3.5" />
+                            <span>{post.author}</span>
+                          </div>
+                        )}
+                        {post.publishedAt && (
+                          <div className="flex items-center gap-1">
+                            <Calendar className="h-3.5 w-3.5" />
+                            <span>{formatDate(post.publishedAt)}</span>
+                          </div>
+                        )}
+                      </div>
 
-            {/* Categories */}
-            <Card className="!border-t-2 !border-t-primary border border-border">
-              <CardContent className="p-6">
-                <h3 className="font-semibold mb-4">Browse Categories</h3>
-                <div className="space-y-2">
-                  <Link
-                    href="/updates/case-studies"
-                    className="block p-3 rounded-lg bg-muted/30 hover:bg-muted/50 transition-colors duration-500 text-sm font-medium border border-border"
-                  >
-                    Case Studies
-                  </Link>
-                  <Link
-                    href="/updates/press"
-                    className="block p-3 rounded-lg bg-muted/30 hover:bg-muted/50 transition-colors duration-500 text-sm font-medium border border-border"
-                  >
-                    Press Releases
-                  </Link>
-                  <Link
-                    href="/updates/latest"
-                    className="block p-3 rounded-lg bg-muted/30 hover:bg-muted/50 transition-colors duration-500 text-sm font-medium border border-border"
-                  >
-                    Latest Updates
-                  </Link>
-                  <Link
-                    href="/updates/gallery"
-                    className="block p-3 rounded-lg bg-muted/30 hover:bg-muted/50 transition-colors duration-500 text-sm font-medium border border-border"
-                  >
-                    Gallery
-                  </Link>
-                </div>
-              </CardContent>
-            </Card>
-          </div>
-        </div>
-      </div>
-    </div>
+                      {/* Title */}
+                      <h3 className="text-lg font-bold mb-3 text-foreground group-hover:text-primary transition-colors duration-300 line-clamp-2">
+                        {post.title}
+                      </h3>
+
+                      {/* Excerpt */}
+                      <p className="text-sm text-muted-foreground leading-relaxed line-clamp-3 mb-4 flex-1">
+                        {post.excerpt}
+                      </p>
+
+                      {/* Read More Link */}
+                      <div className="flex items-center text-sm font-medium text-primary group-hover:gap-2 transition-all duration-300">
+                        Read More
+                        <ArrowRight className="h-4 w-4 ml-1 group-hover:translate-x-1 transition-transform duration-300" />
+                      </div>
+                    </CardContent>
+                  </Card>
+                </Link>
+              </motion.div>
+            ))}
+          </StaggerChildren>
+
+          {/* Pagination */}
+          {pagination.totalPages > 1 && (
+            <div className="mt-12">
+              <div className="text-sm text-center text-muted-foreground mb-6">
+                Showing{' '}
+                <span className="font-medium text-foreground">
+                  {(pagination.currentPage - 1) * pagination.limit + 1}
+                </span>
+                -
+                <span className="font-medium text-foreground">
+                  {Math.min(
+                    pagination.currentPage * pagination.limit,
+                    pagination.totalCount
+                  )}
+                </span>{' '}
+                of{' '}
+                <span className="font-medium text-foreground">
+                  {pagination.totalCount}
+                </span>{' '}
+                updates
+              </div>
+              <Pagination>
+                <PaginationContent>
+                  <PaginationItem>
+                    <PaginationPrevious
+                      onClick={() =>
+                        handlePageChange(
+                          Math.max(1, pagination.currentPage - 1)
+                        )
+                      }
+                      className={
+                        pagination.currentPage === 1
+                          ? 'pointer-events-none opacity-50'
+                          : 'cursor-pointer'
+                      }
+                      size="default"
+                    />
+                  </PaginationItem>
+
+                  {Array.from(
+                    { length: pagination.totalPages },
+                    (_, i) => i + 1
+                  ).map(page => {
+                    // Show first page, last page, current page, and pages around current
+                    if (
+                      page === 1 ||
+                      page === pagination.totalPages ||
+                      (page >= pagination.currentPage - 1 &&
+                        page <= pagination.currentPage + 1)
+                    ) {
+                      return (
+                        <PaginationItem key={page}>
+                          <PaginationLink
+                            onClick={() => handlePageChange(page)}
+                            isActive={pagination.currentPage === page}
+                            className="cursor-pointer"
+                            size="default"
+                          >
+                            {page}
+                          </PaginationLink>
+                        </PaginationItem>
+                      );
+                    } else if (
+                      page === pagination.currentPage - 2 ||
+                      page === pagination.currentPage + 2
+                    ) {
+                      return (
+                        <PaginationItem key={page}>
+                          <PaginationEllipsis />
+                        </PaginationItem>
+                      );
+                    }
+                    return null;
+                  })}
+
+                  <PaginationItem>
+                    <PaginationNext
+                      onClick={() =>
+                        handlePageChange(
+                          Math.min(
+                            pagination.totalPages,
+                            pagination.currentPage + 1
+                          )
+                        )
+                      }
+                      className={
+                        pagination.currentPage === pagination.totalPages
+                          ? 'pointer-events-none opacity-50'
+                          : 'cursor-pointer'
+                      }
+                      size="default"
+                    />
+                  </PaginationItem>
+                </PaginationContent>
+              </Pagination>
+            </div>
+          )}
+        </>
+      )}
+    </>
   );
 }

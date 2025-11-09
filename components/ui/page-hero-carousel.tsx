@@ -1,0 +1,148 @@
+'use client';
+
+import React, { useState, useEffect, useMemo } from 'react';
+import Image from 'next/image';
+import { cn } from '@/lib/utils';
+import { MaskText } from '../animations/MaskText';
+
+interface PageHeroCarouselProps {
+  images: Array<{
+    src: string;
+    alt: string;
+  }>;
+  title?: string;
+  description?: string;
+  height?: string;
+  autoPlayInterval?: number;
+}
+
+export const PageHeroCarousel = React.memo(function PageHeroCarousel({
+  images,
+  title,
+  description,
+  height = 'h-[50vh] md:h-[60vh]',
+  autoPlayInterval = 5000,
+}: PageHeroCarouselProps) {
+  const [current, setCurrent] = useState(0);
+  const [isAnimating, setIsAnimating] = useState(false);
+
+  const slides = useMemo(() => {
+    if (!images || images.length === 0) {
+      return [
+        {
+          src: '/images/olooji-community.webp',
+          alt: 'ACOB Lighting',
+        },
+      ];
+    }
+    return images;
+  }, [images]);
+
+  // Auto-advance slides
+  useEffect(() => {
+    if (slides.length <= 1) {
+      return;
+    }
+
+    const timer = setInterval(() => {
+      if (!isAnimating) {
+        setIsAnimating(true);
+        setCurrent(prev => (prev === slides.length - 1 ? 0 : prev + 1));
+        setTimeout(() => setIsAnimating(false), 800);
+      }
+    }, autoPlayInterval);
+
+    return () => clearInterval(timer);
+  }, [current, isAnimating, slides.length, autoPlayInterval]);
+
+  const goToSlide = (index: number) => {
+    if (isAnimating || index === current) {
+      return;
+    }
+    setIsAnimating(true);
+    setCurrent(index);
+    setTimeout(() => setIsAnimating(false), 800);
+  };
+
+  return (
+    <div className={cn('relative w-full overflow-hidden', height)}>
+      {/* Background Images with Ken Burns Effect */}
+      <div className="absolute inset-0">
+        {slides.map((slide, index) => (
+          <div
+            key={`${slide.src}-${index}`}
+            className={cn(
+              'absolute inset-0 transition-transform duration-1000',
+              index === current ? 'translate-x-0 z-10' : 'translate-x-full z-0'
+            )}
+          >
+            <div className="absolute inset-0">
+              <Image
+                src={slide.src}
+                alt={slide.alt}
+                fill
+                className="object-cover"
+                priority={index === 0}
+                quality={95}
+                sizes="100vw"
+              />
+            </div>
+            {/* Dark overlay */}
+            <div className="absolute inset-0 bg-gradient-to-r from-black/70 via-black/50 to-black/30" />
+            <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent" />
+          </div>
+        ))}
+      </div>
+
+      {/* Content Overlay - Title and Description */}
+      {(title || description) && (
+        <div className="absolute inset-0 z-20 flex items-end pb-10">
+          <div className="2xl:container max-w-7xl mx-auto px-4 w-full">
+            <div className="text-white max-w-5xl space-y-3">
+              {/* Title with background badge */}
+              {title && (
+                <div className="inline-block">
+                  <p className="text-sm md:text-base font-semibold text-white bg-primary/90 px-4 py-2 rounded-md uppercase tracking-wider backdrop-blur-sm">
+                    {title}
+                  </p>
+                </div>
+              )}
+
+              {/* Description as main heading */}
+              {description && (
+                <MaskText className="text-3xl md:text-4xl lg:text-5xl font-bold">
+                  {description}
+                </MaskText>
+              )}
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Dot Indicators - Only show if more than 1 image */}
+      {slides.length > 1 && (
+        <div className="absolute bottom-6 left-0 right-0 z-20">
+          <div className="2xl:container max-w-7xl mx-auto px-4">
+            <div className="flex gap-2 justify-center">
+              {slides.map((_, index) => (
+                <button
+                  key={index}
+                  onClick={() => goToSlide(index)}
+                  className={cn(
+                    'h-2 rounded-full transition-all duration-300',
+                    index === current
+                      ? 'w-8 bg-primary'
+                      : 'w-2 bg-white/50 hover:bg-white/70'
+                  )}
+                  aria-label={`Go to slide ${index + 1}`}
+                />
+              ))}
+            </div>
+          </div>
+        </div>
+      )}
+    </div>
+  );
+});
+
+PageHeroCarousel.displayName = 'PageHeroCarousel';
