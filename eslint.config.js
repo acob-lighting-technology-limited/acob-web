@@ -80,10 +80,18 @@ export default [
     },
     rules: {
       // TypeScript specific rules
-      '@typescript-eslint/no-unused-vars': 'error',
+      '@typescript-eslint/no-unused-vars': [
+        'error',
+        {
+          argsIgnorePattern: '^_',
+          varsIgnorePattern: '^_',
+          caughtErrorsIgnorePattern: '^_',
+        },
+      ],
       '@typescript-eslint/no-explicit-any': 'warn',
 
       // General rules
+      'no-unused-vars': 'off', // Disable base rule as we use @typescript-eslint/no-unused-vars
       'prefer-const': 'error',
       'no-var': 'error',
       'no-console': 'off', // Disable console warnings for now

@@ -18,9 +18,9 @@ export default async function CaseStudiesPage() {
     (post: UpdatePost) =>
       post.category === 'case-studies' ||
       post.tags?.some((tag: string) =>
-        tag.toLowerCase().includes('case study'),
+        tag.toLowerCase().includes('case study')
       ) ||
-      post.title?.toLowerCase().includes('case study'),
+      post.title?.toLowerCase().includes('case study')
   );
 
   const breadcrumbItems = [
@@ -65,7 +65,7 @@ export default async function CaseStudiesPage() {
                 {caseStudies.map((post: UpdatePost) => (
                   <Card
                     key={post._id}
-                    className="overflow-hidden p-0 hover:shadow-lg transition-shadow duration-500 flex flex-col"
+                    className="overflow-hidden hover:shadow-lg transition-shadow duration-500 flex flex-col"
                   >
                     <div className="aspect-[16/9] overflow-hidden flex-shrink-0">
                       <Image

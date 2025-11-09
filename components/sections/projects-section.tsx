@@ -89,7 +89,7 @@ export function ProjectsSection({ projects }: ProjectsSectionProps) {
 
             return (
               <motion.div key={project._id} variants={staggerItem}>
-                <Card className="group h-full overflow-hidden border-border bg-card hover:border-primary/30 hover:shadow-2xl transition-all duration-500 p-0">
+                <Card className="group h-full overflow-hidden border-border bg-card hover:border-primary/30 hover:shadow-2xl transition-all duration-500">
                   {/* Project Image */}
                   <div className="aspect-[16/9] overflow-hidden relative bg-muted">
                     <Image

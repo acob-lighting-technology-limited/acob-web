@@ -39,7 +39,9 @@ export class GlobalErrorBoundary extends Component<Props, State> {
   }
 
   componentDidCatch(error: Error, errorInfo: React.ErrorInfo) {
-    console.error('Global Error Boundary caught an error:', error, errorInfo);
+    if (process.env.NODE_ENV === 'development') {
+      console.error('Global Error Boundary caught an error:', error, errorInfo);
+    }
 
     // Check if it's a network-related error
     const isNetworkError =
@@ -58,7 +60,7 @@ export class GlobalErrorBoundary extends Component<Props, State> {
     // Add global error handlers for unhandled promise rejections
     window.addEventListener(
       'unhandledrejection',
-      this.handleUnhandledRejection,
+      this.handleUnhandledRejection
     );
 
     // Add global error handler for fetch errors
@@ -68,7 +70,7 @@ export class GlobalErrorBoundary extends Component<Props, State> {
   componentWillUnmount() {
     window.removeEventListener(
       'unhandledrejection',
-      this.handleUnhandledRejection,
+      this.handleUnhandledRejection
     );
     window.removeEventListener('error', this.handleGlobalError);
   }

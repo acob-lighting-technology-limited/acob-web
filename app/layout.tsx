@@ -51,6 +51,14 @@ export const metadata: Metadata = {
     url: 'https://acoblighting.com',
     siteName: 'ACOB Lighting Technology Limited',
     locale: 'en_US',
+    images: [
+      {
+        url: '/images/acob-logo-dark.webp',
+        width: 1200,
+        height: 630,
+        alt: 'ACOB Lighting Technology Limited',
+      },
+    ],
   },
   twitter: {
     card: 'summary_large_image',
@@ -58,6 +66,7 @@ export const metadata: Metadata = {
     description:
       'Leading supplier of solar materials and mini-grid solutions for manufacturers, installers & contractors across Nigeria.',
     creator: '@acoblighting',
+    images: ['/images/acob-logo-dark.webp'],
   },
   robots: {
     index: true,
@@ -70,9 +79,8 @@ export const metadata: Metadata = {
       'max-snippet': -1,
     },
   },
-  verification: {
-    google: 'your-google-verification-code',
-  },
+  // Google Search Console verification removed - using Vercel Analytics for site monitoring
+  // If you need GSC verification later, add: verification: { google: 'your-actual-code' }
 };
 
 export default async function RootLayout({

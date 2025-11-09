@@ -1,3 +1,5 @@
+import type { PortableTextBlock } from '@portabletext/types';
+
 // Sanity Types
 export interface SanityImage {
   asset: {
@@ -24,11 +26,11 @@ export interface Project {
   };
   category: string;
   projectDate?: string;
-  content: unknown[]; // Portable Text for rich formatting
+  content: PortableTextBlock[]; // Portable Text for rich formatting
   location: string;
   state?: string; // Nigerian state where project is located
   projectImage: string; // Single project image URL
-  images?: unknown[]; // Add images field for compatibility
+  images?: SanityImage[]; // Sanity image references for compatibility
   galleryImages?: string[]; // Add gallery images from content
   isFeatured?: boolean;
   featuredRank?: number;
@@ -52,7 +54,7 @@ export interface UpdatePost {
   slug: {
     current: string;
   };
-  content: unknown[]; // Portable Text
+  content: PortableTextBlock[]; // Portable Text
   excerpt: string;
   publishedAt: string;
   author: string;
@@ -69,7 +71,7 @@ export interface BlogPost {
   slug: {
     current: string;
   };
-  content: unknown[]; // Portable Text
+  content: PortableTextBlock[]; // Portable Text
   excerpt: string;
   publishedAt: string;
   author: {
@@ -134,7 +136,7 @@ export interface ChatResponse {
 }
 
 // API Response Types
-export interface ApiResponse<T = unknown> {
+export interface ApiResponse<T = Record<string, unknown>> {
   success: boolean;
   data?: T;
   error?: string;
@@ -161,8 +163,8 @@ export interface PaginatedUpdatesResponse<T> {
   pagination: PaginationInfo;
 }
 
-export interface SanityApiResponse {
-  result: unknown[];
+export interface SanityApiResponse<T = Record<string, unknown>> {
+  result: T[];
   error?: {
     description: string;
     type: string;
@@ -231,7 +233,7 @@ export interface AppError {
   message: string;
   code?: string;
   status?: number;
-  details?: unknown;
+  details?: Record<string, unknown>;
 }
 
 // Utility Types

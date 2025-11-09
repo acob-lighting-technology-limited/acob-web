@@ -37,33 +37,25 @@ export default function TeamPage() {
         <Breadcrumb items={breadcrumbItems} className="mb-10" />
 
         <section className="mb-16 grid items-start gap-12 lg:grid-cols-[1.1fr_0.9fr]">
-          <Card className="space-y-6 rounded-3xl border border-border bg-surface p-4 sm:p-6 xl:p-8 shadow-sm">
+          <Card className="space-y-4 rounded-3xl border border-border bg-surface p-4 sm:p-6 xl:p-8 shadow-sm">
             <span className="inline-flex items-centers rounded-full border border-border px-3 py-1 text-xs font-semibold uppercase tracking-[0.2em] text-muted-foreground">
               Leadership Philosophy
             </span>
-            <h2 className="text-3xl font-semibold text-foreground md:text-4xl">
+            <h2 className="text-2xl font-semibold text-foreground md:text-3xl">
               <MaskText
                 phrases={['People-first execution, engineering-led delivery']}
               />
             </h2>
-            <p className="text-base leading-relaxed text-muted-foreground">
+            <p className="text-sm leading-relaxed text-muted-foreground">
               Our team blends local expertise with international best practices
-              to deliver resilient energy infrastructure. Each project is
-              championed by cross-functional squads—engineering, community
-              engagement, finance, and operations—ensuring communities stay
-              powered long after commissioning.
-            </p>
-            <p className="text-base leading-relaxed text-muted-foreground">
-              With regional hubs and on-the-ground maintenance crews, we
-              continue to invest in capacity-building, safety, and innovation so
-              every installation improves quality of life and economic
-              opportunity.
+              to deliver resilient energy infrastructure, ensuring communities
+              stay powered long after commissioning.
             </p>
           </Card>
 
           <aside className="space-y-6">
             <Card className="rounded-3xl border border-border bg-surface p-4 sm:p-6 xl:p-8 shadow-sm">
-              <CardContent className="p-0 space-y-3">
+              <CardContent className="space-y-3">
                 <h3 className="text-lg font-semibold text-foreground">
                   Team Snapshot
                 </h3>
@@ -116,7 +108,6 @@ export default function TeamPage() {
           <SectionHeader
             badge="Leadership Team"
             title="Specialist teams driving project delivery"
-            description="Our leadership combines engineering, finance, community development, and operational excellence to ensure every asset performs reliably and delivers measurable impact."
             className="mb-10"
           />
 
@@ -126,7 +117,7 @@ export default function TeamPage() {
                 key={member.id}
                 className="group flex h-full flex-col overflow-hidden rounded-3xl border border-border bg-surface shadow-sm transition-all duration-500 hover:-translate-y-1 hover:shadow-lg"
               >
-                <div className="relative aspect-[3/4] w-full overflow-hidden">
+                <div className="relative aspect-[4/3] w-full overflow-hidden">
                   <ImageWithFallback
                     src={member.image}
                     alt={member.name}

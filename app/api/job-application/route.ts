@@ -1,4 +1,3 @@
-/* eslint-disable no-undef */
 import { NextRequest, NextResponse } from 'next/server';
 import { rateLimit } from '@/lib/utils/rate-limit';
 import { RATE_LIMITS } from '@/lib/constants/ui';
@@ -19,7 +18,7 @@ export async function POST(request: NextRequest) {
       {
         status: 429,
         headers: { 'Retry-After': '300' },
-      },
+      }
     );
   }
 
@@ -49,13 +48,13 @@ export async function POST(request: NextRequest) {
       'coverLetter',
     ];
     const missingFields = requiredFields.filter(
-      field => !formData.get(field)?.toString().trim(),
+      field => !formData.get(field)?.toString().trim()
     );
 
     if (missingFields.length > 0) {
       return NextResponse.json(
         { error: 'Missing required fields', fields: missingFields },
-        { status: 400 },
+        { status: 400 }
       );
     }
 
@@ -64,7 +63,7 @@ export async function POST(request: NextRequest) {
     if (!emailRegex.test(email)) {
       return NextResponse.json(
         { error: 'Invalid email format' },
-        { status: 400 },
+        { status: 400 }
       );
     }
 
@@ -87,16 +86,22 @@ export async function POST(request: NextRequest) {
     const RESEND_API_KEY = process.env.RESEND_API_KEY;
 
     if (!RESEND_API_KEY) {
-      console.error('RESEND_API_KEY is not configured');
+      if (process.env.NODE_ENV === 'development') {
+        console.error('RESEND_API_KEY is not configured');
+      }
       return NextResponse.json(
         { error: 'Server configuration error' },
-        { status: 500 },
+        { status: 500 }
       );
     }
 
+    // Use environment variable for recipient email, fallback to careers email only
+    const CAREERS_RECIPIENT_EMAIL =
+      process.env.CAREERS_RECIPIENT_EMAIL || 'careers@acoblighting.com';
+
     const emailBody = {
       from: 'onboarding@resend.dev',
-      to: ['careers@acoblighting.com', 'chibuikemichaelilonze@gmail.com'],
+      to: [CAREERS_RECIPIENT_EMAIL],
       subject: `New Job Application - ${jobTitle}`,
       html: `
         <!DOCTYPE html>
@@ -282,7 +287,7 @@ export async function POST(request: NextRequest) {
                       day: 'numeric',
                       hour: '2-digit',
                       minute: '2-digit',
-                    },
+                    }
                   )}</span>
                 </p>
               </div>
@@ -306,20 +311,24 @@ export async function POST(request: NextRequest) {
 
     if (!response.ok) {
       const errorData = await response.text();
-      console.error('Resend API error:', errorData);
+      if (process.env.NODE_ENV === 'development') {
+        console.error('Resend API error:', errorData);
+      }
       return NextResponse.json(
         { error: 'Failed to send application' },
-        { status: 500 },
+        { status: 500 }
       );
     }
 
     const result = await response.json();
     return NextResponse.json({ success: true, messageId: result.id });
   } catch (error) {
-    console.error('Error in job-application API:', error);
+    if (process.env.NODE_ENV === 'development') {
+      console.error('Error in job-application API:', error);
+    }
     return NextResponse.json(
       { error: 'Internal server error' },
-      { status: 500 },
+      { status: 500 }
     );
   }
 }

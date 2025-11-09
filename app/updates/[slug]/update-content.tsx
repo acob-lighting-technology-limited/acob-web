@@ -1,0 +1,164 @@
+'use client';
+
+import { useState } from 'react';
+import Image from 'next/image';
+import {
+  PortableText,
+  type PortableTextBlock,
+  type PortableTextComponentProps,
+} from '@portabletext/react';
+import { ImageLightbox } from '@/components/ui/image-lightbox';
+import { urlFor } from '@/sanity/lib/client';
+
+interface UpdateContentProps {
+  content: PortableTextBlock[];
+}
+
+export function UpdateContent({ content }: UpdateContentProps) {
+  const [lightboxOpen, setLightboxOpen] = useState(false);
+  const [selectedImageIndex, setSelectedImageIndex] = useState(0);
+  const [contentImages, setContentImages] = useState<
+    Array<{ src: string; alt: string }>
+  >([]);
+
+  // Extract all images from content for the lightbox
+  useState(() => {
+    const images: Array<{ src: string; alt: string }> = [];
+    content.forEach(block => {
+      if (
+        block._type === 'image' &&
+        'asset' in block &&
+        typeof block.asset === 'object'
+      ) {
+        const imageUrl =
+          urlFor(block)
+            .width(1920)
+            .height(1080)
+            .fit('max')
+            .auto('format')
+            .quality(90)
+            .url() || '/placeholder.svg';
+        images.push({
+          src: imageUrl,
+          alt:
+            ('alt' in block && typeof block.alt === 'string'
+              ? block.alt
+              : '') || 'Update post image',
+        });
+      }
+    });
+    setContentImages(images);
+  });
+
+  const handleImageClick = (imageIndex: number) => {
+    setSelectedImageIndex(imageIndex);
+    setLightboxOpen(true);
+  };
+
+  // Track current image index for the lightbox
+  let imageCounter = 0;
+
+  const components = {
+    types: {
+      image: ({
+        value,
+      }: {
+        value: { asset: { _ref: string }; alt?: string };
+      }) => {
+        if (!value.asset) {
+          return null;
+        }
+
+        const imageUrl =
+          urlFor(value)
+            .width(800)
+            .height(600)
+            .fit('crop')
+            .auto('format')
+            .quality(75)
+            .url() || '/placeholder.svg';
+
+        const currentImageIndex = imageCounter;
+        imageCounter++;
+
+        return (
+          <div className="w-full md:w-1/2 px-2 my-4">
+            <button
+              onClick={() => handleImageClick(currentImageIndex)}
+              className="relative w-full group cursor-zoom-in"
+            >
+              <Image
+                src={imageUrl}
+                alt={value.alt || 'Update post image'}
+                width={800}
+                height={600}
+                className="rounded-lg object-cover w-full h-auto transition-all duration-300 group-hover:shadow-2xl group-hover:scale-[1.02]"
+              />
+              {/* Overlay hint */}
+              <div className="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-all duration-300 rounded-lg flex items-center justify-center">
+                <span className="text-white opacity-0 group-hover:opacity-100 transition-opacity duration-300 text-sm font-medium bg-black/50 px-4 py-2 rounded-full backdrop-blur-sm">
+                  Click to expand
+                </span>
+              </div>
+            </button>
+          </div>
+        );
+      },
+    },
+    block: {
+      h1: ({ children }: PortableTextComponentProps<PortableTextBlock>) => (
+        <h1 className="text-4xl font-bold my-4">{children}</h1>
+      ),
+      h2: ({ children }: PortableTextComponentProps<PortableTextBlock>) => (
+        <h2 className="text-3xl font-bold my-3">{children}</h2>
+      ),
+      h3: ({ children }: PortableTextComponentProps<PortableTextBlock>) => (
+        <h3 className="text-2xl font-bold my-2">{children}</h3>
+      ),
+      normal: ({ children }: PortableTextComponentProps<PortableTextBlock>) => (
+        <p className="my-2">{children}</p>
+      ),
+      blockquote: ({
+        children,
+      }: PortableTextComponentProps<PortableTextBlock>) => (
+        <blockquote className="border-l-4 border-primary pl-4 italic my-4">
+          {children}
+        </blockquote>
+      ),
+    },
+    list: {
+      bullet: ({ children }: PortableTextComponentProps<PortableTextBlock>) => (
+        <ul className="list-disc pl-5 my-2">{children}</ul>
+      ),
+      number: ({ children }: PortableTextComponentProps<PortableTextBlock>) => (
+        <ol className="list-decimal pl-5 my-2">{children}</ol>
+      ),
+    },
+    listItem: {
+      bullet: ({ children }: PortableTextComponentProps<PortableTextBlock>) => (
+        <li className="my-1">{children}</li>
+      ),
+      number: ({ children }: PortableTextComponentProps<PortableTextBlock>) => (
+        <li className="my-1">{children}</li>
+      ),
+    },
+  };
+
+  return (
+    <>
+      <div className="prose prose-lg max-w-none flex flex-wrap -mx-2">
+        <PortableText value={content} components={components} />
+      </div>
+
+      {/* Image Lightbox */}
+      {contentImages.length > 0 && (
+        <ImageLightbox
+          images={contentImages}
+          initialIndex={selectedImageIndex}
+          isOpen={lightboxOpen}
+          onClose={() => setLightboxOpen(false)}
+        />
+      )}
+    </>
+  );
+}
