@@ -68,8 +68,30 @@ export const metadata: Metadata = {
       'max-snippet': -1,
     },
   },
-  verification: {
-    google: 'your-google-verification-code',
+  other: {
+    'application/ld+json': JSON.stringify({
+      '@context': 'https://schema.org',
+      '@type': 'Organization',
+      name: 'ACOB Lighting Technology Limited',
+      url: 'https://acoblighting.com',
+      logo: 'https://acoblighting.com/images/acob-logo-dark.webp',
+      description:
+        'Leading supplier of solar materials and mini-grid solutions for manufacturers, installers & contractors across Nigeria',
+      address: {
+        '@type': 'PostalAddress',
+        addressCountry: 'NG',
+        addressRegion: 'Lagos',
+      },
+      contactPoint: {
+        '@type': 'ContactPoint',
+        contactType: 'Customer Service',
+        email: 'contact@acoblighting.com',
+      },
+      sameAs: [
+        'https://www.linkedin.com/company/acob-lighting',
+        'https://twitter.com/acoblighting',
+      ],
+    }),
   },
 };
 
@@ -82,7 +104,7 @@ export default async function HomePage() {
   ]);
 
   return (
-    <>
+    <main role="main">
       <HeroSection projects={featuredProjects} />
       <AboutSection />
       <ServicesSection />
@@ -92,6 +114,6 @@ export default async function HomePage() {
       <UpdatesSection posts={posts} />
       <ContactSection />
       <PartnersSection />
-    </>
+    </main>
   );
 }

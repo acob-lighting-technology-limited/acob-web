@@ -154,7 +154,7 @@ export function CompanySection() {
               {/* Company Image */}
               <div className="relative overflow-hidden rounded-2xl sm:rounded-3xl border border-border bg-card/90 shadow-xl">
                 <Image
-                  src="/images/company-team.webp?v=2"
+                  src="/images/company-team.webp"
                   alt="ACOB Lighting field engineers on-site"
                   width={1200}
                   height={900}
