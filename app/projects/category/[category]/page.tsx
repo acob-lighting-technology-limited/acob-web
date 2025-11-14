@@ -2,10 +2,9 @@ import { Breadcrumb } from '@/components/ui/breadcrumb';
 import { Container } from '@/components/ui/container';
 import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
-import { ArrowRight, MapPin, Search } from 'lucide-react';
+import { ArrowRight, MapPin } from 'lucide-react';
 import { notFound } from 'next/navigation';
-import { getProjectsByCategory, getProjects } from '@/sanity/lib/client';
+import { getProjectsByCategory } from '@/sanity/lib/client';
 import Image from 'next/image';
 import Link from 'next/link';
 import { PageHero } from '@/components/ui/page-hero';
@@ -91,15 +90,7 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
     notFound();
   }
 
-  const [projects, allProjects] = await Promise.all([
-    getProjectsByCategory(category),
-    getProjects(),
-  ]);
-
-  // Get unique states for filtering - now using the state field directly
-  const uniqueStates = Array.from(
-    new Set(allProjects.map((p: Project) => p.state).filter(Boolean))
-  ).sort() as string[];
+  const projects = await getProjectsByCategory(category);
 
   const breadcrumbItems = [
     { label: 'Home', href: '/' },
@@ -118,9 +109,9 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
       <Container className="px-4 py-8">
         <Breadcrumb items={breadcrumbItems} className="mb-8" />
 
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 items-start">
+        <div>
           {/* Main Content */}
-          <div className="lg:col-span-2">
+          <div>
             {projects.length === 0 ? (
               <Card className="!border-t-2 !border-t-primary border border-border">
                 <CardContent className="p-4 sm:p-6 xl:p-8 text-center">
@@ -147,7 +138,7 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
                   </p>
                 </div>
 
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                   {projects.map((project: Project) => (
                     <Card
                       key={project._id}
@@ -204,94 +195,6 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
                 </div>
               </>
             )}
-          </div>
-
-          {/* Desktop Sidebar - Hidden on mobile */}
-          <div className="hidden lg:block">
-            <div className="sticky top-20 self-start">
-              <div className="space-y-6">
-                {/* Search */}
-                <Card className="!border-t-2 !border-t-primary border border-border">
-                  <CardContent className="p-6">
-                    <h3 className="font-semibold mb-4">Search Projects</h3>
-                    <div className="relative">
-                      <Input
-                        placeholder="Search projects..."
-                        className="pr-10"
-                      />
-                      <Search className="absolute right-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
-                    </div>
-                  </CardContent>
-                </Card>
-
-                {/* States */}
-                <Card className="!border-t-2 !border-t-primary border border-border">
-                  <CardContent className="p-6">
-                    <h3 className="font-semibold mb-4">Filter by State</h3>
-                    <div className="space-y-2">
-                      {uniqueStates.map((state: string) => (
-                        <Link
-                          key={state}
-                          href={`/projects?state=${encodeURIComponent(state)}`}
-                          className="block w-full text-left p-3 rounded-lg transition-colors duration-500 text-sm font-medium border border-border bg-muted/30 hover:bg-muted/50 text-foreground"
-                        >
-                          <div className="flex items-center justify-between">
-                            <span>{state}</span>
-                            <span className="text-xs opacity-70">
-                              (
-                              {
-                                allProjects.filter(
-                                  (p: Project) => p.state === state
-                                ).length
-                              }
-                              )
-                            </span>
-                          </div>
-                        </Link>
-                      ))}
-                    </div>
-                  </CardContent>
-                </Card>
-
-                {/* Recent Projects */}
-                <Card className="!border-t-2 !border-t-primary border border-border">
-                  <CardContent className="p-6">
-                    <h3 className="font-semibold mb-4">Recent Projects</h3>
-                    <div className="space-y-2">
-                      {allProjects.slice(0, 5).map((project: Project) => (
-                        <Link
-                          key={project._id}
-                          href={`/projects/${project.slug.current}`}
-                          className="block p-3 rounded-lg bg-muted/30 hover:bg-muted/50 transition-colors duration-500 border border-border group"
-                        >
-                          <h4 className="text-sm font-medium text-foreground group-hover:text-primary mb-1">
-                            {project.title}
-                          </h4>
-                          {project.location && (
-                            <div className="flex items-center text-xs text-muted-foreground">
-                              <MapPin className="h-3 w-3 mr-1" />
-                              <span>
-                                {project.location}
-                                {project.state && `, ${project.state}`}
-                              </span>
-                            </div>
-                          )}
-                        </Link>
-                      ))}
-                    </div>
-                    <div className="pt-4 border-t">
-                      <Link
-                        href="/projects"
-                        className="text-sm text-primary hover:text-primary/80 flex items-center font-medium"
-                      >
-                        View All Projects
-                        <ArrowRight className="ml-1 h-3 w-3" />
-                      </Link>
-                    </div>
-                  </CardContent>
-                </Card>
-              </div>
-            </div>
           </div>
         </div>
       </Container>
