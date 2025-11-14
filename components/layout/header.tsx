@@ -378,7 +378,7 @@ const MobileMenu: React.FC<MobileMenuProps> = ({
                   Get Quote
                 </Link>
                 <div className="mt-4 flex justify-center">
-                  <ThemeToggle />
+                  <ThemeToggle direction="up" />
                 </div>
               </motion.div>
             </div>
