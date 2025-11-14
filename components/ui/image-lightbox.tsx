@@ -71,7 +71,7 @@ export function ImageLightbox({
     setIsZoomed(!isZoomed);
   };
 
-  if (!isOpen) {
+  if (!isOpen || images.length === 0 || !images[currentIndex]) {
     return null;
   }
 
@@ -86,7 +86,7 @@ export function ImageLightbox({
           <span className="text-white/70 text-sm font-medium">
             {currentIndex + 1} / {images.length}
           </span>
-          {images[currentIndex].alt && (
+          {images[currentIndex]?.alt && (
             <span className="text-white text-sm font-medium hidden sm:block">
               {images[currentIndex].alt}
             </span>
@@ -137,8 +137,8 @@ export function ImageLightbox({
         >
           <div className="relative w-full h-full">
             <Image
-              src={images[currentIndex].src}
-              alt={images[currentIndex].alt}
+              src={images[currentIndex]?.src || ''}
+              alt={images[currentIndex]?.alt || ''}
               fill
               className={cn(
                 'object-contain transition-all duration-300',
