@@ -4,7 +4,7 @@ import React, { useState, useEffect, useMemo } from 'react';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { Card } from '@/components/ui/card';
-import { ArrowRight, MapPin, ChevronLeft, ChevronRight } from 'lucide-react';
+import { ArrowRight, MapPin } from 'lucide-react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { MaskText } from '@/components/animations/MaskText';
@@ -64,15 +64,6 @@ export const HeroSection = React.memo(function HeroSection({
 
     return () => clearInterval(timer);
   }, [current, isAnimating, allSlides.length]);
-
-  const handlePrevious = () => {
-    if (isAnimating) {
-      return;
-    }
-    setIsAnimating(true);
-    setCurrent(prev => (prev === 0 ? allSlides.length - 1 : prev - 1));
-    setTimeout(() => setIsAnimating(false), 800);
-  };
 
   const handleNext = () => {
     if (isAnimating) {
@@ -135,8 +126,8 @@ export const HeroSection = React.memo(function HeroSection({
       </div>
 
       {/* Content */}
-      <div className="relative z-20 h-full flex items-center">
-        <div className="container px-4">
+      <div className="relative z-20 h-full flex items-center lg:items-end pb-6 lg:pb-6">
+        <div className=" px-4 sm:px-8">
           <div className="w-full">
             {/* Left Content */}
             <div className="space-y-4 md:space-y-5 max-w-2xl">
@@ -149,7 +140,7 @@ export const HeroSection = React.memo(function HeroSection({
                   phrases={[
                     'Powering sustainable futures for homes, businesses, and communities.',
                   ]}
-                  className="font-bold leading-tight text-3xl sm:text-4xl md:text-4.5xl lg:text-5.5xl text-white"
+                  className="font-bold leading-tight text-3xl sm:text-4xl md:text-4xl lg:text-5xl text-white"
                 />
                 <p className="max-w-2xl text-sm md:text-base text-gray-200">
                   We deliver dependable solar, mini-grid, and energy storage
@@ -209,118 +200,64 @@ export const HeroSection = React.memo(function HeroSection({
       <div className="hidden lg:block absolute bottom-6 right-0 z-30">
         <div className="2xl:container max-w-7xl mx-auto px-4">
           <div className="flex justify-end">
-            <Card className="relative overflow-hidden border-white/20 bg-white/10 backdrop-blur-lg p-3 max-w-xs">
-              <div className="flex items-center justify-between text-[9px] uppercase tracking-wide text-gray-300 mb-2">
-                <span>Featured Project</span>
-                <span>
-                  {String(current + 1).padStart(2, '0')} /{' '}
-                  {String(allSlides.length).padStart(2, '0')}
-                </span>
-              </div>
-
+            <div className="relative overflow-hidden p-3 !pb-0 max-w-xs">
               <div className="space-y-2">
-                <div className="flex items-start gap-1.5 text-[10px] text-gray-300">
-                  <MapPin className="h-2.5 w-2.5 flex-shrink-0 mt-0.5 text-primary" />
+                <div className="flex items-start gap-2 text-sm text-gray-200">
+                  <MapPin className="h-4 w-4 flex-shrink-0 mt-0.5 text-primary" />
                   <span className="line-clamp-1">
                     {allSlides[current].location}
                   </span>
                 </div>
-                <h2 className="text-sm font-semibold text-white line-clamp-2">
+                <h2 className="text-xl font-semibold text-white line-clamp-2">
                   {allSlides[current].title}
                 </h2>
-
-                {/* Slide Indicators */}
-                <div className="flex gap-1.5 mt-3">
-                  {allSlides.map((_, index) => (
-                    <button
-                      key={index}
-                      onClick={() => {
-                        if (!isAnimating) {
-                          setIsAnimating(true);
-                          setCurrent(index);
-                          setTimeout(() => setIsAnimating(false), 800);
-                        }
-                      }}
-                      className={cn(
-                        'h-0.5 rounded-full transition-all duration-300',
-                        index === current
-                          ? 'w-6 bg-primary'
-                          : 'w-3 bg-white/30 hover:bg-white/50'
-                      )}
-                      aria-label={`Go to slide ${index + 1}`}
-                    />
-                  ))}
-                </div>
               </div>
-            </Card>
+            </div>
           </div>
         </div>
       </div>
 
-      {/* Navigation Arrows */}
-      <button
-        onClick={handlePrevious}
-        disabled={isAnimating}
-        className="absolute left-4 top-1/2 -translate-y-1/2 z-30 p-2 rounded-full bg-white/10 backdrop-blur-md border border-white/20 text-white hover:bg-white/20 transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed"
-        aria-label="Previous slide"
-      >
-        <ChevronLeft className="h-5 w-5" />
-      </button>
-
-      <button
-        onClick={handleNext}
-        disabled={isAnimating}
-        className="absolute right-4 top-1/2 -translate-y-1/2 z-30 p-2 rounded-full bg-white/10 backdrop-blur-md border border-white/20 text-white hover:bg-white/20 transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed"
-        aria-label="Next slide"
-      >
-        <ChevronRight className="h-5 w-5" />
-      </button>
-
       {/* Mobile Project Info */}
-      <div className="lg:hidden absolute bottom-0 left-0 right-0 z-30">
-        <div className="container px-4 pb-4">
-          <Card className="relative overflow-hidden border-white/20 bg-white/10 backdrop-blur-lg p-4">
-            <div className="flex items-center justify-between text-xs uppercase tracking-wide text-gray-300 mb-2">
-              <span>Featured Project</span>
-              <span>
-                {String(current + 1).padStart(2, '0')} /{' '}
-                {String(allSlides.length).padStart(2, '0')}
-              </span>
-            </div>
-
+      <div className="lg:hidden absolute bottom-16 left-0 right-0 z-30">
+        <div className="container px-4">
+          <div className="relative overflow-hidden p-4">
             <div className="space-y-2">
-              <div className="flex items-start gap-2 text-xs text-gray-300">
-                <MapPin className="h-3 w-3 flex-shrink-0 mt-0.5 text-primary" />
+              <div className="flex items-start gap-2 text-sm text-gray-200">
+                <MapPin className="h-4 w-4 flex-shrink-0 mt-0.5 text-primary" />
                 <span className="line-clamp-1">
                   {allSlides[current].location}
                 </span>
               </div>
-              <h2 className="text-lg font-semibold text-white line-clamp-1">
+              <h2 className="text-xl font-semibold text-white line-clamp-1">
                 {allSlides[current].title}
               </h2>
-
-              {/* Slide Indicators */}
-              <div className="flex gap-2 mt-3">
-                {allSlides.map((_, index) => (
-                  <button
-                    key={index}
-                    onClick={() => {
-                      if (!isAnimating) {
-                        setIsAnimating(true);
-                        setCurrent(index);
-                        setTimeout(() => setIsAnimating(false), 800);
-                      }
-                    }}
-                    className={cn(
-                      'h-1 rounded-full transition-all duration-300',
-                      index === current ? 'w-8 bg-primary' : 'w-4 bg-white/30'
-                    )}
-                    aria-label={`Go to slide ${index + 1}`}
-                  />
-                ))}
-              </div>
             </div>
-          </Card>
+          </div>
+        </div>
+      </div>
+
+      {/* Slide Indicators - Bottom Center */}
+      <div className="absolute bottom-6 left-1/2 -translate-x-1/2 z-30">
+        <div className="flex gap-2">
+          {allSlides.map((_, index) => (
+            <button
+              key={index}
+              onClick={() => {
+                if (!isAnimating) {
+                  setIsAnimating(true);
+                  setCurrent(index);
+                  setTimeout(() => setIsAnimating(false), 800);
+                }
+              }}
+              className={cn(
+                'h-1 rounded-full transition-all duration-300',
+                index === current
+                  ? 'w-8 bg-primary'
+                  : 'w-4 bg-white/30 hover:bg-white/50'
+              )}
+              aria-label={`Go to slide ${index + 1}`}
+            />
+          ))}
         </div>
       </div>
     </section>
