@@ -129,19 +129,20 @@ export default function ServicesPage() {
             </CardContent>
           </Card>
         ) : (
-          <StaggerChildren
-            staggerDelay={0.1}
-            className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
-          >
-            {filteredServices.map(service => (
-              <motion.div key={service.id} variants={staggerItem}>
-                <Link href={`/services/${service.slug}`} className="group">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {/* First card - visible immediately on mobile */}
+            {filteredServices.length > 0 && (
+              <div className="block md:hidden">
+                <Link
+                  href={`/services/${filteredServices[0].slug}`}
+                  className="group"
+                >
                   <Card className="overflow-hidden h-full flex flex-col transition-all duration-300 hover:shadow-xl hover:-translate-y-1 border-border hover:border-primary/50">
                     {/* Image */}
                     <div className="aspect-[16/9] overflow-hidden relative bg-muted">
                       <Image
-                        src={service.image}
-                        alt={service.title}
+                        src={filteredServices[0].image}
+                        alt={filteredServices[0].title}
                         fill
                         className="object-cover transition-transform duration-500 group-hover:scale-110"
                         sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
@@ -153,12 +154,12 @@ export default function ServicesPage() {
                     <CardContent className="p-6 flex flex-col flex-1">
                       {/* Title */}
                       <h3 className="text-lg font-bold mb-3 text-foreground group-hover:text-primary transition-colors duration-300 line-clamp-2">
-                        {service.title}
+                        {filteredServices[0].title}
                       </h3>
 
                       {/* Description */}
                       <p className="text-sm text-muted-foreground leading-relaxed line-clamp-3 mb-4 flex-1">
-                        {service.excerpt}
+                        {filteredServices[0].excerpt}
                       </p>
 
                       {/* View Service Link */}
@@ -169,9 +170,101 @@ export default function ServicesPage() {
                     </CardContent>
                   </Card>
                 </Link>
-              </motion.div>
-            ))}
-          </StaggerChildren>
+              </div>
+            )}
+
+            {/* Rest of the cards with animation */}
+            <StaggerChildren
+              staggerDelay={0.1}
+              className="hidden md:grid md:grid-cols-2 lg:grid-cols-3 gap-6 col-span-full"
+            >
+              {filteredServices.map(service => (
+                <motion.div key={service.id} variants={staggerItem}>
+                  <Link href={`/services/${service.slug}`} className="group">
+                    <Card className="overflow-hidden h-full flex flex-col transition-all duration-300 hover:shadow-xl hover:-translate-y-1 border-border hover:border-primary/50">
+                      {/* Image */}
+                      <div className="aspect-[16/9] overflow-hidden relative bg-muted">
+                        <Image
+                          src={service.image}
+                          alt={service.title}
+                          fill
+                          className="object-cover transition-transform duration-500 group-hover:scale-110"
+                          sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                        />
+                        {/* Gradient overlay */}
+                        <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/0 to-black/0 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                      </div>
+
+                      <CardContent className="p-6 flex flex-col flex-1">
+                        {/* Title */}
+                        <h3 className="text-lg font-bold mb-3 text-foreground group-hover:text-primary transition-colors duration-300 line-clamp-2">
+                          {service.title}
+                        </h3>
+
+                        {/* Description */}
+                        <p className="text-sm text-muted-foreground leading-relaxed line-clamp-3 mb-4 flex-1">
+                          {service.excerpt}
+                        </p>
+
+                        {/* View Service Link */}
+                        <div className="flex items-center text-sm font-medium text-primary group-hover:gap-2 transition-all duration-300">
+                          Learn More
+                          <ArrowRight className="h-4 w-4 ml-1 group-hover:translate-x-1 transition-transform duration-300" />
+                        </div>
+                      </CardContent>
+                    </Card>
+                  </Link>
+                </motion.div>
+              ))}
+            </StaggerChildren>
+
+            {/* Rest of the cards on mobile (without first card) */}
+            {filteredServices.length > 1 && (
+              <StaggerChildren
+                staggerDelay={0.1}
+                className="block md:hidden grid grid-cols-1 gap-6"
+              >
+                {filteredServices.slice(1).map(service => (
+                  <motion.div key={service.id} variants={staggerItem}>
+                    <Link href={`/services/${service.slug}`} className="group">
+                      <Card className="overflow-hidden h-full flex flex-col transition-all duration-300 hover:shadow-xl hover:-translate-y-1 border-border hover:border-primary/50">
+                        {/* Image */}
+                        <div className="aspect-[16/9] overflow-hidden relative bg-muted">
+                          <Image
+                            src={service.image}
+                            alt={service.title}
+                            fill
+                            className="object-cover transition-transform duration-500 group-hover:scale-110"
+                            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                          />
+                          {/* Gradient overlay */}
+                          <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/0 to-black/0 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                        </div>
+
+                        <CardContent className="p-6 flex flex-col flex-1">
+                          {/* Title */}
+                          <h3 className="text-lg font-bold mb-3 text-foreground group-hover:text-primary transition-colors duration-300 line-clamp-2">
+                            {service.title}
+                          </h3>
+
+                          {/* Description */}
+                          <p className="text-sm text-muted-foreground leading-relaxed line-clamp-3 mb-4 flex-1">
+                            {service.excerpt}
+                          </p>
+
+                          {/* View Service Link */}
+                          <div className="flex items-center text-sm font-medium text-primary group-hover:gap-2 transition-all duration-300">
+                            Learn More
+                            <ArrowRight className="h-4 w-4 ml-1 group-hover:translate-x-1 transition-transform duration-300" />
+                          </div>
+                        </CardContent>
+                      </Card>
+                    </Link>
+                  </motion.div>
+                ))}
+              </StaggerChildren>
+            )}
+          </div>
         )}
       </Container>
     </>
