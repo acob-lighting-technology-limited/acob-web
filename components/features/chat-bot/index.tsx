@@ -40,9 +40,9 @@ export function ChatBot() {
             transition={{ duration: 0.3 }}
           >
             {isOpen ? (
-              <X className="h-5 w-5 sm:h-7 sm:w-7" />
+              <X className="h-7 w-7 sm:h-7 sm:w-7" />
             ) : (
-              <MessageSquare className="h-5 w-5 sm:h-7 sm:w-7" />
+              <MessageSquare className="h-7 w-7 sm:h-7 sm:w-7" />
             )}
           </motion.div>
         </Button>
