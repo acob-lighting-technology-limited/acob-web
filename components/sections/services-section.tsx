@@ -2,7 +2,7 @@
 
 // React and Next.js imports
 
-import React, { useMemo } from 'react';
+import React, { useMemo, useEffect, useState } from 'react';
 
 import Link from 'next/link';
 
@@ -12,6 +12,14 @@ import { motion } from 'framer-motion';
 
 // UI component imports
 import { Button, Container, Card, CardContent } from '@/components/ui';
+import {
+  Carousel,
+  CarouselContent,
+  CarouselItem,
+  CarouselNext,
+  CarouselPrevious,
+  type CarouselApi,
+} from '@/components/ui/carousel';
 import Image from 'next/image';
 
 // Local component imports
@@ -25,6 +33,30 @@ import { servicesData } from '@/lib/data';
 const ServicesSection = React.memo(function ServicesSection() {
   const primaryServices = useMemo(() => servicesData.slice(0, 3), []);
   const additionalServices = useMemo(() => servicesData.slice(3, 6), []);
+  const [api, setApi] = useState<CarouselApi>();
+
+  useEffect(() => {
+    if (!api) {
+      return;
+    }
+
+    api.on('select', () => {
+      // Track current slide if needed in the future
+    });
+  }, [api]);
+
+  // Auto-scroll functionality
+  useEffect(() => {
+    if (!api || primaryServices.length <= 1) {
+      return;
+    }
+
+    const interval = setInterval(() => {
+      api.scrollNext();
+    }, 5000); // Auto-scroll every 5 seconds
+
+    return () => clearInterval(interval);
+  }, [api, primaryServices.length]);
 
   return (
     <section className="border-b border-border-[0.5px] bg-[radial-gradient(circle_at_top,_rgba(8,_145,_63,_0.07),_transparent_55%)] py-20 transition-all duration-500 dark:bg-zinc-950">
@@ -95,9 +127,75 @@ const ServicesSection = React.memo(function ServicesSection() {
           </StaggerChildren>
         </div>
 
+        {/* Mobile Carousel */}
+        <div className="block lg:hidden">
+          <Carousel
+            setApi={setApi}
+            opts={{
+              align: 'start',
+              loop: true,
+            }}
+            className="w-full"
+          >
+            <CarouselContent className="-ml-2 md:-ml-4">
+              {primaryServices.map(service => (
+                <CarouselItem
+                  key={service.slug as string}
+                  className="pl-2 md:pl-4"
+                >
+                  <Card className="group h-full overflow-hidden border-border bg-card hover:border-primary/30 hover:shadow-2xl transition-all duration-500">
+                    <div className="aspect-[16/9] overflow-hidden relative bg-muted">
+                      <Image
+                        src={service.image || '/placeholder.svg'}
+                        alt={service.title}
+                        fill
+                        className="object-cover transition-transform duration-500 group-hover:scale-105"
+                        sizes="(max-width: 768px) 100vw, (max-width: 1280px) 50vw, 33vw"
+                      />
+                      <div className="absolute inset-0 bg-gradient-to-b from-black/30 via-transparent to-black/70" />
+                      <div className="absolute bottom-4 left-4 right-4 text-sm font-medium uppercase tracking-wide text-white/70">
+                        {service.category ?? 'Renewable Solutions'}
+                      </div>
+                    </div>
+
+                    <CardContent className="flex flex-1 flex-col p-4 sm:p-6">
+                      <div className="space-y-3">
+                        <h3 className="text-xl md:text-2xl font-semibold text-foreground line-clamp-2">
+                          {service.title}
+                        </h3>
+                        <p className="text-sm md:text-base text-muted-foreground line-clamp-3">
+                          {service.fullDescription ?? service.excerpt}
+                        </p>
+                      </div>
+
+                      <div className="mt-auto pt-6">
+                        <Link href={`/services/${service.slug}`}>
+                          <Button
+                            variant="outline"
+                            className="relative w-full justify-center gap-2 border-primary/40 text-primary-foreground bg-primary overflow-hidden transition-colors duration-500"
+                          >
+                            <span className="absolute inset-0 bg-primary/90 transform scale-x-0 origin-left transition-transform duration-500 ease-out group-hover:scale-x-100" />
+                            <span className="relative z-10 flex items-center gap-2">
+                              See solution details
+                              <ArrowRight className="h-4 w-4" />
+                            </span>
+                          </Button>
+                        </Link>
+                      </div>
+                    </CardContent>
+                  </Card>
+                </CarouselItem>
+              ))}
+            </CarouselContent>
+            <CarouselPrevious className="left-2" />
+            <CarouselNext className="right-2" />
+          </Carousel>
+        </div>
+
+        {/* Desktop Grid */}
         <StaggerChildren
           staggerDelay={0.3}
-          className="grid gap-6 lg:grid-cols-3"
+          className="hidden lg:grid gap-6 lg:grid-cols-3"
         >
           {primaryServices.map(service => (
             <motion.div key={service.slug as string} variants={staggerItem}>
