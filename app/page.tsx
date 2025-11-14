@@ -3,9 +3,9 @@ import { AboutSection } from '@/components/sections/about-section';
 import { ServicesSection } from '@/components/sections/services-section';
 import { ProjectsSection } from '@/components/sections/projects-section';
 import { CompanySection } from '@/components/sections/company-section';
-import { TestimonialsSection } from '@/components/sections/testimonials-section';
+// import { TestimonialsSection } from '@/components/sections/testimonials-section'; // COMMENTED OUT - Temporarily disabled
 import { UpdatesSection } from '@/components/sections/updates-section';
-import { ContactSection } from '@/components/sections/contact-section';
+// import { ContactSection } from '@/components/sections/contact-section'; // COMMENTED OUT - Temporarily disabled
 import { PartnersSection } from '@/components/sections/partners-section';
 import {
   getProjects,
@@ -110,9 +110,13 @@ export default async function HomePage() {
       <ServicesSection />
       <ProjectsSection projects={projects} />
       <CompanySection />
+      {/* COMMENTED OUT - TestimonialsSection temporarily disabled
       <TestimonialsSection />
+      */}
       <UpdatesSection posts={posts} />
+      {/* COMMENTED OUT - ContactSection temporarily disabled
       <ContactSection />
+      */}
       <PartnersSection />
     </main>
   );

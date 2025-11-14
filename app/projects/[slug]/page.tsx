@@ -12,6 +12,7 @@ import { Card, CardContent } from '@/components/ui/card';
 import { ShareCopy } from '@/components/updates/share-copy';
 import { Metadata } from 'next';
 import { ProjectContent } from './project-content';
+import { ImpactMetrics } from '@/components/projects/impact-metrics';
 
 interface ProjectPageProps {
   params: Promise<{
@@ -120,6 +121,11 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
               <div className="mt-6 prose prose-lg max-w-none flex flex-wrap -mx-2">
                 <ProjectContent content={project.content} />
               </div>
+            )}
+
+            {/* Impact Metrics */}
+            {project.impactMetrics && (
+              <ImpactMetrics metrics={project.impactMetrics} />
             )}
 
             {/* Share Buttons */}

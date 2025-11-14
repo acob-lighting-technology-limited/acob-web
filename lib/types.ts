@@ -16,6 +16,14 @@ export interface SanityImageUrl {
   height?: number;
 }
 
+export interface ProjectImpactMetrics {
+  beneficiaries?: number;
+  jobsCreatedDirectly?: number;
+  jobsCreatedIndirectly?: number;
+  annualCO2Reduction?: number;
+  annualEnergyOutput?: number;
+}
+
 export interface Project {
   _id: string;
   title: string;
@@ -34,6 +42,7 @@ export interface Project {
   galleryImages?: string[]; // Add gallery images from content
   isFeatured?: boolean;
   featuredRank?: number;
+  impactMetrics?: ProjectImpactMetrics; // Impact metrics for the project
   comments?: ProjectComment[];
   _createdAt: string;
   _updatedAt: string;

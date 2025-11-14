@@ -250,6 +250,7 @@ export async function getProjects() {
           url,
           metadata
         },
+        impactMetrics,
         comments[]{
           _key,
           author,
@@ -286,7 +287,8 @@ export async function getProjectsForGallery() {
         isFeatured,
         featuredRank,
         "projectImage": projectImage.asset->url,
-        "galleryImages": content[].asset->url
+        "galleryImages": content[].asset->url,
+        impactMetrics
       }
     `);
 
@@ -340,6 +342,7 @@ export async function getFeaturedProjects() {
         isFeatured,
         orderRank,
         "projectImage": projectImage.asset->url,
+        impactMetrics,
         comments[]{
           _key,
           author,
@@ -411,6 +414,7 @@ export async function getProjectsPaginated({
       isFeatured,
       featuredRank,
       "projectImage": projectImage.asset->url,
+      impactMetrics,
       comments[]{
         _key,
         author,
@@ -492,6 +496,7 @@ export async function getProject(slug: string) {
         isFeatured,
         featuredRank,
         "projectImage": projectImage.asset->url,
+        impactMetrics,
         comments[]{
           _key,
           author,
@@ -534,6 +539,7 @@ export async function getProjectsByCategory(category: string) {
         location,
         state,
         "projectImage": projectImage.asset->url,
+        impactMetrics,
         comments[]{
           _key,
           author,
