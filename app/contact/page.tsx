@@ -36,7 +36,11 @@ export default function ContactPage() {
         <Breadcrumb items={breadcrumbItems} className="mb-8" />
 
         <SectionHeader
-          title={<MaskText phrases={['How Can We Assist You?']} />}
+          title={
+            <h2 className="text-2xl font-bold text-foreground md:text-3xl lg:text-4xl">
+              <MaskText phrases={['How Can We Assist You?']} />
+            </h2>
+          }
           description="Whether you have a question, need support, or are looking for a career opportunity, we're ready to connect."
           className="mb-12"
         />
