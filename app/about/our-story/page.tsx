@@ -84,11 +84,11 @@ export default function OurStoryPage() {
             </Card>
 
             <Card className="rounded-3xl border border-border bg-surface p-4 sm:p-6 xl:p-8 shadow-sm">
-              <CardContent>
+              <CardContent className="px-2">
                 <h3 className="text-lg font-semibold text-foreground">
                   Quick Facts
                 </h3>
-                <div className="mt-4 grid gap-3">
+                <div className="mt-4 grid grid-cols-2 gap-3">
                   {[
                     { label: 'Founded', value: '2016' },
                     { label: 'Staff Strength', value: '75+' },
@@ -97,7 +97,7 @@ export default function OurStoryPage() {
                   ].map(item => (
                     <div
                       key={item.label}
-                      className="flex items-start gap-3 rounded-2xl border border-border bg-muted/30 p-4"
+                      className="flex items-start gap-2 sm:gap-3 rounded-2xl border border-border bg-muted/30 p-2 sm:p-4"
                     >
                       <span className="mt-1 h-2 w-2 rounded-full bg-primary" />
                       <div>
@@ -209,9 +209,6 @@ export default function OurStoryPage() {
         </section> */}
 
         <div className="mb-12 flex flex-col items-center gap-6 text-center">
-          <p className="text-lg text-muted-foreground">
-            Want to learn more about how we deliver sustainable energy access?
-          </p>
           <Link href="/about">
             <Button variant="default" className="group">
               <ArrowLeft className="mr-2 h-4 w-4 transition-transform group-hover:-translate-x-1" />
