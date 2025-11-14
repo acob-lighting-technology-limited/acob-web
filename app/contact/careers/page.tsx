@@ -55,7 +55,7 @@ export default async function CareersPage() {
         <Breadcrumb items={breadcrumbItems} className="mb-8" />
 
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 items-start">
-          <div className="lg:col-span-2 lg:space-y-4">
+          <div className="lg:col-span-2 space-y-4">
             <Card className="border shadow-md border-border bg-surface">
               <CardContent className="p-4 sm:p-6 xl:p-8">
                 <h2 className="text-3xl md:text-4xl font-bold mb-6 text-foreground">
@@ -122,71 +122,73 @@ export default async function CareersPage() {
 
                 {jobPostings.length > 0 ? (
                   <div className="space-y-6">
-                    {jobPostings.map((job: {
-                      _id: string;
-                      title: string;
-                      department?: string;
-                      location?: string;
-                      employmentType?: string;
-                      description?: string;
-                      applicationDeadline?: string;
-                      slug: { current: string };
-                    }) => (
-                      <div
-                        key={job._id}
-                        className="p-6 rounded-xl border border-border bg-muted/30 hover:bg-muted/50 transition-colors duration-500"
-                      >
-                        <div className="mb-4">
-                          <h3 className="text-xl font-semibold text-foreground mb-2">
-                            {job.title}
-                          </h3>
-                          <div className="flex flex-wrap gap-4 text-sm text-muted-foreground">
-                            {job.department && (
-                              <div className="flex items-center gap-1">
-                                <Briefcase className="h-4 w-4" />
-                                <span>{job.department}</span>
-                              </div>
-                            )}
-                            {job.location && (
-                              <div className="flex items-center gap-1">
-                                <LocationIcon className="h-4 w-4" />
-                                <span>{job.location}</span>
-                              </div>
-                            )}
-                            {job.employmentType && (
-                              <div className="flex items-center gap-1">
+                    {jobPostings.map(
+                      (job: {
+                        _id: string;
+                        title: string;
+                        department?: string;
+                        location?: string;
+                        employmentType?: string;
+                        description?: string;
+                        applicationDeadline?: string;
+                        slug: { current: string };
+                      }) => (
+                        <div
+                          key={job._id}
+                          className="p-6 rounded-xl border border-border bg-muted/30 hover:bg-muted/50 transition-colors duration-500"
+                        >
+                          <div className="mb-4">
+                            <h3 className="text-xl font-semibold text-foreground mb-2">
+                              {job.title}
+                            </h3>
+                            <div className="flex flex-wrap gap-4 text-sm text-muted-foreground">
+                              {job.department && (
+                                <div className="flex items-center gap-1">
+                                  <Briefcase className="h-4 w-4" />
+                                  <span>{job.department}</span>
+                                </div>
+                              )}
+                              {job.location && (
+                                <div className="flex items-center gap-1">
+                                  <LocationIcon className="h-4 w-4" />
+                                  <span>{job.location}</span>
+                                </div>
+                              )}
+                              {job.employmentType && (
+                                <div className="flex items-center gap-1">
+                                  <Calendar className="h-4 w-4" />
+                                  <span>{job.employmentType}</span>
+                                </div>
+                              )}
+                            </div>
+                          </div>
+
+                          <p className="text-muted-foreground mb-4 leading-relaxed">
+                            {job.description}
+                          </p>
+
+                          <div className="flex flex-col sm:flex-row gap-3">
+                            <Link href={`/contact/careers/${job.slug.current}`}>
+                              <Button variant="default">
+                                View Details
+                                <ArrowRight className="ml-2 h-4 w-4" />
+                              </Button>
+                            </Link>
+                            {job.applicationDeadline && (
+                              <div className="text-sm text-muted-foreground flex items-center gap-1">
                                 <Calendar className="h-4 w-4" />
-                                <span>{job.employmentType}</span>
+                                <span>
+                                  Deadline:{' '}
+                                  {new Date(
+                                    job.applicationDeadline
+                                  ).toLocaleDateString()}
+                                </span>
                               </div>
                             )}
                           </div>
                         </div>
-
-                        <p className="text-muted-foreground mb-4 leading-relaxed">
-                          {job.description}
-                        </p>
-
-                        <div className="flex flex-col sm:flex-row gap-3">
-                          <Link href={`/contact/careers/${job.slug.current}`}>
-                            <Button variant="default">
-                              View Details
-                              <ArrowRight className="ml-2 h-4 w-4" />
-                            </Button>
-                          </Link>
-                          {job.applicationDeadline && (
-                            <div className="text-sm text-muted-foreground flex items-center gap-1">
-                              <Calendar className="h-4 w-4" />
-                              <span>
-                                Deadline:{' '}
-                                {new Date(
-                                  job.applicationDeadline,
-                                ).toLocaleDateString()}
-                              </span>
-                            </div>
-                          )}
-                        </div>
-                      </div>
-                    ))}
+                      )
+                    )}
                   </div>
                 ) : (
                   <div className="text-center">
