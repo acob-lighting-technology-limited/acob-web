@@ -25,11 +25,29 @@ export function ScrollToTop() {
   }, []);
 
   const scrollToTop = () => {
-    // Use native smooth scroll - faster and smoother
-    window.scrollTo({
-      top: 0,
-      behavior: 'smooth',
-    });
+    // Custom slow scroll animation
+    const startPosition = window.pageYOffset;
+    const startTime = window.performance.now();
+    const duration = 1000; // 1 second duration for slower scroll
+
+    const easeInOutCubic = (t: number): number => {
+      return t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2;
+    };
+
+    const animateScroll = (currentTime: number) => {
+      const elapsed = currentTime - startTime;
+      const progress = Math.min(elapsed / duration, 1);
+      const eased = easeInOutCubic(progress);
+      const currentPosition = startPosition * (1 - eased);
+
+      window.scrollTo(0, currentPosition);
+
+      if (progress < 1) {
+        requestAnimationFrame(animateScroll);
+      }
+    };
+
+    requestAnimationFrame(animateScroll);
   };
 
   return (
