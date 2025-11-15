@@ -1,12 +1,13 @@
 import { getProjects } from '@/sanity/lib/client';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Container } from '@/components/ui/container';
+import type { Project } from '@/lib/types';
 
 export default async function TestDataPage() {
   const projects = await getProjects();
 
   // Filter to show only Tunga project for debugging
-  const tungaProject = projects.find(p =>
+  const tungaProject = projects.find((p: Project) =>
     p.title.toLowerCase().includes('tunga')
   );
 
@@ -40,7 +41,7 @@ export default async function TestDataPage() {
       </div>
 
       <div className="space-y-4">
-        {projects.map(project => (
+        {projects.map((project: Project) => (
           <Card key={project._id}>
             <CardHeader>
               <CardTitle className="text-lg">{project.title}</CardTitle>
