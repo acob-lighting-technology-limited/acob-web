@@ -24,7 +24,7 @@ export const PageHeroCarousel = React.memo(function PageHeroCarousel({
   autoPlayInterval = 5000,
 }: PageHeroCarouselProps) {
   const [current, setCurrent] = useState(0);
-  const [isAnimating, setIsAnimating] = useState(false);
+  const [previous, setPrevious] = useState(0);
 
   const slides = useMemo(() => {
     if (!images || images.length === 0) {
@@ -45,53 +45,63 @@ export const PageHeroCarousel = React.memo(function PageHeroCarousel({
     }
 
     const timer = setInterval(() => {
-      if (!isAnimating) {
-        setIsAnimating(true);
-        setCurrent(prev => (prev === slides.length - 1 ? 0 : prev + 1));
-        setTimeout(() => setIsAnimating(false), 800);
-      }
+      setPrevious(current);
+      setCurrent(prev => (prev === slides.length - 1 ? 0 : prev + 1));
     }, autoPlayInterval);
 
     return () => clearInterval(timer);
-  }, [current, isAnimating, slides.length, autoPlayInterval]);
+  }, [current, slides.length, autoPlayInterval]);
 
   const goToSlide = (index: number) => {
-    if (isAnimating || index === current) {
+    if (index === current) {
       return;
     }
-    setIsAnimating(true);
+    setPrevious(current);
     setCurrent(index);
-    setTimeout(() => setIsAnimating(false), 800);
   };
 
   return (
     <div className={cn('relative w-full overflow-hidden', height)}>
-      {/* Background Images with Ken Burns Effect */}
+      {/* Background Images with seamless carousel transition */}
       <div className="absolute inset-0">
-        {slides.map((slide, index) => (
-          <div
-            key={`${slide.src}-${index}`}
-            className={cn(
-              'absolute inset-0 transition-transform duration-1000',
-              index === current ? 'translate-x-0 z-10' : 'translate-x-full z-0'
-            )}
-          >
-            <div className="absolute inset-0">
-              <Image
-                src={slide.src}
-                alt={slide.alt}
-                fill
-                className="object-cover"
-                priority={index === 0}
-                quality={95}
-                sizes="100vw"
-              />
+        {slides.map((slide, index) => {
+          let position = 'translate-x-full'; // Default: off-screen right
+          let zIndex = 'z-0';
+
+          if (index === current) {
+            position = 'translate-x-0'; // Current slide: center
+            zIndex = 'z-20';
+          } else if (index === previous) {
+            position = '-translate-x-full'; // Previous slide: exit left
+            zIndex = 'z-10';
+          }
+
+          return (
+            <div
+              key={`${slide.src}-${index}`}
+              className={cn(
+                'absolute inset-0 transition-transform duration-1000 ease-in-out',
+                position,
+                zIndex
+              )}
+            >
+              <div className="absolute inset-0">
+                <Image
+                  src={slide.src}
+                  alt={slide.alt}
+                  fill
+                  className="object-cover"
+                  priority={index === 0}
+                  quality={95}
+                  sizes="100vw"
+                />
+              </div>
+              {/* Dark overlay */}
+              <div className="absolute inset-0 bg-gradient-to-r from-black/70 via-black/50 to-black/30" />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent" />
             </div>
-            {/* Dark overlay */}
-            <div className="absolute inset-0 bg-gradient-to-r from-black/70 via-black/50 to-black/30" />
-            <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent" />
-          </div>
-        ))}
+          );
+        })}
       </div>
 
       {/* Content Overlay - Title and Description */}

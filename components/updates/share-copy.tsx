@@ -1,6 +1,7 @@
 'use client';
 
-import { Share2, Linkedin, Twitter, Facebook, Instagram } from 'lucide-react';
+import { Share2, Linkedin, Facebook, Instagram } from 'lucide-react';
+import { XIcon } from '@/components/icons/x-icon';
 // import { toast } from 'sonner';
 import { Button } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
@@ -46,28 +47,33 @@ export function ShareCopy({ className, title, url }: ShareCopyProps) {
     let socialShareUrl = '';
 
     switch (platform) {
-    case 'linkedin':
-      socialShareUrl = `https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(shareUrl)}`;
-      break;
-    case 'twitter':
-      socialShareUrl = `https://twitter.com/intent/tweet?text=${encodeURIComponent(shareTitle)}&url=${encodeURIComponent(shareUrl)}`;
-      break;
-    case 'facebook':
-      socialShareUrl = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(shareUrl)}`;
-      break;
-    case 'instagram':
-      // Instagram doesn't support direct URL sharing, so we copy the URL
-      navigator.clipboard.writeText(shareUrl);
-      // toast.success('Link copied for Instagram', {
-      //   description: 'URL copied to clipboard. You can paste it in your Instagram story or post.',
-      // });
-      return;
-    default:
-      return;
+      case 'linkedin':
+        socialShareUrl = `https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(shareUrl)}`;
+        break;
+      case 'twitter':
+      case 'x':
+        socialShareUrl = `https://x.com/intent/tweet?text=${encodeURIComponent(shareTitle)}&url=${encodeURIComponent(shareUrl)}`;
+        break;
+      case 'facebook':
+        socialShareUrl = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(shareUrl)}`;
+        break;
+      case 'instagram':
+        // Instagram doesn't support direct URL sharing, so we copy the URL
+        navigator.clipboard.writeText(shareUrl);
+        // toast.success('Link copied for Instagram', {
+        //   description: 'URL copied to clipboard. You can paste it in your Instagram story or post.',
+        // });
+        return;
+      default:
+        return;
     }
 
     // Open in new window
-    window.open(socialShareUrl, '_blank', 'width=600,height=400,scrollbars=yes,resizable=yes');
+    window.open(
+      socialShareUrl,
+      '_blank',
+      'width=600,height=400,scrollbars=yes,resizable=yes'
+    );
   };
 
   return (
@@ -103,11 +109,11 @@ export function ShareCopy({ className, title, url }: ShareCopyProps) {
           variant="outline"
           size="sm"
           className="p-1 h-10 w-10 border"
-          onClick={() => handleSocialShare('twitter')}
-          title="Share on X (Twitter)"
-          aria-label="Share on X (Twitter)"
+          onClick={() => handleSocialShare('x')}
+          title="Share on X"
+          aria-label="Share on X"
         >
-          <Twitter className="w-6 h-6" />
+          <XIcon className="w-6 h-6" />
         </Button>
 
         <Button
@@ -135,5 +141,3 @@ export function ShareCopy({ className, title, url }: ShareCopyProps) {
     </div>
   );
 }
-
-

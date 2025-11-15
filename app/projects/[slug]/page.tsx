@@ -4,7 +4,6 @@ import { Button } from '@/components/ui/button';
 import { ArrowRight, MapPin } from 'lucide-react';
 import { notFound } from 'next/navigation';
 import { getProjects, getProject } from '@/sanity/lib/client';
-import Image from 'next/image';
 import Link from 'next/link';
 import { PageHero } from '@/components/ui/page-hero';
 import type { Project } from '@/lib/types';
@@ -12,6 +11,7 @@ import { Card, CardContent } from '@/components/ui/card';
 import { ShareCopy } from '@/components/updates/share-copy';
 import { Metadata } from 'next';
 import { ProjectContent } from './project-content';
+import { ImpactMetrics } from '@/components/projects/impact-metrics';
 
 interface ProjectPageProps {
   params: Promise<{
@@ -76,7 +76,7 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
   const allProjects = await getProjects();
   const relatedProjects = allProjects
     .filter((p: Project) => p.slug.current !== slug)
-    .slice(0, 5); // Show only 5 related projects
+    .slice(0, 3); // Show only 3 related projects
   const breadcrumbItems = [
     { label: 'Home', href: '/' },
     { label: 'Projects', href: '/projects' },
@@ -122,6 +122,11 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
               </div>
             )}
 
+            {/* Impact Metrics */}
+            {project.impactMetrics && (
+              <ImpactMetrics metrics={project.impactMetrics} />
+            )}
+
             {/* Share Buttons */}
             <div className="flex items-center gap-4 pt-8 border-t mt-6">
               <ShareCopy className="rounded-full bg-transparent" />
@@ -133,44 +138,33 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
         {relatedProjects.length > 0 && (
           <div className="mt-8">
             <h3 className="text-2xl font-bold mb-4">Related Projects</h3>
-            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4">
+            <ul className="space-y-2">
               {relatedProjects.map((relatedProject: Project) => (
-                <Link
-                  key={relatedProject._id}
-                  href={`/projects/${relatedProject.slug.current}`}
-                  className="group"
-                >
-                  <Card className="overflow-hidden h-full transition-all duration-300 hover:shadow-xl hover:-translate-y-1 border-border hover:border-primary/50">
-                    <div className="aspect-square overflow-hidden relative bg-muted">
-                      {relatedProject.projectImage && (
-                        <Image
-                          src={relatedProject.projectImage}
-                          alt={relatedProject.title}
-                          fill
-                          className="object-cover transition-transform duration-500 group-hover:scale-110"
-                        />
-                      )}
-                      <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/0 to-black/0 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-                    </div>
-                    <CardContent className="p-3">
-                      <h4 className="text-sm font-semibold text-foreground group-hover:text-primary mb-1 line-clamp-2 transition-colors duration-300">
+                <li key={relatedProject._id}>
+                  <Link
+                    href={`/projects/${relatedProject.slug.current}`}
+                    className="group flex items-center gap-3 p-3 rounded-lg transition-all duration-300 hover:bg-muted/50 border border-border hover:border-primary/50"
+                  >
+                    <ArrowRight className="h-4 w-4 text-muted-foreground group-hover:text-primary transition-colors duration-300 flex-shrink-0" />
+                    <div className="flex-1 min-w-0">
+                      <h4 className="text-sm font-semibold text-foreground group-hover:text-primary transition-colors duration-300">
                         {relatedProject.title}
                       </h4>
                       {relatedProject.location && (
-                        <div className="flex items-center text-xs text-muted-foreground">
+                        <div className="flex items-center text-xs text-muted-foreground mt-1">
                           <MapPin className="h-3 w-3 mr-1 flex-shrink-0" />
-                          <span className="line-clamp-1">
+                          <span className="truncate">
                             {relatedProject.location}
                             {relatedProject.state &&
                               `, ${relatedProject.state}`}
                           </span>
                         </div>
                       )}
-                    </CardContent>
-                  </Card>
-                </Link>
+                    </div>
+                  </Link>
+                </li>
               ))}
-            </div>
+            </ul>
             <div className="mt-6 text-center">
               <Link href="/projects">
                 <Button variant="outline">

@@ -182,26 +182,24 @@ export default function ProjectsClient({
         </Card>
       ) : (
         <>
-          <StaggerChildren
-            staggerDelay={0.1}
-            className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
-          >
-            {projects.map((project: Project) => (
-              <motion.div key={project._id} variants={staggerItem}>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {/* First card - visible immediately on mobile */}
+            {projects.length > 0 && (
+              <div className="block md:hidden">
                 <Link
-                  href={`/projects/${project.slug.current}`}
+                  href={`/projects/${projects[0].slug.current}`}
                   className="group"
                 >
                   <Card className="overflow-hidden h-full flex flex-col transition-all duration-300 hover:shadow-xl hover:-translate-y-1 border-border hover:border-primary/50">
                     {/* Image */}
                     <div className="aspect-[16/9] overflow-hidden relative bg-muted">
-                      {project.projectImage ? (
+                      {projects[0].projectImage ? (
                         <Image
                           src={applySanityImagePreset(
-                            project.projectImage,
+                            projects[0].projectImage,
                             'card'
                           )}
-                          alt={project.title}
+                          alt={projects[0].title}
                           fill
                           className="object-cover transition-transform duration-500 group-hover:scale-110"
                           sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
@@ -220,20 +218,22 @@ export default function ProjectsClient({
                     <CardContent className="p-6 flex flex-col flex-1">
                       {/* Location & Date */}
                       <div className="flex items-center gap-4 text-xs text-muted-foreground mb-3 flex-wrap">
-                        {(project.location || project.state) && (
+                        {(projects[0].location || projects[0].state) && (
                           <div className="flex items-center gap-1">
                             <MapPin className="h-3.5 w-3.5 text-primary" />
                             <span>
-                              {project.location}
-                              {project.location && project.state && ', '}
-                              {project.state}
+                              {projects[0].location}
+                              {projects[0].location &&
+                                projects[0].state &&
+                                ', '}
+                              {projects[0].state}
                             </span>
                           </div>
                         )}
-                        {project.projectDate && (
+                        {projects[0].projectDate && (
                           <div className="flex items-center gap-1">
                             <span>
-                              {new Date(project.projectDate).getFullYear()}
+                              {new Date(projects[0].projectDate).getFullYear()}
                             </span>
                           </div>
                         )}
@@ -241,13 +241,13 @@ export default function ProjectsClient({
 
                       {/* Title */}
                       <h3 className="text-lg font-bold mb-3 text-foreground group-hover:text-primary transition-colors duration-300 line-clamp-2">
-                        {project.title}
+                        {projects[0].title}
                       </h3>
 
                       {/* Description */}
                       <p className="text-sm text-muted-foreground leading-relaxed line-clamp-3 mb-4 flex-1">
-                        {project.excerpt ||
-                          extractTextFromPortableText(project.content)}
+                        {projects[0].excerpt ||
+                          extractTextFromPortableText(projects[0].content)}
                       </p>
 
                       {/* View Project Link */}
@@ -258,9 +258,173 @@ export default function ProjectsClient({
                     </CardContent>
                   </Card>
                 </Link>
-              </motion.div>
-            ))}
-          </StaggerChildren>
+              </div>
+            )}
+
+            {/* All cards on desktop with animation */}
+            <StaggerChildren
+              staggerDelay={0.1}
+              className="hidden md:grid md:grid-cols-2 lg:grid-cols-3 gap-6 col-span-full"
+            >
+              {projects.map((project: Project) => (
+                <motion.div key={project._id} variants={staggerItem}>
+                  <Link
+                    href={`/projects/${project.slug.current}`}
+                    className="group"
+                  >
+                    <Card className="overflow-hidden h-full flex flex-col transition-all duration-300 hover:shadow-xl hover:-translate-y-1 border-border hover:border-primary/50">
+                      {/* Image */}
+                      <div className="aspect-[16/9] overflow-hidden relative bg-muted">
+                        {project.projectImage ? (
+                          <Image
+                            src={applySanityImagePreset(
+                              project.projectImage,
+                              'card'
+                            )}
+                            alt={project.title}
+                            fill
+                            className="object-cover transition-transform duration-500 group-hover:scale-110"
+                            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                          />
+                        ) : (
+                          <div className="w-full h-full flex items-center justify-center">
+                            <span className="text-muted-foreground text-sm">
+                              No image
+                            </span>
+                          </div>
+                        )}
+                        {/* Gradient overlay */}
+                        <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/0 to-black/0 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                      </div>
+
+                      <CardContent className="p-6 flex flex-col flex-1">
+                        {/* Location & Date */}
+                        <div className="flex items-center gap-4 text-xs text-muted-foreground mb-3 flex-wrap">
+                          {(project.location || project.state) && (
+                            <div className="flex items-center gap-1">
+                              <MapPin className="h-3.5 w-3.5 text-primary" />
+                              <span>
+                                {project.location}
+                                {project.location && project.state && ', '}
+                                {project.state}
+                              </span>
+                            </div>
+                          )}
+                          {project.projectDate && (
+                            <div className="flex items-center gap-1">
+                              <span>
+                                {new Date(project.projectDate).getFullYear()}
+                              </span>
+                            </div>
+                          )}
+                        </div>
+
+                        {/* Title */}
+                        <h3 className="text-lg font-bold mb-3 text-foreground group-hover:text-primary transition-colors duration-300 line-clamp-2">
+                          {project.title}
+                        </h3>
+
+                        {/* Description */}
+                        <p className="text-sm text-muted-foreground leading-relaxed line-clamp-3 mb-4 flex-1">
+                          {project.excerpt ||
+                            extractTextFromPortableText(project.content)}
+                        </p>
+
+                        {/* View Project Link */}
+                        <div className="flex items-center text-sm font-medium text-primary group-hover:gap-2 transition-all duration-300">
+                          View Project
+                          <ArrowRight className="h-4 w-4 ml-1 group-hover:translate-x-1 transition-transform duration-300" />
+                        </div>
+                      </CardContent>
+                    </Card>
+                  </Link>
+                </motion.div>
+              ))}
+            </StaggerChildren>
+
+            {/* Rest of the cards on mobile (without first card) */}
+            {projects.length > 1 && (
+              <StaggerChildren
+                staggerDelay={0.1}
+                className="block md:hidden grid grid-cols-1 gap-6"
+              >
+                {projects.slice(1).map((project: Project) => (
+                  <motion.div key={project._id} variants={staggerItem}>
+                    <Link
+                      href={`/projects/${project.slug.current}`}
+                      className="group"
+                    >
+                      <Card className="overflow-hidden h-full flex flex-col transition-all duration-300 hover:shadow-xl hover:-translate-y-1 border-border hover:border-primary/50">
+                        {/* Image */}
+                        <div className="aspect-[16/9] overflow-hidden relative bg-muted">
+                          {project.projectImage ? (
+                            <Image
+                              src={applySanityImagePreset(
+                                project.projectImage,
+                                'card'
+                              )}
+                              alt={project.title}
+                              fill
+                              className="object-cover transition-transform duration-500 group-hover:scale-110"
+                              sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                            />
+                          ) : (
+                            <div className="w-full h-full flex items-center justify-center">
+                              <span className="text-muted-foreground text-sm">
+                                No image
+                              </span>
+                            </div>
+                          )}
+                          {/* Gradient overlay */}
+                          <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/0 to-black/0 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                        </div>
+
+                        <CardContent className="p-6 flex flex-col flex-1">
+                          {/* Location & Date */}
+                          <div className="flex items-center gap-4 text-xs text-muted-foreground mb-3 flex-wrap">
+                            {(project.location || project.state) && (
+                              <div className="flex items-center gap-1">
+                                <MapPin className="h-3.5 w-3.5 text-primary" />
+                                <span>
+                                  {project.location}
+                                  {project.location && project.state && ', '}
+                                  {project.state}
+                                </span>
+                              </div>
+                            )}
+                            {project.projectDate && (
+                              <div className="flex items-center gap-1">
+                                <span>
+                                  {new Date(project.projectDate).getFullYear()}
+                                </span>
+                              </div>
+                            )}
+                          </div>
+
+                          {/* Title */}
+                          <h3 className="text-lg font-bold mb-3 text-foreground group-hover:text-primary transition-colors duration-300 line-clamp-2">
+                            {project.title}
+                          </h3>
+
+                          {/* Description */}
+                          <p className="text-sm text-muted-foreground leading-relaxed line-clamp-3 mb-4 flex-1">
+                            {project.excerpt ||
+                              extractTextFromPortableText(project.content)}
+                          </p>
+
+                          {/* View Project Link */}
+                          <div className="flex items-center text-sm font-medium text-primary group-hover:gap-2 transition-all duration-300">
+                            View Project
+                            <ArrowRight className="h-4 w-4 ml-1 group-hover:translate-x-1 transition-transform duration-300" />
+                          </div>
+                        </CardContent>
+                      </Card>
+                    </Link>
+                  </motion.div>
+                ))}
+              </StaggerChildren>
+            )}
+          </div>
 
           {/* Pagination */}
           {pagination.totalPages > 1 && (

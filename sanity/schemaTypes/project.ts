@@ -191,6 +191,45 @@ export const projectType = defineType({
         'Toggle to feature this project in the hero section (maximum 6 projects). Use "Featured Projects Order" in the sidebar to drag and reorder.',
       initialValue: false,
     }),
+    // Impact Metrics Fields
+    defineField({
+      name: 'impactMetrics',
+      title: 'Impact Metrics',
+      type: 'object',
+      description: 'Optional impact metrics for the project',
+      fields: [
+        {
+          name: 'beneficiaries',
+          title: 'Beneficiaries',
+          type: 'number',
+          description: 'Number of people benefiting from this project',
+        },
+        {
+          name: 'jobsCreatedDirectly',
+          title: 'Jobs Created Directly',
+          type: 'number',
+          description: 'Number of direct jobs created by this project',
+        },
+        {
+          name: 'jobsCreatedIndirectly',
+          title: 'Jobs Created Indirectly',
+          type: 'number',
+          description: 'Number of indirect jobs created by this project',
+        },
+        {
+          name: 'annualCO2Reduction',
+          title: 'Annual CO₂ Reduction (t/yr)',
+          type: 'number',
+          description: 'Annual CO₂ reduction in tonnes per year',
+        },
+        {
+          name: 'annualEnergyOutput',
+          title: 'Annual Energy Output (kWh/yr)',
+          type: 'number',
+          description: 'Annual energy output in kilowatt-hours per year',
+        },
+      ],
+    }),
     defineField({
       name: 'comments',
       title: 'Comments',

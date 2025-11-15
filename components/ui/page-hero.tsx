@@ -82,7 +82,7 @@ export function PageHero({
   backgroundPosition = 'bg-center',
   align = 'left',
   className = '',
-  children,
+  children: _children,
 }: PageHeroProps) {
   const pathname = usePathname();
 
@@ -124,8 +124,6 @@ export function PageHero({
             <MaskText className="text-3xl md:text-4xl lg:text-5xl font-bold">
               {description}
             </MaskText>
-
-            {children && <div className="mt-4">{children}</div>}
           </div>
         </div>
       </div>

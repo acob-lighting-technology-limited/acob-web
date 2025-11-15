@@ -47,16 +47,20 @@ const strategicPillars = [
 
 const missionMetrics = [
   {
-    label: 'People to Impact by 2030',
+    label: 'People to Impact',
     value: '5M+',
   },
   {
-    label: 'All-in-One Streetlights by 2029',
+    label: 'All-in-One Streetlights',
     value: '2M',
   },
   {
     label: 'Mini-Grid Deployments',
     value: '150+',
+  },
+  {
+    label: 'Renewable Energy Capacity',
+    value: '500 MW',
   },
 ];
 
@@ -114,11 +118,11 @@ export default function MissionPage() {
 
           <aside className="space-y-6">
             <Card className="rounded-3xl border border-border bg-surface p-4 sm:p-6 xl:p-8 shadow-sm">
-              <CardContent className="flex flex-col gap-4">
+              <CardContent className="flex flex-col gap-4 px-2">
                 <h3 className="text-lg font-semibold text-foreground">
-                  Mission Metrics
+                  Mission Metrics - Targets by 2030
                 </h3>
-                <div className="grid gap-4 sm:grid-cols-2">
+                <div className="grid grid-cols-2 gap-2 sm:gap-4">
                   {missionMetrics.map(metric => (
                     <InfoCard
                       key={metric.label}
@@ -132,7 +136,7 @@ export default function MissionPage() {
             </Card>
 
             <Card className="rounded-3xl border border-border bg-surface p-4 sm:p-6 xl:p-8 shadow-sm">
-              <CardContent>
+              <CardContent className="px-2">
                 <h3 className="text-lg font-semibold text-foreground">
                   Strategic Pillars
                 </h3>
@@ -167,8 +171,8 @@ export default function MissionPage() {
         </section>
 
         <section className="mb-16">
-          <Card className="grid items-center gap-8 rounded-3xl border border-border bg-gradient-to-r from-primary to-primary-dark p-4 sm:p-6 xl:p-8 text-white lg:grid-cols-2">
-            <div className="space-y-6 sticky top-10">
+          <Card className="grid items-center gap-8 rounded-3xl border border-border bg-gradient-to-r from-primary to-primary-dark p-4 py-8 sm:p-6 xl:p-8 text-white lg:grid-cols-2">
+            <div className="space-y-6">
               <span className="inline-flex items-center rounded-full border border-white/20 px-3 py-1 text-xs font-semibold uppercase tracking-[0.25em] text-white/80">
                 Our Core Values
               </span>

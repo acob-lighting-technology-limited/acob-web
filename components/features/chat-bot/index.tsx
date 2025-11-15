@@ -27,12 +27,12 @@ export function ChatBot() {
         initial={{ scale: 0, opacity: 0 }}
         animate={{ scale: 1, opacity: 1 }}
         transition={{ delay: 0.5, type: 'spring', stiffness: 300 }}
-        className="z-50 h-12 w-12 sm:h-16 sm:w-16"
+        className="z-50 h-16 w-16"
       >
         <Button
           size="icon"
           onClick={() => setIsOpen(!isOpen)}
-          className="h-12 w-12 sm:h-16 sm:w-16 rounded-full border border-muted-foreground bg-primary hover:bg-primary/90 text-primary-foreground shadow-2xl hover:shadow-lg hover:scale-110 transition-all duration-500"
+          className="h-16 w-16 rounded-full border border-muted-foreground bg-primary hover:bg-primary/90 text-primary-foreground shadow-2xl hover:shadow-lg hover:scale-110 transition-all duration-500"
           aria-label="Open chat"
         >
           <motion.div
@@ -40,9 +40,9 @@ export function ChatBot() {
             transition={{ duration: 0.3 }}
           >
             {isOpen ? (
-              <X className="h-5 w-5 sm:h-7 sm:w-7" />
+              <X className="h-7 w-7 sm:h-7 sm:w-7" />
             ) : (
-              <MessageSquare className="h-5 w-5 sm:h-7 sm:w-7" />
+              <MessageSquare className="h-7 w-7 sm:h-7 sm:w-7" />
             )}
           </motion.div>
         </Button>

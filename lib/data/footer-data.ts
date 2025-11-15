@@ -1,4 +1,5 @@
-import { Facebook, Twitter, Linkedin, Instagram } from 'lucide-react';
+import { Facebook, Linkedin, Instagram } from 'lucide-react';
+import { XIcon } from '@/components/icons/x-icon';
 
 export const footerLinks = {
   quickLinks: [
@@ -49,8 +50,8 @@ export const socialLinks = [
   },
   {
     href: 'https://x.com/acoblimited?s=21&t=NMnANy7CG_nzCYaBcUg6gw',
-    icon: Twitter,
-    label: 'Twitter',
+    icon: XIcon,
+    label: 'X',
   },
   {
     href: 'https://www.linkedin.com/company/acob-lighting-technology-limited/',
