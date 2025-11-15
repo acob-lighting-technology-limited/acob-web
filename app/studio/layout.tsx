@@ -21,7 +21,12 @@ export default function StudioLayout({
       <body className={`${plusJakarta.className} ${plusJakarta.variable}`}>
         <Providers>
           <NProgressProvider>
-            <Toaster closeButton position="top-right" />
+            <Toaster
+              closeButton
+              position="bottom-right"
+              theme="system"
+              richColors
+            />
             <div className="flex min-h-screen flex-col w-full bg-background transition-colors duration-500">
               <main className="flex-1">{children}</main>
             </div>

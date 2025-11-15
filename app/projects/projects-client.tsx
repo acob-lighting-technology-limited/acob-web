@@ -226,7 +226,10 @@ export default function ProjectsClient({
                               {projects[0].location &&
                                 projects[0].state &&
                                 ', '}
-                              {projects[0].state}
+                              {projects[0].state &&
+                                (projects[0].state.toUpperCase() === 'FCT'
+                                  ? 'FCT'
+                                  : `${projects[0].state} State`)}
                             </span>
                           </div>
                         )}
@@ -306,7 +309,10 @@ export default function ProjectsClient({
                               <span>
                                 {project.location}
                                 {project.location && project.state && ', '}
-                                {project.state}
+                                {project.state &&
+                                  (project.state.toUpperCase() === 'FCT'
+                                    ? 'FCT'
+                                    : `${project.state} State`)}
                               </span>
                             </div>
                           )}
@@ -388,7 +394,10 @@ export default function ProjectsClient({
                                 <span>
                                   {project.location}
                                   {project.location && project.state && ', '}
-                                  {project.state}
+                                  {project.state &&
+                                    (project.state.toUpperCase() === 'FCT'
+                                      ? 'FCT'
+                                      : `${project.state} State`)}
                                 </span>
                               </div>
                             )}

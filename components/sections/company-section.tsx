@@ -36,7 +36,7 @@ const missionStatements = [
 
 export function CompanySection() {
   return (
-    <section className="relative overflow-hidden bg-background transition-all duration-500 py-12 sm:py-16 md:py-20 ">
+    <section className="relative overflow-hidden bg-background transition-all duration-500 py-12 sm:py-16 lg:py-20 xl:py-24">
       <div className="absolute inset-0 bg-[radial-gradient(circle_at_top,_rgba(24,_24,_27,_0.04),_transparent_55%)]" />
 
       <Container className="relative px-4">

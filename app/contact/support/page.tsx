@@ -1,3 +1,5 @@
+'use client';
+
 import { Container } from '@/components/ui/container';
 import { PageHero } from '@/components/ui/page-hero';
 import { Breadcrumb } from '@/components/ui/breadcrumb';
@@ -94,14 +96,32 @@ export default function SupportPage() {
                             {description}
                           </p>
                           <div className="space-y-1">
-                            {contacts.map((item, i) => (
-                              <div
-                                key={i}
-                                className="text-primary font-semibold text-lg"
-                              >
-                                {item}
-                              </div>
-                            ))}
+                            {contacts.map((item, i) => {
+                              // Check if it's a phone number
+                              const isPhone = /^\+?\d[\d\s-]+$/.test(
+                                item.trim()
+                              );
+                              if (isPhone) {
+                                const phoneNumber = item.replace(/\s/g, '');
+                                return (
+                                  <a
+                                    key={i}
+                                    href={`tel:${phoneNumber}`}
+                                    className="text-primary font-semibold text-lg hover:underline block"
+                                  >
+                                    {item}
+                                  </a>
+                                );
+                              }
+                              return (
+                                <div
+                                  key={i}
+                                  className="text-primary font-semibold text-lg"
+                                >
+                                  {item}
+                                </div>
+                              );
+                            })}
                           </div>
                         </div>
                       </div>
@@ -160,9 +180,12 @@ export default function SupportPage() {
                 <div className="space-y-3">
                   <div className="p-3 rounded-lg bg-muted/30 border border-border">
                     <p className="text-xs text-muted-foreground mb-1">Phone</p>
-                    <p className="text-sm font-semibold text-primary">
+                    <a
+                      href="tel:+2347049202634"
+                      className="text-sm font-semibold text-primary hover:underline block"
+                    >
                       +234 704 920 2634
-                    </p>
+                    </a>
                   </div>
                   <div className="p-3 rounded-lg bg-muted/30 border border-border">
                     <p className="text-xs text-muted-foreground mb-1">Email</p>

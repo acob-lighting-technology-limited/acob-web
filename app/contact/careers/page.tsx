@@ -1,3 +1,5 @@
+'use client';
+
 import { Container } from '@/components/ui/container';
 import { PageHero } from '@/components/ui/page-hero';
 import { Breadcrumb } from '@/components/ui/breadcrumb';
@@ -16,6 +18,7 @@ import {
 import Link from 'next/link';
 import { whyWorkItems, contactLinks } from '@/lib/data/contact-data';
 import { getJobPostings } from '@/sanity/lib/client';
+import { useEffect, useState } from 'react';
 
 // Icon mapping
 const iconMap = {
@@ -25,16 +28,29 @@ const iconMap = {
   Heart,
 };
 
-export default async function CareersPage() {
+export default function CareersPage() {
   const breadcrumbItems = [
     { label: 'Home', href: '/' },
     { label: 'Contact', href: '/contact' },
     { label: 'Careers' },
   ];
 
-  // Fetch active job postings
-  const jobPostings = await getJobPostings();
-  console.log('Job postings found:', jobPostings.length);
+  const [jobPostings, setJobPostings] = useState<
+    Array<{
+      _id: string;
+      title: string;
+      department?: string;
+      location?: string;
+      employmentType?: string;
+      description?: string;
+      applicationDeadline?: string;
+      slug: { current: string };
+    }>
+  >([]);
+
+  useEffect(() => {
+    getJobPostings().then(setJobPostings);
+  }, []);
 
   return (
     <>
@@ -249,9 +265,12 @@ export default async function CareersPage() {
                   </div>
                   <div className="p-3 rounded-lg bg-muted/30 border border-border">
                     <p className="text-xs text-muted-foreground mb-1">Phone</p>
-                    <p className="text-sm font-semibold text-primary">
+                    <a
+                      href="tel:+2347049202634"
+                      className="text-sm font-semibold text-primary hover:underline block"
+                    >
                       +234 704 920 2634
-                    </p>
+                    </a>
                   </div>
                   <div className="p-3 rounded-lg bg-muted/30 border border-border">
                     <p className="text-xs text-muted-foreground mb-1">

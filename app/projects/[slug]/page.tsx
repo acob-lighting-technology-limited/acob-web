@@ -110,14 +110,15 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
                 <MapPin className="h-5 w-5 mr-2" />
                 <span className="text-lg">
                   {project.location}
-                  {project.state && `, ${project.state}`}
+                  {project.state &&
+                    `, ${project.state.toUpperCase() === 'FCT' ? 'FCT' : `${project.state} State`}`}
                 </span>
               </div>
             )}
 
             {/* Project Content */}
             {project.content && (
-              <div className="mt-6 prose prose-lg max-w-none flex flex-wrap -mx-2">
+              <div className="mt-6 prose prose-lg max-w-none flex flex-wrap ">
                 <ProjectContent content={project.content} />
               </div>
             )}

@@ -45,33 +45,37 @@ export default function ContactPage() {
           className="mb-12"
         />
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+        <div className="grid grid-cols-2 gap-3 md:gap-8 md:grid-cols-2 lg:grid-cols-4">
           {contactSections.map(section => {
             return (
               <Link key={section.href} href={section.href}>
-                <Card className="group flex h-full flex-col overflow-hidden rounded-3xl border border-border bg-surface shadow-sm transition-all duration-500 hover:-translate-y-1 hover:shadow-lg">
-                  <div className="relative aspect-[16/9] w-full overflow-hidden">
+                <Card className="group flex h-full flex-col overflow-hidden rounded-xl md:rounded-3xl border border-border bg-surface shadow-sm transition-all duration-500 hover:-translate-y-1 hover:shadow-lg">
+                  <div className="relative aspect-square md:aspect-[16/9] w-full overflow-hidden">
                     <Image
                       src={section.image || '/placeholder.svg'}
                       alt={section.title}
                       fill
                       className="object-cover transition-transform duration-500 group-hover:scale-105"
-                      sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 25vw"
+                      sizes="(max-width: 768px) 50vw, (max-width: 1200px) 50vw, 25vw"
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/0 to-transparent opacity-0 transition-opacity duration-500 group-hover:opacity-100" />
                   </div>
-                  <CardContent className="flex flex-1 flex-col gap-4 p-4">
-                    <div>
-                      <h4 className="text-lg font-semibold text-foreground">
+                  <CardContent className="flex flex-1 flex-col gap-2 md:gap-4 p-3 md:p-4">
+                    <div className="flex-1">
+                      <h4 className="text-sm md:text-lg font-semibold text-foreground line-clamp-2">
                         {section.title}
                       </h4>
-                      <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
+                      <p className="mt-1 md:mt-2 text-xs md:text-sm leading-relaxed text-muted-foreground line-clamp-2 md:line-clamp-none">
                         {section.description}
                       </p>
                     </div>
-                    <Button variant="default" className="w-full mt-auto">
-                      Learn More
-                      <ArrowRight className="ml-2 h-4 w-4" />
+                    <Button
+                      variant="default"
+                      className="w-full mt-auto text-xs md:text-sm py-2 md:py-2.5 h-auto"
+                    >
+                      <span className="hidden md:inline">Learn More</span>
+                      <span className="md:hidden">More</span>
+                      <ArrowRight className="ml-1 md:ml-2 h-3 w-3 md:h-4 md:w-4" />
                     </Button>
                   </CardContent>
                 </Card>

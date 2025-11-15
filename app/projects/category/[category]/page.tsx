@@ -177,7 +177,8 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
                             <MapPin className="h-4 w-4 mr-1" />
                             <span>
                               {project.location}
-                              {project.state && `, ${project.state}`}
+                              {project.state &&
+                                `, ${project.state.toUpperCase() === 'FCT' ? 'FCT' : `${project.state} State`}`}
                             </span>
                           </div>
                         </div>

@@ -100,7 +100,8 @@ const Card: React.FC<CardProps> = ({
               <p className="flex gap-2 text-lg items-center">
                 <MapPin />
                 {location}
-                {state && `, ${state}`}
+                {state &&
+                  `, ${state.toUpperCase() === 'FCT' ? 'FCT' : `${state} State`}`}
               </p>
             </div>
 

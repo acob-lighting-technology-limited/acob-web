@@ -1,10 +1,13 @@
+'use client';
+
 import { Container } from '@/components/ui/container';
 import { PageHero } from '@/components/ui/page-hero';
 import { Breadcrumb } from '@/components/ui/breadcrumb';
 import { Card, CardContent } from '@/components/ui/card';
-import { MapPin, Phone, Mail } from 'lucide-react';
+import { MapPin, Phone, Mail, Copy } from 'lucide-react';
 import Link from 'next/link';
 import { MaskText } from '@/components/animations/MaskText';
+import { toast } from 'sonner';
 
 export default function LocationsPage() {
   const breadcrumbItems = [
@@ -12,6 +15,19 @@ export default function LocationsPage() {
     { label: 'Contact Us', href: '/contact' },
     { label: 'Office Locations' },
   ];
+
+  const handleCopyAddress = async (address: string) => {
+    try {
+      await navigator.clipboard.writeText(address);
+      toast.success('Address copied to clipboard!', {
+        duration: 2000,
+      });
+    } catch (_err) {
+      toast.error('Failed to copy address', {
+        duration: 2000,
+      });
+    }
+  };
 
   return (
     <>
@@ -52,24 +68,45 @@ export default function LocationsPage() {
               <CardContent className="p-6">
                 <h3 className="font-semibold mb-4">Head Office</h3>
                 <div className="space-y-3">
-                  <div className="flex items-start space-x-2 p-3 rounded-lg bg-muted/30 border border-border">
+                  <button
+                    onClick={() =>
+                      handleCopyAddress(
+                        'Plot 2. Block 14 Extension, Federal Ministry of Works And Housing Sites and Service Scheme, Setraco Gate Gwarinpa, Abuja, Nigeria.'
+                      )
+                    }
+                    className="flex items-start space-x-2 p-3 rounded-lg bg-muted/30 border border-border hover:bg-muted/50 transition-colors w-full text-left group"
+                  >
                     <MapPin className="h-4 w-4 text-primary mt-0.5 flex-shrink-0" />
-                    <div>
-                      <p className="text-xs text-muted-foreground">Address</p>
+                    <div className="flex-1">
+                      <div className="flex items-center gap-2 mb-1">
+                        <p className="text-xs text-muted-foreground">Address</p>
+                        <Copy className="h-3 w-3 text-muted-foreground opacity-0 group-hover:opacity-100 transition-opacity" />
+                      </div>
                       <p className="text-sm font-medium">
                         Plot 2. Block 14 Extension, Federal Ministry of Works
                         And Housing Sites and Service Scheme, Setraco Gate
                         Gwarinpa, Abuja, Nigeria.
                       </p>
                     </div>
-                  </div>
+                  </button>
                   <div className="flex items-start space-x-2 p-3 rounded-lg bg-muted/30 border border-border">
                     <Phone className="h-4 w-4 text-primary mt-0.5 flex-shrink-0" />
                     <div>
                       <p className="text-xs text-muted-foreground">Phone</p>
-                      <p className="text-sm font-medium">
-                        +234 704 920 2634, +234 803 290 2825
-                      </p>
+                      <div className="flex flex-col gap-1">
+                        <a
+                          href="tel:+2347049202634"
+                          className="text-sm font-medium text-primary hover:underline"
+                        >
+                          +234 704 920 2634
+                        </a>
+                        <a
+                          href="tel:+2348032902825"
+                          className="text-sm font-medium text-primary hover:underline"
+                        >
+                          +234 803 290 2825
+                        </a>
+                      </div>
                     </div>
                   </div>
                   <div className="flex items-start space-x-2 p-3 rounded-lg bg-muted/30 border border-border">
@@ -111,23 +148,44 @@ export default function LocationsPage() {
               <CardContent className="p-6">
                 <h3 className="font-semibold mb-4">Branch Office</h3>
                 <div className="space-y-3">
-                  <div className="flex items-start space-x-2 p-3 rounded-lg bg-muted/30 border border-border">
+                  <button
+                    onClick={() =>
+                      handleCopyAddress(
+                        '1st Floor, Rochas Plaza, 26 Herbert Macaulay Way, Abuja, Nigeria'
+                      )
+                    }
+                    className="flex items-start space-x-2 p-3 rounded-lg bg-muted/30 border border-border hover:bg-muted/50 transition-colors w-full text-left group"
+                  >
                     <MapPin className="h-4 w-4 text-primary mt-0.5 flex-shrink-0" />
-                    <div>
-                      <p className="text-xs text-muted-foreground">Address</p>
+                    <div className="flex-1">
+                      <div className="flex items-center gap-2 mb-1">
+                        <p className="text-xs text-muted-foreground">Address</p>
+                        <Copy className="h-3 w-3 text-muted-foreground opacity-0 group-hover:opacity-100 transition-opacity" />
+                      </div>
                       <p className="text-sm font-medium">
                         1st Floor, Rochas Plaza, 26 Herbert Macaulay Way, Abuja,
                         Nigeria
                       </p>
                     </div>
-                  </div>
+                  </button>
                   <div className="flex items-start space-x-2 p-3 rounded-lg bg-muted/30 border border-border">
                     <Phone className="h-4 w-4 text-primary mt-0.5 flex-shrink-0" />
                     <div>
                       <p className="text-xs text-muted-foreground">Phone</p>
-                      <p className="text-sm font-medium">
-                        +234 704 920 2634, +234 803 290 2825
-                      </p>
+                      <div className="flex flex-col gap-1">
+                        <a
+                          href="tel:+2347049202634"
+                          className="text-sm font-medium text-primary hover:underline"
+                        >
+                          +234 704 920 2634
+                        </a>
+                        <a
+                          href="tel:+2348032902825"
+                          className="text-sm font-medium text-primary hover:underline"
+                        >
+                          +234 803 290 2825
+                        </a>
+                      </div>
                     </div>
                   </div>
                   <div className="flex items-start space-x-2 p-3 rounded-lg bg-muted/30 border border-border">

@@ -12,7 +12,7 @@ export function PartnersSection() {
   const marqueeRef = useRef<HTMLDivElement>(null);
 
   return (
-    <section className="border-b border-border-[0.5px] bg-muted/30 py-12 sm:py-16 transition-all duration-500">
+    <section className="border-b border-border-[0.5px] bg-muted/30 py-12 sm:py-16 lg:py-20 xl:py-24 transition-all duration-500">
       <Container className="px-4">
         <FadeIn delay={0.2}>
           <div className="text-center mb-8 sm:mb-12 space-y-3">

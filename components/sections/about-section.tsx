@@ -14,7 +14,7 @@ const commitments = [
 
 export function AboutSection() {
   return (
-    <section className="border-b border-border-[0.5px] bg-primary text-primary-foreground py-16 transition-all duration-500">
+    <section className="border-b border-border-[0.5px] bg-primary text-primary-foreground py-12 sm:py-16 lg:py-20 xl:py-24 transition-all duration-500">
       <Container className="px-4">
         <div className="grid gap-10 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.1fr)] lg:items-center">
           <FadeIn delay={0.3}>
