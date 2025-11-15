@@ -2,7 +2,7 @@ import { Breadcrumb } from '@/components/ui/breadcrumb';
 import { Container } from '@/components/ui/container';
 import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
-import { CheckCircle, ArrowRight } from 'lucide-react';
+import { CheckCircle, ArrowRight, ArrowLeft } from 'lucide-react';
 import { notFound } from 'next/navigation';
 import { getServiceBySlug, servicesData } from '@/lib/data';
 import Link from 'next/link';
@@ -82,6 +82,9 @@ export default async function ServicePage({ params }: ServicePageProps) {
     href: `/services/${s.slug}`,
     isActive: s.slug === slug,
   }));
+
+  // Get related services (excluding current service)
+  const relatedServices = servicesData.filter(s => s.slug !== slug).slice(0, 3); // Show only 3 related services
 
   return (
     <>
@@ -179,8 +182,8 @@ export default async function ServicePage({ params }: ServicePageProps) {
 
           {/* Sidebar */}
           <div className="space-y-6 sticky top-20 self-start">
-            {/* Services Navigation */}
-            <Card className="!border-t-2 !border-t-primary border border-border">
+            {/* Services Navigation - Hidden on mobile */}
+            <Card className="!border-t-2 !border-t-primary border border-border hidden lg:block">
               <CardContent className="p-6">
                 <h2 className="text-xl font-semibold text-foreground mb-4">
                   Our Services
@@ -250,6 +253,53 @@ export default async function ServicePage({ params }: ServicePageProps) {
             {/* Call to Action Widget */}
             <CallToAction />
           </div>
+        </div>
+
+        {/* Related Services */}
+        {relatedServices.length > 0 && (
+          <div className="mt-8">
+            <h3 className="text-2xl font-bold mb-4">Related Services</h3>
+            <ul className="space-y-2">
+              {relatedServices.map(relatedService => (
+                <li key={relatedService.id}>
+                  <Link
+                    href={`/services/${relatedService.slug}`}
+                    className="group flex items-center gap-3 p-3 rounded-lg transition-all duration-300 hover:bg-muted/50 border border-border hover:border-primary/50"
+                  >
+                    <ArrowRight className="h-4 w-4 text-muted-foreground group-hover:text-primary transition-colors duration-300 flex-shrink-0" />
+                    <div className="flex-1 min-w-0">
+                      <h4 className="text-sm font-semibold text-foreground group-hover:text-primary transition-colors duration-300">
+                        {relatedService.title}
+                      </h4>
+                      {relatedService.excerpt && (
+                        <p className="text-xs text-muted-foreground mt-1 line-clamp-1">
+                          {relatedService.excerpt}
+                        </p>
+                      )}
+                    </div>
+                  </Link>
+                </li>
+              ))}
+            </ul>
+            <div className="mt-6 text-center">
+              <Link href="/services">
+                <Button variant="outline">
+                  View All Services
+                  <ArrowRight className="ml-2 h-4 w-4" />
+                </Button>
+              </Link>
+            </div>
+          </div>
+        )}
+
+        {/* Back to Services Button */}
+        <div className="mt-12 mb-8 text-center">
+          <Link href="/services">
+            <Button variant="outline" className="group">
+              <ArrowLeft className="mr-2 h-4 w-4 transition-transform group-hover:-translate-x-1" />
+              Back to Services
+            </Button>
+          </Link>
         </div>
       </Container>
     </>

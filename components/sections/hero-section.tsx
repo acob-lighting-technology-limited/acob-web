@@ -139,7 +139,7 @@ export const HeroSection = React.memo(function HeroSection({
         <div className="container px-4">
           <div className="w-full">
             {/* Left Content */}
-            <div className="space-y-4 md:space-y-5 max-w-3xl">
+            <div className="space-y-4 md:space-y-5 max-w-2xl">
               <Badge className="bg-primary/20 backdrop-blur-sm text-white border-primary/30 text-xs font-medium uppercase tracking-wide">
                 Renewable Energy Experts
               </Badge>
@@ -149,7 +149,7 @@ export const HeroSection = React.memo(function HeroSection({
                   phrases={[
                     'Powering sustainable futures for homes, businesses, and communities.',
                   ]}
-                  className="font-bold leading-tight text-3xl sm:text-4xl md:text-5xl lg:text-6xl text-white"
+                  className="font-bold leading-tight text-3xl sm:text-4xl md:text-4.5xl lg:text-5.5xl text-white"
                 />
                 <p className="max-w-2xl text-sm md:text-base text-gray-200">
                   We deliver dependable solar, mini-grid, and energy storage

@@ -1,6 +1,7 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import { createPortal } from 'react-dom';
 import Image from 'next/image';
 import {
   PortableText,
@@ -20,11 +21,16 @@ export function UpdateContent({ content }: UpdateContentProps) {
   const [contentImages, setContentImages] = useState<
     Array<{ src: string; alt: string }>
   >([]);
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
 
   // Extract all images from content for the lightbox
-  useState(() => {
+  const extractImages = (blocks: PortableTextBlock[]) => {
     const images: Array<{ src: string; alt: string }> = [];
-    content.forEach(block => {
+    blocks.forEach(block => {
       if (
         block._type === 'image' &&
         'asset' in block &&
@@ -47,8 +53,13 @@ export function UpdateContent({ content }: UpdateContentProps) {
         });
       }
     });
-    setContentImages(images);
-  });
+    return images;
+  };
+
+  // Initialize images when component mounts
+  useEffect(() => {
+    setContentImages(extractImages(content));
+  }, [content]);
 
   const handleImageClick = (imageIndex: number) => {
     setSelectedImageIndex(imageIndex);
@@ -82,7 +93,7 @@ export function UpdateContent({ content }: UpdateContentProps) {
         imageCounter++;
 
         return (
-          <div className="w-full md:w-1/2 px-2 my-4">
+          <div className="w-1/2 px-2 my-4">
             <button
               onClick={() => handleImageClick(currentImageIndex)}
               className="relative w-full group cursor-zoom-in"
@@ -150,15 +161,19 @@ export function UpdateContent({ content }: UpdateContentProps) {
         <PortableText value={content} components={components} />
       </div>
 
-      {/* Image Lightbox */}
-      {contentImages.length > 0 && (
-        <ImageLightbox
-          images={contentImages}
-          initialIndex={selectedImageIndex}
-          isOpen={lightboxOpen}
-          onClose={() => setLightboxOpen(false)}
-        />
-      )}
+      {/* Image Lightbox - Rendered via portal to ensure full page coverage */}
+      {mounted &&
+        contentImages.length > 0 &&
+        lightboxOpen &&
+        createPortal(
+          <ImageLightbox
+            images={contentImages}
+            initialIndex={selectedImageIndex}
+            isOpen={lightboxOpen}
+            onClose={() => setLightboxOpen(false)}
+          />,
+          document.body
+        )}
     </>
   );
 }

@@ -49,6 +49,12 @@ const DropdownMenu: React.FC<DropdownMenuProps> = ({
   isOpen,
   onClose,
 }) => {
+  const pathname = usePathname();
+
+  const isSubItemActive = (subItemHref: string) => {
+    return pathname === subItemHref || pathname.startsWith(`${subItemHref}/`);
+  };
+
   return (
     <AnimatePresence>
       {isOpen && (
@@ -67,6 +73,7 @@ const DropdownMenu: React.FC<DropdownMenuProps> = ({
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               {item.subItems.map((subItem, index) => {
                 const IconComponent = LucideIcons[subItem.icon];
+                const isActive = isSubItemActive(subItem.href);
                 return (
                   <motion.div
                     key={subItem.name}
@@ -77,21 +84,51 @@ const DropdownMenu: React.FC<DropdownMenuProps> = ({
                     <Link
                       href={subItem.href}
                       onClick={onClose}
-                      className="group block p-3 rounded-lg hover:bg-gradient-to-r hover:from-primary/5 hover:to-primary/10 dark:hover:bg-zinc-950 hover:shadow-md transform hover:scale-105 hover:-translate-y-1 transition-all duration-500"
+                      className={`group block p-3 rounded-lg transition-all duration-500 ${
+                        isActive
+                          ? 'bg-gradient-to-r from-primary/10 to-primary/15 dark:from-primary/20 dark:to-primary/25 shadow-md scale-105 -translate-y-1 border-l-2 border-primary'
+                          : 'hover:bg-gradient-to-r hover:from-primary/5 hover:to-primary/10 dark:hover:bg-zinc-950 hover:shadow-md transform hover:scale-105 hover:-translate-y-1'
+                      }`}
                     >
                       <div className="flex gap-3 items-start">
                         {IconComponent && (
-                          <div className="relative w-10 h-10 rounded-full bg-primary/10 p-2 overflow-hidden transition-all duration-500 group-hover:bg-primary group-hover:scale-110 flex items-center justify-center">
+                          <div
+                            className={`relative w-10 h-10 rounded-full p-2 overflow-hidden transition-all duration-500 flex items-center justify-center ${
+                              isActive
+                                ? 'bg-primary scale-110'
+                                : 'bg-primary/10 group-hover:bg-primary group-hover:scale-110'
+                            }`}
+                          >
                             {/* Animated fill effect */}
-                            <div className="absolute inset-0 bg-primary transform scale-0 transition-transform duration-500 ease-out group-hover:scale-100 rounded-full origin-center" />
-                            <IconComponent className="w-5 h-5 relative z-10 text-muted-foreground group-hover:text-primary-foreground transition-colors duration-500" />
+                            {!isActive && (
+                              <div className="absolute inset-0 bg-primary transform scale-0 transition-transform duration-500 ease-out group-hover:scale-100 rounded-full origin-center" />
+                            )}
+                            <IconComponent
+                              className={`w-5 h-5 relative z-10 transition-colors duration-500 ${
+                                isActive
+                                  ? 'text-primary-foreground'
+                                  : 'text-muted-foreground group-hover:text-primary-foreground'
+                              }`}
+                            />
                           </div>
                         )}
                         <div className="flex-1">
-                          <div className="text-sm font-bold text-foreground group-hover:text-primary break-words transition-colors duration-500">
+                          <div
+                            className={`text-sm font-bold break-words transition-colors duration-500 ${
+                              isActive
+                                ? 'text-primary'
+                                : 'text-foreground group-hover:text-primary'
+                            }`}
+                          >
                             {subItem.name}
                           </div>
-                          <div className="text-xs text-left text-muted-foreground mt-1 group-hover:text-foreground break-words transition-colors duration-500">
+                          <div
+                            className={`text-xs text-left mt-1 break-words transition-colors duration-500 ${
+                              isActive
+                                ? 'text-foreground'
+                                : 'text-muted-foreground group-hover:text-foreground'
+                            }`}
+                          >
                             {subItem.description}
                           </div>
                         </div>
@@ -113,15 +150,35 @@ const MobileMenu: React.FC<MobileMenuProps> = ({
   onClose,
   logoSrc,
 }) => {
+  const pathname = usePathname();
   const [expandedItems, setExpandedItems] = useState<Record<string, boolean>>(
     {}
   );
+
+  // Auto-expand parent items if their sub-item is active
+  useEffect(() => {
+    const autoExpanded: Record<string, boolean> = {};
+    navigationItems.forEach(item => {
+      const hasActiveSubItem = item.subItems.some(
+        subItem =>
+          pathname === subItem.href || pathname.startsWith(`${subItem.href}/`)
+      );
+      if (hasActiveSubItem) {
+        autoExpanded[item.name] = true;
+      }
+    });
+    setExpandedItems(autoExpanded);
+  }, [pathname]);
 
   const toggleExpanded = (itemName: string) => {
     setExpandedItems(prev => ({
       ...prev,
       [itemName]: !prev[itemName],
     }));
+  };
+
+  const isSubItemActive = (subItemHref: string) => {
+    return pathname === subItemHref || pathname.startsWith(`${subItemHref}/`);
   };
 
   return (
@@ -235,6 +292,7 @@ const MobileMenu: React.FC<MobileMenuProps> = ({
                           <div className="ml-4 space-y-1 border-l-2 border-primary/20 pl-4">
                             {item.subItems.map((subItem, subIndex) => {
                               const IconComponent = LucideIcons[subItem.icon];
+                              const isActive = isSubItemActive(subItem.href);
                               return (
                                 <motion.div
                                   key={subItem.name}
@@ -245,20 +303,50 @@ const MobileMenu: React.FC<MobileMenuProps> = ({
                                   <Link
                                     href={subItem.href}
                                     onClick={onClose}
-                                    className="group flex items-start gap-3 p-3 text-sm rounded-lg hover:bg-gradient-to-r hover:from-primary/5 hover:to-primary/10 transition-all duration-500 hover:scale-[1.02]"
+                                    className={`group flex items-start gap-3 p-3 text-sm rounded-lg transition-all duration-500 ${
+                                      isActive
+                                        ? 'bg-gradient-to-r from-primary/10 to-primary/15 scale-[1.02] border-l-2 border-primary'
+                                        : 'hover:bg-gradient-to-r hover:from-primary/5 hover:to-primary/10 hover:scale-[1.02]'
+                                    }`}
                                   >
                                     {IconComponent && (
-                                      <div className="relative w-8 h-8 rounded-full bg-primary/10 p-1.5 overflow-hidden transition-all duration-500 group-hover:bg-primary group-hover:scale-110 flex items-center justify-center flex-shrink-0">
+                                      <div
+                                        className={`relative w-8 h-8 rounded-full p-1.5 overflow-hidden transition-all duration-500 flex items-center justify-center flex-shrink-0 ${
+                                          isActive
+                                            ? 'bg-primary scale-110'
+                                            : 'bg-primary/10 group-hover:bg-primary group-hover:scale-110'
+                                        }`}
+                                      >
                                         {/* Animated fill effect */}
-                                        <div className="absolute inset-0 bg-primary transform scale-0 transition-transform duration-500 ease-out group-hover:scale-100 rounded-full origin-center" />
-                                        <IconComponent className="w-4 h-4 relative z-10 text-muted-foreground group-hover:text-primary-foreground transition-colors duration-500" />
+                                        {!isActive && (
+                                          <div className="absolute inset-0 bg-primary transform scale-0 transition-transform duration-500 ease-out group-hover:scale-100 rounded-full origin-center" />
+                                        )}
+                                        <IconComponent
+                                          className={`w-4 h-4 relative z-10 transition-colors duration-500 ${
+                                            isActive
+                                              ? 'text-primary-foreground'
+                                              : 'text-muted-foreground group-hover:text-primary-foreground'
+                                          }`}
+                                        />
                                       </div>
                                     )}
                                     <div className="min-w-0 flex-1">
-                                      <div className="font-medium text-foreground group-hover:text-primary transition-colors duration-500 break-words">
+                                      <div
+                                        className={`font-medium transition-colors duration-500 break-words ${
+                                          isActive
+                                            ? 'text-primary'
+                                            : 'text-foreground group-hover:text-primary'
+                                        }`}
+                                      >
                                         {subItem.name}
                                       </div>
-                                      <div className="text-xs text-muted-foreground group-hover:text-foreground/80 mt-1 break-words leading-relaxed transition-colors duration-500">
+                                      <div
+                                        className={`text-xs mt-1 break-words leading-relaxed transition-colors duration-500 ${
+                                          isActive
+                                            ? 'text-foreground/80'
+                                            : 'text-muted-foreground group-hover:text-foreground/80'
+                                        }`}
+                                      >
                                         {subItem.description}
                                       </div>
                                     </div>
@@ -290,7 +378,7 @@ const MobileMenu: React.FC<MobileMenuProps> = ({
                   Get Quote
                 </Link>
                 <div className="mt-4 flex justify-center">
-                  <ThemeToggle />
+                  <ThemeToggle direction="up" />
                 </div>
               </motion.div>
             </div>

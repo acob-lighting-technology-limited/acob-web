@@ -6,7 +6,11 @@ import { useTheme } from 'next-themes';
 import { Button } from '@/components/ui/button';
 import { motion, AnimatePresence } from 'framer-motion';
 
-export function ThemeToggle() {
+interface ThemeToggleProps {
+  direction?: 'up' | 'down';
+}
+
+export function ThemeToggle({ direction = 'down' }: ThemeToggleProps) {
   const { setTheme, theme } = useTheme();
   const [isOpen, setIsOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
@@ -70,11 +74,17 @@ export function ThemeToggle() {
       <AnimatePresence>
         {isOpen && (
           <motion.div
-            initial={{ opacity: 0, y: -10, scale: 0.95 }}
+            initial={{
+              opacity: 0,
+              y: direction === 'up' ? 10 : -10,
+              scale: 0.95,
+            }}
             animate={{ opacity: 1, y: 0, scale: 1 }}
-            exit={{ opacity: 0, y: -10, scale: 0.95 }}
+            exit={{ opacity: 0, y: direction === 'up' ? 10 : -10, scale: 0.95 }}
             transition={{ duration: 0.2, ease: 'easeOut' }}
-            className="absolute right-0 mt-2 w-40 bg-popover rounded-lg shadow-2xl border-[0.5px] border-border overflow-hidden z-50"
+            className={`absolute right-0 w-40 bg-popover rounded-lg shadow-2xl border-[0.5px] border-border overflow-hidden z-50 ${
+              direction === 'up' ? 'bottom-full mb-2' : 'top-full mt-2'
+            }`}
           >
             <div className="p-2">
               {themes.map(({ name, value, icon: Icon }, index) => (

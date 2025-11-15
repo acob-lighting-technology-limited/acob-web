@@ -1,8 +1,7 @@
-import { Container } from '@/components/ui/container';
-import { PageHero } from '@/components/ui/page-hero';
-import { Breadcrumb } from '@/components/ui/breadcrumb';
-import { QuoteForm } from '@/components/quote-form';
-import { MaskText } from '@/components/animations/MaskText';
+import { ComingSoon } from '@/components/ui/coming-soon';
+
+// Original quote page content has been temporarily replaced with Coming Soon page.
+// To restore: check git history for the full implementation with QuoteForm component.
 
 export default function GetQuotePage() {
   const breadcrumbItems = [
@@ -12,27 +11,11 @@ export default function GetQuotePage() {
   ];
 
   return (
-    <>
-      <PageHero
-        description="Request Your Custom Solar Solution"
-        backgroundImage="/images/contact/contact-us.webp?height=400&width=1200"
-      >
-        <MaskText
-          phrases={[
-            'Tell us about your energy needs, and we will provide a tailored solution.',
-            'Our experts are ready to assist you.',
-          ]}
-          className="text-lg md:text-xl opacity-90 max-w-3xl leading-relaxed"
-        />
-      </PageHero>
-
-      <div className="pt-8">
-        <Container className=" px-4 ">
-          <Breadcrumb items={breadcrumbItems} className="mb-8" />
-          {/* Using the new QuoteForm component */}
-        </Container>
-        <QuoteForm />
-      </div>
-    </>
+    <ComingSoon
+      title="Get a Quote"
+      description="We're working on an improved quote request system. This page will be available soon!"
+      breadcrumbItems={breadcrumbItems}
+      backgroundImage="/images/contact/contact-us.webp?height=400&width=1200"
+    />
   );
 }

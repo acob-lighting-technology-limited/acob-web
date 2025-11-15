@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Image from 'next/image';
 import {
   PortableText,
@@ -51,9 +51,9 @@ export function ProjectContent({ content }: ProjectContentProps) {
   };
 
   // Initialize images when component mounts
-  useState(() => {
+  useEffect(() => {
     setContentImages(extractImages(content));
-  });
+  }, [content]);
 
   const handleImageClick = (imageIndex: number) => {
     setSelectedImageIndex(imageIndex);
@@ -87,7 +87,7 @@ export function ProjectContent({ content }: ProjectContentProps) {
         imageCounter++;
 
         return (
-          <div className="w-full md:w-1/2 px-2 my-4">
+          <div className="w-1/2 px-2 my-4">
             <button
               onClick={() => handleImageClick(currentImageIndex)}
               className="relative w-full group cursor-zoom-in"
@@ -151,7 +151,9 @@ export function ProjectContent({ content }: ProjectContentProps) {
 
   return (
     <>
-      <PortableText value={content} components={components} />
+      <div className="prose prose-lg max-w-none flex flex-wrap -mx-2">
+        <PortableText value={content} components={components} />
+      </div>
 
       {/* Image Lightbox */}
       {contentImages.length > 0 && (
