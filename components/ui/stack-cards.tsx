@@ -101,7 +101,7 @@ const Card: React.FC<CardProps> = ({
                 <MapPin />
                 {location}
                 {state &&
-                  `, ${state.toUpperCase() === 'FCT' ? 'FCT' : `${state} State`}`}
+                  `, ${state.toUpperCase() === 'FCT' ? 'FCT' : `${state} State.`}`}
               </p>
             </div>
 

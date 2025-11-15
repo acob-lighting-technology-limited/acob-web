@@ -1,7 +1,5 @@
-
 import { NextResponse } from 'next/server';
 
-/* eslint-disable no-unused-vars */
 export enum ApiErrorCode {
   BAD_REQUEST = 'BAD_REQUEST',
   UNAUTHORIZED = 'UNAUTHORIZED',
@@ -13,7 +11,6 @@ export enum ApiErrorCode {
   SERVICE_UNAVAILABLE = 'SERVICE_UNAVAILABLE',
   EXTERNAL_API_ERROR = 'EXTERNAL_API_ERROR',
 }
-/* eslint-enable no-unused-vars */
 
 export interface ApiError {
   code: ApiErrorCode;
@@ -29,7 +26,7 @@ export function createErrorResponse(
   code: ApiErrorCode,
   message: string,
   statusCode: number,
-  details?: unknown,
+  details?: unknown
 ): NextResponse {
   const error: Record<string, unknown> = {
     code,
@@ -58,7 +55,7 @@ export function createErrorResponse(
       headers: {
         'Content-Type': 'application/json',
       },
-    },
+    }
   );
 }
 
@@ -74,16 +71,19 @@ export function handleApiError(error: unknown): NextResponse {
         ApiErrorCode.SERVICE_UNAVAILABLE,
         'External service is temporarily unavailable. Please try again later.',
         503,
-        process.env.NODE_ENV === 'development' ? error.message : undefined,
+        process.env.NODE_ENV === 'development' ? error.message : undefined
       );
     }
 
     // Validation errors
-    if (error.message.includes('validation') || error.message.includes('required')) {
+    if (
+      error.message.includes('validation') ||
+      error.message.includes('required')
+    ) {
       return createErrorResponse(
         ApiErrorCode.VALIDATION_ERROR,
         error.message,
-        400,
+        400
       );
     }
 
@@ -93,7 +93,7 @@ export function handleApiError(error: unknown): NextResponse {
       ApiErrorCode.INTERNAL_SERVER_ERROR,
       'An unexpected error occurred. Please try again later.',
       500,
-      process.env.NODE_ENV === 'development' ? error.message : undefined,
+      process.env.NODE_ENV === 'development' ? error.message : undefined
     );
   }
 
@@ -102,7 +102,7 @@ export function handleApiError(error: unknown): NextResponse {
   return createErrorResponse(
     ApiErrorCode.INTERNAL_SERVER_ERROR,
     'An unexpected error occurred. Please try again later.',
-    500,
+    500
   );
 }
 
@@ -111,13 +111,13 @@ export function handleApiError(error: unknown): NextResponse {
  */
 export function validateRequiredFields(
   data: Record<string, unknown>,
-  requiredFields: string[],
+  requiredFields: string[]
 ): { isValid: boolean; missingFields: string[] } {
   const missingFields = requiredFields.filter(
-    (field) =>
+    field =>
       data[field] === undefined ||
       data[field] === null ||
-      (typeof data[field] === 'string' && !data[field].trim()),
+      (typeof data[field] === 'string' && !data[field].trim())
   );
 
   return {

@@ -1,4 +1,4 @@
-/* eslint-disable @typescript-eslint/no-unused-vars, no-unused-vars */
+/* eslint-disable @typescript-eslint/no-unused-vars */
 'use client';
 
 import * as React from 'react';
@@ -36,12 +36,12 @@ export function AutoCarousel<T>({
       }
       setCurrentIndex((index + itemsCount) % itemsCount);
     },
-    [itemsCount],
+    [itemsCount]
   );
 
   const goNext = useCallback(
     () => goTo(currentIndex + 1),
-    [currentIndex, goTo],
+    [currentIndex, goTo]
   );
 
   useEffect(() => {
@@ -118,7 +118,7 @@ export function AutoCarousel<T>({
             key={index}
             className={cn(
               'transition-all duration-500',
-              index === currentIndex ? 'opacity-100' : 'opacity-40',
+              index === currentIndex ? 'opacity-100' : 'opacity-40'
             )}
             aria-hidden={index !== currentIndex}
           >
@@ -138,7 +138,7 @@ export function AutoCarousel<T>({
                 'h-2 rounded-full transition-all duration-500',
                 index === currentIndex
                   ? 'w-8 bg-primary'
-                  : 'w-3 bg-border hover:w-5 hover:bg-primary/70',
+                  : 'w-3 bg-border hover:w-5 hover:bg-primary/70'
               )}
               aria-label={`Show carousel item ${index + 1}`}
             />

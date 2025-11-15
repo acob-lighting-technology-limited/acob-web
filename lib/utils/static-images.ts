@@ -1,6 +1,5 @@
 import { getProjects } from '@/sanity/lib/client';
 
-
 export interface StaticImage {
   url: string;
   alt: string;
@@ -59,9 +58,7 @@ const FALLBACK_IMAGES: StaticImage[] = [
 // Build-time function to get all available images
 export async function getAllProjectImages(): Promise<StaticImage[]> {
   try {
-    console.log('🔄 Fetching projects from Sanity...');
     const projects = await getProjects();
-    console.log('📊 Projects fetched:', projects.length);
 
     const allImages: StaticImage[] = [];
 
@@ -93,26 +90,23 @@ export async function getAllProjectImages(): Promise<StaticImage[]> {
       }
     });
 
-    console.log('🖼️ Total images found:', allImages.length);
-    console.log('📝 Sample image:', allImages[0]);
-
     // Force return Sanity images for testing
     if (allImages.length > 0) {
-      console.log('✅ Returning Sanity images (not fallbacks)');
       return allImages;
     } else {
-      console.log('⚠️ No Sanity images found, using fallbacks');
       return FALLBACK_IMAGES;
     }
   } catch (error) {
     console.error('❌ Error fetching project images:', error);
-    console.log('🔄 Using fallback images...');
     return FALLBACK_IMAGES;
   }
 }
 
 // Deterministic selection (not random) for consistent builds
-export function selectImages(images: StaticImage[], count: number = 4): StaticImage[] {
+export function selectImages(
+  images: StaticImage[],
+  count: number = 4
+): StaticImage[] {
   // Use a deterministic approach based on array length
   const step = Math.max(1, Math.floor(images.length / count));
   const selected: StaticImage[] = [];
@@ -161,12 +155,9 @@ function getPreloadedImages(): StaticImage[] | null {
 // Initialize static images (called during build or first render)
 export async function initializeStaticImages() {
   if (staticImages.length === 0) {
-    console.log('🚀 Initializing static images...');
-
     // First, try to get preloaded images
     const preloaded = getPreloadedImages();
     if (preloaded) {
-      console.log('✅ Using preloaded images');
       staticImages = preloaded;
       return;
     }
@@ -175,10 +166,8 @@ export async function initializeStaticImages() {
       const allImages = await getAllProjectImages();
       staticImages = selectImages(allImages, 4);
       staticBackgroundImage = validateImageUrl(getBackgroundImage(allImages));
-      console.log('✅ Static images initialized successfully:', staticImages.length, 'images');
     } catch (error) {
       console.error('❌ Failed to load static images:', error);
-      console.log('🔄 Using fallback images...');
       // Use fallback images
       staticImages = FALLBACK_IMAGES;
     }

@@ -312,7 +312,7 @@ export default function ProjectsClient({
                                 {project.state &&
                                   (project.state.toUpperCase() === 'FCT'
                                     ? 'FCT'
-                                    : `${project.state} State`)}
+                                    : `${project.state} State.`)}
                               </span>
                             </div>
                           )}

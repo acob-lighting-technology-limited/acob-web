@@ -35,6 +35,8 @@ export default [
         HTMLLIElement: 'readonly',
         HTMLOListElement: 'readonly',
         HTMLIFrameElement: 'readonly',
+        HTMLParagraphElement: 'readonly',
+        HTMLHeadingElement: 'readonly',
         SVGSVGElement: 'readonly',
         Element: 'readonly',
         Node: 'readonly',
@@ -61,6 +63,7 @@ export default [
         clearTimeout: 'readonly',
         setInterval: 'readonly',
         clearInterval: 'readonly',
+        performance: 'readonly',
         // Node.js globals
         process: 'readonly',
         Buffer: 'readonly',
@@ -155,5 +158,30 @@ export default [
       '.DS_Store',
       'Thumbs.db',
     ],
+  },
+  {
+    // Test files configuration
+    files: [
+      '**/__tests__/**/*.{js,ts}',
+      '**/*.test.{js,ts}',
+      '**/*.spec.{js,ts}',
+    ],
+    languageOptions: {
+      globals: {
+        describe: 'readonly',
+        it: 'readonly',
+        test: 'readonly',
+        expect: 'readonly',
+        beforeEach: 'readonly',
+        afterEach: 'readonly',
+        beforeAll: 'readonly',
+        afterAll: 'readonly',
+        jest: 'readonly',
+        vi: 'readonly',
+      },
+    },
+    rules: {
+      'no-constant-binary-expression': 'off',
+    },
   },
 ];

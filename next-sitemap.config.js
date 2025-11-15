@@ -3,31 +3,13 @@ export default {
   siteUrl: process.env.SITE_URL || 'https://acoblighting.com',
   generateRobotsTxt: false, // We already have a custom robots.txt
   generateIndexSitemap: false,
-  exclude: [
-    '/studio/*',
-    '/api/*',
-    '/test/*',
-    '/test2/*',
-    '/test3/*',
-    '/test5/*',
-    '/_next/*',
-    '/404',
-    '/500',
-  ],
+  exclude: ['/studio/*', '/api/*', '/_next/*', '/404', '/500'],
   robotsTxtOptions: {
     policies: [
       {
         userAgent: '*',
         allow: '/',
-        disallow: [
-          '/studio/',
-          '/api/',
-          '/_next/',
-          '/test/',
-          '/test2/',
-          '/test3/',
-          '/test5/',
-        ],
+        disallow: ['/studio/', '/api/', '/_next/'],
       },
     ],
     additionalSitemaps: ['https://acoblighting.com/sitemap.xml'],

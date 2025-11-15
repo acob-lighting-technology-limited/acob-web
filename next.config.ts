@@ -2,14 +2,14 @@
 const nextConfig = {
   // TypeScript and ESLint checks enabled for production safety
   eslint: {
-    // Warning: This allows production builds to successfully complete even if
-    // your project has ESLint errors.
-    ignoreDuringBuilds: true,
+    // ESLint errors will now fail the build for better code quality
+    ignoreDuringBuilds: false,
   },
   outputFileTracingRoot: process.cwd(),
   images: {
     formats: ['image/webp', 'image/avif'],
     deviceSizes: [640, 750, 828, 1080, 1200, 1920, 2048, 3840],
+    qualities: [75, 80, 85, 90, 95, 100],
     remotePatterns: [
       {
         protocol: 'https',
@@ -18,13 +18,26 @@ const nextConfig = {
         pathname: '/images/**',
       },
     ],
+    localPatterns: [
+      {
+        pathname: '/images/**',
+      },
+    ],
     // Allow query strings for local images
     dangerouslyAllowSVG: true,
     contentSecurityPolicy: "default-src 'self'; script-src 'none'; sandbox;",
   },
   experimental: {
-    optimizePackageImports: ['lucide-react', '@radix-ui/react-icons'],
+    optimizePackageImports: [
+      'lucide-react',
+      '@radix-ui/react-icons',
+      'framer-motion',
+      'date-fns',
+    ],
   },
+  // Improve build performance
+  poweredByHeader: false,
+  compress: true,
   // Memory optimization
   onDemandEntries: {
     maxInactiveAge: 25 * 1000,
@@ -61,6 +74,18 @@ const nextConfig = {
           {
             key: 'Referrer-Policy',
             value: 'origin-when-cross-origin',
+          },
+          {
+            key: 'X-DNS-Prefetch-Control',
+            value: 'on',
+          },
+          {
+            key: 'Strict-Transport-Security',
+            value: 'max-age=31536000; includeSubDomains',
+          },
+          {
+            key: 'Permissions-Policy',
+            value: 'camera=(), microphone=(), geolocation=()',
           },
         ],
       },

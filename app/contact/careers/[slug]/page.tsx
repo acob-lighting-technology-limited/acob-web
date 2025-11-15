@@ -76,13 +76,10 @@ export async function generateMetadata({
 
 export default async function JobPostingPage({ params }: JobPostingPageProps) {
   const { slug } = await params;
-  console.log('Job posting page accessed with slug:', slug);
 
   const job = await getJobPosting(slug);
-  console.log('Job found:', job ? 'Yes' : 'No');
 
   if (!job) {
-    console.log('Job not found, showing 404');
     notFound();
   }
 
@@ -159,7 +156,7 @@ export default async function JobPostingPage({ params }: JobPostingPageProps) {
                             <li key={index} className="leading-relaxed">
                               {requirement}
                             </li>
-                          ),
+                          )
                         )}
                       </ul>
                     </div>
@@ -173,7 +170,7 @@ export default async function JobPostingPage({ params }: JobPostingPageProps) {
                         <span>
                           <strong>Application Deadline:</strong>{' '}
                           {new Date(
-                            job.applicationDeadline,
+                            job.applicationDeadline
                           ).toLocaleDateString()}
                         </span>
                       </div>

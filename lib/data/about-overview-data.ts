@@ -1,4 +1,4 @@
-/* eslint-disable @typescript-eslint/no-unused-vars, no-unused-vars */
+/* eslint-disable @typescript-eslint/no-unused-vars */
 
 import {
   Building2,
@@ -101,7 +101,8 @@ export const aboutMediaFeatures = [
     year: '2023',
   },
   {
-    image: '/images/projects/keffi-nassarawa-hospital-1.webp?height=720&width=1280',
+    image:
+      '/images/projects/keffi-nassarawa-hospital-1.webp?height=720&width=1280',
     title: 'Essential Power for Delta State Primary Healthcare Centres',
     description:
       'Solar systems ensure reliable cold chain storage and patient care across 12 health facilities.',
@@ -109,7 +110,8 @@ export const aboutMediaFeatures = [
     year: '2022',
   },
   {
-    image: '/images/projects/adebayo-palm-oil-milling.webp?height=720&width=1280',
+    image:
+      '/images/projects/adebayo-palm-oil-milling.webp?height=720&width=1280',
     title: 'Agro-Processing Mini-Grid in Kwara',
     description:
       'Multi-anchor productive-use project powering rice mills, cold rooms, and community SMEs.',
@@ -117,7 +119,8 @@ export const aboutMediaFeatures = [
     year: '2024',
   },
   {
-    image: '/images/projects/installation-high-density-streetlight-1.webp?height=720&width=1280',
+    image:
+      '/images/projects/installation-high-density-streetlight-1.webp?height=720&width=1280',
     title: 'Smart Street Lighting for Abia State',
     description:
       'Energy-efficient LED infrastructure improves road safety while cutting public spending on diesel.',
@@ -125,4 +128,3 @@ export const aboutMediaFeatures = [
     year: '2021',
   },
 ];
-
