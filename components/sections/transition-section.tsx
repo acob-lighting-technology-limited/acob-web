@@ -60,7 +60,7 @@ export function TransitionSection() {
   const isInView = useInView(ref, { once: true, margin: '-50px' });
   const [images, setImages] = useState<StaticImage[]>([]);
   const [backgroundImage, setBackgroundImage] = useState(
-    '/images/transition-bg.webp',
+    '/images/transition-bg.webp'
   );
   const [isLoading, setIsLoading] = useState(true);
   useEffect(() => {
@@ -69,11 +69,6 @@ export function TransitionSection() {
         await initializeStaticImages();
         const staticImages = getStaticImages();
         const staticBg = getStaticBackgroundImage();
-        console.log(
-          '🖼️ Transition section - Images loaded:',
-          staticImages.length,
-        );
-        console.log('🖼️ Transition section - Background image:', staticBg);
         setImages(staticImages);
         setBackgroundImage(staticBg);
       } catch (error) {
@@ -81,10 +76,6 @@ export function TransitionSection() {
         // Fallback images are already set in initializeStaticImages
         const staticImages = getStaticImages();
         const staticBg = getStaticBackgroundImage();
-        console.log(
-          '🔄 Using fallback images in transition section:',
-          staticImages.length,
-        );
         setImages(staticImages);
         setBackgroundImage(staticBg);
       } finally {

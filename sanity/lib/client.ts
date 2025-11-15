@@ -683,7 +683,7 @@ export async function getJobPosting(slug: string) {
 
     if (!job) {
       if (process.env.NODE_ENV === 'development') {
-        console.log(`Job posting with slug "${slug}" not found or not active`);
+        // Job not found
       }
       return null;
     }

@@ -111,7 +111,7 @@ export function useRenderPerformance(componentName: string) {
     // Log performance in development
     if (process.env.NODE_ENV === 'development') {
       console.log(
-        `[${componentName}] Render #${renderCount.current}: ${renderTime.toFixed(2)}ms`,
+        `[${componentName}] Render #${renderCount.current}: ${renderTime.toFixed(2)}ms`
       );
     }
 
@@ -151,7 +151,7 @@ export function useApiPerformance() {
 
     // Log in development
     if (process.env.NODE_ENV === 'development') {
-      console.log(`[API] ${endpoint}: ${duration.toFixed(2)}ms`);
+      // Development logging can be added here if needed
     }
 
     // Report to analytics in production
@@ -171,7 +171,9 @@ export function useApiPerformance() {
 
   const getApiStats = useCallback((endpoint: string) => {
     const times = apiTimes.current.get(endpoint) || [];
-    if (times.length === 0) {return null;}
+    if (times.length === 0) {
+      return null;
+    }
 
     const avg = times.reduce((a, b) => a + b, 0) / times.length;
     const min = Math.min(...times);

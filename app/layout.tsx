@@ -112,7 +112,7 @@ export default async function RootLayout({
                 {children}
               </main>
               <Footer />
-              <div className="z-50 fixed bottom-2 right-2 flex flex-col gap-2 items-center w-16 h-32 sm:w-20 sm:h-40">
+              <div className="z-50 fixed -bottom-8 right-0 flex flex-col gap-2 items-center w-16 h-32 sm:w-20 sm:h-40">
                 <ScrollToTop />
                 <ChatErrorBoundary>
                   <ChatBot />

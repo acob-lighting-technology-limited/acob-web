@@ -87,7 +87,10 @@ export function ProjectContent({ content }: ProjectContentProps) {
         imageCounter++;
 
         return (
-          <div className="w-1/2 px-2 my-4">
+          <div
+            key={currentImageIndex}
+            className="inline-block w-1/2 lg:w-1/3 px-2 my-4"
+          >
             <button
               onClick={() => handleImageClick(currentImageIndex)}
               className="relative w-full group cursor-zoom-in"
@@ -97,6 +100,7 @@ export function ProjectContent({ content }: ProjectContentProps) {
                 alt={value.alt || 'Project image'}
                 width={800}
                 height={600}
+                sizes="(max-width: 1024px) 50vw, 33vw"
                 className="rounded-lg object-cover w-full h-auto transition-all duration-300 group-hover:shadow-2xl group-hover:scale-[1.02]"
               />
               {/* Overlay hint */}
@@ -112,31 +116,43 @@ export function ProjectContent({ content }: ProjectContentProps) {
     },
     block: {
       h1: ({ children }: PortableTextComponentProps<PortableTextBlock>) => (
-        <h1 className="text-4xl font-bold my-4">{children}</h1>
+        <h1 className="text-4xl font-bold my-4 max-w-3xl w-full basis-full">
+          {children}
+        </h1>
       ),
       h2: ({ children }: PortableTextComponentProps<PortableTextBlock>) => (
-        <h2 className="text-3xl font-bold my-3">{children}</h2>
+        <h2 className="text-3xl font-bold my-3 max-w-3xl w-full basis-full">
+          {children}
+        </h2>
       ),
       h3: ({ children }: PortableTextComponentProps<PortableTextBlock>) => (
-        <h3 className="text-2xl font-bold my-2">{children}</h3>
+        <h3 className="text-2xl font-bold my-2 max-w-3xl w-full basis-full">
+          {children}
+        </h3>
       ),
       normal: ({ children }: PortableTextComponentProps<PortableTextBlock>) => (
-        <p className="my-2 text-muted-foreground leading-relaxed">{children}</p>
+        <p className="my-2 text-muted-foreground leading-relaxed max-w-3xl w-full basis-full">
+          {children}
+        </p>
       ),
       blockquote: ({
         children,
       }: PortableTextComponentProps<PortableTextBlock>) => (
-        <blockquote className="border-l-4 border-primary pl-4 italic my-4">
+        <blockquote className="border-l-4 border-primary pl-4 italic my-4 max-w-3xl w-full basis-full">
           {children}
         </blockquote>
       ),
     },
     list: {
       bullet: ({ children }: PortableTextComponentProps<PortableTextBlock>) => (
-        <ul className="list-disc list-inside my-4 space-y-2">{children}</ul>
+        <ul className="list-disc list-inside my-4 space-y-2 max-w-3xl w-full basis-full">
+          {children}
+        </ul>
       ),
       number: ({ children }: PortableTextComponentProps<PortableTextBlock>) => (
-        <ol className="list-decimal list-inside my-4 space-y-2">{children}</ol>
+        <ol className="list-decimal list-inside my-4 space-y-2 max-w-3xl w-full basis-full">
+          {children}
+        </ol>
       ),
     },
     listItem: {
@@ -151,7 +167,7 @@ export function ProjectContent({ content }: ProjectContentProps) {
 
   return (
     <>
-      <div className="prose prose-lg max-w-none flex flex-wrap -mx-2">
+      <div className="prose prose-lg max-w-none">
         <PortableText value={content} components={components} />
       </div>
 

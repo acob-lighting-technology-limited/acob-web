@@ -1,4 +1,4 @@
-/* eslint-disable @typescript-eslint/no-unused-vars, no-unused-vars */
+/* eslint-disable @typescript-eslint/no-unused-vars */
 'use client';
 
 import { useState, useCallback, useEffect, useRef } from 'react';
@@ -27,7 +27,7 @@ export function ServicesCarousel() {
         setIsTransitioning(false);
       }, 300);
     },
-    [isTransitioning],
+    [isTransitioning]
   );
 
   const nextSlide = useCallback(() => {

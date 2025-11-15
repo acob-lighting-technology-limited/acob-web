@@ -1,7 +1,7 @@
 import { Breadcrumb } from '@/components/ui/breadcrumb';
 import { Container } from '@/components/ui/container';
 import { Button } from '@/components/ui/button';
-import { ArrowRight, MapPin } from 'lucide-react';
+import { ArrowRight, MapPin, Calendar } from 'lucide-react';
 import { notFound } from 'next/navigation';
 import { getProjects, getProject } from '@/sanity/lib/client';
 import Link from 'next/link';
@@ -111,14 +111,21 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
                 <span className="text-lg">
                   {project.location}
                   {project.state &&
-                    `, ${project.state.toUpperCase() === 'FCT' ? 'FCT' : `${project.state} State`}`}
+                    `, ${project.state.toUpperCase() === 'FCT' ? 'FCT' : `${project.state} State.`}`}
+                </span>
+                <span className="mx-2">•</span>
+                <Calendar className="w-4 h-4 mx-2" />
+                <span className="text-lg">
+                  {new Date(
+                    project.projectDate || project._createdAt
+                  ).getFullYear()}
                 </span>
               </div>
             )}
 
             {/* Project Content */}
             {project.content && (
-              <div className="mt-6 prose prose-lg max-w-none flex flex-wrap ">
+              <div className="mt-6 prose prose-lg max-w-none">
                 <ProjectContent content={project.content} />
               </div>
             )}
@@ -157,7 +164,7 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
                           <span className="truncate">
                             {relatedProject.location}
                             {relatedProject.state &&
-                              `, ${relatedProject.state}`}
+                              `, ${relatedProject.state.toUpperCase() === 'FCT' ? 'FCT' : `${relatedProject.state} State.`}`}
                           </span>
                         </div>
                       )}

@@ -4,7 +4,7 @@ import { useState, useEffect } from 'react';
 
 interface SpamProtectionProps {
   children: React.ReactNode;
-  // eslint-disable-next-line no-unused-vars
+
   onValidation: (valid: boolean) => void;
 }
 
@@ -88,7 +88,7 @@ export function SpamProtection({
 export function useRateLimit(
   action: string,
   limit: number = 5,
-  windowMs: number = 60000,
+  windowMs: number = 60000
 ) {
   const [attempts, setAttempts] = useState<number[]>([]);
 

@@ -178,7 +178,7 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
                             <span>
                               {project.location}
                               {project.state &&
-                                `, ${project.state.toUpperCase() === 'FCT' ? 'FCT' : `${project.state} State`}`}
+                                `, ${project.state.toUpperCase() === 'FCT' ? 'FCT' : `${project.state} State.`}`}
                             </span>
                           </div>
                         </div>

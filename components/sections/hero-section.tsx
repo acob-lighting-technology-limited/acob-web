@@ -45,8 +45,13 @@ export const HeroSection = React.memo(function HeroSection({
       image: project.projectImage || '/images/olooji-community.webp',
       location:
         project.location && project.state
-          ? `${project.location}, ${project.state}`
-          : project.location || project.state || 'Across Nigeria',
+          ? `${project.location}, ${project.state.toUpperCase() === 'FCT' ? 'FCT' : `${project.state} State.`}`
+          : project.location ||
+            (project.state
+              ? project.state.toUpperCase() === 'FCT'
+                ? 'FCT'
+                : `${project.state} State.`
+              : 'Across Nigeria'),
       slug: project.slug?.current ?? '',
     }));
   }, [projects]);
@@ -130,19 +135,19 @@ export const HeroSection = React.memo(function HeroSection({
         <div className=" px-4 sm:px-8">
           <div className="w-full">
             {/* Left Content */}
-            <div className="space-y-4 md:space-y-5 max-w-2xl">
+            <div className="space-y-4 md:space-y-5 max-w-xl">
               <Badge className="bg-primary/20 backdrop-blur-sm text-white border-primary/30 text-xs font-medium uppercase tracking-wide">
                 Renewable Energy Experts
               </Badge>
 
-              <div className="space-y-3 md:space-y-4">
+              <div className="space-y-3">
                 <MaskText
                   phrases={[
                     'Powering sustainable futures for homes, businesses, and communities.',
                   ]}
                   className="font-bold leading-tight text-3xl sm:text-4xl md:text-4xl lg:text-5xl text-white"
                 />
-                <p className="max-w-2xl text-sm md:text-base text-gray-200">
+                <p className="max-w-xl text-sm md:text-base text-gray-200">
                   We deliver dependable solar, mini-grid, and energy storage
                   solutions that unlock productivity and resilience for
                   communities across Nigeria.
@@ -150,11 +155,11 @@ export const HeroSection = React.memo(function HeroSection({
               </div>
 
               {/* Metrics */}
-              <div className="grid gap-3 sm:gap-3.5 grid-cols-3 max-w-2xl">
+              <div className="grid gap-2 sm:gap-2.5 grid-cols-3 max-w-xl">
                 {heroMetrics.map(metric => (
                   <Card
                     key={metric.label}
-                    className="p-2.5 sm:p-3 bg-white/10 backdrop-blur-md border-white/20 hover:border-primary/50 transition-colors duration-300"
+                    className="p-2 sm:p-2.5 bg-white/10 backdrop-blur-md border-white/20 hover:border-primary/50 transition-colors duration-300"
                   >
                     <div className="text-lg sm:text-xl md:text-2xl font-semibold text-white">
                       <AnimatedCounter
@@ -172,12 +177,12 @@ export const HeroSection = React.memo(function HeroSection({
 
               {/* CTA Buttons */}
               <div className="flex flex-wrap gap-3">
-                <Link href="/contact" className="w-full sm:w-auto">
+                <Link href="/services" className="hidden md:block">
                   <Button
                     size="lg"
-                    className="w-full sm:w-auto px-5 md:px-7 py-4 md:py-5 text-sm bg-primary hover:bg-primary/90"
+                    className="px-5 md:px-7 py-4 md:py-5 text-sm bg-primary hover:bg-primary/90"
                   >
-                    Get Your Custom Quote
+                    View Our Services
                     <ArrowRight className="ml-2 h-4 w-4" />
                   </Button>
                 </Link>
@@ -200,7 +205,7 @@ export const HeroSection = React.memo(function HeroSection({
       <div className="hidden lg:block absolute bottom-6 right-0 z-30">
         <div className="2xl:container max-w-7xl mx-auto px-4">
           <div className="flex justify-end">
-            <div className="relative overflow-hidden p-3 !pb-0 max-w-xs">
+            <div className="relative overflow-hidden p-3 !pb-0 max-w-sm">
               <div className="space-y-2">
                 <div className="flex items-start gap-2 text-sm text-gray-200">
                   <MapPin className="h-4 w-4 flex-shrink-0 mt-0.5 text-primary" />

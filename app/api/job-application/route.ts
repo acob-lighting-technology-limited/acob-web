@@ -37,7 +37,7 @@ export async function POST(request: NextRequest) {
     const experience = formData.get('experience') as string;
     const education = formData.get('education') as string;
     const availability = formData.get('availability') as string;
-    const resumeFile = formData.get('resume') as Blob | null;
+    const resumeFile = formData.get('resume') as globalThis.Blob | null;
 
     // Validate required fields
     const requiredFields = [
@@ -70,7 +70,7 @@ export async function POST(request: NextRequest) {
     // Handle resume file
     let resumeAttachment = null;
     let resumeFileName = '';
-    if (resumeFile && resumeFile instanceof File) {
+    if (resumeFile && resumeFile instanceof globalThis.File) {
       const bytes = await resumeFile.arrayBuffer();
       const buffer = Buffer.from(bytes);
       const base64 = buffer.toString('base64');

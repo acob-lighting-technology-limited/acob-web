@@ -39,15 +39,12 @@ export function OfflineSafeWebVitals() {
           category: 'Web Vitals',
           label: metric.id,
           value: Math.round(
-            metric.name === 'CLS' ? metric.value * 1000 : metric.value,
+            metric.name === 'CLS' ? metric.value * 1000 : metric.value
           ),
         });
       }
 
-      // Log to console for development (only in non-production)
-      if (process.env.NODE_ENV !== 'production') {
-        console.log('Web Vital:', metric);
-      }
+      // Analytics tracking only
     };
 
     // Import and initialize web-vitals
