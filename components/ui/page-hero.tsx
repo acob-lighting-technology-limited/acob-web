@@ -109,7 +109,7 @@ export function PageHero({
       <div className="absolute inset-0 bg-black/60" />
 
       {/* Content */}
-      <div className="absolute inset-0 z-10 flex items-end pb-10">
+      <div className="absolute inset-0 z-10 flex items-end pb-2 sm:pb-4 xl:pb-10">
         <div className="2xl:container max-w-7xl mx-auto px-4 w-full">
           <div className={`text-white ${alignmentClass} max-w-5xl space-y-3`}>
             {/* Title with background */}

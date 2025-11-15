@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect, useCallback } from 'react';
+import { useState, useEffect, useCallback, useRef } from 'react';
 import Image from 'next/image';
 import { X, ChevronLeft, ChevronRight, ZoomIn, ZoomOut } from 'lucide-react';
 import { cn } from '@/lib/utils';
@@ -20,6 +20,9 @@ export function ImageLightbox({
 }: ImageLightboxProps) {
   const [currentIndex, setCurrentIndex] = useState(initialIndex);
   const [isZoomed, setIsZoomed] = useState(false);
+  const touchStartX = useRef<number>(0);
+  const touchEndX = useRef<number>(0);
+  const scrollPosition = useRef<number>(0);
 
   useEffect(() => {
     setCurrentIndex(initialIndex);
@@ -45,15 +48,67 @@ export function ImageLightbox({
     return () => window.removeEventListener('keydown', handleKeyDown);
   }, [isOpen, currentIndex]);
 
-  // Prevent body scroll when lightbox is open
+  // Prevent body scroll and hide background when lightbox is open
   useEffect(() => {
     if (isOpen) {
+      // Save current scroll position
+      scrollPosition.current = window.scrollY;
+
+      // Lock the body completely
+      document.body.style.position = 'fixed';
+      document.body.style.top = `-${scrollPosition.current}px`;
+      document.body.style.left = '0';
+      document.body.style.right = '0';
+      document.body.style.width = '100%';
+      document.body.style.height = '100%';
       document.body.style.overflow = 'hidden';
+      document.body.style.touchAction = 'none';
+
+      // Also lock html element
+      document.documentElement.style.overflow = 'hidden';
+      document.documentElement.style.position = 'fixed';
+      document.documentElement.style.width = '100%';
+      document.documentElement.style.height = '100%';
     } else {
+      // Restore scroll position and styles
+      const scrollY = scrollPosition.current;
+      document.body.style.position = '';
+      document.body.style.top = '';
+      document.body.style.left = '';
+      document.body.style.right = '';
+      document.body.style.width = '';
+      document.body.style.height = '';
       document.body.style.overflow = '';
+      document.body.style.touchAction = '';
+
+      document.documentElement.style.overflow = '';
+      document.documentElement.style.position = '';
+      document.documentElement.style.width = '';
+      document.documentElement.style.height = '';
+
+      window.scrollTo(0, scrollY);
     }
+
     return () => {
+      // Cleanup on unmount
+      const scrollY = scrollPosition.current;
+      document.body.style.position = '';
+      document.body.style.top = '';
+      document.body.style.left = '';
+      document.body.style.right = '';
+      document.body.style.width = '';
+      document.body.style.height = '';
       document.body.style.overflow = '';
+      document.body.style.touchAction = '';
+
+      document.documentElement.style.overflow = '';
+      document.documentElement.style.position = '';
+      document.documentElement.style.width = '';
+      document.documentElement.style.height = '';
+
+      if (scrollY) {
+        window.scrollTo(0, scrollY);
+      }
     };
   }, [isOpen]);
 
@@ -71,14 +126,60 @@ export function ImageLightbox({
     setIsZoomed(!isZoomed);
   };
 
+  // Handle touch events for swipe gestures
+  const handleTouchStart = (e: React.TouchEvent) => {
+    if (isZoomed) {
+      return;
+    } // Don't swipe when zoomed
+    touchStartX.current = e.touches[0].clientX;
+  };
+
+  const handleTouchMove = (e: React.TouchEvent) => {
+    if (isZoomed) {
+      return;
+    }
+    touchEndX.current = e.touches[0].clientX;
+  };
+
+  const handleTouchEnd = () => {
+    if (isZoomed) {
+      return;
+    }
+
+    const swipeThreshold = 50; // Minimum distance for a swipe
+    const diff = touchStartX.current - touchEndX.current;
+
+    if (Math.abs(diff) > swipeThreshold) {
+      if (diff > 0) {
+        // Swiped left - go to next image
+        handleNext();
+      } else {
+        // Swiped right - go to previous image
+        handlePrevious();
+      }
+    }
+
+    // Reset
+    touchStartX.current = 0;
+    touchEndX.current = 0;
+  };
+
   if (!isOpen || images.length === 0 || !images[currentIndex]) {
     return null;
   }
 
   return (
     <div
-      className="fixed inset-0 z-[9999] bg-black/95 backdrop-blur-sm"
+      className="fixed inset-0 z-[9999] bg-black touch-none"
       onClick={onClose}
+      onTouchStart={handleTouchStart}
+      onTouchMove={handleTouchMove}
+      onTouchEnd={handleTouchEnd}
+      style={{
+        WebkitOverflowScrolling: 'auto',
+        overscrollBehavior: 'contain',
+        touchAction: 'none',
+      }}
     >
       {/* Header */}
       <div className="absolute top-0 left-0 right-0 z-10 flex items-center justify-between p-4 bg-gradient-to-b from-black/80 to-transparent">

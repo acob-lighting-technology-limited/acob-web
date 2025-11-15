@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState, useEffect, useMemo } from 'react';
+import React, { useState, useEffect, useMemo, useRef } from 'react';
 import Image from 'next/image';
 import { cn } from '@/lib/utils';
 import { MaskText } from '../animations/MaskText';
@@ -25,6 +25,9 @@ export const PageHeroCarousel = React.memo(function PageHeroCarousel({
 }: PageHeroCarouselProps) {
   const [current, setCurrent] = useState(0);
   const [previous, setPrevious] = useState(0);
+  const touchStartX = useRef<number>(0);
+  const touchEndX = useRef<number>(0);
+  const autoPlayTimerRef = useRef<NodeJS.Timeout | null>(null);
 
   const slides = useMemo(() => {
     if (!images || images.length === 0) {
@@ -44,12 +47,21 @@ export const PageHeroCarousel = React.memo(function PageHeroCarousel({
       return;
     }
 
-    const timer = setInterval(() => {
+    // Clear any existing timer
+    if (autoPlayTimerRef.current) {
+      clearInterval(autoPlayTimerRef.current);
+    }
+
+    autoPlayTimerRef.current = setInterval(() => {
       setPrevious(current);
       setCurrent(prev => (prev === slides.length - 1 ? 0 : prev + 1));
     }, autoPlayInterval);
 
-    return () => clearInterval(timer);
+    return () => {
+      if (autoPlayTimerRef.current) {
+        clearInterval(autoPlayTimerRef.current);
+      }
+    };
   }, [current, slides.length, autoPlayInterval]);
 
   const goToSlide = (index: number) => {
@@ -60,8 +72,68 @@ export const PageHeroCarousel = React.memo(function PageHeroCarousel({
     setCurrent(index);
   };
 
+  const handleNext = () => {
+    setPrevious(current);
+    setCurrent(prev => (prev === slides.length - 1 ? 0 : prev + 1));
+  };
+
+  const handlePrevious = () => {
+    setPrevious(current);
+    setCurrent(prev => (prev === 0 ? slides.length - 1 : prev - 1));
+  };
+
+  // Handle touch events for swipe gestures
+  const handleTouchStart = (e: React.TouchEvent) => {
+    touchStartX.current = e.touches[0].clientX;
+    // Pause auto-play while user is interacting
+    if (autoPlayTimerRef.current) {
+      clearInterval(autoPlayTimerRef.current);
+    }
+  };
+
+  const handleTouchMove = (e: React.TouchEvent) => {
+    touchEndX.current = e.touches[0].clientX;
+  };
+
+  const handleTouchEnd = () => {
+    const swipeThreshold = 50; // Minimum distance for a swipe
+    const diff = touchStartX.current - touchEndX.current;
+
+    if (Math.abs(diff) > swipeThreshold) {
+      if (diff > 0) {
+        // Swiped left - go to next image
+        handleNext();
+      } else {
+        // Swiped right - go to previous image
+        handlePrevious();
+      }
+    }
+
+    // Reset and restart auto-play
+    touchStartX.current = 0;
+    touchEndX.current = 0;
+
+    // Restart auto-play after a delay
+    if (slides.length > 1) {
+      setTimeout(() => {
+        if (autoPlayTimerRef.current) {
+          clearInterval(autoPlayTimerRef.current);
+        }
+        autoPlayTimerRef.current = setInterval(() => {
+          setPrevious(current);
+          setCurrent(prev => (prev === slides.length - 1 ? 0 : prev + 1));
+        }, autoPlayInterval);
+      }, 1000); // Wait 1 second before restarting
+    }
+  };
+
   return (
-    <div className={cn('relative w-full overflow-hidden', height)}>
+    <div
+      className={cn('relative w-full overflow-hidden touch-pan-y', height)}
+      onTouchStart={handleTouchStart}
+      onTouchMove={handleTouchMove}
+      onTouchEnd={handleTouchEnd}
+    >
       {/* Background Images with seamless carousel transition */}
       <div className="absolute inset-0">
         {slides.map((slide, index) => {

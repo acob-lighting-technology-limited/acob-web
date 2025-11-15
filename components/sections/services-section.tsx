@@ -59,7 +59,7 @@ const ServicesSection = React.memo(function ServicesSection() {
   }, [api, primaryServices.length]);
 
   return (
-    <section className="border-b border-border-[0.5px] bg-[radial-gradient(circle_at_top,_rgba(8,_145,_63,_0.07),_transparent_55%)] py-20 transition-all duration-500 dark:bg-zinc-950">
+    <section className="border-b border-border-[0.5px] bg-[radial-gradient(circle_at_top,_rgba(8,_145,_63,_0.07),_transparent_55%)] py-12 sm:py-16 lg:py-20 xl:py-24 transition-all duration-500 dark:bg-zinc-950">
       <Container className="px-4">
         <div className="mb-16 grid gap-12 lg:grid-cols-[minmax(0,1.1fr)_minmax(0,0.9fr)] lg:items-center">
           <FadeIn delay={0.3}>
@@ -172,9 +172,9 @@ const ServicesSection = React.memo(function ServicesSection() {
                         <Link href={`/services/${service.slug}`}>
                           <Button
                             variant="outline"
-                            className="relative w-full justify-center gap-2 border-primary/40 text-primary-foreground bg-primary overflow-hidden transition-colors duration-500"
+                            className="relative w-full justify-center gap-2 border-primary bg-background text-foreground overflow-hidden transition-colors duration-500 group-hover:text-primary-foreground"
                           >
-                            <span className="absolute inset-0 bg-primary/90 transform scale-x-0 origin-left transition-transform duration-500 ease-out group-hover:scale-x-100" />
+                            <span className="absolute inset-0 bg-primary transform scale-x-0 origin-left transition-transform duration-500 ease-out group-hover:scale-x-100" />
                             <span className="relative z-10 flex items-center gap-2">
                               See solution details
                               <ArrowRight className="h-4 w-4" />
@@ -228,9 +228,9 @@ const ServicesSection = React.memo(function ServicesSection() {
                     <Link href={`/services/${service.slug}`}>
                       <Button
                         variant="outline"
-                        className="relative w-full justify-center gap-2 border-primary/40 text-primary-foreground bg-primary overflow-hidden transition-colors duration-500"
+                        className="relative w-full justify-center gap-2 border-primary bg-background text-foreground overflow-hidden transition-colors duration-500 group-hover:text-primary-foreground"
                       >
-                        <span className="absolute inset-0 bg-primary/90 transform scale-x-0 origin-left transition-transform duration-500 ease-out group-hover:scale-x-100" />
+                        <span className="absolute inset-0 bg-primary transform scale-x-0 origin-left transition-transform duration-500 ease-out group-hover:scale-x-100" />
                         <span className="relative z-10 flex items-center gap-2">
                           See solution details
                           <ArrowRight className="h-4 w-4" />

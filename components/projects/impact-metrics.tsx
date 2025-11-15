@@ -31,13 +31,13 @@ const MetricCard = ({
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.5, delay: index * 0.1 }}
-      className="flex-1 min-w-[200px]"
+      className="w-full sm:flex-1 sm:min-w-[200px]"
     >
       <Card className="h-full border-2 hover:border-primary/50 transition-all duration-300 hover:shadow-lg group">
-        <CardContent className="p-6">
-          <div className="flex items-start justify-between mb-4">
+        <CardContent className="p-4 sm:p-6">
+          <div className="flex items-start justify-between mb-3 sm:mb-4">
             <div
-              className={`p-3 rounded-lg ${color} group-hover:scale-110 transition-transform duration-300`}
+              className={`p-2 sm:p-3 rounded-lg ${color} group-hover:scale-110 transition-transform duration-300`}
             >
               {icon}
             </div>
@@ -45,7 +45,7 @@ const MetricCard = ({
           <div className="space-y-2">
             <p className="text-sm text-muted-foreground font-medium">{label}</p>
             <div className="flex items-baseline gap-1">
-              <span className="text-3xl font-bold text-foreground group-hover:text-primary transition-colors duration-300">
+              <span className="text-2xl sm:text-3xl font-bold text-foreground group-hover:text-primary transition-colors duration-300">
                 {typeof value === 'number' ? value.toLocaleString() : value}
               </span>
               {unit && (
@@ -76,28 +76,28 @@ export function ImpactMetrics({ metrics }: ImpactMetricsProps) {
 
   const metricsData = [
     {
-      icon: <Users className="h-6 w-6 text-blue-600" />,
+      icon: <Users className="h-4 w-4 sm:h-6 sm:w-6 text-blue-600" />,
       label: 'Beneficiaries',
       value: metrics.beneficiaries,
       color: 'bg-blue-100 dark:bg-blue-950',
       show: !!metrics.beneficiaries,
     },
     {
-      icon: <Briefcase className="h-6 w-6 text-green-600" />,
+      icon: <Briefcase className="h-4 w-4 sm:h-6 sm:w-6 text-green-600" />,
       label: 'Direct Jobs Created',
       value: metrics.jobsCreatedDirectly,
       color: 'bg-green-100 dark:bg-green-950',
       show: !!metrics.jobsCreatedDirectly,
     },
     {
-      icon: <TrendingUp className="h-6 w-6 text-purple-600" />,
+      icon: <TrendingUp className="h-4 w-4 sm:h-6 sm:w-6 text-purple-600" />,
       label: 'Indirect Jobs Created',
       value: metrics.jobsCreatedIndirectly,
       color: 'bg-purple-100 dark:bg-purple-950',
       show: !!metrics.jobsCreatedIndirectly,
     },
     {
-      icon: <Leaf className="h-6 w-6 text-emerald-600" />,
+      icon: <Leaf className="h-4 w-4 sm:h-6 sm:w-6 text-emerald-600" />,
       label: 'Annual CO₂ Reduction',
       value: metrics.annualCO2Reduction,
       unit: 't/yr',
@@ -105,7 +105,7 @@ export function ImpactMetrics({ metrics }: ImpactMetricsProps) {
       show: !!metrics.annualCO2Reduction,
     },
     {
-      icon: <Zap className="h-6 w-6 text-amber-600" />,
+      icon: <Zap className="h-4 w-4 sm:h-6 sm:w-6 text-amber-600" />,
       label: 'Annual Energy Output',
       value: metrics.annualEnergyOutput,
       unit: 'kWh/yr',
@@ -115,18 +115,18 @@ export function ImpactMetrics({ metrics }: ImpactMetricsProps) {
   ].filter(metric => metric.show);
 
   return (
-    <div className="mt-8">
+    <div className="mt-6 sm:mt-8">
       <motion.div
         initial={{ opacity: 0, y: 10 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.4 }}
       >
-        <h2 className="text-3xl font-bold mb-6 text-foreground flex items-center gap-2">
-          <TrendingUp className="h-8 w-8 text-primary" />
+        <h2 className="text-2xl sm:text-3xl font-bold mb-4 sm:mb-6 text-foreground flex items-center gap-2">
+          <TrendingUp className="h-6 w-6 sm:h-8 sm:w-8 text-primary" />
           Project Impact
         </h2>
       </motion.div>
-      <div className="flex flex-wrap gap-4">
+      <div className="grid grid-cols-2 sm:flex sm:flex-wrap gap-2 sm:gap-4">
         {metricsData.map((metric, index) => (
           <MetricCard
             key={metric.label}

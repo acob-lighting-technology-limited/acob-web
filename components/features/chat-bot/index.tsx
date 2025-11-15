@@ -32,7 +32,7 @@ export function ChatBot() {
         <Button
           size="icon"
           onClick={() => setIsOpen(!isOpen)}
-          className="h-16 w-16 rounded-full border border-muted-foreground bg-primary hover:bg-primary/90 text-primary-foreground shadow-2xl hover:shadow-lg hover:scale-110 transition-all duration-500"
+          className="h-16 w-16 rounded-full border border-primary-foreground bg-primary hover:bg-primary/90 text-primary-foreground shadow-2xl hover:shadow-lg hover:scale-110 transition-all duration-500"
           aria-label="Open chat"
         >
           <motion.div

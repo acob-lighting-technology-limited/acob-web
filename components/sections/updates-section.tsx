@@ -58,7 +58,7 @@ export function UpdatesSection({ posts }: UpdatesSectionProps) {
 
   if (!posts || posts.length === 0) {
     return (
-      <section className="py-16 bg-white dark:bg-zinc-950 transition-colors duration-500">
+      <section className="py-12 sm:py-16 lg:py-20 xl:py-24 bg-white dark:bg-zinc-950 transition-colors duration-500">
         <Container className="px-4">
           <div className="text-center">
             <div className="h-8 bg-gray-300 dark:bg-gray-700 rounded animate-pulse mx-auto max-w-md mb-4" />
@@ -78,7 +78,7 @@ export function UpdatesSection({ posts }: UpdatesSectionProps) {
   }
 
   return (
-    <section className="py-16 bg-white dark:bg-zinc-950 transition-all duration-500">
+    <section className="py-12 sm:py-16 lg:py-20 xl:py-24 bg-white dark:bg-zinc-950 transition-all duration-500">
       <Container className="px-4">
         {/* Header */}
         <FadeIn delay={0.2}>
@@ -158,9 +158,9 @@ export function UpdatesSection({ posts }: UpdatesSectionProps) {
                         <Link href={`/updates/${post.slug.current}`}>
                           <Button
                             variant="outline"
-                            className="relative w-full justify-center gap-2 border-primary/40 text-primary-foreground bg-primary overflow-hidden transition-colors duration-500"
+                            className="relative w-full justify-center gap-2 border-primary bg-background text-foreground overflow-hidden transition-colors duration-500 group-hover:text-primary-foreground"
                           >
-                            <span className="absolute inset-0 bg-primary/90 transform scale-x-0 origin-left transition-transform duration-500 ease-out group-hover:scale-x-100" />
+                            <span className="absolute inset-0 bg-primary transform scale-x-0 origin-left transition-transform duration-500 ease-out group-hover:scale-x-100" />
                             <span className="relative z-10 flex items-center gap-2">
                               <span className="sr-only">
                                 Read more about {post.title}
@@ -240,9 +240,9 @@ export function UpdatesSection({ posts }: UpdatesSectionProps) {
                     <Link href={`/updates/${post.slug.current}`}>
                       <Button
                         variant="outline"
-                        className="relative w-full justify-center gap-2 border-primary/40 text-primary-foreground bg-primary overflow-hidden transition-colors duration-500"
+                        className="relative w-full justify-center gap-2 border-primary bg-background text-foreground overflow-hidden transition-colors duration-500 group-hover:text-primary-foreground"
                       >
-                        <span className="absolute inset-0 bg-primary/90 transform scale-x-0 origin-left transition-transform duration-500 ease-out group-hover:scale-x-100" />
+                        <span className="absolute inset-0 bg-primary transform scale-x-0 origin-left transition-transform duration-500 ease-out group-hover:scale-x-100" />
                         <span className="relative z-10 flex items-center gap-2">
                           <span className="sr-only">
                             Read more about {post.title}

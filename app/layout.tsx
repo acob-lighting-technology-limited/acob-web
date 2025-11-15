@@ -96,7 +96,12 @@ export default async function RootLayout({
         <Providers>
           <NProgressProvider>
             <SkipNavigation />
-            <Toaster closeButton position="top-right" />
+            <Toaster
+              closeButton
+              position="bottom-right"
+              theme="system"
+              richColors
+            />
             <div className="flex min-h-screen flex-col w-full bg-background  transition-colors duration-500 selection:bg-primary selection:text-primary-foreground ">
               <AnnouncementBanner jobCount={jobCount} />
               <Header />
