@@ -4,7 +4,9 @@
 [![TypeScript](https://img.shields.io/badge/TypeScript-5.0-blue)](https://www.typescriptlang.org/)
 [![Sanity CMS](https://img.shields.io/badge/Sanity-CMS-orange)](https://www.sanity.io/)
 
-Official website for ACOB Lighting Technology Limited, a leading Nigerian renewable energy company providing solar solutions, mini-grids, and clean energy infrastructure across Nigeria and West Africa.
+**Private Repository** - Official website for ACOB Lighting Technology Limited, a leading Nigerian renewable energy company providing solar solutions, mini-grids, and clean energy infrastructure across Nigeria and West Africa.
+
+> ⚠️ **This is a proprietary project owned by ACOB Lighting Technology Limited. Unauthorized access, copying, or distribution is strictly prohibited.**
 
 ## 🌟 About ACOB Lighting
 
@@ -183,13 +185,9 @@ MAINTENANCE_BYPASS_TOKEN=your_bypass_token
 GROQ_API_KEY=your_groq_api_key
 ```
 
-## 🤝 Contributing
+## 🔐 Access & Permissions
 
-1. Fork the repository
-2. Create a feature branch (`git checkout -b feature/amazing-feature`)
-3. Commit your changes (`git commit -m 'feat: add amazing feature'`)
-4. Push to the branch (`git push origin feature/amazing-feature`)
-5. Open a Pull Request
+This repository is **private and proprietary** to ACOB Lighting Technology Limited. Only authorized team members have access.
 
 ### Commit Message Format
 
@@ -205,9 +203,22 @@ type(scope): description
 
 **Types:** `feat`, `fix`, `docs`, `style`, `refactor`, `perf`, `test`, `chore`
 
-## 📄 License
+**Examples:**
 
-This project is proprietary and confidential. All rights reserved by ACOB Lighting Technology Limited.
+- `feat: add new project showcase feature`
+- `fix: resolve mobile navigation issue`
+- `docs: update deployment instructions`
+
+## 📄 License & Ownership
+
+**Copyright © 2024 ACOB Lighting Technology Limited. All Rights Reserved.**
+
+This project, including all source code, documentation, and related materials, is the exclusive property of ACOB Lighting Technology Limited.
+
+- **Proprietary Software** - Not open source
+- **Confidential** - Internal use only
+- **Unauthorized copying, modification, or distribution is strictly prohibited**
+- **Access restricted to authorized personnel only**
 
 ## 📞 Contact
 
