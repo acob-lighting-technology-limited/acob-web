@@ -44,5 +44,8 @@ export function getSpacing(
   variant: string = 'default',
 ): string {
   const spacingGroup = SPACING[type];
-  return (spacingGroup as Record<string, string>)[variant] || (spacingGroup as Record<string, string>).default;
+  return (
+    (spacingGroup as Record<string, string>)[variant] ||
+    (spacingGroup as Record<string, string>).default
+  );
 }

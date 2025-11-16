@@ -7,7 +7,7 @@ describe('cn utility function', () => {
 
   it('should handle conditional classes', () => {
     expect(cn('base-class', true && 'conditional-class')).toBe(
-      'base-class conditional-class'
+      'base-class conditional-class',
     );
     expect(cn('base-class', false && 'conditional-class')).toBe('base-class');
   });

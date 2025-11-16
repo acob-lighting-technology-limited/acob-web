@@ -152,7 +152,7 @@ const MobileMenu: React.FC<MobileMenuProps> = ({
 }) => {
   const pathname = usePathname();
   const [expandedItems, setExpandedItems] = useState<Record<string, boolean>>(
-    {}
+    {},
   );
 
   // Auto-expand parent items if their sub-item is active
@@ -161,7 +161,7 @@ const MobileMenu: React.FC<MobileMenuProps> = ({
     navigationItems.forEach(item => {
       const hasActiveSubItem = item.subItems.some(
         subItem =>
-          pathname === subItem.href || pathname.startsWith(`${subItem.href}/`)
+          pathname === subItem.href || pathname.startsWith(`${subItem.href}/`),
       );
       if (hasActiveSubItem) {
         autoExpanded[item.name] = true;

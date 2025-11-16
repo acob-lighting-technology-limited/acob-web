@@ -18,7 +18,7 @@ export async function POST(request: NextRequest) {
       {
         status: 429,
         headers: { 'Retry-After': '300' },
-      }
+      },
     );
   }
 
@@ -48,13 +48,13 @@ export async function POST(request: NextRequest) {
       'coverLetter',
     ];
     const missingFields = requiredFields.filter(
-      field => !formData.get(field)?.toString().trim()
+      field => !formData.get(field)?.toString().trim(),
     );
 
     if (missingFields.length > 0) {
       return NextResponse.json(
         { error: 'Missing required fields', fields: missingFields },
-        { status: 400 }
+        { status: 400 },
       );
     }
 
@@ -63,7 +63,7 @@ export async function POST(request: NextRequest) {
     if (!emailRegex.test(email)) {
       return NextResponse.json(
         { error: 'Invalid email format' },
-        { status: 400 }
+        { status: 400 },
       );
     }
 
@@ -91,7 +91,7 @@ export async function POST(request: NextRequest) {
       }
       return NextResponse.json(
         { error: 'Server configuration error' },
-        { status: 500 }
+        { status: 500 },
       );
     }
 
@@ -287,7 +287,7 @@ export async function POST(request: NextRequest) {
                       day: 'numeric',
                       hour: '2-digit',
                       minute: '2-digit',
-                    }
+                    },
                   )}</span>
                 </p>
               </div>
@@ -316,7 +316,7 @@ export async function POST(request: NextRequest) {
       }
       return NextResponse.json(
         { error: 'Failed to send application' },
-        { status: 500 }
+        { status: 500 },
       );
     }
 
@@ -328,7 +328,7 @@ export async function POST(request: NextRequest) {
     }
     return NextResponse.json(
       { error: 'Internal server error' },
-      { status: 500 }
+      { status: 500 },
     );
   }
 }

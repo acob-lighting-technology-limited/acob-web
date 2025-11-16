@@ -21,9 +21,7 @@ export function MaintenancePage({
             <h1 className="text-2xl font-bold text-foreground mb-2">
               {routeName} Under Maintenance
             </h1>
-            <p className="text-muted-foreground">
-              {description}
-            </p>
+            <p className="text-muted-foreground">{description}</p>
           </div>
 
           <div className="space-y-4">

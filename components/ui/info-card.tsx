@@ -27,7 +27,7 @@ export function InfoCard({
       <div
         className={cn(
           'rounded-2xl border border-border bg-surface p-2 sm:p-4 shadow-sm',
-          className
+          className,
         )}
       >
         <div className="text-3xl font-semibold text-foreground">{value}</div>
@@ -44,7 +44,7 @@ export function InfoCard({
       <Card
         className={cn(
           'group flex h-full flex-col justify-between rounded-3xl border border-border bg-card/80 p-6 shadow-sm transition-all duration-500 hover:-translate-y-1 hover:shadow-lg',
-          className
+          className,
         )}
       >
         <div className="flex flex-col gap-4">
@@ -73,7 +73,7 @@ export function InfoCard({
     <div
       className={cn(
         'rounded-3xl border border-border bg-card/90 p-4 sm:p-6 xl:p-8 shadow-sm',
-        className
+        className,
       )}
     >
       {Icon && (

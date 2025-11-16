@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect } from 'react';
+import { useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import type { Message } from 'ai';
 import { useNavigation } from '@/lib/utils/navigation';
@@ -40,6 +40,7 @@ export function ChatBotContainer({ isOpen, onClose }: ChatBotContainerProps) {
   } = useChatBot();
 
   const isChatting = isLoading;
+  const scrollPositionRef = useRef(0);
 
   // Handle ESC key to close modal
   useEffect(() => {
@@ -58,12 +59,14 @@ export function ChatBotContainer({ isOpen, onClose }: ChatBotContainerProps) {
   // Prevent background scroll when modal is open
   useEffect(() => {
     if (isOpen) {
-      const scrollY = window.scrollY;
+      // Save current scroll position
+      scrollPositionRef.current = window.scrollY;
 
       document.body.style.position = 'fixed';
-      document.body.style.top = `-${scrollY}px`;
+      document.body.style.top = `-${scrollPositionRef.current}px`;
       document.body.style.left = '0';
       document.body.style.right = '0';
+      document.body.style.width = '100%';
       document.body.style.overflow = 'hidden';
 
       const preventTouch = (e: TouchEvent) => {
@@ -77,16 +80,19 @@ export function ChatBotContainer({ isOpen, onClose }: ChatBotContainerProps) {
       document.addEventListener('touchmove', preventTouch, { passive: false });
 
       return () => {
-        const scrollY = document.body.style.top;
+        // Restore scroll without flickering
         document.body.style.position = '';
         document.body.style.top = '';
         document.body.style.left = '';
         document.body.style.right = '';
+        document.body.style.width = '';
         document.body.style.overflow = '';
 
-        if (scrollY) {
-          window.scrollTo(0, parseInt(scrollY || '0') * -1);
-        }
+        // Restore scroll position without animation
+        window.scrollTo({
+          top: scrollPositionRef.current,
+          behavior: 'instant' as 'auto' | 'smooth' | 'instant',
+        });
 
         document.removeEventListener('touchmove', preventTouch);
       };

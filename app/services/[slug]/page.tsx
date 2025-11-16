@@ -70,7 +70,7 @@ export async function generateMetadata({
     },
     other: {
       'application/ld+json': JSON.stringify(
-        generateBreadcrumbSchema(breadcrumbItems)
+        generateBreadcrumbSchema(breadcrumbItems),
       ),
     },
   };

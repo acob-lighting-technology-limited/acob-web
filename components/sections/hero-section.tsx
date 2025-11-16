@@ -104,13 +104,13 @@ export const HeroSection = React.memo(function HeroSection({
             key={slide.id}
             className={cn(
               'absolute inset-0 transition-opacity duration-1000',
-              index === current ? 'opacity-100 z-10' : 'opacity-0 z-0'
+              index === current ? 'opacity-100 z-10' : 'opacity-0 z-0',
             )}
           >
             <div
               className={cn(
                 'absolute inset-0',
-                index === current && 'animate-ken-burns'
+                index === current && 'animate-ken-burns',
               )}
             >
               <Image
@@ -131,8 +131,8 @@ export const HeroSection = React.memo(function HeroSection({
       </div>
 
       {/* Content */}
-      <div className="relative z-20 h-full flex items-center lg:items-end pb-6 lg:pb-6">
-        <div className=" px-4 sm:px-8">
+      <div className="relative z-20 h-full flex items-end pb-6 lg:pb-6">
+        <div className=" px-4 sm:px-8 pb-6 sm:pb-2">
           <div className="w-full">
             {/* Left Content */}
             <div className="space-y-4 md:space-y-5 max-w-xl">
@@ -176,23 +176,27 @@ export const HeroSection = React.memo(function HeroSection({
               </div>
 
               {/* CTA Buttons */}
-              <div className="flex flex-wrap gap-3">
-                <Link href="/services" className="hidden md:block">
+              <div className="grid grid-cols-2 gap-3">
+                <Link href="/services" className="w-full">
                   <Button
                     size="lg"
-                    className="px-5 md:px-7 py-4 md:py-5 text-sm bg-primary hover:bg-primary/90"
+                    className="w-full px-5 md:px-7 py-4 md:py-5 text-sm bg-primary hover:bg-primary/90"
                   >
-                    View Our Services
+                    <span className="hidden md:inline">View Our Services</span>
+                    <span className="md:hidden">Services</span>
                     <ArrowRight className="ml-2 h-4 w-4" />
                   </Button>
                 </Link>
-                <Link href="/projects" className="w-full sm:w-auto">
+                <Link href="/projects" className="w-full">
                   <Button
                     size="lg"
                     variant="outline"
-                    className="w-full sm:w-auto px-5 md:px-7 py-4 md:py-5 text-sm bg-white/10 backdrop-blur-sm border-white/30 text-white hover:bg-white/20 hover:text-white"
+                    className="w-full px-5 md:px-7 py-4 md:py-5 text-sm bg-white/10 backdrop-blur-sm border-white/30 text-white hover:bg-white/20 hover:text-white"
                   >
-                    Explore recent projects
+                    <span className="hidden md:inline">
+                      Explore recent projects
+                    </span>
+                    <span className="md:hidden">Projects</span>
                   </Button>
                 </Link>
               </div>
@@ -205,7 +209,7 @@ export const HeroSection = React.memo(function HeroSection({
       <div className="hidden lg:block absolute bottom-6 right-0 z-30">
         <div className="2xl:container max-w-7xl mx-auto px-4">
           <div className="flex justify-end">
-            <div className="relative overflow-hidden p-3 !pb-0 max-w-sm">
+            <div className="relative overflow-hidden p-3 pb-2 max-w-md mr-6">
               <div className="space-y-2">
                 <div className="flex items-start gap-2 text-sm text-gray-200">
                   <MapPin className="h-4 w-4 flex-shrink-0 mt-0.5 text-primary" />
@@ -222,24 +226,7 @@ export const HeroSection = React.memo(function HeroSection({
         </div>
       </div>
 
-      {/* Mobile Project Info */}
-      <div className="lg:hidden absolute bottom-16 left-0 right-0 z-30">
-        <div className="container px-4">
-          <div className="relative overflow-hidden p-4">
-            <div className="space-y-2">
-              <div className="flex items-start gap-2 text-sm text-gray-200">
-                <MapPin className="h-4 w-4 flex-shrink-0 mt-0.5 text-primary" />
-                <span className="line-clamp-1">
-                  {allSlides[current].location}
-                </span>
-              </div>
-              <h2 className="text-xl font-semibold text-white line-clamp-1">
-                {allSlides[current].title}
-              </h2>
-            </div>
-          </div>
-        </div>
-      </div>
+      {/* Mobile Project Info - Hidden on mobile */}
 
       {/* Slide Indicators - Bottom Center */}
       <div className="absolute bottom-6 left-1/2 -translate-x-1/2 z-30">
@@ -258,7 +245,7 @@ export const HeroSection = React.memo(function HeroSection({
                 'h-1 rounded-full transition-all duration-300',
                 index === current
                   ? 'w-8 bg-primary'
-                  : 'w-4 bg-white/30 hover:bg-white/50'
+                  : 'w-4 bg-white/30 hover:bg-white/50',
               )}
               aria-label={`Go to slide ${index + 1}`}
             />

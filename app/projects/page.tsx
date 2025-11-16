@@ -45,7 +45,7 @@ export default async function ProjectsPage({
     (p: { title: string; projectImage: string }) => ({
       src: p.projectImage,
       alt: p.title,
-    })
+    }),
   );
 
   return (

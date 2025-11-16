@@ -3,7 +3,9 @@ import { z } from 'zod';
 // Define the environment variable schema
 const envSchema = z.object({
   // Sanity CMS
-  NEXT_PUBLIC_SANITY_PROJECT_ID: z.string().min(1, 'Sanity project ID is required'),
+  NEXT_PUBLIC_SANITY_PROJECT_ID: z
+    .string()
+    .min(1, 'Sanity project ID is required'),
   NEXT_PUBLIC_SANITY_DATASET: z.string().min(1, 'Sanity dataset is required'),
   SANITY_API_TOKEN: z.string().min(1, 'Sanity API token is required'),
 
@@ -32,7 +34,7 @@ function validateEnv() {
   } catch (error) {
     if (error instanceof z.ZodError) {
       const errorMessage = error.errors
-        .map((err) => `${err.path.join('.')}: ${err.message}`)
+        .map(err => `${err.path.join('.')}: ${err.message}`)
         .join('\n');
       throw new Error(
         `Environment variable validation failed:\n${errorMessage}`,

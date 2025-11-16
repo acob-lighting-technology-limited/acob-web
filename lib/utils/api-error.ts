@@ -10,7 +10,7 @@ export class ApiError extends Error {
     message: string,
     statusCode: number = 500,
     code?: string,
-    details?: Record<string, unknown>
+    details?: Record<string, unknown>,
   ) {
     super(message);
     this.name = 'ApiError';
@@ -25,7 +25,7 @@ export class ApiError extends Error {
    */
   static badRequest(
     message: string,
-    details?: Record<string, unknown>
+    details?: Record<string, unknown>,
   ): ApiError {
     return new ApiError(message, 400, 'BAD_REQUEST', details);
   }
@@ -69,7 +69,7 @@ export class ApiError extends Error {
    * Create a Service Unavailable error (503)
    */
   static serviceUnavailable(
-    message: string = 'Service temporarily unavailable'
+    message: string = 'Service temporarily unavailable',
   ): ApiError {
     return new ApiError(message, 503, 'SERVICE_UNAVAILABLE');
   }
@@ -118,7 +118,7 @@ export function handleApiError(error: unknown): Response {
         code: 'INTERNAL_ERROR',
         status: 500,
       },
-      { status: 500 }
+      { status: 500 },
     );
   }
 
@@ -133,7 +133,7 @@ export function handleApiError(error: unknown): Response {
       code: 'UNKNOWN_ERROR',
       status: 500,
     },
-    { status: 500 }
+    { status: 500 },
   );
 }
 
@@ -150,7 +150,7 @@ export function handleApiError(error: unknown): Response {
  */
 export function validateRequiredFields(
   data: Record<string, unknown>,
-  fields: string[]
+  fields: string[],
 ): void {
   const missingFields = fields.filter(field => {
     const value = data[field];

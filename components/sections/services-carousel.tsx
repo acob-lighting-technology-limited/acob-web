@@ -27,7 +27,7 @@ export function ServicesCarousel() {
         setIsTransitioning(false);
       }, 300);
     },
-    [isTransitioning]
+    [isTransitioning],
   );
 
   const nextSlide = useCallback(() => {

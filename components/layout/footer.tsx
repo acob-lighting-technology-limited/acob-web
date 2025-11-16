@@ -105,7 +105,7 @@ export function Footer() {
                 onClick={async () => {
                   try {
                     await navigator.clipboard.writeText(
-                      contactInfo.offices.headOffice.address
+                      contactInfo.offices.headOffice.address,
                     );
                     toast.success('Address copied to clipboard!', {
                       duration: 2000,

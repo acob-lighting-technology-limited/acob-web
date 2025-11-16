@@ -13,7 +13,8 @@ export default {
       name: 'department',
       title: 'Department',
       type: 'string',
-      description: 'Enter the department name (e.g., Engineering, Sales & Marketing, Operations)',
+      description:
+        'Enter the department name (e.g., Engineering, Sales & Marketing, Operations)',
     },
     {
       name: 'location',
@@ -57,7 +58,8 @@ export default {
       name: 'isActive',
       title: 'Active',
       type: 'boolean',
-      description: 'Toggle to show/hide this job posting. When OFF, the job will not appear on the website.',
+      description:
+        'Toggle to show/hide this job posting. When OFF, the job will not appear on the website.',
       initialValue: true,
     },
     {

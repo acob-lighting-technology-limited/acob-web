@@ -111,7 +111,7 @@ export function useRenderPerformance(componentName: string) {
     // Log performance in development
     if (process.env.NODE_ENV === 'development') {
       console.log(
-        `[${componentName}] Render #${renderCount.current}: ${renderTime.toFixed(2)}ms`
+        `[${componentName}] Render #${renderCount.current}: ${renderTime.toFixed(2)}ms`,
       );
     }
 

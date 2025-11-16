@@ -46,8 +46,6 @@ export const LazySpamProtection = dynamic(
   },
 );
 
-
-
 // Lazy load heavy sections
 export const LazyProjectsSection = dynamic(
   () =>

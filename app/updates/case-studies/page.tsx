@@ -19,9 +19,9 @@ export default async function CaseStudiesPage() {
     (post: UpdatePost) =>
       post.category === 'case-studies' ||
       post.tags?.some((tag: string) =>
-        tag.toLowerCase().includes('case study')
+        tag.toLowerCase().includes('case study'),
       ) ||
-      post.title?.toLowerCase().includes('case study')
+      post.title?.toLowerCase().includes('case study'),
   );
 
   const breadcrumbItems = [
@@ -76,7 +76,7 @@ export default async function CaseStudiesPage() {
                           <Image
                             src={applySanityImagePreset(
                               post.featuredImage,
-                              'card'
+                              'card',
                             )}
                             alt={post.title}
                             fill

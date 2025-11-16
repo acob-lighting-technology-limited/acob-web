@@ -88,7 +88,7 @@ export function SpamProtection({
 export function useRateLimit(
   action: string,
   limit: number = 5,
-  windowMs: number = 60000
+  windowMs: number = 60000,
 ) {
   const [attempts, setAttempts] = useState<number[]>([]);
 

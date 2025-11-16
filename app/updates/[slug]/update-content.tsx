@@ -188,7 +188,7 @@ export function UpdateContent({ content }: UpdateContentProps) {
             isOpen={lightboxOpen}
             onClose={() => setLightboxOpen(false)}
           />,
-          document.body
+          document.body,
         )}
     </>
   );

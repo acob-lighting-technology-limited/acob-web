@@ -73,7 +73,7 @@ export async function generateMetadata({
     },
     other: {
       'application/ld+json': JSON.stringify(
-        generateBreadcrumbSchema(breadcrumbItems)
+        generateBreadcrumbSchema(breadcrumbItems),
       ),
     },
   };
@@ -131,16 +131,20 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
                 <Calendar className="w-4 h-4 mx-2" />
                 <span className="text-lg">
                   {new Date(
-                    project.projectDate || project._createdAt
+                    project.projectDate || project._createdAt,
                   ).getFullYear()}
                 </span>
               </div>
             )}
 
             {/* Project Content */}
-            {project.content && (
+            {(project.projectContent || project.content) && (
               <div className="mt-6 prose prose-lg max-w-none">
-                <ProjectContent content={project.content} />
+                <ProjectContent
+                  content={project.content}
+                  projectContent={project.projectContent}
+                  project={project}
+                />
               </div>
             )}
 

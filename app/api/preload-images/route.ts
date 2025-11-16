@@ -1,5 +1,9 @@
 import { NextResponse } from 'next/server';
-import { getAllProjectImages, selectImages, getBackgroundImage } from '@/lib/utils/static-images';
+import {
+  getAllProjectImages,
+  selectImages,
+  getBackgroundImage,
+} from '@/lib/utils/static-images';
 
 export async function GET() {
   try {

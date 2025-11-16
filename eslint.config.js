@@ -42,6 +42,8 @@ export default [
         Element: 'readonly',
         Node: 'readonly',
         Event: 'readonly',
+        ScrollBehavior: 'readonly',
+        ScrollOptions: 'readonly',
         KeyboardEvent: 'readonly',
         TouchEvent: 'readonly',
         WheelEvent: 'readonly',

@@ -10,10 +10,7 @@ export async function GET(
     const post = await getUpdatePost(slug);
 
     if (!post) {
-      return NextResponse.json(
-        { error: 'Update not found' },
-        { status: 404 },
-      );
+      return NextResponse.json({ error: 'Update not found' }, { status: 404 });
     }
 
     return NextResponse.json(post);

@@ -9,20 +9,34 @@ import {
 import type { PortableTextBlock } from '@portabletext/types';
 import { ImageLightbox } from '@/components/ui/image-lightbox';
 import { urlFor } from '@/sanity/lib/client';
+import type {
+  ProjectContent as ProjectContentType,
+  Project,
+} from '@/lib/types';
+import { generateProjectDescription } from '@/lib/utils/project-description';
 
 interface ProjectContentProps {
-  content: PortableTextBlock[];
+  content?: PortableTextBlock[];
+  projectContent?: ProjectContentType;
+  project?: Project;
 }
 
-export function ProjectContent({ content }: ProjectContentProps) {
+export function ProjectContent({
+  content,
+  projectContent,
+  project,
+}: ProjectContentProps) {
   const [lightboxOpen, setLightboxOpen] = useState(false);
   const [selectedImageIndex, setSelectedImageIndex] = useState(0);
   const [contentImages, setContentImages] = useState<
     Array<{ src: string; alt: string }>
   >([]);
 
-  // Extract all images from content for the lightbox
-  const extractImages = (blocks: PortableTextBlock[]) => {
+  // Determine if we're using new or old content structure
+  const useNewStructure = !!projectContent;
+
+  // Extract all images from content for the lightbox (old structure)
+  const extractImagesLegacy = (blocks: PortableTextBlock[]) => {
     const images: Array<{ src: string; alt: string }> = [];
     blocks.forEach(block => {
       if (
@@ -50,10 +64,29 @@ export function ProjectContent({ content }: ProjectContentProps) {
     return images;
   };
 
+  // Extract images from new structure
+  const extractImagesNew = (
+    images?: Array<{ asset: { url?: string }; alt?: string }>,
+  ) => {
+    if (!images) {
+      return [];
+    }
+    return images
+      .filter(img => img?.asset?.url)
+      .map(img => ({
+        src: img.asset.url!,
+        alt: img.alt || 'Project image',
+      }));
+  };
+
   // Initialize images when component mounts
   useEffect(() => {
-    setContentImages(extractImages(content));
-  }, [content]);
+    if (useNewStructure && projectContent?.images) {
+      setContentImages(extractImagesNew(projectContent.images));
+    } else if (content) {
+      setContentImages(extractImagesLegacy(content));
+    }
+  }, [content, projectContent, useNewStructure]);
 
   const handleImageClick = (imageIndex: number) => {
     setSelectedImageIndex(imageIndex);
@@ -93,7 +126,7 @@ export function ProjectContent({ content }: ProjectContentProps) {
           >
             <button
               onClick={() => handleImageClick(currentImageIndex)}
-              className="relative w-full group cursor-zoom-in"
+              className="relative w-full aspect-[4/3] group cursor-zoom-in overflow-hidden rounded-lg"
             >
               <Image
                 src={imageUrl}
@@ -101,7 +134,7 @@ export function ProjectContent({ content }: ProjectContentProps) {
                 width={800}
                 height={600}
                 sizes="(max-width: 1024px) 50vw, 33vw"
-                className="rounded-lg object-cover w-full h-auto transition-all duration-300 group-hover:shadow-2xl group-hover:scale-[1.02]"
+                className="rounded-lg object-cover w-full h-full transition-all duration-300 group-hover:shadow-2xl group-hover:scale-[1.02]"
               />
               {/* Overlay hint */}
               <div className="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-all duration-300 rounded-lg flex items-center justify-center">
@@ -164,6 +197,99 @@ export function ProjectContent({ content }: ProjectContentProps) {
       ),
     },
   };
+
+  // Render new content structure
+  if (useNewStructure && projectContent) {
+    const { description, customDescription } = projectContent;
+
+    // Get description text based on template or custom
+    let descriptionText = '';
+    if (description && description !== 'custom') {
+      descriptionText = generateProjectDescription(description, {
+        kwp: project?.impactMetrics?.kwp,
+        systemType: project?.impactMetrics?.systemType,
+        location: project?.location,
+        lga: project?.lga,
+        state: project?.state,
+        beneficiaries: project?.impactMetrics?.beneficiaries,
+        jobsDirect: project?.impactMetrics?.jobsCreatedDirectly,
+        jobsIndirect: project?.impactMetrics?.jobsCreatedIndirectly,
+        annualEnergyOutput: project?.impactMetrics?.annualEnergyOutput,
+        annualCO2Reduction: project?.impactMetrics?.annualCO2Reduction,
+      });
+    }
+
+    return (
+      <>
+        <div className="prose prose-lg max-w-none">
+          {/* Render template description */}
+          {description !== 'custom' && descriptionText && (
+            <div
+              className="whitespace-pre-wrap text-foreground/90 dark:text-foreground/70 text-base lg:text-lg leading-relaxed max-w-3xl w-full basis-full [&_strong]:font-bold [&_strong]:text-foreground"
+              dangerouslySetInnerHTML={{ __html: descriptionText }}
+            />
+          )}
+
+          {/* Render custom description */}
+          {description === 'custom' && customDescription && (
+            <PortableText value={customDescription} components={components} />
+          )}
+        </div>
+
+        {/* Render images in grid */}
+        {projectContent.images && projectContent.images.length > 0 && (
+          <div className="mt-6 flex flex-wrap -mx-2">
+            {projectContent.images.map((image, index) => {
+              if (!image?.asset?.url) {
+                return null;
+              }
+
+              return (
+                <div
+                  key={index}
+                  className="inline-block w-1/2 lg:w-1/3 px-2 my-4"
+                >
+                  <button
+                    onClick={() => handleImageClick(index)}
+                    className="relative w-full aspect-[4/3] group cursor-zoom-in overflow-hidden rounded-lg"
+                  >
+                    <Image
+                      src={image.asset.url}
+                      alt={image.alt || 'Project image'}
+                      width={800}
+                      height={600}
+                      sizes="(max-width: 1024px) 50vw, 33vw"
+                      className="rounded-lg object-cover w-full h-full transition-all duration-300 group-hover:shadow-2xl group-hover:scale-[1.02]"
+                    />
+                    <div className="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-all duration-300 rounded-lg flex items-center justify-center">
+                      <span className="text-white opacity-0 group-hover:opacity-100 transition-opacity duration-300 text-sm font-medium bg-black/50 px-4 py-2 rounded-full backdrop-blur-sm">
+                        Click to expand
+                      </span>
+                    </div>
+                  </button>
+                </div>
+              );
+            })}
+          </div>
+        )}
+
+        {/* Image Lightbox */}
+        {contentImages.length > 0 && (
+          <ImageLightbox
+            images={contentImages}
+            initialIndex={selectedImageIndex}
+            isOpen={lightboxOpen}
+            onClose={() => setLightboxOpen(false)}
+          />
+        )}
+      </>
+    );
+  }
+
+  // Fallback to legacy content structure
+  if (!content) {
+    return null;
+  }
 
   return (
     <>

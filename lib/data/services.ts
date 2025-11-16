@@ -101,7 +101,6 @@ export const servicesData: ServiceData[] = [
       'Competitive pricing and financing options',
     ],
     gallery: [
-
       '/images/services/captive-power-solutions.webp?height=400&width=600',
       '/images/services/captive-power-solutions-2.webp?height=400&width=600',
     ],

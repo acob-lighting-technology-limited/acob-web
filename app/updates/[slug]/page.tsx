@@ -81,7 +81,7 @@ export async function generateMetadata({
     },
     other: {
       'application/ld+json': JSON.stringify(
-        generateBreadcrumbSchema(breadcrumbItems)
+        generateBreadcrumbSchema(breadcrumbItems),
       ),
     },
   };
@@ -203,7 +203,7 @@ export default async function UpdatePostPage({ params }: UpdatePostPageProps) {
                                     <Calendar className="h-3 w-3 mr-1 flex-shrink-0" />
                                     <span className="truncate">
                                       {new Date(
-                                        item.publishedAt
+                                        item.publishedAt,
                                       ).toLocaleDateString()}
                                     </span>
                                   </div>
@@ -212,7 +212,7 @@ export default async function UpdatePostPage({ params }: UpdatePostPageProps) {
                             </Link>
                           </li>
                         );
-                      }
+                      },
                     )}
                   </ul>
                   <div className="mt-6 text-center">
@@ -241,7 +241,7 @@ export default async function UpdatePostPage({ params }: UpdatePostPageProps) {
                       .charAt(0)
                       .toUpperCase();
                     const dateStr = new Date(
-                      comment.createdAt
+                      comment.createdAt,
                     ).toLocaleDateString(undefined, {
                       year: 'numeric',
                       month: 'short',

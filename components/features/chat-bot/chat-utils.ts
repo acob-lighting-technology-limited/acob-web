@@ -20,17 +20,17 @@ export function formatMessage(content: string): string {
 
   formatted = formatted.replace(
     /(https?:\/\/[^\s<]+)/g,
-    '<a href="$1" target="_blank" rel="noopener noreferrer" class="text-blue-600 hover:text-blue-800 underline">$1</a>'
+    '<a href="$1" target="_blank" rel="noopener noreferrer" class="text-blue-600 hover:text-blue-800 underline">$1</a>',
   );
 
   formatted = formatted.replace(
     /([a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,})/g,
-    '<a href="mailto:$1" class="text-blue-600 hover:text-blue-800 underline">$1</a>'
+    '<a href="mailto:$1" class="text-blue-600 hover:text-blue-800 underline">$1</a>',
   );
 
   formatted = formatted.replace(
     /(\d{4}\s?\d{3}\s?\d{4})/g,
-    '<a href="tel:$1" class="text-blue-600 hover:text-blue-800 underline">$1</a>'
+    '<a href="tel:$1" class="text-blue-600 hover:text-blue-800 underline">$1</a>',
   );
 
   formatted = formatted.replace(/\n/g, '<br />');

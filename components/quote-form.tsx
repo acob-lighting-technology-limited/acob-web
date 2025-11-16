@@ -56,7 +56,7 @@ export function QuoteForm() {
   const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
 
   const handleInputChange = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
   ): void => {
     const { id, value } = e.target;
     setFormData(prev => ({
@@ -106,7 +106,7 @@ export function QuoteForm() {
       if (!response.ok) {
         const errorData = await response.json();
         throw new Error(
-          errorData.error || `HTTP error! status: ${response.status}`
+          errorData.error || `HTTP error! status: ${response.status}`,
         );
       }
 
@@ -130,7 +130,7 @@ export function QuoteForm() {
       'roofMaterial',
     ];
     const missingFields = requiredFields.filter(
-      field => !formData[field].trim()
+      field => !formData[field].trim(),
     );
 
     if (missingFields.length > 0) {
