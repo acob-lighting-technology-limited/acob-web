@@ -233,7 +233,7 @@ export function ImageLightbox({
         <div
           className={cn(
             'relative w-full h-full flex items-center justify-center transition-transform duration-300',
-            isZoomed && 'scale-150 cursor-move overflow-auto'
+            isZoomed && 'scale-150 cursor-move overflow-auto',
           )}
         >
           <div className="relative w-full h-full">
@@ -243,7 +243,7 @@ export function ImageLightbox({
               fill
               className={cn(
                 'object-contain transition-all duration-300',
-                isZoomed && 'object-cover'
+                isZoomed && 'object-cover',
               )}
               sizes="100vw"
               priority
@@ -300,7 +300,7 @@ export function ImageLightbox({
                   'relative flex-shrink-0 w-16 h-16 sm:w-20 sm:h-20 rounded-lg overflow-hidden border-2 transition-all duration-300',
                   index === currentIndex
                     ? 'border-primary scale-110 shadow-lg shadow-primary/50'
-                    : 'border-white/30 hover:border-white/60 opacity-60 hover:opacity-100'
+                    : 'border-white/30 hover:border-white/60 opacity-60 hover:opacity-100',
                 )}
               >
                 <Image

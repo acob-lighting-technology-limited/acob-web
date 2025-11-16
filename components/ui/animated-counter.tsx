@@ -38,13 +38,17 @@ export function AnimatedCounter({
   }, [isVisible]);
 
   useEffect(() => {
-    if (!isVisible) {return;}
+    if (!isVisible) {
+      return;
+    }
 
     let startTime: number;
     let animationFrame: number;
 
     const animate = (currentTime: number) => {
-      if (!startTime) {startTime = currentTime;}
+      if (!startTime) {
+        startTime = currentTime;
+      }
       const progress = Math.min((currentTime - startTime) / duration, 1);
 
       // Easing function for smooth animation
@@ -69,7 +73,8 @@ export function AnimatedCounter({
 
   return (
     <div ref={ref} className={className}>
-      {count}{suffix}
+      {count}
+      {suffix}
     </div>
   );
 }

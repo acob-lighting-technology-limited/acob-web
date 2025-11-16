@@ -67,7 +67,9 @@ export default function NotFound() {
                   <div className="w-8 h-8 bg-primary rounded-md flex items-center justify-center mb-2 mx-auto">
                     <Search className="w-4 h-4 text-primary-foreground" />
                   </div>
-                  <h4 className="font-medium text-foreground text-sm">Services</h4>
+                  <h4 className="font-medium text-foreground text-sm">
+                    Services
+                  </h4>
                 </div>
               </Link>
 
@@ -76,7 +78,9 @@ export default function NotFound() {
                   <div className="w-8 h-8 bg-primary rounded-md flex items-center justify-center mb-2 mx-auto">
                     <MapPin className="w-4 h-4 text-primary-foreground" />
                   </div>
-                  <h4 className="font-medium text-foreground text-sm">Projects</h4>
+                  <h4 className="font-medium text-foreground text-sm">
+                    Projects
+                  </h4>
                 </div>
               </Link>
 
@@ -85,7 +89,9 @@ export default function NotFound() {
                   <div className="w-8 h-8 bg-primary rounded-md flex items-center justify-center mb-2 mx-auto">
                     <Phone className="w-4 h-4 text-primary-foreground" />
                   </div>
-                  <h4 className="font-medium text-foreground text-sm">Contact</h4>
+                  <h4 className="font-medium text-foreground text-sm">
+                    Contact
+                  </h4>
                 </div>
               </Link>
             </div>
@@ -95,11 +101,17 @@ export default function NotFound() {
           <div className="mt-6 text-center">
             <p className="text-muted-foreground text-sm mb-3">Need help?</p>
             <div className="flex flex-col sm:flex-row items-center justify-center gap-4 text-sm">
-              <a href="tel:+2348031234567" className="flex items-center gap-2 text-primary hover:text-primary/80 transition-colors">
+              <a
+                href="tel:+2348031234567"
+                className="flex items-center gap-2 text-primary hover:text-primary/80 transition-colors"
+              >
                 <Phone className="w-4 h-4" />
                 +234 803 123 4567
               </a>
-              <a href="mailto:info@acoblighting.com" className="flex items-center gap-2 text-primary hover:text-primary/80 transition-colors">
+              <a
+                href="mailto:info@acoblighting.com"
+                className="flex items-center gap-2 text-primary hover:text-primary/80 transition-colors"
+              >
                 <Mail className="w-4 h-4" />
                 info@acoblighting.com
               </a>

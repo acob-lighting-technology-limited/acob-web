@@ -15,7 +15,7 @@ export async function GET() {
       // Check for images in projects
       const projectsWithImages = projects.filter(
         (project: (typeof projects)[0]) =>
-          project.projectImage || (project.images && project.images.length > 0)
+          project.projectImage || (project.images && project.images.length > 0),
       );
 
       return NextResponse.json({
@@ -48,7 +48,7 @@ export async function GET() {
         error: error instanceof Error ? error.message : 'Unknown error',
         stack: error instanceof Error ? error.stack : undefined,
       },
-      { status: 500 }
+      { status: 500 },
     );
   }
 }

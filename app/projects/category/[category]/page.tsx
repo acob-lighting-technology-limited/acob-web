@@ -149,7 +149,7 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
                           <Image
                             src={applySanityImagePreset(
                               project.projectImage,
-                              'card'
+                              'card',
                             )}
                             alt={project.title}
                             fill

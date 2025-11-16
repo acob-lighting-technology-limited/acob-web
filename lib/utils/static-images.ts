@@ -105,7 +105,7 @@ export async function getAllProjectImages(): Promise<StaticImage[]> {
 // Deterministic selection (not random) for consistent builds
 export function selectImages(
   images: StaticImage[],
-  count: number = 4
+  count: number = 4,
 ): StaticImage[] {
   // Use a deterministic approach based on array length
   const step = Math.max(1, Math.floor(images.length / count));

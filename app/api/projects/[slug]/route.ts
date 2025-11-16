@@ -10,10 +10,7 @@ export async function GET(
     const project = await getProject(slug);
 
     if (!project) {
-      return NextResponse.json(
-        { error: 'Project not found' },
-        { status: 404 },
-      );
+      return NextResponse.json({ error: 'Project not found' }, { status: 404 });
     }
 
     return NextResponse.json(project);

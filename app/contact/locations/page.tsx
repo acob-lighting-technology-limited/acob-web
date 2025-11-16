@@ -71,7 +71,7 @@ export default function LocationsPage() {
                   <button
                     onClick={() =>
                       handleCopyAddress(
-                        'Plot 2. Block 14 Extension, Federal Ministry of Works And Housing Sites and Service Scheme, Setraco Gate Gwarinpa, Abuja, Nigeria.'
+                        'Plot 2. Block 14 Extension, Federal Ministry of Works And Housing Sites and Service Scheme, Setraco Gate Gwarinpa, Abuja, Nigeria.',
                       )
                     }
                     className="flex items-start space-x-2 p-3 rounded-lg bg-muted/30 border border-border hover:bg-muted/50 transition-colors w-full text-left group"
@@ -151,7 +151,7 @@ export default function LocationsPage() {
                   <button
                     onClick={() =>
                       handleCopyAddress(
-                        '1st Floor, Rochas Plaza, 26 Herbert Macaulay Way, Abuja, Nigeria'
+                        '1st Floor, Rochas Plaza, 26 Herbert Macaulay Way, Abuja, Nigeria',
                       )
                     }
                     className="flex items-start space-x-2 p-3 rounded-lg bg-muted/30 border border-border hover:bg-muted/50 transition-colors w-full text-left group"

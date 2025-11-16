@@ -17,11 +17,25 @@ export interface SanityImageUrl {
 }
 
 export interface ProjectImpactMetrics {
+  kwp?: number;
+  systemType?: string;
   beneficiaries?: number;
   jobsCreatedDirectly?: number;
   jobsCreatedIndirectly?: number;
   annualCO2Reduction?: number;
   annualEnergyOutput?: number;
+}
+
+export interface ProjectContent {
+  description?: 'description1' | 'description2' | 'description3' | 'custom';
+  description1Preview?: string;
+  description2Preview?: string;
+  description3Preview?: string;
+  customDescription?: PortableTextBlock[];
+  images?: Array<{
+    asset: { url: string };
+    alt?: string;
+  }>;
 }
 
 export interface Project {
@@ -34,8 +48,10 @@ export interface Project {
   };
   category: string;
   projectDate?: string;
-  content: PortableTextBlock[]; // Portable Text for rich formatting
+  content?: PortableTextBlock[]; // Legacy content (will be deprecated)
+  projectContent?: ProjectContent; // New content structure
   location: string;
+  lga?: string; // Local Government Area
   state?: string; // Nigerian state where project is located
   projectImage: string; // Single project image URL
   images?: SanityImage[]; // Sanity image references for compatibility

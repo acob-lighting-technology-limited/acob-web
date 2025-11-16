@@ -30,7 +30,7 @@ export default function ServicesPage() {
         service =>
           service.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
           service.excerpt.toLowerCase().includes(searchQuery.toLowerCase()) ||
-          service.description.toLowerCase().includes(searchQuery.toLowerCase())
+          service.description.toLowerCase().includes(searchQuery.toLowerCase()),
       );
     }
 

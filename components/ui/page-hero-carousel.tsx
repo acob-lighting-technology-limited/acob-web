@@ -154,7 +154,7 @@ export const PageHeroCarousel = React.memo(function PageHeroCarousel({
               className={cn(
                 'absolute inset-0 transition-transform duration-1000 ease-in-out',
                 position,
-                zIndex
+                zIndex,
               )}
             >
               <div className="absolute inset-0">
@@ -214,7 +214,7 @@ export const PageHeroCarousel = React.memo(function PageHeroCarousel({
                     'h-2 rounded-full transition-all duration-300',
                     index === current
                       ? 'w-8 bg-primary'
-                      : 'w-2 bg-white/50 hover:bg-white/70'
+                      : 'w-2 bg-white/50 hover:bg-white/70',
                   )}
                   aria-label={`Go to slide ${index + 1}`}
                 />

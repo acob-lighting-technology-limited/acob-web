@@ -42,7 +42,7 @@ export class NetworkErrorBoundary extends Component<Props, State> {
       console.error(
         'Network Error Boundary caught an error:',
         error,
-        errorInfo
+        errorInfo,
       );
     }
   }

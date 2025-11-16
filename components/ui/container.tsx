@@ -7,7 +7,7 @@ interface ContainerProps {
   noPadding?: boolean;
 }
 
-export function   Container({ children, className, noPadding }: ContainerProps) {
+export function Container({ children, className, noPadding }: ContainerProps) {
   return (
     <div
       className={cn(

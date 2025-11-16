@@ -18,7 +18,7 @@ export default async function LatestPage() {
   const latestPosts = posts
     .sort(
       (a: UpdatePost, b: UpdatePost) =>
-        new Date(b.publishedAt).getTime() - new Date(a.publishedAt).getTime()
+        new Date(b.publishedAt).getTime() - new Date(a.publishedAt).getTime(),
     )
     .slice(0, 10);
 
@@ -54,7 +54,7 @@ export default async function LatestPage() {
                       <Image
                         src={applySanityImagePreset(
                           latestPosts[0].featuredImage,
-                          'card'
+                          'card',
                         )}
                         alt={latestPosts[0].title}
                         fill
@@ -137,7 +137,7 @@ export default async function LatestPage() {
                         <Image
                           src={applySanityImagePreset(
                             post.featuredImage,
-                            'card'
+                            'card',
                           )}
                           alt={post.title}
                           fill

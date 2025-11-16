@@ -19,7 +19,7 @@ export async function POST(request: NextRequest) {
       {
         status: 429,
         headers: { 'Retry-After': '300' },
-      }
+      },
     );
   }
 
@@ -35,13 +35,13 @@ export async function POST(request: NextRequest) {
       'roofMaterial',
     ];
     const missingFields = requiredFields.filter(
-      field => !formData[field]?.trim()
+      field => !formData[field]?.trim(),
     );
 
     if (missingFields.length > 0) {
       return NextResponse.json(
         { error: 'Missing required fields', fields: missingFields },
-        { status: 400 }
+        { status: 400 },
       );
     }
 
@@ -53,7 +53,7 @@ export async function POST(request: NextRequest) {
           'Quote request received. Our team will contact you shortly via your preferred contact method.',
         disabled: true,
       },
-      { status: 200 }
+      { status: 200 },
     );
   } catch (error) {
     if (process.env.NODE_ENV === 'development') {
@@ -61,7 +61,7 @@ export async function POST(request: NextRequest) {
     }
     return NextResponse.json(
       { error: 'Internal server error' },
-      { status: 500 }
+      { status: 500 },
     );
   }
 }

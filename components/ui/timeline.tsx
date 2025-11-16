@@ -40,14 +40,14 @@ export function Timeline({ items, className }: TimelineProps) {
               transition={{ duration: 0.6, delay: index * 0.1 }}
               className={cn(
                 'relative flex items-center',
-                isEven ? 'flex-row' : 'flex-row-reverse'
+                isEven ? 'flex-row' : 'flex-row-reverse',
               )}
             >
               {/* Content Card */}
               <div
                 className={cn(
                   'flex-1 max-w-[280px]',
-                  isEven ? 'pr-4 text-right' : 'pl-4 text-left'
+                  isEven ? 'pr-4 text-right' : 'pl-4 text-left',
                 )}
               >
                 <Card className="group hover:shadow-lg transition-all duration-500 border-l-4 border-l-primary/20 hover:border-l-primary">
@@ -55,7 +55,7 @@ export function Timeline({ items, className }: TimelineProps) {
                     <div
                       className={cn(
                         'flex items-center gap-2 mb-2',
-                        isEven ? 'justify-end' : 'justify-start'
+                        isEven ? 'justify-end' : 'justify-start',
                       )}
                     >
                       <div className="w-6 h-6 bg-primary/10 rounded-full flex items-center justify-center group-hover:bg-primary/20 transition-colors">

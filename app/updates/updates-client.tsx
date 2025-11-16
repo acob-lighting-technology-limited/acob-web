@@ -201,7 +201,7 @@ export default function UpdatesClient({
                         <Image
                           src={applySanityImagePreset(
                             posts[0].featuredImage,
-                            'card'
+                            'card',
                           )}
                           alt={posts[0].title}
                           fill
@@ -288,7 +288,7 @@ export default function UpdatesClient({
                           <Image
                             src={applySanityImagePreset(
                               post.featuredImage,
-                              'card'
+                              'card',
                             )}
                             alt={post.title}
                             fill
@@ -377,7 +377,7 @@ export default function UpdatesClient({
                             <Image
                               src={applySanityImagePreset(
                                 post.featuredImage,
-                                'card'
+                                'card',
                               )}
                               alt={post.title}
                               fill
@@ -456,7 +456,7 @@ export default function UpdatesClient({
                 <span className="font-medium text-foreground">
                   {Math.min(
                     pagination.currentPage * pagination.limit,
-                    pagination.totalCount
+                    pagination.totalCount,
                   )}
                 </span>{' '}
                 of{' '}
@@ -471,7 +471,7 @@ export default function UpdatesClient({
                     <PaginationPrevious
                       onClick={() =>
                         handlePageChange(
-                          Math.max(1, pagination.currentPage - 1)
+                          Math.max(1, pagination.currentPage - 1),
                         )
                       }
                       className={
@@ -485,7 +485,7 @@ export default function UpdatesClient({
 
                   {Array.from(
                     { length: pagination.totalPages },
-                    (_, i) => i + 1
+                    (_, i) => i + 1,
                   ).map(page => {
                     // Show first page, last page, current page, and pages around current
                     if (
@@ -525,8 +525,8 @@ export default function UpdatesClient({
                         handlePageChange(
                           Math.min(
                             pagination.totalPages,
-                            pagination.currentPage + 1
-                          )
+                            pagination.currentPage + 1,
+                          ),
                         )
                       }
                       className={

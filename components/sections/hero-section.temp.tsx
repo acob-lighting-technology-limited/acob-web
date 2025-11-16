@@ -115,13 +115,13 @@ export const HeroSection = React.memo(function HeroSection({
             key={slide.id}
             className={cn(
               'absolute inset-0 transition-opacity duration-1000',
-              index === current ? 'opacity-100 z-10' : 'opacity-0 z-0'
+              index === current ? 'opacity-100 z-10' : 'opacity-0 z-0',
             )}
           >
             <div
               className={cn(
                 'absolute inset-0',
-                index === current && 'animate-ken-burns'
+                index === current && 'animate-ken-burns',
               )}
             >
               <Image
@@ -203,7 +203,7 @@ export const HeroSection = React.memo(function HeroSection({
                     'h-2 rounded-full transition-all duration-300',
                     index === current
                       ? 'w-8 bg-primary'
-                      : 'w-2 bg-white/50 hover:bg-white/70'
+                      : 'w-2 bg-white/50 hover:bg-white/70',
                   )}
                   aria-label={`Go to slide ${index + 1}`}
                 />

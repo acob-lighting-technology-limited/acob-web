@@ -72,7 +72,7 @@ export function ShareCopy({ className, title, url }: ShareCopyProps) {
     window.open(
       socialShareUrl,
       '_blank',
-      'width=600,height=400,scrollbars=yes,resizable=yes'
+      'width=600,height=400,scrollbars=yes,resizable=yes',
     );
   };
 

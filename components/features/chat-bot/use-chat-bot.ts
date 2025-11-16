@@ -14,7 +14,7 @@ const RATE_LIMIT_TIMESTAMP_KEY = 'acob_chat_timestamp';
  */
 export function useChatBot() {
   const [navigationRoutes, setNavigationRoutes] = useState<Map<string, string>>(
-    new Map()
+    new Map(),
   );
   const [messageCount, setMessageCount] = useState(0);
   const [rateLimitReached, setRateLimitReached] = useState(false);

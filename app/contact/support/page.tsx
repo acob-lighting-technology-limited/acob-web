@@ -99,7 +99,7 @@ export default function SupportPage() {
                             {contacts.map((item, i) => {
                               // Check if it's a phone number
                               const isPhone = /^\+?\d[\d\s-]+$/.test(
-                                item.trim()
+                                item.trim(),
                               );
                               if (isPhone) {
                                 const phoneNumber = item.replace(/\s/g, '');
@@ -125,7 +125,7 @@ export default function SupportPage() {
                           </div>
                         </div>
                       </div>
-                    )
+                    ),
                   )}
                 </div>
               </CardContent>

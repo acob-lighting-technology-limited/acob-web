@@ -14,7 +14,7 @@ export function addSanityImageParams(
     fit?: 'crop' | 'fill' | 'fillmax' | 'max' | 'scale' | 'min';
     auto?: 'format';
     q?: number;
-  }
+  },
 ): string {
   if (!imageUrl) {
     return imageUrl;
@@ -91,7 +91,7 @@ export const SANITY_IMAGE_PRESETS = {
  */
 export function applySanityImagePreset(
   imageUrl: string,
-  preset: keyof typeof SANITY_IMAGE_PRESETS
+  preset: keyof typeof SANITY_IMAGE_PRESETS,
 ): string {
   return addSanityImageParams(imageUrl, SANITY_IMAGE_PRESETS[preset]);
 }

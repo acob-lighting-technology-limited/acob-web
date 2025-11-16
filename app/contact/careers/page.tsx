@@ -196,14 +196,14 @@ export default function CareersPage() {
                                 <span>
                                   Deadline:{' '}
                                   {new Date(
-                                    job.applicationDeadline
+                                    job.applicationDeadline,
                                   ).toLocaleDateString()}
                                 </span>
                               </div>
                             )}
                           </div>
                         </div>
-                      )
+                      ),
                     )}
                   </div>
                 ) : (
