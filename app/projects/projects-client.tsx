@@ -250,7 +250,9 @@ export default function ProjectsClient({
                       {/* Description */}
                       <p className="text-sm text-muted-foreground leading-relaxed line-clamp-3 mb-4 flex-1">
                         {projects[0].excerpt ||
-                          extractTextFromPortableText(projects[0].content)}
+                          extractTextFromPortableText(
+                            projects[0].content || [],
+                          )}
                       </p>
 
                       {/* View Project Link */}
@@ -333,7 +335,7 @@ export default function ProjectsClient({
                         {/* Description */}
                         <p className="text-sm text-muted-foreground leading-relaxed line-clamp-3 mb-4 flex-1">
                           {project.excerpt ||
-                            extractTextFromPortableText(project.content)}
+                            extractTextFromPortableText(project.content || [])}
                         </p>
 
                         {/* View Project Link */}
@@ -418,7 +420,9 @@ export default function ProjectsClient({
                           {/* Description */}
                           <p className="text-sm text-muted-foreground leading-relaxed line-clamp-3 mb-4 flex-1">
                             {project.excerpt ||
-                              extractTextFromPortableText(project.content)}
+                              extractTextFromPortableText(
+                                project.content || [],
+                              )}
                           </p>
 
                           {/* View Project Link */}
