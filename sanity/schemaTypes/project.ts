@@ -469,15 +469,12 @@ As part of ACOB Lighting Technology's clean energy investments, this project dem
               subtitle: 'commentContent',
               media: 'isApproved',
             },
-            prepare({
-              title,
-              subtitle,
-              media,
-            }: {
-              title: string;
-              subtitle: string;
-              media: boolean;
-            }) {
+            prepare(selection: Record<string, any>) {
+              const { title, subtitle, media } = selection as {
+                title: string;
+                subtitle: string;
+                media: boolean;
+              };
               return {
                 title: title,
                 subtitle:
