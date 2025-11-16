@@ -113,12 +113,16 @@ export function validateRequiredFields(
   data: Record<string, unknown>,
   requiredFields: string[]
 ): { isValid: boolean; missingFields: string[] } {
-  const missingFields = requiredFields.filter(
-    field =>
-      data[field] === undefined ||
-      data[field] === null ||
-      (typeof data[field] === 'string' && !data[field].trim())
-  );
+  const missingFields = requiredFields.filter(field => {
+    const value = data[field];
+    if (value === undefined || value === null) {
+      return true;
+    }
+    if (typeof value === 'string') {
+      return value.trim().length === 0;
+    }
+    return false;
+  });
 
   return {
     isValid: missingFields.length === 0,
