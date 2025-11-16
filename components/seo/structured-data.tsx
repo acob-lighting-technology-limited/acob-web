@@ -3,9 +3,9 @@ export function StructuredData() {
     '@context': 'https://schema.org',
     '@type': 'Organization',
     name: 'ACOB Lighting Technology Limited',
-    url: 'https://acoblighting.com',
-    logo: 'https://acoblighting.com/images/acob-logo-dark.webp',
-    image: 'https://acoblighting.com/images/olooji-community.webp',
+    url: 'https://new.acoblighting.com',
+    logo: 'https://new.acoblighting.com/images/acob-logo-dark.webp',
+    image: 'https://new.acoblighting.com/images/olooji-community.webp',
     description:
       'Leading supplier of solar materials for manufacturers, installers & contractors. Mini-grid solutions, captive power systems, and professional energy audits.',
     address: {
@@ -70,14 +70,15 @@ export function StructuredData() {
     '@context': 'https://schema.org',
     '@type': 'WebSite',
     name: 'ACOB Lighting Technology Limited',
-    url: 'https://acoblighting.com',
+    url: 'https://new.acoblighting.com',
     description:
       'Leading supplier of solar materials for manufacturers, installers & contractors',
     potentialAction: {
       '@type': 'SearchAction',
       target: {
         '@type': 'EntryPoint',
-        urlTemplate: 'https://acoblighting.com/search?q={search_term_string}',
+        urlTemplate:
+          'https://new.acoblighting.com/search?q={search_term_string}',
       },
       'query-input': 'required name=search_term_string',
     },

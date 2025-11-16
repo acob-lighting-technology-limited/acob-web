@@ -1,6 +1,6 @@
 /** @type {import('next-sitemap').IConfig} */
 export default {
-  siteUrl: process.env.SITE_URL || 'https://acoblighting.com',
+  siteUrl: process.env.SITE_URL || 'https://new.acoblighting.com',
   generateRobotsTxt: false, // We already have a custom robots.txt
   generateIndexSitemap: false,
   exclude: ['/studio/*', '/api/*', '/_next/*', '/404', '/500'],
@@ -12,7 +12,7 @@ export default {
         disallow: ['/studio/', '/api/', '/_next/'],
       },
     ],
-    additionalSitemaps: ['https://acoblighting.com/sitemap.xml'],
+    additionalSitemaps: ['https://new.acoblighting.com/sitemap.xml'],
   },
   changefreq: 'weekly',
   priority: 0.7,

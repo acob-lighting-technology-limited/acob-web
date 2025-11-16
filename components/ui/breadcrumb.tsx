@@ -19,7 +19,7 @@ export function generateBreadcrumbSchema(items: BreadcrumbItemData[]) {
       '@type': 'ListItem',
       position: index + 1,
       name: item.label,
-      item: item.href ? `https://acoblighting.com${item.href}` : undefined,
+      item: item.href ? `https://new.acoblighting.com${item.href}` : undefined,
     })),
   };
 }

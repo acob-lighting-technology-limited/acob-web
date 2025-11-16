@@ -59,7 +59,7 @@ export async function generateMetadata({
         service.excerpt ||
         `Learn about ${service.title} services from ACOB Lighting.`,
       type: 'website',
-      url: `https://acoblighting.com/services/${slug}`,
+      url: `https://new.acoblighting.com/services/${slug}`,
     },
     twitter: {
       card: 'summary_large_image',

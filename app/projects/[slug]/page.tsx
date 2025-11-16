@@ -62,7 +62,7 @@ export async function generateMetadata({
         project.description ||
         `Explore ${project.title} project by ACOB Lighting.`,
       type: 'website',
-      url: `https://acoblighting.com/projects/${slug}`,
+      url: `https://new.acoblighting.com/projects/${slug}`,
     },
     twitter: {
       card: 'summary_large_image',
