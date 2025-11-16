@@ -54,10 +54,10 @@ export const metadata: Metadata = {
     locale: 'en_US',
     images: [
       {
-        url: '/images/acob-logo-dark.webp',
+        url: 'https://acoblighting.com/images/olooji-community.webp',
         width: 1200,
         height: 630,
-        alt: 'ACOB Lighting Technology Limited',
+        alt: 'ACOB Lighting Solar Energy Solutions - Mini-Grid Projects Across Nigeria',
       },
     ],
   },
@@ -67,7 +67,7 @@ export const metadata: Metadata = {
     description:
       'Leading supplier of solar materials and mini-grid solutions for manufacturers, installers & contractors across Nigeria.',
     creator: '@acoblighting',
-    images: ['/images/acob-logo-dark.webp'],
+    images: ['https://acoblighting.com/images/olooji-community.webp'],
   },
   robots: {
     index: true,
