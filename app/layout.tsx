@@ -17,6 +17,7 @@ import { Analytics } from '@vercel/analytics/react';
 import { SpeedInsights } from '@vercel/speed-insights/next';
 import { AnnouncementBanner } from '@/components/ui/announcement-banner';
 import { getActiveJobCount } from '@/sanity/lib/client';
+import { StructuredData } from '@/components/seo/structured-data';
 
 const plusJakarta = Plus_Jakarta_Sans({
   subsets: ['latin'],
@@ -93,6 +94,7 @@ export default async function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <body className={`${plusJakarta.className} ${plusJakarta.variable}`}>
+        <StructuredData />
         <Providers>
           <NProgressProvider>
             <SkipNavigation />

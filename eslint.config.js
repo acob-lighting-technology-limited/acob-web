@@ -37,6 +37,7 @@ export default [
         HTMLIFrameElement: 'readonly',
         HTMLParagraphElement: 'readonly',
         HTMLHeadingElement: 'readonly',
+        HTMLLinkElement: 'readonly',
         SVGSVGElement: 'readonly',
         Element: 'readonly',
         Node: 'readonly',

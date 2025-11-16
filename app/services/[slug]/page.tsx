@@ -1,4 +1,7 @@
-import { Breadcrumb } from '@/components/ui/breadcrumb';
+import {
+  Breadcrumb,
+  generateBreadcrumbSchema,
+} from '@/components/ui/breadcrumb';
 import { Container } from '@/components/ui/container';
 import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
@@ -38,6 +41,12 @@ export async function generateMetadata({
     };
   }
 
+  const breadcrumbItems = [
+    { label: 'Home', href: '/' },
+    { label: 'Services', href: '/services' },
+    { label: service.title },
+  ];
+
   return {
     title: `${service.title} - ACOB Lighting Technology Limited`,
     description:
@@ -58,6 +67,11 @@ export async function generateMetadata({
       description:
         service.excerpt ||
         `Learn about ${service.title} services from ACOB Lighting.`,
+    },
+    other: {
+      'application/ld+json': JSON.stringify(
+        generateBreadcrumbSchema(breadcrumbItems)
+      ),
     },
   };
 }
