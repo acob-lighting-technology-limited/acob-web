@@ -10,6 +10,20 @@ interface BreadcrumbItemData {
   href?: string;
 }
 
+// Generate breadcrumb schema for SEO
+export function generateBreadcrumbSchema(items: BreadcrumbItemData[]) {
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: items.map((item, index) => ({
+      '@type': 'ListItem',
+      position: index + 1,
+      name: item.label,
+      item: item.href ? `https://acoblighting.com${item.href}` : undefined,
+    })),
+  };
+}
+
 interface BreadcrumbProps {
   items: BreadcrumbItemData[];
   className?: string;
@@ -29,11 +43,16 @@ const Breadcrumb = React.forwardRef<
       <div key={index} className="flex items-center">
         {index > 0 && <ChevronRight className="h-4 w-4 text-gray-400 mx-2" />}
         {item.href ? (
-          <Link href={item.href} className="text-gray-600 hover:text-primary line-clamp-1">
+          <Link
+            href={item.href}
+            className="text-gray-600 hover:text-primary line-clamp-1"
+          >
             {item.label}
           </Link>
         ) : (
-          <span className="text-foreground-2 font-medium line-clamp-1">{item.label}</span>
+          <span className="text-foreground-2 font-medium line-clamp-1">
+            {item.label}
+          </span>
         )}
       </div>
     ))}
@@ -49,7 +68,7 @@ const BreadcrumbList = React.forwardRef<
     ref={ref}
     className={cn(
       'flex flex-wrap items-center gap-1.5 break-words text-sm text-muted-foreground sm:gap-2.5',
-      className,
+      className
     )}
     {...props}
   />

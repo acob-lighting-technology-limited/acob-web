@@ -9,7 +9,10 @@ import {
 import { notFound } from 'next/navigation';
 import type { UpdatePost, Comment } from '@/lib/types';
 import { Container } from '@/components/ui/container';
-import { Breadcrumb } from '@/components/ui/breadcrumb';
+import {
+  Breadcrumb,
+  generateBreadcrumbSchema,
+} from '@/components/ui/breadcrumb';
 import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { ArrowRight, Calendar } from 'lucide-react';
@@ -49,6 +52,12 @@ export async function generateMetadata({
     };
   }
 
+  const breadcrumbItems = [
+    { label: 'Home', href: '/' },
+    { label: 'Updates', href: '/updates' },
+    { label: post.title },
+  ];
+
   return {
     title: `${post.title} - ACOB Lighting Technology Limited`,
     description:
@@ -69,6 +78,11 @@ export async function generateMetadata({
       title: `${post.title} - ACOB Lighting Technology Limited`,
       description:
         post.excerpt || `Read about ${post.title} from ACOB Lighting.`,
+    },
+    other: {
+      'application/ld+json': JSON.stringify(
+        generateBreadcrumbSchema(breadcrumbItems)
+      ),
     },
   };
 }
@@ -102,34 +116,33 @@ export default async function UpdatePostPage({ params }: UpdatePostPageProps) {
       <Container className="px-4 py-8">
         <Breadcrumb items={breadcrumbItems} className="mb-8" />
 
-        <div className="space-y-4 ">
+        <div className="space-y-4">
           <Card className="">
-            <CardContent className="p-4 sm:p-6 xl:p-8 space-y-8 ">
-              {/* Article Content Title */}
-              <h2 className="text-3xl font-bold mb-6 text-foreground">
-                Article Content
-              </h2>
-
-              {/* Post Metadata */}
-              <div className="flex items-center text-sm text-muted-foreground mb-6">
-                <span>{post.author}</span>
-                <span className="mx-2">•</span>
-                <Calendar className="w-4 h-4 mx-2" />
-                <span>{new Date(post.publishedAt).toLocaleDateString()}</span>
-                {post.category && (
-                  <>
-                    <span className="mx-2">•</span>
-                    <span className="bg-primary text-white px-2 py-1 rounded text-xs">
-                      {post.category === 'news'
-                        ? 'News'
-                        : post.category === 'case-studies'
-                          ? 'Case Studies'
-                          : post.category === 'press-releases'
-                            ? 'Press Releases'
-                            : post.category}
-                    </span>
-                  </>
-                )}
+            <CardContent className="p-4 sm:p-6 xl:p-8 space-y-8">
+              {/* Post Header */}
+              <div>
+                <div className="flex items-center text-sm text-gray-600 mb-4">
+                  <span>{new Date(post.publishedAt).toLocaleDateString()}</span>
+                  <span className="mx-2">•</span>
+                  <span>{post.author}</span>
+                  {post.category && (
+                    <>
+                      <span className="mx-2">•</span>
+                      <span className="bg-primary text-white px-2 py-1 rounded text-xs">
+                        {post.category === 'news'
+                          ? 'News'
+                          : post.category === 'case-studies'
+                            ? 'Case Studies'
+                            : post.category === 'press-releases'
+                              ? 'Press Releases'
+                              : post.category}
+                      </span>
+                    </>
+                  )}
+                </div>
+                <h1 className="text-4xl font-bold text-card-foreground mb-4">
+                  {post.title}
+                </h1>
               </div>
 
               {/* Post Content - Wrapped in flex for image grid */}

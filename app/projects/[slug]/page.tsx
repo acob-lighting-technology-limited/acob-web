@@ -1,4 +1,7 @@
-import { Breadcrumb } from '@/components/ui/breadcrumb';
+import {
+  Breadcrumb,
+  generateBreadcrumbSchema,
+} from '@/components/ui/breadcrumb';
 import { Container } from '@/components/ui/container';
 import { Button } from '@/components/ui/button';
 import { ArrowRight, MapPin, Calendar } from 'lucide-react';
@@ -41,6 +44,12 @@ export async function generateMetadata({
     };
   }
 
+  const breadcrumbItems = [
+    { label: 'Home', href: '/' },
+    { label: 'Projects', href: '/projects' },
+    { label: project.title },
+  ];
+
   return {
     title: `${project.title} - ACOB Lighting Technology Limited`,
     description:
@@ -61,6 +70,11 @@ export async function generateMetadata({
       description:
         project.description ||
         `Explore ${project.title} project by ACOB Lighting.`,
+    },
+    other: {
+      'application/ld+json': JSON.stringify(
+        generateBreadcrumbSchema(breadcrumbItems)
+      ),
     },
   };
 }
