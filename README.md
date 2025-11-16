@@ -49,17 +49,13 @@ ACOB Lighting Technology Limited, founded in 2016 and led by CEO Mr. Alexander C
 - Node.js 18+
 - npm, yarn, pnpm, or bun
 - Sanity account (for CMS)
+- Authorized access to this private repository
 
-## 🔧 Installation
+## 🔧 Development Setup
 
-1. **Clone the repository**
+**Note:** This repository is private and accessible only to authorized ACOB Lighting Technology team members.
 
-   ```bash
-   git clone https://github.com/your-org/ACOB.git
-   cd ACOB
-   ```
-
-2. **Install dependencies**
+1. **Install dependencies**
 
    ```bash
    npm install
@@ -69,7 +65,7 @@ ACOB Lighting Technology Limited, founded in 2016 and led by CEO Mr. Alexander C
    pnpm install
    ```
 
-3. **Set up environment variables**
+2. **Set up environment variables**
 
    ```bash
    cp .env.example .env.local
@@ -83,7 +79,7 @@ ACOB Lighting Technology Limited, founded in 2016 and led by CEO Mr. Alexander C
    SANITY_API_TOKEN=your_api_token
    ```
 
-4. **Run the development server**
+3. **Run the development server**
 
    ```bash
    npm run dev
@@ -93,7 +89,7 @@ ACOB Lighting Technology Limited, founded in 2016 and led by CEO Mr. Alexander C
    pnpm dev
    ```
 
-5. **Open [http://localhost:3000](http://localhost:3000)** in your browser
+4. **Open [http://localhost:3000](http://localhost:3000)** in your browser
 
 ## 📁 Project Structure
 
