@@ -28,6 +28,7 @@ export const PageHeroCarousel = React.memo(function PageHeroCarousel({
   const touchStartX = useRef<number>(0);
   const touchEndX = useRef<number>(0);
   const autoPlayTimerRef = useRef<NodeJS.Timeout | null>(null);
+  const imageRefsMap = useRef<Map<number, HTMLDivElement>>(new Map());
 
   const slides = useMemo(() => {
     if (!images || images.length === 0) {
@@ -82,6 +83,17 @@ export const PageHeroCarousel = React.memo(function PageHeroCarousel({
     setCurrent(prev => (prev === 0 ? slides.length - 1 : prev - 1));
   };
 
+  // Restart animation when slide becomes current
+  useEffect(() => {
+    const currentImageDiv = imageRefsMap.current.get(current);
+    if (currentImageDiv) {
+      // Force reflow to restart animation
+      currentImageDiv.style.animation = 'none';
+      void currentImageDiv.offsetHeight; // Trigger reflow
+      currentImageDiv.style.animation = 'ken-burns 25s ease-out forwards';
+    }
+  }, [current]);
+
   // Handle touch events for swipe gestures
   const handleTouchStart = (e: React.TouchEvent) => {
     touchStartX.current = e.touches[0].clientX;
@@ -135,7 +147,7 @@ export const PageHeroCarousel = React.memo(function PageHeroCarousel({
       onTouchEnd={handleTouchEnd}
     >
       {/* Background Images with seamless carousel transition */}
-      <div className="absolute inset-0">
+      <div className="absolute inset-0 bg-black">
         {slides.map((slide, index) => {
           let position = 'translate-x-full'; // Default: off-screen right
           let zIndex = 'z-0';
@@ -156,17 +168,36 @@ export const PageHeroCarousel = React.memo(function PageHeroCarousel({
                 position,
                 zIndex,
               )}
+              style={{
+                backfaceVisibility: 'hidden',
+                WebkitBackfaceVisibility: 'hidden',
+              }}
             >
-              <div className="absolute inset-0">
-                <Image
-                  src={slide.src}
-                  alt={slide.alt}
-                  fill
-                  className="object-cover"
-                  priority={index === 0}
-                  quality={95}
-                  sizes="100vw"
-                />
+              <div className="absolute inset-0 overflow-hidden bg-black">
+                <div
+                  ref={el => {
+                    if (el) {
+                      imageRefsMap.current.set(index, el);
+                    }
+                  }}
+                  className="absolute inset-0"
+                  style={{
+                    transform: 'scale(1) translateZ(0)',
+                    backfaceVisibility: 'hidden',
+                    WebkitBackfaceVisibility: 'hidden',
+                    WebkitTransform: 'scale(1) translateZ(0)',
+                  }}
+                >
+                  <Image
+                    src={slide.src}
+                    alt={slide.alt}
+                    fill
+                    className="object-cover"
+                    priority={index === 0}
+                    quality={95}
+                    sizes="100vw"
+                  />
+                </div>
               </div>
               {/* Dark overlay */}
               <div className="absolute inset-0 bg-gradient-to-r from-black/70 via-black/50 to-black/30" />
@@ -178,7 +209,15 @@ export const PageHeroCarousel = React.memo(function PageHeroCarousel({
 
       {/* Content Overlay - Title and Description */}
       {(title || description) && (
-        <div className="absolute inset-0 z-20 flex items-end pb-10">
+        <div
+          className="absolute inset-0 z-20 flex items-end pb-10"
+          style={{
+            backfaceVisibility: 'hidden',
+            WebkitBackfaceVisibility: 'hidden',
+            transform: 'translateZ(0)',
+            WebkitTransform: 'translateZ(0)',
+          }}
+        >
           <div className="2xl:container max-w-7xl mx-auto px-4 w-full">
             <div className="text-white max-w-5xl space-y-3">
               {/* Title with background badge */}
@@ -192,9 +231,18 @@ export const PageHeroCarousel = React.memo(function PageHeroCarousel({
 
               {/* Description as main heading */}
               {description && (
-                <MaskText className="text-3xl md:text-4xl lg:text-5xl font-bold">
-                  {description}
-                </MaskText>
+                <div
+                  style={{
+                    backfaceVisibility: 'hidden',
+                    WebkitBackfaceVisibility: 'hidden',
+                    transform: 'translateZ(0)',
+                    WebkitTransform: 'translateZ(0)',
+                  }}
+                >
+                  <MaskText className="text-3xl md:text-4xl lg:text-5xl font-bold">
+                    {description}
+                  </MaskText>
+                </div>
               )}
             </div>
           </div>
