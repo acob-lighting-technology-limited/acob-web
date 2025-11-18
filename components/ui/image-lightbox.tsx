@@ -19,6 +19,10 @@ export function ImageLightbox({
   onClose,
 }: ImageLightboxProps) {
   const [currentIndex, setCurrentIndex] = useState(initialIndex);
+  const [previousIndex, setPreviousIndex] = useState(initialIndex);
+  const [slideDirection, setSlideDirection] = useState<'left' | 'right' | null>(
+    null,
+  );
   const [isZoomed, setIsZoomed] = useState(false);
   const touchStartX = useRef<number>(0);
   const touchEndX = useRef<number>(0);
@@ -113,14 +117,20 @@ export function ImageLightbox({
   }, [isOpen]);
 
   const handleNext = useCallback(() => {
+    setPreviousIndex(currentIndex);
+    setSlideDirection('left'); // Slide current image to left, new image comes from right
     setCurrentIndex(prev => (prev + 1) % images.length);
     setIsZoomed(false);
-  }, [images.length]);
+    setTimeout(() => setSlideDirection(null), 500);
+  }, [images.length, currentIndex]);
 
   const handlePrevious = useCallback(() => {
+    setPreviousIndex(currentIndex);
+    setSlideDirection('right'); // Slide current image to right, new image comes from left
     setCurrentIndex(prev => (prev - 1 + images.length) % images.length);
     setIsZoomed(false);
-  }, [images.length]);
+    setTimeout(() => setSlideDirection(null), 500);
+  }, [images.length, currentIndex]);
 
   const toggleZoom = () => {
     setIsZoomed(!isZoomed);
@@ -230,27 +240,64 @@ export function ImageLightbox({
         className="absolute inset-0 flex items-center justify-center p-4 sm:p-8"
         onClick={e => e.stopPropagation()}
       >
-        <div
-          className={cn(
-            'relative w-full h-full flex items-center justify-center transition-transform duration-300',
-            isZoomed && 'scale-150 cursor-move overflow-auto',
-          )}
-        >
-          <div className="relative w-full h-full">
-            <Image
-              src={images[currentIndex]?.src || ''}
-              alt={images[currentIndex]?.alt || ''}
-              fill
+        <div className="relative w-full h-full overflow-hidden">
+          {/* Previous Image (sliding out) */}
+          {slideDirection && previousIndex !== currentIndex && (
+            <div
+              key={`prev-${previousIndex}`}
               className={cn(
-                'object-contain transition-all duration-300',
-                isZoomed && 'object-cover',
+                'absolute inset-0 flex items-center justify-center',
+                slideDirection === 'left' && 'slide-out-left',
+                slideDirection === 'right' && 'slide-out-right',
               )}
-              sizes="100vw"
-              priority
-              quality={95}
-              loading="eager"
-              unoptimized
-            />
+              style={{
+                backfaceVisibility: 'hidden',
+                WebkitBackfaceVisibility: 'hidden',
+              }}
+            >
+              <div className="relative w-full h-full">
+                <Image
+                  src={images[previousIndex]?.src || ''}
+                  alt={images[previousIndex]?.alt || ''}
+                  fill
+                  className="object-contain"
+                  sizes="100vw"
+                  quality={95}
+                />
+              </div>
+            </div>
+          )}
+
+          {/* Current Image (sliding in from appropriate side) */}
+          <div
+            key={`current-${currentIndex}`}
+            className={cn(
+              'absolute inset-0 flex items-center justify-center',
+              slideDirection === 'left' && 'slide-in-from-right',
+              slideDirection === 'right' && 'slide-in-from-left',
+              isZoomed && 'scale-150 cursor-move overflow-auto',
+            )}
+            style={{
+              backfaceVisibility: 'hidden',
+              WebkitBackfaceVisibility: 'hidden',
+            }}
+          >
+            <div className="relative w-full h-full">
+              <Image
+                src={images[currentIndex]?.src || ''}
+                alt={images[currentIndex]?.alt || ''}
+                fill
+                className={cn(
+                  'object-contain transition-all duration-300',
+                  isZoomed && 'object-cover',
+                )}
+                sizes="100vw"
+                priority
+                quality={95}
+                loading="eager"
+                unoptimized
+              />
+            </div>
           </div>
         </div>
       </div>
