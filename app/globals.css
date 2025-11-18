@@ -172,17 +172,22 @@
 @keyframes ken-burns {
   from {
     transform: scale(1) translateZ(0);
+    -webkit-transform: scale(1) translateZ(0);
   }
   to {
     transform: scale(1.15) translateZ(0);
+    -webkit-transform: scale(1.15) translateZ(0);
   }
 }
 
 .hero-slide-zoom {
   animation: ken-burns 25s ease-out forwards;
-  will-change: transform;
+  -webkit-animation: ken-burns 25s ease-out forwards;
   transform: scale(1) translateZ(0);
+  -webkit-transform: scale(1) translateZ(0);
   backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  -webkit-font-smoothing: antialiased;
 }
 
 @keyframes accordion-down {
