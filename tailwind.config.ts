@@ -179,7 +179,7 @@ const config: Config = {
             transform: 'scale(1)',
           },
           '100%': {
-            transform: 'scale(1.2)',
+            transform: 'scale(1.15)',
           },
         },
       },
@@ -194,7 +194,7 @@ const config: Config = {
         shimmer: 'shimmer 3s ease-in-out infinite',
         'enhanced-pulse':
           'enhanced-pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite',
-        'ken-burns': 'ken-burns 20s linear infinite',
+        'ken-burns': 'ken-burns 30s linear forwards',
       },
     },
   },
