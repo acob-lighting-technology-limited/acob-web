@@ -110,7 +110,7 @@ export const HeroSection = React.memo(function HeroSection({
   return (
     <section className="relative h-[calc(100vh-4rem)] w-full overflow-hidden bg-black">
       {/* Background Images with Ken Burns Effect */}
-      <div className="absolute inset-0">
+      <div className="absolute inset-0 bg-black">
         {allSlides.map((slide, index) => (
           <div
             key={slide.id}
@@ -118,8 +118,12 @@ export const HeroSection = React.memo(function HeroSection({
               'absolute inset-0 transition-opacity duration-1000',
               index === current ? 'opacity-100 z-10' : 'opacity-0 z-0',
             )}
+            style={{
+              backfaceVisibility: 'hidden',
+              WebkitBackfaceVisibility: 'hidden',
+            }}
           >
-            <div className="absolute inset-0 overflow-hidden">
+            <div className="absolute inset-0 overflow-hidden bg-black">
               <div
                 ref={el => {
                   if (el) {
@@ -129,8 +133,9 @@ export const HeroSection = React.memo(function HeroSection({
                 className="absolute inset-0"
                 style={{
                   transform: 'scale(1) translateZ(0)',
-                  willChange: 'transform',
                   backfaceVisibility: 'hidden',
+                  WebkitBackfaceVisibility: 'hidden',
+                  WebkitTransform: 'scale(1) translateZ(0)',
                 }}
               >
                 <Image
@@ -152,7 +157,15 @@ export const HeroSection = React.memo(function HeroSection({
       </div>
 
       {/* Content */}
-      <div className="relative z-20 h-full flex items-end pb-6 lg:pb-6">
+      <div
+        className="relative z-20 h-full flex items-end pb-6 lg:pb-6"
+        style={{
+          backfaceVisibility: 'hidden',
+          WebkitBackfaceVisibility: 'hidden',
+          transform: 'translateZ(0)',
+          WebkitTransform: 'translateZ(0)',
+        }}
+      >
         <div className=" px-4 sm:px-8 pb-6 sm:pb-2">
           <div className="w-full">
             {/* Left Content */}
@@ -162,12 +175,21 @@ export const HeroSection = React.memo(function HeroSection({
               </Badge>
 
               <div className="space-y-3">
-                <MaskText
-                  phrases={[
-                    'Powering sustainable futures for homes, businesses, and communities.',
-                  ]}
-                  className="font-bold leading-tight text-3xl sm:text-4xl md:text-4xl lg:text-5xl text-white"
-                />
+                <div
+                  style={{
+                    backfaceVisibility: 'hidden',
+                    WebkitBackfaceVisibility: 'hidden',
+                    transform: 'translateZ(0)',
+                    WebkitTransform: 'translateZ(0)',
+                  }}
+                >
+                  <MaskText
+                    phrases={[
+                      'Powering sustainable futures for homes, businesses, and communities.',
+                    ]}
+                    className="font-bold leading-tight text-3xl sm:text-4xl md:text-4xl lg:text-5xl text-white"
+                  />
+                </div>
                 <p className="max-w-xl text-sm md:text-base text-gray-200">
                   We deliver dependable solar, mini-grid, and energy storage
                   solutions that unlock productivity and resilience for
@@ -231,7 +253,16 @@ export const HeroSection = React.memo(function HeroSection({
         <div className="2xl:container max-w-7xl mx-auto px-4">
           <div className="flex justify-end">
             <div className="relative overflow-hidden p-3 pb-2 max-w-md mr-6">
-              <div className="space-y-2">
+              <div
+                key={`project-info-${current}`}
+                className="space-y-2"
+                style={{
+                  backfaceVisibility: 'hidden',
+                  WebkitBackfaceVisibility: 'hidden',
+                  transform: 'translateZ(0)',
+                  WebkitTransform: 'translateZ(0)',
+                }}
+              >
                 <div className="flex items-start gap-2 text-sm text-gray-200">
                   <MapPin className="h-4 w-4 flex-shrink-0 mt-0.5 text-primary" />
                   <span className="line-clamp-1">
