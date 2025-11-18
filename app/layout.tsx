@@ -11,7 +11,7 @@ import { Footer } from '@/components/layout/footer';
 import { ScrollToTop } from '@/components/ui/scroll-to-top';
 import { Toaster } from 'sonner';
 import { ChatBot } from '@/components/features/chat-bot';
-import { SkipNavigation } from '@/components/ui/skip-navigation';
+
 import { ChatErrorBoundary } from '@/components/error-boundary/error-boundary';
 import { Analytics } from '@vercel/analytics/react';
 import { SpeedInsights } from '@vercel/speed-insights/next';
@@ -97,7 +97,6 @@ export default async function RootLayout({
         <StructuredData />
         <Providers>
           <NProgressProvider>
-            <SkipNavigation />
             <Toaster
               closeButton
               position="bottom-right"
@@ -114,7 +113,7 @@ export default async function RootLayout({
                 {children}
               </main>
               <Footer />
-              <div className="z-50 fixed -bottom-8 right-0 flex flex-col gap-2 items-center w-16 h-32 sm:w-20 sm:h-40">
+              <div className="z-50 fixed -bottom-2 right-0 flex flex-col gap-2 items-center w-16 h-32 sm:w-20 sm:h-40">
                 <ScrollToTop />
                 <ChatErrorBoundary>
                   <ChatBot />
