@@ -58,6 +58,7 @@ export const HeroSection = React.memo(function HeroSection({
 
   const [current, setCurrent] = useState(0);
   const [isAnimating, setIsAnimating] = useState(false);
+  const imageRefsMap = React.useRef<Map<number, HTMLDivElement>>(new Map());
 
   // Auto-advance slides
   useEffect(() => {
@@ -78,6 +79,17 @@ export const HeroSection = React.memo(function HeroSection({
     setCurrent(prev => (prev === allSlides.length - 1 ? 0 : prev + 1));
     setTimeout(() => setIsAnimating(false), 800);
   };
+
+  // Restart animation when slide becomes current
+  useEffect(() => {
+    const currentImageDiv = imageRefsMap.current.get(current);
+    if (currentImageDiv) {
+      // Force reflow to restart animation
+      currentImageDiv.style.animation = 'none';
+      void currentImageDiv.offsetHeight; // Trigger reflow
+      currentImageDiv.style.animation = 'ken-burns 25s ease-out forwards';
+    }
+  }, [current]);
 
   const heroMetrics = useMemo(() => {
     if (!stats || stats.length === 0) {
@@ -107,21 +119,30 @@ export const HeroSection = React.memo(function HeroSection({
               index === current ? 'opacity-100 z-10' : 'opacity-0 z-0',
             )}
           >
-            <div
-              className={cn(
-                'absolute inset-0',
-                index === current && 'animate-ken-burns',
-              )}
-            >
-              <Image
-                src={slide.image}
-                alt={slide.title}
-                fill
-                className="object-cover"
-                priority={index === 0}
-                quality={95}
-                sizes="100vw"
-              />
+            <div className="absolute inset-0 overflow-hidden">
+              <div
+                ref={el => {
+                  if (el) {
+                    imageRefsMap.current.set(index, el);
+                  }
+                }}
+                className="absolute inset-0"
+                style={{
+                  transform: 'scale(1) translateZ(0)',
+                  willChange: 'transform',
+                  backfaceVisibility: 'hidden',
+                }}
+              >
+                <Image
+                  src={slide.image}
+                  alt={slide.title}
+                  fill
+                  className="object-cover"
+                  priority={index === 0}
+                  quality={95}
+                  sizes="100vw"
+                />
+              </div>
             </div>
             {/* Dark overlay for better text readability */}
             <div className="absolute inset-0 bg-gradient-to-r from-black/80 via-black/60 to-black/40" />
