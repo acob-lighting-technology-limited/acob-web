@@ -11,6 +11,7 @@ import { PageHero } from '@/components/ui/page-hero';
 import { InfoCard } from '@/components/ui/info-card';
 import { coreValues } from '@/lib/data/mission-data';
 import { AnimatedFillText } from '@/components/ui/animated-fill-text';
+import { getAboutSectionByHref } from '@/lib/data/about-data';
 
 const strategicPillars = [
   {
@@ -71,11 +72,15 @@ export default function MissionPage() {
     { label: 'Mission & Vision' },
   ];
 
+  const aboutSection = getAboutSectionByHref('/about/mission');
+
   return (
     <>
       <PageHero
         description="Building Resilient Energy Infrastructure"
-        backgroundImage="/images/about/mission-vision.webp?height=800&width=1600"
+        backgroundImage={
+          aboutSection?.image || '/images/about/mission-vision.webp'
+        }
         align="left"
       />
 

@@ -24,7 +24,7 @@ export const servicesData: ServiceData[] = [
       'Transform rural communities with reliable 24/7 solar power that reduces costs by up to 60% and creates lasting economic opportunities.',
     description:
       'Our comprehensive mini-grid solutions bring sustainable electricity to off-grid communities across Nigeria, serving over 10,000 households to date. These hybrid solar and battery systems provide consistent power for diverse needs - from residential lighting and mobile charging to commercial ice-making, agricultural cold storage, and productive enterprises like grain mills and workshops. Each mini-grid is designed with smart management technology and flexible payment systems, making clean energy accessible and affordable. Our locally-manufactured components and community-centered approach ensure long-term sustainability while creating jobs and enabling economic growth in previously underserved areas.',
-    image: '/images/olooji-community.webp',
+    image: '/images/services/mini-grid-solutions.webp',
     icon: '/images/mini-grid-solutions.webp',
     features: [
       'Scalable power solutions for communities',
@@ -101,8 +101,8 @@ export const servicesData: ServiceData[] = [
       'Competitive pricing and financing options',
     ],
     gallery: [
-      '/images/services/captive-power-solutions.webp?height=400&width=600',
-      '/images/services/captive-power-solutions-2.webp?height=400&width=600',
+      '/images/services/captive-power-solutions.webp',
+      '/images/services/captive-power-solutions-2.webp',
     ],
     category: 'Power Solutions',
   },
@@ -144,10 +144,7 @@ export const servicesData: ServiceData[] = [
       'Implementation guidance',
       'Follow-up support services',
     ],
-    gallery: [
-      // '/placeholder.svg?height=400&width=600',
-      // '/placeholder.svg?height=400&width=600',
-    ],
+    gallery: ['/images/services/professional-energy-audit.webp'],
     category: 'Consulting',
   },
   {
@@ -158,8 +155,7 @@ export const servicesData: ServiceData[] = [
       'Complete turnkey renewable energy projects delivered on time and within budget, from concept to commissioning by experienced professionals.',
     description:
       'As a leading EPC contractor, ACOB manages every aspect of your renewable energy project through a single point of responsibility. Our integrated approach combines world-class engineering design, strategic procurement of premium components, and professional construction services backed by over 8 years of industry experience. We specialize in utility-scale solar installations, commercial power systems, and complex mini-grid projects for both local and international developers. Our project management methodology ensures strict adherence to timelines, budgets, and quality standards while maintaining safety protocols throughout the construction phase. From initial feasibility studies and detailed engineering to equipment procurement, installation, testing, and final commissioning, we deliver complete solutions that meet international standards at competitive pricing.',
-    image:
-      '/images/services/engineering-procurement-construction.webp?height=400&width=600',
+    image: '/images/services/engineering-procurement-construction.webp',
     icon: '/images/services/engineering-procurement.webp',
     features: [
       'Complete project management',
@@ -190,9 +186,8 @@ export const servicesData: ServiceData[] = [
       'Comprehensive warranties',
     ],
     gallery: [
-      // '/placeholder.svg?height=400&width=600',
-      // '/placeholder.svg?height=400&width=600',
-      // '/placeholder.svg?height=400&width=600',
+      '/images/services/engineering-procurement-construction.webp',
+      '/images/services/engineering-procurement-construction-2.webp',
     ],
     category: 'Construction',
   },
@@ -238,6 +233,11 @@ export const servicesData: ServiceData[] = [
     gallery: [
       '/images/services/streetlighting_1.webp?height=400&width=600',
       '/images/services/streetlighting_2.webp?height=400&width=600',
+      '/images/services/streetlighting-1.webp',
+      '/images/services/streetlighting-2.webp',
+      '/images/services/streetlighting-3.webp',
+      '/images/services/streetlighting-4.webp',
+      '/images/services/streetlighting-5.webp',
     ],
     category: 'Infrastructure',
   },
@@ -279,9 +279,7 @@ export const servicesData: ServiceData[] = [
       'Rapid response capabilities',
       'Comprehensive service agreements',
     ],
-    gallery: [
-      '/images/services/operations-maintenance.webp?height=400&width=600',
-    ],
+    gallery: ['/images/services/operations-maintenance.webp'],
     category: 'Maintenance',
   },
 ];

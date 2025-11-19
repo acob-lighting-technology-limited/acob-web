@@ -1,4 +1,5 @@
 import { ComingSoon } from '@/components/ui/coming-soon';
+import { getAboutSectionByHref } from '@/lib/data/about-data';
 
 // Original team page content has been temporarily replaced with Coming Soon page.
 // To restore: check git history for the full implementation with team members,
@@ -11,12 +12,14 @@ export default function TeamPage() {
     { label: 'Meet Our Team' },
   ];
 
+  const aboutSection = getAboutSectionByHref('/about/team');
+
   return (
     <ComingSoon
       title="Meet Our Team"
       description="We're updating our team information. This page will be available soon!"
       breadcrumbItems={breadcrumbItems}
-      backgroundImage="/images/about/acob-team.webp?height=800&width=1600"
+      backgroundImage={aboutSection?.image || '/images/about/acob-team.webp'}
     />
   );
 }
