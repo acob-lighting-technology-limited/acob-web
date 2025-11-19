@@ -1,6 +1,5 @@
 import Link from 'next/link';
 import { ArrowLeft } from 'lucide-react';
-import * as LucideIcons from 'lucide-react';
 
 import { MaskText } from '@/components/animations/MaskText';
 import { Button } from '@/components/ui/button';
@@ -8,9 +7,8 @@ import { Breadcrumb } from '@/components/ui/breadcrumb';
 import { Card, CardContent } from '@/components/ui/card';
 import { Container } from '@/components/ui/container';
 import { PageHero } from '@/components/ui/page-hero';
-import { SectionHeader } from '@/components/ui/section-header';
 import { aboutLeadershipQuotes } from '@/lib/data/about-overview-data';
-import { milestones } from '@/lib/data/about-data';
+import { coreValues } from '@/lib/data/mission-data';
 
 export default function OurStoryPage() {
   const breadcrumbItems = [
@@ -116,48 +114,44 @@ export default function OurStoryPage() {
           </aside>
         </section>
 
-        <section className="mb-16 rounded-3xl border border-border bg-surface p-4 sm:p-6 xl:p-8 shadow-sm">
-          <SectionHeader
-            badge="Strategic Inflection Points"
-            title="Milestones that shaped our growth"
-            className="mb-8"
-          />
-
-          <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
-            {milestones.map(milestone => {
-              const IconComponent = LucideIcons[
-                milestone.icon as keyof typeof LucideIcons
-              ] as React.ComponentType<{ className?: string }>;
-
-              return (
-                <Card
-                  key={milestone.year}
-                  className="group relative overflow-hidden rounded-3xl border border-border bg-background shadow-sm transition-all duration-500 hover:-translate-y-1 hover:shadow-lg"
+        <section className="mb-16">
+          <Card className="grid items-center gap-8 rounded-3xl border border-border bg-gradient-to-r from-primary to-primary-dark p-4 py-8 sm:p-6 xl:p-8 text-white lg:grid-cols-2">
+            <div className="space-y-6">
+              <span className="inline-flex items-center rounded-full border border-white/20 px-3 py-1 text-xs font-semibold uppercase tracking-[0.25em] text-white/80">
+                Our Core Values
+              </span>
+              <h3 className="text-3xl font-semibold md:text-4xl">
+                Principles that steer every project
+              </h3>
+              <p className="text-base leading-relaxed text-white/85">
+                These values guide our engineering, community engagement, and
+                partnership decisions—ensuring consistency, accountability, and
+                positive impact.
+              </p>
+            </div>
+            <div className="space-y-4">
+              {coreValues.map(value => (
+                <div
+                  key={value.title}
+                  className="group flex items-start gap-4 rounded-3xl bg-white/10 p-4 backdrop-blur transition-all duration-500 hover:bg-white/15 hover:shadow-lg cursor-pointer"
                 >
-                  <CardContent className="p-5">
-                    <div className="mb-4 flex items-center justify-between">
-                      <div className="flex h-12 w-12 items-center justify-center rounded-full bg-primary/10 transition-all duration-500 group-hover:bg-primary group-hover:scale-110">
-                        {IconComponent && (
-                          <IconComponent className="h-6 w-6 text-primary transition-colors duration-500 group-hover:text-white" />
-                        )}
-                      </div>
-                      <span className="rounded-full bg-primary/10 px-3 py-1 text-xs font-bold text-primary">
-                        {milestone.year}
-                      </span>
-                    </div>
-
-                    <h3 className="mb-3 text-lg font-bold text-foreground transition-colors duration-500 group-hover:text-primary">
-                      {milestone.title}
-                    </h3>
-
-                    <p className="text-sm leading-relaxed text-muted-foreground">
-                      {milestone.description}
+                  <div className="relative rounded-full bg-white/20 p-3 text-white overflow-hidden transition-all duration-500 group-hover:bg-white group-hover:text-primary group-hover:scale-110">
+                    {/* Animated fill effect */}
+                    <div className="absolute inset-0 bg-white transform scale-0 transition-transform duration-500 ease-out group-hover:scale-100 rounded-full origin-center" />
+                    <value.icon className="h-6 w-6 relative z-10 transition-colors duration-500" />
+                  </div>
+                  <div className="flex-1">
+                    <h4 className="text-lg font-semibold uppercase tracking-[0.2em] transition-colors duration-500 group-hover:text-white">
+                      {value.title}
+                    </h4>
+                    <p className="mt-2 text-sm leading-relaxed text-white/80 transition-colors duration-500 group-hover:text-white/95">
+                      {value.description}
                     </p>
-                  </CardContent>
-                </Card>
-              );
-            })}
-          </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </Card>
         </section>
 
         {/* <section className="mb-16 grid gap-10 lg:grid-cols-2">

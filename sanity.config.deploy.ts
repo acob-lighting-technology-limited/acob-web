@@ -7,8 +7,8 @@ import { schemaTypes } from './sanity/schemaTypes';
 export default defineConfig({
   name: 'default',
   title: 'ACOB Lighting Blog',
-  projectId: process.env.SANITY_STUDIO_PROJECT_ID!,
-  dataset: process.env.SANITY_STUDIO_DATASET!,
+  projectId: 'x16t7huo',
+  dataset: 'production',
   // Remove basePath for standalone deployment
   plugins: [
     structureTool({
