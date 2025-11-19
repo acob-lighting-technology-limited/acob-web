@@ -1,4 +1,4 @@
-import { Target, Eye, Handshake, Sun, Zap, Lightbulb } from 'lucide-react';
+import { Target, Eye, Users, Heart, ShieldCheck, Award } from 'lucide-react';
 
 export const missionVisionData = [
   {
@@ -17,27 +17,27 @@ export const missionVisionData = [
 
 export const coreValues = [
   {
-    icon: Handshake,
-    title: 'Integrity',
+    icon: Users,
+    title: 'COLLABORATION',
     description:
-      'We operate with the highest ethical standards, ensuring transparency and honesty in all our dealings.',
+      'Synergizing diversities and harnessing cross-sectoral competencies in satisfying our customer needs while identifying and leveraging on stakeholder partnership and relationship management in advancing and meeting our vision and mission.',
   },
   {
-    icon: Lightbulb,
-    title: 'Innovation',
+    icon: Heart,
+    title: 'LOYALTY',
     description:
-      'We continuously seek and implement cutting-edge technologies to deliver superior energy solutions.',
+      'Consistently building and maintaining a culture of trust and dedication to our brand by ensuring our client gets top-notch service delivery through innovative and value driven solutions.',
   },
   {
-    icon: Zap,
-    title: 'Excellence',
+    icon: ShieldCheck,
+    title: 'ACCOUNTABILITY',
     description:
-      'We are committed to delivering exceptional quality in our products, services, and customer experience.',
+      'Sustaining a culture of transparency while imbibing the high ethos of integrity, responsibility and reliability in the management of our customer and stakeholder engagements.',
   },
   {
-    icon: Sun,
-    title: 'Sustainability',
+    icon: Award,
+    title: 'PROFESSIONALISM',
     description:
-      'Our solutions are designed to protect the environment and promote long-term energy security.',
+      'We pride ourselves in deploying efficient solutions while imbibing high ethical standards in service delivery to stakeholders in line with international best practices.',
   },
 ];

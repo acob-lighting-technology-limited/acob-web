@@ -1,17 +1,16 @@
 'use client';
 import Link from 'next/link';
 import { ArrowLeft } from 'lucide-react';
+import * as LucideIcons from 'lucide-react';
 
-import { MaskText } from '@/components/animations/MaskText';
 import { Button } from '@/components/ui/button';
 import { Breadcrumb } from '@/components/ui/breadcrumb';
 import { Card, CardContent } from '@/components/ui/card';
 import { Container } from '@/components/ui/container';
 import { PageHero } from '@/components/ui/page-hero';
 import { InfoCard } from '@/components/ui/info-card';
-import { coreValues } from '@/lib/data/mission-data';
-import { AnimatedFillText } from '@/components/ui/animated-fill-text';
-import { getAboutSectionByHref } from '@/lib/data/about-data';
+import { SectionHeader } from '@/components/ui/section-header';
+import { getAboutSectionByHref, milestones } from '@/lib/data/about-data';
 
 const strategicPillars = [
   {
@@ -89,35 +88,91 @@ export default function MissionPage() {
 
         <section className="mb-16 grid gap-12 lg:grid-cols-[1.1fr_0.9fr] ">
           <Card className="space-y-6 rounded-3xl border border-border bg-surface p-4 sm:p-6 xl:p-8 shadow-sm h-fit">
-            <span className="inline-flex items-center rounded-full border border-border px-3 py-1 text-xs font-semibold uppercase tracking-[0.2em] text-muted-foreground">
-              Vision
+            <span className="inline-flex items-center rounded-full border border-border px-3 py-1 text-lg font-bold uppercase tracking-[0.2em] text-muted-foreground">
+              Mission & Vision
             </span>
-            <div className="space-y-3">
-              <h2 className="text-2xl font-semibold text-foreground md:text-3xl">
-                <MaskText>
-                  Our <AnimatedFillText>Vision </AnimatedFillText> for Energy
-                  Equity{' '}
-                </MaskText>
-              </h2>
-              <p className="text-base leading-relaxed text-muted-foreground">
-                To be Nigeria's flagship renewable energy partner delivering
-                resilient, technology-driven power systems that expand economic
-                opportunity while safeguarding the environment for future
-                generations.
-              </p>
-            </div>
+            <div className="space-y-4">
+              <div className="rounded-3xl border border-primary/30 bg-primary/5 p-4 sm:p-5 xl:p-6">
+                <h3 className="text-lg font-semibold text-foreground">
+                  Our Vision
+                </h3>
+                <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
+                  To be a flagship renewable energy company in Nigeria, driven
+                  by innovations.
+                </p>
+              </div>
 
-            <div className="rounded-3xl border border-primary/30 bg-primary/5 p-4 sm:p-5 xl:p-6">
-              <h3 className="text-lg font-semibold text-foreground">
-                Our Mission
-              </h3>
-              <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
-                We deploy scalable mini-grids, hybrid systems, and smart
-                lighting solutions that deliver clean, reliable, and affordable
-                energy to underserved communities. Through innovation,
-                partnerships, and inclusive programs we empower five million
-                people by 2030.
-              </p>
+              <div className="rounded-3xl border border-primary/30 bg-primary/5 p-4 sm:p-5 xl:p-6">
+                <h3 className="text-lg font-semibold text-foreground">
+                  Our Mission
+                </h3>
+                <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
+                  We deploy scalable mini-grids, hybrid systems, and smart
+                  lighting solutions that deliver clean, reliable, and
+                  affordable energy to underserved communities. Through
+                  innovation, partnerships, and inclusive programs we empower
+                  five million people by 2030.
+                </p>
+              </div>
+
+              <div className="rounded-3xl border border-primary/30 bg-primary/5 p-4 sm:p-5 xl:p-6">
+                <h3 className="text-lg font-semibold text-foreground mb-3">
+                  Our Mission Statement
+                </h3>
+                <ul className="space-y-2 text-sm leading-relaxed text-muted-foreground">
+                  <li className="flex items-start gap-2">
+                    <span className="mt-1.5 h-1.5 w-1.5 rounded-full bg-primary flex-shrink-0" />
+                    <span>
+                      To rapidly deploy mini-grids to underdeveloped and
+                      underserved populace in Nigeria which will be impacting
+                      the lives of over 5 million Nigerians by 2030.
+                    </span>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <span className="mt-1.5 h-1.5 w-1.5 rounded-full bg-primary flex-shrink-0" />
+                    <span>
+                      Providing clean, affordable & reliable energy to unserved
+                      & underserved communities in Nigeria through isolated &
+                      interconnected mini-grids.
+                    </span>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <span className="mt-1.5 h-1.5 w-1.5 rounded-full bg-primary flex-shrink-0" />
+                    <span>
+                      To carry out the deployment of high-density LED & solar
+                      street-lighting infrastructure that meets best standards.
+                    </span>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <span className="mt-1.5 h-1.5 w-1.5 rounded-full bg-primary flex-shrink-0" />
+                    <span>
+                      Using renewable energy as a catalyst to solving the decade
+                      of energy poverty in Nigeria and Sub-Saharan Africa.
+                    </span>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <span className="mt-1.5 h-1.5 w-1.5 rounded-full bg-primary flex-shrink-0" />
+                    <span>
+                      Creating a sustainable future in line with the global
+                      Sustainable Development Goals (SDG-7).
+                    </span>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <span className="mt-1.5 h-1.5 w-1.5 rounded-full bg-primary flex-shrink-0" />
+                    <span>
+                      Deployment of 2 million all-in-one across all geopolitical
+                      zones by 2029.
+                    </span>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <span className="mt-1.5 h-1.5 w-1.5 rounded-full bg-primary flex-shrink-0" />
+                    <span>
+                      Building communal resilience through the use of renewable
+                      energy.
+                    </span>
+                  </li>
+                </ul>
+              </div>
             </div>
           </Card>
 
@@ -175,44 +230,48 @@ export default function MissionPage() {
           </aside>
         </section>
 
-        <section className="mb-16">
-          <Card className="grid items-center gap-8 rounded-3xl border border-border bg-gradient-to-r from-primary to-primary-dark p-4 py-8 sm:p-6 xl:p-8 text-white lg:grid-cols-2">
-            <div className="space-y-6">
-              <span className="inline-flex items-center rounded-full border border-white/20 px-3 py-1 text-xs font-semibold uppercase tracking-[0.25em] text-white/80">
-                Our Core Values
-              </span>
-              <h3 className="text-3xl font-semibold md:text-4xl">
-                Principles that steer every project
-              </h3>
-              <p className="text-base leading-relaxed text-white/85">
-                These values guide our engineering, community engagement, and
-                partnership decisions—ensuring consistency, accountability, and
-                positive impact.
-              </p>
-            </div>
-            <div className="space-y-4">
-              {coreValues.map(value => (
-                <div
-                  key={value.title}
-                  className="group flex items-start gap-4 rounded-3xl bg-white/10 p-4 backdrop-blur transition-all duration-500 hover:bg-white/15 hover:shadow-lg cursor-pointer"
+        <section className="mb-16 rounded-3xl border border-border bg-surface p-4 sm:p-6 xl:p-8 shadow-sm">
+          <SectionHeader
+            badge="Strategic Inflection Points"
+            title="Milestones that shaped our growth"
+            className="mb-8"
+          />
+
+          <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+            {milestones.map(milestone => {
+              const IconComponent = LucideIcons[
+                milestone.icon as keyof typeof LucideIcons
+              ] as React.ComponentType<{ className?: string }>;
+
+              return (
+                <Card
+                  key={milestone.year}
+                  className="group relative overflow-hidden rounded-3xl border border-border bg-background shadow-sm transition-all duration-500 hover:-translate-y-1 hover:shadow-lg"
                 >
-                  <div className="relative rounded-full bg-white/20 p-3 text-white overflow-hidden transition-all duration-500 group-hover:bg-white group-hover:text-primary group-hover:scale-110">
-                    {/* Animated fill effect */}
-                    <div className="absolute inset-0 bg-white transform scale-0 transition-transform duration-500 ease-out group-hover:scale-100 rounded-full origin-center" />
-                    <value.icon className="h-6 w-6 relative z-10 transition-colors duration-500" />
-                  </div>
-                  <div className="flex-1">
-                    <h4 className="text-lg font-semibold uppercase tracking-[0.2em] transition-colors duration-500 group-hover:text-white">
-                      {value.title}
-                    </h4>
-                    <p className="mt-2 text-sm leading-relaxed text-white/80 transition-colors duration-500 group-hover:text-white/95">
-                      {value.description}
+                  <CardContent className="p-5">
+                    <div className="mb-4 flex items-center justify-between">
+                      <div className="flex h-12 w-12 items-center justify-center rounded-full bg-primary/10 transition-all duration-500 group-hover:bg-primary group-hover:scale-110">
+                        {IconComponent && (
+                          <IconComponent className="h-6 w-6 text-primary transition-colors duration-500 group-hover:text-white" />
+                        )}
+                      </div>
+                      <span className="rounded-full bg-primary/10 px-3 py-1 text-xs font-bold text-primary">
+                        {milestone.year}
+                      </span>
+                    </div>
+
+                    <h3 className="mb-3 text-lg font-bold text-foreground transition-colors duration-500 group-hover:text-primary">
+                      {milestone.title}
+                    </h3>
+
+                    <p className="text-sm leading-relaxed text-muted-foreground">
+                      {milestone.description}
                     </p>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </Card>
+                  </CardContent>
+                </Card>
+              );
+            })}
+          </div>
         </section>
 
         {/* <section className="mb-16 rounded-3xl border border-border bg-surface p-4 sm:p-6 xl:p-8 shadow-sm">
@@ -254,7 +313,7 @@ export default function MissionPage() {
 
         <div className="mb-8 text-center">
           <Link href="/about">
-            <Button variant="outline" className="group">
+            <Button variant="default" className="group">
               <ArrowLeft className="mr-2 h-4 w-4 transition-transform group-hover:-translate-x-1" />
               Back to About Overview
             </Button>

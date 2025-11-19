@@ -50,9 +50,9 @@ export function PartnersSection() {
                     <Image
                       src={partner.logo}
                       alt={partner.name}
-                      width={120}
-                      height={120}
-                      className="h-16 sm:h-20 md:h-24 w-auto"
+                      width={100}
+                      height={75}
+                      className="h-12 sm:h-14 md:h-16 w-auto"
                     />
                   </div>
                 </div>
