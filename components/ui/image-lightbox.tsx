@@ -281,6 +281,9 @@ export function ImageLightbox({
               backfaceVisibility: 'hidden',
               WebkitBackfaceVisibility: 'hidden',
             }}
+            onContextMenu={e => {
+              e.preventDefault();
+            }}
           >
             <div className="relative w-full h-full">
               <Image
