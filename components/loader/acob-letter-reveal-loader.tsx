@@ -63,7 +63,7 @@ export default function AcobLetterRevealLoader() {
           className="relative rounded-full p-2"
         >
           <Image
-            src="/images/acob-loader.png"
+            src="/images/acob-loader.webp"
             alt="O"
             width={150}
             height={150}

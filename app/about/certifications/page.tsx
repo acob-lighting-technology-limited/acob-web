@@ -18,7 +18,7 @@ export default function CertificationsPage() {
       title="Certifications"
       description="We're updating our certifications and compliance information. This page will be available soon!"
       breadcrumbItems={breadcrumbItems}
-      backgroundImage="/images/about/acob-team.webp?height=800&width=1600"
+      backgroundImage="/images/about/certifications.webp"
     />
   );
 }

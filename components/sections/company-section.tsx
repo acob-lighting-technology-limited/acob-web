@@ -161,6 +161,9 @@ export function CompanySection() {
                   className="h-full w-full object-cover"
                 />
 
+                {/* Dark Overlay */}
+                <div className="absolute inset-0 bg-black/40" />
+
                 <div className="absolute bottom-3 left-3 right-3 sm:bottom-4 sm:left-4 sm:right-4 md:bottom-6 md:left-6 md:right-6 rounded-xl sm:rounded-2xl bg-background/80 p-3 sm:p-4 text-xs sm:text-sm text-muted-foreground backdrop-blur supports-[backdrop-filter]:backdrop-blur-xl">
                   We deploy skilled engineers nationwide, building
                   climate-resilient micro-grids that power households, schools,

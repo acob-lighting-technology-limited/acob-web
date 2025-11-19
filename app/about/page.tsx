@@ -16,12 +16,11 @@ import { aboutSections } from '@/lib/data/about-data';
 export default function AboutPage() {
   const breadcrumbItems = [{ label: 'Home', href: '/' }, { label: 'About Us' }];
 
-  // Images from about sub-routes
-  const aboutImages = [
-    { src: '/images/about/acob-team.webp', alt: 'ACOB Team' },
-    { src: '/images/about/mission-vision.webp', alt: 'Our Mission & Vision' },
-    { src: '/images/company-team.webp', alt: 'Our Company' },
-  ];
+  // Images from about sub-routes - use the same images as the cards
+  const aboutImages = aboutSections.map(section => ({
+    src: section.image.split('?')[0], // Remove query params if any
+    alt: section.title,
+  }));
 
   return (
     <>

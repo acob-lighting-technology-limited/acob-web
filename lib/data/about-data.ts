@@ -4,7 +4,7 @@ export const aboutSections = [
     description:
       "Discover ACOB's journey from street lighting to pioneering solar mini-grid solutions across Nigeria.",
     href: '/about/our-story',
-    image: '/images/about/acob-team.webp?height=200&width=300',
+    image: '/images/about/our-story.webp?height=200&width=300',
   },
   {
     title: 'Mission & Vision',
@@ -25,7 +25,7 @@ export const aboutSections = [
     description:
       'View our accreditations and commitment to quality standards in renewable energy infrastructure.',
     href: '/about/certifications',
-    image: '/images/about/acob-team.webp?height=200&width=300',
+    image: '/images/about/certifications.webp?height=200&width=300',
   },
 ];
 
@@ -151,3 +151,8 @@ export const sidebarLinks = [
   { label: 'Meet Our Team', href: '/about/team', isActive: false },
   { label: 'Certifications', href: '/about/certifications', isActive: false },
 ];
+
+// Helper function to get about section by href
+export function getAboutSectionByHref(href: string) {
+  return aboutSections.find(section => section.href === href);
+}

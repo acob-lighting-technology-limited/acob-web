@@ -23,7 +23,7 @@ export default function OurStoryPage() {
     <>
       <PageHero
         description="Community-Centered Innovation Since Day One"
-        backgroundImage="/images/about/acob-team.webp?height=800&width=1600"
+        backgroundImage="/images/about/our-story.webp"
       />
 
       <Container>
