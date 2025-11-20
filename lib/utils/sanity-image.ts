@@ -45,44 +45,54 @@ export function addSanityImageParams(
 
 /**
  * Common image optimization presets
- * Quality levels: High quality settings (90-95) for crisp, professional images
- * This provides maximum visual quality with acceptable file sizes
+ * Balanced quality settings for web performance
+ * - Thumbnails: Lower quality (75) for small sizes
+ * - Cards: Medium quality (80) for grid displays
+ * - Hero: High quality (85) for large displays
+ * - Lightbox/Gallery: Maximum quality (95-98) for full-screen viewing
  */
 export const SANITY_IMAGE_PRESETS = {
   thumbnail: {
-    w: 300,
+    w: 200,
     h: 200,
     fit: 'crop' as const,
     auto: 'format' as const,
-    q: 90,
+    q: 75,
   },
   card: {
-    w: 600,
-    h: 400,
+    w: 800,
+    h: 600,
     fit: 'crop' as const,
     auto: 'format' as const,
-    q: 92,
+    q: 80,
   },
   featured: {
     w: 1200,
     h: 675,
     fit: 'crop' as const,
     auto: 'format' as const,
-    q: 95,
+    q: 85,
   },
   hero: {
-    w: 1600,
-    h: 686,
+    w: 1920,
+    h: 1080,
     fit: 'crop' as const,
+    auto: 'format' as const,
+    q: 85,
+  },
+  gallery: {
+    w: 1200,
+    h: 900,
+    fit: 'max' as const,
     auto: 'format' as const,
     q: 95,
   },
-  gallery: {
-    w: 800,
-    h: 600,
-    fit: 'crop' as const,
+  lightbox: {
+    w: 2400,
+    h: 1600,
+    fit: 'max' as const,
     auto: 'format' as const,
-    q: 92,
+    q: 98,
   },
 } as const;
 

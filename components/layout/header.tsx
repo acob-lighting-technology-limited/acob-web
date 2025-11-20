@@ -398,8 +398,10 @@ export function Header() {
   const { resolvedTheme } = useTheme();
   const pathname = usePathname();
 
-  const logoSrc =
-    mounted && resolvedTheme === 'dark'
+  // Default to light logo for SSR to prevent hydration mismatch
+  const logoSrc = !mounted
+    ? '/images/acob-logo-light.webp'
+    : resolvedTheme === 'dark'
       ? '/images/acob-logo-dark.webp'
       : '/images/acob-logo-light.webp';
   const [showHeader, setShowHeader] = useState(true);
@@ -494,14 +496,11 @@ export function Header() {
 
   return (
     <>
-      <motion.header
-        initial={{ y: -100 }}
-        animate={{ y: showHeader ? 0 : -100 }}
-        transition={{ type: 'spring', damping: 20, stiffness: 100 }}
+      <header
         className={`
           sticky border-b border-border top-0 z-40 w-full transition-all duration-500 ease-out
           backdrop-blur-md bg-background/80
-
+          ${showHeader ? 'translate-y-0' : '-translate-y-full'}
           ${
             isScrolled
               ? ' backdrop-blur-xl bg-background/95 shadow-lg  border-border '
@@ -511,11 +510,7 @@ export function Header() {
       >
         <Container noPadding className="px-4">
           <div className="flex items-center justify-between h-16">
-            <motion.div
-              initial={{ opacity: 0, x: -20 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.5 }}
-            >
+            <div>
               <Link href="/" className="flex items-center space-x-2 group">
                 <Image
                   key={logoSrc}
@@ -532,18 +527,15 @@ export function Header() {
                   }}
                 />
               </Link>
-            </motion.div>
+            </div>
 
             <nav className="hidden lg:flex items-center space-x-8 h-full">
-              {navigationItems.map((item, index) => {
+              {navigationItems.map(item => {
                 const isActive = isActiveRoute(item);
 
                 return (
-                  <motion.div
+                  <div
                     key={item.name}
-                    initial={{ opacity: 0, y: -20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ delay: index * 0.1, duration: 0.5 }}
                     className="relative h-full flex items-center"
                     onMouseEnter={() => handleMouseEnter(item.name)}
                     onMouseLeave={handleMouseLeave}
@@ -556,23 +548,20 @@ export function Header() {
                       `}
                     >
                       <span>{item.name}</span>
-                      <motion.div
-                        animate={{
-                          rotate: activeDropdown === item.name ? 180 : 0,
-                        }}
-                        transition={{ duration: 0.2 }}
+                      <div
+                        className={`transition-transform duration-200 ${
+                          activeDropdown === item.name ? 'rotate-180' : ''
+                        }`}
                       >
                         <ChevronDown className="h-4 w-4" />
-                      </motion.div>
+                      </div>
 
-                      <motion.div
-                        initial={false}
-                        animate={{
-                          scaleX: isActive ? 1 : 0,
-                          opacity: isActive ? 1 : 0,
-                        }}
-                        transition={{ duration: 0.3, ease: 'easeOut' }}
-                        className="absolute bottom-0 left-0 right-0 h-0.5 bg-gradient-to-r from-primary to-primary/80 origin-center"
+                      <div
+                        className={`absolute bottom-0 left-0 right-0 h-0.5 bg-gradient-to-r from-primary to-primary/80 origin-center transition-all duration-300 ease-out ${
+                          isActive
+                            ? 'scale-x-100 opacity-100'
+                            : 'scale-x-0 opacity-0'
+                        }`}
                       />
                     </Link>
 
@@ -581,44 +570,31 @@ export function Header() {
                       isOpen={activeDropdown === item.name}
                       onClose={handleDropdownClose}
                     />
-                  </motion.div>
+                  </div>
                 );
               })}
             </nav>
 
-            <motion.div
-              initial={{ opacity: 0, x: 20 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.5, delay: 0.3 }}
-              className="hidden lg:flex items-center space-x-4"
-            >
+            <div className="hidden lg:flex items-center space-x-4">
               <Link href="/contact/quote">
-                <motion.button
-                  whileHover={{ scale: 1.05 }}
-                  whileTap={{ scale: 0.95 }}
-                  className="bg-primary hover:bg-primary text-white font-medium py-2 px-4 rounded-lg hover:shadow-lg flex items-center"
-                >
+                <button className="bg-primary hover:bg-primary text-white font-medium py-2 px-4 rounded-lg hover:shadow-lg flex items-center transition-transform duration-200 hover:scale-105 active:scale-95">
                   <Phone className="mr-2 h-4 w-4" />
                   Get Quote
-                </motion.button>
+                </button>
               </Link>
               <ThemeToggle />
-            </motion.div>
+            </div>
 
-            <motion.button
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ duration: 0.5 }}
-              whileTap={{ scale: 0.9 }}
+            <button
               onClick={() => setIsMobileMenuOpen(true)}
-              className="lg:hidden p-2 hover:bg-muted rounded-lg transition-colors"
+              className="lg:hidden p-2 hover:bg-muted rounded-lg transition-all duration-200 active:scale-90"
               aria-label="Open mobile menu"
             >
               <Menu className="h-6 w-6" />
-            </motion.button>
+            </button>
           </div>
         </Container>
-      </motion.header>
+      </header>
 
       <MobileMenu
         isOpen={isMobileMenuOpen}

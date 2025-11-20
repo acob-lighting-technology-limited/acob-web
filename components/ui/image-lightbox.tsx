@@ -296,7 +296,7 @@ export function ImageLightbox({
                 )}
                 sizes="100vw"
                 priority
-                quality={95}
+                quality={98}
                 loading="eager"
                 unoptimized
               />

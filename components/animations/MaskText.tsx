@@ -20,7 +20,7 @@ export const MaskText: FC<MaskTextProps> = ({
   className,
 }) => {
   const { ref, inView } = useInView({
-    threshold: 0.75,
+    threshold: 0.1,
     triggerOnce: true,
   });
 
