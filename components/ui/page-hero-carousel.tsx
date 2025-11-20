@@ -4,6 +4,7 @@ import React, { useState, useEffect, useMemo, useRef } from 'react';
 import Image from 'next/image';
 import { cn } from '@/lib/utils';
 import { MaskText } from '../animations/MaskText';
+import { getBlurDataURL } from '@/lib/utils/image-optimization';
 
 interface PageHeroCarouselProps {
   images: Array<{
@@ -194,8 +195,11 @@ export const PageHeroCarousel = React.memo(function PageHeroCarousel({
                     fill
                     className="object-cover"
                     priority={index === 0}
-                    quality={95}
+                    loading={index < 2 ? 'eager' : 'lazy'}
+                    quality={85}
                     sizes="100vw"
+                    placeholder="blur"
+                    blurDataURL={getBlurDataURL()}
                   />
                 </div>
               </div>

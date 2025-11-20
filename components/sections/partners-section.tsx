@@ -7,6 +7,7 @@ import { Badge } from '@/components/ui/badge';
 import Image from 'next/image';
 import { partners } from '@/lib/data/partners-data';
 import { FadeIn } from '@/components/animations/FadeIn';
+import { getBlurDataURL } from '@/lib/utils/image-optimization';
 
 export function PartnersSection() {
   const marqueeRef = useRef<HTMLDivElement>(null);
@@ -53,6 +54,10 @@ export function PartnersSection() {
                       width={100}
                       height={75}
                       className="h-12 sm:h-14 md:h-16 w-auto"
+                      loading="lazy"
+                      quality={75}
+                      placeholder="blur"
+                      blurDataURL={getBlurDataURL()}
                     />
                   </div>
                 </div>

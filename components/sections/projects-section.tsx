@@ -24,6 +24,7 @@ import { motion } from 'framer-motion';
 import { useEffect, useState } from 'react';
 import type { Project } from '@/lib/types';
 import { applySanityImagePreset } from '@/lib/utils/sanity-image';
+import { getBlurDataURL } from '@/lib/utils/image-optimization';
 
 interface ProjectsSectionProps {
   projects: Project[];
@@ -137,8 +138,11 @@ export function ProjectsSection({ projects }: ProjectsSectionProps) {
                           alt={project.title}
                           fill
                           className="object-cover transition-transform duration-500 group-hover:scale-105"
-                          sizes="(max-width: 768px) 100vw, (max-width: 1280px) 50vw, 25vw"
-                          priority={false}
+                          sizes="(max-width: 768px) 100vw, (max-width: 1280px) 50vw, 33vw"
+                          loading="lazy"
+                          quality={80}
+                          placeholder="blur"
+                          blurDataURL={getBlurDataURL()}
                         />
                         <div className="absolute inset-0 bg-gradient-to-b from-black/30 via-transparent to-black/70" />
                         <div className="absolute bottom-4 left-4 right-4 text-sm font-medium uppercase tracking-wide text-white/70">
@@ -211,8 +215,12 @@ export function ProjectsSection({ projects }: ProjectsSectionProps) {
                       alt={project.title}
                       fill
                       className="object-cover transition-transform duration-500 group-hover:scale-105"
-                      sizes="(max-width: 768px) 100vw, (max-width: 1280px) 50vw, 25vw"
-                      priority
+                      sizes="(max-width: 768px) 100vw, (max-width: 1280px) 50vw, 33vw"
+                      priority={false}
+                      loading="lazy"
+                      quality={80}
+                      placeholder="blur"
+                      blurDataURL={getBlurDataURL()}
                     />
                     <div className="absolute inset-0 bg-gradient-to-b from-black/30 via-transparent to-black/70" />
                     <div className="absolute bottom-4 left-4 right-4 text-sm font-medium uppercase tracking-wide text-white/70">

@@ -69,7 +69,7 @@ export async function generateMetadata({
       description:
         post.excerpt || `Read about ${post.title} from ACOB Lighting.`,
       type: 'article',
-      url: `https://new.acoblighting.com/updates/${slug}`,
+      url: `https://www.acoblighting.com/updates/${slug}`,
       publishedTime: post.publishedAt,
       authors: [post.author],
     },

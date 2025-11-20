@@ -30,9 +30,8 @@ export default async function UpdatesPage({ searchParams }: UpdatesPageProps) {
 
   const breadcrumbItems = [{ label: 'Home', href: '/' }, { label: 'Updates' }];
 
-  // Get first 5 update post images for carousel
+  // Get current page's update post images for carousel
   const updateImages = posts
-    .slice(0, 5)
     .filter((post: UpdatePost) => post.featuredImage)
     .map((post: UpdatePost) => ({
       src: post.featuredImage!,
