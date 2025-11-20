@@ -1,16 +1,32 @@
+import dynamic from 'next/dynamic';
 import { HeroSection } from '@/components/sections/hero-section';
 import { AboutSection } from '@/components/sections/about-section';
 import { ServicesSection } from '@/components/sections/services-section';
 import { ProjectsSection } from '@/components/sections/projects-section';
-import { CompanySection } from '@/components/sections/company-section';
 import { UpdatesSection } from '@/components/sections/updates-section';
-import { PartnersSection } from '@/components/sections/partners-section';
 import {
   getProjects,
   getFeaturedProjects,
   getUpdatePosts,
 } from '@/sanity/lib/client';
 import type { Metadata } from 'next';
+
+// Lazy load below-the-fold sections
+const CompanySection = dynamic(
+  () =>
+    import('@/components/sections/company-section').then(
+      mod => mod.CompanySection,
+    ),
+  { ssr: true },
+);
+
+const PartnersSection = dynamic(
+  () =>
+    import('@/components/sections/partners-section').then(
+      mod => mod.PartnersSection,
+    ),
+  { ssr: true },
+);
 
 export const metadata: Metadata = {
   title: 'ACOB Lighting Technology Limited - Leading Solar Energy Solutions',
@@ -26,7 +42,7 @@ export const metadata: Metadata = {
     address: false,
     telephone: false,
   },
-  metadataBase: new URL('https://acoblighting.com'),
+  metadataBase: new URL('https://www.acoblighting.com'),
   alternates: {
     canonical: '/',
   },
@@ -35,15 +51,15 @@ export const metadata: Metadata = {
     description:
       'Leading supplier of solar materials and mini-grid solutions for manufacturers, installers & contractors across Nigeria.',
     type: 'website',
-    url: 'https://acoblighting.com',
+    url: 'https://www.acoblighting.com',
     siteName: 'ACOB Lighting Technology Limited',
     locale: 'en_US',
     images: [
       {
-        url: 'https://acoblighting.com/images/olooji-community.webp',
+        url: 'https://www.acoblighting.com/images/og-image.webp',
         width: 1200,
         height: 630,
-        alt: 'ACOB Lighting Solar Installation Project',
+        alt: 'ACOB Lighting Technology - Get a Quote for Solar Energy Solutions',
       },
     ],
   },
@@ -53,7 +69,7 @@ export const metadata: Metadata = {
     description:
       'Leading supplier of solar materials and mini-grid solutions for manufacturers, installers & contractors across Nigeria.',
     creator: '@acoblighting',
-    images: ['https://acoblighting.com/images/olooji-community.webp'],
+    images: ['https://www.acoblighting.com/images/og-image.webp'],
   },
   robots: {
     index: true,
@@ -67,6 +83,9 @@ export const metadata: Metadata = {
     },
   },
 };
+
+// Revalidate every 5 minutes (300 seconds)
+export const revalidate = 300;
 
 export default async function HomePage() {
   // Fetch data server-side

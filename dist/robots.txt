@@ -2,7 +2,7 @@ User-agent: *
 Allow: /
 
 # Sitemap
-Sitemap: https://new.acoblighting.com/sitemap.xml
+Sitemap: https://www.acoblighting.com/sitemap.xml
 
 # Disallow admin and private areas
 

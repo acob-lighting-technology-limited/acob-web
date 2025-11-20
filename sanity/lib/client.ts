@@ -33,7 +33,7 @@ if (!token) {
 export const client = createClient({
   projectId,
   dataset,
-  useCdn: false, // Disable CDN for server-side requests
+  useCdn: process.env.NODE_ENV === 'production', // Enable CDN in production for faster fetches
   apiVersion: '2025-07-16',
   token: token,
 });
