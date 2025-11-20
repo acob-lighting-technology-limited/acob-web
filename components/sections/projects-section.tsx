@@ -261,33 +261,15 @@ export function ProjectsSection({ projects }: ProjectsSectionProps) {
           })}
         </StaggerChildren>
 
+        {/* View All Button */}
         <FadeIn delay={0.5}>
-          <div className="mt-16 flex flex-wrap items-center justify-between gap-6 rounded-3xl border border-border bg-muted/30 p-4 sm:p-6 xl:p-8">
-            <div className="space-y-2">
-              <h3 className="text-xl font-semibold text-foreground">
-                Need a tailored clean energy deployment?
-              </h3>
-              <p className="text-sm text-muted-foreground">
-                Our engineers can scope micro-grid, hybrid, or utility-grade
-                systems suited to your load profile and budget.
-              </p>
-            </div>
-            <div className="flex flex-col sm:flex-row flex-wrap gap-3 w-full">
-              <Link href="/contact/quote" className="w-full sm:w-auto">
-                <Button size="lg" className="w-full sm:w-auto px-6">
-                  Request a feasibility study
-                </Button>
-              </Link>
-              <Link href="/projects" className="w-full sm:w-auto">
-                <Button
-                  size="lg"
-                  variant="outline"
-                  className="w-full sm:w-auto px-6"
-                >
-                  See full project portfolio
-                </Button>
-              </Link>
-            </div>
+          <div className="text-center mt-12">
+            <Link href="/projects">
+              <Button className="px-8 py-3">
+                View All Projects
+                <ArrowRight className="ml-2 h-4 w-4" />
+              </Button>
+            </Link>
           </div>
         </FadeIn>
       </Container>

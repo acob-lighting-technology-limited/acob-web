@@ -11,7 +11,7 @@
 // **Company Statistics:**
 // - **120+** projects completed
 // - **50MW+** total capacity installed
-// - **100+** communities served
+// - **50+** communities served
 // - **10+** years of experience in the renewable energy sector
 
 // ## SERVICES & SOLUTIONS
