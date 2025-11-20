@@ -28,9 +28,9 @@ export const COMPANY_INFO = {
   ],
 
   stats: {
-    projectsCompleted: '100+',
-    totalCapacity: '150MW+',
-    communitiesServed: '200+',
+    projectsCompleted: '120+',
+    totalCapacity: '50MW+',
+    communitiesServed: '50+',
     yearsExperience: '10+',
   },
 } as const;
