@@ -41,7 +41,7 @@ export const metadata: Metadata = {
     address: false,
     telephone: false,
   },
-  metadataBase: new URL('https://new.acoblighting.com'),
+  metadataBase: new URL('https://www.acoblighting.com'),
   alternates: {
     canonical: '/',
   },
@@ -50,12 +50,12 @@ export const metadata: Metadata = {
     description:
       'Leading supplier of solar materials and mini-grid solutions for manufacturers, installers & contractors across Nigeria.',
     type: 'website',
-    url: 'https://new.acoblighting.com',
+    url: 'https://www.acoblighting.com',
     siteName: 'ACOB Lighting Technology Limited',
     locale: 'en_US',
     images: [
       {
-        url: '/images/olooji-community.webp',
+        url: 'https://www.acoblighting.com/images/og-image.webp',
         width: 1200,
         height: 630,
         alt: 'ACOB Lighting Solar Energy Solutions - Mini-Grid Projects Across Nigeria',
@@ -68,7 +68,7 @@ export const metadata: Metadata = {
     description:
       'Leading supplier of solar materials and mini-grid solutions for manufacturers, installers & contractors across Nigeria.',
     creator: '@acoblighting',
-    images: ['/images/olooji-community.webp'],
+    images: ['https://www.acoblighting.com/images/og-image.webp'],
   },
   robots: {
     index: true,

@@ -7,10 +7,10 @@ import { Card } from '@/components/ui/card';
 import { ArrowRight, MapPin } from 'lucide-react';
 import Link from 'next/link';
 import Image from 'next/image';
-import { MaskText } from '@/components/animations/MaskText';
 import { stats } from '@/lib/data/transition-data';
 import { AnimatedCounter } from '../ui/animated-counter';
 import { cn } from '@/lib/utils';
+import { getBlurDataURL } from '@/lib/utils/image-optimization';
 
 interface HeroSectionProps {
   projects: Array<{
@@ -144,8 +144,11 @@ export const HeroSection = React.memo(function HeroSection({
                   fill
                   className="object-cover"
                   priority={index === 0}
-                  quality={95}
+                  loading={index < 2 ? 'eager' : 'lazy'}
+                  quality={85}
                   sizes="100vw"
+                  placeholder="blur"
+                  blurDataURL={getBlurDataURL()}
                 />
               </div>
             </div>
@@ -170,26 +173,38 @@ export const HeroSection = React.memo(function HeroSection({
           <div className="w-full">
             {/* Left Content */}
             <div className="space-y-4 md:space-y-5 max-w-xl">
-              <Badge className="bg-primary/20 backdrop-blur-sm text-white border-primary/30 text-xs font-medium uppercase tracking-wide">
-                Renewable Energy Experts
-              </Badge>
+              {/* Badge - Shows FIRST */}
+              <div
+                className="opacity-0 animate-fade-in-up"
+                style={{ animationDelay: '0s', animationFillMode: 'forwards' }}
+              >
+                <Badge className="bg-primary/20 backdrop-blur-sm text-white border-primary/30 text-xs font-medium uppercase tracking-wide">
+                  Renewable Energy Experts
+                </Badge>
+              </div>
 
-              <div className="space-y-3">
-                <div
-                  style={{
-                    backfaceVisibility: 'hidden',
-                    WebkitBackfaceVisibility: 'hidden',
-                    transform: 'translateZ(0)',
-                    WebkitTransform: 'translateZ(0)',
-                  }}
-                >
-                  <MaskText
-                    phrases={[
-                      'Powering sustainable futures for homes, businesses, and communities.',
-                    ]}
-                    className="font-bold leading-tight text-3xl sm:text-4xl md:text-4xl lg:text-5xl text-white"
-                  />
-                </div>
+              {/* Main Headline - Shows SECOND */}
+              <div
+                className="opacity-0 animate-fade-in-up"
+                style={{
+                  animationDelay: '0.2s',
+                  animationFillMode: 'forwards',
+                }}
+              >
+                <h1 className="font-bold leading-tight text-3xl sm:text-4xl md:text-4xl lg:text-5xl text-white">
+                  Powering sustainable futures for homes, businesses, and
+                  communities.
+                </h1>
+              </div>
+
+              {/* Description - Shows THIRD */}
+              <div
+                className="opacity-0 animate-fade-in-up"
+                style={{
+                  animationDelay: '0.4s',
+                  animationFillMode: 'forwards',
+                }}
+              >
                 <p className="max-w-xl text-sm md:text-base text-gray-200">
                   We deliver dependable solar, mini-grid, and energy storage
                   solutions that unlock productivity and resilience for
@@ -197,8 +212,14 @@ export const HeroSection = React.memo(function HeroSection({
                 </p>
               </div>
 
-              {/* Metrics */}
-              <div className="grid gap-2 sm:gap-2.5 grid-cols-3 max-w-xl">
+              {/* Metrics - Shows FOURTH */}
+              <div
+                className="opacity-0 animate-fade-in-up grid gap-2 sm:gap-2.5 grid-cols-3 max-w-xl"
+                style={{
+                  animationDelay: '0.6s',
+                  animationFillMode: 'forwards',
+                }}
+              >
                 {heroMetrics.map(metric => (
                   <Card
                     key={metric.label}
@@ -218,8 +239,14 @@ export const HeroSection = React.memo(function HeroSection({
                 ))}
               </div>
 
-              {/* CTA Buttons */}
-              <div className="grid grid-cols-2 gap-3">
+              {/* CTA Buttons - Shows FIFTH */}
+              <div
+                className="opacity-0 animate-fade-in-up grid grid-cols-2 gap-3"
+                style={{
+                  animationDelay: '0.8s',
+                  animationFillMode: 'forwards',
+                }}
+              >
                 <Link href="/services" className="w-full">
                   <Button
                     size="lg"
@@ -248,8 +275,11 @@ export const HeroSection = React.memo(function HeroSection({
         </div>
       </div>
 
-      {/* Desktop Project Info Card - Bottom Right */}
-      <div className="hidden lg:block absolute bottom-6 right-0 z-30">
+      {/* Desktop Project Info Card - Bottom Right - Shows LAST */}
+      <div
+        className="hidden lg:block absolute bottom-6 right-0 z-30 opacity-0 animate-fade-in-up"
+        style={{ animationDelay: '1.0s', animationFillMode: 'forwards' }}
+      >
         <div className="2xl:container max-w-7xl mx-auto px-4">
           <div className="flex justify-end">
             <div className="relative overflow-hidden p-3 pb-2 max-w-md mr-6">

@@ -2,11 +2,12 @@ import { Suspense } from 'react';
 import { Container } from '@/components/ui/container';
 import { PageHeroCarousel } from '@/components/ui/page-hero-carousel';
 import { ProjectsGridSkeleton } from '@/components/ui/projects-grid-skeleton';
-import {
-  getProjectsPaginated,
-  getRecentProjectImages,
-} from '@/sanity/lib/client';
+import { getProjectsPaginated } from '@/sanity/lib/client';
+import type { Project } from '@/lib/types';
 import ProjectsClient from './projects-client';
+
+// Revalidate every 10 minutes (600 seconds)
+export const revalidate = 600;
 
 interface ProjectsPageProps {
   searchParams: Promise<{
@@ -35,18 +36,15 @@ export default async function ProjectsPage({
 
   const { projects, pagination } = result;
 
-  // Fetch recent images efficiently (no need to fetch all projects)
-  const recentProjects = await getRecentProjectImages(5);
-
   const breadcrumbItems = [{ label: 'Home', href: '/' }, { label: 'Projects' }];
 
-  // Map recent project images for carousel
-  const projectImages = recentProjects.map(
-    (p: { title: string; projectImage: string }) => ({
-      src: p.projectImage,
+  // Map current page's project images for carousel
+  const projectImages = projects
+    .filter((p: Project) => p.projectImage) // Only include projects with images
+    .map((p: Project) => ({
+      src: p.projectImage!,
       alt: p.title,
-    }),
-  );
+    }));
 
   return (
     <>
