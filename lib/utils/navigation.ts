@@ -39,11 +39,13 @@ export const ROUTE_MAP = {
   jobs: '/contact/careers',
 
   // Updates section
-  latest: '/updates/latest',
+  announcements: '/updates/announcements',
   'case studies': '/updates/case-studies',
-  press: '/updates/press',
+  'press releases': '/updates/press-releases',
+  events: '/updates/events',
+  celebrations: '/updates/celebrations',
   gallery: '/updates/gallery',
-  media: '/updates/media',
+  media: '/updates/gallery',
   pictures: '/updates/gallery',
   'picture side': '/updates/gallery',
 } as const;

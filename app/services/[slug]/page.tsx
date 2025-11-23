@@ -74,57 +74,6 @@ export default async function ServicePage({ params }: ServicePageProps) {
                 )}
               </CardContent>
             </Card>
-
-            {/* Features */}
-            {/* <Card className="border shadow-md border-border bg-surface">
-              <CardContent className="p-4 sm:p-6 xl:p-8">
-                <h2 className="text-3xl font-bold mb-6 text-foreground">
-                  Key Features
-                </h2>
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                  {service.features.map((feature, index) => (
-                    <div key={index} className="flex items-start space-x-3">
-                      <CheckCircle className="h-5 w-5 text-primary mt-0.5 flex-shrink-0" />
-                      <span className="text-foreground">{feature}</span>
-                    </div>
-                  ))}
-                </div>
-              </CardContent>
-            </Card> */}
-
-            {/* Applications */}
-            {/* <Card className="border shadow-md border-border bg-surface">
-              <CardContent className="p-4 sm:p-6 xl:p-8">
-                <h2 className="text-3xl font-bold mb-6 text-foreground">
-                  Applications
-                </h2>
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                  {service.applications.map((application, index) => (
-                    <div key={index} className="flex items-start space-x-3">
-                      <CheckCircle className="h-5 w-5 text-primary mt-0.5 flex-shrink-0" />
-                      <span className="text-foreground">{application}</span>
-                    </div>
-                  ))}
-                </div>
-              </CardContent>
-            </Card> */}
-
-            {/* Why Choose Us */}
-            {/* <Card className="border shadow-md border-border bg-surface">
-              <CardContent className="p-4 sm:p-6 xl:p-8">
-                <h2 className="text-3xl font-bold mb-6 text-foreground">
-                  Why Choose Us?
-                </h2>
-                <div className="space-y-4">
-                  {service.whyChooseUs.map((reason, index) => (
-                    <div key={index} className="flex items-start space-x-3">
-                      <CheckCircle className="h-5 w-5 text-primary mt-0.5 flex-shrink-0" />
-                      <span className="text-foreground">{reason}</span>
-                    </div>
-                  ))}
-                </div>
-              </CardContent>
-            </Card> */}
           </div>
         </div>
 
