@@ -247,7 +247,7 @@ export default function UpdatesClient({
 
                       <div className="space-y-3 flex-1">
                         {/* Title */}
-                        <h3 className="text-xl md:text-2xl font-semibold text-foreground line-clamp-2 group-hover:text-primary transition-colors duration-300">
+                        <h3 className="text-lg font-semibold text-foreground line-clamp-2 group-hover:text-primary transition-colors duration-300">
                           {posts[0].title}
                         </h3>
 
@@ -334,7 +334,7 @@ export default function UpdatesClient({
 
                         <div className="space-y-3 flex-1">
                           {/* Title */}
-                          <h3 className="text-xl md:text-2xl font-semibold text-foreground line-clamp-2 group-hover:text-primary transition-colors duration-300">
+                          <h3 className="text-lg font-semibold text-foreground line-clamp-2 group-hover:text-primary transition-colors duration-300">
                             {post.title}
                           </h3>
 
