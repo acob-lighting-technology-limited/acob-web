@@ -1,23 +1,7 @@
-import { Metadata } from 'next';
 import { Container } from '@/components/ui/container';
 import { PageHero } from '@/components/ui/page-hero';
 import { Breadcrumb } from '@/components/ui/breadcrumb';
 import { ProductCatalog } from '@/components/products/product-catalog';
-
-export const metadata: Metadata = {
-  title: 'Product Catalog - Solar Equipment & Components | ACOB Lighting',
-  description:
-    'Browse our comprehensive catalog of solar panels, inverters, batteries, and accessories. High-quality solar equipment for residential, commercial, and industrial applications.',
-  keywords:
-    'solar panels, solar inverters, lithium batteries, solar equipment, solar components, renewable energy products, solar accessories, Nigeria',
-  openGraph: {
-    title: 'Product Catalog - ACOB Lighting Technology Limited',
-    description:
-      'Comprehensive range of solar equipment including panels, inverters, batteries, and accessories.',
-    type: 'website',
-    url: 'https://acoblighting.com/products',
-  },
-};
 
 export default function ProductsPage() {
   const breadcrumbItems = [{ label: 'Home', href: '/' }, { label: 'Products' }];

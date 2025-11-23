@@ -29,7 +29,7 @@ export const COMPANY_INFO = {
 
   stats: {
     projectsCompleted: '120+',
-    totalCapacity: '50MW+',
+    totalCapacity: '10MW+',
     communitiesServed: '50+',
     yearsExperience: '10+',
   },

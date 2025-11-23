@@ -84,12 +84,14 @@ export const updatePostType = defineType({
       type: 'string',
       options: {
         list: [
-          { title: 'News', value: 'news' },
+          { title: 'Announcements', value: 'announcements' },
           { title: 'Case Studies', value: 'case-studies' },
           { title: 'Press Releases', value: 'press-releases' },
+          { title: 'Events', value: 'events' },
+          { title: 'Celebrations', value: 'celebrations' },
         ],
       },
-      initialValue: 'news',
+      initialValue: 'announcements',
     }),
     defineField({
       name: 'tags',

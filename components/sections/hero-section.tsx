@@ -11,6 +11,12 @@ import { stats } from '@/lib/data/transition-data';
 import { AnimatedCounter } from '../ui/animated-counter';
 import { cn } from '@/lib/utils';
 import { getBlurDataURL } from '@/lib/utils/image-optimization';
+import {
+  ContextMenu,
+  ContextMenuContent,
+  ContextMenuItem,
+  ContextMenuTrigger,
+} from '@/components/ui/context-menu';
 
 interface HeroSectionProps {
   projects: Array<{
@@ -124,33 +130,62 @@ export const HeroSection = React.memo(function HeroSection({
             }}
           >
             <div className="absolute inset-0 overflow-hidden bg-black">
-              <div
-                ref={el => {
-                  if (el) {
-                    imageRefsMap.current.set(index, el);
-                  }
-                }}
-                className="absolute inset-0"
-                style={{
-                  transform: 'scale(1) translateZ(0)',
-                  backfaceVisibility: 'hidden',
-                  WebkitBackfaceVisibility: 'hidden',
-                  WebkitTransform: 'scale(1) translateZ(0)',
-                }}
-              >
-                <Image
-                  src={slide.image}
-                  alt={slide.title}
-                  fill
-                  className="object-cover"
-                  priority={index === 0}
-                  loading={index < 2 ? 'eager' : 'lazy'}
-                  quality={85}
-                  sizes="100vw"
-                  placeholder="blur"
-                  blurDataURL={getBlurDataURL()}
-                />
-              </div>
+              <ContextMenu>
+                <ContextMenuTrigger asChild>
+                  <div
+                    ref={el => {
+                      if (el) {
+                        imageRefsMap.current.set(index, el);
+                      }
+                    }}
+                    className="absolute inset-0"
+                    style={{
+                      transform: 'scale(1) translateZ(0)',
+                      backfaceVisibility: 'hidden',
+                      WebkitBackfaceVisibility: 'hidden',
+                      WebkitTransform: 'scale(1) translateZ(0)',
+                      userSelect: 'none',
+                      WebkitUserSelect: 'none',
+                      WebkitTouchCallout: 'none',
+                    }}
+                    onContextMenu={e => e.preventDefault()}
+                  >
+                    <Image
+                      src={slide.image}
+                      alt={slide.title}
+                      fill
+                      className="object-cover select-none"
+                      priority={index === 0}
+                      loading={index < 2 ? 'eager' : 'lazy'}
+                      quality={85}
+                      sizes="100vw"
+                      placeholder="blur"
+                      blurDataURL={getBlurDataURL()}
+                      draggable={false}
+                    />
+                    {/* Transparent overlay to prevent direct image access */}
+                    <div
+                      className="absolute inset-0"
+                      onContextMenu={e => e.preventDefault()}
+                      onDragStart={e => e.preventDefault()}
+                    />
+                  </div>
+                </ContextMenuTrigger>
+                <ContextMenuContent className="w-64">
+                  <ContextMenuItem
+                    disabled
+                    className="text-xs text-muted-foreground"
+                  >
+                    Images are protected by copyright
+                  </ContextMenuItem>
+                  <ContextMenuItem
+                    disabled
+                    className="text-xs text-muted-foreground"
+                  >
+                    © ACOB Lighting Technology Limited
+                  </ContextMenuItem>
+                </ContextMenuContent>
+              </ContextMenu>
             </div>
             {/* Dark overlay for better text readability */}
             <div className="absolute inset-0 bg-gradient-to-r from-black/80 via-black/60 to-black/40" />

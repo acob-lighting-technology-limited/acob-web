@@ -9,7 +9,6 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { PageHero } from '@/components/ui/page-hero';
 import type { Project } from '@/lib/types';
-import { Metadata } from 'next';
 import { applySanityImagePreset } from '@/lib/utils/sanity-image';
 
 interface CategoryPageProps {
@@ -48,39 +47,6 @@ const categoryInfo: Record<
       '/images/projects/keffi-nassarawa-hospital-1.webp?height=400&width=1200',
   },
 };
-
-export async function generateMetadata({
-  params,
-}: {
-  params: Promise<{ category: string }>;
-}): Promise<Metadata> {
-  const { category } = await params;
-  const info = categoryInfo[category];
-
-  if (!info) {
-    return {
-      title: 'Category Not Found - ACOB Lighting Technology Limited',
-      description: 'The requested project category could not be found.',
-    };
-  }
-
-  return {
-    title: `${info.title} Projects - ACOB Lighting Technology Limited`,
-    description: `Explore ${info.title.toLowerCase()} projects by ACOB Lighting Technology Limited. ${info.description}`,
-    keywords: `${info.title}, solar energy projects, renewable energy, ACOB Lighting, Nigeria solar projects`,
-    openGraph: {
-      title: `${info.title} Projects - ACOB Lighting Technology Limited`,
-      description: info.description,
-      type: 'website',
-      url: `https://acoblighting.com/projects/category/${category}`,
-    },
-    twitter: {
-      card: 'summary_large_image',
-      title: `${info.title} Projects - ACOB Lighting Technology Limited`,
-      description: info.description,
-    },
-  };
-}
 
 export default async function CategoryPage({ params }: CategoryPageProps) {
   const { category } = await params;

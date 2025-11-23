@@ -155,6 +155,18 @@ const MobileMenu: React.FC<MobileMenuProps> = ({
     {},
   );
 
+  // Lock body scroll when menu is open
+  useEffect(() => {
+    if (isOpen) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = '';
+    }
+    return () => {
+      document.body.style.overflow = '';
+    };
+  }, [isOpen]);
+
   // Auto-expand parent items if their sub-item is active
   useEffect(() => {
     const autoExpanded: Record<string, boolean> = {};
