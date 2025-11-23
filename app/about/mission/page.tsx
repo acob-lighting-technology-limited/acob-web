@@ -60,7 +60,7 @@ const missionMetrics = [
   },
   {
     label: 'Renewable Energy Capacity',
-    value: '500 MW',
+    value: '50 MW',
   },
 ];
 

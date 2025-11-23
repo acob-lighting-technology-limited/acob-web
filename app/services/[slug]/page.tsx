@@ -1,7 +1,4 @@
-import {
-  Breadcrumb,
-  generateBreadcrumbSchema,
-} from '@/components/ui/breadcrumb';
+import { Breadcrumb } from '@/components/ui/breadcrumb';
 import { Container } from '@/components/ui/container';
 import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
@@ -11,7 +8,6 @@ import { getServiceBySlug, servicesData } from '@/lib/data';
 import Link from 'next/link';
 import { PageHero } from '@/components/ui/page-hero';
 import { ServiceGallery } from '@/components/services/service-gallery';
-import { Metadata } from 'next';
 
 interface ServicePageProps {
   params: Promise<{
@@ -23,56 +19,6 @@ export async function generateStaticParams() {
   return servicesData.map(service => ({
     slug: service.slug,
   }));
-}
-
-export async function generateMetadata({
-  params,
-}: {
-  params: Promise<{ slug: string }>;
-}): Promise<Metadata> {
-  const { slug } = await params;
-  const service = getServiceBySlug(slug);
-
-  if (!service) {
-    return {
-      title: 'Service Not Found - ACOB Lighting Technology Limited',
-      description: 'The requested service could not be found.',
-    };
-  }
-
-  const breadcrumbItems = [
-    { label: 'Home', href: '/' },
-    { label: 'Services', href: '/services' },
-    { label: service.title },
-  ];
-
-  return {
-    title: `${service.title} - ACOB Lighting Technology Limited`,
-    description:
-      service.excerpt ||
-      `Learn about ${service.title} services from ACOB Lighting Technology Limited. We provide comprehensive solar energy solutions including ${service.title.toLowerCase()} across Nigeria.`,
-    keywords: `${service.title}, solar energy, ${service.title.toLowerCase()}, ACOB Lighting, Nigeria solar services, renewable energy`,
-    openGraph: {
-      title: `${service.title} - ACOB Lighting Technology Limited`,
-      description:
-        service.excerpt ||
-        `Learn about ${service.title} services from ACOB Lighting.`,
-      type: 'website',
-      url: `https://www.acoblighting.com/services/${slug}`,
-    },
-    twitter: {
-      card: 'summary_large_image',
-      title: `${service.title} - ACOB Lighting Technology Limited`,
-      description:
-        service.excerpt ||
-        `Learn about ${service.title} services from ACOB Lighting.`,
-    },
-    other: {
-      'application/ld+json': JSON.stringify(
-        generateBreadcrumbSchema(breadcrumbItems),
-      ),
-    },
-  };
 }
 
 export default async function ServicePage({ params }: ServicePageProps) {

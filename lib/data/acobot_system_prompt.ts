@@ -10,7 +10,7 @@
 
 // **Company Statistics:**
 // - **120+** projects completed
-// - **50MW+** total capacity installed
+// - **10MW+** total capacity installed
 // - **50+** communities served
 // - **10+** years of experience in the renewable energy sector
 
@@ -227,8 +227,6 @@ Notable Projects:
 
 **Key Personnel:**
 - **CEO:** Mr. Alexander Chinedu Obiechina
-- **IT Specialist:** Ilonze Chibuikem Michael
-- **Media & Communications Specialist:** Abdulsamad Danmusa
 
 Head Office: Plot 2, Block 14 Extension, Federal Ministry of Works & Housing Sites and Service Scheme, Setraco Gate, Gwarinpa, Abuja
 Work Hours: Monday – Friday, 8:00 AM – 5:00 PM. Closed on Saturdays and Sundays.

@@ -1,23 +1,7 @@
-import { Metadata } from 'next';
 import { Container } from '@/components/ui/container';
 import { PageHero } from '@/components/ui/page-hero';
 import { Breadcrumb } from '@/components/ui/breadcrumb';
 import { ResourcesSection } from '@/components/resources/resources-section';
-
-export const metadata: Metadata = {
-  title: 'Resources & Downloads - Brochures, Certifications | ACOB Lighting',
-  description:
-    'Download product brochures, technical specifications, certifications, installation guides, and other resources from ACOB Lighting Technology Limited.',
-  keywords:
-    'solar brochures, product specifications, certifications, installation guides, technical documentation, solar resources, renewable energy guides',
-  openGraph: {
-    title: 'Resources & Downloads - ACOB Lighting Technology Limited',
-    description:
-      'Access comprehensive solar energy resources, product brochures, and technical documentation.',
-    type: 'website',
-    url: 'https://acoblighting.com/resources',
-  },
-};
 
 export default function ResourcesPage() {
   const breadcrumbItems = [

@@ -1,7 +1,4 @@
-import {
-  Breadcrumb,
-  generateBreadcrumbSchema,
-} from '@/components/ui/breadcrumb';
+import { Breadcrumb } from '@/components/ui/breadcrumb';
 import { Container } from '@/components/ui/container';
 import { Button } from '@/components/ui/button';
 import { ArrowRight, MapPin, Calendar } from 'lucide-react';
@@ -12,7 +9,6 @@ import { PageHero } from '@/components/ui/page-hero';
 import type { Project } from '@/lib/types';
 import { Card, CardContent } from '@/components/ui/card';
 import { ShareCopy } from '@/components/updates/share-copy';
-import { Metadata } from 'next';
 import { ProjectContent } from './project-content';
 import { ImpactMetrics } from '@/components/projects/impact-metrics';
 
@@ -27,56 +23,6 @@ export async function generateStaticParams() {
   return projects.map((project: Project) => ({
     slug: project.slug.current,
   }));
-}
-
-export async function generateMetadata({
-  params,
-}: {
-  params: Promise<{ slug: string }>;
-}): Promise<Metadata> {
-  const { slug } = await params;
-  const project = await getProject(slug);
-
-  if (!project) {
-    return {
-      title: 'Project Not Found - ACOB Lighting Technology Limited',
-      description: 'The requested project could not be found.',
-    };
-  }
-
-  const breadcrumbItems = [
-    { label: 'Home', href: '/' },
-    { label: 'Projects', href: '/projects' },
-    { label: project.title },
-  ];
-
-  return {
-    title: `${project.title} - ACOB Lighting Technology Limited`,
-    description:
-      project.description ||
-      `Explore ${project.title} project by ACOB Lighting Technology Limited. We provide comprehensive solar energy solutions and mini-grid installations across Nigeria.`,
-    keywords: `${project.title}, solar energy project, mini-grid installation, renewable energy, ACOB Lighting, Nigeria solar projects`,
-    openGraph: {
-      title: `${project.title} - ACOB Lighting Technology Limited`,
-      description:
-        project.description ||
-        `Explore ${project.title} project by ACOB Lighting.`,
-      type: 'website',
-      url: `https://www.acoblighting.com/projects/${slug}`,
-    },
-    twitter: {
-      card: 'summary_large_image',
-      title: `${project.title} - ACOB Lighting Technology Limited`,
-      description:
-        project.description ||
-        `Explore ${project.title} project by ACOB Lighting.`,
-    },
-    other: {
-      'application/ld+json': JSON.stringify(
-        generateBreadcrumbSchema(breadcrumbItems),
-      ),
-    },
-  };
 }
 
 export default async function ProjectPage({ params }: ProjectPageProps) {

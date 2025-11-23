@@ -3,6 +3,12 @@
 import React, { useState } from 'react';
 import Image from 'next/image';
 import { cn } from '@/lib/utils';
+import {
+  ContextMenu,
+  ContextMenuContent,
+  ContextMenuItem,
+  ContextMenuTrigger,
+} from '@/components/ui/context-menu';
 
 interface ImageWithFallbackProps {
   src: string;
@@ -46,31 +52,46 @@ export function ImageWithFallback({
   };
 
   return (
-    <div className={cn('relative overflow-hidden w-full h-full', className)}>
-      {isLoading && (
-        <div className="absolute inset-0 bg-gray-300 animate-pulse rounded-lg" />
-      )}
-      <Image
-        src={imgSrc}
-        alt={alt}
-        width={fill ? undefined : width}
-        height={fill ? undefined : height}
-        fill={fill}
-        className={cn(
-          'h-full w-full transition-opacity duration-500',
-          isLoading ? 'opacity-0' : 'opacity-100',
-        )}
-        style={{ objectFit }}
-        priority={priority}
-        onError={handleError}
-        onLoad={handleLoad}
-        sizes={sizes}
-      />
-      {hasError && (
-        <div className="absolute inset-0 bg-gray-200 flex items-center justify-center">
-          <span className="text-gray-500 text-sm">Image unavailable</span>
+    <ContextMenu>
+      <ContextMenuTrigger asChild>
+        <div
+          className={cn('relative overflow-hidden w-full h-full', className)}
+        >
+          {isLoading && (
+            <div className="absolute inset-0 bg-gray-300 animate-pulse rounded-lg" />
+          )}
+          <Image
+            src={imgSrc}
+            alt={alt}
+            width={fill ? undefined : width}
+            height={fill ? undefined : height}
+            fill={fill}
+            className={cn(
+              'h-full w-full transition-opacity duration-500 select-none',
+              isLoading ? 'opacity-0' : 'opacity-100',
+            )}
+            style={{ objectFit }}
+            priority={priority}
+            onError={handleError}
+            onLoad={handleLoad}
+            sizes={sizes}
+            draggable={false}
+          />
+          {hasError && (
+            <div className="absolute inset-0 bg-gray-200 flex items-center justify-center">
+              <span className="text-gray-500 text-sm">Image unavailable</span>
+            </div>
+          )}
         </div>
-      )}
-    </div>
+      </ContextMenuTrigger>
+      <ContextMenuContent className="w-64">
+        <ContextMenuItem disabled className="text-xs text-muted-foreground">
+          Images are protected by copyright
+        </ContextMenuItem>
+        <ContextMenuItem disabled className="text-xs text-muted-foreground">
+          © ACOB Lighting Technology Limited
+        </ContextMenuItem>
+      </ContextMenuContent>
+    </ContextMenu>
   );
 }
