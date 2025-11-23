@@ -4,6 +4,12 @@ import { useState, useEffect, useCallback, useRef } from 'react';
 import Image from 'next/image';
 import { X, ChevronLeft, ChevronRight, ZoomIn, ZoomOut } from 'lucide-react';
 import { cn } from '@/lib/utils';
+import {
+  ContextMenu,
+  ContextMenuContent,
+  ContextMenuItem,
+  ContextMenuTrigger,
+} from '@/components/ui/context-menu';
 
 interface ImageLightboxProps {
   images: Array<{ src: string; alt: string }>;
@@ -281,26 +287,56 @@ export function ImageLightbox({
               backfaceVisibility: 'hidden',
               WebkitBackfaceVisibility: 'hidden',
             }}
-            onContextMenu={e => {
-              e.preventDefault();
-            }}
           >
-            <div className="relative w-full h-full">
-              <Image
-                src={images[currentIndex]?.src || ''}
-                alt={images[currentIndex]?.alt || ''}
-                fill
-                className={cn(
-                  'object-contain transition-all duration-300',
-                  isZoomed && 'object-cover',
-                )}
-                sizes="100vw"
-                priority
-                quality={98}
-                loading="eager"
-                unoptimized
-              />
-            </div>
+            <ContextMenu>
+              <ContextMenuTrigger asChild>
+                <div
+                  className="relative w-full h-full"
+                  style={{
+                    userSelect: 'none',
+                    WebkitUserSelect: 'none',
+                    WebkitTouchCallout: 'none',
+                  }}
+                  onContextMenu={e => e.preventDefault()}
+                >
+                  <Image
+                    src={images[currentIndex]?.src || ''}
+                    alt={images[currentIndex]?.alt || ''}
+                    fill
+                    className={cn(
+                      'object-contain transition-all duration-300 select-none',
+                      isZoomed && 'object-cover',
+                    )}
+                    sizes="100vw"
+                    priority
+                    quality={98}
+                    loading="eager"
+                    unoptimized
+                    draggable={false}
+                  />
+                  {/* Transparent overlay to prevent direct image access */}
+                  <div
+                    className="absolute inset-0"
+                    onContextMenu={e => e.preventDefault()}
+                    onDragStart={e => e.preventDefault()}
+                  />
+                </div>
+              </ContextMenuTrigger>
+              <ContextMenuContent className="w-64">
+                <ContextMenuItem
+                  disabled
+                  className="text-xs text-muted-foreground"
+                >
+                  Images are protected by copyright
+                </ContextMenuItem>
+                <ContextMenuItem
+                  disabled
+                  className="text-xs text-muted-foreground"
+                >
+                  © ACOB Lighting Technology Limited
+                </ContextMenuItem>
+              </ContextMenuContent>
+            </ContextMenu>
           </div>
         </div>
       </div>

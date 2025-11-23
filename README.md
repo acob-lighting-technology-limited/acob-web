@@ -17,7 +17,7 @@ ACOB Lighting Technology Limited, founded in 2016 and led by CEO Mr. Alexander C
 ### Key Statistics
 
 - **120+** projects completed
-- **50MW+** total capacity installed
+- **10MW+** total capacity installed
 - **100+** communities served
 - **10+** years of experience in renewable energy
 

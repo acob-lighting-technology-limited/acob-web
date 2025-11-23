@@ -160,7 +160,7 @@ export function ProjectsSection({ projects }: ProjectsSectionProps) {
                       {/* Project Content */}
                       <CardContent className="flex flex-1 flex-col p-4 sm:p-6">
                         <div className="space-y-3">
-                          <h3 className="text-xl md:text-2xl font-semibold text-foreground line-clamp-2">
+                          <h3 className="text-lg font-semibold text-foreground line-clamp-2">
                             {project.title}
                           </h3>
                           <p className="text-sm md:text-base text-muted-foreground line-clamp-3">
@@ -238,7 +238,7 @@ export function ProjectsSection({ projects }: ProjectsSectionProps) {
                   {/* Project Content */}
                   <CardContent className="flex flex-1 flex-col p-4 sm:p-6">
                     <div className="space-y-3">
-                      <h3 className="text-xl md:text-2xl font-semibold text-foreground line-clamp-2">
+                      <h3 className="text-lg  font-semibold text-foreground line-clamp-2">
                         {project.title}
                       </h3>
                       <p className="text-sm md:text-base text-muted-foreground line-clamp-3">

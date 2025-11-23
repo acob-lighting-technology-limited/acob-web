@@ -20,6 +20,8 @@ import {
   MapPin,
   MessageCircle,
   Briefcase,
+  Calendar,
+  Sparkles,
 } from 'lucide-react';
 
 // Lucide icon mapping
@@ -48,4 +50,6 @@ export const LucideIcons: Record<
   MapPin,
   MessageCircle,
   Briefcase,
+  Calendar,
+  Sparkles,
 };

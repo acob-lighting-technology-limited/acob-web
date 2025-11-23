@@ -16,7 +16,7 @@ export default function CertificationsPage() {
   return (
     <ComingSoon
       title="Certifications"
-      description="We're updating our certifications and merits information. This page will be available soon!"
+      description="We're updating our certifications and awards information. This page will be available soon!"
       breadcrumbItems={breadcrumbItems}
       backgroundImage="/images/about/certifications.webp"
     />

@@ -22,18 +22,21 @@ export function InfoCard({
   className,
 }: InfoCardProps) {
   if (variant === 'metric') {
-    // Metric variant for stats/numbers
+    // Metric variant for stats/numbers - matches Quick Facts styling
     return (
       <div
         className={cn(
-          'rounded-2xl border border-border bg-surface p-2 sm:p-4 shadow-sm',
+          'flex items-start gap-2 sm:gap-3 rounded-2xl border border-border bg-muted/30 p-2 sm:p-4',
           className,
         )}
       >
-        <div className="text-3xl font-semibold text-foreground">{value}</div>
-        <p className="mt-1 text-xs uppercase tracking-wide text-muted-foreground">
-          {label}
-        </p>
+        <span className="mt-1 h-2 w-2 rounded-full bg-primary flex-shrink-0" />
+        <div>
+          <p className="text-base font-medium text-foreground">{value}</p>
+          <p className="mt-1 text-xs uppercase tracking-[0.2em] text-muted-foreground">
+            {label}
+          </p>
+        </div>
       </div>
     );
   }
