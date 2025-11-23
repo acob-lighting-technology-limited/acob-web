@@ -1,25 +1,56 @@
 import { Metadata } from 'next';
+import { getJobPosting } from '@/sanity/lib/client';
+import { getOgImageUrl } from '@/lib/utils/og-image';
 
-export const metadata: Metadata = {
-  title: 'Career Opportunity - ACOB Lighting Technology Limited',
-  description:
-    "Explore career opportunities at ACOB Lighting Technology Limited. Join our team and be part of Nigeria's energy access revolution in solar energy and mini-grid solutions.",
-  keywords:
-    'ACOB Lighting career opportunity, solar energy jobs, renewable energy careers, Nigeria solar jobs, energy access jobs',
-  openGraph: {
-    title: 'Career Opportunity - ACOB Lighting Technology Limited',
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ slug: string }>;
+}): Promise<Metadata> {
+  const { slug } = await params;
+  const job = await getJobPosting(slug);
+
+  if (!job) {
+    return {
+      title: 'Job Not Found - ACOB Lighting Technology Limited',
+      description: 'The requested job posting could not be found.',
+    };
+  }
+
+  const ogImage = getOgImageUrl('/images/contact/careers.webp');
+
+  return {
+    title: `${job.title} - ACOB Lighting Technology Limited`,
     description:
-      "Explore career opportunities at ACOB Lighting and be part of Nigeria's energy access revolution.",
-    type: 'website',
-    url: 'https://acoblighting.com/contact/careers',
-  },
-  twitter: {
-    card: 'summary_large_image',
-    title: 'Career Opportunity - ACOB Lighting Technology Limited',
-    description:
-      "Explore career opportunities at ACOB Lighting and be part of Nigeria's energy access revolution.",
-  },
-};
+      job.description ||
+      `Explore the ${job.title} position at ACOB Lighting Technology Limited. Join our team and be part of Nigeria's energy access revolution.`,
+    keywords: `${job.title}, ACOB Lighting careers, solar energy jobs, renewable energy careers, Nigeria solar jobs, ${job.department || ''}`,
+    openGraph: {
+      title: `${job.title} - ACOB Lighting Technology Limited`,
+      description:
+        job.description ||
+        `Explore the ${job.title} position at ACOB Lighting.`,
+      type: 'website',
+      url: `https://acoblighting.com/contact/careers/${slug}`,
+      images: [
+        {
+          url: ogImage,
+          width: 1200,
+          height: 630,
+          alt: `${job.title} - ACOB Lighting Career`,
+        },
+      ],
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title: `${job.title} - ACOB Lighting Technology Limited`,
+      description:
+        job.description ||
+        `Explore the ${job.title} position at ACOB Lighting.`,
+      images: [ogImage],
+    },
+  };
+}
 
 export default function CareerSlugLayout({
   children,

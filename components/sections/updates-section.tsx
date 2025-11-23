@@ -143,7 +143,7 @@ export function UpdatesSection({ posts }: UpdatesSectionProps) {
 
                       <div className="space-y-3">
                         {/* Title */}
-                        <h3 className="text-xl md:text-2xl font-semibold text-foreground line-clamp-2">
+                        <h3 className="text-xl  font-semibold text-foreground line-clamp-2">
                           {post.title}
                         </h3>
 
@@ -225,7 +225,7 @@ export function UpdatesSection({ posts }: UpdatesSectionProps) {
 
                   <div className="space-y-3">
                     {/* Title */}
-                    <h3 className="text-xl md:text-2xl font-semibold text-foreground line-clamp-2">
+                    <h3 className="text-xl  font-semibold text-foreground line-clamp-2">
                       {post.title}
                     </h3>
 

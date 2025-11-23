@@ -19,6 +19,7 @@ import { SpeedInsights } from '@vercel/speed-insights/next';
 import { AnnouncementBanner } from '@/components/ui/announcement-banner';
 import { getActiveJobCount } from '@/sanity/lib/client';
 import { StructuredData } from '@/components/seo/structured-data';
+import { ImageProtectionProvider } from '@/components/providers/image-protection-provider';
 
 const plusJakarta = Plus_Jakarta_Sans({
   subsets: ['latin'],
@@ -55,7 +56,7 @@ export const metadata: Metadata = {
     locale: 'en_US',
     images: [
       {
-        url: 'https://www.acoblighting.com/images/og-image.webp',
+        url: 'https://www.acoblighting.com/images/og-image.jpg',
         width: 1200,
         height: 630,
         alt: 'ACOB Lighting Solar Energy Solutions - Mini-Grid Projects Across Nigeria',
@@ -68,7 +69,7 @@ export const metadata: Metadata = {
     description:
       'Leading supplier of solar materials and mini-grid solutions for manufacturers, installers & contractors across Nigeria.',
     creator: '@acoblighting',
-    images: ['https://www.acoblighting.com/images/og-image.webp'],
+    images: ['https://www.acoblighting.com/images/og-image.jpg'],
   },
   robots: {
     index: true,
@@ -105,35 +106,41 @@ export default async function RootLayout({
         <StructuredData />
         <Providers>
           <NProgressProvider>
-            <Toaster
-              closeButton
-              position="bottom-right"
-              theme="system"
-              richColors
-            />
-            <div className="flex min-h-screen flex-col w-full bg-background  transition-colors duration-500 selection:bg-primary selection:text-primary-foreground ">
-              {!shouldHideLayout && <AnnouncementBanner jobCount={jobCount} />}
-              {!shouldHideLayout && <Header />}
-              <main
-                id="main-content"
-                className={
-                  shouldHideLayout ? 'flex-1' : 'flex-1 border-b border-b-muted'
-                }
-              >
-                {children}
-              </main>
-              {!shouldHideLayout && <Footer />}
-              {!shouldHideLayout && (
-                <div className="z-50 fixed -bottom-2 right-0 flex flex-col gap-2 items-center w-16 h-32 sm:w-20 sm:h-40">
-                  <ScrollToTop />
-                  <ChatErrorBoundary>
-                    <ChatBot />
-                  </ChatErrorBoundary>
-                </div>
-              )}
-              <Analytics />
-              <SpeedInsights />
-            </div>
+            <ImageProtectionProvider>
+              <Toaster
+                closeButton
+                position="bottom-right"
+                theme="system"
+                richColors
+              />
+              <div className="flex min-h-screen flex-col w-full bg-background  transition-colors duration-500 selection:bg-primary selection:text-primary-foreground ">
+                {!shouldHideLayout && (
+                  <AnnouncementBanner jobCount={jobCount} />
+                )}
+                {!shouldHideLayout && <Header />}
+                <main
+                  id="main-content"
+                  className={
+                    shouldHideLayout
+                      ? 'flex-1'
+                      : 'flex-1 border-b border-b-muted'
+                  }
+                >
+                  {children}
+                </main>
+                {!shouldHideLayout && <Footer />}
+                {!shouldHideLayout && (
+                  <div className="z-50 fixed -bottom-2 right-0 flex flex-col gap-2 items-center w-16 h-32 sm:w-20 sm:h-40">
+                    <ScrollToTop />
+                    <ChatErrorBoundary>
+                      <ChatBot />
+                    </ChatErrorBoundary>
+                  </div>
+                )}
+                <Analytics />
+                <SpeedInsights />
+              </div>
+            </ImageProtectionProvider>
           </NProgressProvider>
         </Providers>
       </body>
