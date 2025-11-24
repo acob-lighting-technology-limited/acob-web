@@ -9,6 +9,7 @@ export async function GET(request: NextRequest) {
     const page = parseInt(searchParams.get('page') || '1');
     const limit = parseInt(searchParams.get('limit') || '8');
     const search = searchParams.get('search') || '';
+    const category = searchParams.get('category') || '';
 
     // Validate parameters
     if (page < 1) {
@@ -30,6 +31,30 @@ export async function GET(request: NextRequest) {
       limit,
       search,
     });
+
+    // Filter by category if provided
+    if (category) {
+      const filteredPosts = result.posts.filter(
+        (post: { category?: string }) => post.category === category,
+      );
+      const totalFiltered = filteredPosts.length;
+      const totalPages = Math.ceil(totalFiltered / limit);
+      const startIndex = (page - 1) * limit;
+      const endIndex = startIndex + limit;
+      const paginatedPosts = filteredPosts.slice(startIndex, endIndex);
+
+      return NextResponse.json({
+        posts: paginatedPosts,
+        pagination: {
+          currentPage: page,
+          totalPages,
+          totalCount: totalFiltered,
+          limit,
+          hasNextPage: page < totalPages,
+          hasPreviousPage: page > 1,
+        },
+      });
+    }
 
     return NextResponse.json(result);
   } catch (error) {

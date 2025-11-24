@@ -39,11 +39,11 @@ export const ROUTE_MAP = {
   jobs: '/contact/careers',
 
   // Updates section
-  announcements: '/updates/announcements',
-  'case studies': '/updates/case-studies',
-  'press releases': '/updates/press-releases',
-  events: '/updates/events',
-  celebrations: '/updates/celebrations',
+  announcements: '/updates/category/announcements',
+  'case studies': '/updates/category/case-studies',
+  'press releases': '/updates/category/press-releases',
+  events: '/updates/category/events',
+  celebrations: '/updates/category/celebrations',
   gallery: '/updates/gallery',
   media: '/updates/gallery',
   pictures: '/updates/gallery',

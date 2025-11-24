@@ -57,31 +57,33 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
         {/* Overview */}
         <Card>
           <CardContent className="p-4 sm:p-6 xl:p-8">
-            <h2 className="text-3xl font-bold mb-6 text-foreground">
-              Project Overview
-            </h2>
-            <p className="text-muted-foreground leading-relaxed text-lg">
-              {project.description}
-            </p>
+            <div className="max-w-3xl">
+              <h2 className="text-2xl sm:text-3xl font-bold mb-6 text-foreground">
+                Project Overview
+              </h2>
+              <p className="text-muted-foreground dark:text-foreground/80 leading-relaxed text-lg">
+                {project.description}
+              </p>
 
-            {/* Project Location */}
-            {project.location && (
-              <div className="flex items-center text-muted-foreground mt-6">
-                <MapPin className="h-5 w-5 mr-2" />
-                <span className="text-lg">
-                  {project.location}
-                  {project.state &&
-                    `, ${project.state.toUpperCase() === 'FCT' ? 'FCT' : `${project.state} State.`}`}
-                </span>
-                <span className="mx-2">•</span>
-                <Calendar className="w-4 h-4 mx-2" />
-                <span className="text-lg">
-                  {new Date(
-                    project.projectDate || project._createdAt,
-                  ).getFullYear()}
-                </span>
-              </div>
-            )}
+              {/* Project Location */}
+              {project.location && (
+                <div className="flex items-center text-muted-foreground mt-6">
+                  <MapPin className="h-5 w-5 mr-2" />
+                  <span className="text-lg">
+                    {project.location}
+                    {project.state &&
+                      `, ${project.state.toUpperCase() === 'FCT' ? 'FCT' : `${project.state} State.`}`}
+                  </span>
+                  <span className="mx-2">•</span>
+                  <Calendar className="w-4 h-4 mx-2" />
+                  <span className="text-lg">
+                    {new Date(
+                      project.projectDate || project._createdAt,
+                    ).getFullYear()}
+                  </span>
+                </div>
+              )}
+            </div>
 
             {/* Project Content */}
             {(project.projectContent || project.content) && (
