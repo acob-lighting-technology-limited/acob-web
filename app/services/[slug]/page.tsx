@@ -55,12 +55,12 @@ export default async function ServicePage({ params }: ServicePageProps) {
             <Card className="border shadow-md border-border bg-surface ">
               <CardContent className="p-4 sm:p-6 xl:p-8">
                 <div className="max-w-3xl">
-                  <h2 className="text-3xl font-bold mb-6 text-foreground">
+                  <h2 className="text-2xl sm:text-3xl font-bold mb-6 text-foreground">
                     Overview
                   </h2>
-                  <div className="text-muted-foreground leading-relaxed text-lg whitespace-pre-line">
+                  <p className="text-muted-foreground dark:text-foreground/80 leading-relaxed text-lg whitespace-pre-line">
                     {service.description}
-                  </div>
+                  </p>
                 </div>
 
                 {/* Gallery outside max-w-3xl */}
