@@ -137,7 +137,7 @@ export function UpdateContent({ content }: UpdateContentProps) {
         </h3>
       ),
       normal: ({ children }: PortableTextComponentProps<PortableTextBlock>) => (
-        <p className="my-2 text-muted-foreground leading-relaxed max-w-3xl w-full basis-full">
+        <p className="my-2 text-muted-foreground dark:text-foreground/80 leading-relaxed max-w-3xl w-full basis-full">
           {children}
         </p>
       ),

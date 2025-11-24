@@ -117,31 +117,31 @@ export const navigationItems = [
     subItems: [
       {
         name: 'Announcements',
-        href: '/updates/announcements',
+        href: '/updates/category/announcements',
         description: 'Company announcements and news',
         icon: 'Megaphone',
       },
       {
         name: 'Case Studies',
-        href: '/updates/case-studies',
+        href: '/updates/category/case-studies',
         description: 'Real-world implementation stories',
         icon: 'FileText',
       },
       {
         name: 'Press Releases',
-        href: '/updates/press-releases',
+        href: '/updates/category/press-releases',
         description: 'Official press releases and updates',
         icon: 'Newspaper',
       },
       {
         name: 'Events',
-        href: '/updates/events',
+        href: '/updates/category/events',
         description: 'Upcoming and past events',
         icon: 'Calendar',
       },
       {
         name: 'Celebrations',
-        href: '/updates/celebrations',
+        href: '/updates/category/celebrations',
         description: 'Company milestones and celebrations',
         icon: 'Sparkles',
       },
