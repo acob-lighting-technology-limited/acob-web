@@ -14,7 +14,7 @@ import { extractTextFromPortableText } from '@/lib/utils';
 
 interface CategoryPageProps {
   params: Promise<{
-    category: string;
+    slug: string;
   }>;
 }
 
@@ -50,14 +50,14 @@ const categoryInfo: Record<
 };
 
 export default async function CategoryPage({ params }: CategoryPageProps) {
-  const { category } = await params;
-  const info = categoryInfo[category];
+  const { slug } = await params;
+  const info = categoryInfo[slug];
 
   if (!info) {
     notFound();
   }
 
-  const projects = await getProjectsByCategory(category);
+  const projects = await getProjectsByCategory(slug);
 
   const breadcrumbItems = [
     { label: 'Home', href: '/' },

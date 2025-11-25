@@ -29,10 +29,10 @@ const categoryInfo: Record<string, { title: string; description: string }> = {
 export async function generateMetadata({
   params,
 }: {
-  params: Promise<{ category: string }>;
+  params: Promise<{ slug: string }>;
 }): Promise<Metadata> {
-  const { category } = await params;
-  const info = categoryInfo[category];
+  const { slug } = await params;
+  const info = categoryInfo[slug];
 
   if (!info) {
     return {
@@ -45,7 +45,7 @@ export async function generateMetadata({
   const result = await getProjectsPaginated({ page: 1, limit: 6 });
   const projects = result.projects;
   const categoryProject = projects.find(
-    (p: Project) => p.category === category && p.projectImage,
+    (p: Project) => p.category === slug && p.projectImage,
   );
 
   const ogImage = categoryProject?.projectImage
@@ -60,7 +60,7 @@ export async function generateMetadata({
       title: `${info.title} Projects - ACOB Lighting Technology Limited`,
       description: info.description,
       type: 'website',
-      url: `https://acoblighting.com/projects/category/${category}`,
+      url: `https://acoblighting.com/projects/category/${slug}`,
       images: [
         {
           url: ogImage,
