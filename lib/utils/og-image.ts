@@ -25,26 +25,30 @@ function isSanityImageUrl(url: string): boolean {
 }
 
 /**
- * Gets the OG image URL
- * - Sanity images: Adds optimization params
- * - Local images: Maps to static JPG in /images/og/
+ * Gets the OG image URL - STATIC ONLY, NO RUNTIME CONVERSION
+ * - Sanity images: Adds optimization params (Sanity handles it)
+ * - Local images: Returns static JPG path from /images/og/
+ * - ALL OG IMAGES MUST EXIST IN /public/images/og/ AS .jpg FILES
  */
 export function getOgImageUrl(imageUrl: string): string {
   if (!imageUrl) {
     return DEFAULT_OG_IMAGE;
   }
 
-  // Handle Sanity CDN images - add optimization params
+  // Handle absolute URLs (Sanity CDN or external)
   if (imageUrl.startsWith('http://') || imageUrl.startsWith('https://')) {
     if (isSanityImageUrl(imageUrl)) {
       return addSanityImageParams(imageUrl, OG_IMAGE_CONFIG);
     }
-    // External URLs - return as-is
     return imageUrl;
   }
 
-  // Local images - map to static JPG in /images/og/
-  const imageName = imageUrl
+  // Local images - extract filename and map to /images/og/{name}.jpg
+  // Input: /images/about/mission-vision.webp or /images/about/mission-vision.webp?height=400
+  // Output: https://www.acoblighting.com/images/og/mission-vision.jpg
+  // Remove query parameters first
+  const urlWithoutQuery = imageUrl.split('?')[0];
+  const imageName = urlWithoutQuery
     .split('/')
     .pop()
     ?.replace(/\.[^.]+$/, '');

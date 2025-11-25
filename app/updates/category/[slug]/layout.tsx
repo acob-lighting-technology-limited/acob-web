@@ -19,7 +19,7 @@ export async function generateMetadata({
 
   const ogImage = categoryPost?.featuredImage
     ? getOgImageUrl(categoryPost.featuredImage)
-    : getOgImageUrl('/images/services/header.webp');
+    : 'https://www.acoblighting.com/images/og-image.jpg';
 
   const categoryTitle = slug
     .split('-')
