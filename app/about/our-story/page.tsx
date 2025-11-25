@@ -9,6 +9,7 @@ import { Container } from '@/components/ui/container';
 import { PageHero } from '@/components/ui/page-hero';
 import { aboutLeadershipQuotes } from '@/lib/data/about-overview-data';
 import { CoreValuesSection } from '@/components/sections/core-values-section';
+import { COMPANY_INFO } from '@/lib/constants';
 
 export default function OurStoryPage() {
   const breadcrumbItems = [
@@ -89,9 +90,18 @@ export default function OurStoryPage() {
                 <div className="mt-4 grid grid-cols-2 gap-3">
                   {[
                     { label: 'Founded', value: '2016' },
-                    { label: 'Staff Strength', value: '75+' },
-                    { label: 'Communities Served', value: '100+' },
-                    { label: 'Projects Commissioned', value: '50+' },
+                    {
+                      label: 'Staff Strength',
+                      value: `${COMPANY_INFO.stats.staffStrength}+`,
+                    },
+                    {
+                      label: 'Communities Served',
+                      value: `${COMPANY_INFO.stats.communitiesServed}+`,
+                    },
+                    {
+                      label: 'Projects Commissioned',
+                      value: `${COMPANY_INFO.stats.projectsCompleted}+`,
+                    },
                   ].map(item => (
                     <div
                       key={item.label}

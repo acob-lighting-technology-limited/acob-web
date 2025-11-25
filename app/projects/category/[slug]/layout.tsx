@@ -50,7 +50,7 @@ export async function generateMetadata({
 
   const ogImage = categoryProject?.projectImage
     ? getOgImageUrl(categoryProject.projectImage)
-    : getOgImageUrl('/images/olooji-community.webp');
+    : 'https://www.acoblighting.com/images/og-image.jpg';
 
   return {
     title: `${info.title} Projects - ACOB Lighting Technology Limited`,

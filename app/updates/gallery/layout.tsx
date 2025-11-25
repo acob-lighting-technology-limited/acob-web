@@ -2,7 +2,7 @@ import { Metadata } from 'next';
 import { getOgImageUrl } from '@/lib/utils/og-image';
 
 export async function generateMetadata(): Promise<Metadata> {
-  const ogImage = getOgImageUrl('/images/services/header.webp');
+  const ogImage = getOgImageUrl('/images/services/mini-grid-solutions.webp');
 
   return {
     title: 'Media Gallery - ACOB Lighting Technology Limited',

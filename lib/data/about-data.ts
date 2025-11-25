@@ -1,3 +1,5 @@
+import { COMPANY_INFO } from '@/lib/constants';
+
 export const aboutSections = [
   {
     title: 'Our Story',
@@ -125,8 +127,7 @@ export const milestones = [
   {
     year: '2021-2023',
     title: 'Rapid Growth',
-    description:
-      'Expanded to 75 staff members with capability to complete 15 kWp EPC projects in 2-3 weeks.',
+    description: `Expanded to ${COMPANY_INFO.stats.staffStrength} staff members with capability to complete 15 kWp EPC projects in 2-3 weeks.`,
     icon: 'BookOpen',
   },
   {
@@ -139,8 +140,7 @@ export const milestones = [
   {
     year: '2025',
     title: 'National Scale Impact',
-    description:
-      'Deployed projects in 9 communities, powering 2,306 connections with 690 kWp capacity. 19 more communities under construction.',
+    description: `Deployed projects in ${COMPANY_INFO.stats.communitiesDeployed} communities, powering ${COMPANY_INFO.stats.totalConnections.toLocaleString()} connections with ${COMPANY_INFO.stats.installedCapacityKwp} kWp capacity. ${COMPANY_INFO.stats.communitiesUnderConstruction} more communities under construction.`,
     icon: 'Users',
   },
 ];
