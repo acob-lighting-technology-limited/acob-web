@@ -3,10 +3,13 @@ import type React from 'react';
 import { usePathname } from 'next/navigation';
 import { MaskText } from '../animations/MaskText';
 
+// Default hero image for pages without a specific image
+const DEFAULT_HERO_IMAGE = '/images/contact/office-location-hero.webp';
+
 interface PageHeroProps {
   title?: string; // Now optional, auto-generated from route
   description: string; // Short 1-line description (old title)
-  backgroundImage: string;
+  backgroundImage?: string; // Now optional, will use default if not provided
   backgroundPosition?: string;
   align?: 'left' | 'center' | 'right';
   className?: string;
@@ -89,6 +92,14 @@ export function PageHero({
   // Use provided title or auto-generate from pathname
   const displayTitle = title || generateTitleFromPath(pathname);
 
+  // Determine the image to use - fallback to default if not provided or is placeholder
+  const imageToUse =
+    backgroundImage &&
+    backgroundImage !== '/placeholder.svg' &&
+    backgroundImage !== ''
+      ? backgroundImage
+      : DEFAULT_HERO_IMAGE;
+
   const alignmentClass = {
     left: 'text-left items-start',
     center: 'text-center items-center',
@@ -102,7 +113,7 @@ export function PageHero({
       {/* Background Image with Animation */}
       <div
         className={`absolute inset-0 bg-cover ${backgroundPosition} bg-no-repeat animate-slow-zoom`}
-        style={{ backgroundImage: `url('${backgroundImage}')` }}
+        style={{ backgroundImage: `url('${imageToUse}')` }}
       />
 
       {/* Dark Overlay */}

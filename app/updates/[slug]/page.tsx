@@ -81,7 +81,7 @@ export default async function UpdatePage({ params }: UpdatePageProps) {
       <PageHero
         title={categoryTitle}
         description={post.title}
-        backgroundImage={post.featuredImage || '/images/hero-bg.webp'}
+        backgroundImage={post.featuredImage}
       />
 
       <Container className="px-4 py-8">
@@ -91,7 +91,7 @@ export default async function UpdatePage({ params }: UpdatePageProps) {
           <Card className="">
             <CardContent className="p-4 sm:p-6 xl:p-8 space-y-8">
               {/* Post Header */}
-              <div className="max-w-3xl">
+              <div>
                 <div className="flex items-center text-sm text-muted-foreground mb-4 flex-wrap gap-2">
                   <span>{new Date(post.publishedAt).toLocaleDateString()}</span>
                   <span>•</span>
