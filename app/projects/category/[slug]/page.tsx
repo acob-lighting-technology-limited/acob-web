@@ -10,6 +10,7 @@ import Link from 'next/link';
 import { PageHero } from '@/components/ui/page-hero';
 import type { Project } from '@/lib/types';
 import { applySanityImagePreset } from '@/lib/utils/sanity-image';
+import { extractTextFromPortableText } from '@/lib/utils';
 
 interface CategoryPageProps {
   params: Promise<{
@@ -106,58 +107,83 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
 
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                   {projects.map((project: Project) => (
-                    <Card
+                    <Link
                       key={project._id}
-                      className="overflow-hidden  hover:shadow-lg transition-shadow flex flex-col"
+                      href={`/projects/${project.slug.current}`}
+                      className="group"
                     >
-                      <div className="aspect-[16/9] overflow-hidden relative flex-shrink-0">
-                        {project.projectImage ? (
-                          <Image
-                            src={applySanityImagePreset(
-                              project.projectImage,
-                              'card',
+                      <Card className="overflow-hidden h-full flex flex-col transition-all duration-300 hover:shadow-xl hover:-translate-y-1 border-border hover:border-primary/50">
+                        {/* Image */}
+                        <div className="aspect-[16/9] overflow-hidden relative bg-muted">
+                          {project.projectImage ? (
+                            <Image
+                              src={applySanityImagePreset(
+                                project.projectImage,
+                                'card',
+                              )}
+                              alt={project.title}
+                              fill
+                              className="object-cover transition-transform duration-500 group-hover:scale-110"
+                              sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                            />
+                          ) : (
+                            <div className="w-full h-full flex items-center justify-center">
+                              <span className="text-muted-foreground text-sm">
+                                No image
+                              </span>
+                            </div>
+                          )}
+                          {/* Gradient overlay */}
+                          <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/0 to-black/0 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                        </div>
+
+                        <CardContent className="p-6 flex flex-col flex-1">
+                          {/* Location & Date */}
+                          <div className="flex items-center gap-4 text-xs text-muted-foreground mb-3 flex-wrap">
+                            {(project.location || project.state) && (
+                              <div className="flex items-center gap-1">
+                                <MapPin className="h-3.5 w-3.5 text-primary" />
+                                <span>
+                                  {project.location}
+                                  {project.location && project.state && ', '}
+                                  {project.state &&
+                                    (project.state.toUpperCase() === 'FCT'
+                                      ? 'FCT'
+                                      : `${project.state} State`)}
+                                </span>
+                              </div>
                             )}
-                            alt={project.title}
-                            fill
-                            className="hover:scale-105 object-cover transition-transform duration-500"
-                            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-                          />
-                        ) : (
-                          <div className="w-full h-full bg-muted flex items-center justify-center">
-                            <span className="text-muted-foreground">
-                              No image available
-                            </span>
+                            {project.projectDate && (
+                              <div className="flex items-center gap-1">
+                                <span>
+                                  {new Date(project.projectDate).getFullYear()}
+                                </span>
+                              </div>
+                            )}
                           </div>
-                        )}
-                      </div>
-                      <CardContent className="!pt-0 p-6 flex flex-col flex-1">
-                        <div className="flex-1">
-                          <h3 className="text-xl font-bold mb-4 text-foreground">
+
+                          {/* Title */}
+                          <h3 className="text-lg font-bold mb-3 text-foreground group-hover:text-primary transition-colors duration-300 line-clamp-2">
                             {project.title}
                           </h3>
-                          <p className="text-muted-foreground mb-4 leading-relaxed line-clamp-3">
+
+                          {/* Description */}
+                          <p className="text-sm text-muted-foreground leading-relaxed line-clamp-3 mb-4 flex-1">
                             {project.excerpt ||
+                              extractTextFromPortableText(
+                                project.content || [],
+                              ) ||
                               'Project details coming soon...'}
                           </p>
-                          <div className="flex items-center text-sm text-muted-foreground mb-6">
-                            <MapPin className="h-4 w-4 mr-1" />
-                            <span>
-                              {project.location}
-                              {project.state &&
-                                `, ${project.state.toUpperCase() === 'FCT' ? 'FCT' : `${project.state} State.`}`}
-                            </span>
+
+                          {/* View Project Link */}
+                          <div className="flex items-center text-sm font-medium text-primary group-hover:gap-2 transition-all duration-300">
+                            View Project
+                            <ArrowRight className="h-4 w-4 ml-1 group-hover:translate-x-1 transition-transform duration-300" />
                           </div>
-                        </div>
-                        <div className="mt-auto">
-                          <Link href={`/projects/${project.slug.current}`}>
-                            <Button variant="default" className="w-full">
-                              View Project
-                              <ArrowRight className="ml-2 h-4 w-4" />
-                            </Button>
-                          </Link>
-                        </div>
-                      </CardContent>
-                    </Card>
+                        </CardContent>
+                      </Card>
+                    </Link>
                   ))}
                 </div>
               </>

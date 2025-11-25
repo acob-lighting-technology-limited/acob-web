@@ -1,6 +1,7 @@
 import { Metadata } from 'next';
 import { aboutSections } from '@/lib/data';
 import { getOgImageUrl } from '@/lib/utils/og-image';
+import { COMPANY_INFO } from '@/lib/constants';
 
 export async function generateMetadata(): Promise<Metadata> {
   // Get first about section image from carousel (remove query params)
@@ -12,8 +13,7 @@ export async function generateMetadata(): Promise<Metadata> {
 
   return {
     title: 'About Us - ACOB Lighting Technology Limited',
-    description:
-      'Learn about ACOB Lighting Technology Limited, a pioneering solar energy company established in 2016. We have deployed projects in 9 communities, built 690 kWp combined system size, and power 2,306 connections across Nigeria.',
+    description: `Learn about ACOB Lighting Technology Limited, a pioneering solar energy company established in 2016. We have deployed projects in ${COMPANY_INFO.stats.communitiesDeployed} communities, built ${COMPANY_INFO.stats.installedCapacityKwp} kWp combined system size, and power ${COMPANY_INFO.stats.totalConnections.toLocaleString()} connections across Nigeria.`,
     keywords:
       'ACOB Lighting, solar energy company, Nigeria, renewable energy, mini-grid solutions, street lighting, about us',
     openGraph: {

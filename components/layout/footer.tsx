@@ -35,7 +35,7 @@ export function Footer() {
               ACOB Lighting Technology Limited delivers sustainable power
               solutions across Nigeria. We specialize in mini-grid systems,
               solar installations, and energy storage solutions that empower
-              communities with reliable, clean energy.
+              homes, businesses, and communities with reliable, clean energy.
             </p>
             {/* Social Links */}
             <div className="flex space-x-3 pt-2">
@@ -120,17 +120,26 @@ export function Footer() {
               >
                 {contactInfo.offices.headOffice.address}
               </button>
-              <a
-                href={`tel:${contactInfo.phones[0].replace(/\s/g, '')}`}
-                className="block hover:text-primary-foreground dark:hover:text-white transition-colors duration-500"
-              >
-                {contactInfo.phones[0]}
-              </a>
+              {contactInfo.phones.map((phone, index) => (
+                <a
+                  key={index}
+                  href={`tel:${phone.replace(/\s/g, '')}`}
+                  className="block hover:text-primary-foreground dark:hover:text-white transition-colors duration-500"
+                >
+                  {phone}
+                </a>
+              ))}
               <a
                 href={`mailto:${contactInfo.email}`}
                 className="block text-yellow-300 dark:text-yellow-400 hover:text-yellow-100 dark:hover:text-yellow-300 transition-colors duration-500"
               >
                 {contactInfo.email}
+              </a>
+              <a
+                href={`mailto:${contactInfo.additionalEmail}`}
+                className="block text-yellow-300 dark:text-yellow-400 hover:text-yellow-100 dark:hover:text-yellow-300 transition-colors duration-500"
+              >
+                {contactInfo.additionalEmail}
               </a>
             </div>
           </div>

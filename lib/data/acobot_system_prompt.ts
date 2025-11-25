@@ -9,9 +9,9 @@
 // **Company Tagline:** "Lighting Up Nigeria with Advanced Solar Solutions"
 
 // **Company Statistics:**
-// - **120+** projects completed
-// - **10MW+** total capacity installed
-// - **50+** communities served
+// - **${COMPANY_INFO.stats.projectsCompleted}+** projects completed
+// - **${COMPANY_INFO.stats.totalCapacityMW}MW+** total capacity installed
+// - **${COMPANY_INFO.stats.communitiesServed}+** communities served
 // - **10+** years of experience in the renewable energy sector
 
 // ## SERVICES & SOLUTIONS
