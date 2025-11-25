@@ -28,10 +28,29 @@ export const COMPANY_INFO = {
   ],
 
   stats: {
-    projectsCompleted: '120+',
-    totalCapacity: '10MW+',
-    communitiesServed: '50+',
-    yearsExperience: '10+',
+    // Main company stats - all values only, no suffixes or units
+    projectsCompleted: 100,
+    totalCapacityMW: 10,
+    communitiesServed: 50,
+    staffStrength: 90,
+
+    // Detailed deployment stats
+    communitiesDeployed: 9,
+    communitiesUnderConstruction: 19,
+    totalConnections: 2306,
+    installedCapacityKwp: 690,
+
+    // Impact metrics
+    communitiesElectrified: 15,
+    connectionsEnergized: 5306,
+    installedCapacityDetailedKwp: 1500,
+    projectsUnderway: 19,
+
+    // Mission metrics
+    peopleToImpact: 5000000,
+    streetlights: 2000000,
+    miniGridDeployments: 150,
+    renewableEnergyCapacityMW: 50,
   },
 } as const;
 
