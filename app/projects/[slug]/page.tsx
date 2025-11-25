@@ -48,7 +48,7 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
       <PageHero
         title="Our Projects"
         description={project.title}
-        backgroundImage={project.projectImage || '/placeholder.svg'}
+        backgroundImage={project.projectImage}
       />
 
       <Container className="px-4 py-8 relative">
@@ -57,7 +57,7 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
         {/* Overview */}
         <Card>
           <CardContent className="p-4 sm:p-6 xl:p-8">
-            <div className="max-w-3xl">
+            <div>
               <h2 className="text-2xl sm:text-3xl font-bold mb-6 text-foreground">
                 Project Overview
               </h2>

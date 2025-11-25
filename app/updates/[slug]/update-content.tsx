@@ -122,43 +122,39 @@ export function UpdateContent({ content }: UpdateContentProps) {
     },
     block: {
       h1: ({ children }: PortableTextComponentProps<PortableTextBlock>) => (
-        <h1 className="text-4xl font-bold my-4 max-w-3xl w-full basis-full">
+        <h1 className="text-4xl font-bold my-4 w-full basis-full">
           {children}
         </h1>
       ),
       h2: ({ children }: PortableTextComponentProps<PortableTextBlock>) => (
-        <h2 className="text-3xl font-bold my-3 max-w-3xl w-full basis-full">
+        <h2 className="text-3xl font-bold my-3 w-full basis-full">
           {children}
         </h2>
       ),
       h3: ({ children }: PortableTextComponentProps<PortableTextBlock>) => (
-        <h3 className="text-2xl font-bold my-2 max-w-3xl w-full basis-full">
+        <h3 className="text-2xl font-bold my-2 w-full basis-full">
           {children}
         </h3>
       ),
       normal: ({ children }: PortableTextComponentProps<PortableTextBlock>) => (
-        <p className="my-2 text-muted-foreground dark:text-foreground/80 leading-relaxed max-w-3xl w-full basis-full">
+        <p className="my-2 text-muted-foreground dark:text-foreground/80 leading-relaxed w-full basis-full">
           {children}
         </p>
       ),
       blockquote: ({
         children,
       }: PortableTextComponentProps<PortableTextBlock>) => (
-        <blockquote className="border-l-4 border-primary pl-4 italic my-4 max-w-3xl w-full basis-full">
+        <blockquote className="border-l-4 border-primary pl-4 italic my-4 w-full basis-full">
           {children}
         </blockquote>
       ),
     },
     list: {
       bullet: ({ children }: PortableTextComponentProps<PortableTextBlock>) => (
-        <ul className="list-disc pl-5 my-2 max-w-3xl w-full basis-full">
-          {children}
-        </ul>
+        <ul className="list-disc pl-5 my-2 w-full basis-full">{children}</ul>
       ),
       number: ({ children }: PortableTextComponentProps<PortableTextBlock>) => (
-        <ol className="list-decimal pl-5 my-2 max-w-3xl w-full basis-full">
-          {children}
-        </ol>
+        <ol className="list-decimal pl-5 my-2 w-full basis-full">{children}</ol>
       ),
     },
     listItem: {

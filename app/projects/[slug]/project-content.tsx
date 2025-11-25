@@ -149,41 +149,41 @@ export function ProjectContent({
     },
     block: {
       h1: ({ children }: PortableTextComponentProps<PortableTextBlock>) => (
-        <h1 className="text-4xl font-bold my-4 max-w-3xl w-full basis-full">
+        <h1 className="text-4xl font-bold my-4  w-full basis-full">
           {children}
         </h1>
       ),
       h2: ({ children }: PortableTextComponentProps<PortableTextBlock>) => (
-        <h2 className="text-3xl font-bold my-3 max-w-3xl w-full basis-full">
+        <h2 className="text-3xl font-bold my-3  w-full basis-full">
           {children}
         </h2>
       ),
       h3: ({ children }: PortableTextComponentProps<PortableTextBlock>) => (
-        <h3 className="text-2xl font-bold my-2 max-w-3xl w-full basis-full">
+        <h3 className="text-2xl font-bold my-2  w-full basis-full">
           {children}
         </h3>
       ),
       normal: ({ children }: PortableTextComponentProps<PortableTextBlock>) => (
-        <p className="my-2 text-muted-foreground leading-relaxed max-w-3xl w-full basis-full">
+        <p className="my-2 text-muted-foreground leading-relaxed  w-full basis-full">
           {children}
         </p>
       ),
       blockquote: ({
         children,
       }: PortableTextComponentProps<PortableTextBlock>) => (
-        <blockquote className="border-l-4 border-primary pl-4 italic my-4 max-w-3xl w-full basis-full">
+        <blockquote className="border-l-4 border-primary pl-4 italic my-4  w-full basis-full">
           {children}
         </blockquote>
       ),
     },
     list: {
       bullet: ({ children }: PortableTextComponentProps<PortableTextBlock>) => (
-        <ul className="list-disc list-inside my-4 space-y-2 max-w-3xl w-full basis-full">
+        <ul className="list-disc list-inside my-4 space-y-2  w-full basis-full">
           {children}
         </ul>
       ),
       number: ({ children }: PortableTextComponentProps<PortableTextBlock>) => (
-        <ol className="list-decimal list-inside my-4 space-y-2 max-w-3xl w-full basis-full">
+        <ol className="list-decimal list-inside my-4 space-y-2  w-full basis-full">
           {children}
         </ol>
       ),
@@ -225,7 +225,7 @@ export function ProjectContent({
           {/* Render template description */}
           {description !== 'custom' && descriptionText && (
             <div
-              className="whitespace-pre-wrap text-foreground/90 dark:text-foreground/70 text-base lg:text-lg leading-relaxed max-w-3xl w-full basis-full [&_strong]:font-bold [&_strong]:text-foreground"
+              className="whitespace-pre-wrap text-foreground/90 dark:text-foreground/70 text-base lg:text-lg leading-relaxed w-full basis-full [&_strong]:font-bold [&_strong]:text-foreground"
               dangerouslySetInnerHTML={{ __html: descriptionText }}
             />
           )}
