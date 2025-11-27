@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect, useMemo, useRef } from 'react';
 import Image from 'next/image';
+import Link from 'next/link';
 import { cn } from '@/lib/utils';
 import { MaskText } from '../animations/MaskText';
 import { getBlurDataURL } from '@/lib/utils/image-optimization';
@@ -10,6 +11,7 @@ interface PageHeroCarouselProps {
   images: Array<{
     src: string;
     alt: string;
+    href?: string;
   }>;
   title?: string;
   description?: string;
@@ -30,6 +32,7 @@ export const PageHeroCarousel = React.memo(function PageHeroCarousel({
   const touchEndX = useRef<number>(0);
   const autoPlayTimerRef = useRef<NodeJS.Timeout | null>(null);
   const imageRefsMap = useRef<Map<number, HTMLDivElement>>(new Map());
+  const hasSwiped = useRef<boolean>(false);
 
   const slides = useMemo(() => {
     if (!images || images.length === 0) {
@@ -98,6 +101,7 @@ export const PageHeroCarousel = React.memo(function PageHeroCarousel({
   // Handle touch events for swipe gestures
   const handleTouchStart = (e: React.TouchEvent) => {
     touchStartX.current = e.touches[0].clientX;
+    hasSwiped.current = false;
     // Pause auto-play while user is interacting
     if (autoPlayTimerRef.current) {
       clearInterval(autoPlayTimerRef.current);
@@ -113,6 +117,7 @@ export const PageHeroCarousel = React.memo(function PageHeroCarousel({
     const diff = touchStartX.current - touchEndX.current;
 
     if (Math.abs(diff) > swipeThreshold) {
+      hasSwiped.current = true;
       if (diff > 0) {
         // Swiped left - go to next image
         handleNext();
@@ -125,6 +130,13 @@ export const PageHeroCarousel = React.memo(function PageHeroCarousel({
     // Reset and restart auto-play
     touchStartX.current = 0;
     touchEndX.current = 0;
+
+    // Reset swipe flag after a short delay to allow normal clicks
+    if (hasSwiped.current) {
+      setTimeout(() => {
+        hasSwiped.current = false;
+      }, 300);
+    }
 
     // Restart auto-play after a delay
     if (slides.length > 1) {
@@ -175,37 +187,88 @@ export const PageHeroCarousel = React.memo(function PageHeroCarousel({
               }}
             >
               <div className="absolute inset-0 overflow-hidden bg-black">
-                <div
-                  ref={el => {
-                    if (el) {
-                      imageRefsMap.current.set(index, el);
-                    }
-                  }}
-                  className="absolute inset-0"
-                  style={{
-                    transform: 'scale(1) translateZ(0)',
-                    backfaceVisibility: 'hidden',
-                    WebkitBackfaceVisibility: 'hidden',
-                    WebkitTransform: 'scale(1) translateZ(0)',
-                  }}
-                >
-                  <Image
-                    src={slide.src}
-                    alt={slide.alt}
-                    fill
-                    className="object-cover"
-                    priority={index === 0}
-                    loading={index < 2 ? 'eager' : 'lazy'}
-                    quality={85}
-                    sizes="100vw"
-                    placeholder="blur"
-                    blurDataURL={getBlurDataURL()}
-                  />
-                </div>
+                {slide.href ? (
+                  <Link
+                    href={slide.href}
+                    className="absolute inset-0 cursor-pointer z-10 block"
+                    onClick={e => {
+                      // Prevent navigation if user swiped
+                      if (hasSwiped.current) {
+                        e.preventDefault();
+                        hasSwiped.current = false;
+                      }
+                    }}
+                    style={{ pointerEvents: 'auto' }}
+                  >
+                    <div
+                      ref={el => {
+                        if (el) {
+                          imageRefsMap.current.set(index, el);
+                        }
+                      }}
+                      className="absolute inset-0"
+                      style={{
+                        transform: 'scale(1) translateZ(0)',
+                        backfaceVisibility: 'hidden',
+                        WebkitBackfaceVisibility: 'hidden',
+                        WebkitTransform: 'scale(1) translateZ(0)',
+                      }}
+                    >
+                      <Image
+                        src={slide.src}
+                        alt={slide.alt}
+                        fill
+                        className="object-cover transition-opacity duration-300 hover:opacity-90"
+                        priority={index === 0}
+                        loading={index < 2 ? 'eager' : 'lazy'}
+                        quality={85}
+                        sizes="100vw"
+                        placeholder="blur"
+                        blurDataURL={getBlurDataURL()}
+                        style={{ pointerEvents: 'none' }}
+                        data-no-protection="true"
+                        draggable={false}
+                      />
+                    </div>
+                    {/* Dark overlay - inside link so it's clickable */}
+                    <div className="absolute inset-0 bg-gradient-to-r from-black/70 via-black/50 to-black/30 pointer-events-none" />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent pointer-events-none" />
+                  </Link>
+                ) : (
+                  <>
+                    <div
+                      ref={el => {
+                        if (el) {
+                          imageRefsMap.current.set(index, el);
+                        }
+                      }}
+                      className="absolute inset-0"
+                      style={{
+                        transform: 'scale(1) translateZ(0)',
+                        backfaceVisibility: 'hidden',
+                        WebkitBackfaceVisibility: 'hidden',
+                        WebkitTransform: 'scale(1) translateZ(0)',
+                      }}
+                    >
+                      <Image
+                        src={slide.src}
+                        alt={slide.alt}
+                        fill
+                        className="object-cover"
+                        priority={index === 0}
+                        loading={index < 2 ? 'eager' : 'lazy'}
+                        quality={85}
+                        sizes="100vw"
+                        placeholder="blur"
+                        blurDataURL={getBlurDataURL()}
+                      />
+                    </div>
+                    {/* Dark overlay */}
+                    <div className="absolute inset-0 bg-gradient-to-r from-black/70 via-black/50 to-black/30" />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent" />
+                  </>
+                )}
               </div>
-              {/* Dark overlay */}
-              <div className="absolute inset-0 bg-gradient-to-r from-black/70 via-black/50 to-black/30" />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent" />
             </div>
           );
         })}
@@ -214,7 +277,7 @@ export const PageHeroCarousel = React.memo(function PageHeroCarousel({
       {/* Content Overlay - Title and Description */}
       {(title || description) && (
         <div
-          className="absolute inset-0 z-20 flex items-end pb-10"
+          className="absolute inset-0 z-30 flex items-end pb-10 pointer-events-none"
           style={{
             backfaceVisibility: 'hidden',
             WebkitBackfaceVisibility: 'hidden',
@@ -222,7 +285,7 @@ export const PageHeroCarousel = React.memo(function PageHeroCarousel({
             WebkitTransform: 'translateZ(0)',
           }}
         >
-          <div className="2xl:container max-w-7xl mx-auto px-4 w-full">
+          <div className="2xl:container max-w-7xl mx-auto px-4 w-full pointer-events-auto">
             <div className="text-white max-w-5xl space-y-3">
               {/* Title with background badge */}
               {title && (
@@ -255,7 +318,7 @@ export const PageHeroCarousel = React.memo(function PageHeroCarousel({
 
       {/* Dot Indicators - Only show if more than 1 image */}
       {slides.length > 1 && (
-        <div className="absolute bottom-6 left-0 right-0 z-20">
+        <div className="absolute bottom-6 left-0 right-0 z-30">
           <div className="2xl:container max-w-7xl mx-auto px-4">
             <div className="flex gap-2 justify-center">
               {slides.map((_, index) => (
