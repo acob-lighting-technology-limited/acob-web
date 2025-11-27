@@ -399,9 +399,10 @@ As part of ACOB Lighting Technology's clean energy investments, this project dem
         },
         {
           name: 'images',
-          title: 'Project Images',
+          title: 'Project Images/Videos',
           type: 'array',
-          description: 'Upload multiple project images for the gallery',
+          description:
+            'Upload multiple project images and videos for the gallery',
           of: [
             {
               type: 'image',
@@ -414,6 +415,21 @@ As part of ACOB Lighting Technology's clean energy investments, this project dem
                   type: 'string',
                   title: 'Alternative text',
                   description: 'Describe the image for accessibility',
+                },
+              ],
+            },
+            {
+              type: 'file',
+              title: 'Video',
+              options: {
+                accept: 'video/*',
+              },
+              fields: [
+                {
+                  name: 'alt',
+                  type: 'string',
+                  title: 'Alternative text',
+                  description: 'Describe the video for accessibility',
                 },
               ],
             },

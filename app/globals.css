@@ -288,6 +288,21 @@
     height: 100vh;
   }
 
+  /* Hide scrollbar for horizontal scroll containers */
+  .hide-scrollbar {
+    -ms-overflow-style: none; /* IE and Edge */
+    scrollbar-width: none; /* Firefox */
+  }
+
+  .hide-scrollbar::-webkit-scrollbar {
+    display: none; /* Chrome, Safari and Opera */
+  }
+
+  /* Touch action for horizontal scroll */
+  .touch-pan-x {
+    touch-action: pan-x;
+  }
+
   /* Prevent zoom on input focus */
   input,
   textarea,
