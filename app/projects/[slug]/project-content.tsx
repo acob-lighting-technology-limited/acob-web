@@ -258,7 +258,8 @@ export function ProjectContent({
 
               const url = item.asset.url;
               const isVideo =
-                item._type === 'file' || url.match(/\.(mp4|webm|ogg|mov)$/i);
+                (item as { _type?: string })._type === 'file' ||
+                url.match(/\.(mp4|webm|ogg|mov)$/i);
 
               return (
                 <div
