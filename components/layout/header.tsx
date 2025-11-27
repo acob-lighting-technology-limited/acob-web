@@ -64,10 +64,6 @@ const DropdownMenu: React.FC<DropdownMenuProps> = ({
           exit={{ opacity: 0, y: -10, scale: 0.95 }}
           transition={{ duration: 0.2, ease: 'easeOut' }}
           className="absolute top-full left-0 mt-2 w-full max-w-[600px] min-w-[400px] bg-popover dark:bg-popover rounded-lg shadow-2xl border-[0.5px] border-border transition-colors duration-500"
-          style={{
-            left: '50%',
-            transform: 'translateX(-50%)',
-          }}
         >
           <div className="p-4">
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">

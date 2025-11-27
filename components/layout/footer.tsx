@@ -15,8 +15,17 @@ export function Footer() {
   const logoSrc = '/images/acob-logo-dark.webp';
 
   return (
-    <footer className="bg-primary dark:bg-black text-primary-foreground dark:text-white border-t border-border transition-colors duration-500">
-      <Container className="px-4 py-12">
+    <footer
+      className="relative bg-primary dark:bg-black/40 text-white border-t border-border transition-colors duration-500 overflow-hidden"
+      style={{
+        backgroundImage: 'url(/images/footer-pattern.png)',
+        backgroundRepeat: 'repeat',
+        backgroundSize: 'auto',
+      }}
+    >
+      {/* Color overlay to retain footer color */}
+      <div className="absolute inset-0  bg-black/60 pointer-events-none transition-colors duration-500" />
+      <Container className="relative px-4 py-12 z-10">
         {/* Main Footer Content */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-12">
           {/* Company Info */}
@@ -31,7 +40,7 @@ export function Footer() {
                 className="h-10 w-auto"
               />
             </Link>
-            <p className="text-sm text-primary-foreground/80 dark:text-zinc-400 leading-relaxed transition-colors duration-500">
+            <p className="text-sm text-zinc-400 leading-relaxed transition-colors duration-500">
               ACOB Lighting Technology Limited delivers sustainable power
               solutions across Nigeria. We specialize in mini-grid systems,
               solar installations, and energy storage solutions that empower
@@ -45,7 +54,7 @@ export function Footer() {
                   href={href}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="text-primary-foreground/70 dark:text-zinc-400 hover:text-primary-foreground dark:hover:text-white transition-colors duration-500 p-2 rounded-full hover:bg-primary-foreground/10 dark:hover:bg-zinc-800"
+                  className="text-zinc-400 hover:text-white transition-colors duration-500 p-2 rounded-full hover:bg-zinc-800"
                   aria-label={label}
                 >
                   <Icon className="h-4 w-4" />
@@ -58,7 +67,7 @@ export function Footer() {
           <div className="grid grid-cols-2 gap-8 md:col-span-2 lg:col-span-2">
             {/* Quick Links */}
             <div className="space-y-4">
-              <h3 className="font-semibold text-base text-primary-foreground dark:text-white transition-colors duration-500">
+              <h3 className="font-semibold text-base text-white transition-colors duration-500">
                 Quick Links
               </h3>
               <ul className="space-y-2">
@@ -66,7 +75,7 @@ export function Footer() {
                   <li key={item.href}>
                     <Link
                       href={item.href}
-                      className="text-sm text-primary-foreground/80 dark:text-zinc-400 hover:text-primary-foreground dark:hover:text-white transition-colors duration-500"
+                      className="text-sm text-zinc-400 hover:text-white transition-colors duration-500"
                     >
                       {item.label}
                     </Link>
@@ -77,7 +86,7 @@ export function Footer() {
 
             {/* Services */}
             <div className="space-y-4">
-              <h3 className="font-semibold text-base text-primary-foreground dark:text-white transition-colors duration-500">
+              <h3 className="font-semibold text-base text-white transition-colors duration-500">
                 Services
               </h3>
               <ul className="space-y-2">
@@ -85,7 +94,7 @@ export function Footer() {
                   <li key={item.href}>
                     <Link
                       href={item.href}
-                      className="text-sm text-primary-foreground/80 dark:text-zinc-400 hover:text-primary-foreground dark:hover:text-white transition-colors duration-500"
+                      className="text-sm text-zinc-400 hover:text-white transition-colors duration-500"
                     >
                       {item.label}
                     </Link>
@@ -97,10 +106,10 @@ export function Footer() {
 
           {/* Contact Info */}
           <div className="space-y-4 md:col-span-2 lg:col-span-1">
-            <h3 className="font-semibold text-base text-primary-foreground dark:text-white transition-colors duration-500">
+            <h3 className="font-semibold text-base text-white transition-colors duration-500">
               Contact
             </h3>
-            <div className="space-y-3 text-sm text-primary-foreground/80 dark:text-zinc-400 transition-colors duration-500">
+            <div className="space-y-3 text-sm text-zinc-400 transition-colors duration-500">
               <button
                 onClick={async () => {
                   try {
@@ -116,7 +125,7 @@ export function Footer() {
                     });
                   }
                 }}
-                className="text-left leading-relaxed hover:text-primary-foreground dark:hover:text-white transition-colors duration-500 cursor-pointer block w-full"
+                className="text-left leading-relaxed hover:text-white transition-colors duration-500 cursor-pointer block w-full"
               >
                 {contactInfo.offices.headOffice.address}
               </button>
@@ -124,20 +133,20 @@ export function Footer() {
                 <a
                   key={index}
                   href={`tel:${phone.replace(/\s/g, '')}`}
-                  className="block hover:text-primary-foreground dark:hover:text-white transition-colors duration-500"
+                  className="block hover:text-white transition-colors duration-500"
                 >
                   {phone}
                 </a>
               ))}
               <a
                 href={`mailto:${contactInfo.email}`}
-                className="block text-yellow-300 dark:text-yellow-400 hover:text-yellow-100 dark:hover:text-yellow-300 transition-colors duration-500"
+                className="block text-yellow-400 hover:text-yellow-300 transition-colors duration-500"
               >
                 {contactInfo.email}
               </a>
               <a
                 href={`mailto:${contactInfo.additionalEmail}`}
-                className="block text-yellow-300 dark:text-yellow-400 hover:text-yellow-100 dark:hover:text-yellow-300 transition-colors duration-500"
+                className="block text-yellow-400 hover:text-yellow-300 transition-colors duration-500"
               >
                 {contactInfo.additionalEmail}
               </a>
@@ -146,19 +155,19 @@ export function Footer() {
         </div>
 
         {/* Bottom Bar */}
-        <div className="border-t border-primary-foreground/20 dark:border-zinc-800 pt-8 transition-colors duration-500">
-          <div className="flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0 text-sm text-primary-foreground/80 dark:text-zinc-400 transition-colors duration-500">
+        <div className="border-t border-zinc-800 pt-8 transition-colors duration-500">
+          <div className="flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0 text-sm text-zinc-400 transition-colors duration-500">
             <p>{companyInfo.copyright}</p>
             <div className="flex space-x-6">
               <Link
                 href="/privacy-policy"
-                className="hover:text-primary-foreground dark:hover:text-white transition-colors duration-500"
+                className="hover:text-white transition-colors duration-500"
               >
                 Privacy Policy
               </Link>
               <Link
                 href="/terms-of-service"
-                className="hover:text-primary-foreground dark:hover:text-white transition-colors duration-500"
+                className="hover:text-white transition-colors duration-500"
               >
                 Terms of Service
               </Link>
