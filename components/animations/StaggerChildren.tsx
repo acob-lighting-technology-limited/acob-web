@@ -18,7 +18,7 @@ export function StaggerChildren({
   once = true,
 }: StaggerChildrenProps) {
   const [ref, inView] = useInView({
-    threshold: 0.1,
+    threshold: 0.2,
     triggerOnce: once,
   });
 
@@ -37,7 +37,7 @@ export function StaggerChildren({
       ref={ref}
       variants={container}
       initial="hidden"
-      animate={inView ? 'show' : 'hidden'}
+      animate={inView ? 'show' : undefined}
       className={className}
     >
       {children}
