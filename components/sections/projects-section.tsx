@@ -137,7 +137,7 @@ export function ProjectsSection({ projects }: ProjectsSectionProps) {
                           src={projectImage}
                           alt={project.title}
                           fill
-                          className="object-cover transition-transform duration-500 group-hover:scale-105"
+                          className="object-cover transition-transform duration-500 group-active:scale-105"
                           sizes="(max-width: 768px) 100vw, (max-width: 1280px) 50vw, 33vw"
                           loading="lazy"
                           quality={80}

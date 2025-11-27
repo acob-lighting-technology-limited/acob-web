@@ -49,6 +49,21 @@ export const updatePostType = defineType({
             }),
           ],
         },
+        {
+          type: 'file',
+          title: 'Video',
+          options: {
+            accept: 'video/*',
+          },
+          fields: [
+            defineField({
+              name: 'alt',
+              type: 'string',
+              title: 'Alternative text',
+              description: 'Describe the video for accessibility',
+            }),
+          ],
+        },
       ],
     }),
     defineField({

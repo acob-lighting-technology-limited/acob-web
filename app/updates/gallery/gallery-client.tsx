@@ -4,7 +4,7 @@ import { useState, useMemo } from 'react';
 import { Card } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import Image from 'next/image';
-import { ImageLightbox } from '@/components/ui/image-lightbox';
+import { Lightbox } from '@/components/ui/lightbox';
 import { applySanityImagePreset } from '@/lib/utils/sanity-image';
 
 interface GalleryImage {
@@ -98,12 +98,13 @@ export function GalleryClient({ images }: GalleryClientProps) {
         </div>
       )}
 
-      {/* Image Lightbox */}
+      {/* Lightbox */}
       {filteredImages.length > 0 && (
-        <ImageLightbox
-          images={filteredImages.map(img => ({
+        <Lightbox
+          media={filteredImages.map(img => ({
             src: img.src,
             alt: img.alt,
+            type: 'image' as const,
           }))}
           initialIndex={selectedImageIndex}
           isOpen={lightboxOpen}
