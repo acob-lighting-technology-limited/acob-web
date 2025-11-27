@@ -36,6 +36,7 @@ export default async function UpdatesPage({ searchParams }: UpdatesPageProps) {
     .map((post: UpdatePost) => ({
       src: post.featuredImage!,
       alt: post.title,
+      href: `/updates/${post.slug.current}`,
     }));
 
   return (

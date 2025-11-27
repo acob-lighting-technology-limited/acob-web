@@ -153,7 +153,7 @@ export default function ProjectsClient({
 
       {/* Projects Grid */}
       {isLoading ? (
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-6">
           {Array.from({ length: 6 }).map((_, i) => (
             <Card key={i} className="overflow-hidden animate-pulse">
               <div className="aspect-[16/9] bg-muted" />
@@ -182,10 +182,10 @@ export default function ProjectsClient({
         </Card>
       ) : (
         <>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-6">
             {/* First card - visible immediately on mobile */}
             {projects.length > 0 && (
-              <div className="block md:hidden">
+              <div className="block sm:hidden">
                 <Link
                   href={`/projects/${projects[0].slug.current}`}
                   className="group"
@@ -269,7 +269,7 @@ export default function ProjectsClient({
             {/* All cards on desktop with animation */}
             <StaggerChildren
               staggerDelay={0.1}
-              className="hidden md:grid md:grid-cols-2 lg:grid-cols-3 gap-6 col-span-full"
+              className="hidden sm:grid sm:grid-cols-2 xl:grid-cols-3 gap-6 col-span-full"
             >
               {projects.map((project: Project) => (
                 <motion.div key={project._id} variants={staggerItem}>
@@ -354,7 +354,7 @@ export default function ProjectsClient({
             {projects.length > 1 && (
               <StaggerChildren
                 staggerDelay={0.1}
-                className="block md:hidden grid grid-cols-1 gap-6"
+                className="block sm:hidden grid grid-cols-1 gap-6"
               >
                 {projects.slice(1).map((project: Project) => (
                   <motion.div key={project._id} variants={staggerItem}>

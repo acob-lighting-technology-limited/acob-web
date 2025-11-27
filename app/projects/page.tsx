@@ -44,6 +44,7 @@ export default async function ProjectsPage({
     .map((p: Project) => ({
       src: p.projectImage!,
       alt: p.title,
+      href: `/projects/${p.slug.current}`,
     }));
 
   return (
