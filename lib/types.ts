@@ -33,6 +33,7 @@ export interface ProjectContent {
   description3Preview?: string;
   customDescription?: PortableTextBlock[];
   images?: Array<{
+    _type?: string;
     asset: { url: string };
     alt?: string;
   }>;
