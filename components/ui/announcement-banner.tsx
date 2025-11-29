@@ -20,7 +20,15 @@ export function AnnouncementBanner({
   const PRODUCT_STORAGE_KEY = 'acob-product-banner-dismissed';
 
   // Build announcements array based on what's available
-  const announcements = [];
+  const announcements: Array<{
+    id: string;
+    icon: React.ComponentType<{ className?: string }>;
+    message: string;
+    details: string;
+    link: string;
+    linkText: string;
+    storageKey: string;
+  }> = [];
 
   if (jobCount > 0) {
     announcements.push({
