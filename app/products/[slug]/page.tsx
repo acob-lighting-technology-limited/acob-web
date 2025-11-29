@@ -6,7 +6,9 @@ import { Badge } from '@/components/ui/badge';
 import { ProductDetailClient } from './product-detail-client';
 
 interface ProductPageProps {
-  params: { slug: string };
+  params: Promise<{
+    slug: string;
+  }>;
 }
 
 async function getProduct(slug: string) {
@@ -44,7 +46,8 @@ async function getProduct(slug: string) {
 }
 
 export default async function ProductPage({ params }: ProductPageProps) {
-  const product = await getProduct(params.slug);
+  const { slug } = await params;
+  const product = await getProduct(slug);
 
   if (!product) {
     notFound();
