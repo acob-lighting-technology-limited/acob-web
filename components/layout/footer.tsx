@@ -11,12 +11,74 @@ import {
 } from '@/lib/data/footer-data';
 import { toast } from 'sonner';
 
+// Social Icon Button Component with brand color animation
+function SocialIconButton({
+  href,
+  icon: Icon,
+  label,
+  brandColor,
+}: {
+  href: string;
+  icon: React.ComponentType<{ className?: string }>;
+  label: string;
+  brandColor: string;
+}) {
+  return (
+    <Link
+      href={href}
+      target="_blank"
+      rel="noopener noreferrer"
+      className="group relative inline-flex items-center justify-center p-1 text-zinc-400 transition-all duration-300"
+      aria-label={label}
+    >
+      {/* Icon container with animated fill effect */}
+      <div className="relative w-10 h-10 rounded-full overflow-hidden flex items-center justify-center transition-all duration-500 group-hover:scale-110">
+        {/* Animated fill effect */}
+        <div
+          className="absolute inset-0 transform scale-0 transition-transform duration-500 ease-out group-hover:scale-100 rounded-full origin-center"
+          style={{ backgroundColor: brandColor }}
+        />
+        {/* Icon */}
+        <div className="relative z-10 w-full h-full flex items-center justify-center">
+          <Icon className="h-4 w-4 text-zinc-400 group-hover:text-white transition-colors duration-500" />
+        </div>
+      </div>
+    </Link>
+  );
+}
+
 export function Footer() {
   const logoSrc = '/images/acob-logo-dark.webp';
 
+  // Brand colors for social media platforms
+  const brandColors: Record<string, string> = {
+    linkedin: '#0A66C2',
+    x: '#000000',
+    facebook: '#1877F2',
+    instagram: '#E4405F',
+  };
+
+  // Get brand color for a social link
+  const getBrandColor = (label: string): string => {
+    const labelLower = label.toLowerCase();
+    if (labelLower.includes('linkedin')) {
+      return brandColors.linkedin;
+    }
+    if (labelLower.includes('x') || labelLower.includes('twitter')) {
+      return brandColors.x;
+    }
+    if (labelLower.includes('facebook')) {
+      return brandColors.facebook;
+    }
+    if (labelLower.includes('instagram')) {
+      return brandColors.instagram;
+    }
+    return 'transparent';
+  };
+
   return (
     <footer
-      className="relative bg-primary dark:bg-black/40 text-white border-t border-border transition-colors duration-500 overflow-hidden"
+      className="relative bg-primary dark:bg-black/40 text-white border-t-[0.5px] border-border transition-colors duration-500 overflow-hidden"
       style={{
         backgroundImage: 'url(/images/footer-pattern.png)',
         backgroundRepeat: 'repeat',
@@ -47,19 +109,19 @@ export function Footer() {
               homes, businesses, and communities with reliable, clean energy.
             </p>
             {/* Social Links */}
-            <div className="flex space-x-3 pt-2">
-              {socialLinks.map(({ href, icon: Icon, label }) => (
-                <Link
-                  key={href}
-                  href={href}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-zinc-400 hover:text-white transition-colors duration-500 p-2 rounded-full hover:bg-zinc-800"
-                  aria-label={label}
-                >
-                  <Icon className="h-4 w-4" />
-                </Link>
-              ))}
+            <div className="flex">
+              {socialLinks.map(({ href, icon: Icon, label }) => {
+                const brandColor = getBrandColor(label);
+                return (
+                  <SocialIconButton
+                    key={href}
+                    href={href}
+                    icon={Icon}
+                    label={label}
+                    brandColor={brandColor}
+                  />
+                );
+              })}
             </div>
           </div>
 

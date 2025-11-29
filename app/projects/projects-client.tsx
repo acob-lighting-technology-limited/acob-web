@@ -1,7 +1,8 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
+import { useResponsiveLimit } from '@/hooks/use-responsive-limit';
 import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -46,6 +47,7 @@ export default function ProjectsClient({
   const [pagination, setPagination] = useState(initialPagination);
   const [searchQuery, setSearchQuery] = useState(currentSearch);
   const [isLoading, setIsLoading] = useState(false);
+  const responsiveLimit = useResponsiveLimit();
 
   // Update URL and fetch new data when search changes
   const updateSearch = async (newSearch: string, newPage: number = 1) => {
@@ -58,6 +60,7 @@ export default function ProjectsClient({
     if (newPage > 1) {
       params.set('page', newPage.toString());
     }
+    params.set('limit', responsiveLimit.toString());
 
     const queryString = params.toString();
     const newUrl = queryString ? `/projects?${queryString}` : '/projects';
@@ -78,6 +81,13 @@ export default function ProjectsClient({
       setIsLoading(false);
     }
   };
+
+  // Refetch with responsive limit on mount if limit changed
+  useEffect(() => {
+    if (responsiveLimit !== pagination.limit && !isLoading) {
+      updateSearch(searchQuery, pagination.currentPage);
+    }
+  }, [responsiveLimit]);
 
   const handleSearchChange = (value: string) => {
     setSearchQuery(value);

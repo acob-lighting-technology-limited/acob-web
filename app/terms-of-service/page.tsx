@@ -1,6 +1,6 @@
 import { Container } from '@/components/ui/container';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { PageHero } from '@/components/ui/page-hero';
+import { Hero } from '@/components/ui/hero';
 import { Breadcrumb } from '@/components/ui/breadcrumb';
 import { Shield, Calendar, Mail, Phone, MapPin } from 'lucide-react';
 
@@ -12,9 +12,9 @@ export default function TermsOfServicePage() {
 
   return (
     <>
-      <PageHero
+      <Hero
         description="Terms and Conditions of Use"
-        backgroundImage="/images/contact/contact-us.webp"
+        image="/images/contact/contact-us.webp"
       />
 
       <Container className="py-16">
@@ -372,8 +372,8 @@ export default function TermsOfServicePage() {
                         <MapPin className="w-4 h-4 text-primary" />
                         <span>
                           Plot 2. Block 14 Extension, Federal Ministry of Works
-                          And Housing Sites and Service Scheme, Setraco Gate
-                          Gwarinpa, Abuja, Nigeria
+                          And Housing Sites and Services Scheme, Setraco Gate,
+                          Gwarinpa, FCT, Nigeria.
                         </span>
                       </div>
                     </div>

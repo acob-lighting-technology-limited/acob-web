@@ -1,12 +1,11 @@
 'use client';
 
 import { Container } from '@/components/ui/container';
-import { PageHero } from '@/components/ui/page-hero';
+import { Hero } from '@/components/ui/hero';
 import { Breadcrumb } from '@/components/ui/breadcrumb';
 import { Card, CardContent } from '@/components/ui/card';
 import { MapPin, Phone, Mail, Copy } from 'lucide-react';
 import Link from 'next/link';
-import { MaskText } from '@/components/animations/MaskText';
 import { toast } from 'sonner';
 
 export default function LocationsPage() {
@@ -31,18 +30,10 @@ export default function LocationsPage() {
 
   return (
     <>
-      <PageHero
+      <Hero
         description="Find Us Across Nigeria"
-        backgroundImage="/images/contact/office-location-hero.webp?height=400&width=1200"
-      >
-        <MaskText
-          phrases={[
-            'Visit us at our offices or reach out through our contact details.',
-            'We are always happy to welcome you.',
-          ]}
-          className="text-lg md:text-xl opacity-90 max-w-3xl leading-relaxed"
-        />
-      </PageHero>
+        image="/images/contact/office-location-hero.webp?height=400&width=1200"
+      />
 
       <Container className="px-4 py-8">
         <Breadcrumb items={breadcrumbItems} className="mb-8" />
@@ -71,7 +62,7 @@ export default function LocationsPage() {
                   <button
                     onClick={() =>
                       handleCopyAddress(
-                        'Plot 2. Block 14 Extension, Federal Ministry of Works And Housing Sites and Service Scheme, Setraco Gate Gwarinpa, Abuja, Nigeria.',
+                        'Plot 2. Block 14 Extension, Federal Ministry of Works And Housing Sites and Services Scheme, Setraco Gate, Gwarinpa, FCT, Nigeria.',
                       )
                     }
                     className="flex items-start space-x-2 p-3 rounded-lg bg-muted/30 border border-border hover:bg-muted/50 transition-colors w-full text-left group"
@@ -84,8 +75,8 @@ export default function LocationsPage() {
                       </div>
                       <p className="text-sm font-medium">
                         Plot 2. Block 14 Extension, Federal Ministry of Works
-                        And Housing Sites and Service Scheme, Setraco Gate
-                        Gwarinpa, Abuja, Nigeria.
+                        And Housing Sites and Services Scheme, Setraco Gate,
+                        Gwarinpa, FCT, Nigeria.
                       </p>
                     </div>
                   </button>

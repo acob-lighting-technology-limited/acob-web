@@ -76,8 +76,8 @@ export default function Error({ error, reset }: ErrorProps) {
                       <li>📧 infoacob@gmail.com</li>
                       <li>
                         📍 Plot 2. Block 14 Extension, Federal Ministry of Works
-                        And Housing Sites and Service Scheme, Setraco Gate
-                        Gwarinpa.
+                        And Housing Sites and Services Scheme, Setraco Gate,
+                        Gwarinpa, FCT, Nigeria.
                       </li>
                     </ul>
                   </div>

@@ -223,7 +223,7 @@ export function JobApplicationForm({
     } catch {
       toast.error('Failed to submit application', {
         description:
-          'Something went wrong. Please try again or contact us directly at careers@acoblighting.com',
+          'Something went wrong. Please try again or contact us directly at info@acoblighting.com',
         duration: 5000,
         action: {
           label: 'Retry',

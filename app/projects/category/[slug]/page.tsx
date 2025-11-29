@@ -7,7 +7,7 @@ import { notFound } from 'next/navigation';
 import { getProjectsByCategory } from '@/sanity/lib/client';
 import Image from 'next/image';
 import Link from 'next/link';
-import { PageHero } from '@/components/ui/page-hero';
+import { Hero } from '@/components/ui/hero';
 import type { Project } from '@/lib/types';
 import { applySanityImagePreset } from '@/lib/utils/sanity-image';
 import { extractTextFromPortableText } from '@/lib/utils';
@@ -67,11 +67,7 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
 
   return (
     <>
-      <PageHero
-        description={info.title}
-        backgroundImage={info.image}
-        title={info.title}
-      />
+      <Hero description={info.title} image={info.image} title={info.title} />
 
       <Container className="px-4 py-8">
         <Breadcrumb items={breadcrumbItems} className="mb-8" />

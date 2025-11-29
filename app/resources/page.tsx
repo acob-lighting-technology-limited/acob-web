@@ -1,5 +1,5 @@
 import { Container } from '@/components/ui/container';
-import { PageHero } from '@/components/ui/page-hero';
+import { Hero } from '@/components/ui/hero';
 import { Breadcrumb } from '@/components/ui/breadcrumb';
 import { ResourcesSection } from '@/components/resources/resources-section';
 
@@ -11,10 +11,10 @@ export default function ResourcesPage() {
 
   return (
     <>
-      <PageHero
+      <Hero
         title="Resources & Downloads"
         description="Access comprehensive product information, guides, and certifications"
-        backgroundImage="/images/services/solar-installation.webp"
+        image="/images/services/solar-installation.webp"
       />
 
       <Container className="px-4 py-12">

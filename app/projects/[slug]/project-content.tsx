@@ -9,7 +9,6 @@ import {
 import type { PortableTextBlock } from '@portabletext/types';
 import { Lightbox } from '@/components/ui/lightbox';
 import { urlFor } from '@/sanity/lib/client';
-import { cn } from '@/lib/utils';
 import type {
   ProjectContent as ProjectContentType,
   Project,
@@ -67,7 +66,12 @@ export function ProjectContent({
 
   // Extract images and videos from new structure
   const extractMediaNew = (
-    media?: Array<{ asset: { url?: string }; alt?: string; _type?: string }>,
+    media?: Array<{
+      asset: { url?: string };
+      alt?: string;
+      title?: string;
+      _type?: string;
+    }>,
   ) => {
     if (!media) {
       return [];
@@ -77,10 +81,15 @@ export function ProjectContent({
       .map(item => {
         const url = item.asset.url!;
         const isVideo =
-          item._type === 'file' || url.match(/\.(mp4|webm|ogg|mov)$/i);
+          item._type === 'file' ||
+          item._type === 'video' ||
+          url.match(/\.(mp4|webm|ogg|mov)$/i);
         return {
           src: url,
-          alt: item.alt || (isVideo ? 'Project video' : 'Project image'),
+          alt:
+            item.title ||
+            item.alt ||
+            (isVideo ? 'Project video' : 'Project image'),
           type: (isVideo ? 'video' : 'image') as 'image' | 'video',
         };
       });
@@ -259,31 +268,31 @@ export function ProjectContent({
               const url = item.asset.url;
               const isVideo =
                 (item as { _type?: string })._type === 'file' ||
+                (item as { _type?: string })._type === 'video' ||
                 url.match(/\.(mp4|webm|ogg|mov)$/i);
+              const mediaTitle =
+                (item as { title?: string }).title ||
+                item.alt ||
+                (isVideo ? 'Project video' : 'Project image');
 
               return (
                 <div
                   key={index}
-                  className={cn(
-                    'inline-block px-2 my-4',
-                    isVideo ? 'w-full' : 'w-1/2 lg:w-1/3',
-                  )}
+                  className="inline-block w-1/2 lg:w-1/3 px-2 my-4"
                 >
                   <button
                     onClick={() => handleImageClick(index)}
-                    className={cn(
-                      'relative w-full group cursor-pointer overflow-hidden rounded-lg',
-                      !isVideo && 'aspect-[4/3] cursor-zoom-in',
-                    )}
+                    className="relative w-full aspect-[4/3] group cursor-zoom-in overflow-hidden rounded-lg"
                   >
                     {isVideo ? (
                       <>
                         <video
                           src={url}
-                          className="rounded-lg w-full h-auto transition-all duration-300 group-hover:shadow-2xl group-hover:scale-[1.02]"
+                          className="rounded-lg object-cover w-full h-full transition-all duration-300 group-hover:shadow-2xl group-hover:scale-[1.02]"
                           controls={false}
                           muted
                           playsInline
+                          aria-label={mediaTitle}
                         />
                         <div className="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-all duration-300 rounded-lg flex items-center justify-center">
                           <span className="text-white opacity-0 group-hover:opacity-100 transition-opacity duration-300 text-sm font-medium bg-black/50 px-4 py-2 rounded-full backdrop-blur-sm">
@@ -295,7 +304,7 @@ export function ProjectContent({
                       <>
                         <Image
                           src={url}
-                          alt={item.alt || 'Project image'}
+                          alt={mediaTitle}
                           width={800}
                           height={600}
                           sizes="(max-width: 1024px) 50vw, 33vw"

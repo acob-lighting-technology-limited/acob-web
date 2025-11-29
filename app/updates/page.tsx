@@ -1,6 +1,6 @@
 import { Suspense } from 'react';
 import { Container } from '@/components/ui/container';
-import { PageHeroCarousel } from '@/components/ui/page-hero-carousel';
+import { Hero } from '@/components/ui/hero';
 import { UpdatesGridSkeleton } from '@/components/ui/updates-grid-skeleton';
 import { getUpdatePostsPaginated } from '@/sanity/lib/client';
 import type { UpdatePost } from '@/lib/types';
@@ -17,7 +17,7 @@ export default async function UpdatesPage({ searchParams }: UpdatesPageProps) {
   const params = await searchParams;
   const page = parseInt(params.page || '1');
   const search = params.search || '';
-  const limit = 8;
+  const limit = 12;
 
   // Fetch posts with pagination
   const result = await getUpdatePostsPaginated({
@@ -41,8 +41,8 @@ export default async function UpdatesPage({ searchParams }: UpdatesPageProps) {
 
   return (
     <>
-      <PageHeroCarousel
-        images={updateImages}
+      <Hero
+        image={updateImages}
         title="Updates & News"
         description="Latest News, Projects, and Insights from ACOB Lighting"
       />

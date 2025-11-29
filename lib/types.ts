@@ -123,6 +123,61 @@ export interface Service {
   gradientTo: string;
 }
 
+// Product Types
+export interface ProductSpecifications {
+  panelSpecifications?: {
+    powerRatingWatts: string;
+    efficiencyPercent: string;
+    voltageVmpVoc: string;
+    dimensionsMm: string;
+    warranty: string;
+  };
+  batterySpecifications?: {
+    capacityAhOrKwh: string;
+    batteryType: string;
+    cycleLife: string;
+    voltage: string;
+    warranty: string;
+  };
+  inverterSpecifications?: {
+    powerRatingKvaKw: string;
+    inputVoltage: string;
+    outputVoltage: string;
+    efficiencyPercent: string;
+    warranty: string;
+  };
+}
+
+export interface Product {
+  _id: string;
+  title: string;
+  slug: {
+    current: string;
+  };
+  category: 'solar-panel' | 'battery' | 'inverter';
+  sku: string;
+  availability: 'in-stock' | 'out-of-stock' | 'pre-order' | 'coming-soon';
+  description: string;
+  productImage: {
+    asset: {
+      _id: string;
+      url: string;
+    };
+    alt?: string;
+  };
+  productImages?: Array<{
+    asset: {
+      _id: string;
+      url: string;
+    };
+    alt?: string;
+  }>;
+  specifications?: ProductSpecifications;
+  isFeatured?: boolean;
+  _createdAt: string;
+  _updatedAt: string;
+}
+
 // Form Types
 export interface ContactFormData {
   name: string;

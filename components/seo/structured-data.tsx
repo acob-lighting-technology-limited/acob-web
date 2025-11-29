@@ -11,7 +11,7 @@ export function StructuredData() {
     address: {
       '@type': 'PostalAddress',
       streetAddress:
-        'Plot 2. Block 14 Extension, Federal Ministry of Works And Housing Sites and Service Scheme, Setraco Gate Gwarinpa',
+        'Plot 2. Block 14 Extension, Federal Ministry of Works And Housing Sites and Services Scheme, Setraco Gate, Gwarinpa, FCT, Nigeria',
       addressLocality: 'Abuja',
       addressRegion: 'FCT',
       postalCode: '900001',

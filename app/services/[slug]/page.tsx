@@ -6,8 +6,9 @@ import { ArrowRight, ArrowLeft } from 'lucide-react';
 import { notFound } from 'next/navigation';
 import { getServiceBySlug, servicesData } from '@/lib/data';
 import Link from 'next/link';
-import { PageHero } from '@/components/ui/page-hero';
+import { Hero } from '@/components/ui/hero';
 import { ServiceGallery } from '@/components/services/service-gallery';
+import { ShareCopy } from '@/components/updates/share-copy';
 
 interface ServicePageProps {
   params: Promise<{
@@ -40,10 +41,10 @@ export default async function ServicePage({ params }: ServicePageProps) {
 
   return (
     <>
-      <PageHero
+      <Hero
         title="Our Services"
         description={service.title}
-        backgroundImage={service.image}
+        image={service.image}
       />
       <Container>
         <Breadcrumb items={breadcrumbItems} className="mb-8" />
@@ -72,6 +73,11 @@ export default async function ServicePage({ params }: ServicePageProps) {
                     />
                   </div>
                 )}
+
+                {/* Share Buttons */}
+                <div className="flex items-center gap-4 pt-8 border-t mt-6">
+                  <ShareCopy className="rounded-full bg-transparent" />
+                </div>
               </CardContent>
             </Card>
           </div>
@@ -103,14 +109,6 @@ export default async function ServicePage({ params }: ServicePageProps) {
                 </li>
               ))}
             </ul>
-            <div className="mt-6 text-center">
-              {/* <Link href="/services">
-                <Button variant="outline">
-                  View All Services
-                  <ArrowRight className="ml-2 h-4 w-4" />
-                </Button>
-              </Link> */}
-            </div>
           </div>
         )}
 

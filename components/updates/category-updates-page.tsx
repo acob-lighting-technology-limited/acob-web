@@ -1,6 +1,6 @@
 import { Suspense } from 'react';
 import { Container } from '@/components/ui/container';
-import { PageHeroCarousel } from '@/components/ui/page-hero-carousel';
+import { Hero } from '@/components/ui/hero';
 import { UpdatesGridSkeleton } from '@/components/ui/updates-grid-skeleton';
 import { getUpdatePostsPaginated } from '@/sanity/lib/client';
 import type { UpdatePost } from '@/lib/types';
@@ -21,7 +21,7 @@ export async function CategoryUpdatesPage({
   const params = searchParams ? await searchParams : {};
   const page = parseInt(params.page || '1');
   const search = params.search || '';
-  const limit = 8;
+  const limit = 12;
 
   // Format category name for display
   const categoryTitle = category
@@ -91,8 +91,8 @@ export async function CategoryUpdatesPage({
 
   return (
     <>
-      <PageHeroCarousel
-        images={categoryImages}
+      <Hero
+        image={categoryImages}
         title={categoryTitle}
         description={`Latest ${categoryTitle.toLowerCase()} updates and news from ACOB Lighting`}
       />

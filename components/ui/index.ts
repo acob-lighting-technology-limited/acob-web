@@ -37,7 +37,7 @@ export {
   NavigationMenuTrigger,
 } from './navigation-menu';
 
-export { PageHero } from './page-hero';
+export { Hero } from './hero';
 export { ScrollToTop } from './scroll-to-top';
 export { ServiceHero } from './service-hero';
 export {

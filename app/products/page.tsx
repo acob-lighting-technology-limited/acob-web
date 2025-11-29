@@ -1,34 +1,33 @@
 import { Container } from '@/components/ui/container';
-import { PageHero } from '@/components/ui/page-hero';
-import { Breadcrumb } from '@/components/ui/breadcrumb';
+import { Hero } from '@/components/ui/hero';
 import { ProductCatalog } from '@/components/products/product-catalog';
+import { getProducts } from '@/sanity/lib/client';
 
-export default function ProductsPage() {
+export default async function ProductsPage() {
   const breadcrumbItems = [{ label: 'Home', href: '/' }, { label: 'Products' }];
+
+  // Fetch products for carousel images
+  const products = await getProducts();
+
+  // Map product images for carousel - filter out products without images
+  const productImages = products
+    .filter((product: any) => product.productImage?.asset?.url)
+    .map((product: any) => ({
+      src: product.productImage.asset.url,
+      alt: product.productImage.alt || product.title,
+      href: `/products/${product.slug?.current}`,
+    }));
 
   return (
     <>
-      <PageHero
+      <Hero
+        image={productImages}
         title="Product Catalog"
         description="Comprehensive range of high-quality solar equipment and components"
-        backgroundImage="/images/services/solar-installation.webp"
       />
 
-      <Container className="px-4 py-12">
-        <Breadcrumb items={breadcrumbItems} className="mb-8" />
-
-        <div className="mb-12 text-center max-w-3xl mx-auto">
-          <h2 className="text-3xl font-bold mb-4">
-            Premium Solar Energy Solutions
-          </h2>
-          <p className="text-muted-foreground text-lg">
-            We supply high-quality solar equipment from leading manufacturers
-            worldwide. All products are certified to international standards and
-            backed by comprehensive warranties.
-          </p>
-        </div>
-
-        <ProductCatalog />
+      <Container className="px-4 py-8">
+        <ProductCatalog breadcrumbItems={breadcrumbItems} />
       </Container>
     </>
   );

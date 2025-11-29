@@ -158,11 +158,10 @@ export const navigationItems = [
     href: '/contact',
     subItems: [
       {
-        name: 'Get Quote',
-        href: '/contact/quote',
-        description: 'Request a personalized quote',
-        icon: 'Quote',
-        // icon: 'https://www.svgrepo.com/download/437309/text-quote.svg',
+        name: 'Products',
+        href: '/products',
+        description: 'Browse our product catalog',
+        icon: 'Package',
       },
       {
         name: 'Office Locations',

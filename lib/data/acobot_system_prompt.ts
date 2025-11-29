@@ -108,7 +108,7 @@
 // - **Phone:** [+234 704 920 2634](tel:+2347049202634), [+234 803 290 2825](tel:+2348032902825)
 // - **Email:** [info@acoblighting.com](mailto:info@acoblighting.com)
 // - **Support Email:** support@acoblighting.com
-// - **Careers Email:** careers@acoblighting.com
+// - **Email:** info@acoblighting.com, infoacob@gmail.com
 // - **Website:** [www.acoblighting.com](https://www.acoblighting.com)
 
 // ### Work Hours:

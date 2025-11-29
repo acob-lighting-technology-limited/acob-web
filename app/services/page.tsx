@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useEffect, useMemo } from 'react';
-import { PageHeroCarousel } from '@/components/ui/page-hero-carousel';
+import { Hero } from '@/components/ui/hero';
 import { Breadcrumb } from '@/components/ui/breadcrumb';
 import { Container } from '@/components/ui/container';
 import { Card, CardContent } from '@/components/ui/card';
@@ -53,8 +53,8 @@ export default function ServicesPage() {
 
   return (
     <>
-      <PageHeroCarousel
-        images={serviceImages}
+      <Hero
+        image={serviceImages}
         title="Our Services"
         description="Comprehensive Solar Energy Solutions for Every Need"
       />

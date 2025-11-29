@@ -7,7 +7,100 @@ import { cn } from '@/lib/utils';
 import { MaskText } from '../animations/MaskText';
 import { getBlurDataURL } from '@/lib/utils/image-optimization';
 
-interface PageHeroCarouselProps {
+interface HeroProps {
+  title?: string;
+  description?: string;
+  image?:
+    | string
+    | Array<{
+        src: string;
+        alt: string;
+        href?: string;
+      }>;
+  imagePosition?: 'top' | 'middle' | 'bottom';
+}
+
+const DEFAULT_HERO_IMAGE = '/images/contact/office-location-hero.webp';
+
+export const Hero = React.memo(function Hero({
+  title,
+  description,
+  image,
+  imagePosition = 'middle',
+}: HeroProps) {
+  // Use default image if not provided
+  const imageToUse = image || DEFAULT_HERO_IMAGE;
+
+  // Determine if we have a single image or carousel
+  const isSingleImage = typeof imageToUse === 'string';
+
+  if (isSingleImage) {
+    // Static Hero
+    const positionClass = {
+      top: 'object-top',
+      middle: 'object-center',
+      bottom: 'object-bottom',
+    }[imagePosition];
+
+    return (
+      <div className="relative w-full h-[50vh] md:h-[45vh] lg:h-[60vh] overflow-hidden">
+        {/* Background Image */}
+        <div className="absolute inset-0 bg-black">
+          <Image
+            src={imageToUse}
+            alt={title || description || 'Hero image'}
+            fill
+            className={cn('object-cover', positionClass)}
+            priority
+            quality={85}
+            sizes="100vw"
+            placeholder="blur"
+            blurDataURL={getBlurDataURL()}
+          />
+          <div className="absolute inset-0 bg-black/60" />
+        </div>
+
+        {/* Content Overlay */}
+        {(title || description) && (
+          <div className="absolute inset-0 z-10 flex items-end pb-10">
+            <div className="2xl:container max-w-7xl mx-auto px-4 w-full">
+              <div className="text-white max-w-5xl space-y-3">
+                {title && (
+                  <div className="inline-block">
+                    <p className="text-sm md:text-base font-semibold text-white bg-primary/90 px-4 py-2 rounded-md uppercase tracking-wider backdrop-blur-sm">
+                      {title}
+                    </p>
+                  </div>
+                )}
+                {description && (
+                  <div>
+                    <MaskText className="text-3xl md:text-4xl lg:text-5xl font-bold">
+                      {description}
+                    </MaskText>
+                  </div>
+                )}
+              </div>
+            </div>
+          </div>
+        )}
+      </div>
+    );
+  }
+
+  // Carousel Hero
+  return (
+    <HeroCarousel
+      images={imageToUse as Array<{ src: string; alt: string; href?: string }>}
+      title={title}
+      description={description}
+    />
+  );
+});
+
+Hero.displayName = 'Hero';
+
+// Internal Carousel Component
+interface HeroCarouselProps {
   images: Array<{
     src: string;
     alt: string;
@@ -15,17 +108,13 @@ interface PageHeroCarouselProps {
   }>;
   title?: string;
   description?: string;
-  height?: string;
-  autoPlayInterval?: number;
 }
 
-export const PageHeroCarousel = React.memo(function PageHeroCarousel({
+const HeroCarousel = React.memo(function HeroCarousel({
   images,
   title,
   description,
-  height = 'h-[50vh] md:h-[45vh] lg:h-[60vh]',
-  autoPlayInterval = 5000,
-}: PageHeroCarouselProps) {
+}: HeroCarouselProps) {
   const [current, setCurrent] = useState(0);
   const [previous, setPrevious] = useState(0);
   const touchStartX = useRef<number>(0);
@@ -33,6 +122,7 @@ export const PageHeroCarousel = React.memo(function PageHeroCarousel({
   const autoPlayTimerRef = useRef<NodeJS.Timeout | null>(null);
   const imageRefsMap = useRef<Map<number, HTMLDivElement>>(new Map());
   const hasSwiped = useRef<boolean>(false);
+  const autoPlayInterval = 5000;
 
   const slides = useMemo(() => {
     if (!images || images.length === 0) {
@@ -67,7 +157,7 @@ export const PageHeroCarousel = React.memo(function PageHeroCarousel({
         clearInterval(autoPlayTimerRef.current);
       }
     };
-  }, [current, slides.length, autoPlayInterval]);
+  }, [current, slides.length]);
 
   const goToSlide = (index: number) => {
     if (index === current) {
@@ -154,7 +244,7 @@ export const PageHeroCarousel = React.memo(function PageHeroCarousel({
 
   return (
     <div
-      className={cn('relative w-full overflow-hidden touch-pan-y', height)}
+      className="relative w-full overflow-hidden touch-pan-y h-[50vh] md:h-[45vh] lg:h-[60vh]"
       onTouchStart={handleTouchStart}
       onTouchMove={handleTouchMove}
       onTouchEnd={handleTouchEnd}
@@ -340,4 +430,4 @@ export const PageHeroCarousel = React.memo(function PageHeroCarousel({
   );
 });
 
-PageHeroCarousel.displayName = 'PageHeroCarousel';
+HeroCarousel.displayName = 'HeroCarousel';

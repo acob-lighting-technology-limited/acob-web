@@ -108,7 +108,7 @@ export function PageHero({
 
   return (
     <section
-      className={`relative h-[50vh] md:h-[60vh] flex items-end justify-start overflow-hidden ${className}`}
+      className={`relative h-[50vh] md:h-[45vh] lg:h-[60vh] flex items-end justify-start overflow-hidden ${className}`}
     >
       {/* Background Image with Animation */}
       <div

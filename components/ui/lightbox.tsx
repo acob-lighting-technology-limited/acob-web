@@ -1,6 +1,7 @@
 'use client';
 
 import { useState, useEffect, useCallback, useRef } from 'react';
+import { createPortal } from 'react-dom';
 import Image from 'next/image';
 import {
   X,
@@ -46,10 +47,15 @@ export function Lightbox({
   );
   const [isZoomed, setIsZoomed] = useState(false);
   const [isPlaying, setIsPlaying] = useState(false);
+  const [mounted, setMounted] = useState(false);
   const touchStartX = useRef<number>(0);
   const touchEndX = useRef<number>(0);
   const scrollPosition = useRef<number>(0);
   const videoRef = useRef<React.ElementRef<'video'>>(null);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
 
   // Normalize media items to include type
   const normalizedMedia: MediaItem[] = media.map(item => ({
@@ -227,6 +233,7 @@ export function Lightbox({
 
   if (
     !isOpen ||
+    !mounted ||
     normalizedMedia.length === 0 ||
     !normalizedMedia[currentIndex]
   ) {
@@ -236,7 +243,7 @@ export function Lightbox({
   const currentMedia = normalizedMedia[currentIndex];
   const isVideo = currentMedia.type === 'video';
 
-  return (
+  const lightboxContent = (
     <div
       className="fixed inset-0 z-[9999] bg-black touch-none"
       onClick={onClose}
@@ -494,4 +501,6 @@ export function Lightbox({
       )}
     </div>
   );
+
+  return createPortal(lightboxContent, document.body);
 }

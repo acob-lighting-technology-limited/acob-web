@@ -17,7 +17,10 @@ import { ChatErrorBoundary } from '@/components/error-boundary/error-boundary';
 import { Analytics } from '@vercel/analytics/react';
 import { SpeedInsights } from '@vercel/speed-insights/next';
 import { AnnouncementBanner } from '@/components/ui/announcement-banner';
-import { getActiveJobCount } from '@/sanity/lib/client';
+import {
+  getActiveJobCount,
+  getFeaturedProductCount,
+} from '@/sanity/lib/client';
 import { StructuredData } from '@/components/seo/structured-data';
 import { ImageProtectionProvider } from '@/components/providers/image-protection-provider';
 
@@ -92,7 +95,10 @@ export default async function RootLayout({
 }: {
   children: React.ReactNode;
 }) {
-  const jobCount = await getActiveJobCount();
+  const [jobCount, productCount] = await Promise.all([
+    getActiveJobCount(),
+    getFeaturedProductCount(),
+  ]);
   const headersList = await headers();
   const pathname = headersList.get('x-pathname') || '';
 
@@ -116,7 +122,10 @@ export default async function RootLayout({
               />
               <div className="flex min-h-screen flex-col w-full bg-background  transition-colors duration-500 selection:bg-primary selection:text-primary-foreground ">
                 {!shouldHideLayout && (
-                  <AnnouncementBanner jobCount={jobCount} />
+                  <AnnouncementBanner
+                    jobCount={jobCount}
+                    productCount={productCount}
+                  />
                 )}
                 {!shouldHideLayout && <Header />}
                 <main

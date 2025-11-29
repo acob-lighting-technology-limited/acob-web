@@ -1,6 +1,6 @@
 import { Button } from '@/components/ui/button';
 import { Container } from '@/components/ui/container';
-import { PageHeroCarousel } from '@/components/ui/page-hero-carousel';
+import { Hero } from '@/components/ui/hero';
 import { Breadcrumb } from '@/components/ui/breadcrumb';
 import { Card, CardContent } from '@/components/ui/card';
 import { ArrowRight } from 'lucide-react';
@@ -26,8 +26,8 @@ export default function ContactPage() {
 
   return (
     <>
-      <PageHeroCarousel
-        images={contactImages}
+      <Hero
+        image={contactImages}
         title="Contact Us"
         description="Get in Touch with ACOB Lighting Technology"
       />

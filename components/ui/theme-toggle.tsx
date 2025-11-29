@@ -65,9 +65,15 @@ export function ThemeToggle({ direction = 'down' }: ThemeToggleProps) {
         size="icon"
         data-theme-toggle
         onClick={() => setIsOpen(!isOpen)}
+        className="group relative overflow-hidden"
       >
-        <Sun className="h-[1.2rem] w-[1.2rem] rotate-0 scale-100 transition-all dark:-rotate-90 dark:scale-0" />
-        <Moon className="absolute h-[1.2rem] w-[1.2rem] rotate-90 scale-0 transition-all dark:rotate-0 dark:scale-100" />
+        {/* Animated fill effect - fills entire button */}
+        <div className="absolute inset-0 bg-primary transform scale-0 transition-transform duration-500 ease-out group-hover:scale-[1.02] rounded-md origin-center" />
+        {/* Icon container */}
+        <div className="relative z-10 w-full h-full flex items-center justify-center transition-all duration-500 group-hover:scale-110">
+          <Sun className="h-[1.2rem] w-[1.2rem] rotate-0 scale-100 transition-all dark:-rotate-90 dark:scale-0 group-hover:!text-white" />
+          <Moon className="absolute h-[1.2rem] w-[1.2rem] rotate-90 scale-0 transition-all dark:rotate-0 dark:scale-100 group-hover:!text-white" />
+        </div>
         <span className="sr-only">Toggle theme</span>
       </Button>
 

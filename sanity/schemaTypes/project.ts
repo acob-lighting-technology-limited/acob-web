@@ -420,11 +420,18 @@ As part of ACOB Lighting Technology's clean energy investments, this project dem
             },
             {
               type: 'file',
+              name: 'video',
               title: 'Video',
               options: {
                 accept: 'video/*',
               },
               fields: [
+                {
+                  name: 'title',
+                  type: 'string',
+                  title: 'Video Title',
+                  description: 'Optional title for the video',
+                },
                 {
                   name: 'alt',
                   type: 'string',

@@ -1,7 +1,6 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { createPortal } from 'react-dom';
 import Image from 'next/image';
 import {
   PortableText,
@@ -21,11 +20,6 @@ export function UpdateContent({ content }: UpdateContentProps) {
   const [contentMedia, setContentMedia] = useState<
     Array<{ src: string; alt: string; type: 'image' | 'video' }>
   >([]);
-  const [mounted, setMounted] = useState(false);
-
-  useEffect(() => {
-    setMounted(true);
-  }, []);
 
   // Extract all images and videos from content for the lightbox
   const extractMedia = (blocks: PortableTextBlock[]) => {
@@ -54,7 +48,7 @@ export function UpdateContent({ content }: UpdateContentProps) {
           type: 'image',
         });
       } else if (
-        block._type === 'file' &&
+        (block._type === 'file' || block._type === 'video') &&
         'asset' in block &&
         typeof block.asset === 'object'
       ) {
@@ -64,9 +58,13 @@ export function UpdateContent({ content }: UpdateContentProps) {
           media.push({
             src: asset.url,
             alt:
+              ('title' in block && typeof block.title === 'string'
+                ? block.title
+                : '') ||
               ('alt' in block && typeof block.alt === 'string'
                 ? block.alt
-                : '') || 'Update post video',
+                : '') ||
+              'Update post video',
             type: 'video',
           });
         }
@@ -118,7 +116,7 @@ export function UpdateContent({ content }: UpdateContentProps) {
           >
             <button
               onClick={() => handleImageClick(currentMediaIndex)}
-              className="relative w-full group cursor-zoom-in"
+              className="relative w-full aspect-[4/3] group cursor-zoom-in overflow-hidden rounded-lg"
             >
               <Image
                 src={imageUrl}
@@ -126,7 +124,7 @@ export function UpdateContent({ content }: UpdateContentProps) {
                 width={800}
                 height={600}
                 sizes="(max-width: 1024px) 50vw, 33vw"
-                className="rounded-lg object-cover w-full h-auto transition-all duration-300 group-hover:shadow-2xl group-hover:scale-[1.02]"
+                className="rounded-lg object-cover w-full h-full transition-all duration-300 group-hover:shadow-2xl group-hover:scale-[1.02]"
               />
               {/* Overlay hint */}
               <div className="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-all duration-300 rounded-lg flex items-center justify-center">
@@ -141,7 +139,11 @@ export function UpdateContent({ content }: UpdateContentProps) {
       file: ({
         value,
       }: {
-        value: { asset: { url?: string; _ref?: string }; alt?: string };
+        value: {
+          asset: { url?: string; _ref?: string };
+          alt?: string;
+          title?: string;
+        };
       }) => {
         if (!value.asset || !value.asset.url) {
           return null;
@@ -153,21 +155,23 @@ export function UpdateContent({ content }: UpdateContentProps) {
         mediaCounter++;
 
         if (isVideo) {
+          const videoTitle = value.title || value.alt || 'Update post video';
           return (
             <div
               key={currentMediaIndex}
-              className="inline-block w-full px-2 my-4"
+              className="inline-block w-1/2 lg:w-1/3 px-2 my-4"
             >
               <button
                 onClick={() => handleImageClick(currentMediaIndex)}
-                className="relative w-full group cursor-pointer"
+                className="relative w-full aspect-[4/3] group cursor-zoom-in overflow-hidden rounded-lg"
               >
                 <video
                   src={value.asset.url}
-                  className="rounded-lg w-full h-auto transition-all duration-300 group-hover:shadow-2xl group-hover:scale-[1.02]"
+                  className="rounded-lg object-cover w-full h-full transition-all duration-300 group-hover:shadow-2xl group-hover:scale-[1.02]"
                   controls={false}
                   muted
                   playsInline
+                  aria-label={videoTitle}
                 />
                 {/* Overlay hint */}
                 <div className="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-all duration-300 rounded-lg flex items-center justify-center">
@@ -181,6 +185,50 @@ export function UpdateContent({ content }: UpdateContentProps) {
         }
 
         return null;
+      },
+      video: ({
+        value,
+      }: {
+        value: {
+          asset: { url?: string; _ref?: string };
+          alt?: string;
+          title?: string;
+        };
+      }) => {
+        if (!value.asset || !value.asset.url) {
+          return null;
+        }
+
+        const currentMediaIndex = mediaCounter;
+        mediaCounter++;
+        const videoTitle = value.title || value.alt || 'Update post video';
+
+        return (
+          <div
+            key={currentMediaIndex}
+            className="inline-block w-1/2 lg:w-1/3 px-2 my-4"
+          >
+            <button
+              onClick={() => handleImageClick(currentMediaIndex)}
+              className="relative w-full aspect-[4/3] group cursor-zoom-in overflow-hidden rounded-lg"
+            >
+              <video
+                src={value.asset.url}
+                className="rounded-lg object-cover w-full h-full transition-all duration-300 group-hover:shadow-2xl group-hover:scale-[1.02]"
+                controls={false}
+                muted
+                playsInline
+                aria-label={videoTitle}
+              />
+              {/* Overlay hint */}
+              <div className="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-all duration-300 rounded-lg flex items-center justify-center">
+                <span className="text-white opacity-0 group-hover:opacity-100 transition-opacity duration-300 text-sm font-medium bg-black/50 px-4 py-2 rounded-full backdrop-blur-sm">
+                  Click to expand
+                </span>
+              </div>
+            </button>
+          </div>
+        );
       },
     },
     block: {
@@ -236,19 +284,13 @@ export function UpdateContent({ content }: UpdateContentProps) {
         <PortableText value={content} components={components} />
       </div>
 
-      {/* Lightbox - Rendered via portal to ensure full page coverage */}
-      {mounted &&
-        contentMedia.length > 0 &&
-        lightboxOpen &&
-        createPortal(
-          <Lightbox
-            media={contentMedia}
-            initialIndex={selectedImageIndex}
-            isOpen={lightboxOpen}
-            onClose={() => setLightboxOpen(false)}
-          />,
-          document.body,
-        )}
+      {/* Lightbox */}
+      <Lightbox
+        media={contentMedia}
+        initialIndex={selectedImageIndex}
+        isOpen={lightboxOpen}
+        onClose={() => setLightboxOpen(false)}
+      />
     </>
   );
 }

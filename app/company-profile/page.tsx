@@ -3,7 +3,7 @@
 import { Download, ExternalLink } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Container } from '@/components/ui/container';
-import { PageHeroCarousel } from '@/components/ui/page-hero-carousel';
+import { Hero } from '@/components/ui/hero';
 import { Breadcrumb } from '@/components/ui/breadcrumb';
 
 export default function CompanyProfilePage() {
@@ -33,8 +33,8 @@ export default function CompanyProfilePage() {
 
   return (
     <>
-      <PageHeroCarousel
-        images={heroImages}
+      <Hero
+        image={heroImages}
         title="Company Profile"
         description="Discover ACOB Lighting Technology - Powering Nigeria's Future with Clean Energy"
       />

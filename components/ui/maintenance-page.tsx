@@ -31,8 +31,8 @@ export function MaintenancePage({
 
             <div className="pt-4">
               <Link href="/">
-                <Button className="w-full">
-                  <ArrowLeft className="mr-2 h-4 w-4" />
+                <Button variant="outline" className="group w-full">
+                  <ArrowLeft className="mr-2 h-4 w-4 transition-transform group-hover:-translate-x-1" />
                   Back to Home
                 </Button>
               </Link>

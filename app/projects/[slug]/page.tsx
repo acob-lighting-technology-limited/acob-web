@@ -1,11 +1,11 @@
 import { Breadcrumb } from '@/components/ui/breadcrumb';
 import { Container } from '@/components/ui/container';
 import { Button } from '@/components/ui/button';
-import { ArrowRight, MapPin, Calendar } from 'lucide-react';
+import { ArrowRight, ArrowLeft, MapPin, Calendar } from 'lucide-react';
 import { notFound } from 'next/navigation';
 import { getProjects, getProject } from '@/sanity/lib/client';
 import Link from 'next/link';
-import { PageHero } from '@/components/ui/page-hero';
+import { Hero } from '@/components/ui/hero';
 import type { Project } from '@/lib/types';
 import { Card, CardContent } from '@/components/ui/card';
 import { ShareCopy } from '@/components/updates/share-copy';
@@ -45,10 +45,10 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
 
   return (
     <>
-      <PageHero
+      <Hero
         title="Our Projects"
         description={project.title}
-        backgroundImage={project.projectImage}
+        image={project.projectImage}
       />
 
       <Container className="px-4 py-8 relative">
@@ -139,16 +139,18 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
                 </li>
               ))}
             </ul>
-            <div className="mt-6 text-center">
-              <Link href="/projects">
-                <Button variant="outline">
-                  View All Projects
-                  <ArrowRight className="ml-2 h-4 w-4" />
-                </Button>
-              </Link>
-            </div>
           </div>
         )}
+
+        {/* Back to Projects Button */}
+        <div className="mt-12 mb-8 text-center">
+          <Link href="/projects">
+            <Button variant="outline" className="group">
+              <ArrowLeft className="mr-2 h-4 w-4 transition-transform group-hover:-translate-x-1" />
+              Back to Projects
+            </Button>
+          </Link>
+        </div>
       </Container>
     </>
   );
