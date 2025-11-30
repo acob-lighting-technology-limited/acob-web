@@ -88,8 +88,8 @@ export function Snow({ speed = 'avg', intensity = 'medium' }: SnowProps) {
       const _deltaTime = currentTime - lastTime;
       lastTime = currentTime;
 
-      // Clear canvas - ctx is guaranteed to be non-null due to early return above
-      ctx!.clearRect(0, 0, canvas.width, canvas.height);
+      // Clear canvas - canvas and ctx are guaranteed to be non-null due to early return above
+      ctx!.clearRect(0, 0, canvas!.width, canvas!.height);
 
       // Update and draw each snowflake
       snowflakes.forEach((flake, index) => {
@@ -99,13 +99,13 @@ export function Snow({ speed = 'avg', intensity = 'medium' }: SnowProps) {
         flake.angle += 0.01;
 
         // Reset snowflake when it goes off screen
-        if (flake.y > canvas.height) {
-          snowflakes[index] = createSnowflake(canvas.width, canvas.height);
+        if (flake.y > canvas!.height) {
+          snowflakes[index] = createSnowflake(canvas!.width, canvas!.height);
         }
-        if (flake.x > canvas.width + 10) {
+        if (flake.x > canvas!.width + 10) {
           flake.x = -10;
         } else if (flake.x < -10) {
-          flake.x = canvas.width + 10;
+          flake.x = canvas!.width + 10;
         }
 
         // Draw snowflake - ctx is guaranteed to be non-null due to early return above
