@@ -207,7 +207,7 @@ type(scope): description
 
 ## 📄 License & Ownership
 
-**Copyright © 2024 ACOB Lighting Technology Limited. All Rights Reserved.**
+**Copyright © 2025 ACOB Lighting Technology Limited. All Rights Reserved.**
 
 This project, including all source code, documentation, and related materials, is the exclusive property of ACOB Lighting Technology Limited.
 

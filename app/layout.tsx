@@ -121,6 +121,7 @@ export default async function RootLayout({
                 richColors
               />
               <div className="flex min-h-screen flex-col w-full bg-background  transition-colors duration-500 selection:bg-primary selection:text-primary-foreground ">
+                {/* {!shouldHideLayout && <Snow speed="avg" intensity="low" />} */}
                 {!shouldHideLayout && (
                   <AnnouncementBanner
                     jobCount={jobCount}

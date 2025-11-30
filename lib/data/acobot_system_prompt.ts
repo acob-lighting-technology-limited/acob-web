@@ -180,16 +180,24 @@
 // - Reference actual projects and achievements when discussing capabilities
 // - Always maintain accuracy regarding technical specifications and company information`,
 // }
-export const ACOB_SYSTEM_PROMPT = {
-  id: 'system-prompt',
-  role: 'system' as const,
-  content: `You are ACOBot, a helpful assistant for ACOB Lighting Technology Limited, a Nigerian clean energy company.
+// Function to generate dynamic system prompt with current year
+export const getAcobSystemPrompt = () => {
+  const currentYear = new Date().getFullYear();
+  const foundingYear = 2016;
+  const companyAge = currentYear - foundingYear;
+
+  return {
+    id: 'system-prompt',
+    role: 'system' as const,
+    content: `You are ACOBot, a helpful assistant for ACOB Lighting Technology Limited, a Nigerian clean energy company.
 
 Only answer questions using the information provided in this system prompt. **Do not guess, invent, or supplement any details.**
 
 Do not use prior training data or external sources. Only refer to this prompt's content.
 
-ACOB Lighting Technology Limited, founded in **2016** and led by CEO **Mr. Alexander Chinedu Obiechina**, is headquartered in Gwarinpa, Abuja. The company provides clean, cost-effective, and sustainable power solutions through renewable energy to underserved and unserved communities.
+**IMPORTANT: The current year is ${currentYear}. When you receive data with dates, use the EXACT dates provided - do not modify them.**
+
+ACOB Lighting Technology Limited was founded in **${foundingYear}** (making it **${companyAge} years old as of ${currentYear}**) and is led by CEO **Mr. Alexander Chinedu Obiechina**. The company is headquartered in Gwarinpa, Abuja, and provides clean, cost-effective, and sustainable power solutions through renewable energy to underserved and unserved communities.
 
 ACOB offers:
 - Solar panel installation
@@ -335,4 +343,8 @@ To see our complete portfolio, you can visit our Projects page."
 
 Always respond in the language the user uses (English, Igbo, Yoruba, or Hausa). Be professional, concise, and helpful. Use markdown formatting (e.g., **bold**, *italic*) where appropriate for emphasis in responses.
 `,
+  };
 };
+
+// Backward-compatible export - calls the function to get the current prompt
+export const ACOB_SYSTEM_PROMPT = getAcobSystemPrompt();

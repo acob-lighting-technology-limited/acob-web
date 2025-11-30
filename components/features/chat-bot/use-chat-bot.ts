@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef } from 'react';
 import { useChat } from 'ai/react';
-import { ACOB_SYSTEM_PROMPT } from '@/lib/data';
+import { getAcobSystemPrompt } from '@/lib/data';
 import { extractNavigationIntent } from '@/lib/utils/navigation';
 
 const MESSAGE_LIMIT = 5;
@@ -55,7 +55,7 @@ export function useChatBot() {
     stop,
   } = useChat({
     api: '/api/chat',
-    initialMessages: [ACOB_SYSTEM_PROMPT],
+    initialMessages: [getAcobSystemPrompt()],
     onFinish: message => {
       // Extract navigation intent
       const route = extractNavigationIntent(message.content);

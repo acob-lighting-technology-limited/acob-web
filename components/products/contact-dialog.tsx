@@ -30,7 +30,7 @@ const TextOptionsDialog: React.FC<TextOptionsDialogProps> = ({
   productName,
 }) => {
   const phones = ['+234 704 920 2634', '+234 803 290 2825'];
-  const primaryPhone = phones[0].replace(/\s/g, '');
+  const primaryPhone = phones[1].replace(/\s/g, ''); // Using second number for WhatsApp
   const message = productName
     ? `Hello, I'm interested in ${productName}`
     : 'Hello, I would like to inquire about your products';

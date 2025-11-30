@@ -45,17 +45,42 @@ export function ProjectsSection({ projects }: ProjectsSectionProps) {
     });
   }, [api]);
 
-  // Auto-scroll functionality
+  // Auto-scroll functionality (disabled on mobile)
   useEffect(() => {
     if (!api || displayProjects.length <= 1) {
       return;
     }
 
-    const interval = setInterval(() => {
-      api.scrollNext();
-    }, 5000); // Auto-scroll every 5 seconds
+    let interval: NodeJS.Timeout | null = null;
 
-    return () => clearInterval(interval);
+    const checkAndStartAutoScroll = () => {
+      // Clear existing interval
+      if (interval) {
+        clearInterval(interval);
+        interval = null;
+      }
+
+      // Check if screen is lg or larger (1024px+)
+      const isLargeScreen = window.innerWidth >= 1024;
+      if (isLargeScreen) {
+        interval = setInterval(() => {
+          api.scrollNext();
+        }, 5000); // Auto-scroll every 5 seconds
+      }
+    };
+
+    // Initial check
+    checkAndStartAutoScroll();
+
+    // Listen for resize events
+    window.addEventListener('resize', checkAndStartAutoScroll);
+
+    return () => {
+      if (interval) {
+        clearInterval(interval);
+      }
+      window.removeEventListener('resize', checkAndStartAutoScroll);
+    };
   }, [api, displayProjects.length]);
 
   if (!hasProjects) {

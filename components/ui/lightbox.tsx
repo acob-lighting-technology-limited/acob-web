@@ -48,10 +48,17 @@ export function Lightbox({
   const [isZoomed, setIsZoomed] = useState(false);
   const [isPlaying, setIsPlaying] = useState(false);
   const [mounted, setMounted] = useState(false);
+  const [zoomLevel, setZoomLevel] = useState(1);
+  const [panPosition, setPanPosition] = useState({ x: 0, y: 0 });
+  const [isPanning, setIsPanning] = useState(false);
   const touchStartX = useRef<number>(0);
   const touchEndX = useRef<number>(0);
   const scrollPosition = useRef<number>(0);
   const videoRef = useRef<React.ElementRef<'video'>>(null);
+  const imageContainerRef = useRef<HTMLDivElement>(null);
+  const pinchStartDistance = useRef<number>(0);
+  const pinchStartZoom = useRef<number>(1);
+  const panStart = useRef<{ x: number; y: number }>({ x: 0, y: 0 });
 
   useEffect(() => {
     setMounted(true);
@@ -69,9 +76,12 @@ export function Lightbox({
     setCurrentIndex(initialIndex);
   }, [initialIndex]);
 
-  // Reset video state when changing media
+  // Reset video state and zoom when changing media
   useEffect(() => {
     setIsPlaying(false);
+    setIsZoomed(false);
+    setZoomLevel(1);
+    setPanPosition({ x: 0, y: 0 });
     if (videoRef.current) {
       videoRef.current.pause();
       videoRef.current.currentTime = 0;
@@ -103,6 +113,15 @@ export function Lightbox({
     window.addEventListener('keydown', handleKeyDown);
     return () => window.removeEventListener('keydown', handleKeyDown);
   }, [isOpen, currentIndex, normalizedMedia]);
+
+  // Reset zoom when lightbox closes
+  useEffect(() => {
+    if (!isOpen) {
+      setIsZoomed(false);
+      setZoomLevel(1);
+      setPanPosition({ x: 0, y: 0 });
+    }
+  }, [isOpen]);
 
   // Prevent body scroll and hide background when lightbox is open
   useEffect(() => {
@@ -179,7 +198,107 @@ export function Lightbox({
     if (normalizedMedia[currentIndex]?.type === 'video') {
       return;
     }
-    setIsZoomed(!isZoomed);
+    if (isZoomed) {
+      setIsZoomed(false);
+      setZoomLevel(1);
+      setPanPosition({ x: 0, y: 0 });
+    } else {
+      setIsZoomed(true);
+      setZoomLevel(2);
+      setPanPosition({ x: 0, y: 0 });
+    }
+  };
+
+  // Calculate distance between two touch points
+  const getTouchDistance = (
+    touch1: React.Touch,
+    touch2: React.Touch,
+  ): number => {
+    const dx = touch2.clientX - touch1.clientX;
+    const dy = touch2.clientY - touch1.clientY;
+    return Math.sqrt(dx * dx + dy * dy);
+  };
+
+  // Handle pinch-to-zoom
+  const handlePinchStart = (e: React.TouchEvent) => {
+    if (
+      normalizedMedia[currentIndex]?.type === 'video' ||
+      e.touches.length !== 2
+    ) {
+      return;
+    }
+    e.stopPropagation();
+    const distance = getTouchDistance(e.touches[0], e.touches[1]);
+    pinchStartDistance.current = distance;
+    pinchStartZoom.current = zoomLevel;
+    setIsPanning(false);
+  };
+
+  const handlePinchMove = (e: React.TouchEvent) => {
+    if (
+      normalizedMedia[currentIndex]?.type === 'video' ||
+      e.touches.length !== 2
+    ) {
+      return;
+    }
+    e.stopPropagation();
+    e.preventDefault();
+    const distance = getTouchDistance(e.touches[0], e.touches[1]);
+    const scale =
+      (distance / pinchStartDistance.current) * pinchStartZoom.current;
+    const newZoom = Math.max(1, Math.min(scale, 5)); // Limit zoom between 1x and 5x
+    setZoomLevel(newZoom);
+    setIsZoomed(newZoom > 1);
+  };
+
+  const handlePinchEnd = () => {
+    pinchStartDistance.current = 0;
+    pinchStartZoom.current = zoomLevel;
+  };
+
+  // Handle pan when zoomed
+  const handlePanStart = (e: React.TouchEvent | React.MouseEvent) => {
+    if (!isZoomed || normalizedMedia[currentIndex]?.type === 'video') {
+      return;
+    }
+    e.stopPropagation();
+    setIsPanning(true);
+    if ('touches' in e && e.touches.length === 1) {
+      panStart.current = {
+        x: e.touches[0].clientX - panPosition.x,
+        y: e.touches[0].clientY - panPosition.y,
+      };
+    } else if ('clientX' in e) {
+      panStart.current = {
+        x: e.clientX - panPosition.x,
+        y: e.clientY - panPosition.y,
+      };
+    }
+  };
+
+  const handlePanMove = (e: React.TouchEvent | React.MouseEvent) => {
+    if (
+      !isZoomed ||
+      !isPanning ||
+      normalizedMedia[currentIndex]?.type === 'video'
+    ) {
+      return;
+    }
+    e.stopPropagation();
+    e.preventDefault();
+    if ('touches' in e && e.touches.length === 1) {
+      const newX = e.touches[0].clientX - panStart.current.x;
+      const newY = e.touches[0].clientY - panStart.current.y;
+      setPanPosition({ x: newX, y: newY });
+    } else if ('clientX' in e) {
+      const newX = e.clientX - panStart.current.x;
+      const newY = e.clientY - panStart.current.y;
+      setPanPosition({ x: newX, y: newY });
+    }
+  };
+
+  const handlePanEnd = () => {
+    setIsPanning(false);
   };
 
   const togglePlayPause = () => {
@@ -196,23 +315,42 @@ export function Lightbox({
   const handleVideoPlay = () => setIsPlaying(true);
   const handleVideoPause = () => setIsPlaying(false);
 
-  // Handle touch events for swipe gestures
+  // Handle touch events for swipe gestures (only when not zoomed and single touch)
   const handleTouchStart = (e: React.TouchEvent) => {
+    if (e.touches.length === 2) {
+      handlePinchStart(e);
+      return;
+    }
     if (isZoomed || normalizedMedia[currentIndex]?.type === 'video') {
+      handlePanStart(e);
       return;
     }
     touchStartX.current = e.touches[0].clientX;
   };
 
   const handleTouchMove = (e: React.TouchEvent) => {
+    if (e.touches.length === 2) {
+      handlePinchMove(e);
+      return;
+    }
     if (isZoomed || normalizedMedia[currentIndex]?.type === 'video') {
+      handlePanMove(e);
       return;
     }
     touchEndX.current = e.touches[0].clientX;
   };
 
-  const handleTouchEnd = () => {
-    if (isZoomed || normalizedMedia[currentIndex]?.type === 'video') {
+  const handleTouchEnd = (e: React.TouchEvent) => {
+    if (e.touches.length === 1) {
+      // Still one touch, might be transitioning
+      return;
+    }
+    if (isZoomed) {
+      handlePanEnd();
+      handlePinchEnd();
+      return;
+    }
+    if (normalizedMedia[currentIndex]?.type === 'video') {
       return;
     }
 
@@ -253,7 +391,7 @@ export function Lightbox({
       style={{
         WebkitOverflowScrolling: 'auto',
         overscrollBehavior: 'contain',
-        touchAction: 'none',
+        touchAction: isZoomed ? 'pan-x pan-y pinch-zoom' : 'none',
       }}
     >
       {/* Header */}
@@ -346,16 +484,22 @@ export function Lightbox({
           {/* Current Media (sliding in from appropriate side) */}
           <div
             key={`current-${currentIndex}`}
+            ref={imageContainerRef}
             className={cn(
               'absolute inset-0 flex items-center justify-center',
               slideDirection === 'left' && 'slide-in-from-right',
               slideDirection === 'right' && 'slide-in-from-left',
-              isZoomed && !isVideo && 'scale-150 cursor-move overflow-auto',
+              isZoomed && !isVideo && 'cursor-move overflow-auto',
             )}
             style={{
               backfaceVisibility: 'hidden',
               WebkitBackfaceVisibility: 'hidden',
+              touchAction: isZoomed ? 'pan-x pan-y pinch-zoom' : 'none',
             }}
+            onMouseDown={handlePanStart}
+            onMouseMove={handlePanMove}
+            onMouseUp={handlePanEnd}
+            onMouseLeave={handlePanEnd}
           >
             {isVideo ? (
               <div className="relative w-full h-full max-w-7xl max-h-[90vh]">
@@ -385,6 +529,13 @@ export function Lightbox({
                       userSelect: 'none',
                       WebkitUserSelect: 'none',
                       WebkitTouchCallout: 'none',
+                      transform: isZoomed
+                        ? `scale(${zoomLevel}) translate(${panPosition.x / zoomLevel}px, ${panPosition.y / zoomLevel}px)`
+                        : 'scale(1) translate(0, 0)',
+                      transformOrigin: 'center center',
+                      transition: isPanning
+                        ? 'none'
+                        : 'transform 0.1s ease-out',
                     }}
                     onContextMenu={e => e.preventDefault()}
                   >
@@ -393,7 +544,7 @@ export function Lightbox({
                       alt={currentMedia.alt}
                       fill
                       className={cn(
-                        'object-contain transition-all duration-300 select-none',
+                        'object-contain select-none',
                         isZoomed && 'object-cover',
                       )}
                       sizes="100vw"

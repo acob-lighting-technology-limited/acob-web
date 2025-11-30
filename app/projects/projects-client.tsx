@@ -1,7 +1,7 @@
 'use client';
 
-import { useState, useEffect } from 'react';
-import { useRouter } from 'next/navigation';
+import { useState, useEffect, useRef } from 'react';
+import { useRouter, useSearchParams } from 'next/navigation';
 import { useResponsiveLimit } from '@/hooks/use-responsive-limit';
 import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
@@ -42,12 +42,31 @@ export default function ProjectsClient({
   breadcrumbItems,
 }: ProjectsClientProps) {
   const router = useRouter();
+  const searchParams = useSearchParams();
 
   const [projects, setProjects] = useState(initialProjects);
   const [pagination, setPagination] = useState(initialPagination);
   const [searchQuery, setSearchQuery] = useState(currentSearch);
   const [isLoading, setIsLoading] = useState(false);
   const responsiveLimit = useResponsiveLimit();
+  const searchTimeoutRef = useRef<NodeJS.Timeout | null>(null);
+
+  // Sync state with props when they change (from server component refresh)
+  useEffect(() => {
+    setProjects(initialProjects);
+    setPagination(initialPagination);
+    setSearchQuery(currentSearch);
+    setIsLoading(false);
+  }, [initialProjects, initialPagination, currentSearch]);
+
+  // Watch for URL search param changes and refresh server component
+  useEffect(() => {
+    const urlSearch = searchParams.get('search') || '';
+    if (urlSearch !== currentSearch) {
+      // URL has changed, refresh server component to update Hero
+      router.refresh();
+    }
+  }, [searchParams, currentSearch, router]);
 
   // Update URL and fetch new data when search changes
   const updateSearch = async (newSearch: string, newPage: number = 1) => {
@@ -65,8 +84,9 @@ export default function ProjectsClient({
     const queryString = params.toString();
     const newUrl = queryString ? `/projects?${queryString}` : '/projects';
 
-    router.push(newUrl);
-
+    // Update URL - the useEffect above will detect the change and refresh
+    router.replace(newUrl);
+    // Also fetch client-side to update immediately
     try {
       const response = await fetch(`/api/projects?${params.toString()}`);
       if (!response.ok) {
@@ -91,11 +111,14 @@ export default function ProjectsClient({
 
   const handleSearchChange = (value: string) => {
     setSearchQuery(value);
+    // Clear existing timeout
+    if (searchTimeoutRef.current) {
+      clearTimeout(searchTimeoutRef.current);
+    }
     // Debounce search
-    const timeoutId = setTimeout(() => {
+    searchTimeoutRef.current = setTimeout(() => {
       updateSearch(value, 1);
     }, 500);
-    return () => clearTimeout(timeoutId);
   };
 
   const handlePageChange = (page: number) => {
