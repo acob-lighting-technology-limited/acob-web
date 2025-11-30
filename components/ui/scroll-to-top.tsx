@@ -1,11 +1,31 @@
 'use client';
 
 import { useState, useEffect } from 'react';
+import { usePathname } from 'next/navigation';
 import { ChevronUp } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 
 export function ScrollToTop() {
   const [isVisible, setIsVisible] = useState(false);
+  const [shouldHide, setShouldHide] = useState(false);
+  const pathname = usePathname();
+
+  // Check if we're on a products slug page and on mobile
+  useEffect(() => {
+    const checkShouldHide = () => {
+      const isProductsSlugPage =
+        pathname?.startsWith('/products/') && pathname !== '/products';
+      const isMobile = window.innerWidth < 1024; // lg breakpoint
+      setShouldHide(isProductsSlugPage && isMobile);
+    };
+
+    checkShouldHide();
+    window.addEventListener('resize', checkShouldHide);
+
+    return () => {
+      window.removeEventListener('resize', checkShouldHide);
+    };
+  }, [pathname]);
 
   useEffect(() => {
     const toggleVisibility = () => {
@@ -23,6 +43,11 @@ export function ScrollToTop() {
       window.removeEventListener('scroll', toggleVisibility);
     };
   }, []);
+
+  // Don't render on mobile for products slug pages
+  if (shouldHide) {
+    return null;
+  }
 
   const scrollToTop = () => {
     // Custom slow scroll animation

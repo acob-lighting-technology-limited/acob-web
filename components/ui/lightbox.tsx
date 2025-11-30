@@ -51,6 +51,7 @@ export function Lightbox({
   const [zoomLevel, setZoomLevel] = useState(1);
   const [panPosition, setPanPosition] = useState({ x: 0, y: 0 });
   const [isPanning, setIsPanning] = useState(false);
+  const [isPinching, setIsPinching] = useState(false);
   const touchStartX = useRef<number>(0);
   const touchEndX = useRef<number>(0);
   const scrollPosition = useRef<number>(0);
@@ -59,6 +60,7 @@ export function Lightbox({
   const pinchStartDistance = useRef<number>(0);
   const pinchStartZoom = useRef<number>(1);
   const panStart = useRef<{ x: number; y: number }>({ x: 0, y: 0 });
+  const lastPinchDistance = useRef<number>(0);
 
   useEffect(() => {
     setMounted(true);
@@ -82,6 +84,10 @@ export function Lightbox({
     setIsZoomed(false);
     setZoomLevel(1);
     setPanPosition({ x: 0, y: 0 });
+    setIsPinching(false);
+    setIsPanning(false);
+    pinchStartDistance.current = 0;
+    lastPinchDistance.current = 0;
     if (videoRef.current) {
       videoRef.current.pause();
       videoRef.current.currentTime = 0;
@@ -228,37 +234,63 @@ export function Lightbox({
       return;
     }
     e.stopPropagation();
+    setIsPinching(true);
+    setIsPanning(false);
     const distance = getTouchDistance(e.touches[0], e.touches[1]);
     pinchStartDistance.current = distance;
+    lastPinchDistance.current = distance;
     pinchStartZoom.current = zoomLevel;
-    setIsPanning(false);
   };
 
   const handlePinchMove = (e: React.TouchEvent) => {
     if (
       normalizedMedia[currentIndex]?.type === 'video' ||
-      e.touches.length !== 2
+      e.touches.length !== 2 ||
+      !isPinching ||
+      pinchStartDistance.current === 0
     ) {
       return;
     }
     e.stopPropagation();
     e.preventDefault();
+
     const distance = getTouchDistance(e.touches[0], e.touches[1]);
-    const scale =
-      (distance / pinchStartDistance.current) * pinchStartZoom.current;
-    const newZoom = Math.max(1, Math.min(scale, 5)); // Limit zoom between 1x and 5x
+
+    // Only update if distance changed significantly (reduces jitter)
+    const distanceDelta = Math.abs(distance - lastPinchDistance.current);
+    if (distanceDelta < 3) {
+      return;
+    }
+
+    lastPinchDistance.current = distance;
+
+    // Calculate zoom - use ratio of current distance to initial distance
+    // This gives smooth, proportional zooming
+    const distanceRatio = distance / pinchStartDistance.current;
+    const newZoom = Math.max(
+      1,
+      Math.min(pinchStartZoom.current * distanceRatio, 5),
+    );
+
+    // Update zoom level directly (no smoothing to avoid lag)
     setZoomLevel(newZoom);
-    setIsZoomed(newZoom > 1);
+    setIsZoomed(newZoom > 1.1);
   };
 
   const handlePinchEnd = () => {
+    setIsPinching(false);
     pinchStartDistance.current = 0;
+    lastPinchDistance.current = 0;
     pinchStartZoom.current = zoomLevel;
   };
 
   // Handle pan when zoomed
   const handlePanStart = (e: React.TouchEvent | React.MouseEvent) => {
-    if (!isZoomed || normalizedMedia[currentIndex]?.type === 'video') {
+    if (
+      !isZoomed ||
+      normalizedMedia[currentIndex]?.type === 'video' ||
+      isPinching
+    ) {
       return;
     }
     e.stopPropagation();
@@ -280,7 +312,8 @@ export function Lightbox({
     if (
       !isZoomed ||
       !isPanning ||
-      normalizedMedia[currentIndex]?.type === 'video'
+      normalizedMedia[currentIndex]?.type === 'video' ||
+      isPinching
     ) {
       return;
     }
@@ -321,11 +354,13 @@ export function Lightbox({
       handlePinchStart(e);
       return;
     }
-    if (isZoomed || normalizedMedia[currentIndex]?.type === 'video') {
+    if (isZoomed && !isPinching) {
       handlePanStart(e);
       return;
     }
-    touchStartX.current = e.touches[0].clientX;
+    if (!isZoomed && normalizedMedia[currentIndex]?.type !== 'video') {
+      touchStartX.current = e.touches[0].clientX;
+    }
   };
 
   const handleTouchMove = (e: React.TouchEvent) => {
@@ -333,11 +368,13 @@ export function Lightbox({
       handlePinchMove(e);
       return;
     }
-    if (isZoomed || normalizedMedia[currentIndex]?.type === 'video') {
+    if (isZoomed && !isPinching) {
       handlePanMove(e);
       return;
     }
-    touchEndX.current = e.touches[0].clientX;
+    if (!isZoomed && normalizedMedia[currentIndex]?.type !== 'video') {
+      touchEndX.current = e.touches[0].clientX;
+    }
   };
 
   const handleTouchEnd = (e: React.TouchEvent) => {
@@ -345,9 +382,13 @@ export function Lightbox({
       // Still one touch, might be transitioning
       return;
     }
-    if (isZoomed) {
-      handlePanEnd();
+    if (isPinching) {
       handlePinchEnd();
+    }
+    if (isPanning) {
+      handlePanEnd();
+    }
+    if (isZoomed) {
       return;
     }
     if (normalizedMedia[currentIndex]?.type === 'video') {
@@ -533,9 +574,10 @@ export function Lightbox({
                         ? `scale(${zoomLevel}) translate(${panPosition.x / zoomLevel}px, ${panPosition.y / zoomLevel}px)`
                         : 'scale(1) translate(0, 0)',
                       transformOrigin: 'center center',
-                      transition: isPanning
-                        ? 'none'
-                        : 'transform 0.1s ease-out',
+                      transition:
+                        isPanning || isPinching
+                          ? 'none'
+                          : 'transform 0.2s ease-out',
                     }}
                     onContextMenu={e => e.preventDefault()}
                   >

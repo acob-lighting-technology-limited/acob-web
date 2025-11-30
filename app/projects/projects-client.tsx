@@ -276,7 +276,7 @@ export default function ProjectsClient({
                       </div>
 
                       {/* Title */}
-                      <h3 className="text-lg font-bold mb-3 text-foreground group-hover:text-primary transition-colors duration-300 line-clamp-2">
+                      <h3 className="text-lg font-bold mb-3 text-foreground group-hover:text-primary transition-colors duration-300 line-clamp-3">
                         {projects[0].title}
                       </h3>
 
@@ -361,7 +361,7 @@ export default function ProjectsClient({
                         </div>
 
                         {/* Title */}
-                        <h3 className="text-lg font-bold mb-3 text-foreground group-hover:text-primary transition-colors duration-300 line-clamp-2">
+                        <h3 className="text-lg font-bold mb-3 text-foreground group-hover:text-primary transition-colors duration-300 line-clamp-3">
                           {project.title}
                         </h3>
 

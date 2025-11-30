@@ -17,11 +17,13 @@ interface ProductDetailClientProps {
     _type?: string;
   }>;
   productTitle: string;
+  availability?: string;
 }
 
 export function ProductDetailClient({
   images,
   productTitle,
+  availability,
 }: ProductDetailClientProps) {
   const [selectedImage, setSelectedImage] = useState(0);
   const [isContactOpen, setIsContactOpen] = useState(false);
@@ -105,9 +107,17 @@ export function ProductDetailClient({
     setIsLightboxOpen(false);
   };
 
+  const handleContactClick = () => {
+    if (availability === 'out-of-stock') {
+      toast.error('This product is currently out of stock');
+      return;
+    }
+    setIsContactOpen(true);
+  };
+
   return (
     <>
-      <div className="space-y-4">
+      <div className="space-y-4 ">
         <div className="flex flex-col lg:flex-row gap-3">
           {/* Thumbnail Gallery - Side */}
           {images.length > 1 && (
@@ -252,12 +262,16 @@ export function ProductDetailClient({
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5, delay: 0.3 }}
-          className="flex gap-3"
+          className="flex gap-3 lg:static fixed bottom-0 left-0 right-0 p-4 bg-background/95 backdrop-blur-sm border-t lg:border-t-0 lg:bg-transparent lg:backdrop-blur-none z-50 lg:z-auto"
         >
           <Button
-            onClick={() => setIsContactOpen(true)}
+            onClick={handleContactClick}
             size="lg"
-            className="flex-1"
+            className={`flex-1 ${
+              availability === 'out-of-stock'
+                ? 'opacity-50 cursor-not-allowed'
+                : ''
+            }`}
           >
             <Phone className="mr-2 h-5 w-5" />
             Contact Us

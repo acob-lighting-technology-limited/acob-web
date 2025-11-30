@@ -80,8 +80,9 @@ export default async function GalleryPage() {
   return (
     <>
       <Hero
+        title="Media Gallery"
         description="Explore Our Project Portfolio"
-        image="/images/services/header.webp?height=400&width=1200"
+        image="/images/services/header.webp"
       />
 
       <Container className="px-4 py-8">

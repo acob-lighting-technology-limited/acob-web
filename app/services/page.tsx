@@ -153,7 +153,7 @@ export default function ServicesPage() {
 
                     <CardContent className="p-6 flex flex-col flex-1">
                       {/* Title */}
-                      <h3 className="text-lg font-bold mb-3 text-foreground group-hover:text-primary transition-colors duration-300 line-clamp-2">
+                      <h3 className="text-lg font-bold mb-3 text-foreground group-hover:text-primary transition-colors duration-300 line-clamp-3">
                         {filteredServices[0].title}
                       </h3>
 
@@ -197,7 +197,7 @@ export default function ServicesPage() {
 
                       <CardContent className="p-6 flex flex-col flex-1">
                         {/* Title */}
-                        <h3 className="text-lg font-bold mb-3 text-foreground group-hover:text-primary transition-colors duration-300 line-clamp-2">
+                        <h3 className="text-lg font-bold mb-3 text-foreground group-hover:text-primary transition-colors duration-300 line-clamp-3">
                           {service.title}
                         </h3>
 
@@ -243,7 +243,7 @@ export default function ServicesPage() {
 
                         <CardContent className="p-6 flex flex-col flex-1">
                           {/* Title */}
-                          <h3 className="text-lg font-bold mb-3 text-foreground group-hover:text-primary transition-colors duration-300 line-clamp-2">
+                          <h3 className="text-lg font-bold mb-3 text-foreground group-hover:text-primary transition-colors duration-300 line-clamp-3">
                             {service.title}
                           </h3>
 

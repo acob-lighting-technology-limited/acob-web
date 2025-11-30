@@ -357,12 +357,12 @@ export default function CategoryUpdatesClient({
 
                         <div className="space-y-3 flex-1">
                           {/* Title */}
-                          <h3 className="text-lg font-semibold text-foreground line-clamp-2 group-hover:text-primary transition-colors duration-300">
+                          <h3 className="text-lg font-bold mb-3 text-foreground line-clamp-3 group-hover:text-primary transition-colors duration-300">
                             {post.title}
                           </h3>
 
                           {/* Excerpt */}
-                          <p className="text-sm md:text-base text-muted-foreground line-clamp-3 leading-relaxed">
+                          <p className="text-sm text-muted-foreground leading-relaxed line-clamp-3">
                             {post.excerpt}
                           </p>
                         </div>
@@ -444,7 +444,7 @@ export default function CategoryUpdatesClient({
                           </div>
 
                           {/* Title */}
-                          <h3 className="text-lg font-bold mb-3 text-foreground group-hover:text-primary transition-colors duration-300 line-clamp-2">
+                          <h3 className="text-lg font-bold mb-3 text-foreground group-hover:text-primary transition-colors duration-300 line-clamp-3">
                             {post.title}
                           </h3>
 

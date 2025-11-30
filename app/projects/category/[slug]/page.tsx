@@ -159,7 +159,7 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
                           </div>
 
                           {/* Title */}
-                          <h3 className="text-lg font-bold mb-3 text-foreground group-hover:text-primary transition-colors duration-300 line-clamp-2">
+                          <h3 className="text-lg font-bold mb-3 text-foreground group-hover:text-primary transition-colors duration-300 line-clamp-3">
                             {project.title}
                           </h3>
 

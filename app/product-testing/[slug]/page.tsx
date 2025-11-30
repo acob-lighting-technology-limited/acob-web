@@ -107,6 +107,7 @@ export default async function ProductPage({ params }: ProductPageProps) {
               <ProductDetailClient
                 images={allImages}
                 productTitle={product.title}
+                availability={product.availability}
               />
             </div>
 

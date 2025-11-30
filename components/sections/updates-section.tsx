@@ -168,7 +168,7 @@ export function UpdatesSection({ posts }: UpdatesSectionProps) {
 
                       <div className="space-y-3">
                         {/* Title */}
-                        <h3 className="text-xl  font-semibold text-foreground line-clamp-2">
+                        <h3 className="text-base   font-semibold text-foreground line-clamp-3">
                           {post.title}
                         </h3>
 
@@ -250,12 +250,12 @@ export function UpdatesSection({ posts }: UpdatesSectionProps) {
 
                   <div className="space-y-3">
                     {/* Title */}
-                    <h3 className="text-xl  font-semibold text-foreground line-clamp-2">
+                    <h3 className="text-lg font-bold mb-3 text-foreground line-clamp-3">
                       {post.title}
                     </h3>
 
                     {/* Excerpt */}
-                    <p className="text-sm md:text-base text-muted-foreground line-clamp-3">
+                    <p className="text-sm text-muted-foreground leading-relaxed line-clamp-3">
                       {post.excerpt}
                     </p>
                   </div>

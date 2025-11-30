@@ -49,7 +49,7 @@ const TextOptionsDialog: React.FC<TextOptionsDialogProps> = ({
 
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
-      <DialogContent className="sm:max-w-md">
+      <DialogContent className="sm:max-w-md max-w-[calc(100vw-2rem)] w-[calc(100vw-2rem)]">
         <DialogHeader>
           <DialogTitle>Choose Text Option</DialogTitle>
           <DialogDescription>
@@ -149,7 +149,7 @@ export function ContactDialog({
   return (
     <>
       <Dialog open={isOpen} onOpenChange={onClose}>
-        <DialogContent className="sm:max-w-md">
+        <DialogContent className="sm:max-w-md max-w-[calc(100vw-2rem)] w-[calc(100vw-2rem)]">
           <DialogHeader>
             <DialogTitle>Contact Us</DialogTitle>
             <DialogDescription>
