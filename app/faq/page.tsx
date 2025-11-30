@@ -1,5 +1,5 @@
 import { Container } from '@/components/ui/container';
-import { PageHero } from '@/components/ui/page-hero';
+import { Hero } from '@/components/ui/hero';
 import { Breadcrumb } from '@/components/ui/breadcrumb';
 import { FAQSection } from '@/components/faq/faq-section';
 
@@ -8,10 +8,10 @@ export default function FAQPage() {
 
   return (
     <>
-      <PageHero
+      <Hero
         title="Frequently Asked Questions"
         description="Get answers to common questions about solar energy systems"
-        backgroundImage="/images/services/solar-installation.webp"
+        image="/images/services/solar-installation.webp"
       />
 
       <Container className="px-4 py-12">

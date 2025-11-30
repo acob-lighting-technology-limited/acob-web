@@ -6,7 +6,7 @@ import { Button } from '@/components/ui/button';
 import { Breadcrumb } from '@/components/ui/breadcrumb';
 import { Card, CardContent } from '@/components/ui/card';
 import { Container } from '@/components/ui/container';
-import { PageHero } from '@/components/ui/page-hero';
+import { Hero } from '@/components/ui/hero';
 import { aboutLeadershipQuotes } from '@/lib/data/about-overview-data';
 import { CoreValuesSection } from '@/components/sections/core-values-section';
 import { COMPANY_INFO } from '@/lib/constants';
@@ -20,9 +20,9 @@ export default function OurStoryPage() {
 
   return (
     <>
-      <PageHero
+      <Hero
         description="Community-Centered Innovation Since Day One"
-        backgroundImage="/images/about/our-story.webp"
+        image="/images/about/our-story.webp"
       />
 
       <Container>
@@ -174,9 +174,9 @@ export default function OurStoryPage() {
           </div>
         </section> */}
 
-        <div className="mb-12 flex flex-col items-center gap-6 text-center">
+        <div className="mt-12 mb-8 text-center">
           <Link href="/about">
-            <Button variant="default" className="group">
+            <Button variant="outline" className="group">
               <ArrowLeft className="mr-2 h-4 w-4 transition-transform group-hover:-translate-x-1" />
               Back to About Overview
             </Button>

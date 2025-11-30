@@ -2,8 +2,8 @@
 
 import { Share2, Linkedin, Facebook, Instagram } from 'lucide-react';
 import { XIcon } from '@/components/icons/x-icon';
+import { WhatsAppIcon } from '@/components/icons/whatsapp-icon';
 // import { toast } from 'sonner';
-import { Button } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
 import { useState, useEffect } from 'react';
 
@@ -64,6 +64,9 @@ export function ShareCopy({ className, title, url }: ShareCopyProps) {
         //   description: 'URL copied to clipboard. You can paste it in your Instagram story or post.',
         // });
         return;
+      case 'whatsapp':
+        socialShareUrl = `https://wa.me/?text=${encodeURIComponent(`${shareTitle} ${shareUrl}`)}`;
+        break;
       default:
         return;
     }
@@ -76,67 +79,101 @@ export function ShareCopy({ className, title, url }: ShareCopyProps) {
     );
   };
 
+  // Brand colors for social media platforms
+  const brandColors = {
+    share: 'hsl(var(--primary))',
+    linkedin: '#0A66C2',
+    x: '#000000',
+    facebook: '#1877F2',
+    instagram: '#E4405F',
+    whatsapp: '#25D366',
+  };
+
+  // Social button component with animated background
+  const SocialButton = ({
+    platform,
+    icon: Icon,
+    brandColor,
+    label,
+  }: {
+    platform: string;
+    icon: React.ComponentType<{ className?: string }>;
+    brandColor: string;
+    label: string;
+  }) => {
+    return (
+      <button
+        onClick={() => handleSocialShare(platform)}
+        title={`Share on ${label}`}
+        aria-label={`Share on ${label}`}
+        className="group relative inline-flex items-center justify-center rounded-md border border-input bg-transparent h-10 w-10 text-sm font-medium disabled:pointer-events-none disabled:opacity-50 cursor-pointer overflow-hidden transition-all duration-300"
+      >
+        {/* Animated fill effect - fills entire button */}
+        <div
+          className="absolute inset-0 transform scale-0 transition-transform duration-500 ease-out group-hover:scale-[1.02] rounded-md origin-center"
+          style={{ backgroundColor: brandColor }}
+        />
+        {/* Icon */}
+        <div className="relative z-10 w-full h-full flex items-center justify-center transition-all duration-500 group-hover:scale-110">
+          <Icon className="w-4 h-4 text-foreground group-hover:text-white transition-colors duration-500" />
+        </div>
+      </button>
+    );
+  };
+
   return (
     <div className={cn('flex items-center gap-2', className)}>
       {/* Native Share Button */}
-      <Button
-        variant="outline"
-        size="sm"
-        className="bg-transparent cursor-pointer h-10"
+      <button
         onClick={handleNativeShare}
         disabled={isSharing}
         title="Share this page"
         aria-label="Share this page"
+        className="group relative inline-flex items-center justify-center gap-2 rounded-md border border-input bg-transparent px-3 h-10 text-sm font-medium disabled:pointer-events-none disabled:opacity-50 cursor-pointer overflow-hidden transition-all duration-300"
       >
-        <Share2 className="w-4 h-4 mr-2" />
-        Share
-      </Button>
+        {/* Animated fill effect */}
+        <div
+          className="absolute inset-0 transform scale-0 transition-transform duration-500 ease-out group-hover:scale-100 rounded-md origin-center"
+          style={{ backgroundColor: brandColors.share }}
+        />
+        <span className="relative z-10 flex items-center gap-2 text-foreground group-hover:text-white transition-colors duration-500">
+          <Share2 className="w-4 h-4" />
+          <span>Share</span>
+        </span>
+      </button>
 
       {/* Social Media Buttons */}
       <div className="flex items-center gap-1">
-        <Button
-          variant="outline"
-          size="sm"
-          className="p-1 h-10 w-10 border"
-          onClick={() => handleSocialShare('linkedin')}
-          title="Share on LinkedIn"
-          aria-label="Share on LinkedIn"
-        >
-          <Linkedin className="w-6 h-6" />
-        </Button>
-
-        <Button
-          variant="outline"
-          size="sm"
-          className="p-1 h-10 w-10 border"
-          onClick={() => handleSocialShare('x')}
-          title="Share on X"
-          aria-label="Share on X"
-        >
-          <XIcon className="w-6 h-6" />
-        </Button>
-
-        <Button
-          variant="outline"
-          size="sm"
-          className="p-1 h-10 w-10 border"
-          onClick={() => handleSocialShare('facebook')}
-          title="Share on Facebook"
-          aria-label="Share on Facebook"
-        >
-          <Facebook className="w-6 h-6" />
-        </Button>
-
-        <Button
-          variant="outline"
-          size="sm"
-          className="p-1 h-10 w-10 border"
-          onClick={() => handleSocialShare('instagram')}
-          title="Share on Instagram"
-          aria-label="Share on Instagram"
-        >
-          <Instagram className="w-6 h-6" />
-        </Button>
+        <SocialButton
+          platform="linkedin"
+          icon={Linkedin}
+          brandColor={brandColors.linkedin}
+          label="LinkedIn"
+        />
+        <SocialButton
+          platform="x"
+          icon={XIcon}
+          brandColor={brandColors.x}
+          label="X"
+        />
+        <SocialButton
+          platform="facebook"
+          icon={Facebook}
+          brandColor={brandColors.facebook}
+          label="Facebook"
+        />
+        <SocialButton
+          platform="instagram"
+          icon={Instagram}
+          brandColor={brandColors.instagram}
+          label="Instagram"
+        />
+        <SocialButton
+          platform="whatsapp"
+          icon={WhatsAppIcon}
+          brandColor={brandColors.whatsapp}
+          label="WhatsApp"
+        />
       </div>
     </div>
   );

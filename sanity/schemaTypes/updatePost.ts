@@ -49,6 +49,28 @@ export const updatePostType = defineType({
             }),
           ],
         },
+        {
+          type: 'file',
+          name: 'video',
+          title: 'Video',
+          options: {
+            accept: 'video/*',
+          },
+          fields: [
+            defineField({
+              name: 'title',
+              type: 'string',
+              title: 'Video Title',
+              description: 'Optional title for the video',
+            }),
+            defineField({
+              name: 'alt',
+              type: 'string',
+              title: 'Alternative text',
+              description: 'Describe the video for accessibility',
+            }),
+          ],
+        },
       ],
     }),
     defineField({
@@ -100,20 +122,24 @@ export const updatePostType = defineType({
       of: [{ type: 'string' }],
       options: {
         layout: 'tags',
-      },
-    }),
-    defineField({
-      name: 'status',
-      title: 'Status',
-      type: 'string',
-      options: {
         list: [
-          { title: 'Draft', value: 'draft' },
-          { title: 'Published', value: 'published' },
-          { title: 'Archived', value: 'archived' },
+          { title: 'Solar Energy', value: 'solar-energy' },
+          { title: 'Mini-Grid', value: 'mini-grid' },
+          { title: 'Street Lighting', value: 'street-lighting' },
+          { title: 'Rural Electrification', value: 'rural-electrification' },
+          { title: 'Sustainability', value: 'sustainability' },
+          { title: 'Renewable Energy', value: 'renewable-energy' },
+          { title: 'Community Impact', value: 'community-impact' },
+          { title: 'Energy Access', value: 'energy-access' },
+          { title: 'Off-Grid', value: 'off-grid' },
+          { title: 'Installation', value: 'installation' },
+          { title: 'Technology', value: 'technology' },
+          { title: 'Innovation', value: 'innovation' },
+          { title: 'Partnership', value: 'partnership' },
+          { title: 'Training', value: 'training' },
+          { title: 'Maintenance', value: 'maintenance' },
         ],
       },
-      initialValue: 'draft',
     }),
   ],
   preview: {

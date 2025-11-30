@@ -67,7 +67,23 @@ export async function getUpdatePosts() {
       category,
       tags,
       "featuredImage": featuredImage.asset->url + "?w=800&h=600&fit=crop&auto=format&q=95",
-      content
+      content[] {
+        ...,
+        _type == "file" => {
+          ...,
+          "asset": asset->{
+            url,
+            _ref
+          }
+        },
+        _type == "video" => {
+          ...,
+          "asset": asset->{
+            url,
+            _ref
+          }
+        }
+      }
     }
   `);
 }
@@ -75,7 +91,7 @@ export async function getUpdatePosts() {
 // Helper function to get update posts with pagination and filtering
 export async function getUpdatePostsPaginated({
   page = 1,
-  limit = 8,
+  limit = 12,
   search = '',
 }: {
   page?: number;
@@ -112,7 +128,23 @@ export async function getUpdatePostsPaginated({
       category,
       tags,
       "featuredImage": featuredImage.asset->url + "?w=800&h=600&fit=crop&auto=format&q=95",
-      content
+      content[] {
+        ...,
+        _type == "file" => {
+          ...,
+          "asset": asset->{
+            url,
+            _ref
+          }
+        },
+        _type == "video" => {
+          ...,
+          "asset": asset->{
+            url,
+            _ref
+          }
+        }
+      }
     }`;
 
     // Get total count for pagination
@@ -182,7 +214,23 @@ export async function getUpdatePost(slug: string) {
       category,
       tags,
       "featuredImage": featuredImage.asset->url + "?w=800&h=600&fit=crop&auto=format&q=95",
-      content
+      content[] {
+        ...,
+        _type == "file" => {
+          ...,
+          "asset": asset->{
+            url,
+            _ref
+          }
+        },
+        _type == "video" => {
+          ...,
+          "asset": asset->{
+            url,
+            _ref
+          }
+        }
+      }
     }
   `,
     { slug },
@@ -372,7 +420,7 @@ export async function getFeaturedProjects() {
 // Helper function to get projects with pagination and filtering
 export async function getProjectsPaginated({
   page = 1,
-  limit = 6,
+  limit = 12,
   search = '',
   state = '',
 }: {
@@ -506,10 +554,12 @@ export async function getProject(slug: string) {
           description3Preview,
           customDescription,
           images[]{
+            _type,
             asset->{
               url
             },
-            alt
+            alt,
+            title
           }
         },
         location,
@@ -734,7 +784,59 @@ export async function getActiveJobCount(): Promise<number> {
   }
 }
 
+// Helper function to get featured product count
+export async function getFeaturedProductCount(): Promise<number> {
+  try {
+    const count = await client.fetch(`
+      count(*[_type == "product" && isFeatured == true && availability == "in-stock"])
+    `);
+    return count || 0;
+  } catch (error) {
+    if (process.env.NODE_ENV === 'development') {
+      console.error(
+        'Error fetching featured product count from Sanity:',
+        error,
+      );
+    }
+    return 0;
+  }
+}
+
 // Test function to verify Sanity connection
+// Helper function to get products
+export async function getProducts() {
+  try {
+    const products = await client.fetch(`
+      *[_type == "product"] | order(_createdAt desc) {
+        _id,
+        title,
+        slug,
+        category,
+        sku,
+        availability,
+        description,
+        productImage{
+          asset->{
+            _id,
+            url
+          },
+          alt
+        },
+        panelSpecifications,
+        batterySpecifications,
+        inverterSpecifications
+      }
+    `);
+
+    return products;
+  } catch (error) {
+    if (process.env.NODE_ENV === 'development') {
+      console.error('Error fetching products from Sanity:', error);
+    }
+    return [];
+  }
+}
+
 export async function testSanityConnection() {
   try {
     const result = await client.fetch('*[_type == "project"][0...1]');

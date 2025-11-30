@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 import Image from 'next/image';
-import { ImageLightbox } from '@/components/ui/image-lightbox';
+import { Lightbox } from '@/components/ui/lightbox';
 
 interface ServiceGalleryProps {
   images: string[];
@@ -23,9 +23,10 @@ export function ServiceGallery({ images, serviceTitle }: ServiceGalleryProps) {
   };
 
   // Convert gallery images to lightbox format
-  const lightboxImages = images.map((image, index) => ({
+  const lightboxMedia = images.map((image, index) => ({
     src: image.split('?')[0], // Remove query params if any
     alt: `${serviceTitle} image ${index + 1}`,
+    type: 'image' as const,
   }));
 
   return (
@@ -58,10 +59,10 @@ export function ServiceGallery({ images, serviceTitle }: ServiceGalleryProps) {
         })}
       </div>
 
-      {/* Image Lightbox */}
-      {lightboxImages.length > 0 && (
-        <ImageLightbox
-          images={lightboxImages}
+      {/* Lightbox */}
+      {lightboxMedia.length > 0 && (
+        <Lightbox
+          media={lightboxMedia}
           initialIndex={selectedImageIndex}
           isOpen={lightboxOpen}
           onClose={() => setLightboxOpen(false)}

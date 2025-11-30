@@ -95,9 +95,9 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    // Use environment variable for recipient email, fallback to careers email only
+    // Use environment variable for recipient email, fallback to main email
     const CAREERS_RECIPIENT_EMAIL =
-      process.env.CAREERS_RECIPIENT_EMAIL || 'careers@acoblighting.com';
+      process.env.CAREERS_RECIPIENT_EMAIL || 'info@acoblighting.com';
 
     const emailBody = {
       from: 'onboarding@resend.dev',

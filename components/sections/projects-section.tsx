@@ -45,17 +45,42 @@ export function ProjectsSection({ projects }: ProjectsSectionProps) {
     });
   }, [api]);
 
-  // Auto-scroll functionality
+  // Auto-scroll functionality (disabled on mobile)
   useEffect(() => {
     if (!api || displayProjects.length <= 1) {
       return;
     }
 
-    const interval = setInterval(() => {
-      api.scrollNext();
-    }, 5000); // Auto-scroll every 5 seconds
+    let interval: NodeJS.Timeout | null = null;
 
-    return () => clearInterval(interval);
+    const checkAndStartAutoScroll = () => {
+      // Clear existing interval
+      if (interval) {
+        clearInterval(interval);
+        interval = null;
+      }
+
+      // Check if screen is lg or larger (1024px+)
+      const isLargeScreen = window.innerWidth >= 1024;
+      if (isLargeScreen) {
+        interval = setInterval(() => {
+          api.scrollNext();
+        }, 5000); // Auto-scroll every 5 seconds
+      }
+    };
+
+    // Initial check
+    checkAndStartAutoScroll();
+
+    // Listen for resize events
+    window.addEventListener('resize', checkAndStartAutoScroll);
+
+    return () => {
+      if (interval) {
+        clearInterval(interval);
+      }
+      window.removeEventListener('resize', checkAndStartAutoScroll);
+    };
   }, [api, displayProjects.length]);
 
   if (!hasProjects) {
@@ -137,7 +162,7 @@ export function ProjectsSection({ projects }: ProjectsSectionProps) {
                           src={projectImage}
                           alt={project.title}
                           fill
-                          className="object-cover transition-transform duration-500 group-hover:scale-105"
+                          className="object-cover transition-transform duration-500 group-active:scale-105"
                           sizes="(max-width: 768px) 100vw, (max-width: 1280px) 50vw, 33vw"
                           loading="lazy"
                           quality={80}
@@ -160,7 +185,7 @@ export function ProjectsSection({ projects }: ProjectsSectionProps) {
                       {/* Project Content */}
                       <CardContent className="flex flex-1 flex-col p-4 sm:p-6">
                         <div className="space-y-3">
-                          <h3 className="text-lg font-semibold text-foreground line-clamp-2">
+                          <h3 className="text-base md:text-lg font-semibold text-foreground line-clamp-3">
                             {project.title}
                           </h3>
                           <p className="text-sm md:text-base text-muted-foreground line-clamp-3">
@@ -238,10 +263,10 @@ export function ProjectsSection({ projects }: ProjectsSectionProps) {
                   {/* Project Content */}
                   <CardContent className="flex flex-1 flex-col p-4 sm:p-6">
                     <div className="space-y-3">
-                      <h3 className="text-lg  font-semibold text-foreground line-clamp-2">
+                      <h3 className="text-lg font-bold mb-3 text-foreground line-clamp-3">
                         {project.title}
                       </h3>
-                      <p className="text-sm md:text-base text-muted-foreground line-clamp-3">
+                      <p className="text-sm text-muted-foreground leading-relaxed line-clamp-3">
                         {project.excerpt ||
                           project.description ||
                           'Project details coming soon.'}

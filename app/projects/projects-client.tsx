@@ -1,7 +1,8 @@
 'use client';
 
-import { useState } from 'react';
-import { useRouter } from 'next/navigation';
+import { useState, useEffect, useRef } from 'react';
+import { useRouter, useSearchParams } from 'next/navigation';
+import { useResponsiveLimit } from '@/hooks/use-responsive-limit';
 import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -41,11 +42,31 @@ export default function ProjectsClient({
   breadcrumbItems,
 }: ProjectsClientProps) {
   const router = useRouter();
+  const searchParams = useSearchParams();
 
   const [projects, setProjects] = useState(initialProjects);
   const [pagination, setPagination] = useState(initialPagination);
   const [searchQuery, setSearchQuery] = useState(currentSearch);
   const [isLoading, setIsLoading] = useState(false);
+  const responsiveLimit = useResponsiveLimit();
+  const searchTimeoutRef = useRef<NodeJS.Timeout | null>(null);
+
+  // Sync state with props when they change (from server component refresh)
+  useEffect(() => {
+    setProjects(initialProjects);
+    setPagination(initialPagination);
+    setSearchQuery(currentSearch);
+    setIsLoading(false);
+  }, [initialProjects, initialPagination, currentSearch]);
+
+  // Watch for URL search param changes and refresh server component
+  useEffect(() => {
+    const urlSearch = searchParams.get('search') || '';
+    if (urlSearch !== currentSearch) {
+      // URL has changed, refresh server component to update Hero
+      router.refresh();
+    }
+  }, [searchParams, currentSearch, router]);
 
   // Update URL and fetch new data when search changes
   const updateSearch = async (newSearch: string, newPage: number = 1) => {
@@ -58,12 +79,14 @@ export default function ProjectsClient({
     if (newPage > 1) {
       params.set('page', newPage.toString());
     }
+    params.set('limit', responsiveLimit.toString());
 
     const queryString = params.toString();
     const newUrl = queryString ? `/projects?${queryString}` : '/projects';
 
-    router.push(newUrl);
-
+    // Update URL - the useEffect above will detect the change and refresh
+    router.replace(newUrl);
+    // Also fetch client-side to update immediately
     try {
       const response = await fetch(`/api/projects?${params.toString()}`);
       if (!response.ok) {
@@ -79,13 +102,23 @@ export default function ProjectsClient({
     }
   };
 
+  // Refetch with responsive limit on mount if limit changed
+  useEffect(() => {
+    if (responsiveLimit !== pagination.limit && !isLoading) {
+      updateSearch(searchQuery, pagination.currentPage);
+    }
+  }, [responsiveLimit]);
+
   const handleSearchChange = (value: string) => {
     setSearchQuery(value);
+    // Clear existing timeout
+    if (searchTimeoutRef.current) {
+      clearTimeout(searchTimeoutRef.current);
+    }
     // Debounce search
-    const timeoutId = setTimeout(() => {
+    searchTimeoutRef.current = setTimeout(() => {
       updateSearch(value, 1);
     }, 500);
-    return () => clearTimeout(timeoutId);
   };
 
   const handlePageChange = (page: number) => {
@@ -153,7 +186,7 @@ export default function ProjectsClient({
 
       {/* Projects Grid */}
       {isLoading ? (
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-6">
           {Array.from({ length: 6 }).map((_, i) => (
             <Card key={i} className="overflow-hidden animate-pulse">
               <div className="aspect-[16/9] bg-muted" />
@@ -182,10 +215,10 @@ export default function ProjectsClient({
         </Card>
       ) : (
         <>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-6">
             {/* First card - visible immediately on mobile */}
             {projects.length > 0 && (
-              <div className="block md:hidden">
+              <div className="block sm:hidden">
                 <Link
                   href={`/projects/${projects[0].slug.current}`}
                   className="group"
@@ -243,7 +276,7 @@ export default function ProjectsClient({
                       </div>
 
                       {/* Title */}
-                      <h3 className="text-lg font-bold mb-3 text-foreground group-hover:text-primary transition-colors duration-300 line-clamp-2">
+                      <h3 className="text-lg font-bold mb-3 text-foreground group-hover:text-primary transition-colors duration-300 line-clamp-3">
                         {projects[0].title}
                       </h3>
 
@@ -269,7 +302,7 @@ export default function ProjectsClient({
             {/* All cards on desktop with animation */}
             <StaggerChildren
               staggerDelay={0.1}
-              className="hidden md:grid md:grid-cols-2 lg:grid-cols-3 gap-6 col-span-full"
+              className="hidden sm:grid sm:grid-cols-2 xl:grid-cols-3 gap-6 col-span-full"
             >
               {projects.map((project: Project) => (
                 <motion.div key={project._id} variants={staggerItem}>
@@ -328,7 +361,7 @@ export default function ProjectsClient({
                         </div>
 
                         {/* Title */}
-                        <h3 className="text-lg font-bold mb-3 text-foreground group-hover:text-primary transition-colors duration-300 line-clamp-2">
+                        <h3 className="text-lg font-bold mb-3 text-foreground group-hover:text-primary transition-colors duration-300 line-clamp-3">
                           {project.title}
                         </h3>
 
@@ -354,7 +387,7 @@ export default function ProjectsClient({
             {projects.length > 1 && (
               <StaggerChildren
                 staggerDelay={0.1}
-                className="block md:hidden grid grid-cols-1 gap-6"
+                className="block sm:hidden grid grid-cols-1 gap-6"
               >
                 {projects.slice(1).map((project: Project) => (
                   <motion.div key={project._id} variants={staggerItem}>

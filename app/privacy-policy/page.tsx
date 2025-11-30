@@ -1,6 +1,6 @@
 import { Container } from '@/components/ui/container';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { PageHero } from '@/components/ui/page-hero';
+import { Hero } from '@/components/ui/hero';
 import { Breadcrumb } from '@/components/ui/breadcrumb';
 import { Lock, Calendar } from 'lucide-react';
 
@@ -12,9 +12,9 @@ export default function PrivacyPolicyPage() {
 
   return (
     <>
-      <PageHero
+      <Hero
         description="How We Protect Your Information"
-        backgroundImage="/images/contact/contact-us.webp"
+        image="/images/contact/contact-us.webp"
       />
 
       <Container className="py-16">
@@ -360,8 +360,8 @@ export default function PrivacyPolicyPage() {
                     <p>Phone: +234 704 920 2634</p>
                     <p>
                       Address: Plot 2. Block 14 Extension, Federal Ministry of
-                      Works And Housing Sites and Service Scheme, Setraco Gate
-                      Gwarinpa, Abuja, Nigeria
+                      Works And Housing Sites and Services Scheme, Setraco Gate,
+                      Gwarinpa, FCT, Nigeria.
                     </p>
                   </div>
                 </section>

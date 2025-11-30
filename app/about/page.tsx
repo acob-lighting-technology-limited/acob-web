@@ -9,7 +9,7 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import { Container } from '@/components/ui/container';
 import { Breadcrumb } from '@/components/ui/breadcrumb';
-import { PageHeroCarousel } from '@/components/ui/page-hero-carousel';
+import { Hero } from '@/components/ui/hero';
 import { SectionHeader } from '@/components/ui/section-header';
 import { aboutSections } from '@/lib/data/about-data';
 
@@ -24,8 +24,8 @@ export default function AboutPage() {
 
   return (
     <>
-      <PageHeroCarousel
-        images={aboutImages}
+      <Hero
+        image={aboutImages}
         title="About ACOB Lighting"
         description="Pioneering Nigeria's Energy Access Revolution with Sustainable Solar Solutions"
       />

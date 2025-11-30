@@ -5,7 +5,10 @@ export {
   milestones,
   sidebarLinks,
 } from './about-data';
-export { ACOB_SYSTEM_PROMPT } from './acobot_system_prompt';
+export {
+  ACOB_SYSTEM_PROMPT,
+  getAcobSystemPrompt,
+} from './acobot_system_prompt';
 export { certifications } from './certifications-data';
 export { suggestedMessages } from './chat-data';
 export { contactSections, whyWorkItems, contactLinks } from './contact-data';

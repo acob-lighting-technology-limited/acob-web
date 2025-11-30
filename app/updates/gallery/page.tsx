@@ -1,5 +1,5 @@
 import { Container } from '@/components/ui/container';
-import { PageHero } from '@/components/ui/page-hero';
+import { Hero } from '@/components/ui/hero';
 import { Breadcrumb } from '@/components/ui/breadcrumb';
 import { GalleryClient } from './gallery-client';
 import { getProjectsForGallery, urlFor } from '@/sanity/lib/client';
@@ -79,9 +79,10 @@ export default async function GalleryPage() {
 
   return (
     <>
-      <PageHero
+      <Hero
+        title="Media Gallery"
         description="Explore Our Project Portfolio"
-        backgroundImage="/images/services/header.webp?height=400&width=1200"
+        image="/images/services/header.webp"
       />
 
       <Container className="px-4 py-8">

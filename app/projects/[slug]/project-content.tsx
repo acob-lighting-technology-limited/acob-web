@@ -7,7 +7,7 @@ import {
   type PortableTextComponentProps,
 } from '@portabletext/react';
 import type { PortableTextBlock } from '@portabletext/types';
-import { ImageLightbox } from '@/components/ui/image-lightbox';
+import { Lightbox } from '@/components/ui/lightbox';
 import { urlFor } from '@/sanity/lib/client';
 import type {
   ProjectContent as ProjectContentType,
@@ -28,8 +28,8 @@ export function ProjectContent({
 }: ProjectContentProps) {
   const [lightboxOpen, setLightboxOpen] = useState(false);
   const [selectedImageIndex, setSelectedImageIndex] = useState(0);
-  const [contentImages, setContentImages] = useState<
-    Array<{ src: string; alt: string }>
+  const [contentMedia, setContentMedia] = useState<
+    Array<{ src: string; alt: string; type: 'image' | 'video' }>
   >([]);
 
   // Determine if we're using new or old content structure
@@ -64,27 +64,48 @@ export function ProjectContent({
     return images;
   };
 
-  // Extract images from new structure
-  const extractImagesNew = (
-    images?: Array<{ asset: { url?: string }; alt?: string }>,
+  // Extract images and videos from new structure
+  const extractMediaNew = (
+    media?: Array<{
+      asset: { url?: string };
+      alt?: string;
+      title?: string;
+      _type?: string;
+    }>,
   ) => {
-    if (!images) {
+    if (!media) {
       return [];
     }
-    return images
-      .filter(img => img?.asset?.url)
-      .map(img => ({
-        src: img.asset.url!,
-        alt: img.alt || 'Project image',
-      }));
+    return media
+      .filter(item => item?.asset?.url)
+      .map(item => {
+        const url = item.asset.url!;
+        const isVideo =
+          item._type === 'file' ||
+          item._type === 'video' ||
+          url.match(/\.(mp4|webm|ogg|mov)$/i);
+        return {
+          src: url,
+          alt:
+            item.title ||
+            item.alt ||
+            (isVideo ? 'Project video' : 'Project image'),
+          type: (isVideo ? 'video' : 'image') as 'image' | 'video',
+        };
+      });
   };
 
-  // Initialize images when component mounts
+  // Initialize media when component mounts
   useEffect(() => {
     if (useNewStructure && projectContent?.images) {
-      setContentImages(extractImagesNew(projectContent.images));
+      setContentMedia(extractMediaNew(projectContent.images));
     } else if (content) {
-      setContentImages(extractImagesLegacy(content));
+      setContentMedia(
+        extractImagesLegacy(content).map(img => ({
+          ...img,
+          type: 'image' as const,
+        })),
+      );
     }
   }, [content, projectContent, useNewStructure]);
 
@@ -149,41 +170,41 @@ export function ProjectContent({
     },
     block: {
       h1: ({ children }: PortableTextComponentProps<PortableTextBlock>) => (
-        <h1 className="text-4xl font-bold my-4 max-w-3xl w-full basis-full">
+        <h1 className="text-4xl font-bold my-4  w-full basis-full">
           {children}
         </h1>
       ),
       h2: ({ children }: PortableTextComponentProps<PortableTextBlock>) => (
-        <h2 className="text-3xl font-bold my-3 max-w-3xl w-full basis-full">
+        <h2 className="text-3xl font-bold my-3  w-full basis-full">
           {children}
         </h2>
       ),
       h3: ({ children }: PortableTextComponentProps<PortableTextBlock>) => (
-        <h3 className="text-2xl font-bold my-2 max-w-3xl w-full basis-full">
+        <h3 className="text-2xl font-bold my-2  w-full basis-full">
           {children}
         </h3>
       ),
       normal: ({ children }: PortableTextComponentProps<PortableTextBlock>) => (
-        <p className="my-2 text-muted-foreground leading-relaxed max-w-3xl w-full basis-full">
+        <p className="my-2 text-muted-foreground leading-relaxed  w-full basis-full">
           {children}
         </p>
       ),
       blockquote: ({
         children,
       }: PortableTextComponentProps<PortableTextBlock>) => (
-        <blockquote className="border-l-4 border-primary pl-4 italic my-4 max-w-3xl w-full basis-full">
+        <blockquote className="border-l-4 border-primary pl-4 italic my-4  w-full basis-full">
           {children}
         </blockquote>
       ),
     },
     list: {
       bullet: ({ children }: PortableTextComponentProps<PortableTextBlock>) => (
-        <ul className="list-disc list-inside my-4 space-y-2 max-w-3xl w-full basis-full">
+        <ul className="list-disc list-inside my-4 space-y-2  w-full basis-full">
           {children}
         </ul>
       ),
       number: ({ children }: PortableTextComponentProps<PortableTextBlock>) => (
-        <ol className="list-decimal list-inside my-4 space-y-2 max-w-3xl w-full basis-full">
+        <ol className="list-decimal list-inside my-4 space-y-2  w-full basis-full">
           {children}
         </ol>
       ),
@@ -225,7 +246,7 @@ export function ProjectContent({
           {/* Render template description */}
           {description !== 'custom' && descriptionText && (
             <div
-              className="whitespace-pre-wrap text-foreground/90 dark:text-foreground/70 text-base lg:text-lg leading-relaxed max-w-3xl w-full basis-full [&_strong]:font-bold [&_strong]:text-foreground"
+              className="whitespace-pre-wrap text-foreground/90 dark:text-foreground/70 text-base lg:text-lg leading-relaxed w-full basis-full [&_strong]:font-bold [&_strong]:text-foreground"
               dangerouslySetInnerHTML={{ __html: descriptionText }}
             />
           )}
@@ -236,13 +257,23 @@ export function ProjectContent({
           )}
         </div>
 
-        {/* Render images in grid */}
+        {/* Render images and videos in grid */}
         {projectContent.images && projectContent.images.length > 0 && (
           <div className="mt-6 flex flex-wrap -mx-2">
-            {projectContent.images.map((image, index) => {
-              if (!image?.asset?.url) {
+            {projectContent.images.map((item, index) => {
+              if (!item?.asset?.url) {
                 return null;
               }
+
+              const url = item.asset.url;
+              const isVideo =
+                (item as { _type?: string })._type === 'file' ||
+                (item as { _type?: string })._type === 'video' ||
+                url.match(/\.(mp4|webm|ogg|mov)$/i);
+              const mediaTitle =
+                (item as { title?: string }).title ||
+                item.alt ||
+                (isVideo ? 'Project video' : 'Project image');
 
               return (
                 <div
@@ -253,19 +284,39 @@ export function ProjectContent({
                     onClick={() => handleImageClick(index)}
                     className="relative w-full aspect-[4/3] group cursor-zoom-in overflow-hidden rounded-lg"
                   >
-                    <Image
-                      src={image.asset.url}
-                      alt={image.alt || 'Project image'}
-                      width={800}
-                      height={600}
-                      sizes="(max-width: 1024px) 50vw, 33vw"
-                      className="rounded-lg object-cover w-full h-full transition-all duration-300 group-hover:shadow-2xl group-hover:scale-[1.02]"
-                    />
-                    <div className="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-all duration-300 rounded-lg flex items-center justify-center">
-                      <span className="text-white opacity-0 group-hover:opacity-100 transition-opacity duration-300 text-sm font-medium bg-black/50 px-4 py-2 rounded-full backdrop-blur-sm">
-                        Click to expand
-                      </span>
-                    </div>
+                    {isVideo ? (
+                      <>
+                        <video
+                          src={url}
+                          className="rounded-lg object-cover w-full h-full transition-all duration-300 group-hover:shadow-2xl group-hover:scale-[1.02]"
+                          controls={false}
+                          muted
+                          playsInline
+                          aria-label={mediaTitle}
+                        />
+                        <div className="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-all duration-300 rounded-lg flex items-center justify-center">
+                          <span className="text-white opacity-0 group-hover:opacity-100 transition-opacity duration-300 text-sm font-medium bg-black/50 px-4 py-2 rounded-full backdrop-blur-sm">
+                            Click to expand
+                          </span>
+                        </div>
+                      </>
+                    ) : (
+                      <>
+                        <Image
+                          src={url}
+                          alt={mediaTitle}
+                          width={800}
+                          height={600}
+                          sizes="(max-width: 1024px) 50vw, 33vw"
+                          className="rounded-lg object-cover w-full h-full transition-all duration-300 group-hover:shadow-2xl group-hover:scale-[1.02]"
+                        />
+                        <div className="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-all duration-300 rounded-lg flex items-center justify-center">
+                          <span className="text-white opacity-0 group-hover:opacity-100 transition-opacity duration-300 text-sm font-medium bg-black/50 px-4 py-2 rounded-full backdrop-blur-sm">
+                            Click to expand
+                          </span>
+                        </div>
+                      </>
+                    )}
                   </button>
                 </div>
               );
@@ -273,10 +324,10 @@ export function ProjectContent({
           </div>
         )}
 
-        {/* Image Lightbox */}
-        {contentImages.length > 0 && (
-          <ImageLightbox
-            images={contentImages}
+        {/* Lightbox */}
+        {contentMedia.length > 0 && (
+          <Lightbox
+            media={contentMedia}
             initialIndex={selectedImageIndex}
             isOpen={lightboxOpen}
             onClose={() => setLightboxOpen(false)}
@@ -297,10 +348,10 @@ export function ProjectContent({
         <PortableText value={content} components={components} />
       </div>
 
-      {/* Image Lightbox */}
-      {contentImages.length > 0 && (
-        <ImageLightbox
-          images={contentImages}
+      {/* Lightbox */}
+      {contentMedia.length > 0 && (
+        <Lightbox
+          media={contentMedia}
           initialIndex={selectedImageIndex}
           isOpen={lightboxOpen}
           onClose={() => setLightboxOpen(false)}

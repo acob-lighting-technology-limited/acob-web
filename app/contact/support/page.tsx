@@ -1,7 +1,7 @@
 'use client';
 
 import { Container } from '@/components/ui/container';
-import { PageHero } from '@/components/ui/page-hero';
+import { Hero } from '@/components/ui/hero';
 import { Breadcrumb } from '@/components/ui/breadcrumb';
 import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
@@ -13,7 +13,6 @@ import {
 } from '@/components/ui/accordion';
 
 import Link from 'next/link';
-import { MaskText } from '@/components/animations/MaskText';
 
 import {
   supportMethods,
@@ -30,18 +29,10 @@ export default function SupportPage() {
 
   return (
     <>
-      <PageHero
+      <Hero
         description="We're Here to Help You"
-        backgroundImage="/images/contact/support.webp?height=400&width=1200"
-      >
-        <MaskText
-          phrases={[
-            'Our dedicated support team is here to assist you.',
-            'Find answers to your questions or get in touch directly.',
-          ]}
-          className="text-lg md:text-xl opacity-90 max-w-3xl leading-relaxed"
-        />
-      </PageHero>
+        image="/images/contact/support.webp?height=400&width=1200"
+      />
 
       <Container className="px-4 py-6 md:py-8">
         <Breadcrumb items={breadcrumbItems} className="mb-6 md:mb-8" />
@@ -52,10 +43,10 @@ export default function SupportPage() {
             {/* Help Overview */}
             <Card className="border shadow-md border-border bg-surface">
               <CardContent className="p-4 sm:p-5 md:p-6">
-                <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold mb-4 md:mb-6 text-foreground">
+                <h2 className="text-2xl md:text-3xl font-semibold mb-4 md:mb-6 text-foreground">
                   How Can We Help You?
                 </h2>
-                <div className="text-muted-foreground leading-relaxed space-y-3 md:space-y-4 text-base md:text-lg">
+                <div className="text-muted-foreground leading-relaxed space-y-4 md:space-y-5 text-base">
                   <p>
                     At ACOB Lighting Technology Limited, we are committed to
                     providing excellent support for all our products and
@@ -75,7 +66,7 @@ export default function SupportPage() {
             {/* Contact Methods */}
             <Card className="border shadow-md border-border bg-surface">
               <CardContent className="p-4 sm:p-5 md:p-6">
-                <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold mb-4 md:mb-6 text-foreground">
+                <h2 className="text-2xl md:text-3xl font-semibold mb-4 md:mb-6 text-foreground">
                   Contact Our Support Team
                 </h2>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6">
@@ -89,10 +80,10 @@ export default function SupportPage() {
                           <Icon className="h-5 w-5 md:h-6 md:w-6 text-primary" />
                         </div>
                         <div className="flex-1">
-                          <h3 className="text-base md:text-lg lg:text-xl font-semibold text-foreground mb-1.5 md:mb-2">
+                          <h3 className="text-base md:text-lg font-semibold text-foreground mb-1.5 md:mb-2">
                             {title}
                           </h3>
-                          <p className="text-sm md:text-base text-muted-foreground mb-2 md:mb-3 leading-relaxed">
+                          <p className="text-sm text-muted-foreground mb-2 md:mb-3 leading-relaxed">
                             {description}
                           </p>
                           <div className="space-y-1">
@@ -101,13 +92,28 @@ export default function SupportPage() {
                               const isPhone = /^\+?\d[\d\s-]+$/.test(
                                 item.trim(),
                               );
+                              // Check if it's an email
+                              const isEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(
+                                item.trim(),
+                              );
                               if (isPhone) {
                                 const phoneNumber = item.replace(/\s/g, '');
                                 return (
                                   <a
                                     key={i}
                                     href={`tel:${phoneNumber}`}
-                                    className="text-primary font-semibold text-sm md:text-base lg:text-lg hover:underline block"
+                                    className="text-primary font-semibold text-sm md:text-base hover:underline block"
+                                  >
+                                    {item}
+                                  </a>
+                                );
+                              }
+                              if (isEmail) {
+                                return (
+                                  <a
+                                    key={i}
+                                    href={`mailto:${item.trim()}`}
+                                    className="text-primary font-semibold text-sm md:text-base hover:underline block break-all"
                                   >
                                     {item}
                                   </a>
@@ -116,7 +122,7 @@ export default function SupportPage() {
                               return (
                                 <div
                                   key={i}
-                                  className="text-primary font-semibold text-sm md:text-base lg:text-lg"
+                                  className="text-primary font-semibold text-sm md:text-base"
                                 >
                                   {item}
                                 </div>
@@ -134,7 +140,7 @@ export default function SupportPage() {
             {/* FAQs */}
             <Card className="border shadow-md border-border bg-surface">
               <CardContent className="p-4 sm:p-5 md:p-6">
-                <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold mb-4 md:mb-6 text-foreground">
+                <h2 className="text-2xl md:text-3xl font-semibold mb-4 md:mb-6 text-foreground">
                   Frequently Asked Questions
                 </h2>
                 <Accordion
@@ -191,9 +197,20 @@ export default function SupportPage() {
                   </div>
                   <div className="p-2.5 md:p-3 rounded-lg bg-muted/30 border border-border">
                     <p className="text-xs text-muted-foreground mb-1">Email</p>
-                    <p className="text-xs md:text-sm font-semibold text-primary break-all">
-                      info@acoblighting.com
-                    </p>
+                    <div className="space-y-1">
+                      <a
+                        href="mailto:info@acoblighting.com"
+                        className="text-xs md:text-sm font-semibold text-primary hover:underline block break-all"
+                      >
+                        info@acoblighting.com
+                      </a>
+                      <a
+                        href="mailto:infoacob@gmail.com"
+                        className="text-xs md:text-sm font-semibold text-primary hover:underline block break-all"
+                      >
+                        infoacob@gmail.com
+                      </a>
+                    </div>
                   </div>
                   <div className="p-2.5 md:p-3 rounded-lg bg-muted/30 border border-border">
                     <p className="text-xs text-muted-foreground mb-1">

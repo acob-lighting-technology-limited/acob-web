@@ -12,10 +12,10 @@ import { Container } from '@/components/ui/container';
 import { Breadcrumb } from '@/components/ui/breadcrumb';
 import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
-import { ArrowRight, Calendar } from 'lucide-react';
+import { ArrowRight, ArrowLeft, Calendar } from 'lucide-react';
 import { ShareCopy } from '@/components/updates/share-copy';
 import { CommentForm } from '@/components/updates/comment-form';
-import { PageHero } from '@/components/ui/page-hero';
+import { Hero } from '@/components/ui/hero';
 import { UpdateContent } from './update-content';
 
 interface UpdatePageProps {
@@ -78,135 +78,139 @@ export default async function UpdatePage({ params }: UpdatePageProps) {
 
   return (
     <>
-      <PageHero
+      <Hero
         title={categoryTitle}
         description={post.title}
-        backgroundImage={post.featuredImage || '/images/hero-bg.webp'}
+        image={post.featuredImage}
       />
 
       <Container className="px-4 py-8">
         <Breadcrumb items={breadcrumbItems} className="mb-8" />
 
-        <div className="space-y-4">
-          <Card className="">
-            <CardContent className="p-4 sm:p-6 xl:p-8 space-y-8">
-              {/* Post Header */}
-              <div className="max-w-3xl">
-                <div className="flex items-center text-sm text-muted-foreground mb-4 flex-wrap gap-2">
-                  <span>{new Date(post.publishedAt).toLocaleDateString()}</span>
+        <Card className="">
+          <CardContent className="p-4 sm:p-6 xl:p-8 space-y-8">
+            {/* Post Header */}
+            <div>
+              <h1 className="text-2xl sm:text-3xl font-bold text-foreground mb-4">
+                Overview
+              </h1>
+            </div>
+
+            {/* Post Content - Wrapped in flex for image grid */}
+            <UpdateContent content={post.content} />
+
+            {/* Post Metadata */}
+            <div className="flex items-center text-sm text-muted-foreground flex-wrap gap-2 pt-8 border-t">
+              <span>{new Date(post.publishedAt).toLocaleDateString()}</span>
+              <span>•</span>
+              <span>{post.author}</span>
+              {post.category && (
+                <>
                   <span>•</span>
-                  <span>{post.author}</span>
-                  {post.category && (
-                    <>
-                      <span>•</span>
-                      <span className="bg-primary text-white px-2 py-1 rounded text-xs">
-                        {post.category === 'news'
-                          ? 'News'
-                          : post.category === 'case-studies'
-                            ? 'Case Studies'
-                            : post.category === 'press-releases'
-                              ? 'Press Releases'
-                              : post.category === 'announcements'
-                                ? 'Announcements'
-                                : post.category === 'events'
-                                  ? 'Events'
-                                  : post.category === 'celebrations'
-                                    ? 'Celebrations'
-                                    : post.category}
-                      </span>
-                    </>
-                  )}
-                </div>
-                <h1 className="text-2xl sm:text-3xl font-bold text-foreground mb-4">
-                  Overview
-                </h1>
-              </div>
-
-              {/* Post Content - Wrapped in flex for image grid */}
-              <UpdateContent content={post.content} />
-
-              {/* Tags */}
-              {post.tags && post.tags.length > 0 && (
-                <div className="flex items-center flex-wrap gap-2 pt-8 border-t">
-                  <span className="text-sm font-medium text-gray-700">
-                    Tags:
+                  <span className="bg-primary text-white px-2 py-1 rounded text-xs">
+                    {post.category === 'news'
+                      ? 'News'
+                      : post.category === 'case-studies'
+                        ? 'Case Studies'
+                        : post.category === 'press-releases'
+                          ? 'Press Releases'
+                          : post.category === 'announcements'
+                            ? 'Announcements'
+                            : post.category === 'events'
+                              ? 'Events'
+                              : post.category === 'celebrations'
+                                ? 'Celebrations'
+                                : post.category}
                   </span>
-                  {post.tags.map((tag: string, index: number) => (
-                    <span
-                      key={index}
-                      className="px-3 py-1 bg-primary/10 text-primary text-sm rounded-full"
-                    >
-                      {tag}
-                    </span>
-                  ))}
-                </div>
+                </>
               )}
-              {/* Share Buttons */}
-              <div className="flex items-center gap-4 pt-8 border-t">
-                <ShareCopy className="rounded-full bg-transparent" />
+            </div>
+
+            {/* Tags */}
+            {post.tags && post.tags.length > 0 && (
+              <div className="flex items-center flex-wrap gap-2 pt-8 border-t">
+                <span className="text-sm font-medium text-gray-700">Tags:</span>
+                {post.tags.map((tag: string, index: number) => (
+                  <span
+                    key={index}
+                    className="px-3 py-1 bg-primary/10 text-primary text-sm rounded-full"
+                  >
+                    {tag}
+                  </span>
+                ))}
               </div>
-              {Array.isArray(related) && related.length > 0 && (
-                <div className="pt-8 border-t">
-                  <h3 className="text-2xl font-bold mb-4">Related Updates</h3>
-                  <ul className="space-y-2">
-                    {related.map(
-                      (item: {
-                        _id: string;
-                        slug?: { current?: string };
-                        title?: string;
-                        publishedAt?: string;
-                      }) => {
-                        const href = item?.slug?.current
-                          ? `/updates/${item.slug.current}`
-                          : null;
+            )}
+            {/* Share Buttons */}
+            <div className="flex items-center gap-4 pt-8 border-t">
+              <ShareCopy className="rounded-full bg-transparent" />
+            </div>
+          </CardContent>
+        </Card>
 
-                        if (!href) {
-                          return null;
-                        }
+        {/* Related Updates */}
+        {Array.isArray(related) && related.length > 0 && (
+          <div className="mt-8">
+            <h3 className="text-2xl font-bold mb-4">Related Updates</h3>
+            <ul className="space-y-2">
+              {related.map(
+                (item: {
+                  _id: string;
+                  slug?: { current?: string };
+                  title?: string;
+                  publishedAt?: string;
+                }) => {
+                  const href = item?.slug?.current
+                    ? `/updates/${item.slug.current}`
+                    : null;
 
-                        return (
-                          <li key={item._id}>
-                            <Link
-                              href={href}
-                              className="group flex items-center gap-3 p-3 rounded-lg transition-all duration-300 hover:bg-muted/50 border border-border hover:border-primary/50"
-                            >
-                              <ArrowRight className="h-4 w-4 text-muted-foreground group-hover:text-primary transition-colors duration-300 flex-shrink-0" />
-                              <div className="flex-1 min-w-0">
-                                <h4 className="text-sm font-semibold text-foreground group-hover:text-primary transition-colors duration-300">
-                                  {item.title}
-                                </h4>
-                                {item.publishedAt && (
-                                  <div className="flex items-center text-xs text-muted-foreground mt-1">
-                                    <Calendar className="h-3 w-3 mr-1 flex-shrink-0" />
-                                    <span className="truncate">
-                                      {new Date(
-                                        item.publishedAt,
-                                      ).toLocaleDateString()}
-                                    </span>
-                                  </div>
-                                )}
-                              </div>
-                            </Link>
-                          </li>
-                        );
-                      },
-                    )}
-                  </ul>
-                  <div className="mt-6 text-center">
-                    <Link href="/updates">
-                      <Button variant="outline">
-                        View All Updates
-                        <ArrowRight className="ml-2 h-4 w-4" />
-                      </Button>
-                    </Link>
-                  </div>
-                </div>
+                  if (!href) {
+                    return null;
+                  }
+
+                  return (
+                    <li key={item._id}>
+                      <Link
+                        href={href}
+                        className="group flex items-center gap-3 p-3 rounded-lg transition-all duration-300 hover:bg-muted/50 border border-border hover:border-primary/50"
+                      >
+                        <ArrowRight className="h-4 w-4 text-muted-foreground group-hover:text-primary transition-colors duration-300 flex-shrink-0" />
+                        <div className="flex-1 min-w-0">
+                          <h4 className="text-sm font-semibold text-foreground group-hover:text-primary transition-colors duration-300">
+                            {item.title}
+                          </h4>
+                          {item.publishedAt && (
+                            <div className="flex items-center text-xs text-muted-foreground mt-1">
+                              <Calendar className="h-3 w-3 mr-1 flex-shrink-0" />
+                              <span className="truncate">
+                                {new Date(
+                                  item.publishedAt,
+                                ).toLocaleDateString()}
+                              </span>
+                            </div>
+                          )}
+                        </div>
+                      </Link>
+                    </li>
+                  );
+                },
               )}
-            </CardContent>
-          </Card>
+            </ul>
+          </div>
+        )}
 
-          {/* Display Comments */}
-          <Card className="mt-12 ">
+        {/* Back to Updates Button */}
+        <div className="mt-12 mb-8 text-center">
+          <Link href="/updates">
+            <Button variant="outline" className="group">
+              <ArrowLeft className="mr-2 h-4 w-4 transition-transform group-hover:-translate-x-1" />
+              Back to Updates
+            </Button>
+          </Link>
+        </div>
+
+        {/* Display Comments */}
+        <div className="mt-12">
+          <Card className="border shadow-md border-border bg-surface">
             <CardContent className="p-4 sm:p-6 xl:p-8">
               <h2 className="text-2xl font-bold mb-6">
                 Comments ({comments.length})
@@ -256,8 +260,10 @@ export default async function UpdatePage({ params }: UpdatePageProps) {
               )}
             </CardContent>
           </Card>
+        </div>
 
-          {/* Comment Form */}
+        {/* Comment Form */}
+        <div className="mt-12">
           <CommentForm postId={post._id} />
         </div>
       </Container>

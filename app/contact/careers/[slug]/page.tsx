@@ -1,5 +1,5 @@
 import { Container } from '@/components/ui/container';
-import { PageHero } from '@/components/ui/page-hero';
+import { Hero } from '@/components/ui/hero';
 import { Breadcrumb } from '@/components/ui/breadcrumb';
 import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
@@ -52,10 +52,10 @@ export default async function JobPostingPage({ params }: JobPostingPageProps) {
 
   return (
     <>
-      <PageHero
+      <Hero
         title="Careers"
         description={job.title}
-        backgroundImage="/images/contact/careers.webp?height=400&width=1200"
+        image="/images/contact/careers.webp?height=400&width=1200"
       />
 
       <Container className="px-4 py-8">
@@ -141,8 +141,11 @@ export default async function JobPostingPage({ params }: JobPostingPageProps) {
                 {/* Action Buttons */}
                 <div className="flex flex-col sm:flex-row gap-4 pt-6 border-t">
                   <Link href="/contact/careers">
-                    <Button variant="outline" className="w-full sm:w-auto">
-                      <ArrowLeft className="mr-2 h-4 w-4" />
+                    <Button
+                      variant="outline"
+                      className="group w-full sm:w-auto"
+                    >
+                      <ArrowLeft className="mr-2 h-4 w-4 transition-transform group-hover:-translate-x-1" />
                       Back to Careers
                     </Button>
                   </Link>
@@ -164,24 +167,52 @@ export default async function JobPostingPage({ params }: JobPostingPageProps) {
                   Interested in this role? Get in touch with us to apply.
                 </p>
                 <div className="space-y-3">
-                  <a
-                    href="mailto:careers@acoblighting.com"
-                    className="flex items-center gap-2 text-primary hover:text-primary/80 transition-colors"
-                  >
-                    <Mail className="h-4 w-4" />
-                    <span className="text-sm font-medium">
-                      careers@acoblighting.com
-                    </span>
-                  </a>
-                  <a
-                    href="tel:+2347049202634"
-                    className="flex items-center gap-2 text-primary hover:text-primary/80 transition-colors"
-                  >
-                    <Phone className="h-4 w-4" />
-                    <span className="text-sm font-medium">
-                      +234 704 920 2634
-                    </span>
-                  </a>
+                  <div>
+                    <p className="text-xs text-muted-foreground mb-2">Email</p>
+                    <div className="space-y-2">
+                      <a
+                        href="mailto:info@acoblighting.com"
+                        className="flex items-center gap-2 text-primary hover:text-primary/80 transition-colors"
+                      >
+                        <Mail className="h-4 w-4" />
+                        <span className="text-sm font-medium break-all">
+                          info@acoblighting.com
+                        </span>
+                      </a>
+                      <a
+                        href="mailto:infoacob@gmail.com"
+                        className="flex items-center gap-2 text-primary hover:text-primary/80 transition-colors"
+                      >
+                        <Mail className="h-4 w-4" />
+                        <span className="text-sm font-medium break-all">
+                          infoacob@gmail.com
+                        </span>
+                      </a>
+                    </div>
+                  </div>
+                  <div>
+                    <p className="text-xs text-muted-foreground mb-2">Phone</p>
+                    <div className="space-y-2">
+                      <a
+                        href="tel:+2347049202634"
+                        className="flex items-center gap-2 text-primary hover:text-primary/80 transition-colors"
+                      >
+                        <Phone className="h-4 w-4" />
+                        <span className="text-sm font-medium">
+                          +234 704 920 2634
+                        </span>
+                      </a>
+                      <a
+                        href="tel:+2348032902825"
+                        className="flex items-center gap-2 text-primary hover:text-primary/80 transition-colors"
+                      >
+                        <Phone className="h-4 w-4" />
+                        <span className="text-sm font-medium">
+                          +234 803 290 2825
+                        </span>
+                      </a>
+                    </div>
+                  </div>
                 </div>
               </CardContent>
             </Card>

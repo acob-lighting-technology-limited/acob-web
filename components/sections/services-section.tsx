@@ -45,17 +45,42 @@ const ServicesSection = React.memo(function ServicesSection() {
     });
   }, [api]);
 
-  // Auto-scroll functionality
+  // Auto-scroll functionality (disabled on mobile)
   useEffect(() => {
     if (!api || primaryServices.length <= 1) {
       return;
     }
 
-    const interval = setInterval(() => {
-      api.scrollNext();
-    }, 5000); // Auto-scroll every 5 seconds
+    let interval: NodeJS.Timeout | null = null;
 
-    return () => clearInterval(interval);
+    const checkAndStartAutoScroll = () => {
+      // Clear existing interval
+      if (interval) {
+        clearInterval(interval);
+        interval = null;
+      }
+
+      // Check if screen is lg or larger (1024px+)
+      const isLargeScreen = window.innerWidth >= 1024;
+      if (isLargeScreen) {
+        interval = setInterval(() => {
+          api.scrollNext();
+        }, 5000); // Auto-scroll every 5 seconds
+      }
+    };
+
+    // Initial check
+    checkAndStartAutoScroll();
+
+    // Listen for resize events
+    window.addEventListener('resize', checkAndStartAutoScroll);
+
+    return () => {
+      if (interval) {
+        clearInterval(interval);
+      }
+      window.removeEventListener('resize', checkAndStartAutoScroll);
+    };
   }, [api, primaryServices.length]);
 
   return (
@@ -115,7 +140,7 @@ const ServicesSection = React.memo(function ServicesSection() {
                   />
                 </div>
                 <div className="space-y-2">
-                  <h4 className="text-lg font-semibold text-foreground transition-colors duration-500 group-hover:text-primary">
+                  <h4 className="text-base md:text-lg font-semibold text-foreground transition-colors duration-500 group-hover:text-primary">
                     {service.title}
                   </h4>
                   <p className="text-sm text-muted-foreground transition-colors duration-500 group-hover:text-foreground">
@@ -216,10 +241,10 @@ const ServicesSection = React.memo(function ServicesSection() {
 
                 <CardContent className="flex flex-1 flex-col p-4 sm:p-6">
                   <div className="space-y-3">
-                    <h3 className="text-xl  font-semibold text-foreground line-clamp-2">
+                    <h3 className="text-lg font-bold mb-3 text-foreground line-clamp-3">
                       {service.title}
                     </h3>
-                    <p className="text-sm md:text-base text-muted-foreground line-clamp-3">
+                    <p className="text-sm text-muted-foreground leading-relaxed line-clamp-3">
                       {service.fullDescription ?? service.excerpt}
                     </p>
                   </div>

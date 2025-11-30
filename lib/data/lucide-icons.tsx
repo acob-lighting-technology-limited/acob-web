@@ -22,6 +22,7 @@ import {
   Briefcase,
   Calendar,
   Sparkles,
+  Package,
 } from 'lucide-react';
 
 // Lucide icon mapping
@@ -52,4 +53,5 @@ export const LucideIcons: Record<
   Briefcase,
   Calendar,
   Sparkles,
+  Package,
 };

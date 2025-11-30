@@ -1,5 +1,5 @@
 import { Container } from '@/components/ui/container';
-import { PageHero } from '@/components/ui/page-hero';
+import { Hero } from '@/components/ui/hero';
 import { Breadcrumb } from '@/components/ui/breadcrumb';
 import { JobApplicationForm } from '@/components/job-application-form';
 import { getJobPosting } from '@/sanity/lib/client';
@@ -29,10 +29,10 @@ export default async function ApplyPage({ params }: ApplyPageProps) {
 
   return (
     <>
-      <PageHero
+      <Hero
         title="Apply Now"
         description={job.title}
-        backgroundImage="/images/contact/careers.webp?height=400&width=1200"
+        image="/images/contact/careers.webp?height=400&width=1200"
       />
 
       <div className="pt-8">

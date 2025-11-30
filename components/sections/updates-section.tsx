@@ -43,17 +43,42 @@ export function UpdatesSection({ posts }: UpdatesSectionProps) {
     });
   }, [api]);
 
-  // Auto-scroll functionality
+  // Auto-scroll functionality (disabled on mobile)
   useEffect(() => {
     if (!api || latestPosts.length <= 1) {
       return;
     }
 
-    const interval = setInterval(() => {
-      api.scrollNext();
-    }, 5000); // Auto-scroll every 5 seconds
+    let interval: NodeJS.Timeout | null = null;
 
-    return () => clearInterval(interval);
+    const checkAndStartAutoScroll = () => {
+      // Clear existing interval
+      if (interval) {
+        clearInterval(interval);
+        interval = null;
+      }
+
+      // Check if screen is lg or larger (1024px+)
+      const isLargeScreen = window.innerWidth >= 1024;
+      if (isLargeScreen) {
+        interval = setInterval(() => {
+          api.scrollNext();
+        }, 5000); // Auto-scroll every 5 seconds
+      }
+    };
+
+    // Initial check
+    checkAndStartAutoScroll();
+
+    // Listen for resize events
+    window.addEventListener('resize', checkAndStartAutoScroll);
+
+    return () => {
+      if (interval) {
+        clearInterval(interval);
+      }
+      window.removeEventListener('resize', checkAndStartAutoScroll);
+    };
   }, [api, latestPosts.length]);
 
   if (!posts || posts.length === 0) {
@@ -143,7 +168,7 @@ export function UpdatesSection({ posts }: UpdatesSectionProps) {
 
                       <div className="space-y-3">
                         {/* Title */}
-                        <h3 className="text-xl  font-semibold text-foreground line-clamp-2">
+                        <h3 className="text-base   font-semibold text-foreground line-clamp-3">
                           {post.title}
                         </h3>
 
@@ -225,12 +250,12 @@ export function UpdatesSection({ posts }: UpdatesSectionProps) {
 
                   <div className="space-y-3">
                     {/* Title */}
-                    <h3 className="text-xl  font-semibold text-foreground line-clamp-2">
+                    <h3 className="text-lg font-bold mb-3 text-foreground line-clamp-3">
                       {post.title}
                     </h3>
 
                     {/* Excerpt */}
-                    <p className="text-sm md:text-base text-muted-foreground line-clamp-3">
+                    <p className="text-sm text-muted-foreground leading-relaxed line-clamp-3">
                       {post.excerpt}
                     </p>
                   </div>

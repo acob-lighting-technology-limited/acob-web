@@ -10,11 +10,13 @@ import { AnnouncementBanner } from '@/components/ui/announcement-banner';
 
 interface ConditionalLayoutProps {
   jobCount: number;
+  productCount: number;
   children: React.ReactNode;
 }
 
 export function ConditionalLayout({
   jobCount,
+  productCount,
   children,
 }: ConditionalLayoutProps) {
   const pathname = usePathname();
@@ -30,7 +32,7 @@ export function ConditionalLayout({
 
   return (
     <>
-      <AnnouncementBanner jobCount={jobCount} />
+      <AnnouncementBanner jobCount={jobCount} productCount={productCount} />
       <Header />
       <main id="main-content" className="flex-1 border-b border-b-muted">
         {children}

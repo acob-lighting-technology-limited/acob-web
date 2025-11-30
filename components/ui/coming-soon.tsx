@@ -5,7 +5,7 @@ import { ArrowLeft, Clock } from 'lucide-react';
 import { Container } from '@/components/ui/container';
 import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
-import { PageHero } from '@/components/ui/page-hero';
+import { Hero } from '@/components/ui/hero';
 import { Breadcrumb } from '@/components/ui/breadcrumb';
 import { MaskText } from '@/components/animations/MaskText';
 import { FadeIn } from '@/components/animations/FadeIn';
@@ -26,12 +26,7 @@ export function ComingSoon({
   return (
     <>
       {backgroundImage ? (
-        <PageHero description={description} backgroundImage={backgroundImage}>
-          <MaskText
-            phrases={[title]}
-            className="text-lg md:text-xl opacity-90 max-w-3xl leading-relaxed"
-          />
-        </PageHero>
+        <Hero description={description} image={backgroundImage} />
       ) : null}
 
       <Container className="px-4 py-16 sm:py-20">
@@ -65,7 +60,10 @@ export function ComingSoon({
 
                   <div className="pt-6">
                     <Link href="/">
-                      <Button size="lg" className="group w-full sm:w-auto">
+                      <Button
+                        variant="outline"
+                        className="group w-full sm:w-auto"
+                      >
                         <ArrowLeft className="mr-2 h-4 w-4 transition-transform group-hover:-translate-x-1" />
                         Back to Home
                       </Button>

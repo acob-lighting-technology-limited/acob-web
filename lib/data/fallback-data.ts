@@ -118,6 +118,6 @@ export const fallbackCompanyInfo = {
     phone: '+234 704 920 2634',
     email: 'info@acoblighting.com',
     address:
-      'Plot 2. Block 14 Extension, Federal Ministry of Works And Housing Sites and Service Scheme, Setraco Gate Gwarinpa.',
+      'Plot 2. Block 14 Extension, Federal Ministry of Works And Housing Sites and Services Scheme, Setraco Gate, Gwarinpa, FCT, Nigeria.',
   },
 };

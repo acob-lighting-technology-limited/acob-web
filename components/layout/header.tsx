@@ -7,7 +7,7 @@ import { useTheme } from 'next-themes';
 import { usePathname } from 'next/navigation';
 import { Container } from '@/components/ui/container';
 import { ThemeToggle } from '@/components/ui/theme-toggle';
-import { ChevronDown, Menu, X, Phone } from 'lucide-react';
+import { ChevronDown, Menu, X, Package } from 'lucide-react';
 import { navigationItems } from '@/lib/data/navigation-data';
 import { LucideIcons } from '@/lib/data/lucide-icons';
 import { motion, AnimatePresence } from 'framer-motion';
@@ -64,10 +64,6 @@ const DropdownMenu: React.FC<DropdownMenuProps> = ({
           exit={{ opacity: 0, y: -10, scale: 0.95 }}
           transition={{ duration: 0.2, ease: 'easeOut' }}
           className="absolute top-full left-0 mt-2 w-full max-w-[600px] min-w-[400px] bg-popover dark:bg-popover rounded-lg shadow-2xl border-[0.5px] border-border transition-colors duration-500"
-          style={{
-            left: '50%',
-            transform: 'translateX(-50%)',
-          }}
         >
           <div className="p-4">
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
@@ -382,12 +378,12 @@ const MobileMenu: React.FC<MobileMenuProps> = ({
                 className="p-6 border-t border-border bg-gradient-to-r from-primary/5 to-primary/10"
               >
                 <Link
-                  href="/contact/quote"
+                  href="/products"
                   onClick={onClose}
                   className="w-full bg-primary hover:bg-primary/90 text-primary-foreground font-medium py-3 px-4 rounded-lg transition-all duration-500 hover:shadow-lg hover:scale-[1.02] active:scale-[0.98] flex items-center justify-center group"
                 >
-                  <Phone className="mr-2 h-4 w-4 group-hover:animate-pulse" />
-                  Get Quote
+                  <Package className="mr-2 h-4 w-4 group-hover:animate-pulse" />
+                  Products
                 </Link>
                 <div className="mt-4 flex justify-center">
                   <ThemeToggle direction="up" />
@@ -588,10 +584,10 @@ export function Header() {
             </nav>
 
             <div className="hidden lg:flex items-center space-x-4">
-              <Link href="/contact/quote">
+              <Link href="/products">
                 <button className="bg-primary hover:bg-primary text-white font-medium py-2 px-4 rounded-lg hover:shadow-lg flex items-center transition-transform duration-200 hover:scale-105 active:scale-95">
-                  <Phone className="mr-2 h-4 w-4" />
-                  Get Quote
+                  <Package className="mr-2 h-4 w-4" />
+                  Products
                 </button>
               </Link>
               <ThemeToggle />

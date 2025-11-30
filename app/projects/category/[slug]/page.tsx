@@ -7,7 +7,7 @@ import { notFound } from 'next/navigation';
 import { getProjectsByCategory } from '@/sanity/lib/client';
 import Image from 'next/image';
 import Link from 'next/link';
-import { PageHero } from '@/components/ui/page-hero';
+import { Hero } from '@/components/ui/hero';
 import type { Project } from '@/lib/types';
 import { applySanityImagePreset } from '@/lib/utils/sanity-image';
 import { extractTextFromPortableText } from '@/lib/utils';
@@ -67,11 +67,7 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
 
   return (
     <>
-      <PageHero
-        description={info.title}
-        backgroundImage={info.image}
-        title={info.title}
-      />
+      <Hero description={info.title} image={info.image} title={info.title} />
 
       <Container className="px-4 py-8">
         <Breadcrumb items={breadcrumbItems} className="mb-8" />
@@ -105,7 +101,7 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
                   </p>
                 </div>
 
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-6">
                   {projects.map((project: Project) => (
                     <Link
                       key={project._id}
@@ -163,7 +159,7 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
                           </div>
 
                           {/* Title */}
-                          <h3 className="text-lg font-bold mb-3 text-foreground group-hover:text-primary transition-colors duration-300 line-clamp-2">
+                          <h3 className="text-lg font-bold mb-3 text-foreground group-hover:text-primary transition-colors duration-300 line-clamp-3">
                             {project.title}
                           </h3>
 

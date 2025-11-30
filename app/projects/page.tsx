@@ -1,6 +1,6 @@
 import { Suspense } from 'react';
 import { Container } from '@/components/ui/container';
-import { PageHeroCarousel } from '@/components/ui/page-hero-carousel';
+import { Hero } from '@/components/ui/hero';
 import { ProjectsGridSkeleton } from '@/components/ui/projects-grid-skeleton';
 import { getProjectsPaginated } from '@/sanity/lib/client';
 import type { Project } from '@/lib/types';
@@ -24,7 +24,7 @@ export default async function ProjectsPage({
   const page = parseInt(params.page || '1');
   const search = params.search || '';
   const state = params.state || '';
-  const limit = 6;
+  const limit = 12;
 
   // Fetch projects with pagination
   const result = await getProjectsPaginated({
@@ -44,12 +44,13 @@ export default async function ProjectsPage({
     .map((p: Project) => ({
       src: p.projectImage!,
       alt: p.title,
+      href: `/projects/${p.slug.current}`,
     }));
 
   return (
     <>
-      <PageHeroCarousel
-        images={projectImages}
+      <Hero
+        image={projectImages}
         title="Our Projects"
         description="Delivering Reliable Solar Energy Infrastructure Across Nigeria"
       />

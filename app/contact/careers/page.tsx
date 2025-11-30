@@ -1,7 +1,7 @@
 'use client';
 
 import { Container } from '@/components/ui/container';
-import { PageHero } from '@/components/ui/page-hero';
+import { Hero } from '@/components/ui/hero';
 import { Breadcrumb } from '@/components/ui/breadcrumb';
 import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
@@ -54,18 +54,10 @@ export default function CareersPage() {
 
   return (
     <>
-      <PageHero
+      <Hero
         description="Join Our Mission to Power Nigeria"
-        backgroundImage="/images/contact/careers.webp?height=400&width=1200"
-      >
-        {/* <MaskText
-          phrases={[
-            'Join our team and power the future of clean energy in Nigeria.',
-            'Innovate, grow, and make a real impact.',
-          ]}
-          className="text-lg md:text-xl opacity-90 max-w-3xl leading-relaxed"
-        /> */}
-      </PageHero>
+        image="/images/contact/careers.webp?height=400&width=1200"
+      />
 
       <Container className="px-4 py-6 md:py-8">
         <Breadcrumb items={breadcrumbItems} className="mb-6 md:mb-8" />
@@ -74,10 +66,10 @@ export default function CareersPage() {
           <div className="lg:col-span-2 space-y-4 md:space-y-6">
             <Card className="border shadow-md border-border bg-surface">
               <CardContent className="p-4 sm:p-5 md:p-6">
-                <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold mb-4 md:mb-6 text-foreground">
+                <h2 className="text-2xl md:text-3xl font-semibold mb-4 md:mb-6 text-foreground">
                   Shape the Future of Energy with Us
                 </h2>
-                <div className="text-muted-foreground leading-relaxed space-y-3 md:space-y-4 text-base md:text-lg">
+                <div className="text-muted-foreground leading-relaxed space-y-4 md:space-y-5 text-base">
                   <p>
                     At ACOB Lighting Technology Limited, we believe that our
                     people are our greatest asset. We are a dynamic and growing
@@ -99,7 +91,7 @@ export default function CareersPage() {
 
             <Card className="border shadow-md border-border bg-surface">
               <CardContent className="p-4 sm:p-5 md:p-6">
-                <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold mb-4 md:mb-6 text-foreground">
+                <h2 className="text-2xl md:text-3xl font-semibold mb-4 md:mb-6 text-foreground">
                   Why Work at ACOB Lighting?
                 </h2>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6">
@@ -117,7 +109,7 @@ export default function CareersPage() {
                           <h4 className="font-semibold text-base md:text-lg mb-1.5 md:mb-2 text-foreground">
                             {title}
                           </h4>
-                          <p className="text-sm md:text-base text-muted-foreground leading-relaxed">
+                          <p className="text-sm text-muted-foreground leading-relaxed">
                             {description}
                           </p>
                         </div>
@@ -130,7 +122,7 @@ export default function CareersPage() {
 
             <Card className="border shadow-md border-border bg-surface">
               <CardContent className="p-4 sm:p-5 md:p-6">
-                <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold mb-4 md:mb-6 text-foreground">
+                <h2 className="text-2xl md:text-3xl font-semibold mb-4 md:mb-6 text-foreground">
                   {jobPostings.length > 0
                     ? 'Current Openings'
                     : 'Career Opportunities'}
@@ -154,7 +146,7 @@ export default function CareersPage() {
                           className="p-4 md:p-5 rounded-xl border border-border bg-muted/30 hover:bg-muted/50 transition-colors duration-500"
                         >
                           <div className="mb-3 md:mb-4">
-                            <h3 className="text-lg md:text-xl font-semibold text-foreground mb-2">
+                            <h3 className="text-base md:text-lg font-semibold text-foreground mb-2">
                               {job.title}
                             </h3>
                             <div className="flex flex-wrap gap-3 md:gap-4 text-xs md:text-sm text-muted-foreground">
@@ -179,7 +171,7 @@ export default function CareersPage() {
                             </div>
                           </div>
 
-                          <p className="text-sm md:text-base text-muted-foreground mb-3 md:mb-4 leading-relaxed">
+                          <p className="text-sm text-muted-foreground mb-3 md:mb-4 leading-relaxed">
                             {job.description}
                           </p>
 
@@ -208,13 +200,13 @@ export default function CareersPage() {
                   </div>
                 ) : (
                   <div className="text-center">
-                    <p className="text-sm md:text-base lg:text-lg text-muted-foreground leading-relaxed mb-6 md:mb-8 max-w-2xl mx-auto">
+                    <p className="text-sm md:text-base text-muted-foreground leading-relaxed mb-6 md:mb-8 max-w-2xl mx-auto">
                       We're always looking for talented individuals who are
                       passionate about clean energy and innovation to join our
                       growing team.
                     </p>
                     <div className="p-4 md:p-6 bg-muted/30 rounded-xl border border-border mb-6 md:mb-8">
-                      <p className="text-sm md:text-base text-muted-foreground">
+                      <p className="text-sm text-muted-foreground">
                         Please check this page regularly for current job
                         openings and opportunities.
                       </p>
@@ -262,26 +254,47 @@ export default function CareersPage() {
                 </h3>
                 <div className="space-y-2.5 md:space-y-3">
                   <div className="p-2.5 md:p-3 rounded-lg bg-muted/30 border border-border">
-                    <p className="text-xs text-muted-foreground mb-1">Email</p>
-                    <p className="text-xs md:text-sm font-semibold text-primary break-all">
-                      careers@acoblighting.com
-                    </p>
+                    <p className="text-xs text-muted-foreground mb-1">Phone</p>
+                    <div className="space-y-1">
+                      <a
+                        href="tel:+2347049202634"
+                        className="text-xs md:text-sm font-semibold text-primary hover:underline block"
+                      >
+                        +234 704 920 2634
+                      </a>
+                      <a
+                        href="tel:+2348032902825"
+                        className="text-xs md:text-sm font-semibold text-primary hover:underline block"
+                      >
+                        +234 803 290 2825
+                      </a>
+                    </div>
                   </div>
                   <div className="p-2.5 md:p-3 rounded-lg bg-muted/30 border border-border">
-                    <p className="text-xs text-muted-foreground mb-1">Phone</p>
-                    <a
-                      href="tel:+2347049202634"
-                      className="text-xs md:text-sm font-semibold text-primary hover:underline block"
-                    >
-                      +234 704 920 2634
-                    </a>
+                    <p className="text-xs text-muted-foreground mb-1">Email</p>
+                    <div className="space-y-1">
+                      <a
+                        href="mailto:info@acoblighting.com"
+                        className="text-xs md:text-sm font-semibold text-primary hover:underline block break-all"
+                      >
+                        info@acoblighting.com
+                      </a>
+                      <a
+                        href="mailto:infoacob@gmail.com"
+                        className="text-xs md:text-sm font-semibold text-primary hover:underline block break-all"
+                      >
+                        infoacob@gmail.com
+                      </a>
+                    </div>
                   </div>
                   <div className="p-2.5 md:p-3 rounded-lg bg-muted/30 border border-border">
                     <p className="text-xs text-muted-foreground mb-1">
-                      Location
+                      Address
                     </p>
-                    <p className="text-xs md:text-sm font-semibold">
-                      Abuja, Nigeria
+                    <p className="text-xs md:text-sm font-semibold leading-relaxed">
+                      Plot 2. Block 14 Extension, Federal Ministry of Works And
+                      Housing Sites and Services Scheme, Setraco Gate, Gwarinpa,
+                      FCT, Nigeria.
                     </p>
                   </div>
                 </div>

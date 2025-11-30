@@ -19,6 +19,7 @@
 
 # production
 /build
+/dist
 
 # misc
 .DS_Store
@@ -42,3 +43,9 @@ next-env.d.ts
 
 # archive folder (internal scripts and docs)
 /archive/
+
+# Sanity Studio build artifacts
+.sanity/
+
+# Claude AI cache
+.claude/

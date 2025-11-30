@@ -73,7 +73,7 @@ export const contactInfo = {
     headOffice: {
       title: 'HEAD OFFICE:',
       address:
-        'Plot 2. Block 14 Extension, Federal Ministry of Works And Housing Sites and Services Scheme, Setraco Gate, Gwarinpa.',
+        'Plot 2. Block 14 Extension, Federal Ministry of Works And Housing Sites and Services Scheme, Setraco Gate, Gwarinpa, FCT, Nigeria.',
     },
     branchOffice: {
       title: 'BRANCH OFFICE:',

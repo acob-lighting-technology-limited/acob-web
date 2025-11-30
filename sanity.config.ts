@@ -34,6 +34,10 @@ export default defineConfig({
             S.listItem()
               .title('Projects')
               .child(S.documentTypeList('project').title('Projects')),
+            // Products
+            S.listItem()
+              .title('Products')
+              .child(S.documentTypeList('product').title('Products')),
             // Job Postings
             S.listItem()
               .title('Job Postings')

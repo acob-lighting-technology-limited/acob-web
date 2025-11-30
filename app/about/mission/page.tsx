@@ -7,7 +7,7 @@ import { Button } from '@/components/ui/button';
 import { Breadcrumb } from '@/components/ui/breadcrumb';
 import { Card, CardContent } from '@/components/ui/card';
 import { Container } from '@/components/ui/container';
-import { PageHero } from '@/components/ui/page-hero';
+import { Hero } from '@/components/ui/hero';
 import { InfoCard } from '@/components/ui/info-card';
 import { SectionHeader } from '@/components/ui/section-header';
 import { getAboutSectionByHref, milestones } from '@/lib/data/about-data';
@@ -77,12 +77,9 @@ export default function MissionPage() {
 
   return (
     <>
-      <PageHero
+      <Hero
         description="Building Resilient Energy Infrastructure"
-        backgroundImage={
-          aboutSection?.image || '/images/about/mission-vision.webp'
-        }
-        align="left"
+        image={aboutSection?.image || '/images/about/mission-vision.webp'}
       />
 
       <Container>
@@ -313,9 +310,9 @@ export default function MissionPage() {
           />
         </section> */}
 
-        <div className="mb-8 text-center">
+        <div className="mt-12 mb-8 text-center">
           <Link href="/about">
-            <Button variant="default" className="group">
+            <Button variant="outline" className="group">
               <ArrowLeft className="mr-2 h-4 w-4 transition-transform group-hover:-translate-x-1" />
               Back to About Overview
             </Button>
