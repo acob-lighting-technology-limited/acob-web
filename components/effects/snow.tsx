@@ -88,8 +88,8 @@ export function Snow({ speed = 'avg', intensity = 'medium' }: SnowProps) {
       const _deltaTime = currentTime - lastTime;
       lastTime = currentTime;
 
-      // Clear canvas
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      // Clear canvas - ctx is guaranteed to be non-null due to early return above
+      ctx!.clearRect(0, 0, canvas.width, canvas.height);
 
       // Update and draw each snowflake
       snowflakes.forEach((flake, index) => {
@@ -108,19 +108,19 @@ export function Snow({ speed = 'avg', intensity = 'medium' }: SnowProps) {
           flake.x = canvas.width + 10;
         }
 
-        // Draw snowflake
-        ctx.save();
-        ctx.globalAlpha = flake.opacity;
-        ctx.fillStyle = '#FFFFFF';
-        ctx.shadowBlur = 10;
-        ctx.shadowColor = 'rgba(255, 255, 255, 0.8)';
+        // Draw snowflake - ctx is guaranteed to be non-null due to early return above
+        ctx!.save();
+        ctx!.globalAlpha = flake.opacity;
+        ctx!.fillStyle = '#FFFFFF';
+        ctx!.shadowBlur = 10;
+        ctx!.shadowColor = 'rgba(255, 255, 255, 0.8)';
 
         // Draw a more realistic snowflake shape
         const spikes = 6;
         const outerRadius = flake.radius;
         const innerRadius = flake.radius * 0.5;
 
-        ctx.beginPath();
+        ctx!.beginPath();
         for (let i = 0; i < spikes * 2; i++) {
           const radius = i % 2 === 0 ? outerRadius : innerRadius;
           const angle = (Math.PI / spikes) * i + flake.angle * 0.1;
@@ -128,20 +128,20 @@ export function Snow({ speed = 'avg', intensity = 'medium' }: SnowProps) {
           const y = flake.y + Math.sin(angle) * radius;
 
           if (i === 0) {
-            ctx.moveTo(x, y);
+            ctx!.moveTo(x, y);
           } else {
-            ctx.lineTo(x, y);
+            ctx!.lineTo(x, y);
           }
         }
-        ctx.closePath();
-        ctx.fill();
+        ctx!.closePath();
+        ctx!.fill();
 
         // Add a smaller center circle for more detail
-        ctx.beginPath();
-        ctx.arc(flake.x, flake.y, flake.radius * 0.3, 0, Math.PI * 2);
-        ctx.fill();
+        ctx!.beginPath();
+        ctx!.arc(flake.x, flake.y, flake.radius * 0.3, 0, Math.PI * 2);
+        ctx!.fill();
 
-        ctx.restore();
+        ctx!.restore();
       });
 
       animationFrame = requestAnimationFrame(animate);
