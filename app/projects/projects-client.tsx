@@ -212,86 +212,83 @@ export default function ProjectsClient({
       ) : (
         <>
           <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-6">
-            {/* All cards - unified grid */}
-            <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-6">
-              {projects.map((project: Project, index: number) => (
-                <FadeIn key={project._id} delay={index * 0.15} direction="up">
-                  <Link
-                    href={`/projects/${project.slug.current}`}
-                    className="group"
-                  >
-                    <Card className="overflow-hidden h-full flex flex-col transition-all duration-300 hover:shadow-xl hover:-translate-y-1 border-border hover:border-primary/50">
-                      {/* Image */}
-                      <div className="aspect-[16/9] overflow-hidden relative bg-muted">
-                        {project.projectImage ? (
-                          <Image
-                            src={applySanityImagePreset(
-                              project.projectImage,
-                              'card',
-                            )}
-                            alt={project.title}
-                            fill
-                            className="object-cover transition-transform duration-500 group-hover:scale-110"
-                            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-                          />
-                        ) : (
-                          <div className="w-full h-full flex items-center justify-center">
-                            <span className="text-muted-foreground text-sm">
-                              No image
+            {projects.map((project: Project, index: number) => (
+              <FadeIn key={project._id} delay={index * 0.15} direction="up">
+                <Link
+                  href={`/projects/${project.slug.current}`}
+                  className="group"
+                >
+                  <Card className="overflow-hidden h-full flex flex-col transition-all duration-300 hover:shadow-xl hover:-translate-y-1 border-border hover:border-primary/50">
+                    {/* Image */}
+                    <div className="aspect-[16/9] overflow-hidden relative bg-muted">
+                      {project.projectImage ? (
+                        <Image
+                          src={applySanityImagePreset(
+                            project.projectImage,
+                            'card',
+                          )}
+                          alt={project.title}
+                          fill
+                          className="object-cover transition-transform duration-500 group-hover:scale-110"
+                          sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                        />
+                      ) : (
+                        <div className="w-full h-full flex items-center justify-center">
+                          <span className="text-muted-foreground text-sm">
+                            No image
+                          </span>
+                        </div>
+                      )}
+                      {/* Gradient overlay */}
+                      <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/0 to-black/0 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                    </div>
+
+                    <CardContent className="p-6 flex flex-col flex-1">
+                      {/* Location & Date */}
+                      <div className="flex items-center gap-4 text-xs text-muted-foreground mb-3 flex-wrap">
+                        {(project.location || project.state) && (
+                          <div className="flex items-center gap-1">
+                            <MapPin className="h-3.5 w-3.5 text-primary" />
+                            <span>
+                              {project.location}
+                              {project.location && project.state && ', '}
+                              {project.state &&
+                                (project.state.toUpperCase() === 'FCT'
+                                  ? 'FCT'
+                                  : `${project.state} State.`)}
                             </span>
                           </div>
                         )}
-                        {/* Gradient overlay */}
-                        <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/0 to-black/0 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                        {project.projectDate && (
+                          <div className="flex items-center gap-1">
+                            <span>
+                              {new Date(project.projectDate).getFullYear()}
+                            </span>
+                          </div>
+                        )}
                       </div>
 
-                      <CardContent className="p-6 flex flex-col flex-1">
-                        {/* Location & Date */}
-                        <div className="flex items-center gap-4 text-xs text-muted-foreground mb-3 flex-wrap">
-                          {(project.location || project.state) && (
-                            <div className="flex items-center gap-1">
-                              <MapPin className="h-3.5 w-3.5 text-primary" />
-                              <span>
-                                {project.location}
-                                {project.location && project.state && ', '}
-                                {project.state &&
-                                  (project.state.toUpperCase() === 'FCT'
-                                    ? 'FCT'
-                                    : `${project.state} State.`)}
-                              </span>
-                            </div>
-                          )}
-                          {project.projectDate && (
-                            <div className="flex items-center gap-1">
-                              <span>
-                                {new Date(project.projectDate).getFullYear()}
-                              </span>
-                            </div>
-                          )}
-                        </div>
+                      {/* Title */}
+                      <h3 className="text-lg font-bold mb-3 text-foreground group-hover:text-primary transition-colors duration-300 line-clamp-3">
+                        {project.title}
+                      </h3>
 
-                        {/* Title */}
-                        <h3 className="text-lg font-bold mb-3 text-foreground group-hover:text-primary transition-colors duration-300 line-clamp-3">
-                          {project.title}
-                        </h3>
+                      {/* Description */}
+                      <p className="text-sm text-muted-foreground leading-relaxed line-clamp-3 mb-4 flex-1">
+                        {project.excerpt ||
+                          extractTextFromPortableText(project.content || [])}
+                      </p>
 
-                        {/* Description */}
-                        <p className="text-sm text-muted-foreground leading-relaxed line-clamp-3 mb-4 flex-1">
-                          {project.excerpt ||
-                            extractTextFromPortableText(project.content || [])}
-                        </p>
-
-                        {/* View Project Link */}
-                        <div className="flex items-center text-sm font-medium text-primary group-hover:gap-2 transition-all duration-300">
-                          View Project
-                          <ArrowRight className="h-4 w-4 ml-1 group-hover:translate-x-1 transition-transform duration-300" />
-                        </div>
-                      </CardContent>
-                    </Card>
-                  </Link>
-                </FadeIn>
-              ))}
-            </div>
+                      {/* View Project Link */}
+                      <div className="flex items-center text-sm font-medium text-primary group-hover:gap-2 transition-all duration-300">
+                        View Project
+                        <ArrowRight className="h-4 w-4 ml-1 group-hover:translate-x-1 transition-transform duration-300" />
+                      </div>
+                    </CardContent>
+                  </Card>
+                </Link>
+              </FadeIn>
+            ))}
           </div>
 
           {/* Pagination */}
