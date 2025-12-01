@@ -8,10 +8,6 @@ import { Container } from '@/components/ui/container';
 import { MaskText } from '@/components/animations/MaskText';
 import { FadeIn } from '@/components/animations/FadeIn';
 import {
-  StaggerChildren,
-  staggerItem,
-} from '@/components/animations/StaggerChildren';
-import {
   Carousel,
   CarouselContent,
   CarouselItem,
@@ -20,7 +16,6 @@ import {
   type CarouselApi,
 } from '@/components/ui/carousel';
 import { ArrowRight, MapPin, Clock3 } from 'lucide-react';
-import { motion } from 'framer-motion';
 import { useEffect, useState } from 'react';
 import type { Project } from '@/lib/types';
 import { applySanityImagePreset } from '@/lib/utils/sanity-image';
@@ -221,17 +216,14 @@ export function ProjectsSection({ projects }: ProjectsSectionProps) {
         </div>
 
         {/* Desktop Grid */}
-        <StaggerChildren
-          staggerDelay={0.3}
-          className="hidden md:grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-8"
-        >
-          {displayProjects.map(project => {
+        <div className="hidden md:grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-8">
+          {displayProjects.map((project, index) => {
             const projectImage = project.projectImage
               ? applySanityImagePreset(project.projectImage, 'card')
               : '/images/olooji-community.webp?height=600&width=900';
 
             return (
-              <motion.div key={project._id} variants={staggerItem}>
+              <FadeIn key={project._id} delay={index * 0.15} direction="up">
                 <Card className="group h-full overflow-hidden border-border bg-card hover:border-primary/30 hover:shadow-2xl transition-all duration-500">
                   {/* Project Image */}
                   <div className="aspect-[16/9] overflow-hidden relative bg-muted">
@@ -289,10 +281,10 @@ export function ProjectsSection({ projects }: ProjectsSectionProps) {
                     </div>
                   </CardContent>
                 </Card>
-              </motion.div>
+              </FadeIn>
             );
           })}
-        </StaggerChildren>
+        </div>
 
         {/* View All Button */}
         <FadeIn delay={0.5}>

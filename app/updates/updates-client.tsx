@@ -13,11 +13,7 @@ import Image from 'next/image';
 import type { UpdatePost, PaginationInfo } from '@/lib/types';
 import { formatDate } from '@/lib/utils';
 import { applySanityImagePreset } from '@/lib/utils/sanity-image';
-import { motion } from 'framer-motion';
-import {
-  StaggerChildren,
-  staggerItem,
-} from '@/components/animations/StaggerChildren';
+import { FadeIn } from '@/components/animations/FadeIn';
 import {
   Pagination,
   PaginationContent,
@@ -51,6 +47,7 @@ export default function UpdatesClient({
   const [isLoading, setIsLoading] = useState(false);
   const responsiveLimit = useResponsiveLimit();
   const searchTimeoutRef = useRef<NodeJS.Timeout | null>(null);
+  const isInitialMount = useRef(true);
 
   // Sync state with props when they change (from server component refresh)
   useEffect(() => {
@@ -103,9 +100,20 @@ export default function UpdatesClient({
     }
   };
 
-  // Refetch with responsive limit on mount if limit changed
+  // Refetch with responsive limit only after initial mount
   useEffect(() => {
-    if (responsiveLimit !== pagination.limit && !isLoading) {
+    // Skip on initial mount to prevent unnecessary refetch
+    if (isInitialMount.current) {
+      isInitialMount.current = false;
+      return;
+    }
+
+    // Only refetch if limit actually changed and we have posts
+    if (
+      responsiveLimit !== pagination.limit &&
+      !isLoading &&
+      posts.length > 0
+    ) {
       updateSearch(searchQuery, pagination.currentPage);
     }
   }, [responsiveLimit]);
@@ -219,24 +227,20 @@ export default function UpdatesClient({
         </Card>
       ) : (
         <>
-          <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-6">
-            {/* First card - visible immediately on mobile */}
-            {posts.length > 0 && (
-              <div className="block sm:hidden">
-                <Link
-                  href={`/updates/${posts[0].slug.current}`}
-                  className="group"
-                >
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+            {posts.map((post: UpdatePost, index: number) => (
+              <FadeIn key={post._id} delay={index * 0.15} direction="up">
+                <Link href={`/updates/${post.slug.current}`} className="group">
                   <Card className="h-full overflow-hidden border-border bg-card hover:border-primary/30 hover:shadow-2xl transition-all duration-500">
                     {/* Image */}
                     <div className="aspect-[16/9] overflow-hidden relative bg-muted">
-                      {posts[0].featuredImage ? (
+                      {post.featuredImage ? (
                         <Image
                           src={applySanityImagePreset(
-                            posts[0].featuredImage,
+                            post.featuredImage,
                             'card',
                           )}
-                          alt={posts[0].title}
+                          alt={post.title}
                           fill
                           className="object-cover transition-transform duration-500 group-hover:scale-105"
                           sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
@@ -251,9 +255,9 @@ export default function UpdatesClient({
                       {/* Gradient overlay - always visible for better text readability */}
                       <div className="absolute inset-0 bg-gradient-to-b from-black/30 via-transparent to-black/70" />
                       {/* Category at bottom left */}
-                      {posts[0].category && (
+                      {post.category && (
                         <div className="absolute bottom-4 left-4 right-4 z-10 text-sm font-medium uppercase tracking-wide text-white/90">
-                          {posts[0].category}
+                          {post.category}
                         </div>
                       )}
                     </div>
@@ -261,19 +265,19 @@ export default function UpdatesClient({
                     <CardContent className="flex flex-1 flex-col p-4 sm:p-6">
                       {/* Author & Date */}
                       <div className="flex items-center text-xs text-muted-foreground mb-3">
-                        {posts[0].author && (
+                        {post.author && (
                           <>
                             <User className="h-3.5 w-3.5 mr-1" />
-                            <span>{posts[0].author}</span>
+                            <span>{post.author}</span>
                           </>
                         )}
-                        {posts[0].author && posts[0].publishedAt && (
+                        {post.author && post.publishedAt && (
                           <span className="mx-2">•</span>
                         )}
-                        {posts[0].publishedAt && (
+                        {post.publishedAt && (
                           <>
                             <Calendar className="h-3.5 w-3.5 mr-1" />
-                            <span>{formatDate(posts[0].publishedAt)}</span>
+                            <span>{formatDate(post.publishedAt)}</span>
                           </>
                         )}
                       </div>
@@ -281,12 +285,12 @@ export default function UpdatesClient({
                       <div className="space-y-3 flex-1">
                         {/* Title */}
                         <h3 className="text-lg font-bold mb-3 text-foreground line-clamp-3 group-hover:text-primary transition-colors duration-300">
-                          {posts[0].title}
+                          {post.title}
                         </h3>
 
                         {/* Excerpt */}
                         <p className="text-sm text-muted-foreground leading-relaxed line-clamp-3">
-                          {posts[0].excerpt}
+                          {post.excerpt}
                         </p>
                       </div>
 
@@ -300,181 +304,8 @@ export default function UpdatesClient({
                     </CardContent>
                   </Card>
                 </Link>
-              </div>
-            )}
-
-            {/* All cards on desktop with animation */}
-            <StaggerChildren
-              staggerDelay={0.1}
-              className="hidden sm:grid sm:grid-cols-2 xl:grid-cols-3 gap-6 col-span-full"
-            >
-              {posts.map((post: UpdatePost) => (
-                <motion.div key={post._id} variants={staggerItem}>
-                  <Link
-                    href={`/updates/${post.slug.current}`}
-                    className="group"
-                  >
-                    <Card className="h-full overflow-hidden border-border bg-card hover:border-primary/30 hover:shadow-2xl transition-all duration-500">
-                      {/* Image */}
-                      <div className="aspect-[16/9] overflow-hidden relative bg-muted">
-                        {post.featuredImage ? (
-                          <Image
-                            src={applySanityImagePreset(
-                              post.featuredImage,
-                              'card',
-                            )}
-                            alt={post.title}
-                            fill
-                            className="object-cover transition-transform duration-500 group-hover:scale-105"
-                            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-                          />
-                        ) : (
-                          <div className="w-full h-full flex items-center justify-center">
-                            <span className="text-muted-foreground text-sm">
-                              No image
-                            </span>
-                          </div>
-                        )}
-                        {/* Gradient overlay - always visible for better text readability */}
-                        <div className="absolute inset-0 bg-gradient-to-b from-black/30 via-transparent to-black/70" />
-                        {/* Category at bottom left */}
-                        {post.category && (
-                          <div className="absolute bottom-4 left-4 right-4 z-10 text-sm font-medium uppercase tracking-wide text-white/90">
-                            {post.category}
-                          </div>
-                        )}
-                      </div>
-
-                      <CardContent className="flex flex-1 flex-col p-4 sm:p-6">
-                        {/* Author & Date */}
-                        <div className="flex items-center text-xs text-muted-foreground mb-3">
-                          {post.author && (
-                            <>
-                              <User className="h-3.5 w-3.5 mr-1" />
-                              <span>{post.author}</span>
-                            </>
-                          )}
-                          {post.author && post.publishedAt && (
-                            <span className="mx-2">•</span>
-                          )}
-                          {post.publishedAt && (
-                            <>
-                              <Calendar className="h-3.5 w-3.5 mr-1" />
-                              <span>{formatDate(post.publishedAt)}</span>
-                            </>
-                          )}
-                        </div>
-
-                        <div className="space-y-3 flex-1">
-                          {/* Title */}
-                          <h3 className="text-lg font-bold mb-3 text-foreground line-clamp-3 group-hover:text-primary transition-colors duration-300">
-                            {post.title}
-                          </h3>
-
-                          {/* Excerpt */}
-                          <p className="text-sm text-muted-foreground leading-relaxed line-clamp-3">
-                            {post.excerpt}
-                          </p>
-                        </div>
-
-                        {/* Read More Button */}
-                        <div className="mt-auto pt-6">
-                          <div className="flex items-center text-sm font-medium text-primary group-hover:gap-2 transition-all duration-300">
-                            Read More
-                            <ArrowRight className="h-4 w-4 ml-1 group-hover:translate-x-1 transition-transform duration-300" />
-                          </div>
-                        </div>
-                      </CardContent>
-                    </Card>
-                  </Link>
-                </motion.div>
-              ))}
-            </StaggerChildren>
-
-            {/* Rest of the cards on mobile (without first card) */}
-            {posts.length > 1 && (
-              <StaggerChildren
-                staggerDelay={0.1}
-                className="block sm:hidden grid grid-cols-1 gap-6"
-              >
-                {posts.slice(1).map((post: UpdatePost) => (
-                  <motion.div key={post._id} variants={staggerItem}>
-                    <Link
-                      href={`/updates/${post.slug.current}`}
-                      className="group"
-                    >
-                      <Card className="overflow-hidden h-full flex flex-col transition-all duration-300 hover:shadow-xl hover:-translate-y-1 border-border hover:border-primary/50">
-                        {/* Image */}
-                        <div className="aspect-[16/9] overflow-hidden relative bg-muted">
-                          {post.featuredImage ? (
-                            <Image
-                              src={applySanityImagePreset(
-                                post.featuredImage,
-                                'card',
-                              )}
-                              alt={post.title}
-                              fill
-                              className="object-cover transition-transform duration-500 group-hover:scale-110"
-                              sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-                            />
-                          ) : (
-                            <div className="w-full h-full flex items-center justify-center">
-                              <span className="text-muted-foreground text-sm">
-                                No image
-                              </span>
-                            </div>
-                          )}
-                          {/* Gradient overlay */}
-                          <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/0 to-black/0 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-                          {/* Category badge at bottom left */}
-                          {post.category && (
-                            <div className="absolute bottom-3 left-3 z-10">
-                              <span className="px-3 py-1.5 bg-primary text-primary-foreground rounded-md text-xs font-semibold uppercase tracking-wide shadow-lg backdrop-blur-sm">
-                                {post.category}
-                              </span>
-                            </div>
-                          )}
-                        </div>
-
-                        <CardContent className="p-6 flex flex-col flex-1">
-                          {/* Author & Date */}
-                          <div className="flex items-center gap-3 text-xs text-muted-foreground mb-3 flex-wrap">
-                            {post.author && (
-                              <div className="flex items-center gap-1">
-                                <User className="h-3.5 w-3.5" />
-                                <span>{post.author}</span>
-                              </div>
-                            )}
-                            {post.publishedAt && (
-                              <div className="flex items-center gap-1">
-                                <Calendar className="h-3.5 w-3.5" />
-                                <span>{formatDate(post.publishedAt)}</span>
-                              </div>
-                            )}
-                          </div>
-
-                          {/* Title */}
-                          <h3 className="text-lg font-bold mb-3 text-foreground group-hover:text-primary transition-colors duration-300 line-clamp-3">
-                            {post.title}
-                          </h3>
-
-                          {/* Excerpt */}
-                          <p className="text-sm text-muted-foreground leading-relaxed line-clamp-3 mb-4 flex-1">
-                            {post.excerpt}
-                          </p>
-
-                          {/* Read More Link */}
-                          <div className="flex items-center text-sm font-medium text-primary group-hover:gap-2 transition-all duration-300">
-                            Read More
-                            <ArrowRight className="h-4 w-4 ml-1 group-hover:translate-x-1 transition-transform duration-300" />
-                          </div>
-                        </CardContent>
-                      </Card>
-                    </Link>
-                  </motion.div>
-                ))}
-              </StaggerChildren>
-            )}
+              </FadeIn>
+            ))}
           </div>
 
           {/* Pagination */}
