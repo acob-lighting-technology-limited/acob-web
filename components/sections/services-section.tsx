@@ -8,7 +8,6 @@ import Link from 'next/link';
 
 // Third-party library imports
 import { ArrowRight } from 'lucide-react';
-import { motion } from 'framer-motion';
 
 // UI component imports
 import { Button, Container, Card, CardContent } from '@/components/ui';
@@ -25,7 +24,6 @@ import Image from 'next/image';
 // Local component imports
 import { MaskText } from '../animations/MaskText';
 import { FadeIn } from '../animations/FadeIn';
-import { StaggerChildren, staggerItem } from '../animations/StaggerChildren';
 
 // Data imports
 import { servicesData } from '@/lib/data';
@@ -122,34 +120,36 @@ const ServicesSection = React.memo(function ServicesSection() {
             </div>
           </FadeIn>
 
-          <StaggerChildren staggerDelay={0.3} className="grid gap-4">
-            {additionalServices.map(service => (
-              <motion.div
+          <div className="grid gap-4">
+            {additionalServices.map((service, index) => (
+              <FadeIn
                 key={service.slug as string}
-                variants={staggerItem}
-                className="group flex items-start gap-4 rounded-2xl border border-border bg-card/80 p-4 shadow-sm backdrop-blur supports-[backdrop-filter]:backdrop-blur-xl transition-all duration-500 hover:shadow-lg cursor-pointer"
+                delay={index * 0.15}
+                direction="up"
               >
-                <div className="relative h-16 w-36 overflow-hidden rounded-xl bg-primary/10 transition-all duration-500 group-hover:bg-primary group-hover:scale-105">
-                  {/* Animated fill effect */}
-                  <div className="absolute inset-0 bg-primary transform scale-0 transition-transform duration-500 ease-out group-hover:scale-100 origin-center" />
-                  <Image
-                    src={service.icon || service.image || '/placeholder.svg'}
-                    alt={service.title}
-                    fill
-                    className="object-contain p-1 relative z-10 transition-all duration-500 group-hover:brightness-0 group-hover:invert"
-                  />
+                <div className="group flex items-start gap-4 rounded-2xl border border-border bg-card/80 p-4 shadow-sm backdrop-blur supports-[backdrop-filter]:backdrop-blur-xl transition-all duration-500 hover:shadow-lg cursor-pointer">
+                  <div className="relative h-16 w-36 overflow-hidden rounded-xl bg-primary/10 transition-all duration-500 group-hover:bg-primary group-hover:scale-105">
+                    {/* Animated fill effect */}
+                    <div className="absolute inset-0 bg-primary transform scale-0 transition-transform duration-500 ease-out group-hover:scale-100 origin-center" />
+                    <Image
+                      src={service.icon || service.image || '/placeholder.svg'}
+                      alt={service.title}
+                      fill
+                      className="object-contain p-1 relative z-10 transition-all duration-500 group-hover:brightness-0 group-hover:invert"
+                    />
+                  </div>
+                  <div className="space-y-2">
+                    <h4 className="text-base md:text-lg font-semibold text-foreground transition-colors duration-500 group-hover:text-primary">
+                      {service.title}
+                    </h4>
+                    <p className="text-sm text-muted-foreground transition-colors duration-500 group-hover:text-foreground">
+                      {service.excerpt}
+                    </p>
+                  </div>
                 </div>
-                <div className="space-y-2">
-                  <h4 className="text-base md:text-lg font-semibold text-foreground transition-colors duration-500 group-hover:text-primary">
-                    {service.title}
-                  </h4>
-                  <p className="text-sm text-muted-foreground transition-colors duration-500 group-hover:text-foreground">
-                    {service.excerpt}
-                  </p>
-                </div>
-              </motion.div>
+              </FadeIn>
             ))}
-          </StaggerChildren>
+          </div>
         </div>
 
         {/* Mobile Carousel */}
@@ -218,12 +218,13 @@ const ServicesSection = React.memo(function ServicesSection() {
         </div>
 
         {/* Desktop Grid */}
-        <StaggerChildren
-          staggerDelay={0.3}
-          className="hidden lg:grid gap-6 lg:grid-cols-3"
-        >
-          {primaryServices.map(service => (
-            <motion.div key={service.slug as string} variants={staggerItem}>
+        <div className="hidden lg:grid gap-6 lg:grid-cols-3">
+          {primaryServices.map((service, index) => (
+            <FadeIn
+              key={service.slug as string}
+              delay={index * 0.15}
+              direction="up"
+            >
               <Card className="group h-full overflow-hidden border-border bg-card hover:border-primary/30 hover:shadow-2xl transition-all duration-500">
                 <div className="aspect-[16/9] overflow-hidden relative bg-muted">
                   <Image
@@ -265,9 +266,9 @@ const ServicesSection = React.memo(function ServicesSection() {
                   </div>
                 </CardContent>
               </Card>
-            </motion.div>
+            </FadeIn>
           ))}
-        </StaggerChildren>
+        </div>
       </Container>
     </section>
   );

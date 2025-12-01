@@ -11,12 +11,7 @@ import {
   type CarouselApi,
 } from '@/components/ui/carousel';
 import { FadeIn } from '@/components/animations/FadeIn';
-import {
-  StaggerChildren,
-  staggerItem,
-} from '@/components/animations/StaggerChildren';
 import { ArrowRight } from 'lucide-react';
-import { motion } from 'framer-motion';
 import { useEffect, useState } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
@@ -207,12 +202,9 @@ export function UpdatesSection({ posts }: UpdatesSectionProps) {
         </div>
 
         {/* Desktop Grid */}
-        <StaggerChildren
-          staggerDelay={0.3}
-          className="hidden md:grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
-        >
-          {latestPosts.map((post: UpdatePost) => (
-            <motion.div key={post._id} variants={staggerItem}>
+        <div className="hidden md:grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          {latestPosts.map((post: UpdatePost, index: number) => (
+            <FadeIn key={post._id} delay={index * 0.15} direction="up">
               <Card className="group h-full overflow-hidden border-border bg-card hover:border-primary/30 hover:shadow-2xl transition-all duration-500">
                 {/* Image */}
                 <div className="aspect-[16/9] overflow-hidden relative bg-muted">
@@ -280,9 +272,9 @@ export function UpdatesSection({ posts }: UpdatesSectionProps) {
                   </div>
                 </CardContent>
               </Card>
-            </motion.div>
+            </FadeIn>
           ))}
-        </StaggerChildren>
+        </div>
 
         {/* View All Button */}
         <FadeIn delay={0.5}>

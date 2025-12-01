@@ -7,12 +7,7 @@ import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { MaskText } from '@/components/animations/MaskText';
 import { FadeIn } from '@/components/animations/FadeIn';
-import {
-  StaggerChildren,
-  staggerItem,
-} from '@/components/animations/StaggerChildren';
 import { Star, Quote, Building, UserCheck } from 'lucide-react';
-import { motion } from 'framer-motion';
 import { testimonials } from '@/lib/data/testimonials-data';
 
 const testimonialHighlight = testimonials.slice(0, 3);
@@ -65,32 +60,27 @@ export function TestimonialsSection() {
         </FadeIn>
 
         {/* Stats Section - Responsive grid */}
-        <StaggerChildren staggerDelay={0.2} className="mb-8 sm:mb-12 md:mb-16">
+        <div className="mb-8 sm:mb-12 md:mb-16">
           <div className="grid gap-3 sm:gap-4 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
-            {aggregateStats.map(stat => (
-              <motion.div
-                key={stat.label}
-                variants={staggerItem}
-                className="rounded-xl sm:rounded-2xl border border-border bg-background/80 p-4 sm:p-6 text-center shadow-sm hover:shadow-md transition-shadow duration-500"
-              >
-                <div className="text-xl sm:text-2xl md:text-3xl font-semibold text-foreground mb-1 sm:mb-2">
-                  {stat.value}
+            {aggregateStats.map((stat, index) => (
+              <FadeIn key={stat.label} delay={index * 0.15} direction="up">
+                <div className="rounded-xl sm:rounded-2xl border border-border bg-background/80 p-4 sm:p-6 text-center shadow-sm hover:shadow-md transition-shadow duration-500">
+                  <div className="text-xl sm:text-2xl md:text-3xl font-semibold text-foreground mb-1 sm:mb-2">
+                    {stat.value}
+                  </div>
+                  <p className="text-xs sm:text-sm uppercase tracking-wide text-muted-foreground leading-tight">
+                    {stat.label}
+                  </p>
                 </div>
-                <p className="text-xs sm:text-sm uppercase tracking-wide text-muted-foreground leading-tight">
-                  {stat.label}
-                </p>
-              </motion.div>
+              </FadeIn>
             ))}
           </div>
-        </StaggerChildren>
+        </div>
 
         {/* Testimonials Section - Responsive layout */}
-        <StaggerChildren
-          staggerDelay={0.3}
-          className="grid gap-4 sm:gap-6 md:gap-8 lg:gap-12 grid-cols-1 md:grid-cols-2 xl:grid-cols-3"
-        >
-          {testimonialHighlight.map(testimonial => (
-            <motion.div key={testimonial.name} variants={staggerItem}>
+        <div className="grid gap-4 sm:gap-6 md:gap-8 lg:gap-12 grid-cols-1 md:grid-cols-2 xl:grid-cols-3">
+          {testimonialHighlight.map((testimonial, index) => (
+            <FadeIn key={testimonial.name} delay={index * 0.15} direction="up">
               <Card className="relative overflow-hidden border border-border bg-card/90 shadow-lg hover:shadow-xl transition-shadow duration-500 h-full">
                 <CardContent className="space-y-3 sm:space-y-4 md:space-y-6 p-3 sm:p-4 md:p-6 lg:p-8 h-full flex flex-col">
                   {/* Quote Icon - Responsive positioning */}
@@ -140,9 +130,9 @@ export function TestimonialsSection() {
                   </div>
                 </CardContent>
               </Card>
-            </motion.div>
+            </FadeIn>
           ))}
-        </StaggerChildren>
+        </div>
 
         {/* CTA Section - Responsive layout */}
         <FadeIn delay={0.5}>

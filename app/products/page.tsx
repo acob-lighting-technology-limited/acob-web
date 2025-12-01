@@ -6,7 +6,7 @@ export default async function ProductsPage() {
   return (
     <ComingSoon
       title="Product Catalog"
-      description="We're updating our team information. This page will be available soon!"
+      description="We're updating our product catalog. This page will be available soon!"
       breadcrumbItems={breadcrumbItems}
       backgroundImage="/images/products/deye.jpeg"
     />

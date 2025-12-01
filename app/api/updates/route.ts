@@ -26,17 +26,22 @@ export async function GET(request: NextRequest) {
       );
     }
 
-    const result = await getUpdatePostsPaginated({
-      page,
-      limit,
-      search,
-    });
-
-    // Filter by category if provided
+    // If category is provided, we need to fetch all posts first, then filter
+    // This ensures we get all category posts, not just the first page
     if (category) {
-      const filteredPosts = result.posts.filter(
+      // Fetch a large batch to ensure we get all category posts
+      const allPostsResult = await getUpdatePostsPaginated({
+        page: 1,
+        limit: 1000, // Get a large batch
+        search,
+      });
+
+      // Filter by category
+      const filteredPosts = allPostsResult.posts.filter(
         (post: { category?: string }) => post.category === category,
       );
+
+      // Now paginate the filtered results
       const totalFiltered = filteredPosts.length;
       const totalPages = Math.ceil(totalFiltered / limit);
       const startIndex = (page - 1) * limit;
@@ -55,6 +60,13 @@ export async function GET(request: NextRequest) {
         },
       });
     }
+
+    // No category filter, use normal pagination
+    const result = await getUpdatePostsPaginated({
+      page,
+      limit,
+      search,
+    });
 
     return NextResponse.json(result);
   } catch (error) {
