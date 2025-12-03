@@ -1,7 +1,7 @@
 'use client';
 
-import { useState, useEffect, useMemo } from 'react';
-import { ProductCard } from './product-card';
+import { useState, useEffect } from 'react';
+import { ProductCard } from '@/components/products/product-card';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Card, CardContent } from '@/components/ui/card';
@@ -9,14 +9,13 @@ import { Breadcrumb } from '@/components/ui/breadcrumb';
 import { Hero } from '@/components/ui/hero';
 import { Container } from '@/components/ui/container';
 import { Search, X } from 'lucide-react';
+import { useParams } from 'next/navigation';
 
 interface Product {
   _id: string;
   title: string;
   slug: { current: string };
-  sku: string;
   availability: string;
-  description: string;
   productImage: {
     asset?: {
       url: string;
@@ -26,11 +25,32 @@ interface Product {
   category?: string;
 }
 
-interface ProductCatalogProps {
-  breadcrumbItems: Array<{ label: string; href?: string }>;
-}
+const categoryInfo: Record<
+  string,
+  { title: string; description: string; image: string }
+> = {
+  'solar-panel': {
+    title: 'Solar Panels',
+    description: 'High-efficiency photovoltaic panels for all applications',
+    image: '/images/products/solar-panel-hero.webp?height=400&width=1200',
+  },
+  inverter: {
+    title: 'Inverters',
+    description: 'Advanced power conversion systems',
+    image: '/images/products/inverter-hero.webp?height=400&width=1200',
+  },
+  battery: {
+    title: 'Batteries',
+    description: 'Reliable energy storage solutions',
+    image: '/images/products/battery-hero.webp?height=400&width=1200',
+  },
+};
 
-export function ProductCatalog({ breadcrumbItems }: ProductCatalogProps) {
+export default function ShopCategoryPage() {
+  const params = useParams();
+  const category = params.category as string;
+  const info = categoryInfo[category];
+
   const [products, setProducts] = useState<Product[]>([]);
   const [searchQuery, setSearchQuery] = useState('');
   const [isLoading, setIsLoading] = useState(true);
@@ -38,7 +58,7 @@ export function ProductCatalog({ breadcrumbItems }: ProductCatalogProps) {
   useEffect(() => {
     async function fetchProducts() {
       try {
-        const response = await fetch('/api/products');
+        const response = await fetch(`/api/products?category=${category}`);
         const data = await response.json();
         setProducts(data);
       } catch (error) {
@@ -48,40 +68,50 @@ export function ProductCatalog({ breadcrumbItems }: ProductCatalogProps) {
       }
     }
 
-    fetchProducts();
-  }, []);
+    if (category) {
+      fetchProducts();
+    }
+  }, [category]);
 
   const filteredProducts = products.filter(product => {
     const matchesSearch =
       searchQuery === '' ||
-      product.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      (product.sku &&
-        product.sku.toLowerCase().includes(searchQuery.toLowerCase()));
+      product.title.toLowerCase().includes(searchQuery.toLowerCase());
 
     return matchesSearch;
   });
-
-  // Generate hero images from filtered products
-  const productImages = useMemo(() => {
-    return filteredProducts
-      .filter((product: Product) => product.productImage?.asset?.url)
-      .map((product: Product) => ({
-        src: product.productImage!.asset!.url,
-        alt: product.productImage!.alt || product.title,
-        href: `/products/${product.slug.current}`,
-      }));
-  }, [filteredProducts]);
 
   const handleClearSearch = () => {
     setSearchQuery('');
   };
 
+  if (!info) {
+    return (
+      <Container className="px-4 py-8">
+        <Card>
+          <CardContent className="p-8 text-center">
+            <h2 className="text-2xl font-bold mb-4">Category Not Found</h2>
+            <p className="text-muted-foreground mb-4">
+              The category you're looking for doesn't exist.
+            </p>
+          </CardContent>
+        </Card>
+      </Container>
+    );
+  }
+
+  const breadcrumbItems = [
+    { label: 'Home', href: '/' },
+    { label: 'Shop', href: '/shop' },
+    { label: info.title },
+  ];
+
   return (
     <>
       <Hero
-        image={productImages}
-        title="Product Catalog"
-        description="Comprehensive range of high-quality solar equipment and components"
+        image={info.image}
+        title={info.title}
+        description={info.description}
       />
       <Container className="px-4 py-8">
         {/* Breadcrumb with Search */}
@@ -166,11 +196,20 @@ export function ProductCatalog({ breadcrumbItems }: ProductCatalogProps) {
             </CardContent>
           </Card>
         ) : (
-          <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-6">
-            {filteredProducts.map(product => (
-              <ProductCard key={product._id} product={product} />
-            ))}
-          </div>
+          <>
+            <div className="mb-6">
+              <h2 className="text-2xl font-bold mb-2">{info.title}</h2>
+              <p className="text-muted-foreground">
+                {filteredProducts.length} product
+                {filteredProducts.length !== 1 ? 's' : ''} found
+              </p>
+            </div>
+            <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-6">
+              {filteredProducts.map(product => (
+                <ProductCard key={product._id} product={product} />
+              ))}
+            </div>
+          </>
         )}
       </Container>
     </>

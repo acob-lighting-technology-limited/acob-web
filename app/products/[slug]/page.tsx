@@ -3,6 +3,8 @@ import { client } from '@/sanity/lib/client';
 import { Container } from '@/components/ui/container';
 import { Breadcrumb } from '@/components/ui/breadcrumb';
 import { Badge } from '@/components/ui/badge';
+import { Button } from '@/components/ui/button';
+import { Download } from 'lucide-react';
 import { ProductDetailClient } from './product-detail-client';
 
 interface ProductPageProps {
@@ -14,20 +16,19 @@ interface ProductPageProps {
 async function getProduct(slug: string) {
   const query = `*[_type == "product" && slug.current == $slug][0]{
     _id,
-    title,
+    "title": general.title,
     slug,
     category,
-    sku,
-    availability,
-    description,
-    productImage{
+    "availability": general.availability,
+    "description": general.description,
+    "productImage": media.productImage{
       asset->{
         _id,
         url
       },
       alt
     },
-    productImages[]{
+    "productImages": media.productImages[]{
       _type,
       asset->{
         _id,
@@ -36,9 +37,14 @@ async function getProduct(slug: string) {
       alt,
       title
     },
-    panelSpecifications,
-    batterySpecifications,
-    inverterSpecifications
+    "datasheet": media.datasheet{
+      asset->{
+        _id,
+        url,
+        originalFilename
+      }
+    },
+    technical
   }`;
 
   const product = await client.fetch(query, { slug });
@@ -90,6 +96,11 @@ export default async function ProductPage({ params }: ProductPageProps) {
     ...(product.productImages || []),
   ].filter(Boolean);
 
+  // Get datasheet URL if available
+  const datasheetUrl = product.datasheet?.asset?.url;
+  const datasheetFilename =
+    product.datasheet?.asset?.originalFilename || 'datasheet.pdf';
+
   return (
     <div className="min-h-screen">
       <div className="bg-muted/30 py-4 border-b">
@@ -132,10 +143,6 @@ export default async function ProductPage({ params }: ProductPageProps) {
               <h2 className="text-2xl font-bold mb-4">Product Details</h2>
               <dl className="space-y-3">
                 <div className="flex justify-between py-2 border-b">
-                  <dt className="text-muted-foreground font-medium">SKU</dt>
-                  <dd className="font-semibold">{product.sku}</dd>
-                </div>
-                <div className="flex justify-between py-2 border-b">
                   <dt className="text-muted-foreground font-medium">
                     Availability
                   </dt>
@@ -145,142 +152,162 @@ export default async function ProductPage({ params }: ProductPageProps) {
                     </Badge>
                   </dd>
                 </div>
-                {/* Specifications */}
-                {product.category === 'solar-panel' &&
-                  product.panelSpecifications && (
-                    <>
+                {product.technical?.name && (
+                  <div className="flex justify-between py-2 border-b">
+                    <dt className="text-muted-foreground font-medium">Name</dt>
+                    <dd className="font-semibold">{product.technical.name}</dd>
+                  </div>
+                )}
+                {product.technical?.model && (
+                  <div className="flex justify-between py-2 border-b">
+                    <dt className="text-muted-foreground font-medium">Model</dt>
+                    <dd className="font-semibold">{product.technical.model}</dd>
+                  </div>
+                )}
+                {/* Technical Specifications */}
+                {product.category === 'solar-panel' && product.technical && (
+                  <>
+                    {product.technical.capacity && (
                       <div className="flex justify-between py-2 border-b">
                         <dt className="text-muted-foreground font-medium">
-                          Power Rating
+                          Capacity (Watts)
                         </dt>
                         <dd className="font-semibold">
-                          {product.panelSpecifications.powerRatingWatts}
+                          {product.technical.capacity}
                         </dd>
                       </div>
+                    )}
+                    {product.technical.type && (
                       <div className="flex justify-between py-2 border-b">
                         <dt className="text-muted-foreground font-medium">
-                          Efficiency
+                          Type
                         </dt>
                         <dd className="font-semibold">
-                          {product.panelSpecifications.efficiencyPercent}
+                          {product.technical.type === 'monofacial'
+                            ? 'Monofacial'
+                            : 'Bifacial'}
                         </dd>
                       </div>
-                      <div className="flex justify-between py-2 border-b">
-                        <dt className="text-muted-foreground font-medium">
-                          Voltage (Vmp / Voc)
-                        </dt>
-                        <dd className="font-semibold">
-                          {product.panelSpecifications.voltageVmpVoc}
-                        </dd>
-                      </div>
-                      <div className="flex justify-between py-2 border-b">
-                        <dt className="text-muted-foreground font-medium">
-                          Dimensions
-                        </dt>
-                        <dd className="font-semibold">
-                          {product.panelSpecifications.dimensionsMm}
-                        </dd>
-                      </div>
-                      <div className="flex justify-between py-2 border-b">
-                        <dt className="text-muted-foreground font-medium">
-                          Warranty
-                        </dt>
-                        <dd className="font-semibold">
-                          {product.panelSpecifications.warranty}
-                        </dd>
-                      </div>
-                    </>
-                  )}
-                {product.category === 'battery' &&
-                  product.batterySpecifications && (
-                    <>
+                    )}
+                  </>
+                )}
+                {product.category === 'battery' && product.technical && (
+                  <>
+                    {product.technical.capacityAhOrKwh && (
                       <div className="flex justify-between py-2 border-b">
                         <dt className="text-muted-foreground font-medium">
                           Capacity
                         </dt>
                         <dd className="font-semibold">
-                          {product.batterySpecifications.capacityAhOrKwh}
+                          {product.technical.capacityAhOrKwh}
                         </dd>
                       </div>
+                    )}
+                    {product.technical.batteryType && (
                       <div className="flex justify-between py-2 border-b">
                         <dt className="text-muted-foreground font-medium">
                           Battery Type
                         </dt>
                         <dd className="font-semibold">
-                          {product.batterySpecifications.batteryType}
+                          {product.technical.batteryType}
                         </dd>
                       </div>
+                    )}
+                    {product.technical.cycleLife && (
                       <div className="flex justify-between py-2 border-b">
                         <dt className="text-muted-foreground font-medium">
                           Cycle Life
                         </dt>
                         <dd className="font-semibold">
-                          {product.batterySpecifications.cycleLife}
+                          {product.technical.cycleLife}
                         </dd>
                       </div>
+                    )}
+                    {product.technical.voltage && (
                       <div className="flex justify-between py-2 border-b">
                         <dt className="text-muted-foreground font-medium">
                           Voltage
                         </dt>
                         <dd className="font-semibold">
-                          {product.batterySpecifications.voltage}
+                          {product.technical.voltage}
                         </dd>
                       </div>
+                    )}
+                  </>
+                )}
+                {product.category === 'inverter' && product.technical && (
+                  <>
+                    {product.technical.capacityKvaKw && (
                       <div className="flex justify-between py-2 border-b">
                         <dt className="text-muted-foreground font-medium">
-                          Warranty
+                          Capacity
                         </dt>
                         <dd className="font-semibold">
-                          {product.batterySpecifications.warranty}
+                          {product.technical.capacityKvaKw}
                         </dd>
                       </div>
-                    </>
-                  )}
-                {product.category === 'inverter' &&
-                  product.inverterSpecifications && (
-                    <>
+                    )}
+                    {product.technical.phaseVoltage && (
                       <div className="flex justify-between py-2 border-b">
                         <dt className="text-muted-foreground font-medium">
-                          Power Rating
+                          Phase Voltage
                         </dt>
                         <dd className="font-semibold">
-                          {product.inverterSpecifications.powerRatingKvaKw}
+                          {product.technical.phaseVoltage}
                         </dd>
                       </div>
+                    )}
+                    {product.technical.inverterType && (
                       <div className="flex justify-between py-2 border-b">
                         <dt className="text-muted-foreground font-medium">
-                          Input Voltage
+                          Inverter Type
                         </dt>
                         <dd className="font-semibold">
-                          {product.inverterSpecifications.inputVoltage}
+                          {product.technical.inverterType === 'hybrid'
+                            ? 'Hybrid'
+                            : 'Non-Hybrid'}
                         </dd>
                       </div>
-                      <div className="flex justify-between py-2 border-b">
-                        <dt className="text-muted-foreground font-medium">
-                          Output Voltage
-                        </dt>
-                        <dd className="font-semibold">
-                          {product.inverterSpecifications.outputVoltage}
-                        </dd>
-                      </div>
+                    )}
+                    {product.technical.efficiency && (
                       <div className="flex justify-between py-2 border-b">
                         <dt className="text-muted-foreground font-medium">
                           Efficiency
                         </dt>
                         <dd className="font-semibold">
-                          {product.inverterSpecifications.efficiencyPercent}
+                          {product.technical.efficiency}
                         </dd>
                       </div>
+                    )}
+                    {product.technical.ipRatings && (
                       <div className="flex justify-between py-2 border-b">
                         <dt className="text-muted-foreground font-medium">
-                          Warranty
+                          IP Ratings
                         </dt>
                         <dd className="font-semibold">
-                          {product.inverterSpecifications.warranty}
+                          {product.technical.ipRatings}
                         </dd>
                       </div>
-                    </>
-                  )}
+                    )}
+                  </>
+                )}
+                {/* Datasheet Download */}
+                {datasheetUrl && (
+                  <div className="mt-4 pt-4 border-t">
+                    <Button asChild variant="outline" className="w-full">
+                      <a
+                        href={datasheetUrl}
+                        download={datasheetFilename}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="flex items-center justify-center"
+                      >
+                        <Download className="mr-2 h-4 w-4" />
+                        Download Datasheet
+                      </a>
+                    </Button>
+                  </div>
+                )}
               </dl>
             </div>
           </div>

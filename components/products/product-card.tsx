@@ -14,9 +14,8 @@ interface ProductCardProps {
     _id: string;
     title: string;
     slug: { current: string };
-    sku: string;
+    sku?: string;
     availability: string;
-    description: string;
     productImage: any;
     category?: string;
   };
@@ -84,17 +83,13 @@ export function ProductCard({ product }: ProductCardProps) {
 
         <CardContent className="p-6 flex-1 flex flex-col">
           <div className="flex items-start justify-between gap-2 mb-2">
-            <h3 className="text-lg font-bold mb-3 line-clamp-3 flex-1">
+            <h3 className="text-lg font-bold mb-3 line-clamp-2 flex-1">
               {product.title}
             </h3>
           </div>
 
-          <p className="text-xs text-muted-foreground mb-3">
+          <p className="text-xs text-muted-foreground mb-4">
             SKU: {product.sku}
-          </p>
-
-          <p className="text-sm text-muted-foreground leading-relaxed line-clamp-3 mb-4">
-            {product.description}
           </p>
 
           {/* Actions */}

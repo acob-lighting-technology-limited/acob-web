@@ -15,6 +15,7 @@ export const updatePostType = defineType({
     defineField({
       name: 'slug',
       type: 'slug',
+      hidden: true,
       options: {
         source: 'title',
         maxLength: 96,

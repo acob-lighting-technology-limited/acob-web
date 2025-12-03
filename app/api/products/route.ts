@@ -1,26 +1,48 @@
-import { NextResponse } from 'next/server';
+import { NextRequest, NextResponse } from 'next/server';
 import { client } from '@/sanity/lib/client';
 
-export async function GET() {
+export async function GET(request: NextRequest) {
   try {
-    const query = `*[_type == "product"] | order(_createdAt desc) {
+    const { searchParams } = new URL(request.url);
+    const category = searchParams.get('category');
+
+    let filter = '*[_type == "product"';
+    if (category) {
+      filter += ` && category == "${category}"`;
+    }
+    filter += ']';
+
+    const query = `${filter} | order(_createdAt desc) {
       _id,
-      title,
+      "title": general.title,
       slug,
       category,
-      sku,
-      availability,
-      description,
-      productImage{
+      "availability": general.availability,
+      "description": general.description,
+      "productImage": media.productImage{
         asset->{
           _id,
           url
         },
         alt
       },
-      panelSpecifications,
-      batterySpecifications,
-      inverterSpecifications
+      "productImages": media.productImages[]{
+        _type,
+        asset->{
+          _id,
+          url
+        },
+        alt,
+        title
+      },
+      "datasheet": media.datasheet{
+        asset->{
+          _id,
+          url,
+          originalFilename
+        }
+      },
+      technical
     }`;
 
     const products = await client.fetch(query);
