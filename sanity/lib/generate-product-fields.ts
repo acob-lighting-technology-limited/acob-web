@@ -8,6 +8,8 @@ interface ProductData {
     name?: string;
     model?: string;
     capacity?: string;
+    capacityAhOrKwh?: string;
+    capacityKvaKw?: string;
     type?: string;
     batteryType?: string;
     cycleLife?: string;
