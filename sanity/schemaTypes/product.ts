@@ -1,5 +1,7 @@
 import { defineField, defineType } from 'sanity';
 import { PackageIcon } from '@sanity/icons';
+import { ProductTitleFieldWithGenerate } from '../components/ProductTitleFieldWithGenerate';
+import { ProductDescriptionFieldWithGenerate } from '../components/ProductDescriptionFieldWithGenerate';
 
 export const productType = defineType({
   name: 'product',
@@ -7,95 +9,95 @@ export const productType = defineType({
   type: 'document',
   icon: PackageIcon,
   fields: [
-    defineField({
-      name: 'title',
-      title: 'Product Title',
-      type: 'string',
-      description: 'The name of the product',
-      validation: Rule => Rule.required(),
-    }),
-    defineField({
-      name: 'slug',
-      title: 'Slug',
-      type: 'slug',
-      options: {
-        source: 'title',
-        maxLength: 96,
-      },
-      validation: Rule => Rule.required(),
-    }),
+    // Category - hidden, set automatically based on which category list item was clicked
+    // The category is determined by which list (Solar Panel, Battery, Inverter) the user creates from
     defineField({
       name: 'category',
       title: 'Product Category',
       type: 'string',
-      description: 'Select the product category',
+      hidden: true,
+      initialValue: 'solar-panel', // Default, should be set when creating from category list
+      validation: Rule => Rule.required(),
+    }),
+    // Slug - auto-generated, hidden
+    defineField({
+      name: 'slug',
+      title: 'Slug',
+      type: 'slug',
+      hidden: true,
       options: {
-        list: [
-          { title: 'Solar Panel', value: 'solar-panel' },
-          { title: 'Battery', value: 'battery' },
-          { title: 'Inverter', value: 'inverter' },
-        ],
-        layout: 'radio',
+        source: 'general.title',
+        maxLength: 96,
       },
       validation: Rule => Rule.required(),
     }),
+    // General Section
     defineField({
-      name: 'sku',
-      title: 'SKU',
-      type: 'string',
-      description: 'Product SKU/Code',
-      validation: Rule => Rule.required(),
-    }),
-    defineField({
-      name: 'availability',
-      title: 'Availability',
-      type: 'string',
-      description: 'Product availability status',
-      options: {
-        list: [
-          { title: 'In Stock', value: 'in-stock' },
-          { title: 'Out of Stock', value: 'out-of-stock' },
-          { title: 'Pre-Order', value: 'pre-order' },
-          { title: 'Coming Soon', value: 'coming-soon' },
-        ],
-      },
-      initialValue: 'in-stock',
-      validation: Rule => Rule.required(),
-    }),
-    defineField({
-      name: 'description',
-      title: 'Description',
-      type: 'text',
-      rows: 5,
-      description: 'Detailed product description',
-      validation: Rule => Rule.required(),
-    }),
-    defineField({
-      name: 'productImage',
-      title: 'Main Product Image',
-      type: 'image',
-      description: 'Main image for the product card',
-      options: {
-        hotspot: true,
-      },
+      name: 'general',
+      title: 'General',
+      type: 'object',
       fields: [
-        {
-          name: 'alt',
+        defineField({
+          name: 'availability',
+          title: 'Availability',
           type: 'string',
-          title: 'Alternative text',
-          description: 'Describe the image for accessibility',
-        },
+          description: 'Product availability status',
+          options: {
+            list: [
+              { title: 'In Stock', value: 'in-stock' },
+              { title: 'Out of Stock', value: 'out-of-stock' },
+              { title: 'Pre-Order', value: 'pre-order' },
+              { title: 'Coming Soon', value: 'coming-soon' },
+            ],
+          },
+          initialValue: 'in-stock',
+          validation: Rule => Rule.required(),
+        }),
+        defineField({
+          name: 'title',
+          title: 'Title (Auto-generated)',
+          type: 'string',
+          description:
+            'Product title is auto-generated from technical details. Click "Generate" to update.',
+          readOnly: true,
+          validation: Rule => Rule.required(),
+          components: {
+            input: ProductTitleFieldWithGenerate,
+          },
+        }),
+        defineField({
+          name: 'description',
+          title: 'Description',
+          type: 'text',
+          rows: 5,
+          description:
+            'Product description (click "Generate" to auto-generate or enter custom description)',
+          validation: Rule => Rule.required(),
+          components: {
+            input: ProductDescriptionFieldWithGenerate,
+          },
+        }),
+        defineField({
+          name: 'useCustomDescription',
+          title: 'Use Custom Description',
+          type: 'boolean',
+          description:
+            'Toggle to use custom description instead of auto-generated',
+          initialValue: false,
+        }),
       ],
-      validation: Rule => Rule.required(),
     }),
+    // Media Section
     defineField({
-      name: 'productImages',
-      title: 'Product Images/Videos Gallery',
-      type: 'array',
-      description: 'Additional product images and videos for the detail page',
-      of: [
-        {
+      name: 'media',
+      title: 'Media',
+      type: 'object',
+      fields: [
+        defineField({
+          name: 'productImage',
+          title: 'Main Product Image',
           type: 'image',
+          description: 'Main image for the product card',
           options: {
             hotspot: true,
           },
@@ -107,189 +109,264 @@ export const productType = defineType({
               description: 'Describe the image for accessibility',
             },
           ],
-        },
-        {
-          type: 'file',
-          name: 'video',
-          title: 'Video',
-          options: {
-            accept: 'video/*',
-          },
-          fields: [
+          validation: Rule => Rule.required(),
+        }),
+        defineField({
+          name: 'productImages',
+          title: 'Product Images/Videos Gallery',
+          type: 'array',
+          description:
+            'Additional product images and videos for the detail page',
+          of: [
             {
-              name: 'title',
-              type: 'string',
-              title: 'Video Title',
-              description: 'Optional title for the video',
+              type: 'image',
+              options: {
+                hotspot: true,
+              },
+              fields: [
+                {
+                  name: 'alt',
+                  type: 'string',
+                  title: 'Alternative text',
+                  description: 'Describe the image for accessibility',
+                },
+              ],
             },
             {
-              name: 'alt',
-              type: 'string',
-              title: 'Alternative text',
-              description: 'Describe the video for accessibility',
+              type: 'file',
+              name: 'video',
+              title: 'Video',
+              options: {
+                accept: 'video/*',
+              },
+              fields: [
+                {
+                  name: 'title',
+                  type: 'string',
+                  title: 'Video Title',
+                  description: 'Optional title for the video',
+                },
+                {
+                  name: 'alt',
+                  type: 'string',
+                  title: 'Alternative text',
+                  description: 'Describe the video for accessibility',
+                },
+              ],
             },
           ],
-        },
+        }),
+        defineField({
+          name: 'datasheet',
+          title: 'Datasheet',
+          type: 'file',
+          description: 'Upload product datasheet as PDF',
+          options: {
+            accept: '.pdf',
+          },
+        }),
       ],
     }),
-    // Solar Panel Specifications
+    // Technical Section - Solar Panel
     defineField({
-      name: 'panelSpecifications',
-      title: 'Solar Panel Specifications',
+      name: 'technical',
+      title: 'Technical',
       type: 'object',
-      description: 'Specifications for solar panel products',
       fields: [
         defineField({
-          name: 'powerRatingWatts',
-          title: 'Power Rating (Watts)',
+          name: 'name',
+          title: 'Name',
           type: 'string',
-          description: 'eg. 450W',
+          description: 'Product name',
           validation: Rule => Rule.required(),
         }),
         defineField({
-          name: 'efficiencyPercent',
-          title: 'Efficiency (%)',
+          name: 'model',
+          title: 'Model',
           type: 'string',
-          description: 'eg. 21%',
+          description: 'Product model number',
           validation: Rule => Rule.required(),
+        }),
+        // Solar Panel specific fields
+        defineField({
+          name: 'capacity',
+          title: 'Capacity (Watts)',
+          type: 'string',
+          description: 'Power rating in watts (e.g., 450W)',
+          validation: Rule =>
+            Rule.custom((value, context) => {
+              const category = context.document?.category as string | undefined;
+              if (category === 'solar-panel' && !value) {
+                return 'Capacity is required for solar panels';
+              }
+              return true;
+            }),
         }),
         defineField({
-          name: 'voltageVmpVoc',
-          title: 'Voltage (Vmp / Voc)',
+          name: 'type',
+          title: 'Type',
           type: 'string',
-          description: 'eg. Vmp 41.2V / Voc 49.5V',
-          validation: Rule => Rule.required(),
+          description: 'Panel type',
+          options: {
+            list: [
+              { title: 'Monofacial', value: 'monofacial' },
+              { title: 'Bifacial', value: 'bifacial' },
+            ],
+          },
+          hidden: ({ document }) => document?.category !== 'solar-panel',
+          validation: Rule =>
+            Rule.custom((value, context) => {
+              const category = context.document?.category as string | undefined;
+              if (category === 'solar-panel' && !value) {
+                return 'Type is required for solar panels';
+              }
+              return true;
+            }),
         }),
-        defineField({
-          name: 'dimensionsMm',
-          title: 'Dimensions (mm)',
-          type: 'string',
-          description: 'eg. 1900 x 1130 x 35 mm',
-          validation: Rule => Rule.required(),
-        }),
-        defineField({
-          name: 'warranty',
-          title: 'Warranty',
-          type: 'string',
-          description: 'eg. 25 years performance warranty',
-          validation: Rule => Rule.required(),
-        }),
-      ],
-      hidden: ({ parent }) => parent?.category !== 'solar-panel',
-      validation: Rule =>
-        Rule.custom((value, context) => {
-          const category = (context.parent as { category?: string })?.category;
-          if (category === 'solar-panel' && !value) {
-            return 'Solar panel specifications are required';
-          }
-          return true;
-        }),
-    }),
-    // Battery Specifications
-    defineField({
-      name: 'batterySpecifications',
-      title: 'Battery Specifications',
-      type: 'object',
-      description: 'Specifications for battery products',
-      fields: [
+        // Battery specific fields
         defineField({
           name: 'capacityAhOrKwh',
           title: 'Capacity (Ah or kWh)',
           type: 'string',
-          description: 'eg. 200Ah or 5.12kWh',
-          validation: Rule => Rule.required(),
+          description: 'Battery capacity (e.g., 200Ah or 5.12kWh)',
+          hidden: ({ document }) => document?.category !== 'battery',
+          validation: Rule =>
+            Rule.custom((value, context) => {
+              const category = context.document?.category as string | undefined;
+              if (category === 'battery' && !value) {
+                return 'Capacity is required for batteries';
+              }
+              return true;
+            }),
         }),
         defineField({
           name: 'batteryType',
           title: 'Battery Type',
           type: 'string',
-          description: 'eg. Lithium (LiFePO4)',
-          validation: Rule => Rule.required(),
+          description: 'Type of battery (e.g., Lithium LiFePO4)',
+          hidden: ({ document }) => document?.category !== 'battery',
+          validation: Rule =>
+            Rule.custom((value, context) => {
+              const category = context.document?.category as string | undefined;
+              if (category === 'battery' && !value) {
+                return 'Battery type is required';
+              }
+              return true;
+            }),
         }),
         defineField({
           name: 'cycleLife',
           title: 'Cycle Life',
           type: 'string',
-          description: 'eg. 6000 cycles @ 80% DOD',
-          validation: Rule => Rule.required(),
+          description: 'Cycle life (e.g., 6000 cycles @ 80% DOD)',
+          hidden: ({ document }) => document?.category !== 'battery',
+          validation: Rule =>
+            Rule.custom((value, context) => {
+              const category = context.document?.category as string | undefined;
+              if (category === 'battery' && !value) {
+                return 'Cycle life is required for batteries';
+              }
+              return true;
+            }),
         }),
         defineField({
           name: 'voltage',
           title: 'Voltage',
           type: 'string',
-          description: 'eg. 48V',
-          validation: Rule => Rule.required(),
+          description: 'Battery voltage (e.g., 48V)',
+          hidden: ({ document }) => document?.category !== 'battery',
+          validation: Rule =>
+            Rule.custom((value, context) => {
+              const category = context.document?.category as string | undefined;
+              if (category === 'battery' && !value) {
+                return 'Voltage is required for batteries';
+              }
+              return true;
+            }),
         }),
+        // Inverter specific fields
         defineField({
-          name: 'warranty',
-          title: 'Warranty',
+          name: 'capacityKvaKw',
+          title: 'Capacity (kVA / kW)',
           type: 'string',
-          description: 'eg. 5 years',
-          validation: Rule => Rule.required(),
+          description: 'Power rating (e.g., 5kVA / 4kW)',
+          hidden: ({ document }) => document?.category !== 'inverter',
+          validation: Rule =>
+            Rule.custom((value, context) => {
+              const category = context.document?.category as string | undefined;
+              if (category === 'inverter' && !value) {
+                return 'Capacity is required for inverters';
+              }
+              return true;
+            }),
         }),
-      ],
-      hidden: ({ parent }) => parent?.category !== 'battery',
-      validation: Rule =>
-        Rule.custom((value, context) => {
-          const category = (context.parent as { category?: string })?.category;
-          if (category === 'battery' && !value) {
-            return 'Battery specifications are required';
-          }
-          return true;
-        }),
-    }),
-    // Inverter Specifications
-    defineField({
-      name: 'inverterSpecifications',
-      title: 'Inverter Specifications',
-      type: 'object',
-      description: 'Specifications for inverter products',
-      fields: [
         defineField({
-          name: 'powerRatingKvaKw',
-          title: 'Power Rating (kVA / kW)',
+          name: 'phaseVoltage',
+          title: 'Phase Voltage',
           type: 'string',
-          description: 'eg. 5kVA / 4kW',
-          validation: Rule => Rule.required(),
+          description: 'Phase voltage specification',
+          hidden: ({ document }) => document?.category !== 'inverter',
+          validation: Rule =>
+            Rule.custom((value, context) => {
+              const category = context.document?.category as string | undefined;
+              if (category === 'inverter' && !value) {
+                return 'Phase voltage is required for inverters';
+              }
+              return true;
+            }),
         }),
         defineField({
-          name: 'inputVoltage',
-          title: 'Input Voltage',
+          name: 'inverterType',
+          title: 'Inverter Type',
           type: 'string',
-          description: 'eg. 48V DC',
-          validation: Rule => Rule.required(),
+          description: 'Type of inverter',
+          options: {
+            list: [
+              { title: 'Hybrid', value: 'hybrid' },
+              { title: 'Non-Hybrid', value: 'non-hybrid' },
+            ],
+          },
+          hidden: ({ document }) => document?.category !== 'inverter',
+          validation: Rule =>
+            Rule.custom((value, context) => {
+              const category = context.document?.category as string | undefined;
+              if (category === 'inverter' && !value) {
+                return 'Inverter type is required';
+              }
+              return true;
+            }),
         }),
         defineField({
-          name: 'outputVoltage',
-          title: 'Output Voltage',
-          type: 'string',
-          description: 'eg. 230V AC',
-          validation: Rule => Rule.required(),
-        }),
-        defineField({
-          name: 'efficiencyPercent',
+          name: 'efficiency',
           title: 'Efficiency (%)',
           type: 'string',
-          description: 'eg. 97%',
-          validation: Rule => Rule.required(),
+          description: 'Efficiency percentage (e.g., 97%)',
+          hidden: ({ document }) => document?.category !== 'inverter',
+          validation: Rule =>
+            Rule.custom((value, context) => {
+              const category = context.document?.category as string | undefined;
+              if (category === 'inverter' && !value) {
+                return 'Efficiency is required for inverters';
+              }
+              return true;
+            }),
         }),
         defineField({
-          name: 'warranty',
-          title: 'Warranty',
+          name: 'ipRatings',
+          title: 'IP Ratings',
           type: 'string',
-          description: 'eg. 2 years',
-          validation: Rule => Rule.required(),
+          description: 'IP protection rating (e.g., IP65)',
+          hidden: ({ document }) => document?.category !== 'inverter',
+          validation: Rule =>
+            Rule.custom((value, context) => {
+              const category = context.document?.category as string | undefined;
+              if (category === 'inverter' && !value) {
+                return 'IP ratings is required for inverters';
+              }
+              return true;
+            }),
         }),
       ],
-      hidden: ({ parent }) => parent?.category !== 'inverter',
-      validation: Rule =>
-        Rule.custom((value, context) => {
-          const category = (context.parent as { category?: string })?.category;
-          if (category === 'inverter' && !value) {
-            return 'Inverter specifications are required';
-          }
-          return true;
-        }),
     }),
     defineField({
       name: 'isFeatured',
@@ -302,13 +379,12 @@ export const productType = defineType({
   ],
   preview: {
     select: {
-      title: 'title',
+      title: 'general.title',
       category: 'category',
-      sku: 'sku',
-      availability: 'availability',
-      media: 'productImage',
+      availability: 'general.availability',
+      media: 'media.productImage',
     },
-    prepare({ title, category, sku, availability, media }) {
+    prepare({ title, category, availability, media }) {
       const availabilityLabels: Record<string, string> = {
         'in-stock': '✓ In Stock',
         'out-of-stock': '✗ Out of Stock',
@@ -324,7 +400,7 @@ export const productType = defineType({
 
       return {
         title: title,
-        subtitle: `${categoryLabels[category] || category} • SKU: ${sku} • ${availabilityLabels[availability] || availability}`,
+        subtitle: `${categoryLabels[category] || category} • ${availabilityLabels[availability] || availability}`,
         media: media,
       };
     },

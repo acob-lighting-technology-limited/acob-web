@@ -34,10 +34,39 @@ export default defineConfig({
             S.listItem()
               .title('Projects')
               .child(S.documentTypeList('project').title('Projects')),
-            // Products
+            // Products - with category filtering
             S.listItem()
               .title('Products')
-              .child(S.documentTypeList('product').title('Products')),
+              .child(
+                S.list()
+                  .title('Product Categories')
+                  .items([
+                    S.listItem()
+                      .title('Solar Panel')
+                      .icon(() => '☀️')
+                      .child(
+                        S.documentTypeList('product')
+                          .title('Solar Panel Products')
+                          .filter('category == "solar-panel"'),
+                      ),
+                    S.listItem()
+                      .title('Battery')
+                      .icon(() => '🔋')
+                      .child(
+                        S.documentTypeList('product')
+                          .title('Battery Products')
+                          .filter('category == "battery"'),
+                      ),
+                    S.listItem()
+                      .title('Inverter')
+                      .icon(() => '⚡')
+                      .child(
+                        S.documentTypeList('product')
+                          .title('Inverter Products')
+                          .filter('category == "inverter"'),
+                      ),
+                  ]),
+              ),
             // Job Postings
             S.listItem()
               .title('Job Postings')
