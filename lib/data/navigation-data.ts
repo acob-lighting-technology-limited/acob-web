@@ -111,30 +111,30 @@ export const navigationItems = [
       },
     ],
   },
-  {
-    name: 'Shop',
-    href: '/shop',
-    subItems: [
-      {
-        name: 'Solar Panel',
-        href: '/shop/solar-panel',
-        description: 'High-efficiency solar panels',
-        icon: 'Sun',
-      },
-      {
-        name: 'Inverter',
-        href: '/shop/inverter',
-        description: 'Advanced power conversion systems',
-        icon: 'Zap',
-      },
-      {
-        name: 'Battery',
-        href: '/shop/battery',
-        description: 'Reliable energy storage solutions',
-        icon: 'Battery',
-      },
-    ],
-  },
+  // {
+  //   name: 'Shop',
+  //   href: '/shop',
+  //   subItems: [
+  //     {
+  //       name: 'Solar Panel',
+  //       href: '/shop/solar-panel',
+  //       description: 'High-efficiency solar panels',
+  //       icon: 'Sun',
+  //     },
+  //     {
+  //       name: 'Inverter',
+  //       href: '/shop/inverter',
+  //       description: 'Advanced power conversion systems',
+  //       icon: 'Zap',
+  //     },
+  //     {
+  //       name: 'Battery',
+  //       href: '/shop/battery',
+  //       description: 'Reliable energy storage solutions',
+  //       icon: 'Battery',
+  //     },
+  //   ],
+  // },
   {
     name: 'Updates & Media',
     href: '/updates',

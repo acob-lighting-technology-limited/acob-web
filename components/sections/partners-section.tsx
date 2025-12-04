@@ -31,38 +31,76 @@ export function PartnersSection() {
         </FadeIn>
 
         <FadeIn delay={0.4}>
-          <div
-            ref={marqueeRef}
-            className="relative w-full overflow-hidden rounded-2xl "
-          >
-            <Marquee
-              speed={40}
-              gradient={false}
-              loop={0}
-              className="relative z-0"
-            >
-              {partners.map((partner, idx) => (
-                <div
-                  key={idx}
-                  data-logo-index={idx}
-                  className="flex items-center justify-center px-10 sm:px-16"
-                >
-                  <div className="relative opacity-80 hover:opacity-100 transition-opacity duration-500">
-                    <Image
-                      src={partner.logo}
-                      alt={partner.name}
-                      width={100}
-                      height={75}
-                      className="h-12 sm:h-14 md:h-16 w-auto"
-                      loading="lazy"
-                      quality={75}
-                      placeholder="blur"
-                      blurDataURL={getBlurDataURL()}
-                    />
-                  </div>
-                </div>
-              ))}
-            </Marquee>
+          <div className="space-y-16">
+            {/* First half: Left to Right */}
+            <div ref={marqueeRef} className="relative w-full overflow-hidden">
+              <Marquee
+                speed={40}
+                gradient={false}
+                loop={0}
+                direction="left"
+                className="relative z-0"
+              >
+                {partners
+                  .slice(0, Math.ceil(partners.length / 2))
+                  .map((partner, idx) => (
+                    <div
+                      key={idx}
+                      data-logo-index={idx}
+                      className="flex items-center justify-center px-10 sm:px-16"
+                    >
+                      <div className="relative opacity-80 hover:opacity-100 transition-opacity duration-500">
+                        <Image
+                          src={partner.logo}
+                          alt={partner.name}
+                          width={100}
+                          height={75}
+                          className="h-12 sm:h-14 md:h-16 w-auto"
+                          loading="lazy"
+                          quality={75}
+                          placeholder="blur"
+                          blurDataURL={getBlurDataURL()}
+                        />
+                      </div>
+                    </div>
+                  ))}
+              </Marquee>
+            </div>
+
+            {/* Second half: Right to Left */}
+            <div className="relative w-full overflow-hidden">
+              <Marquee
+                speed={40}
+                gradient={false}
+                loop={0}
+                direction="right"
+                className="relative z-0"
+              >
+                {partners
+                  .slice(Math.ceil(partners.length / 2))
+                  .map((partner, idx) => (
+                    <div
+                      key={`second-half-${idx}`}
+                      data-logo-index={Math.ceil(partners.length / 2) + idx}
+                      className="flex items-center justify-center px-10 sm:px-16"
+                    >
+                      <div className="relative opacity-80 hover:opacity-100 transition-opacity duration-500">
+                        <Image
+                          src={partner.logo}
+                          alt={partner.name}
+                          width={100}
+                          height={75}
+                          className="h-12 sm:h-14 md:h-16 w-auto"
+                          loading="lazy"
+                          quality={75}
+                          placeholder="blur"
+                          blurDataURL={getBlurDataURL()}
+                        />
+                      </div>
+                    </div>
+                  ))}
+              </Marquee>
+            </div>
           </div>
         </FadeIn>
       </Container>
