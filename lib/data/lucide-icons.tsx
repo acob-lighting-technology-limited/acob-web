@@ -23,6 +23,8 @@ import {
   Calendar,
   Sparkles,
   Package,
+  Sun,
+  Battery,
 } from 'lucide-react';
 
 // Lucide icon mapping
@@ -54,4 +56,6 @@ export const LucideIcons: Record<
   Calendar,
   Sparkles,
   Package,
+  Sun,
+  Battery,
 };
