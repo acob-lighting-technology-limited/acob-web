@@ -44,7 +44,7 @@ export default async function UpdatesPage({ searchParams }: UpdatesPageProps) {
       <Hero
         image={updateImages}
         title="Updates & News"
-        description="Latest News, Projects, and Insights from ACOB Lighting"
+        description="Latest News, Projects, and Insights from ACOB Lighting Technology Limited"
       />
 
       <Container className="px-4 py-8">
