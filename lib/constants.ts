@@ -30,7 +30,7 @@ export const COMPANY_INFO = {
   stats: {
     // Main company stats - all values only, no suffixes or units
     projectsCompleted: 100,
-    totalCapacityMW: 10,
+    totalCapacityMW: 7,
     communitiesServed: 50,
     staffStrength: 90,
 
