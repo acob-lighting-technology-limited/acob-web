@@ -34,7 +34,7 @@ export async function GET(request: NextRequest) {
     // Load the watermark logo
     const watermarkPath = path.join(
       process.cwd(),
-      'public/images/acob-logo-dark.webp',
+      'public/images/acob-logo-dark.png',
     );
     const watermarkBuffer = await fs.readFile(watermarkPath);
 
