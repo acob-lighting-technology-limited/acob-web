@@ -117,7 +117,7 @@ export async function POST(request: NextRequest) {
             <!-- Header -->
             <div style="background: linear-gradient(135deg, #15803d 0%, #166534 100%); padding: 40px 30px; text-align: center;">
               <div style="margin-bottom: 25px;">
-                <img src="https://www.acoblighting.com/images/acob-logo-light.webp" alt="ACOB Lighting Technology" style="height: 60px; width: auto; max-width: 200px;">
+                <img src="https://www.acoblighting.com/images/acob-logo-light.png" alt="ACOB Lighting Technology" style="height: 60px; width: auto; max-width: 200px;">
               </div>
               <h1 style="color: #ffffff; margin: 0; font-size: 28px; font-weight: 700; letter-spacing: -0.5px;">
                 New Job Application
@@ -266,7 +266,7 @@ export async function POST(request: NextRequest) {
             <!-- Footer -->
             <div style="background: linear-gradient(135deg, #f9fafb 0%, #f3f4f6 100%); padding: 25px 30px; text-align: center; border-top: 1px solid #e5e7eb;">
               <div style="margin-bottom: 20px;">
-                <img src="https://www.acoblighting.com/images/acob-logo-dark.webp" alt="ACOB Lighting Technology" style="height: 40px; width: auto; margin-bottom: 10px;">
+                <img src="https://www.acoblighting.com/images/acob-logo-dark.png" alt="ACOB Lighting Technology" style="height: 40px; width: auto; margin-bottom: 10px;">
                 <p style="margin: 0; color: #374151; font-size: 14px; font-weight: 500;">
                   ACOB Lighting Technology Limited
                 </p>

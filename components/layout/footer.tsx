@@ -48,7 +48,7 @@ function SocialIconButton({
 }
 
 export function Footer() {
-  const logoSrc = '/images/acob-logo-dark.webp';
+  const logoSrc = '/images/acob-logo-dark.png';
 
   // Brand colors for social media platforms
   const brandColors: Record<string, string> = {

@@ -410,7 +410,7 @@ export function Header() {
   const logoSrc = !mounted
     ? '/images/acob-logo-light.png'
     : resolvedTheme === 'dark'
-      ? '/images/acob-logo-dark.webp'
+      ? '/images/acob-logo-dark.png'
       : '/images/acob-logo-light.png';
   const [showHeader, setShowHeader] = useState(true);
   const [lastScrollY, setLastScrollY] = useState(0);
