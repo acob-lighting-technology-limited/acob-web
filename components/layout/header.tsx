@@ -408,10 +408,10 @@ export function Header() {
 
   // Default to light logo for SSR to prevent hydration mismatch
   const logoSrc = !mounted
-    ? '/images/acob-logo-light.webp'
+    ? '/images/acob-logo-light.png'
     : resolvedTheme === 'dark'
       ? '/images/acob-logo-dark.webp'
-      : '/images/acob-logo-light.webp';
+      : '/images/acob-logo-light.png';
   const [showHeader, setShowHeader] = useState(true);
   const [lastScrollY, setLastScrollY] = useState(0);
   const scrollTimeoutRef = useRef<NodeJS.Timeout | null>(null);
