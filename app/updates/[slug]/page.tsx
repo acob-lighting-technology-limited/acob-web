@@ -87,8 +87,8 @@ export default async function UpdatePage({ params }: UpdatePageProps) {
       <Container className="px-4 py-8">
         <Breadcrumb items={breadcrumbItems} className="mb-8" />
 
-        <Card className="">
-          <CardContent className="p-4 sm:p-6 xl:p-8 space-y-8">
+        <Card className="pt-2">
+          <CardContent className="p-4 sm:p-6 xl:p-8 space-y-4 sm:space-y-6">
             {/* Post Header */}
             <div>
               <h1 className="text-2xl sm:text-3xl font-bold text-foreground mb-4">

@@ -62,7 +62,7 @@ export const Hero = React.memo(function Hero({
 
         {/* Content Overlay */}
         {(title || description) && (
-          <div className="absolute inset-0 z-10 flex items-end pb-10">
+          <div className="absolute inset-0 z-10 flex items-end pb-4 sm:pb-6 xl:pb-10">
             <div className="2xl:container max-w-7xl mx-auto px-4 w-full">
               <div className="text-white max-w-5xl space-y-3">
                 {title && (

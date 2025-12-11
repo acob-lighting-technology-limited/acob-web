@@ -53,8 +53,8 @@ export default async function ServicePage({ params }: ServicePageProps) {
           {/* Main Content */}
           <div>
             {/* Overview */}
-            <Card className="border shadow-md border-border bg-surface ">
-              <CardContent className="p-4 sm:p-6 xl:p-8">
+            <Card className="border shadow-md border-border bg-surface pt-2">
+              <CardContent className="p-4 sm:p-6 xl:p-8 space-y-4 sm:space-y-6">
                 <div className="max-w-3xl">
                   <h2 className="text-2xl sm:text-3xl font-bold mb-6 text-foreground">
                     Overview
