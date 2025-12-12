@@ -209,10 +209,10 @@ export default async function UpdatePage({ params }: UpdatePageProps) {
         </div>
 
         {/* Display Comments */}
-        <div className="mt-12">
+        <div className="mt-8 sm:mt-12">
           <Card className="border shadow-md border-border bg-surface">
             <CardContent className="p-4 sm:p-6 xl:p-8">
-              <h2 className="text-2xl font-bold mb-6">
+              <h2 className="text-xl sm:text-2xl font-bold mb-4 sm:mb-6">
                 Comments ({comments.length})
               </h2>
               {comments.length > 0 ? (
@@ -263,7 +263,7 @@ export default async function UpdatePage({ params }: UpdatePageProps) {
         </div>
 
         {/* Comment Form */}
-        <div className="mt-12">
+        <div className="mt-8 sm:mt-12">
           <CommentForm postId={post._id} />
         </div>
       </Container>

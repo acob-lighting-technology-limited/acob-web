@@ -23,6 +23,7 @@ import {
 } from '@/sanity/lib/client';
 import { StructuredData } from '@/components/seo/structured-data';
 import { ImageProtectionProvider } from '@/components/providers/image-protection-provider';
+import { FaviconSwitcher } from '@/components/favicon-switcher';
 
 const plusJakarta = Plus_Jakarta_Sans({
   subsets: ['latin'],
@@ -112,6 +113,7 @@ export default async function RootLayout({
       <body className={`${plusJakarta.className} ${plusJakarta.variable}`}>
         <StructuredData />
         <Providers>
+          <FaviconSwitcher />
           <NProgressProvider>
             <ImageProtectionProvider>
               <Toaster

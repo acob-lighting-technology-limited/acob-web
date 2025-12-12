@@ -240,7 +240,7 @@ export const HeroSection = React.memo(function HeroSection({
                   animationFillMode: 'forwards',
                 }}
               >
-                <p className="max-w-xl text-sm md:text-base text-gray-200">
+                <p className="max-w-xl text-3xl md:text-base text-gray-200">
                   We deliver dependable solar, mini-grid, and energy storage
                   solutions that unlock productivity and resilience for
                   communities across Nigeria.

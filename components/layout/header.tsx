@@ -11,6 +11,7 @@ import { ChevronDown, Menu, X, Package } from 'lucide-react';
 import { navigationItems } from '@/lib/data/navigation-data';
 import { LucideIcons } from '@/lib/data/lucide-icons';
 import { motion, AnimatePresence } from 'framer-motion';
+import { isChristmasPeriod } from '@/lib/utils/christmas-period';
 import {
   SCROLL_THRESHOLD,
   HEADER_SHOW_THRESHOLD,
@@ -406,12 +407,21 @@ export function Header() {
   const { resolvedTheme } = useTheme();
   const pathname = usePathname();
 
+  // Check if we're in Christmas period
+  const isChristmas = isChristmasPeriod();
+
   // Default to light logo for SSR to prevent hydration mismatch
   const logoSrc = !mounted
-    ? '/images/acob-logo-light.png'
-    : resolvedTheme === 'dark'
-      ? '/images/acob-logo-dark.png'
-      : '/images/acob-logo-light.png';
+    ? isChristmas
+      ? '/images/acob-logo-light-christmas.png'
+      : '/images/acob-logo-light.png'
+    : isChristmas
+      ? resolvedTheme === 'dark'
+        ? '/images/acob-logo-dark-christmas.png'
+        : '/images/acob-logo-light-christmas.png'
+      : resolvedTheme === 'dark'
+        ? '/images/acob-logo-dark.png'
+        : '/images/acob-logo-light.png';
   const [showHeader, setShowHeader] = useState(true);
   const [lastScrollY, setLastScrollY] = useState(0);
   const scrollTimeoutRef = useRef<NodeJS.Timeout | null>(null);
