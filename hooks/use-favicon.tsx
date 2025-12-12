@@ -1,13 +1,23 @@
-import { useTheme } from 'next-themes';
 import { useEffect } from 'react';
+import { isChristmasPeriod } from '@/lib/utils/christmas-period';
 
 export function useFavicon() {
-  const { resolvedTheme } = useTheme();
+  const updateFavicon = (isDark: boolean) => {
+    // Only run on client side
+    if (typeof window === 'undefined') {
+      return;
+    }
 
-  const updateFavicon = (theme: string) => {
-    const faviconPath =
-      theme === 'dark' ? '/favicon-dark.ico' : '/favicon-light.ico';
+    const isChristmas = isChristmasPeriod();
+    const faviconPath = isChristmas
+      ? isDark
+        ? '/favicon-dark-christmas.ico'
+        : '/favicon-light-christmas.ico'
+      : isDark
+        ? '/favicon-dark.ico'
+        : '/favicon-light.ico';
 
+    // Find or create favicon link
     let faviconLink = document.querySelector(
       "link[rel='icon']",
     ) as HTMLLinkElement;
@@ -19,14 +29,45 @@ export function useFavicon() {
       document.head.appendChild(faviconLink);
     }
 
-    faviconLink.href = faviconPath;
+    // Update favicon if it's different
+    if (faviconLink.href !== `${window.location.origin}${faviconPath}`) {
+      faviconLink.href = faviconPath;
+    }
   };
 
   useEffect(() => {
-    if (resolvedTheme) {
-      updateFavicon(resolvedTheme);
+    // Only run on client side
+    if (typeof window === 'undefined') {
+      return;
     }
-  }, [resolvedTheme]);
+
+    // Check system preference using media query
+    const mediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
+
+    // Initial check - set immediately
+    updateFavicon(mediaQuery.matches);
+
+    // Listen for system theme changes
+    const handleChange = () => {
+      updateFavicon(mediaQuery.matches);
+    };
+
+    // Modern browsers
+    if (mediaQuery.addEventListener) {
+      mediaQuery.addEventListener('change', handleChange);
+    } else {
+      // Fallback for older browsers
+      mediaQuery.addListener(handleChange);
+    }
+
+    return () => {
+      if (mediaQuery.removeEventListener) {
+        mediaQuery.removeEventListener('change', handleChange);
+      } else {
+        mediaQuery.removeListener(handleChange);
+      }
+    };
+  }, []);
 
   return { updateFavicon };
 }

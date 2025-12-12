@@ -10,6 +10,7 @@ import {
   companyInfo,
 } from '@/lib/data/footer-data';
 import { toast } from 'sonner';
+import { isChristmasPeriod } from '@/lib/utils/christmas-period';
 
 // Social Icon Button Component with brand color animation
 function SocialIconButton({
@@ -48,7 +49,10 @@ function SocialIconButton({
 }
 
 export function Footer() {
-  const logoSrc = '/images/acob-logo-dark.png';
+  const isChristmas = isChristmasPeriod();
+  const logoSrc = isChristmas
+    ? '/images/acob-logo-dark-christmas.png'
+    : '/images/acob-logo-dark.png';
 
   // Brand colors for social media platforms
   const brandColors: Record<string, string> = {
