@@ -102,7 +102,7 @@ export function CompanySection() {
                   Strategic capabilities
                 </h3>
                 <div className="grid gap-3 sm:gap-4 grid-cols-1 sm:grid-cols-2">
-                  <div className="rounded-xl sm:rounded-2xl border border-border bg-background/60 p-3 sm:p-4 hover:shadow-md transition-shadow duration-500">
+                  <div className="group rounded-xl sm:rounded-2xl border border-border bg-background/60 p-3 sm:p-4 transition-all duration-500 hover:shadow-lg hover:-translate-y-1 cursor-pointer">
                     <h4 className="text-sm sm:text-base font-semibold text-foreground mb-1 sm:mb-2">
                       Advisory & development
                     </h4>
@@ -111,7 +111,7 @@ export function CompanySection() {
                       and project structuring.
                     </p>
                   </div>
-                  <div className="rounded-xl sm:rounded-2xl border border-border bg-background/60 p-3 sm:p-4 hover:shadow-md transition-shadow duration-500">
+                  <div className="group rounded-xl sm:rounded-2xl border border-border bg-background/60 p-3 sm:p-4 transition-all duration-500 hover:shadow-lg hover:-translate-y-1 cursor-pointer">
                     <h4 className="text-sm sm:text-base font-semibold text-foreground mb-1 sm:mb-2">
                       Engineering & operations
                     </h4>
@@ -177,11 +177,11 @@ export function CompanySection() {
                     delay={index * 0.15}
                     direction="up"
                   >
-                    <div className="rounded-xl sm:rounded-2xl border border-border bg-card/80 p-3 sm:p-4 shadow-sm backdrop-blur supports-[backdrop-filter]:backdrop-blur-xl hover:shadow-md transition-shadow duration-500">
+                    <div className="group h-full flex flex-col rounded-xl sm:rounded-2xl border border-border bg-card/80 p-3 sm:p-4 shadow-sm backdrop-blur supports-[backdrop-filter]:backdrop-blur-xl transition-all duration-500 hover:shadow-lg hover:-translate-y-1 cursor-pointer">
                       <h4 className="text-sm sm:text-base font-semibold text-foreground mb-1 sm:mb-2">
                         {highlight.title}
                       </h4>
-                      <p className="text-xs sm:text-sm text-muted-foreground leading-relaxed">
+                      <p className="text-xs sm:text-sm text-muted-foreground leading-relaxed flex-1">
                         {highlight.description}
                       </p>
                     </div>

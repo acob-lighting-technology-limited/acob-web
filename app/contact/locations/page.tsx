@@ -31,6 +31,7 @@ export default function LocationsPage() {
   return (
     <>
       <Hero
+        title="Office Locations"
         description="Find Us Across Nigeria"
         image="/images/contact/office-location-hero.webp?height=400&width=1200"
       />

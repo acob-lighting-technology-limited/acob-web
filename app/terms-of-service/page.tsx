@@ -13,6 +13,7 @@ export default function TermsOfServicePage() {
   return (
     <>
       <Hero
+        title="Terms of Service"
         description="Terms and Conditions of Use"
         image="/images/contact/contact-us.webp"
       />

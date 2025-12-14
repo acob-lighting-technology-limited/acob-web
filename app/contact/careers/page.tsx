@@ -19,6 +19,7 @@ import Link from 'next/link';
 import { whyWorkItems, contactLinks } from '@/lib/data/contact-data';
 import { getJobPostings } from '@/sanity/lib/client';
 import { useEffect, useState } from 'react';
+import { FadeIn } from '@/components/animations/FadeIn';
 
 // Icon mapping
 const iconMap = {
@@ -55,6 +56,7 @@ export default function CareersPage() {
   return (
     <>
       <Hero
+        title="Careers"
         description="Join Our Mission to Power Nigeria"
         image="/images/contact/careers.webp?height=400&width=1200"
       />
@@ -95,25 +97,25 @@ export default function CareersPage() {
                   Why Work at ACOB Lighting?
                 </h2>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6">
-                  {whyWorkItems.map(({ icon, title, description }) => {
+                  {whyWorkItems.map(({ icon, title, description }, index) => {
                     const IconComponent = iconMap[icon as keyof typeof iconMap];
                     return (
-                      <div
-                        key={title}
-                        className="flex items-start gap-3 md:gap-4 p-4 md:p-5 rounded-xl bg-muted/30 border border-border hover:bg-muted/50 transition-colors duration-500"
-                      >
-                        <div className="w-10 h-10 md:w-12 md:h-12 bg-primary/10 rounded-lg flex items-center justify-center flex-shrink-0">
-                          <IconComponent className="h-5 w-5 md:h-6 md:w-6 text-primary" />
+                      <FadeIn key={title} delay={index * 0.15} direction="up">
+                        <div className="group flex items-start gap-3 md:gap-4 p-4 md:p-5 rounded-xl bg-muted/30 border border-border hover:shadow-lg hover:-translate-y-1 transition-all duration-500 cursor-pointer">
+                          <div className="relative rounded-full bg-primary/10 p-3 overflow-hidden transition-all duration-500 flex items-center justify-center group-hover:bg-primary group-hover:scale-110 w-10 h-10 md:w-12 md:h-12 flex-shrink-0">
+                            <div className="absolute inset-0 bg-primary transform scale-0 transition-transform duration-500 ease-out group-hover:scale-100 rounded-full origin-center" />
+                            <IconComponent className="h-5 w-5 md:h-6 md:w-6 relative z-10 transition-colors duration-500 text-muted-foreground group-hover:text-primary-foreground" />
+                          </div>
+                          <div className="flex-1">
+                            <h4 className="font-semibold text-base md:text-lg mb-1.5 md:mb-2 text-foreground">
+                              {title}
+                            </h4>
+                            <p className="text-sm text-muted-foreground leading-relaxed">
+                              {description}
+                            </p>
+                          </div>
                         </div>
-                        <div className="flex-1">
-                          <h4 className="font-semibold text-base md:text-lg mb-1.5 md:mb-2 text-foreground">
-                            {title}
-                          </h4>
-                          <p className="text-sm text-muted-foreground leading-relaxed">
-                            {description}
-                          </p>
-                        </div>
-                      </div>
+                      </FadeIn>
                     );
                   })}
                 </div>

@@ -78,6 +78,7 @@ export default function MissionPage() {
   return (
     <>
       <Hero
+        title="Mission & Vision"
         description="Building Resilient Energy Infrastructure"
         image={aboutSection?.image || '/images/about/mission-vision.webp'}
       />
@@ -245,13 +246,14 @@ export default function MissionPage() {
               return (
                 <Card
                   key={milestone.year}
-                  className="group relative overflow-hidden rounded-3xl border border-border bg-background shadow-sm transition-all duration-500 hover:-translate-y-1 hover:shadow-lg"
+                  className="group relative overflow-hidden rounded-3xl border border-border bg-muted/20 shadow-sm transition-all duration-500 hover:-translate-y-1 hover:shadow-lg"
                 >
                   <CardContent className="p-5">
                     <div className="mb-4 flex items-center justify-between">
-                      <div className="flex h-12 w-12 items-center justify-center rounded-full bg-primary/10 transition-all duration-500 group-hover:bg-primary group-hover:scale-110">
+                      <div className="relative flex h-12 w-12 items-center justify-center rounded-full bg-primary/10 overflow-hidden transition-all duration-500 group-hover:bg-primary group-hover:scale-110">
+                        <div className="absolute inset-0 bg-primary transform scale-0 transition-transform duration-500 ease-out group-hover:scale-100 rounded-full origin-center" />
                         {IconComponent && (
-                          <IconComponent className="h-6 w-6 text-primary transition-colors duration-500 group-hover:text-white" />
+                          <IconComponent className="h-6 w-6 relative z-10 text-muted-foreground transition-colors duration-500 group-hover:text-primary-foreground" />
                         )}
                       </div>
                       <span className="rounded-full bg-primary/10 px-3 py-1 text-xs font-bold text-primary">

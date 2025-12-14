@@ -26,7 +26,7 @@ export function ComingSoon({
   return (
     <>
       {backgroundImage ? (
-        <Hero description={description} image={backgroundImage} />
+        <Hero title={title} description={description} image={backgroundImage} />
       ) : null}
 
       <Container className="px-4 py-16 sm:py-20">

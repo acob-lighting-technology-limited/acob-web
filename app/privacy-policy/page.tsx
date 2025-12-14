@@ -13,6 +13,7 @@ export default function PrivacyPolicyPage() {
   return (
     <>
       <Hero
+        title="Privacy Policy"
         description="How We Protect Your Information"
         image="/images/contact/contact-us.webp"
       />

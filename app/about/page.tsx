@@ -86,8 +86,7 @@ export default function AboutPage() {
                       variant="default"
                       className="w-full mt-auto text-xs md:text-sm py-2 md:py-2.5 h-auto"
                     >
-                      <span className="hidden md:inline">Learn More</span>
-                      <span className="md:hidden">More</span>
+                      Learn More
                       <ArrowRight className="ml-1 md:ml-2 h-3 w-3 md:h-4 md:w-4" />
                     </Button>
                   </CardContent>

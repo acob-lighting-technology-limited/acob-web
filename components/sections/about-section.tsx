@@ -50,7 +50,7 @@ export function AboutSection() {
                 How we support your energy transition
               </h3>
               <div className="grid gap-4 sm:grid-cols-2">
-                <div className="rounded-2xl border border-white/20 bg-white/10 p-4">
+                <div className="group rounded-2xl border border-white/20 bg-white/10 p-4 transition-all duration-500 hover:shadow-lg hover:-translate-y-1 cursor-pointer">
                   <h4 className="text-lg font-semibold text-primary-foreground">
                     Advisory & Audits
                   </h4>
@@ -59,7 +59,7 @@ export function AboutSection() {
                     to chart the best path forward.
                   </p>
                 </div>
-                <div className="rounded-2xl border border-white/20 bg-white/10 p-4">
+                <div className="group rounded-2xl border border-white/20 bg-white/10 p-4 transition-all duration-500 hover:shadow-lg hover:-translate-y-1 cursor-pointer">
                   <h4 className="text-lg font-semibold text-primary-foreground">
                     Engineering & Delivery
                   </h4>
@@ -68,7 +68,7 @@ export function AboutSection() {
                     high-performance solar and storage assets.
                   </p>
                 </div>
-                <div className="rounded-2xl border border-white/20 bg-white/10 p-4">
+                <div className="group rounded-2xl border border-white/20 bg-white/10 p-4 transition-all duration-500 hover:shadow-lg hover:-translate-y-1 cursor-pointer">
                   <h4 className="text-lg font-semibold text-primary-foreground">
                     Operations & Growth
                   </h4>
@@ -77,7 +77,7 @@ export function AboutSection() {
                     and communities powered.
                   </p>
                 </div>
-                <div className="rounded-2xl border border-white/20 bg-white/10 p-4">
+                <div className="group rounded-2xl border border-white/20 bg-white/10 p-4 transition-all duration-500 hover:shadow-lg hover:-translate-y-1 cursor-pointer">
                   <h4 className="text-lg font-semibold text-primary-foreground">
                     Investment Support
                   </h4>
