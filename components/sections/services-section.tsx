@@ -127,22 +127,22 @@ const ServicesSection = React.memo(function ServicesSection() {
                 delay={index * 0.15}
                 direction="up"
               >
-                <div className="group flex items-start gap-4 rounded-2xl border border-border bg-card/80 p-4 shadow-sm backdrop-blur supports-[backdrop-filter]:backdrop-blur-xl transition-all duration-500 hover:shadow-lg cursor-pointer">
-                  <div className="relative h-16 w-36 overflow-hidden rounded-xl bg-primary/10 transition-all duration-500 group-hover:bg-primary group-hover:scale-105">
-                    {/* Animated fill effect */}
-                    <div className="absolute inset-0 bg-primary transform scale-0 transition-transform duration-500 ease-out group-hover:scale-100 origin-center" />
+                <div className="group flex items-start gap-4 rounded-2xl border border-border bg-card/80 p-4 shadow-sm backdrop-blur supports-[backdrop-filter]:backdrop-blur-xl transition-all duration-500 hover:shadow-lg hover:-translate-y-1 cursor-pointer">
+                  <div className="relative rounded-full bg-primary/10 p-3 overflow-hidden transition-all duration-500 flex items-center justify-center group-hover:bg-primary group-hover:scale-110 h-16 w-16 flex-shrink-0">
+                    <div className="absolute inset-0 bg-primary transform scale-0 transition-transform duration-500 ease-out group-hover:scale-100 rounded-full origin-center" />
                     <Image
                       src={service.icon || service.image || '/placeholder.svg'}
                       alt={service.title}
-                      fill
-                      className="object-contain p-1 relative z-10 transition-all duration-500 group-hover:brightness-0 group-hover:invert"
+                      width={24}
+                      height={24}
+                      className="object-contain relative z-10 transition-all duration-500 group-hover:brightness-0 group-hover:invert"
                     />
                   </div>
-                  <div className="space-y-2">
-                    <h4 className="text-base md:text-lg font-semibold text-foreground transition-colors duration-500 group-hover:text-primary">
+                  <div className="space-y-2 flex-1">
+                    <h4 className="text-base md:text-lg font-semibold text-foreground">
                       {service.title}
                     </h4>
-                    <p className="text-sm text-muted-foreground transition-colors duration-500 group-hover:text-foreground">
+                    <p className="text-sm text-muted-foreground">
                       {service.excerpt}
                     </p>
                   </div>

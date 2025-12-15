@@ -21,6 +21,7 @@ export default function OurStoryPage() {
   return (
     <>
       <Hero
+        title="Our Story"
         description="Community-Centered Innovation Since Day One"
         image="/images/about/our-story.webp"
       />
@@ -29,16 +30,16 @@ export default function OurStoryPage() {
         <Breadcrumb items={breadcrumbItems} className="mb-10" />
 
         <section className="mb-16 grid gap-12 lg:grid-cols-[1.1fr_0.9fr]">
-          <Card className="space-y-8 rounded-3xl border border-border bg-surface p-4 sm:p-6 xl:p-8 shadow-sm">
+          <Card className="space-y-2 rounded-3xl border border-border bg-surface p-4 sm:p-6 xl:p-8 shadow-sm">
             <span className="inline-flex items-center rounded-full border border-border px-3 py-1 text-xs font-semibold uppercase tracking-[0.2em] text-muted-foreground">
               Foundations
             </span>
-            <h2 className="text-3xl font-semibold text-foreground md:text-4xl">
+            <h2 className="text-3xl font-semibold text-foreground md:text-4xl -mt-2">
               <MaskText
                 phrases={["ACOB's Journey to Powering Rural Communities"]}
               />
             </h2>
-            <div className="space-y-5 text-base leading-relaxed text-muted-foreground">
+            <div className="space-y-5 text-base leading-relaxed text-muted-foreground -mt-2">
               <p>
                 ACOB Lighting Technology Limited was established in 2016 with a
                 pioneering focus on large-scale LED street lighting. We

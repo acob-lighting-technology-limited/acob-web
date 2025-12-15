@@ -8,8 +8,8 @@ import { MaskText } from '../animations/MaskText';
 import { getBlurDataURL } from '@/lib/utils/image-optimization';
 
 interface HeroProps {
-  title?: string;
-  description?: string;
+  title: string;
+  description: string;
   image?:
     | string
     | Array<{
@@ -61,28 +61,22 @@ export const Hero = React.memo(function Hero({
         </div>
 
         {/* Content Overlay */}
-        {(title || description) && (
-          <div className="absolute inset-0 z-10 flex items-end pb-4 sm:pb-6 xl:pb-10">
-            <div className="2xl:container max-w-7xl mx-auto px-4 w-full">
-              <div className="text-white max-w-5xl space-y-3">
-                {title && (
-                  <div className="inline-block">
-                    <p className="text-sm md:text-base font-semibold text-white bg-primary/90 px-4 py-2 rounded-md uppercase tracking-wider backdrop-blur-sm">
-                      {title}
-                    </p>
-                  </div>
-                )}
-                {description && (
-                  <div>
-                    <MaskText className="text-2xl sm:text-4xl md:text-4xl lg:text-5xl font-bold">
-                      {description}
-                    </MaskText>
-                  </div>
-                )}
+        <div className="absolute inset-0 z-10 flex items-end pb-4 sm:pb-6 xl:pb-10">
+          <div className="2xl:container max-w-7xl mx-auto px-4 w-full">
+            <div className="text-white max-w-5xl space-y-3">
+              <div className="inline-block">
+                <p className="text-sm md:text-base font-semibold text-white bg-primary/90 px-4 py-2 rounded-md uppercase tracking-wider backdrop-blur-sm">
+                  {title}
+                </p>
+              </div>
+              <div>
+                <MaskText className="text-2xl sm:text-4xl md:text-4xl lg:text-5xl font-bold">
+                  {description}
+                </MaskText>
               </div>
             </div>
           </div>
-        )}
+        </div>
       </div>
     );
   }
@@ -106,8 +100,8 @@ interface HeroCarouselProps {
     alt: string;
     href?: string;
   }>;
-  title?: string;
-  description?: string;
+  title: string;
+  description: string;
 }
 
 const HeroCarousel = React.memo(function HeroCarousel({
@@ -363,46 +357,40 @@ const HeroCarousel = React.memo(function HeroCarousel({
       </div>
 
       {/* Content Overlay - Title and Description */}
-      {(title || description) && (
-        <div
-          className="absolute inset-0 z-30 flex items-end pb-10 pointer-events-none"
-          style={{
-            backfaceVisibility: 'hidden',
-            WebkitBackfaceVisibility: 'hidden',
-            transform: 'translateZ(0)',
-            WebkitTransform: 'translateZ(0)',
-          }}
-        >
-          <div className="2xl:container max-w-7xl mx-auto px-4 w-full pointer-events-auto">
-            <div className="text-white max-w-5xl space-y-3">
-              {/* Title with background badge */}
-              {title && (
-                <div className="inline-block">
-                  <p className="text-sm md:text-base font-semibold text-white bg-primary/90 px-4 py-2 rounded-md uppercase tracking-wider backdrop-blur-sm">
-                    {title}
-                  </p>
-                </div>
-              )}
+      <div
+        className="absolute inset-0 z-30 flex items-end pb-10 pointer-events-none"
+        style={{
+          backfaceVisibility: 'hidden',
+          WebkitBackfaceVisibility: 'hidden',
+          transform: 'translateZ(0)',
+          WebkitTransform: 'translateZ(0)',
+        }}
+      >
+        <div className="2xl:container max-w-7xl mx-auto px-4 w-full pointer-events-auto">
+          <div className="text-white max-w-5xl space-y-3">
+            {/* Title with background badge */}
+            <div className="inline-block">
+              <p className="text-sm md:text-base font-semibold text-white bg-primary/90 px-4 py-2 rounded-md uppercase tracking-wider backdrop-blur-sm">
+                {title}
+              </p>
+            </div>
 
-              {/* Description as main heading */}
-              {description && (
-                <div
-                  style={{
-                    backfaceVisibility: 'hidden',
-                    WebkitBackfaceVisibility: 'hidden',
-                    transform: 'translateZ(0)',
-                    WebkitTransform: 'translateZ(0)',
-                  }}
-                >
-                  <MaskText className="text-3xl md:text-4xl lg:text-5xl font-bold">
-                    {description}
-                  </MaskText>
-                </div>
-              )}
+            {/* Description as main heading */}
+            <div
+              style={{
+                backfaceVisibility: 'hidden',
+                WebkitBackfaceVisibility: 'hidden',
+                transform: 'translateZ(0)',
+                WebkitTransform: 'translateZ(0)',
+              }}
+            >
+              <MaskText className="text-3xl md:text-4xl lg:text-5xl font-bold">
+                {description}
+              </MaskText>
             </div>
           </div>
         </div>
-      )}
+      </div>
 
       {/* Dot Indicators - Only show if more than 1 image */}
       {slides.length > 1 && (

@@ -5,4 +5,3 @@ export default async function ShopPage() {
 
   return <ProductCatalog breadcrumbItems={breadcrumbItems} />;
 }
-

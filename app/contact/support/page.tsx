@@ -19,6 +19,7 @@ import {
   faqItems,
   contactLinks,
 } from '@/lib/data/support-data';
+import { FadeIn } from '@/components/animations/FadeIn';
 
 export default function SupportPage() {
   const breadcrumbItems = [
@@ -30,6 +31,7 @@ export default function SupportPage() {
   return (
     <>
       <Hero
+        title="Support"
         description="We're Here to Help You"
         image="/images/contact/support.webp?height=400&width=1200"
       />
@@ -71,66 +73,67 @@ export default function SupportPage() {
                 </h2>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6">
                   {supportMethods.map(
-                    ({ icon: Icon, title, description, contacts }) => (
-                      <div
-                        key={title}
-                        className="flex items-start gap-3 md:gap-4 p-4 md:p-5 rounded-xl bg-muted/30 border border-border hover:bg-muted/50 transition-colors duration-500"
-                      >
-                        <div className="w-10 h-10 md:w-12 md:h-12 bg-primary/10 rounded-lg flex items-center justify-center flex-shrink-0">
-                          <Icon className="h-5 w-5 md:h-6 md:w-6 text-primary" />
-                        </div>
-                        <div className="flex-1">
-                          <h3 className="text-base md:text-lg font-semibold text-foreground mb-1.5 md:mb-2">
-                            {title}
-                          </h3>
-                          <p className="text-sm text-muted-foreground mb-2 md:mb-3 leading-relaxed">
-                            {description}
-                          </p>
-                          <div className="space-y-1">
-                            {contacts.map((item, i) => {
-                              // Check if it's a phone number
-                              const isPhone = /^\+?\d[\d\s-]+$/.test(
-                                item.trim(),
-                              );
-                              // Check if it's an email
-                              const isEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(
-                                item.trim(),
-                              );
-                              if (isPhone) {
-                                const phoneNumber = item.replace(/\s/g, '');
+                    ({ icon: Icon, title, description, contacts }, index) => (
+                      <FadeIn key={title} delay={index * 0.15} direction="up">
+                        <div className="group flex items-start gap-3 md:gap-4 p-4 md:p-5 rounded-xl bg-muted/30 border border-border hover:shadow-lg hover:-translate-y-1 transition-all duration-500 cursor-pointer">
+                          <div className="relative rounded-full bg-primary/10 p-3 overflow-hidden transition-all duration-500 flex items-center justify-center group-hover:bg-primary group-hover:scale-110 w-10 h-10 md:w-12 md:h-12 flex-shrink-0">
+                            <div className="absolute inset-0 bg-primary transform scale-0 transition-transform duration-500 ease-out group-hover:scale-100 rounded-full origin-center" />
+                            <Icon className="h-5 w-5 md:h-6 md:w-6 relative z-10 transition-colors duration-500 text-muted-foreground group-hover:text-primary-foreground" />
+                          </div>
+                          <div className="flex-1">
+                            <h3 className="text-base md:text-lg font-semibold text-foreground mb-1.5 md:mb-2">
+                              {title}
+                            </h3>
+                            <p className="text-sm text-muted-foreground mb-2 md:mb-3 leading-relaxed">
+                              {description}
+                            </p>
+                            <div className="space-y-1">
+                              {contacts.map((item, i) => {
+                                // Check if it's a phone number
+                                const isPhone = /^\+?\d[\d\s-]+$/.test(
+                                  item.trim(),
+                                );
+                                // Check if it's an email
+                                const isEmail =
+                                  /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(
+                                    item.trim(),
+                                  );
+                                if (isPhone) {
+                                  const phoneNumber = item.replace(/\s/g, '');
+                                  return (
+                                    <a
+                                      key={i}
+                                      href={`tel:${phoneNumber}`}
+                                      className="text-primary font-semibold text-sm md:text-base hover:underline block"
+                                    >
+                                      {item}
+                                    </a>
+                                  );
+                                }
+                                if (isEmail) {
+                                  return (
+                                    <a
+                                      key={i}
+                                      href={`mailto:${item.trim()}`}
+                                      className="text-primary font-semibold text-sm md:text-base hover:underline block break-all"
+                                    >
+                                      {item}
+                                    </a>
+                                  );
+                                }
                                 return (
-                                  <a
+                                  <div
                                     key={i}
-                                    href={`tel:${phoneNumber}`}
-                                    className="text-primary font-semibold text-sm md:text-base hover:underline block"
+                                    className="text-primary font-semibold text-sm md:text-base"
                                   >
                                     {item}
-                                  </a>
+                                  </div>
                                 );
-                              }
-                              if (isEmail) {
-                                return (
-                                  <a
-                                    key={i}
-                                    href={`mailto:${item.trim()}`}
-                                    className="text-primary font-semibold text-sm md:text-base hover:underline block break-all"
-                                  >
-                                    {item}
-                                  </a>
-                                );
-                              }
-                              return (
-                                <div
-                                  key={i}
-                                  className="text-primary font-semibold text-sm md:text-base"
-                                >
-                                  {item}
-                                </div>
-                              );
-                            })}
+                              })}
+                            </div>
                           </div>
                         </div>
-                      </div>
+                      </FadeIn>
                     ),
                   )}
                 </div>
