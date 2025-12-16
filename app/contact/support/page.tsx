@@ -74,8 +74,13 @@ export default function SupportPage() {
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6">
                   {supportMethods.map(
                     ({ icon: Icon, title, description, contacts }, index) => (
-                      <FadeIn key={title} delay={index * 0.15} direction="up">
-                        <div className="group flex items-start gap-3 md:gap-4 p-4 md:p-5 rounded-xl bg-muted/30 border border-border hover:shadow-lg hover:-translate-y-1 transition-all duration-500 cursor-pointer">
+                      <FadeIn
+                        key={title}
+                        delay={index * 0.15}
+                        direction="up"
+                        className="h-full"
+                      >
+                        <div className="group flex items-start gap-3 md:gap-4 p-4 md:p-5 rounded-xl bg-muted/30 border border-border hover:shadow-lg hover:-translate-y-1 transition-all duration-500 cursor-pointer h-full">
                           <div className="relative rounded-full bg-primary/10 p-3 overflow-hidden transition-all duration-500 flex items-center justify-center group-hover:bg-primary group-hover:scale-110 w-10 h-10 md:w-12 md:h-12 flex-shrink-0">
                             <div className="absolute inset-0 bg-primary transform scale-0 transition-transform duration-500 ease-out group-hover:scale-100 rounded-full origin-center" />
                             <Icon className="h-5 w-5 md:h-6 md:w-6 relative z-10 transition-colors duration-500 text-muted-foreground group-hover:text-primary-foreground" />

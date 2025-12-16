@@ -1,6 +1,6 @@
 'use client';
 import Link from 'next/link';
-import { ArrowLeft } from 'lucide-react';
+import { ArrowLeft, Users, Lightbulb, Grid3x3, Zap } from 'lucide-react';
 import * as LucideIcons from 'lucide-react';
 
 import { Button } from '@/components/ui/button';
@@ -8,9 +8,9 @@ import { Breadcrumb } from '@/components/ui/breadcrumb';
 import { Card, CardContent } from '@/components/ui/card';
 import { Container } from '@/components/ui/container';
 import { Hero } from '@/components/ui/hero';
-import { InfoCard } from '@/components/ui/info-card';
 import { SectionHeader } from '@/components/ui/section-header';
 import { getAboutSectionByHref, milestones } from '@/lib/data/about-data';
+import { FadeIn } from '@/components/animations/FadeIn';
 
 const strategicPillars = [
   {
@@ -49,18 +49,22 @@ import { COMPANY_INFO } from '@/lib/constants';
 
 const missionMetrics = [
   {
+    icon: Users,
     label: 'People to Impact',
     value: `${(COMPANY_INFO.stats.peopleToImpact / 1000000).toFixed(0)}M+`,
   },
   {
+    icon: Lightbulb,
     label: 'All-in-One Streetlights',
     value: `${(COMPANY_INFO.stats.streetlights / 1000000).toFixed(0)}M`,
   },
   {
+    icon: Grid3x3,
     label: 'Mini-Grid Deployments',
     value: `${COMPANY_INFO.stats.miniGridDeployments}+`,
   },
   {
+    icon: Zap,
     label: 'Renewable Energy Capacity',
     value: `${COMPANY_INFO.stats.renewableEnergyCapacityMW} MW`,
   },
@@ -107,11 +111,8 @@ export default function MissionPage() {
                   Our Mission
                 </h3>
                 <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
-                  We deploy scalable mini-grids, hybrid systems, and smart
-                  lighting solutions that deliver clean, reliable, and
-                  affordable energy to underserved communities. Through
-                  innovation, partnerships, and inclusive programs we empower
-                  five million people by 2030.
+                  To deploy 100 Micro-Grids impacting the lives of over 5
+                  million Nigerians by 2030.
                 </p>
               </div>
 
@@ -183,14 +184,32 @@ export default function MissionPage() {
                   Mission Metrics - Targets by 2030
                 </h3>
                 <div className="grid grid-cols-2 gap-2 sm:gap-4">
-                  {missionMetrics.map(metric => (
-                    <InfoCard
-                      key={metric.label}
-                      variant="metric"
-                      value={metric.value}
-                      label={metric.label}
-                    />
-                  ))}
+                  {missionMetrics.map((metric, index) => {
+                    const Icon = metric.icon;
+                    return (
+                      <FadeIn
+                        key={metric.label}
+                        delay={index * 0.15}
+                        direction="up"
+                        className="h-full"
+                      >
+                        <div className="group flex items-start gap-2 sm:gap-3 rounded-2xl border border-border bg-muted/30 p-2 sm:p-4 hover:shadow-lg hover:-translate-y-1 transition-all duration-500 cursor-pointer h-full">
+                          <div className="relative rounded-full bg-primary/10 p-2 sm:p-3 overflow-hidden transition-all duration-500 flex items-center justify-center group-hover:bg-primary group-hover:scale-110 w-8 h-8 sm:w-10 sm:h-10 flex-shrink-0">
+                            <div className="absolute inset-0 bg-primary transform scale-0 transition-transform duration-500 ease-out group-hover:scale-100 rounded-full origin-center" />
+                            <Icon className="h-4 w-4 sm:h-5 sm:w-5 relative z-10 transition-colors duration-500 text-muted-foreground group-hover:text-primary-foreground" />
+                          </div>
+                          <div className="flex-1">
+                            <p className="text-base font-medium text-foreground">
+                              {metric.value}
+                            </p>
+                            <p className="mt-1 text-xs uppercase tracking-[0.2em] text-muted-foreground">
+                              {metric.label}
+                            </p>
+                          </div>
+                        </div>
+                      </FadeIn>
+                    );
+                  })}
                 </div>
               </CardContent>
             </Card>

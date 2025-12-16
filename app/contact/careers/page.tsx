@@ -14,6 +14,7 @@ import {
   Calendar,
   MapPin as LocationIcon,
   Briefcase,
+  FileSearch,
 } from 'lucide-react';
 import Link from 'next/link';
 import { whyWorkItems, contactLinks } from '@/lib/data/contact-data';
@@ -201,16 +202,26 @@ export default function CareersPage() {
                     )}
                   </div>
                 ) : (
-                  <div className="text-center">
+                  <div className="text-center py-6 md:py-8">
+                    <div className="mb-6 md:mb-8 flex justify-center">
+                      <div className="relative rounded-full bg-muted/50 p-6 md:p-8">
+                        <FileSearch className="h-12 w-12 md:h-16 md:w-16 text-muted-foreground" />
+                      </div>
+                    </div>
+                    <h3 className="text-xl md:text-2xl font-semibold text-foreground mb-3 md:mb-4">
+                      No Current Openings
+                    </h3>
                     <p className="text-sm md:text-base text-muted-foreground leading-relaxed mb-6 md:mb-8 max-w-2xl mx-auto">
-                      We're always looking for talented individuals who are
-                      passionate about clean energy and innovation to join our
-                      growing team.
+                      We currently don't have any open positions, but we're
+                      always looking for talented individuals who are passionate
+                      about clean energy and innovation to join our growing
+                      team.
                     </p>
-                    <div className="p-4 md:p-6 bg-muted/30 rounded-xl border border-border mb-6 md:mb-8">
-                      <p className="text-sm text-muted-foreground">
-                        Please check this page regularly for current job
-                        openings and opportunities.
+                    <div className="p-4 md:p-6 bg-muted/30 rounded-xl border border-border mb-6 md:mb-8 max-w-2xl mx-auto">
+                      <p className="text-sm md:text-base text-muted-foreground font-medium">
+                        Please check this page regularly for new job openings
+                        and opportunities. You can also reach out to us directly
+                        to express your interest in future positions.
                       </p>
                     </div>
                     <Link href="/contact">
