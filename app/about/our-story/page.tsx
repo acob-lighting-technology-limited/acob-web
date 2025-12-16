@@ -1,7 +1,9 @@
+'use client';
 import Link from 'next/link';
-import { ArrowLeft } from 'lucide-react';
+import { ArrowLeft, Calendar, Users, MapPin, Briefcase } from 'lucide-react';
 
 import { MaskText } from '@/components/animations/MaskText';
+import { FadeIn } from '@/components/animations/FadeIn';
 import { Button } from '@/components/ui/button';
 import { Breadcrumb } from '@/components/ui/breadcrumb';
 import { Card, CardContent } from '@/components/ui/card';
@@ -90,35 +92,48 @@ export default function OurStoryPage() {
                 </h3>
                 <div className="mt-4 grid grid-cols-2 gap-3">
                   {[
-                    { label: 'Founded', value: '2016' },
+                    { icon: Calendar, label: 'Founded', value: '2016' },
                     {
+                      icon: Users,
                       label: 'Staff Strength',
                       value: `${COMPANY_INFO.stats.staffStrength}+`,
                     },
                     {
+                      icon: MapPin,
                       label: 'Communities Served',
                       value: `${COMPANY_INFO.stats.communitiesServed}+`,
                     },
                     {
+                      icon: Briefcase,
                       label: 'Projects Commissioned',
                       value: `${COMPANY_INFO.stats.projectsCompleted}+`,
                     },
-                  ].map(item => (
-                    <div
-                      key={item.label}
-                      className="flex items-start gap-2 sm:gap-3 rounded-2xl border border-border bg-muted/30 p-2 sm:p-4"
-                    >
-                      <span className="mt-1 h-2 w-2 rounded-full bg-primary" />
-                      <div>
-                        <p className="text-xs uppercase tracking-[0.2em] text-muted-foreground">
-                          {item.label}
-                        </p>
-                        <p className="text-sm font-medium text-foreground">
-                          {item.value}
-                        </p>
-                      </div>
-                    </div>
-                  ))}
+                  ].map((item, index) => {
+                    const Icon = item.icon;
+                    return (
+                      <FadeIn
+                        key={item.label}
+                        delay={index * 0.15}
+                        direction="up"
+                        className="h-full"
+                      >
+                        <div className="group flex items-start gap-2 sm:gap-3 rounded-2xl border border-border bg-muted/30 p-2 sm:p-4 hover:shadow-lg hover:-translate-y-1 transition-all duration-500 cursor-pointer h-full">
+                          <div className="relative rounded-full bg-primary/10 p-2 sm:p-3 overflow-hidden transition-all duration-500 flex items-center justify-center group-hover:bg-primary group-hover:scale-110 w-8 h-8 sm:w-10 sm:h-10 flex-shrink-0">
+                            <div className="absolute inset-0 bg-primary transform scale-0 transition-transform duration-500 ease-out group-hover:scale-100 rounded-full origin-center" />
+                            <Icon className="h-4 w-4 sm:h-5 sm:w-5 relative z-10 transition-colors duration-500 text-muted-foreground group-hover:text-primary-foreground" />
+                          </div>
+                          <div className="flex-1">
+                            <p className="text-xs uppercase tracking-[0.2em] text-muted-foreground">
+                              {item.label}
+                            </p>
+                            <p className="text-sm font-medium text-foreground">
+                              {item.value}
+                            </p>
+                          </div>
+                        </div>
+                      </FadeIn>
+                    );
+                  })}
                 </div>
               </CardContent>
             </Card>
