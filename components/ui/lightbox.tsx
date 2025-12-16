@@ -256,25 +256,12 @@ export function Lightbox({
 
     const distance = getTouchDistance(e.touches[0], e.touches[1]);
 
-    // Only update if distance changed significantly (reduces jitter)
-    const distanceDelta = Math.abs(distance - lastPinchDistance.current);
-    if (distanceDelta < 3) {
-      return;
-    }
+    // Calculate zoom based on distance ratio (natural pinch-to-zoom)
+    const scale = distance / pinchStartDistance.current;
+    const newZoom = Math.max(1, Math.min(pinchStartZoom.current * scale, 5));
 
-    lastPinchDistance.current = distance;
-
-    // Calculate zoom - use ratio of current distance to initial distance
-    // This gives smooth, proportional zooming
-    const distanceRatio = distance / pinchStartDistance.current;
-    const newZoom = Math.max(
-      1,
-      Math.min(pinchStartZoom.current * distanceRatio, 5),
-    );
-
-    // Update zoom level directly (no smoothing to avoid lag)
     setZoomLevel(newZoom);
-    setIsZoomed(newZoom > 1.1);
+    setIsZoomed(newZoom > 1.01);
   };
 
   const handlePinchEnd = () => {
@@ -585,10 +572,7 @@ export function Lightbox({
                       src={currentMedia.src}
                       alt={currentMedia.alt}
                       fill
-                      className={cn(
-                        'object-contain select-none',
-                        isZoomed && 'object-cover',
-                      )}
+                      className="object-contain select-none"
                       sizes="100vw"
                       priority
                       quality={98}
