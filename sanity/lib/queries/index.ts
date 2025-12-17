@@ -35,6 +35,7 @@ export {
   getUniqueProjectStates,
   getRecentProjectImages,
   getProjectsForGallery,
+  testSanityConnection,
 } from './projects';
 
 // ============================================================================

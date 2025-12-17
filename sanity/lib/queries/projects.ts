@@ -580,3 +580,35 @@ export async function getProjectsForGallery(): Promise<Project[]> {
     return [];
   }
 }
+
+// ============================================================================
+// TEST SANITY CONNECTION
+// ============================================================================
+
+/**
+ * Test function to verify Sanity connection
+ *
+ * @returns Boolean indicating if connection is successful
+ *
+ * @example
+ * ```typescript
+ * const isConnected = await testSanityConnection();
+ * ```
+ */
+export async function testSanityConnection(): Promise<boolean> {
+  try {
+    const result = await client.fetch('*[_type == "project"][0...1]');
+    if (process.env.NODE_ENV === 'development') {
+      console.log(
+        'Sanity connection successful:',
+        result.length > 0 ? 'Found projects' : 'No projects found',
+      );
+    }
+    return true;
+  } catch (error) {
+    if (process.env.NODE_ENV === 'development') {
+      console.error('Sanity connection failed:', error);
+    }
+    return false;
+  }
+}
