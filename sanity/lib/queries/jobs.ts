@@ -18,7 +18,7 @@ interface JobPosting {
   location: string;
   employmentType: string;
   description: string;
-  requirements: string;
+  requirements: string[];
   applicationDeadline: string;
   publishedAt: string;
   slug: {

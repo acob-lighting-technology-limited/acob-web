@@ -28,7 +28,7 @@
  */
 
 // Re-export everything from the new types modules for backward compatibility
-export * from './types';
+export * from './types/index';
 
 // Also export Portable Text types for convenience
 export type { PortableTextBlock } from '@portabletext/types';

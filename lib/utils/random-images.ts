@@ -1,19 +1,10 @@
 import { getProjects } from '@/sanity/lib/client';
+import type { Project } from '@/lib/types';
 
 export interface RandomImage {
   url: string;
   alt: string;
   projectTitle: string;
-}
-
-interface SanityProject {
-  title: string;
-  location: string;
-  images: Array<{
-    asset: {
-      url: string;
-    };
-  }>;
 }
 
 export async function getRandomProjectImages(
@@ -25,12 +16,18 @@ export async function getRandomProjectImages(
     // Flatten all images from all projects into a single array
     const allImages: RandomImage[] = [];
 
-    projects.forEach((project: SanityProject) => {
-      if (project.images && project.images.length > 0) {
-        project.images.forEach(image => {
-          if (image?.asset?.url) {
+    projects.forEach((project: Project) => {
+      // Note: images from getProjects() have url and metadata structure directly
+      if (
+        project.images &&
+        Array.isArray(project.images) &&
+        project.images.length > 0
+      ) {
+        project.images.forEach((image: any) => {
+          const imageUrl = (image as any)?.url || (image as any)?.asset?.url;
+          if (imageUrl) {
             allImages.push({
-              url: image.asset.url,
+              url: imageUrl,
               alt: `${project.title} - ${project.location}`,
               projectTitle: project.title,
             });
@@ -77,11 +74,17 @@ export async function getRandomBackgroundImage(): Promise<string> {
     // Get all images from all projects
     const allImages: string[] = [];
 
-    projects.forEach((project: SanityProject) => {
-      if (project.images && project.images.length > 0) {
-        project.images.forEach(image => {
-          if (image?.asset?.url) {
-            allImages.push(image.asset.url);
+    projects.forEach((project: Project) => {
+      // Note: images from getProjects() have url and metadata structure directly
+      if (
+        project.images &&
+        Array.isArray(project.images) &&
+        project.images.length > 0
+      ) {
+        project.images.forEach((image: any) => {
+          const imageUrl = (image as any)?.url || (image as any)?.asset?.url;
+          if (imageUrl) {
+            allImages.push(imageUrl);
           }
         });
       }

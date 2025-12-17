@@ -7,6 +7,7 @@
 
 import { createClient } from '@sanity/client';
 import imageUrlBuilder from '@sanity/image-url';
+import type { SanityImageSource } from '@sanity/image-url/lib/types/types';
 
 // ============================================================================
 // ENVIRONMENT VARIABLES
@@ -111,7 +112,7 @@ const builder = imageUrlBuilder(client);
  *   .url();
  * ```
  */
-export function urlFor(source: unknown) {
+export function urlFor(source: SanityImageSource) {
   return builder.image(source);
 }
 
