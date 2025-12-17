@@ -1,9 +1,12 @@
 'use client';
 
 import { useRef } from 'react';
+import Link from 'next/link';
 import Marquee from 'react-fast-marquee';
+import { ArrowRight } from 'lucide-react';
 import { Container } from '@/components/ui/container';
 import { Badge } from '@/components/ui/badge';
+import { Button } from '@/components/ui/button';
 import Image from 'next/image';
 import { partners } from '@/lib/data/partners-data';
 import { FadeIn } from '@/components/animations/FadeIn';
@@ -25,7 +28,7 @@ export function PartnersSection() {
             </h2>
             <p className="text-base md:text-lg text-muted-foreground max-w-2xl mx-auto transition-colors duration-500">
               Collaborating with leading organizations and government agencies
-              across Nigeria
+              across Nigeria and Beyond
             </p>
           </div>
         </FadeIn>
@@ -101,6 +104,21 @@ export function PartnersSection() {
                   ))}
               </Marquee>
             </div>
+          </div>
+        </FadeIn>
+
+        <FadeIn delay={0.6}>
+          <div className="mt-8 sm:mt-12 text-center">
+            <Link href="/about/partners">
+              <Button
+                variant="outline"
+                size="lg"
+                className="group border-primary/30 hover:border-primary hover:bg-primary hover:text-primary-foreground transition-all duration-300"
+              >
+                View All Partners
+                <ArrowRight className="ml-2 h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" />
+              </Button>
+            </Link>
           </div>
         </FadeIn>
       </Container>

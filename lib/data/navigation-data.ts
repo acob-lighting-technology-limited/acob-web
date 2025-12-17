@@ -31,6 +31,12 @@ export const navigationItems = [
         icon: 'Award',
         // icon: 'https://www.svgrepo.com/download/121332/certification-file.svg',
       },
+      {
+        name: 'Partners',
+        href: '/about/partners',
+        description: 'Our trusted partners and collaborations',
+        icon: 'Handshake',
+      },
     ],
   },
   {

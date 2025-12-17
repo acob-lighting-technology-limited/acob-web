@@ -29,6 +29,13 @@ export const aboutSections = [
     href: '/about/certifications',
     image: '/images/about/certifications.webp?height=200&width=300',
   },
+  {
+    title: 'Partners',
+    description:
+      'Discover our trusted partners and strategic collaborations driving sustainable energy solutions.',
+    href: '/about/partners',
+    image: '/images/about/partners-collage.webp?height=200&width=300',
+  },
 ];
 
 export const teamMembers = [
@@ -150,6 +157,7 @@ export const sidebarLinks = [
   { label: 'Mission & Vision', href: '/about/mission', isActive: false },
   { label: 'Meet Our Team', href: '/about/team', isActive: false },
   { label: 'Certifications', href: '/about/certifications', isActive: false },
+  { label: 'Partners', href: '/about/partners', isActive: false },
 ];
 
 // Helper function to get about section by href
