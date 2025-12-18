@@ -25,6 +25,7 @@ import {
   Package,
   Sun,
   Battery,
+  Handshake,
 } from 'lucide-react';
 
 // Lucide icon mapping
@@ -58,4 +59,5 @@ export const LucideIcons: Record<
   Package,
   Sun,
   Battery,
+  Handshake,
 };

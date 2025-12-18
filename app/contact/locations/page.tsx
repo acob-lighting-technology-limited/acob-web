@@ -1,14 +1,21 @@
 'use client';
 
+import { useState } from 'react';
 import { Container } from '@/components/ui/container';
 import { Hero } from '@/components/ui/hero';
 import { Breadcrumb } from '@/components/ui/breadcrumb';
 import { Card, CardContent } from '@/components/ui/card';
-import { MapPin, Phone, Mail, Copy } from 'lucide-react';
+import { Button } from '@/components/ui/button';
+import { MapPin, Phone, Mail, Copy, Map, Video } from 'lucide-react';
 import Link from 'next/link';
 import { toast } from 'sonner';
+import { FadeIn } from '@/components/animations/FadeIn';
+import { cn } from '@/lib/utils';
+
+type ViewMode = 'map' | 'video';
 
 export default function LocationsPage() {
+  const [viewMode, setViewMode] = useState<ViewMode>('map');
   const breadcrumbItems = [
     { label: 'Home', href: '/' },
     { label: 'Contact Us', href: '/contact' },
@@ -40,21 +47,95 @@ export default function LocationsPage() {
         <Breadcrumb items={breadcrumbItems} className="mb-8" />
 
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-12 items-start">
-          {/* Map Section */}
-          <div className="lg:col-span-2 w-full h-[500px] rounded-lg overflow-hidden custom-shadow">
-            <iframe
-              title="ACOB Lighting Technology Limited Head Office and Branch Locations"
-              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d4042.0004937198446!2d7.418824175135592!3d9.11723979094763!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x104e0b1e73987599%3A0xd8a3ed0c898644c5!2sACOB%20LIGHTING%20TECHNOLOGY%20LIMITED!5e1!3m2!1sen!2sng!4v1752592656509!5m2!1sen!2sng&maptype=satellite"
-              width="100%"
-              height="100%"
-              style={{ border: 0 }}
-              allowFullScreen
-              loading="lazy"
-              referrerPolicy="no-referrer-when-downgrade"
-            ></iframe>
+          {/* Main Content Area - Map or Video */}
+          <div className="lg:col-span-2 space-y-6">
+            {/* View Toggle */}
+            <div className="flex items-center gap-2 p-1 bg-muted/50 rounded-lg w-fit border border-border">
+              <Button
+                variant={viewMode === 'map' ? 'default' : 'ghost'}
+                size="sm"
+                onClick={() => setViewMode('map')}
+                className={cn(
+                  'flex items-center gap-2 transition-all',
+                  viewMode === 'map' && 'shadow-sm',
+                )}
+              >
+                <Map className="h-4 w-4" />
+                Map View
+              </Button>
+              <Button
+                variant={viewMode === 'video' ? 'default' : 'ghost'}
+                size="sm"
+                onClick={() => setViewMode('video')}
+                className={cn(
+                  'flex items-center gap-2 transition-all',
+                  viewMode === 'video' && 'shadow-sm',
+                )}
+              >
+                <Video className="h-4 w-4" />
+                Video Tour
+              </Button>
+            </div>
+
+            {/* Map View */}
+            <FadeIn delay={0.1}>
+              <Card
+                className={cn(
+                  'border border-border bg-surface overflow-hidden transition-all duration-300',
+                  viewMode === 'map' ? 'block' : 'hidden',
+                )}
+              >
+                <CardContent className="p-0">
+                  <div className="w-full h-[500px] rounded-lg overflow-hidden">
+                    <iframe
+                      title="ACOB Lighting Technology Limited Head Office and Branch Locations"
+                      src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d4042.0004937198446!2d7.418824175135592!3d9.11723979094763!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x104e0b1e73987599%3A0xd8a3ed0c898644c5!2sACOB%20LIGHTING%20TECHNOLOGY%20LIMITED!5e1!3m2!1sen!2sng!4v1752592656509!5m2!1sen!2sng&maptype=satellite"
+                      width="100%"
+                      height="100%"
+                      style={{ border: 0 }}
+                      allowFullScreen
+                      loading="lazy"
+                      referrerPolicy="no-referrer-when-downgrade"
+                    />
+                  </div>
+                </CardContent>
+              </Card>
+            </FadeIn>
+
+            {/* Video View */}
+            <FadeIn delay={0.1}>
+              <Card
+                className={cn(
+                  'border border-border bg-surface overflow-hidden transition-all duration-300',
+                  viewMode === 'video' ? 'block' : 'hidden',
+                )}
+              >
+                <CardContent className="p-0">
+                  <div className="relative aspect-video w-full bg-muted/50">
+                    <iframe
+                      src="https://player.vimeo.com/video/1147319323?title=0&byline=0&portrait=0"
+                      className="absolute inset-0 h-full w-full"
+                      allow="autoplay; fullscreen; picture-in-picture"
+                      allowFullScreen
+                      title="ACOB Office Location Video Tour"
+                    />
+                  </div>
+                  <div className="p-6">
+                    <h3 className="text-xl font-semibold mb-2">
+                      Virtual Office Tour
+                    </h3>
+                    <p className="text-sm text-muted-foreground">
+                      Take a virtual tour of our office facilities and see where
+                      we work to bring sustainable energy solutions to
+                      communities across Nigeria.
+                    </p>
+                  </div>
+                </CardContent>
+              </Card>
+            </FadeIn>
           </div>
 
-          {/* Sidebar */}
+          {/* Sidebar - Office Information */}
           <div className="space-y-6 sticky top-20 self-start">
             <Card className="!border-t-2 !border-t-primary border border-border">
               <CardContent className="p-6">

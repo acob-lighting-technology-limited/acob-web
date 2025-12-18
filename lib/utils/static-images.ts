@@ -1,4 +1,5 @@
 import { getProjects } from '@/sanity/lib/client';
+import type { Project } from '@/lib/types';
 
 export interface StaticImage {
   url: string;
@@ -6,21 +7,6 @@ export interface StaticImage {
   projectTitle: string;
   width: number;
   height: number;
-}
-
-interface SanityProject {
-  title: string;
-  location: string;
-  projectImage?: string;
-  images?: Array<{
-    url: string;
-    metadata?: {
-      dimensions?: {
-        width: number;
-        height: number;
-      };
-    };
-  }>;
 }
 
 // Static fallback images with proper dimensions
@@ -62,7 +48,7 @@ export async function getAllProjectImages(): Promise<StaticImage[]> {
 
     const allImages: StaticImage[] = [];
 
-    projects.forEach((project: SanityProject) => {
+    projects.forEach((project: Project) => {
       // Add main project image if available
       if (project.projectImage) {
         allImages.push({
@@ -75,15 +61,21 @@ export async function getAllProjectImages(): Promise<StaticImage[]> {
       }
 
       // Add content images if available
-      if (project.images && project.images.length > 0) {
-        project.images.forEach(image => {
-          if (image?.url) {
+      // Note: images from getProjects() have url and metadata structure
+      if (
+        project.images &&
+        Array.isArray(project.images) &&
+        project.images.length > 0
+      ) {
+        project.images.forEach((image: any) => {
+          const imageUrl = (image as any)?.url || (image as any)?.asset?.url;
+          if (imageUrl) {
             allImages.push({
-              url: image.url,
+              url: imageUrl,
               alt: `${project.title} - ${project.location}`,
               projectTitle: project.title,
-              width: image.metadata?.dimensions?.width || 400,
-              height: image.metadata?.dimensions?.height || 300,
+              width: (image as any)?.metadata?.dimensions?.width || 400,
+              height: (image as any)?.metadata?.dimensions?.height || 300,
             });
           }
         });
