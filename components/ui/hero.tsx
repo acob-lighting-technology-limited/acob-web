@@ -46,17 +46,19 @@ export const Hero = React.memo(function Hero({
       <div className="relative w-full h-[50vh] md:h-[45vh] lg:h-[60vh] overflow-hidden">
         {/* Background Image */}
         <div className="absolute inset-0 bg-black">
-          <Image
-            src={imageToUse}
-            alt={title || description || 'Hero image'}
-            fill
-            className={cn('object-cover', positionClass)}
-            priority
-            quality={85}
-            sizes="100vw"
-            placeholder="blur"
-            blurDataURL={getBlurDataURL()}
-          />
+          <div className="absolute inset-0 overflow-hidden">
+            <Image
+              src={imageToUse}
+              alt={title || description || 'Hero image'}
+              fill
+              className={cn('object-cover hero-slide-zoom', positionClass)}
+              priority
+              quality={85}
+              sizes="100vw"
+              placeholder="blur"
+              blurDataURL={getBlurDataURL()}
+            />
+          </div>
           <div className="absolute inset-0 bg-black/60" />
         </div>
 
