@@ -73,8 +73,8 @@ export const SOCIAL_MEDIA = {
 // ============================================================================
 
 export const COMPANY_STATISTICS = {
-  projectsCompleted: 120,
-  totalCapacityInstalled: '10MW+',
+  projectsCompleted: 100,
+  totalCapacityInstalled: '7MW+',
   communitiesServed: 100,
   yearsOfExperience: 10,
   statesServed: 15,

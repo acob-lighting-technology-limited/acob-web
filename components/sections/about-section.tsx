@@ -50,42 +50,50 @@ export function AboutSection() {
                 How we support your energy transition
               </h3>
               <div className="grid gap-4 sm:grid-cols-2">
-                <div className="group rounded-2xl border border-white/20 bg-white/10 p-4 transition-all duration-500 hover:shadow-lg hover:-translate-y-1 cursor-pointer">
-                  <h4 className="text-lg font-semibold text-primary-foreground">
-                    Advisory & Audits
-                  </h4>
-                  <p className="mt-2 text-sm text-primary-foreground/95">
-                    Site assessments, energy modelling, and regulatory guidance
-                    to chart the best path forward.
-                  </p>
-                </div>
-                <div className="group rounded-2xl border border-white/20 bg-white/10 p-4 transition-all duration-500 hover:shadow-lg hover:-translate-y-1 cursor-pointer">
-                  <h4 className="text-lg font-semibold text-primary-foreground">
-                    Engineering & Delivery
-                  </h4>
-                  <p className="mt-2 text-sm text-primary-foreground/95">
-                    Design, procurement, installation, and commissioning of
-                    high-performance solar and storage assets.
-                  </p>
-                </div>
-                <div className="group rounded-2xl border border-white/20 bg-white/10 p-4 transition-all duration-500 hover:shadow-lg hover:-translate-y-1 cursor-pointer">
-                  <h4 className="text-lg font-semibold text-primary-foreground">
-                    Operations & Growth
-                  </h4>
-                  <p className="mt-2 text-sm text-primary-foreground/95">
-                    Managed services and training that keep systems productive
-                    and communities powered.
-                  </p>
-                </div>
-                <div className="group rounded-2xl border border-white/20 bg-white/10 p-4 transition-all duration-500 hover:shadow-lg hover:-translate-y-1 cursor-pointer">
-                  <h4 className="text-lg font-semibold text-primary-foreground">
-                    Investment Support
-                  </h4>
-                  <p className="mt-2 text-sm text-primary-foreground/95">
-                    Business models and financing structures tuned for rapid
-                    scale and measurable impact.
-                  </p>
-                </div>
+                <FadeIn delay={0.6} direction="up">
+                  <div className="h-full group rounded-2xl border border-white/20 bg-white/10 p-4 transition-all duration-500 hover:shadow-lg hover:-translate-y-1 cursor-pointer">
+                    <h4 className="text-lg font-semibold text-primary-foreground">
+                      Advisory & Audits
+                    </h4>
+                    <p className="mt-2 text-sm text-primary-foreground/95">
+                      Site assessments, energy modelling, and regulatory
+                      guidance to chart the best path forward.
+                    </p>
+                  </div>
+                </FadeIn>
+                <FadeIn delay={0.7} direction="up">
+                  <div className="h-full group rounded-2xl border border-white/20 bg-white/10 p-4 transition-all duration-500 hover:shadow-lg hover:-translate-y-1 cursor-pointer">
+                    <h4 className="text-lg font-semibold text-primary-foreground">
+                      Engineering & Delivery
+                    </h4>
+                    <p className="mt-2 text-sm text-primary-foreground/95">
+                      Design, procurement, installation, and commissioning of
+                      high-performance solar and storage assets.
+                    </p>
+                  </div>
+                </FadeIn>
+                <FadeIn delay={0.8} direction="up">
+                  <div className="h-full group rounded-2xl border border-white/20 bg-white/10 p-4 transition-all duration-500 hover:shadow-lg hover:-translate-y-1 cursor-pointer">
+                    <h4 className="text-lg font-semibold text-primary-foreground">
+                      Operations & Growth
+                    </h4>
+                    <p className="mt-2 text-sm text-primary-foreground/95">
+                      Managed services and training that keep systems productive
+                      and communities powered.
+                    </p>
+                  </div>
+                </FadeIn>
+                <FadeIn delay={0.9} direction="up">
+                  <div className="h-full group rounded-2xl border border-white/20 bg-white/10 p-4 transition-all duration-500 hover:shadow-lg hover:-translate-y-1 cursor-pointer">
+                    <h4 className="text-lg font-semibold text-primary-foreground">
+                      Investment Support
+                    </h4>
+                    <p className="mt-2 text-sm text-primary-foreground/95">
+                      Business models and financing structures tuned for rapid
+                      scale and measurable impact.
+                    </p>
+                  </div>
+                </FadeIn>
               </div>
 
               <Link href="/about" className="inline-flex">

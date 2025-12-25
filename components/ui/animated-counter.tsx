@@ -51,9 +51,9 @@ export function AnimatedCounter({
       }
       const progress = Math.min((currentTime - startTime) / duration, 1);
 
-      // Easing function for smooth animation
-      const easeOutQuart = 1 - Math.pow(1 - progress, 4);
-      const currentCount = Math.floor(start + (end - start) * easeOutQuart);
+      // Easing function for smooth animation (easeOutQuad - smoother ending)
+      const easeOutQuad = 1 - Math.pow(1 - progress, 2);
+      const currentCount = Math.floor(start + (end - start) * easeOutQuad);
 
       setCount(currentCount);
 

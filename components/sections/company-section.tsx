@@ -50,7 +50,7 @@ export function CompanySection() {
                   className=" bg-foreground text-white dark:text-primary  p-2 w-fit"
                 /> */}
                 <AnimatedFillText>
-                  <h1>ACOB Lighting</h1>
+                  <h1>ACOB Lighting?</h1>
                 </AnimatedFillText>
               </div>
               <Link

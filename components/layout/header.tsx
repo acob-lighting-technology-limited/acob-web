@@ -228,6 +228,7 @@ const MobileMenu: React.FC<MobileMenuProps> = ({
                     width={140}
                     height={36}
                     priority
+                    data-no-protection="true"
                     className="h-9 w-auto group-hover:scale-105 transition-transform duration-500"
                     style={{
                       width: '140px',
@@ -537,6 +538,7 @@ export function Header() {
                   width={250}
                   height={60}
                   priority
+                  data-no-protection="true"
                   className="h-12 w-auto group-hover:scale-105 transition-transform duration-500"
                   style={{
                     width: '180px',

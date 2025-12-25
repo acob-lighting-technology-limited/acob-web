@@ -42,6 +42,7 @@ export function PartnersSection() {
                 gradient={false}
                 loop={0}
                 direction="left"
+                pauseOnHover={true}
                 className="relative z-0"
               >
                 {partners
@@ -77,6 +78,7 @@ export function PartnersSection() {
                 gradient={false}
                 loop={0}
                 direction="right"
+                pauseOnHover={true}
                 className="relative z-0"
               >
                 {partners

@@ -103,6 +103,7 @@ export function Footer() {
                 alt="ACOB Lighting Technology Limited"
                 width={140}
                 height={36}
+                data-no-protection="true"
                 className="h-10 w-auto"
               />
             </Link>
