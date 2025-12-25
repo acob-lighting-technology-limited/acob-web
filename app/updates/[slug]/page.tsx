@@ -33,6 +33,13 @@ export async function generateStaticParams() {
     }));
 }
 
+// Force dynamic rendering in development to show comments immediately
+export const dynamic =
+  process.env.NODE_ENV === 'development' ? 'force-dynamic' : 'auto';
+
+// Revalidate every 30 seconds in production to show new approved comments quickly
+export const revalidate = 30;
+
 export default async function UpdatePage({ params }: UpdatePageProps) {
   const { slug } = await params;
 

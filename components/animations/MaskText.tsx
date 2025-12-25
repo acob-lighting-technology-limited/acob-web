@@ -2,7 +2,7 @@
 
 import { motion } from 'framer-motion';
 import { useInView } from 'react-intersection-observer';
-import { FC, ReactNode } from 'react';
+import { FC, ReactNode, useMemo } from 'react';
 
 interface MaskTextProps {
   children?: ReactNode;
@@ -22,11 +22,14 @@ export const MaskText: FC<MaskTextProps> = ({
   const { ref, inView } = useInView({
     threshold: 0.1,
     triggerOnce: true,
+    rootMargin: '50px 0px', // Trigger slightly before entering viewport
   });
 
-  // Use phrases if provided, otherwise use children
-  const content = phrases || (children ? [children] : []);
-  const childrenArray = Array.isArray(content) ? content : [content];
+  // Memoize content to prevent unnecessary re-renders
+  const childrenArray = useMemo(() => {
+    const content = phrases || (children ? [children] : []);
+    return Array.isArray(content) ? content : [content];
+  }, [phrases, children]);
 
   return (
     <div ref={ref}>

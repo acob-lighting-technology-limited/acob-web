@@ -42,6 +42,7 @@ export default async function UpdatesPage({ searchParams }: UpdatesPageProps) {
   return (
     <>
       <Hero
+        key="updates-hero"
         image={updateImages}
         title="Updates & News"
         description="Latest News, Projects, and Insights from ACOB Lighting Technology Limited"

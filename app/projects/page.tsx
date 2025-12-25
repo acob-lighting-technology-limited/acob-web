@@ -50,6 +50,7 @@ export default async function ProjectsPage({
   return (
     <>
       <Hero
+        key="projects-hero"
         image={projectImages}
         title="Our Projects"
         description="Delivering Reliable Solar Energy Infrastructure Across Nigeria"
