@@ -204,7 +204,7 @@ function TextSkeleton({
 }
 function HeroSkeleton() {
   return (
-    <div className="relative w-full h-[80vh] min-h-[500px] sm:min-h-[700px] bg-muted-foreground/30 dark:bg-muted/10 overflow-hidden">
+    <div className="relative w-full h-[50vh] md:h-[45vh] lg:h-[60vh] bg-muted-foreground/30 dark:bg-muted/10 overflow-hidden">
       {/* Background skeleton with shimmer */}
       {/* <div className="absolute inset-0 bg-gradient-to-br from-primary/10 to-secondary/10" /> */}
       <div className="absolute inset-0 bg-secondary/30" />
