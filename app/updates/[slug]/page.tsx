@@ -33,6 +33,9 @@ export async function generateStaticParams() {
     }));
 }
 
+// Revalidate every 30 seconds to show new approved comments quickly
+export const revalidate = 30;
+
 export default async function UpdatePage({ params }: UpdatePageProps) {
   const { slug } = await params;
 

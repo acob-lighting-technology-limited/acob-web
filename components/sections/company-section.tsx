@@ -50,7 +50,7 @@ export function CompanySection() {
                   className=" bg-foreground text-white dark:text-primary  p-2 w-fit"
                 /> */}
                 <AnimatedFillText>
-                  <h1>ACOB Lighting</h1>
+                  <h1>ACOB Lighting?</h1>
                 </AnimatedFillText>
               </div>
               <Link
@@ -102,24 +102,28 @@ export function CompanySection() {
                   Strategic capabilities
                 </h3>
                 <div className="grid gap-3 sm:gap-4 grid-cols-1 sm:grid-cols-2">
-                  <div className="group rounded-xl sm:rounded-2xl border border-border bg-background/60 p-3 sm:p-4 transition-all duration-500 hover:shadow-lg hover:-translate-y-1 cursor-pointer">
-                    <h4 className="text-sm sm:text-base font-semibold text-foreground mb-1 sm:mb-2">
-                      Advisory & development
-                    </h4>
-                    <p className="text-xs sm:text-sm text-muted-foreground leading-relaxed">
-                      Feasibility, ESG impact studies, regulatory navigation,
-                      and project structuring.
-                    </p>
-                  </div>
-                  <div className="group rounded-xl sm:rounded-2xl border border-border bg-background/60 p-3 sm:p-4 transition-all duration-500 hover:shadow-lg hover:-translate-y-1 cursor-pointer">
-                    <h4 className="text-sm sm:text-base font-semibold text-foreground mb-1 sm:mb-2">
-                      Engineering & operations
-                    </h4>
-                    <p className="text-xs sm:text-sm text-muted-foreground leading-relaxed">
-                      EPC delivery, asset management, remote monitoring, and
-                      lifecycle optimisation.
-                    </p>
-                  </div>
+                  <FadeIn delay={0.4} direction="up">
+                    <div className="group h-full rounded-xl sm:rounded-2xl border border-border bg-background/60 p-3 sm:p-4 transition-all duration-500 hover:shadow-lg hover:-translate-y-1 cursor-pointer">
+                      <h4 className="text-sm sm:text-base font-semibold text-foreground mb-1 sm:mb-2">
+                        Advisory & development
+                      </h4>
+                      <p className="text-xs sm:text-sm text-muted-foreground leading-relaxed">
+                        Feasibility, ESG impact studies, regulatory navigation,
+                        and project structuring.
+                      </p>
+                    </div>
+                  </FadeIn>
+                  <FadeIn delay={0.5} direction="up">
+                    <div className="group h-full rounded-xl sm:rounded-2xl border border-border bg-background/60 p-3 sm:p-4 transition-all duration-500 hover:shadow-lg hover:-translate-y-1 cursor-pointer">
+                      <h4 className="text-sm sm:text-base font-semibold text-foreground mb-1 sm:mb-2">
+                        Engineering & operations
+                      </h4>
+                      <p className="text-xs sm:text-sm text-muted-foreground leading-relaxed">
+                        EPC delivery, asset management, remote monitoring, and
+                        lifecycle optimisation.
+                      </p>
+                    </div>
+                  </FadeIn>
                 </div>
               </div>
               {/* CTA Buttons */}

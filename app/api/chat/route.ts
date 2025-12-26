@@ -134,6 +134,21 @@ export async function POST(req: NextRequest) {
                 );
               }
 
+              // Filter by search term (for specific project names)
+              if (intent.filters?.search) {
+                const searchTerms = intent.filters.search
+                  .toLowerCase()
+                  .split(',')
+                  .map(s => s.trim());
+                filteredProjects = filteredProjects.filter((p: any) =>
+                  searchTerms.some(
+                    term =>
+                      p.title?.toLowerCase().includes(term) ||
+                      p.location?.toLowerCase().includes(term),
+                  ),
+                );
+              }
+
               contextData = formatProjectsContext(filteredProjects);
               break;
             }

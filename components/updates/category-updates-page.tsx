@@ -92,6 +92,7 @@ export async function CategoryUpdatesPage({
   return (
     <>
       <Hero
+        key={`category-${category}-hero`}
         image={categoryImages}
         title={categoryTitle}
         description={`Latest ${categoryTitle.toLowerCase()} updates and news from ACOB Lighting`}

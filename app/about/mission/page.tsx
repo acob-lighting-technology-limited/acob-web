@@ -220,28 +220,31 @@ export default function MissionPage() {
                   Strategic Pillars
                 </h3>
                 <div className="mt-4 space-y-4">
-                  {strategicPillars.map(pillar => (
-                    <div
+                  {strategicPillars.map((pillar, index) => (
+                    <FadeIn
                       key={pillar.title}
-                      className="rounded-2xl border border-border bg-muted/20 p-4"
+                      delay={0.3 + index * 0.15}
+                      direction="up"
                     >
-                      <h4 className="text-base font-semibold text-foreground">
-                        {pillar.title}
-                      </h4>
-                      <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
-                        {pillar.description}
-                      </p>
-                      <div className="mt-3 flex flex-wrap gap-2">
-                        {pillar.outcomes.map(outcome => (
-                          <span
-                            key={outcome}
-                            className="rounded-full border border-border px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.2em] text-muted-foreground"
-                          >
-                            {outcome}
-                          </span>
-                        ))}
+                      <div className="rounded-2xl border border-border bg-muted/20 p-4">
+                        <h4 className="text-base font-semibold text-foreground">
+                          {pillar.title}
+                        </h4>
+                        <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
+                          {pillar.description}
+                        </p>
+                        <div className="mt-3 flex flex-wrap gap-2">
+                          {pillar.outcomes.map(outcome => (
+                            <span
+                              key={outcome}
+                              className="rounded-full border border-border px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.2em] text-muted-foreground"
+                            >
+                              {outcome}
+                            </span>
+                          ))}
+                        </div>
                       </div>
-                    </div>
+                    </FadeIn>
                   ))}
                 </div>
               </CardContent>
@@ -257,38 +260,41 @@ export default function MissionPage() {
           />
 
           <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
-            {milestones.map(milestone => {
+            {milestones.map((milestone, index) => {
               const IconComponent = LucideIcons[
                 milestone.icon as keyof typeof LucideIcons
               ] as React.ComponentType<{ className?: string }>;
 
               return (
-                <Card
+                <FadeIn
                   key={milestone.year}
-                  className="group relative overflow-hidden rounded-3xl border border-border bg-muted/20 shadow-sm transition-all duration-500 hover:-translate-y-1 hover:shadow-lg"
+                  delay={0.2 + index * 0.1}
+                  direction="up"
                 >
-                  <CardContent className="p-5">
-                    <div className="mb-4 flex items-center justify-between">
-                      <div className="relative flex h-12 w-12 items-center justify-center rounded-full bg-primary/10 overflow-hidden transition-all duration-500 group-hover:bg-primary group-hover:scale-110">
-                        <div className="absolute inset-0 bg-primary transform scale-0 transition-transform duration-500 ease-out group-hover:scale-100 rounded-full origin-center" />
-                        {IconComponent && (
-                          <IconComponent className="h-6 w-6 relative z-10 text-muted-foreground transition-colors duration-500 group-hover:text-primary-foreground" />
-                        )}
+                  <Card className="group relative overflow-hidden rounded-3xl border border-border bg-muted/20 shadow-sm transition-all duration-500 hover:-translate-y-1 hover:shadow-lg h-full">
+                    <CardContent className="p-5">
+                      <div className="mb-4 flex items-center justify-between">
+                        <div className="relative flex h-12 w-12 items-center justify-center rounded-full bg-primary/10 overflow-hidden transition-all duration-500 group-hover:bg-primary group-hover:scale-110">
+                          <div className="absolute inset-0 bg-primary transform scale-0 transition-transform duration-500 ease-out group-hover:scale-100 rounded-full origin-center" />
+                          {IconComponent && (
+                            <IconComponent className="h-6 w-6 relative z-10 text-muted-foreground transition-colors duration-500 group-hover:text-primary-foreground" />
+                          )}
+                        </div>
+                        <span className="rounded-full bg-primary/10 px-3 py-1 text-xs font-bold text-primary">
+                          {milestone.year}
+                        </span>
                       </div>
-                      <span className="rounded-full bg-primary/10 px-3 py-1 text-xs font-bold text-primary">
-                        {milestone.year}
-                      </span>
-                    </div>
 
-                    <h3 className="mb-3 text-lg font-bold text-foreground transition-colors duration-500 group-hover:text-primary">
-                      {milestone.title}
-                    </h3>
+                      <h3 className="mb-3 text-lg font-bold text-foreground transition-colors duration-500 group-hover:text-primary">
+                        {milestone.title}
+                      </h3>
 
-                    <p className="text-sm leading-relaxed text-muted-foreground">
-                      {milestone.description}
-                    </p>
-                  </CardContent>
-                </Card>
+                      <p className="text-sm leading-relaxed text-muted-foreground">
+                        {milestone.description}
+                      </p>
+                    </CardContent>
+                  </Card>
+                </FadeIn>
               );
             })}
           </div>

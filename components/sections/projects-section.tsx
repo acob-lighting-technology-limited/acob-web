@@ -119,15 +119,21 @@ export function ProjectsSection({ projects }: ProjectsSectionProps) {
           </FadeIn>
           <FadeIn delay={0.3}>
             <div className="flex flex-wrap gap-3 text-sm text-muted-foreground">
-              <span className="inline-flex items-center gap-2 rounded-full border border-border px-4 py-2 uppercase tracking-wide">
-                <MapPin className="h-4 w-4" /> Nationwide coverage
-              </span>
-              <span className="inline-flex items-center gap-2 rounded-full border border-border px-4 py-2 uppercase tracking-wide">
-                <Clock3 className="h-4 w-4" /> Active operations
-              </span>
-              <span className="inline-flex items-center gap-2 rounded-full border border-border px-4 py-2 uppercase tracking-wide">
-                Impact-driven delivery
-              </span>
+              <FadeIn delay={0.3} direction="up">
+                <span className="inline-flex items-center gap-2 rounded-full border border-border px-4 py-2 uppercase tracking-wide">
+                  <MapPin className="h-4 w-4" /> Nationwide coverage
+                </span>
+              </FadeIn>
+              <FadeIn delay={0.4} direction="up">
+                <span className="inline-flex items-center gap-2 rounded-full border border-border px-4 py-2 uppercase tracking-wide">
+                  <Clock3 className="h-4 w-4" /> Active operations
+                </span>
+              </FadeIn>
+              <FadeIn delay={0.5} direction="up">
+                <span className="inline-flex items-center gap-2 rounded-full border border-border px-4 py-2 uppercase tracking-wide">
+                  Impact-driven delivery
+                </span>
+              </FadeIn>
             </div>
           </FadeIn>
         </div>

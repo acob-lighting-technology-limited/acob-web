@@ -46,8 +46,10 @@ export default function CategoryUpdatesClient({
   const [pagination, setPagination] = useState(initialPagination);
   const [searchQuery, setSearchQuery] = useState(currentSearch);
   const [isLoading, setIsLoading] = useState(false);
+  const [hasSearched, setHasSearched] = useState(!!currentSearch);
   const responsiveLimit = useResponsiveLimit();
   const isInitialMount = useRef(true);
+  const searchTimeoutRef = useRef<NodeJS.Timeout | null>(null);
 
   // Sync state with props when they change (from server component refresh)
   useEffect(() => {
@@ -58,23 +60,30 @@ export default function CategoryUpdatesClient({
   }, [initialPosts, initialPagination, currentSearch]);
 
   // Update URL and fetch new data when search changes
-  const updateSearch = async (newSearch: string, newPage: number = 1) => {
+  const updateSearch = async (
+    newSearch: string,
+    newPage: number = 1,
+    updateUrl: boolean = false,
+  ) => {
     setIsLoading(true);
 
-    const params = new URLSearchParams();
-    if (newSearch.trim()) {
-      params.set('search', newSearch);
-    }
-    if (newPage > 1) {
-      params.set('page', newPage.toString());
-    }
+    // Only update URL if explicitly requested (e.g., on clear or after debounce completes)
+    if (updateUrl) {
+      const params = new URLSearchParams();
+      if (newSearch.trim()) {
+        params.set('search', newSearch);
+      }
+      if (newPage > 1) {
+        params.set('page', newPage.toString());
+      }
 
-    const queryString = params.toString();
-    const newUrl = queryString
-      ? `/updates/category/${category}?${queryString}`
-      : `/updates/category/${category}`;
+      const queryString = params.toString();
+      const newUrl = queryString
+        ? `/updates/category/${category}?${queryString}`
+        : `/updates/category/${category}`;
 
-    router.push(newUrl);
+      router.push(newUrl, { scroll: false });
+    }
 
     try {
       const apiParams = new URLSearchParams();
@@ -115,28 +124,49 @@ export default function CategoryUpdatesClient({
       !isLoading &&
       posts.length > 0
     ) {
-      updateSearch(searchQuery, pagination.currentPage);
+      updateSearch(searchQuery, pagination.currentPage, true);
     }
   }, [responsiveLimit]);
 
   const handleSearchChange = (value: string) => {
     setSearchQuery(value);
-    // Debounce search
-    const timeoutId = setTimeout(() => {
-      updateSearch(value, 1);
-    }, 500);
-    return () => clearTimeout(timeoutId);
   };
+
+  const handleSearchSubmit = () => {
+    // Clear any pending timeout
+    if (searchTimeoutRef.current) {
+      clearTimeout(searchTimeoutRef.current);
+    }
+    setHasSearched(true);
+    // Trigger search immediately without URL update (URL update happens on server component refresh)
+    updateSearch(searchQuery, 1, false);
+  };
+
+  const handleKeyPress = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === 'Enter') {
+      handleSearchSubmit();
+    }
+  };
+
+  // Cleanup timeout on unmount
+  useEffect(() => {
+    return () => {
+      if (searchTimeoutRef.current) {
+        clearTimeout(searchTimeoutRef.current);
+      }
+    };
+  }, []);
 
   const handlePageChange = (page: number) => {
     // Scroll to top immediately before fetching
     window.scrollTo({ top: 0, behavior: 'smooth' });
-    updateSearch(searchQuery, page);
+    updateSearch(searchQuery, page, true);
   };
 
   const handleClearSearch = () => {
     setSearchQuery('');
-    updateSearch('', 1);
+    setHasSearched(false);
+    updateSearch('', 1, true);
   };
 
   return (
@@ -145,49 +175,53 @@ export default function CategoryUpdatesClient({
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-8">
         <Breadcrumb items={breadcrumbItems} />
 
-        <div className="relative w-full sm:w-96">
-          <Input
-            placeholder="Search updates..."
-            value={searchQuery}
-            onChange={e => handleSearchChange(e.target.value)}
-            className="h-11 pl-10 pr-10 bg-background border-2 focus:border-primary transition-all duration-300"
-          />
-          <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
-          {searchQuery && (
-            <button
-              onClick={handleClearSearch}
-              className="absolute right-3 top-1/2 -translate-y-1/2 p-1 hover:bg-muted rounded-full transition-colors"
-            >
-              <X className="h-4 w-4 text-muted-foreground" />
-            </button>
-          )}
+        <div className="relative w-full sm:w-auto sm:min-w-[400px] flex gap-2">
+          <div className="relative flex-1">
+            <Input
+              placeholder="Search updates..."
+              value={searchQuery}
+              onChange={e => handleSearchChange(e.target.value)}
+              onKeyPress={handleKeyPress}
+              className="h-11 pl-10 pr-10 bg-background border-2 focus:border-primary transition-all duration-300"
+            />
+            <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+            {searchQuery && (
+              <button
+                onClick={handleClearSearch}
+                className="absolute right-3 top-1/2 -translate-y-1/2 p-1 hover:bg-muted rounded-full transition-colors"
+              >
+                <X className="h-4 w-4 text-muted-foreground" />
+              </button>
+            )}
+          </div>
+          <Button onClick={handleSearchSubmit} size="lg" className="h-11 px-6">
+            <Search className="h-4 w-4 mr-2" />
+            Search
+          </Button>
         </div>
       </div>
 
       {/* Search Results Info */}
-      {searchQuery && (
-        <div className="mb-6">
-          <Card className="border-primary/20 bg-primary/5">
-            <CardContent className="p-4">
-              <div className="flex items-center justify-between">
-                <p className="text-sm">
-                  <span className="font-medium">{pagination.totalCount}</span>{' '}
-                  update
-                  {pagination.totalCount !== 1 ? 's' : ''} found for{' '}
-                  <span className="font-medium">"{searchQuery}"</span>
-                </p>
-                <Button
-                  variant="ghost"
-                  size="sm"
-                  onClick={handleClearSearch}
-                  className="text-xs"
-                >
-                  <X className="h-3 w-3 mr-1" />
-                  Clear
-                </Button>
-              </div>
-            </CardContent>
-          </Card>
+      {searchQuery && hasSearched && !isLoading && (
+        <div className="mb-4">
+          <div className="flex items-center justify-between text-sm text-muted-foreground bg-card border border-border rounded-md px-3 py-2">
+            <p>
+              <span className="font-medium text-foreground">
+                {pagination.totalCount}
+              </span>{' '}
+              update{pagination.totalCount !== 1 ? 's' : ''} found for{' '}
+              <span className="font-medium text-foreground">
+                "{searchQuery}"
+              </span>
+            </p>
+            <button
+              onClick={handleClearSearch}
+              className="text-xs hover:text-foreground transition-colors flex items-center gap-1"
+            >
+              <X className="h-3 w-3" />
+              Clear
+            </button>
+          </div>
         </div>
       )}
 

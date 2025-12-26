@@ -8,8 +8,13 @@
   "theme_color": "#000000",
   "orientation": "portrait-primary",
   "scope": "/",
+  "offline_url": "/offline",
   "lang": "en",
-  "categories": ["business", "energy", "technology"],
+  "categories": [
+    "business",
+    "energy",
+    "technology"
+  ],
   "icons": [
     {
       "src": "/images/ACOB-logo.png",
@@ -38,4 +43,4 @@
       "form_factor": "narrow"
     }
   ]
-} 
+}

@@ -6,6 +6,7 @@ import { Breadcrumb } from '@/components/ui/breadcrumb';
 import { Card, CardContent } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import Image from 'next/image';
+import Link from 'next/link';
 import { partners } from '@/lib/data/partners-data';
 import { FadeIn } from '@/components/animations/FadeIn';
 import { getBlurDataURL } from '@/lib/utils/image-optimization';
@@ -20,6 +21,10 @@ export default function PartnersPage() {
 
   const infraCreditPartner = partners.find(p => p.name === 'InfraCredit');
 
+  // Debug: Check if fullName exists
+  console.log('First partner:', partners[0]);
+  console.log('Has fullName?', partners[0]?.fullName);
+
   return (
     <>
       <Hero
@@ -28,8 +33,8 @@ export default function PartnersPage() {
         image="/images/about/partners-collage.webp"
       />
 
-      <Container className="px-4 py-8 max-w-full overflow-hidden">
-        <Breadcrumb items={breadcrumbItems} className="mb-8" />
+      <Container>
+        <Breadcrumb items={breadcrumbItems} className="mb-10" />
 
         {/* InfraCredit Featured Section */}
         {infraCreditPartner && (
@@ -41,9 +46,9 @@ export default function PartnersPage() {
                   <div className="relative w-full max-w-full aspect-video lg:aspect-auto lg:h-full min-h-[250px] sm:min-h-[300px] lg:min-h-[400px] bg-muted/50 order-2 lg:order-1 overflow-hidden">
                     <div className="absolute inset-0 w-full h-full max-w-full overflow-hidden">
                       <iframe
-                        src="https://player.vimeo.com/video/1147321040?title=0&byline=0&portrait=0"
+                        src="https://www.youtube.com/embed/C6S2Qj-Dsc0"
                         className="absolute top-0 left-0 w-full h-full border-0"
-                        allow="autoplay; fullscreen; picture-in-picture"
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
                         allowFullScreen
                         title="ACOB & InfraCredit Partnership Video"
                         style={{
@@ -123,27 +128,52 @@ export default function PartnersPage() {
             <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-4 sm:gap-6">
               {partners.map((partner, index) => (
                 <FadeIn
-                  key={partner.name}
+                  key={partner.slug}
                   delay={0.1 + index * 0.05}
                   direction="up"
                 >
-                  <Card className="group border border-border bg-border  group-hover:bg-primary/20 transition-colors duration-300 hover:border-primary/50 transition-all duration-300 hover:shadow-lg hover:-translate-y-1 h-full">
-                    <CardContent className="p-4 sm:p-6 flex items-center justify-center h-full min-h-[120px]">
-                      <div className="relative w-full h-full flex items-center justify-center  rounded-lg p-3 ">
-                        <Image
-                          src={partner.logo}
-                          alt={partner.name}
-                          width={150}
-                          height={100}
-                          className="h-auto w-full max-w-[120px] object-contain opacity-90 group-hover:opacity-100 transition-opacity duration-300"
-                          loading="lazy"
-                          quality={75}
-                          placeholder="blur"
-                          blurDataURL={getBlurDataURL()}
-                        />
+                  <Link
+                    href={`/about/partners/${partner.slug}`}
+                    className="block h-full"
+                  >
+                    <div className="group h-full perspective-1000 cursor-pointer">
+                      <div className="relative h-full min-h-[160px] transition-transform duration-700 transform-style-3d group-hover:rotate-y-180">
+                        {/* Front - Logo */}
+                        <Card className="absolute inset-0 backface-hidden border border-border bg-card hover:border-primary/50 transition-colors duration-300 hover:shadow-lg">
+                          <CardContent className="p-4 sm:p-6 flex items-center justify-center h-full">
+                            <div className="relative w-full h-full flex items-center justify-center rounded-lg p-3">
+                              <Image
+                                src={partner.logo}
+                                alt={partner.name}
+                                width={150}
+                                height={100}
+                                className="h-auto w-full max-w-[120px] object-contain opacity-90 group-hover:opacity-100 transition-opacity duration-300"
+                                loading="lazy"
+                                quality={75}
+                                placeholder="blur"
+                                blurDataURL={getBlurDataURL()}
+                              />
+                            </div>
+                          </CardContent>
+                        </Card>
+
+                        {/* Back - Description */}
+                        <Card className="absolute inset-0 backface-hidden rotate-y-180 border border-primary/50 bg-primary/5">
+                          <CardContent className="p-3 sm:p-4 flex flex-col items-center justify-center h-full text-center gap-2">
+                            <Badge className="text-[10px] px-2 py-0.5">
+                              {partner.category}
+                            </Badge>
+                            <h3 className="font-semibold text-sm sm:text-base leading-tight text-foreground px-2">
+                              {partner.fullName}
+                            </h3>
+                            <span className="text-xs text-primary font-medium mt-auto">
+                              Learn more →
+                            </span>
+                          </CardContent>
+                        </Card>
                       </div>
-                    </CardContent>
-                  </Card>
+                    </div>
+                  </Link>
                 </FadeIn>
               ))}
             </div>

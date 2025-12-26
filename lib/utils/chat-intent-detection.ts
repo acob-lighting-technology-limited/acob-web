@@ -130,10 +130,11 @@ const JOB_KEYWORDS = [
 export function detectIntent(message: string): ChatIntent {
   const lowerMessage = message.toLowerCase();
 
-  // Check for projects
+  // Check for projects (including comparisons and specific project searches)
   if (
     PROJECT_KEYWORDS.some(keyword => lowerMessage.includes(keyword)) ||
-    /where (have you|did you|are you) (work|install|deploy)/i.test(message)
+    /where (have you|did you|are you) (work|install|deploy)/i.test(message) ||
+    /compare|comparison|versus|vs|difference between/i.test(message)
   ) {
     return {
       type: 'projects',
@@ -205,6 +206,31 @@ function extractProjectFilters(message: string): {
     filters.category = 'Commercial & Industrial';
   } else if (/agric|farm/i.test(message)) {
     filters.category = 'Agriculture';
+  }
+
+  // Extract specific project names for search
+  // Common project name patterns: Mile 13, Tunga, Umaisha, Musha, etc.
+  const projectNamePatterns = [
+    /mile\s*\d+/i,
+    /tunga/i,
+    /umaisha/i,
+    /musha/i,
+    /olooji/i,
+    /gwarinpa/i,
+    /kuje/i,
+    /apo/i,
+  ];
+
+  for (const pattern of projectNamePatterns) {
+    const match = message.match(pattern);
+    if (match) {
+      // If search already exists, append with comma
+      if (filters.search) {
+        filters.search += `, ${match[0]}`;
+      } else {
+        filters.search = match[0];
+      }
+    }
   }
 
   return filters;

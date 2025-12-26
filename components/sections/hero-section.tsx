@@ -45,7 +45,7 @@ export const HeroSection = React.memo(function HeroSection({
       ];
     }
 
-    return projects.slice(0, 6).map(project => ({
+    return projects.slice(0, 8).map(project => ({
       id: `project-${project._id}`,
       title: project.title,
       image: project.projectImage || '/images/olooji-community.webp',
@@ -209,27 +209,32 @@ export const HeroSection = React.memo(function HeroSection({
             {/* Left Content */}
             <div className="space-y-4 md:space-y-5 max-w-xl">
               {/* Badge - Shows FIRST */}
-              <div
-                className="opacity-0 animate-fade-in-up"
-                style={{ animationDelay: '0s', animationFillMode: 'forwards' }}
-              >
-                <Badge className="bg-primary/20 backdrop-blur-sm text-white border-primary/30 text-xs font-medium uppercase tracking-wide">
-                  Renewable Energy Experts
-                </Badge>
-              </div>
+              <div className="space-y-2 md:space-y-3">
+                <div
+                  className="opacity-0 animate-fade-in-up"
+                  style={{
+                    animationDelay: '0s',
+                    animationFillMode: 'forwards',
+                  }}
+                >
+                  <Badge className="bg-primary/20 backdrop-blur-sm text-white border-primary/30 text-xs font-medium uppercase tracking-wide">
+                    Renewable Energy Experts
+                  </Badge>
+                </div>
 
-              {/* Main Headline - Shows SECOND */}
-              <div
-                className="opacity-0 animate-fade-in-up"
-                style={{
-                  animationDelay: '0.2s',
-                  animationFillMode: 'forwards',
-                }}
-              >
-                <h1 className="font-bold leading-tight text-3xl sm:text-4xl md:text-4xl lg:text-5xl text-white">
-                  Powering sustainable futures for homes, businesses, and
-                  communities.
-                </h1>
+                {/* Main Headline - Shows SECOND */}
+                <div
+                  className="opacity-0 animate-fade-in-up"
+                  style={{
+                    animationDelay: '0.2s',
+                    animationFillMode: 'forwards',
+                  }}
+                >
+                  <h1 className="font-bold leading-tight text-3xl sm:text-4xl md:text-4xl lg:text-5xl text-white">
+                    Powering sustainable futures for homes, businesses, and
+                    communities.
+                  </h1>
+                </div>
               </div>
 
               {/* Description - Shows THIRD */}

@@ -207,8 +207,29 @@ export const projectType = defineType({
       title: 'Featured Project',
       type: 'boolean',
       description:
-        'Toggle to feature this project in the hero section (maximum 6 projects). Use "Featured Projects Order" in the sidebar to drag and reorder.',
+        'Toggle to feature this project in the hero section (maximum 8 projects). Use "Featured Projects Order" in the sidebar to drag and reorder.',
       initialValue: false,
+      validation: Rule =>
+        Rule.custom(async (value, context) => {
+          if (!value) {
+            return true;
+          } // If not featured, no validation needed
+
+          const { getClient } = context;
+          const client = getClient({ apiVersion: '2024-01-01' });
+
+          // Count currently featured projects
+          const featuredCount = await client.fetch(
+            'count(*[_type == "project" && isFeatured == true && _id != $currentId])',
+            { currentId: context.document?._id },
+          );
+
+          if (featuredCount >= 8) {
+            return 'Maximum of 8 featured projects allowed. Please unfeature another project first.';
+          }
+
+          return true;
+        }),
     }),
     // Impact Metrics Fields
     defineField({
@@ -309,6 +330,7 @@ export const projectType = defineType({
           description: 'Annual energy output in kilowatt-hours per year',
         },
       ],
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } as any),
     // New Project Content Structure
     defineField({
@@ -458,12 +480,14 @@ As part of ACOB Lighting Technology's clean energy investments, this project dem
               name: 'author',
               title: 'Author',
               type: 'string',
+              // eslint-disable-next-line @typescript-eslint/no-explicit-any
               validation: (Rule: any) => Rule.required(),
             },
             {
               name: 'email',
               title: 'Email',
               type: 'string',
+              // eslint-disable-next-line @typescript-eslint/no-explicit-any
               validation: (Rule: any) => Rule.required(),
             },
             {
@@ -471,6 +495,7 @@ As part of ACOB Lighting Technology's clean energy investments, this project dem
               title: 'Comment',
               type: 'text',
               rows: 3,
+              // eslint-disable-next-line @typescript-eslint/no-explicit-any
               validation: (Rule: any) => Rule.required().min(10),
             },
             {
@@ -493,6 +518,7 @@ As part of ACOB Lighting Technology's clean energy investments, this project dem
               subtitle: 'commentContent',
               media: 'isApproved',
             },
+            // eslint-disable-next-line @typescript-eslint/no-explicit-any
             prepare(selection: Record<string, any>) {
               const { title, subtitle, media } = selection as {
                 title: string;
