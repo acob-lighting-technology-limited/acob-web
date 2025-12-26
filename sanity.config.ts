@@ -3,6 +3,7 @@ import { structureTool } from 'sanity/structure';
 import { visionTool } from '@sanity/vision';
 import { orderableDocumentListDeskItem } from '@sanity/orderable-document-list';
 import { schemaTypes } from './sanity/schemaTypes';
+import { limitFeaturedProjects } from './sanity/lib/actions/limitFeaturedProjects';
 
 export default defineConfig({
   name: 'default',
@@ -82,5 +83,16 @@ export default defineConfig({
   ],
   schema: {
     types: schemaTypes,
+  },
+  document: {
+    actions: (prev, context) => {
+      // Add our custom action for project documents
+      if (context.schemaType === 'project') {
+        return prev.map(action =>
+          action.action === 'publish' ? limitFeaturedProjects : action,
+        );
+      }
+      return prev;
+    },
   },
 });

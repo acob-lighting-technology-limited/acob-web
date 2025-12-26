@@ -45,7 +45,7 @@ export const HeroSection = React.memo(function HeroSection({
       ];
     }
 
-    return projects.slice(0, 6).map(project => ({
+    return projects.slice(0, 8).map(project => ({
       id: `project-${project._id}`,
       title: project.title,
       image: project.projectImage || '/images/olooji-community.webp',
