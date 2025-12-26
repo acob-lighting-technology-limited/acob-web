@@ -144,7 +144,7 @@ export default function ProjectsClient({
         <div className="relative w-full sm:w-auto sm:min-w-[400px] flex gap-2">
           <div className="relative flex-1">
             <Input
-              placeholder="Search projects... (Press Enter)"
+              placeholder="Search projects..."
               value={searchQuery}
               onChange={e => handleSearchChange(e.target.value)}
               onKeyPress={handleKeyPress}

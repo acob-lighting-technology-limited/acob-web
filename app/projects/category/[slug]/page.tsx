@@ -11,53 +11,88 @@ import { Hero } from '@/components/ui/hero';
 import type { Project } from '@/lib/types';
 import { applySanityImagePreset } from '@/lib/utils/sanity-image';
 import { extractTextFromPortableText } from '@/lib/utils';
+import { CategorySearch } from './category-search';
 
 interface CategoryPageProps {
   params: Promise<{
     slug: string;
+  }>;
+  searchParams: Promise<{
+    search?: string;
   }>;
 }
 
 // Category mapping for display names and descriptions
 const categoryInfo: Record<
   string,
-  { title: string; description: string; image: string }
+  { title: string; description: string; fallbackImage: string }
 > = {
   'rural-electrification': {
     title: 'Rural Electrification',
     description: 'Bringing reliable power to remote communities across Nigeria',
-    image: '/images/adebayo-community.webp?height=400&width=1200',
+    fallbackImage: '/images/adebayo-community.webp?height=400&width=1200',
   },
   'commercial-installations': {
     title: 'Commercial Installations',
     description: 'Solar solutions for businesses and commercial establishments',
-    image: '/images/airport-road-abuja.webp?height=400&width=1200',
+    fallbackImage: '/images/airport-road-abuja.webp?height=400&width=1200',
   },
   'street-lighting': {
     title: 'Street Lighting',
     description:
       'Public lighting infrastructure projects for safer communities',
-    image:
+    fallbackImage:
       '/images/projects/installation-high-density-streetlight-1.webp?height=400&width=1200',
   },
   'healthcare-projects': {
     title: 'Healthcare Projects',
     description:
       'Powering hospitals and healthcare facilities with reliable energy',
-    image:
+    fallbackImage:
       '/images/projects/keffi-nassarawa-hospital-1.webp?height=400&width=1200',
   },
 };
 
-export default async function CategoryPage({ params }: CategoryPageProps) {
+export default async function CategoryPage({
+  params,
+  searchParams,
+}: CategoryPageProps) {
   const { slug } = await params;
+  const { search = '' } = await searchParams;
   const info = categoryInfo[slug];
 
   if (!info) {
     notFound();
   }
 
-  const projects = await getProjectsByCategory(slug);
+  let projects = await getProjectsByCategory(slug);
+
+  // Filter projects by search query
+  if (search) {
+    const searchLower = search.toLowerCase();
+    projects = projects.filter(
+      (project: Project) =>
+        project.title.toLowerCase().includes(searchLower) ||
+        project.location?.toLowerCase().includes(searchLower) ||
+        project.state?.toLowerCase().includes(searchLower) ||
+        extractTextFromPortableText(project.content || [])
+          .toLowerCase()
+          .includes(searchLower),
+    );
+  }
+
+  // Map project images for carousel (like main projects page)
+  const projectImages = projects
+    .filter((p: Project) => p.projectImage) // Only include projects with images
+    .map((p: Project) => ({
+      src: p.projectImage!,
+      alt: p.title,
+      href: `/projects/${p.slug.current}`,
+    }));
+
+  // Use carousel if we have images, otherwise use fallback
+  const heroImage =
+    projectImages.length > 0 ? projectImages : info.fallbackImage;
 
   const breadcrumbItems = [
     { label: 'Home', href: '/' },
@@ -67,10 +102,18 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
 
   return (
     <>
-      <Hero description={info.title} image={info.image} title={info.title} />
+      <Hero
+        description={info.description}
+        image={heroImage}
+        title={info.title}
+      />
 
       <Container className="px-4 py-8">
-        <Breadcrumb items={breadcrumbItems} className="mb-8" />
+        {/* Breadcrumb with Search */}
+        <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-8">
+          <Breadcrumb items={breadcrumbItems} />
+          <CategorySearch initialSearch={search} />
+        </div>
 
         <div>
           {/* Main Content */}
@@ -91,16 +134,6 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
               </Card>
             ) : (
               <>
-                <div className="mb-8">
-                  <h2 className="text-2xl font-bold mb-2">
-                    {info.title} Projects
-                  </h2>
-                  <p className="text-muted-foreground">
-                    {projects.length} project{projects.length !== 1 ? 's' : ''}{' '}
-                    found
-                  </p>
-                </div>
-
                 <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-6">
                   {projects.map((project: Project) => (
                     <Link

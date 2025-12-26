@@ -157,7 +157,7 @@ export default function UpdatesClient({
         <div className="relative w-full sm:w-auto sm:min-w-[400px] flex gap-2">
           <div className="relative flex-1">
             <Input
-              placeholder="Search updates... (Press Enter)"
+              placeholder="Search updates..."
               value={searchQuery}
               onChange={e => handleSearchChange(e.target.value)}
               onKeyPress={handleKeyPress}
