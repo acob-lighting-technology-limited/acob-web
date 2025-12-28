@@ -36,7 +36,7 @@ export function generateProjectTitle(data: ProjectData): string {
   const categoryLabel = categoryLabels[category] || category;
   const stateLabel = state.toUpperCase() === 'FCT' ? 'FCT' : `${state} State`;
 
-  return `${location} ${kwp} kWp ${systemType} Project for ${categoryLabel}, ${stateLabel}, Nigeria`;
+  return `${location} Community ${kwp} kWp ${systemType} Project for ${categoryLabel}, ${stateLabel}, Nigeria`;
 }
 
 /**
@@ -54,7 +54,7 @@ export function generateProjectExcerpt(data: ProjectData): string {
   }
 
   const stateLabel = state.toUpperCase() === 'FCT' ? 'FCT' : `${state} State`;
-  let excerpt = `A ${kwp} kWp ${systemType} project in ${location}, ${stateLabel}`;
+  let excerpt = `A ${kwp} kWp ${systemType} project in ${location} Community, ${stateLabel}`;
 
   if (beneficiaries) {
     excerpt += `, providing clean energy to ${beneficiaries.toLocaleString()}+ beneficiaries`;

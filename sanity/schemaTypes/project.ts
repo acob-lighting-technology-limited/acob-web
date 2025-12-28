@@ -48,7 +48,6 @@ export const projectType = defineType({
       name: 'slug',
       title: 'Slug',
       type: 'slug',
-      hidden: true,
       options: {
         source: 'title',
         maxLength: 96,
@@ -349,6 +348,10 @@ export const projectType = defineType({
               { title: 'Description Template 1', value: 'description1' },
               { title: 'Description Template 2', value: 'description2' },
               { title: 'Description Template 3', value: 'description3' },
+              { title: 'Description Template 4', value: 'description4' },
+              { title: 'Description Template 5', value: 'description5' },
+              { title: 'Description Template 6', value: 'description6' },
+              { title: 'Description Template 7', value: 'description7' },
               { title: 'Custom Description', value: 'custom' },
             ],
           },
@@ -388,13 +391,67 @@ The project stands as a testament to ACOB's mission to empower communities throu
           type: 'text',
           readOnly: true,
           rows: 12,
-          initialValue: `The {kwp} kWp {systemType} installation delivered by ACOB Lighting Technology in {location}, {lga} LGA of {state} State, is part of our expanding portfolio of distributed renewable energy assets designed to enable energy security, economic development, and long-term sustainability across Nigeria.
+          initialValue: `The {kwp} kWp {systemType} installation delivered by ACOB Lighting Technology Limited in the {location} community, {lga} LGA of {state} State, is part of our expanding portfolio of distributed renewable energy assets designed to enable energy security, economic development, and long-term sustainability across Nigeria.
 
 This project provides clean power to {beneficiaries}+ beneficiaries and strengthens the local economic landscape by supporting productive activities in households, micro-enterprises, and commercial users. {jobsDirect}+ direct and {jobsIndirect}+ indirect jobs were generated, highlighting our commitment to creating local value and fostering inclusive growth.
 
-The system produces approximately {annualEnergyOutput} kWh annually, ensuring stable energy delivery while reducing operational costs typically associated with fossil-fuel generators. The project further achieves an annual emissions reduction of around {annualCO2Reduction} tonnes of CO₂, aligning with global ESG standards and national decarbonization targets.
-
 As part of ACOB Lighting Technology's clean energy investments, this project demonstrates our dedication to scaling impactful, reliable, and climate-aligned energy infrastructure across emerging markets.`,
+        },
+        {
+          name: 'description4Preview',
+          title: '📄 Template 4 Preview (Read-Only)',
+          type: 'text',
+          readOnly: true,
+          rows: 12,
+          initialValue: `Situated in the {location} community within {lga} LGA of {state} State, this {kwp} kWp {systemType} project exemplifies ACOB Lighting Technology's commitment to community empowerment through sustainable energy access. The installation was designed to address critical energy poverty while catalyzing socio-economic development in the region.
+
+The project now serves {beneficiaries} beneficiaries, providing consistent electricity that enables children to study after dark, healthcare facilities to operate effectively, and local entrepreneurs to expand their businesses beyond daylight hours. The deployment process prioritized local participation, creating {jobsDirect} direct employment opportunities and {jobsIndirect} indirect jobs that strengthened community capacity and technical expertise.
+
+With an annual generation capacity of {annualEnergyOutput} kWh, the system eliminates the need for polluting diesel generators, resulting in annual CO₂ emission reductions of approximately {annualCO2Reduction} tonnes. This contributes to improved air quality and public health outcomes for the community.
+
+This project reflects ACOB Lighting Technology's holistic approach to energy development—one that prioritizes people, planet, and prosperity in equal measure.`,
+        },
+        {
+          name: 'description5Preview',
+          title: '📄 Template 5 Preview (Read-Only)',
+          type: 'text',
+          readOnly: true,
+          rows: 12,
+          initialValue: `ACOB Lighting Technology deployed a state-of-the-art {kwp} kWp {systemType} in {location} community within {lga} LGA, {state} State, leveraging advanced photovoltaic technology and smart energy management systems to deliver optimal performance and reliability. This installation represents a benchmark in distributed renewable energy infrastructure across Nigeria.
+
+The system is engineered to generate approximately {annualEnergyOutput} kWh annually, providing uninterrupted power to {beneficiaries}+ users while maintaining industry-leading efficiency standards. Advanced monitoring and control systems ensure maximum uptime and enable predictive maintenance, guaranteeing long-term operational excellence.
+
+Beyond technical performance, the project delivered measurable socio-economic benefits: {jobsDirect} skilled technicians and engineers were directly employed during installation and commissioning, while {jobsIndirect} additional jobs were created across the value chain. The system's clean energy output displaces fossil fuel consumption, achieving annual emissions avoidance of {annualCO2Reduction} tonnes of CO₂.
+
+This project showcases ACOB's technical capabilities and unwavering commitment to deploying world-class renewable energy solutions that drive sustainable development and climate resilience.`,
+        },
+        {
+          name: 'description6Preview',
+          title: '📄 Template 6 Preview (Read-Only)',
+          type: 'text',
+          readOnly: true,
+          rows: 12,
+          initialValue: `The {kwp} kWp {systemType} project in the community of {location}, {lga} LGA of {state} State, was delivered through a collaborative approach that brought together ACOB Lighting Technology's technical expertise, community leadership, and strategic stakeholders committed to advancing energy access and sustainable development.
+
+This initiative was designed to address the energy needs of {beneficiaries} residents while creating pathways for economic growth and social progress. Through close engagement with local authorities, traditional leaders, and community representatives, the project ensured that the system's design and deployment aligned with the unique needs and priorities of the host community.
+
+The project generated {jobsDirect} direct jobs and {jobsIndirect} indirect employment opportunities, fostering skills transfer and building local technical capacity that will support long-term maintenance and sustainability. With an annual output of {annualEnergyOutput} kWh, the installation displaces fossil fuel dependency and avoids approximately {annualCO2Reduction} tonnes of CO₂ emissions each year.
+
+ACOB Lighting Technology remains committed to partnership-driven energy solutions that deliver shared value, empower communities, and contribute to Nigeria's renewable energy transition.`,
+        },
+        {
+          name: 'description7Preview',
+          title: '📄 Template 7 Preview (Read-Only)',
+          type: 'text',
+          readOnly: true,
+          rows: 12,
+          initialValue: `As part of ACOB Lighting Technology's climate action portfolio, the {kwp} kWp {systemType} installed in {location}, a community in {lga} LGA, {state} State, represents a significant contribution to Nigeria's decarbonization efforts and environmental sustainability goals. This project was designed to deliver clean, reliable energy while minimizing ecological impact and advancing climate resilience.
+
+Generating approximately {annualEnergyOutput} kWh annually, the system provides electricity to {beneficiaries}+ beneficiaries without relying on carbon-intensive fossil fuels. This results in an annual CO₂ emissions reduction of around {annualCO2Reduction} tonnes, directly supporting national and global climate commitments under the Paris Agreement and Nigeria's Nationally Determined Contributions (NDCs).
+
+Beyond environmental benefits, the project created {jobsDirect} direct jobs and {jobsIndirect} indirect jobs, demonstrating that climate action and economic development are mutually reinforcing. The installation also reduces local air and noise pollution, improving public health and quality of life for surrounding communities.
+
+This project underscores ACOB Lighting Technology's leadership in deploying renewable energy infrastructure that protects the environment, supports livelihoods, and builds a sustainable future for all Nigerians.`,
         },
         {
           name: 'customDescription',

@@ -238,6 +238,10 @@ export async function getProject(slug: string): Promise<Project | null> {
           description1Preview,
           description2Preview,
           description3Preview,
+          description4Preview,
+          description5Preview,
+          description6Preview,
+          description7Preview,
           customDescription,
           images[]{
             _type,
