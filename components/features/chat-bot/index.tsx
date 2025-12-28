@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import { usePathname } from 'next/navigation';
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion } from 'framer-motion';
 import { MessageSquare, X } from 'lucide-react';
 import { Button } from '@/components/ui';
 import { ChatBotContainer } from './chat-bot-container';
@@ -22,8 +22,6 @@ export function ChatBot() {
   const [isOpen, setIsOpen] = useState(false);
   const [isVisible, setIsVisible] = useState(false);
   const [shouldHide, setShouldHide] = useState(false);
-  const [showTooltip, setShowTooltip] = useState(false);
-  const [tooltipDismissed, setTooltipDismissed] = useState(false);
   const pathname = usePathname();
 
   // Check if we're on a products slug page and on mobile
@@ -60,34 +58,6 @@ export function ChatBot() {
     };
   }, []);
 
-  // Show tooltip after button becomes visible
-  useEffect(() => {
-    if (isVisible && !tooltipDismissed && !isOpen) {
-      const timer = setTimeout(() => {
-        setShowTooltip(true);
-      }, 1000); // Show tooltip 1 second after button appears
-
-      // Auto-hide tooltip after 8 seconds
-      const hideTimer = setTimeout(() => {
-        setShowTooltip(false);
-        setTooltipDismissed(true);
-      }, 9000);
-
-      return () => {
-        clearTimeout(timer);
-        clearTimeout(hideTimer);
-      };
-    }
-  }, [isVisible, tooltipDismissed, isOpen]);
-
-  // Hide tooltip when chat opens
-  useEffect(() => {
-    if (isOpen) {
-      setShowTooltip(false);
-      setTooltipDismissed(true);
-    }
-  }, [isOpen]);
-
   // Don't render on mobile for products slug pages
   if (shouldHide) {
     return null;
@@ -99,59 +69,6 @@ export function ChatBot() {
       <div className="relative">
         {/* Chat Button */}
         <div className="relative">
-          {/* Notification Tooltip */}
-          <AnimatePresence>
-            {showTooltip && !isOpen && (
-              <motion.div
-                initial={{ opacity: 0, x: 20, scale: 0.8 }}
-                animate={{ opacity: 1, x: 0, scale: 1 }}
-                exit={{ opacity: 0, x: 20, scale: 0.8 }}
-                transition={{ duration: 0.3, ease: 'easeOut' }}
-                className="absolute right-full -top-1/4 -translate-y-1/2 mr-3 w-64"
-              >
-                <div className="relative bg-primary text-primary-foreground rounded-lg shadow-xl p-3 border border-primary-foreground/20">
-                  {/* Close button */}
-                  <button
-                    onClick={() => {
-                      setShowTooltip(false);
-                      setTooltipDismissed(true);
-                    }}
-                    className="absolute top-1 right-1 p-1 hover:bg-primary-foreground/20 rounded-full transition-colors"
-                    aria-label="Dismiss"
-                  >
-                    <X className="h-3 w-3" />
-                  </button>
-
-                  {/* Content */}
-                  <div className="pr-6">
-                    <p className="text-sm font-semibold mb-1">👋 Need help?</p>
-                    <p className="text-xs opacity-90">
-                      Chat with ACOBot, our AI assistant! Ask about projects,
-                      products, or services.
-                    </p>
-                  </div>
-
-                  {/* Arrow pointing to button */}
-                  <div className="absolute -right-2 top-1/2 -translate-y-1/2 w-4 h-4 bg-primary border-r border-t border-primary-foreground/20 transform rotate-45" />
-                </div>
-
-                {/* Pulsing indicator */}
-                <motion.div
-                  className="absolute -right-1 top-1/2 -translate-y-1/2 w-3 h-3 bg-primary rounded-full"
-                  animate={{
-                    scale: [1, 1.5, 1],
-                    opacity: [1, 0.5, 1],
-                  }}
-                  transition={{
-                    duration: 2,
-                    repeat: Infinity,
-                    ease: 'easeInOut',
-                  }}
-                />
-              </motion.div>
-            )}
-          </AnimatePresence>
-
           <Button
             size="icon"
             onClick={() => setIsOpen(!isOpen)}
@@ -174,7 +91,7 @@ export function ChatBot() {
             </motion.div>
 
             {/* Notification badge */}
-            {!tooltipDismissed && !isOpen && (
+            {!isOpen && (
               <motion.span
                 initial={{ scale: 0 }}
                 animate={{ scale: 1 }}
