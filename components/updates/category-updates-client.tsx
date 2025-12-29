@@ -261,7 +261,7 @@ export default function CategoryUpdatesClient({
         <>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
             {posts.map((post: UpdatePost, index: number) => (
-              <FadeIn key={post._id} delay={index * 0.15} direction="up">
+              <FadeIn key={post._id} delay={index * 0.05} direction="up">
                 <Link href={`/updates/${post.slug.current}`} className="group">
                   <Card className="h-full overflow-hidden border-border bg-card hover:border-primary/30 hover:shadow-2xl transition-all duration-500">
                     {/* Image */}

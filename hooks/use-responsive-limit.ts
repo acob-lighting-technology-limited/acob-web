@@ -9,7 +9,7 @@ import { useState, useEffect } from 'react';
  * - Laptop/Desktop (1024px+): 12 cards
  */
 export function useResponsiveLimit() {
-  const [limit, setLimit] = useState(12); // Default to 12 for SSR/hydration
+  const [limit, setLimit] = useState(6); // Default to 6 (mobile-first)
 
   useEffect(() => {
     const updateLimit = () => {

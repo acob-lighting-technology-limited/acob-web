@@ -224,7 +224,7 @@ export default function ProjectsClient({
         <>
           <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-6">
             {projects.map((project: Project, index: number) => (
-              <FadeIn key={project._id} delay={index * 0.15} direction="up">
+              <FadeIn key={project._id} delay={index * 0.05} direction="up">
                 <Link
                   href={`/projects/${project.slug.current}`}
                   className="group"
