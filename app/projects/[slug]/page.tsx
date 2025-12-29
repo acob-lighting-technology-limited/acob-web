@@ -67,20 +67,24 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
 
               {/* Project Location */}
               {project.location && (
-                <div className="flex items-center text-muted-foreground mt-6">
-                  <MapPin className="h-5 w-5 mr-2" />
-                  <span className="text-lg">
-                    {project.location}
-                    {project.state &&
-                      `, ${project.state.toUpperCase() === 'FCT' ? 'FCT' : `${project.state} State.`}`}
-                  </span>
-                  <span className="mx-2">•</span>
-                  <Calendar className="w-4 h-4 mx-2" />
-                  <span className="text-lg">
-                    {new Date(
-                      project.projectDate || project._createdAt,
-                    ).getFullYear()}
-                  </span>
+                <div className="flex flex-wrap items-center text-muted-foreground mt-6 gap-2">
+                  <div className="flex items-center">
+                    <MapPin className="h-4 w-4 sm:h-5 sm:w-5 mr-2 flex-shrink-0" />
+                    <span className="text-sm sm:text-base md:text-lg">
+                      {project.location}
+                      {project.state &&
+                        `, ${project.state.toUpperCase() === 'FCT' ? 'FCT' : `${project.state} State.`}`}
+                    </span>
+                  </div>
+                  <span className="hidden sm:inline mx-2">•</span>
+                  <div className="flex items-center">
+                    <Calendar className="w-4 h-4 mr-2 flex-shrink-0" />
+                    <span className="text-sm sm:text-base md:text-lg">
+                      {new Date(
+                        project.projectDate || project._createdAt,
+                      ).getFullYear()}
+                    </span>
+                  </div>
                 </div>
               )}
             </div>

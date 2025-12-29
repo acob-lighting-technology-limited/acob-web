@@ -22,6 +22,7 @@ export function ChatBot() {
   const [isOpen, setIsOpen] = useState(false);
   const [isVisible, setIsVisible] = useState(false);
   const [shouldHide, setShouldHide] = useState(false);
+  const [showBadge, setShowBadge] = useState(true);
   const pathname = usePathname();
 
   // Check if we're on a products slug page and on mobile
@@ -58,6 +59,26 @@ export function ChatBot() {
     };
   }, []);
 
+  // Auto-hide badge after 5 seconds when button becomes visible
+  useEffect(() => {
+    if (isVisible && showBadge && !isOpen) {
+      const timer = setTimeout(() => {
+        setShowBadge(false);
+      }, 5000);
+
+      return () => {
+        clearTimeout(timer);
+      };
+    }
+  }, [isVisible, showBadge, isOpen]);
+
+  // Hide badge when chat is opened
+  useEffect(() => {
+    if (isOpen) {
+      setShowBadge(false);
+    }
+  }, [isOpen]);
+
   // Don't render on mobile for products slug pages
   if (shouldHide) {
     return null;
@@ -91,10 +112,11 @@ export function ChatBot() {
             </motion.div>
 
             {/* Notification badge */}
-            {!isOpen && (
+            {!isOpen && showBadge && (
               <motion.span
                 initial={{ scale: 0 }}
                 animate={{ scale: 1 }}
+                exit={{ scale: 0 }}
                 className="absolute -top-1 -right-1 flex h-5 w-5"
               >
                 <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-red-400 opacity-75" />

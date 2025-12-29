@@ -38,9 +38,14 @@ export default async function ProjectsPage({
 
   const breadcrumbItems = [{ label: 'Home', href: '/' }, { label: 'Projects' }];
 
-  // Map current page's project images for carousel
-  const projectImages = projects
+  // Fetch featured projects for hero carousel (consistent across all pages)
+  const { getFeaturedProjects } = await import('@/sanity/lib/client');
+  const featuredProjects = await getFeaturedProjects();
+
+  // Map featured project images for carousel
+  const projectImages = featuredProjects
     .filter((p: Project) => p.projectImage) // Only include projects with images
+    .slice(0, 8) // Limit to 8 images for performance
     .map((p: Project) => ({
       src: p.projectImage!,
       alt: p.title,

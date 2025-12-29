@@ -306,9 +306,14 @@ export default function ProjectsClient({
           {pagination.totalPages > 1 && (
             <div className="mt-8">
               <div className="text-sm text-muted-foreground text-center mb-4">
-                Showing {(pagination.currentPage - 1) * pagination.limit + 1}-
+                Showing{' '}
+                {pagination.totalCount === 0
+                  ? 0
+                  : (pagination.currentPage - 1) * pagination.limit + 1}
+                -
                 {Math.min(
-                  pagination.currentPage * pagination.limit,
+                  (pagination.currentPage - 1) * pagination.limit +
+                    projects.length,
                   pagination.totalCount,
                 )}{' '}
                 of {pagination.totalCount} projects
