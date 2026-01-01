@@ -23,6 +23,13 @@ export const aboutSections = [
     image: '/images/about/acob-team.webp?height=200&width=300',
   },
   {
+    title: 'Company Profile',
+    description:
+      'Download our comprehensive company profile with detailed information about our services and projects.',
+    href: '/about/profile',
+    image: '/images/about/company-profile.webp?height=200&width=300',
+  },
+  {
     title: 'Certifications',
     description:
       'View our accreditations and commitment to quality standards in renewable energy infrastructure.',
@@ -156,6 +163,7 @@ export const sidebarLinks = [
   { label: 'Our Story', href: '/about/our-story', isActive: true },
   { label: 'Mission & Vision', href: '/about/mission', isActive: false },
   { label: 'Meet Our Team', href: '/about/team', isActive: false },
+  { label: 'Company Profile', href: '/about/profile', isActive: false },
   { label: 'Certifications', href: '/about/certifications', isActive: false },
   { label: 'Partners', href: '/about/partners', isActive: false },
 ];
