@@ -111,7 +111,7 @@ export default function MissionPage() {
                   Our Mission
                 </h3>
                 <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
-                  To deploy 100 Micro-Grids impacting the lives of over 5
+                  To deploy over 150 Mini-Grids impacting the lives of over 5
                   million Nigerians by 2030.
                 </p>
               </div>

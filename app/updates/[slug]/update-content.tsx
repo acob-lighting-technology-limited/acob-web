@@ -276,6 +276,42 @@ export function UpdateContent({ content }: UpdateContentProps) {
         <li className="my-1">{children}</li>
       ),
     },
+    marks: {
+      link: ({
+        children,
+        value,
+      }: {
+        children: React.ReactNode;
+        value?: { href?: string };
+      }) => {
+        const href = value?.href || '#';
+        const isExternal = href.startsWith('http');
+
+        return (
+          <a
+            href={href}
+            target={isExternal ? '_blank' : undefined}
+            rel={isExternal ? 'noopener noreferrer' : undefined}
+            className="!text-blue-600 dark:!text-blue-400 !underline !decoration-2 !underline-offset-2 hover:!text-blue-800 dark:hover:!text-blue-300 transition-colors duration-200 !font-semibold"
+            style={{
+              textDecoration: 'underline',
+              textDecorationThickness: '2px',
+              textUnderlineOffset: '2px',
+            }}
+          >
+            {children}
+            {isExternal && (
+              <span
+                className="inline-block ml-1 !text-blue-600 dark:!text-blue-400"
+                aria-label="(opens in new tab)"
+              >
+                ↗
+              </span>
+            )}
+          </a>
+        );
+      },
+    },
   };
 
   return (
