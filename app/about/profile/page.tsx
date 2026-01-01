@@ -9,22 +9,40 @@ import { Breadcrumb } from '@/components/ui/breadcrumb';
 export default function CompanyProfilePage() {
   const breadcrumbItems = [
     { label: 'Home', href: '/' },
+    { label: 'About', href: '/about' },
     { label: 'Company Profile' },
   ];
 
   const heroImages = [
-    { src: '/images/company-team.webp', alt: 'ACOB Team' },
-    { src: '/images/acob-team.webp', alt: 'Our Team' },
-    { src: '/images/olooji-community.webp', alt: 'Community Projects' },
+    { src: '/images/about/company-profile.webp', alt: 'ACOB Company Profile' },
   ];
 
-  const handleDownload = () => {
-    const link = document.createElement('a');
-    link.href = '/documents/acob-company-profile.pdf';
-    link.download = 'ACOB-Lighting-Technology-Limited-Company-Profile.pdf';
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
+  const handleDownload = async () => {
+    try {
+      // Fetch the PDF file
+      const response = await fetch('/documents/acob-company-profile.pdf');
+      const blob = await response.blob();
+
+      // Create a blob URL
+      const blobUrl = window.URL.createObjectURL(blob);
+
+      // Create a temporary link element
+      const link = document.createElement('a');
+      link.href = blobUrl;
+      link.download = 'ACOB-Lighting-Technology-Limited-Company-Profile.pdf';
+
+      // Append to body, click, and remove
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+
+      // Clean up the blob URL
+      window.URL.revokeObjectURL(blobUrl);
+    } catch (error) {
+      console.error('Download failed:', error);
+      // Fallback: open in new tab if download fails
+      window.open('/documents/acob-company-profile.pdf', '_blank');
+    }
   };
 
   const handleOpenNewTab = () => {

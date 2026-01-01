@@ -16,7 +16,7 @@ interface FadeInProps {
 export function FadeIn({
   children,
   delay = 0,
-  duration = 0.6,
+  duration = 0.4,
   direction = 'up',
   className = '',
   once = true,

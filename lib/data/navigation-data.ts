@@ -25,6 +25,12 @@ export const navigationItems = [
         // icon: 'https://www.svgrepo.com/download/60828/team.svg',
       },
       {
+        name: 'Company Profile',
+        href: '/about/profile',
+        description: 'View our comprehensive company profile document',
+        icon: 'FileText',
+      },
+      {
         name: 'Certifications',
         href: '/about/certifications',
         description: 'Our industry certifications and standards',

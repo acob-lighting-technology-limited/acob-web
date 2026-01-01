@@ -91,6 +91,17 @@ const nextConfig = {
       },
     ];
   },
+
+  // Redirects for moved pages
+  redirects: async () => {
+    return [
+      {
+        source: '/company-profile',
+        destination: '/about/profile',
+        permanent: true,
+      },
+    ];
+  },
 };
 
 export default nextConfig;

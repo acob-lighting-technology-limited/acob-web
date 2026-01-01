@@ -1,7 +1,8 @@
 import { Metadata } from 'next';
 
 export async function generateMetadata(): Promise<Metadata> {
-  const ogImage = 'https://www.acoblighting.com/images/og-image.jpg';
+  const ogImage =
+    'https://www.acoblighting.com/images/about/company-profile.jpg';
 
   return {
     title: 'Company Profile - ACOB Lighting Technology Limited',
@@ -14,7 +15,7 @@ export async function generateMetadata(): Promise<Metadata> {
       description:
         'Discover ACOB Lighting Technology Limited - Lighting up Nigeria with clean, affordable, and sustainable power through renewable energy solutions since 2016.',
       type: 'website',
-      url: 'https://acoblighting.com/company-profile',
+      url: 'https://acoblighting.com/about/profile',
       images: [
         {
           url: ogImage,
