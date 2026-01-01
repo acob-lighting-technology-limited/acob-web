@@ -103,7 +103,28 @@ export const projectType = defineType({
         '⚠️ Old content field. Please use "Project Content" below for new projects.',
       of: [
         {
+          title: 'Block',
           type: 'block',
+          marks: {
+            annotations: [
+              {
+                name: 'link',
+                type: 'object',
+                title: 'Link',
+                fields: [
+                  {
+                    name: 'href',
+                    type: 'url',
+                    title: 'URL',
+                    validation: Rule =>
+                      Rule.uri({
+                        scheme: ['http', 'https', 'mailto', 'tel'],
+                      }),
+                  },
+                ],
+              },
+            ],
+          },
         },
         {
           type: 'image',
@@ -463,7 +484,28 @@ This project underscores ACOB Lighting Technology's leadership in deploying rene
             parent?.description !== 'custom',
           of: [
             {
+              title: 'Block',
               type: 'block',
+              marks: {
+                annotations: [
+                  {
+                    name: 'link',
+                    type: 'object',
+                    title: 'Link',
+                    fields: [
+                      {
+                        name: 'href',
+                        type: 'url',
+                        title: 'URL',
+                        validation: Rule =>
+                          Rule.uri({
+                            scheme: ['http', 'https', 'mailto', 'tel'],
+                          }),
+                      },
+                    ],
+                  },
+                ],
+              },
               styles: [
                 { title: 'Normal', value: 'normal' },
                 { title: 'H2', value: 'h2' },

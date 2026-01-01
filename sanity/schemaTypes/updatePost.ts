@@ -15,7 +15,6 @@ export const updatePostType = defineType({
     defineField({
       name: 'slug',
       type: 'slug',
-      hidden: true,
       options: {
         source: 'title',
         maxLength: 96,
@@ -35,7 +34,28 @@ export const updatePostType = defineType({
       type: 'array',
       of: [
         {
+          title: 'Block',
           type: 'block',
+          marks: {
+            annotations: [
+              {
+                name: 'link',
+                type: 'object',
+                title: 'Link',
+                fields: [
+                  {
+                    name: 'href',
+                    type: 'url',
+                    title: 'URL',
+                    validation: Rule =>
+                      Rule.uri({
+                        scheme: ['http', 'https', 'mailto', 'tel'],
+                      }),
+                  },
+                ],
+              },
+            ],
+          },
         },
         {
           type: 'image',
