@@ -29,7 +29,7 @@ export const CONTACT_INFO = {
   },
   email: {
     general: 'info@acoblighting.com',
-    support: 'support@acoblighting.com',
+    support: 'info@acoblighting.com',
     sales: 'sales@acoblighting.com',
     careers: 'careers@acoblighting.com',
   },

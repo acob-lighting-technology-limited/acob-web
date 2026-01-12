@@ -24,10 +24,10 @@ export default function FAQPage() {
           <p className="text-muted-foreground text-lg">
             Can't find your question? Contact our support team at{' '}
             <a
-              href="mailto:support@acoblighting.com"
+              href="mailto:info@acoblighting.com"
               className="text-primary hover:underline"
             >
-              support@acoblighting.com
+              info@acoblighting.com
             </a>{' '}
             or call{' '}
             <a

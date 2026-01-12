@@ -124,7 +124,7 @@ export function ResourcesSection() {
             <a href="/contact/support">Contact Support</a>
           </Button>
           <Button variant="outline" asChild>
-            <a href="mailto:support@acoblighting.com">Email Us</a>
+            <a href="mailto:info@acoblighting.com">Email Us</a>
           </Button>
         </div>
       </div>

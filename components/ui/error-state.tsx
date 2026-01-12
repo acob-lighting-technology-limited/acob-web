@@ -14,7 +14,7 @@ export function ErrorState({
   title = 'Something went wrong',
   message,
   retry,
-  supportEmail = 'support@acoblighting.com',
+  supportEmail = 'info@acoblighting.com',
   className = '',
 }: ErrorStateProps) {
   return (
