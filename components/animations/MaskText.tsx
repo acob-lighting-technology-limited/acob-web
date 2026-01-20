@@ -15,8 +15,8 @@ interface MaskTextProps {
 export const MaskText: FC<MaskTextProps> = ({
   children,
   phrases,
-  staggerDelay = 0.15,
-  duration = 1.2,
+  staggerDelay = 0.08,
+  duration = 0.6,
   className,
 }) => {
   const { ref, inView } = useInView({

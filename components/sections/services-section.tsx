@@ -85,7 +85,7 @@ const ServicesSection = React.memo(function ServicesSection() {
     <section className="border-b border-border-[0.5px] bg-[radial-gradient(circle_at_top,_rgba(8,_145,_63,_0.07),_transparent_55%)] py-12 sm:py-16 lg:py-20 xl:py-24 transition-all duration-500 dark:bg-zinc-950">
       <Container className="px-4">
         <div className="mb-16 grid gap-12 lg:grid-cols-[minmax(0,1.1fr)_minmax(0,0.9fr)] lg:items-center">
-          <FadeIn delay={0.3}>
+          <FadeIn delay={0.1}>
             <div className="space-y-6">
               <MaskText
                 phrases={['Integrated renewable energy for every scale']}

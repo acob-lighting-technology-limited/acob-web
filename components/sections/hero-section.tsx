@@ -213,7 +213,7 @@ export const HeroSection = React.memo(function HeroSection({
                 <div
                   className="opacity-0 animate-fade-in-up"
                   style={{
-                    animationDelay: '0s',
+                    animationDelay: '0.1s',
                     animationFillMode: 'forwards',
                   }}
                 >
@@ -241,7 +241,7 @@ export const HeroSection = React.memo(function HeroSection({
               <div
                 className="opacity-0 animate-fade-in-up"
                 style={{
-                  animationDelay: '0.4s',
+                  animationDelay: '0.3s',
                   animationFillMode: 'forwards',
                 }}
               >
@@ -256,7 +256,7 @@ export const HeroSection = React.memo(function HeroSection({
               <div
                 className="opacity-0 animate-fade-in-up grid gap-2 sm:gap-2.5 grid-cols-3 max-w-xl"
                 style={{
-                  animationDelay: '0.6s',
+                  animationDelay: '0.4s',
                   animationFillMode: 'forwards',
                 }}
               >
@@ -283,7 +283,7 @@ export const HeroSection = React.memo(function HeroSection({
               <div
                 className="opacity-0 animate-fade-in-up grid grid-cols-2 gap-3"
                 style={{
-                  animationDelay: '0.8s',
+                  animationDelay: '0.5s',
                   animationFillMode: 'forwards',
                 }}
               >
@@ -318,7 +318,7 @@ export const HeroSection = React.memo(function HeroSection({
       {/* Desktop Project Info Card - Bottom Right - Shows LAST */}
       <div
         className="hidden lg:block absolute bottom-6 right-0 z-30 opacity-0 animate-fade-in-up"
-        style={{ animationDelay: '1.0s', animationFillMode: 'forwards' }}
+        style={{ animationDelay: '0.6s', animationFillMode: 'forwards' }}
       >
         <div className="2xl:container max-w-7xl mx-auto px-4">
           <div className="flex justify-end">

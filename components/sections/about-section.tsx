@@ -17,7 +17,7 @@ export function AboutSection() {
     <section className="border-b border-border-[0.5px] bg-primary text-primary-foreground py-12 sm:py-16 lg:py-20 xl:py-24 transition-all duration-500">
       <Container className="px-4">
         <div className="grid gap-10 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.1fr)] lg:items-center">
-          <FadeIn delay={0.3}>
+          <FadeIn delay={0.1}>
             <div className="space-y-6">
               <MaskText
                 phrases={['ACOB Lighting Technology Limited']}
@@ -44,13 +44,13 @@ export function AboutSection() {
             </div>
           </FadeIn>
 
-          <FadeIn delay={0.5}>
+          <FadeIn delay={0.2}>
             <div className="space-y-6 rounded-3xl bg-white/10 p-4 sm:p-6 xl:p-8 shadow-lg backdrop-blur supports-[backdrop-filter]:backdrop-blur-xl">
               <h3 className="text-xl font-semibold uppercase tracking-wide text-primary-foreground">
                 How we support your energy transition
               </h3>
               <div className="grid gap-4 sm:grid-cols-2">
-                <FadeIn delay={0.6} direction="up">
+                <FadeIn delay={0.1} direction="up">
                   <div className="h-full group rounded-2xl border border-white/20 bg-white/10 p-4 transition-all duration-500 hover:shadow-lg hover:-translate-y-1 cursor-pointer">
                     <h4 className="text-lg font-semibold text-primary-foreground">
                       Advisory & Audits
@@ -61,7 +61,7 @@ export function AboutSection() {
                     </p>
                   </div>
                 </FadeIn>
-                <FadeIn delay={0.7} direction="up">
+                <FadeIn delay={0.15} direction="up">
                   <div className="h-full group rounded-2xl border border-white/20 bg-white/10 p-4 transition-all duration-500 hover:shadow-lg hover:-translate-y-1 cursor-pointer">
                     <h4 className="text-lg font-semibold text-primary-foreground">
                       Engineering & Delivery
@@ -72,7 +72,7 @@ export function AboutSection() {
                     </p>
                   </div>
                 </FadeIn>
-                <FadeIn delay={0.8} direction="up">
+                <FadeIn delay={0.2} direction="up">
                   <div className="h-full group rounded-2xl border border-white/20 bg-white/10 p-4 transition-all duration-500 hover:shadow-lg hover:-translate-y-1 cursor-pointer">
                     <h4 className="text-lg font-semibold text-primary-foreground">
                       Operations & Growth
@@ -83,7 +83,7 @@ export function AboutSection() {
                     </p>
                   </div>
                 </FadeIn>
-                <FadeIn delay={0.9} direction="up">
+                <FadeIn delay={0.25} direction="up">
                   <div className="h-full group rounded-2xl border border-white/20 bg-white/10 p-4 transition-all duration-500 hover:shadow-lg hover:-translate-y-1 cursor-pointer">
                     <h4 className="text-lg font-semibold text-primary-foreground">
                       Investment Support

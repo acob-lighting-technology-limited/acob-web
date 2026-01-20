@@ -103,7 +103,7 @@ export function ProjectsSection({ projects }: ProjectsSectionProps) {
     <section className="border-b border-border-[0.5px] bg-background py-12 sm:py-16 lg:py-20 xl:py-24">
       <Container className="px-4">
         <div className="mb-16 grid gap-10 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.1fr)] lg:items-end">
-          <FadeIn delay={0.2}>
+          <FadeIn delay={0.1}>
             <div className="space-y-4">
               <MaskText
                 phrases={['Selected Energy Deployments']}
@@ -117,19 +117,19 @@ export function ProjectsSection({ projects }: ProjectsSectionProps) {
               />
             </div>
           </FadeIn>
-          <FadeIn delay={0.3}>
+          <FadeIn delay={0.15}>
             <div className="flex flex-wrap gap-3 text-sm text-muted-foreground">
-              <FadeIn delay={0.3} direction="up">
+              <FadeIn delay={0.1} direction="up">
                 <span className="inline-flex items-center gap-2 rounded-full border border-border px-4 py-2 uppercase tracking-wide">
                   <MapPin className="h-4 w-4" /> Nationwide coverage
                 </span>
               </FadeIn>
-              <FadeIn delay={0.4} direction="up">
+              <FadeIn delay={0.15} direction="up">
                 <span className="inline-flex items-center gap-2 rounded-full border border-border px-4 py-2 uppercase tracking-wide">
                   <Clock3 className="h-4 w-4" /> Active operations
                 </span>
               </FadeIn>
-              <FadeIn delay={0.5} direction="up">
+              <FadeIn delay={0.2} direction="up">
                 <span className="inline-flex items-center gap-2 rounded-full border border-border px-4 py-2 uppercase tracking-wide">
                   Impact-driven delivery
                 </span>
@@ -293,7 +293,7 @@ export function ProjectsSection({ projects }: ProjectsSectionProps) {
         </div>
 
         {/* View All Button */}
-        <FadeIn delay={0.5}>
+        <FadeIn delay={0.3}>
           <div className="text-center mt-12">
             <Link href="/projects">
               <Button className="px-8 py-3">

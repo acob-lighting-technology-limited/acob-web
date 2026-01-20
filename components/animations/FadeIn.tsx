@@ -27,10 +27,10 @@ export function FadeIn({
   });
 
   const directions = {
-    up: { y: 40, x: 0 },
-    down: { y: -40, x: 0 },
-    left: { y: 0, x: 40 },
-    right: { y: 0, x: -40 },
+    up: { y: 24, x: 0 },
+    down: { y: -24, x: 0 },
+    left: { y: 0, x: 24 },
+    right: { y: 0, x: -24 },
     none: { y: 0, x: 0 },
   };
 
