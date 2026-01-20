@@ -47,7 +47,7 @@ export default function CategoryUpdatesClient({
   const [searchQuery, setSearchQuery] = useState(currentSearch);
   const [isLoading, setIsLoading] = useState(false);
   const [hasSearched, setHasSearched] = useState(!!currentSearch);
-  const responsiveLimit = useResponsiveLimit();
+  const { limit: responsiveLimit } = useResponsiveLimit();
   const isInitialMount = useRef(true);
   const searchTimeoutRef = useRef<NodeJS.Timeout | null>(null);
 

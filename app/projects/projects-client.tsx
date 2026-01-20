@@ -45,7 +45,8 @@ export default function ProjectsClient({
   const [searchQuery, setSearchQuery] = useState(currentSearch);
   const [isLoading, setIsLoading] = useState(false);
   const [hasSearched, setHasSearched] = useState(!!currentSearch);
-  const responsiveLimit = useResponsiveLimit();
+  const { limit: responsiveLimit, isReady: isResponsiveReady } =
+    useResponsiveLimit();
   const searchTimeoutRef = useRef<NodeJS.Timeout | null>(null);
 
   // Sync state with props when they change (from server component refresh)
@@ -99,12 +100,16 @@ export default function ProjectsClient({
     }
   };
 
-  // Refetch with responsive limit on mount if limit changed
+  // Refetch with responsive limit on mount if limit changed (only after client hydration)
   useEffect(() => {
-    if (responsiveLimit !== pagination.limit && !isLoading) {
+    if (
+      isResponsiveReady &&
+      responsiveLimit !== pagination.limit &&
+      !isLoading
+    ) {
       updateSearch(searchQuery, pagination.currentPage);
     }
-  }, [responsiveLimit]);
+  }, [responsiveLimit, isResponsiveReady]);
 
   const handleSearchChange = (value: string) => {
     setSearchQuery(value);
