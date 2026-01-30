@@ -101,6 +101,9 @@ export default function ProjectsClient({
   };
 
   // Refetch with responsive limit on mount if limit changed (only after client hydration)
+  // Note: Dependencies intentionally limited to responsiveLimit and isResponsiveReady.
+  // searchQuery, pagination, isLoading, and updateSearch are omitted to avoid refetching
+  // on every state change - this effect only handles limit synchronization.
   useEffect(() => {
     if (
       isResponsiveReady &&
