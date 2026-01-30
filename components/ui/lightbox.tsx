@@ -488,21 +488,18 @@ export function Lightbox({
                 WebkitBackfaceVisibility: 'hidden',
               }}
             >
-              <div className="relative w-full h-full">
+              <div className="flex items-center justify-center w-full h-full">
                 {normalizedMedia[previousIndex]?.type === 'video' ? (
                   <video
                     src={normalizedMedia[previousIndex].src}
-                    className="w-full h-full object-contain"
+                    className="max-w-[90vw] max-h-[80vh] w-auto h-auto object-contain"
                     muted
                   />
                 ) : (
-                  <Image
+                  <img
                     src={normalizedMedia[previousIndex]?.src || ''}
                     alt={normalizedMedia[previousIndex]?.alt || ''}
-                    fill
-                    className="object-contain"
-                    sizes="100vw"
-                    quality={95}
+                    className="max-w-[90vw] max-h-[80vh] w-auto h-auto object-contain"
                   />
                 )}
               </div>
@@ -552,7 +549,7 @@ export function Lightbox({
               <ContextMenu>
                 <ContextMenuTrigger asChild>
                   <div
-                    className="relative w-full h-full"
+                    className="relative max-w-[90vw] max-h-[80vh] w-auto h-auto"
                     style={{
                       userSelect: 'none',
                       WebkitUserSelect: 'none',
@@ -568,16 +565,11 @@ export function Lightbox({
                     }}
                     onContextMenu={e => e.preventDefault()}
                   >
-                    <Image
+                    {}
+                    <img
                       src={currentMedia.src}
                       alt={currentMedia.alt}
-                      fill
-                      className="object-contain select-none"
-                      sizes="100vw"
-                      priority
-                      quality={98}
-                      loading="eager"
-                      unoptimized
+                      className="max-w-[90vw] max-h-[80vh] w-auto h-auto object-contain select-none"
                       draggable={false}
                     />
                     <div

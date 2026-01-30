@@ -10,6 +10,7 @@ import { ChatMessage } from './chat-message';
 import { TypingIndicator } from './typing-indicator';
 import { ChatInput } from './chat-input';
 import { SuggestedQuestions } from './suggested-questions';
+import { CONTACT_INFO } from '@/lib/constants/app.constants';
 
 interface ChatBotContainerProps {
   isOpen: boolean;
@@ -273,8 +274,11 @@ export function ChatBotContainer({ isOpen, onClose }: ChatBotContainerProps) {
                       <strong>Daily message limit reached.</strong> You&apos;ve
                       used all {MESSAGE_LIMIT} messages for today. Please try
                       again in 24 hours or contact us directly at{' '}
-                      <a href="tel:+2347049202634" className="underline">
-                        +234 704 920 2634
+                      <a
+                        href={`tel:${CONTACT_INFO.phone.primary.replace(/\s/g, '')}`}
+                        className="underline"
+                      >
+                        {CONTACT_INFO.phone.primary}
                       </a>
                       .
                     </p>

@@ -11,6 +11,7 @@ import {
 import { Button } from '@/components/ui/button';
 import { Mail, Phone, MessageCircle } from 'lucide-react';
 import { motion } from 'framer-motion';
+import { CONTACT_INFO } from '@/lib/constants/app.constants';
 
 interface ContactDialogProps {
   isOpen: boolean;
@@ -29,7 +30,7 @@ const TextOptionsDialog: React.FC<TextOptionsDialogProps> = ({
   onClose,
   productName,
 }) => {
-  const phones = ['+234 704 920 2634', '+234 803 290 2825'];
+  const phones = [CONTACT_INFO.phone.primary, CONTACT_INFO.phone.secondary];
   const primaryPhone = phones[1].replace(/\s/g, ''); // Using second number for WhatsApp
   const message = productName
     ? `Hello, I'm interested in ${productName}`
@@ -121,8 +122,8 @@ export function ContactDialog({
 }: ContactDialogProps) {
   const [isTextOptionsOpen, setIsTextOptionsOpen] = useState(false);
 
-  const emails = ['info@acoblighting.com', 'infoacob@gmail.com'];
-  const phone = '+234 704 920 2634';
+  const emails = [CONTACT_INFO.email.general, 'infoacob@gmail.com'];
+  const phone = CONTACT_INFO.phone.primary;
 
   const handleEmail = (email: string) => {
     const subject = productName

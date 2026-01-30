@@ -6,7 +6,7 @@ export const COMPANY_INFO = {
     'Leading supplier of solar materials for manufacturers, installers & contractors. Mini-grid solutions, captive power systems, and professional energy audits.',
 
   contact: {
-    phones: ['0704 700 2424', '0903 700 7895'],
+    phones: ['+234 704 920 2634', '+234 803 290 2825'],
     email: 'info@acoblighting.com',
     additionalEmail: 'infoacob@gmail.com',
     address: 'Abuja, Nigeria',

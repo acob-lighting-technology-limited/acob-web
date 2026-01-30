@@ -6,6 +6,7 @@ import { ResourceCard } from './resource-card';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Search } from 'lucide-react';
+import { CONTACT_INFO } from '@/lib/constants/app.constants';
 
 export function ResourcesSection() {
   const [selectedCategory, setSelectedCategory] = useState<string>('all');
@@ -124,7 +125,7 @@ export function ResourcesSection() {
             <a href="/contact/support">Contact Support</a>
           </Button>
           <Button variant="outline" asChild>
-            <a href="mailto:support@acoblighting.com">Email Us</a>
+            <a href={`mailto:${CONTACT_INFO.email.support}`}>Email Us</a>
           </Button>
         </div>
       </div>

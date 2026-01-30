@@ -18,7 +18,7 @@ export function PartnersSection() {
   return (
     <section className="border-b border-border-[0.5px] bg-muted/30 py-12 sm:py-16 lg:py-20 xl:py-24 transition-all duration-500">
       <Container className="px-4">
-        <FadeIn delay={0.2}>
+        <FadeIn delay={0.1}>
           <div className="text-center mb-8 sm:mb-12 space-y-3">
             <Badge className="bg-primary/10 text-primary border-primary/20">
               Trusted Partnerships
@@ -33,7 +33,7 @@ export function PartnersSection() {
           </div>
         </FadeIn>
 
-        <FadeIn delay={0.4}>
+        <FadeIn delay={0.2}>
           <div className="space-y-16">
             {/* First half: Left to Right */}
             <div ref={marqueeRef} className="relative w-full overflow-hidden">
@@ -109,7 +109,7 @@ export function PartnersSection() {
           </div>
         </FadeIn>
 
-        <FadeIn delay={0.6}>
+        <FadeIn delay={0.3}>
           <div className="mt-8 sm:mt-12 text-center">
             <Link href="/about/partners">
               <Button

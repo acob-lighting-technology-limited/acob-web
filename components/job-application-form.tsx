@@ -9,6 +9,7 @@ import { Label } from '@/components/ui/label';
 import { toast } from 'sonner';
 import { Upload, FileText, X } from 'lucide-react';
 import { MaskText } from './animations/MaskText';
+import { CONTACT_INFO } from '@/lib/constants/app.constants';
 
 interface ContainerProps {
   children: React.ReactNode;
@@ -222,8 +223,7 @@ export function JobApplicationForm({
       setFileName('');
     } catch {
       toast.error('Failed to submit application', {
-        description:
-          'Something went wrong. Please try again or contact us directly at info@acoblighting.com',
+        description: `Something went wrong. Please try again or contact us directly at ${CONTACT_INFO.email.careers}`,
         duration: 5000,
         action: {
           label: 'Retry',

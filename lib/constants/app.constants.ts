@@ -29,9 +29,11 @@ export const CONTACT_INFO = {
   },
   email: {
     general: 'info@acoblighting.com',
-    support: 'support@acoblighting.com',
-    sales: 'sales@acoblighting.com',
-    careers: 'careers@acoblighting.com',
+    support: 'info@acoblighting.com',
+    sales: 'info@acoblighting.com',
+    careers: 'jobs@acoblighting.com',
+    ict: 'ict@acoblighting.com',
+    secondary: 'infoacob@gmail.com',
   },
   address: {
     street: 'Plot 2, Block 14 Extension',

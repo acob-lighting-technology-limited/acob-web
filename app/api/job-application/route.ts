@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { rateLimit } from '@/lib/utils/rate-limit';
 import { RATE_LIMITS } from '@/lib/constants/ui';
+import { CONTACT_INFO } from '@/lib/constants/app.constants';
 
 export async function POST(request: NextRequest) {
   // Apply rate limiting
@@ -95,9 +96,9 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    // Use environment variable for recipient email, fallback to main email
+    // Use environment variable for recipient email, fallback to main careers email
     const CAREERS_RECIPIENT_EMAIL =
-      process.env.CAREERS_RECIPIENT_EMAIL || 'info@acoblighting.com';
+      process.env.CAREERS_RECIPIENT_EMAIL || CONTACT_INFO.email.careers;
 
     const emailBody = {
       from: 'onboarding@resend.dev',

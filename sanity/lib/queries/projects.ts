@@ -302,7 +302,7 @@ export async function getProject(slug: string): Promise<Project | null> {
 export async function getFeaturedProjects(): Promise<Project[]> {
   try {
     const projects = await client.fetch(`
-      *[_type == "project" && isFeatured == true] | order(orderRank) {
+      *[_type == "project" && isFeatured == true] | order(orderRank)[0...8] {
         _id,
         title,
         excerpt,

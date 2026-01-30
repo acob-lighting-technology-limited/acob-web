@@ -1,4 +1,5 @@
 import type { Project, UpdatePost } from '@/lib/types';
+import { CONTACT_INFO } from '../constants/app.constants';
 
 // Fallback data for projects
 export const fallbackProjects: Project[] = [
@@ -115,8 +116,8 @@ export const fallbackCompanyInfo = {
   vision:
     'A Nigeria powered by clean, reliable, and affordable renewable energy.',
   contact: {
-    phone: '+234 704 920 2634',
-    email: 'info@acoblighting.com',
+    phone: CONTACT_INFO.phone.primary,
+    email: CONTACT_INFO.email.general,
     address:
       'Plot 2. Block 14 Extension, Federal Ministry of Works And Housing Sites and Services Scheme, Setraco Gate, Gwarinpa, FCT, Nigeria.',
   },

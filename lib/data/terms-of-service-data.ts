@@ -15,6 +15,8 @@ export interface ContactInfo {
   address: string;
 }
 
+import { CONTACT_INFO } from '../constants/app.constants';
+
 export const termsOfServiceLastUpdated = 'December 16, 2025';
 
 export const termsOfServiceSections: TermsOfServiceSection[] = [
@@ -143,8 +145,8 @@ export const termsOfServiceSections: TermsOfServiceSection[] = [
       data: {
         description:
           'If you have any questions about these Terms of Service, please contact us:',
-        email: 'info@acoblighting.com',
-        phone: '+234 704 920 2634',
+        email: CONTACT_INFO.email.support,
+        phone: CONTACT_INFO.phone.primary,
         address:
           'Plot 2. Block 14 Extension, Federal Ministry of Works And Housing Sites and Services Scheme, Setraco Gate, Gwarinpa, FCT, Nigeria.',
       },

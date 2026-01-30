@@ -47,8 +47,8 @@ export default function CategoryUpdatesClient({
   const [searchQuery, setSearchQuery] = useState(currentSearch);
   const [isLoading, setIsLoading] = useState(false);
   const [hasSearched, setHasSearched] = useState(!!currentSearch);
-  const responsiveLimit = useResponsiveLimit();
-  const isInitialMount = useRef(true);
+  const { limit: responsiveLimit, isReady: isResponsiveReady } =
+    useResponsiveLimit();
   const searchTimeoutRef = useRef<NodeJS.Timeout | null>(null);
 
   // Sync state with props when they change (from server component refresh)
@@ -110,23 +110,20 @@ export default function CategoryUpdatesClient({
     }
   };
 
-  // Refetch with responsive limit only after initial mount
+  // Refetch with responsive limit only after client hydration is ready
+  // Note: Dependencies intentionally limited to responsiveLimit and isResponsiveReady.
+  // Other state values are omitted to avoid refetching on every state change -
+  // this effect only handles viewport-based limit synchronization.
   useEffect(() => {
-    // Skip on initial mount to prevent unnecessary refetch
-    if (isInitialMount.current) {
-      isInitialMount.current = false;
-      return;
-    }
-
-    // Only refetch if limit actually changed and we have posts
     if (
+      isResponsiveReady &&
       responsiveLimit !== pagination.limit &&
       !isLoading &&
       posts.length > 0
     ) {
       updateSearch(searchQuery, pagination.currentPage, true);
     }
-  }, [responsiveLimit]);
+  }, [responsiveLimit, isResponsiveReady]);
 
   const handleSearchChange = (value: string) => {
     setSearchQuery(value);

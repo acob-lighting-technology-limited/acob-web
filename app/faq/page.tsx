@@ -2,6 +2,7 @@ import { Container } from '@/components/ui/container';
 import { Hero } from '@/components/ui/hero';
 import { Breadcrumb } from '@/components/ui/breadcrumb';
 import { FAQSection } from '@/components/faq/faq-section';
+import { CONTACT_INFO } from '@/lib/constants/app.constants';
 
 export default function FAQPage() {
   const breadcrumbItems = [{ label: 'Home', href: '/' }, { label: 'FAQ' }];
@@ -24,17 +25,17 @@ export default function FAQPage() {
           <p className="text-muted-foreground text-lg">
             Can't find your question? Contact our support team at{' '}
             <a
-              href="mailto:support@acoblighting.com"
+              href={`mailto:${CONTACT_INFO.email.support}`}
               className="text-primary hover:underline"
             >
-              support@acoblighting.com
+              {CONTACT_INFO.email.support}
             </a>{' '}
             or call{' '}
             <a
-              href="tel:+2347049202634"
+              href={`tel:${CONTACT_INFO.phone.primary.replace(/\s/g, '')}`}
               className="text-primary hover:underline"
             >
-              +234 704 920 2634
+              {CONTACT_INFO.phone.primary}
             </a>
           </p>
         </div>

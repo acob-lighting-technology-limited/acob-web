@@ -1,6 +1,7 @@
 import { AlertTriangle, RefreshCw } from 'lucide-react';
 import { Button } from './button';
 import { Alert, AlertDescription, AlertTitle } from './alert';
+import { CONTACT_INFO } from '@/lib/constants/app.constants';
 
 interface ErrorStateProps {
   title?: string;
@@ -14,7 +15,7 @@ export function ErrorState({
   title = 'Something went wrong',
   message,
   retry,
-  supportEmail = 'support@acoblighting.com',
+  supportEmail = CONTACT_INFO.email.support,
   className = '',
 }: ErrorStateProps) {
   return (

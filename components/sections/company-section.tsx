@@ -39,7 +39,7 @@ export function CompanySection() {
 
       <Container className="relative px-4">
         {/* Header Section - Responsive */}
-        <FadeIn delay={0.2}>
+        <FadeIn delay={0.1}>
           <div className="mb-8 sm:mb-12 md:mb-16">
             <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 sm:gap-6">
               <div className="text-3xl md:text-4xl lg:text-5xl font-semibold max-w-2xl">
@@ -72,7 +72,7 @@ export function CompanySection() {
         {/* Main Content Grid - Responsive */}
         <div className="grid gap-8 sm:gap-10 md:gap-12 lg:gap-16 xl:grid-cols-2">
           {/* Left Column - Mission & Capabilities */}
-          <FadeIn delay={0.3}>
+          <FadeIn delay={0.15}>
             <div className="space-y-6 sm:space-y-8 order-2 xl:order-1">
               {/* Mission Statements */}
               <div className="space-y-3">
@@ -102,7 +102,7 @@ export function CompanySection() {
                   Strategic capabilities
                 </h3>
                 <div className="grid gap-3 sm:gap-4 grid-cols-1 sm:grid-cols-2">
-                  <FadeIn delay={0.4} direction="up">
+                  <FadeIn delay={0.1} direction="up">
                     <div className="group h-full rounded-xl sm:rounded-2xl border border-border bg-background/60 p-3 sm:p-4 transition-all duration-500 hover:shadow-lg hover:-translate-y-1 cursor-pointer">
                       <h4 className="text-sm sm:text-base font-semibold text-foreground mb-1 sm:mb-2">
                         Advisory & development
@@ -113,7 +113,7 @@ export function CompanySection() {
                       </p>
                     </div>
                   </FadeIn>
-                  <FadeIn delay={0.5} direction="up">
+                  <FadeIn delay={0.15} direction="up">
                     <div className="group h-full rounded-xl sm:rounded-2xl border border-border bg-background/60 p-3 sm:p-4 transition-all duration-500 hover:shadow-lg hover:-translate-y-1 cursor-pointer">
                       <h4 className="text-sm sm:text-base font-semibold text-foreground mb-1 sm:mb-2">
                         Engineering & operations
@@ -151,7 +151,7 @@ export function CompanySection() {
           </FadeIn>
 
           {/* Right Column - Image & Impact Highlights */}
-          <FadeIn delay={0.4}>
+          <FadeIn delay={0.2}>
             <div className="space-y-6 sm:space-y-8 order-1 xl:order-2">
               {/* Company Image */}
               <div className="relative overflow-hidden rounded-2xl sm:rounded-3xl border border-border bg-card/90 shadow-xl">
