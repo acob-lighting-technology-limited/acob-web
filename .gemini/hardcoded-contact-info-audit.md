@@ -22,8 +22,9 @@ CONTACT_INFO = {
   email: {
     general: 'info@acoblighting.com',
     support: 'info@acoblighting.com',
-    sales: 'sales@acoblighting.com',
-    careers: 'careers@acoblighting.com',
+    sales: 'info@acoblighting.com',
+    careers: 'jobs@acoblighting.com',
+    ict: 'ict@acoblighting.com',
   },
 };
 ```
