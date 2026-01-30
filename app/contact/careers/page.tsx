@@ -21,6 +21,7 @@ import { whyWorkItems, contactLinks } from '@/lib/data/contact-data';
 import { getJobPostings } from '@/sanity/lib/client';
 import { useEffect, useState } from 'react';
 import { FadeIn } from '@/components/animations/FadeIn';
+import { CONTACT_INFO } from '@/lib/constants/app.constants';
 
 // Icon mapping
 const iconMap = {
@@ -270,16 +271,16 @@ export default function CareersPage() {
                     <p className="text-xs text-muted-foreground mb-1">Phone</p>
                     <div className="space-y-1">
                       <a
-                        href="tel:+2347049202634"
+                        href={`tel:${CONTACT_INFO.phone.primary.replace(/\s/g, '')}`}
                         className="text-xs md:text-sm font-semibold text-primary hover:underline block"
                       >
-                        +234 704 920 2634
+                        {CONTACT_INFO.phone.primary}
                       </a>
                       <a
-                        href="tel:+2348032902825"
+                        href={`tel:${CONTACT_INFO.phone.secondary.replace(/\s/g, '')}`}
                         className="text-xs md:text-sm font-semibold text-primary hover:underline block"
                       >
-                        +234 803 290 2825
+                        {CONTACT_INFO.phone.secondary}
                       </a>
                     </div>
                   </div>
@@ -287,16 +288,16 @@ export default function CareersPage() {
                     <p className="text-xs text-muted-foreground mb-1">Email</p>
                     <div className="space-y-1">
                       <a
-                        href="mailto:info@acoblighting.com"
+                        href={`mailto:${CONTACT_INFO.email.careers}`}
                         className="text-xs md:text-sm font-semibold text-primary hover:underline block break-all"
                       >
-                        info@acoblighting.com
+                        {CONTACT_INFO.email.careers}
                       </a>
                       <a
-                        href="mailto:infoacob@gmail.com"
+                        href={`mailto:${CONTACT_INFO.email.secondary}`}
                         className="text-xs md:text-sm font-semibold text-primary hover:underline block break-all"
                       >
-                        infoacob@gmail.com
+                        {CONTACT_INFO.email.secondary}
                       </a>
                     </div>
                   </div>

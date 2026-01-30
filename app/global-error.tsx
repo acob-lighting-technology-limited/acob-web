@@ -3,6 +3,7 @@
 import { Container } from '@/components/ui/container';
 import { Button } from '@/components/ui/button';
 import { WifiOff, RefreshCw } from 'lucide-react';
+import { CONTACT_INFO } from '@/lib/constants/app.constants';
 
 interface GlobalErrorProps {
   error: Error & { digest?: string };
@@ -69,9 +70,9 @@ export default function GlobalError({ error, reset }: GlobalErrorProps) {
                           Contact Information
                         </h3>
                         <ul className="space-y-1 text-sm">
-                          <li>📞 +234 704 920 2634</li>
-                          <li>📧 info@acoblighting.com</li>
-                          <li>📧 infoacob@gmail.com</li>
+                          <li>📞 {CONTACT_INFO.phone.primary}</li>
+                          <li>📧 {CONTACT_INFO.email.support}</li>
+                          <li>📧 {CONTACT_INFO.email.secondary}</li>
                           <li>
                             📍 Plot 2. Block 14 Extension, Federal Ministry of
                             Works And Housing Sites and Services Scheme, Setraco

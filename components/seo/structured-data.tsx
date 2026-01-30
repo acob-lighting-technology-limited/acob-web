@@ -1,3 +1,5 @@
+import { CONTACT_INFO } from '@/lib/constants/app.constants';
+
 export function StructuredData() {
   const organizationSchema = {
     '@context': 'https://schema.org',
@@ -19,9 +21,9 @@ export function StructuredData() {
     },
     contactPoint: {
       '@type': 'ContactPoint',
-      telephone: '+234 704 920 2634',
+      telephone: CONTACT_INFO.phone.primary,
       contactType: 'customer service',
-      email: 'info@acoblighting.com',
+      email: CONTACT_INFO.email.support,
     },
     sameAs: [
       'https://www.linkedin.com/company/acob-lighting',

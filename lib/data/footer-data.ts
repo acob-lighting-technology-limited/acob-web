@@ -1,5 +1,6 @@
 import { Facebook, Linkedin, Instagram } from 'lucide-react';
 import { XIcon } from '@/components/icons/x-icon';
+import { CONTACT_INFO } from '../constants/app.constants';
 
 export const footerLinks = {
   quickLinks: [
@@ -66,8 +67,8 @@ export const socialLinks = [
 ];
 
 export const contactInfo = {
-  phones: ['+234 704 920 2634', '+234 803 290 2825'],
-  email: 'info@acoblighting.com',
+  phones: [CONTACT_INFO.phone.primary, CONTACT_INFO.phone.secondary],
+  email: CONTACT_INFO.email.general,
   additionalEmail: 'infoacob@gmail.com',
   offices: {
     headOffice: {

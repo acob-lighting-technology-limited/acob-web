@@ -1,3 +1,5 @@
+import { CONTACT_INFO } from '../constants/app.constants';
+
 // export const ACOB_SYSTEM_PROMPT = {
 //   id: "system-prompt",
 //   role: "system",
@@ -105,10 +107,10 @@
 // **Address:** 1st Floor, Rochas Plaza, 26 Herbert Macaulay Way, Abuja, Nigeria
 
 // ### Contact Details:
-// - **Phone:** [+234 704 920 2634](tel:+2347049202634), [+234 803 290 2825](tel:+2348032902825)
-// - **Email:** [info@acoblighting.com](mailto:info@acoblighting.com)
-// - **Support Email:** info@acoblighting.com
-// - **Email:** info@acoblighting.com, infoacob@gmail.com
+// - **Phone:** [${CONTACT_INFO.phone.primary}](tel:${CONTACT_INFO.phone.primary.replace(/\s/g, '')}), [${CONTACT_INFO.phone.secondary}](tel:${CONTACT_INFO.phone.secondary.replace(/\s/g, '')})
+// - **Email:** [${CONTACT_INFO.email.general}](mailto:${CONTACT_INFO.email.general})
+// - **Support Email:** ${CONTACT_INFO.email.support}
+// - **Email:** ${CONTACT_INFO.email.general}, infoacob@gmail.com
 // - **Website:** [www.acoblighting.com](https://www.acoblighting.com)
 
 // ### Work Hours:
@@ -167,7 +169,7 @@
 // 1. **Language Support:** Always respond in the language the user uses (English, Igbo, Yoruba, or Hausa)
 // 2. **Professional Tone:** Be professional, concise, and helpful
 // 3. **Formatting:** Use markdown formatting (e.g., **bold**, *italic*) for emphasis
-// 4. **Uncertainty:** If unsure of an answer, respond: "Please contact our support team at info@acoblighting.com or call +234 704 920 2634 for clarification."
+// 4. **Uncertainty:** If unsure of an answer, respond: "Please contact our support team at ${CONTACT_INFO.email.support} or call ${CONTACT_INFO.phone.primary} for clarification."
 // 5. **Contact Referral:** For complex technical questions or project inquiries, direct users to appropriate contact channels
 // 6. **Brand Consistency:** Always maintain ACOB Lighting's professional image and values
 
@@ -238,8 +240,8 @@ Notable Projects:
 
 Head Office: Plot 2, Block 14 Extension, Federal Ministry of Works & Housing Sites and Service Scheme, Setraco Gate, Gwarinpa, Abuja
 Work Hours: Monday – Friday, 8:00 AM – 5:00 PM. Closed on Saturdays and Sundays.
-Contact: +234 704 920 2634, +234 803 290 2825
-Email: info@acoblighting.com
+Contact: ${CONTACT_INFO.phone.primary}, ${CONTACT_INFO.phone.secondary}
+Email: ${CONTACT_INFO.email.general}
 Website: www.acoblighting.com
 
 Social Media:
@@ -305,7 +307,7 @@ When users ask about specific services, pages, or want to navigate to certain se
 
 Our work hours are from Monday to Friday, 8:00 AM to 5:00 PM. We are closed on Saturdays and Sundays.
 
-You can reach us at +234 704 920 2634 or +234 803 290 2825, or email us at info@acoblighting.com.
+You can reach us at ${CONTACT_INFO.phone.primary} or ${CONTACT_INFO.phone.secondary}, or email us at ${CONTACT_INFO.email.general}.
 
 For more details, you can visit our Contact page."
 

@@ -20,6 +20,7 @@ import {
   contactLinks,
 } from '@/lib/data/support-data';
 import { FadeIn } from '@/components/animations/FadeIn';
+import { CONTACT_INFO } from '@/lib/constants/app.constants';
 
 export default function SupportPage() {
   const breadcrumbItems = [
@@ -197,26 +198,26 @@ export default function SupportPage() {
                   <div className="p-2.5 md:p-3 rounded-lg bg-muted/30 border border-border">
                     <p className="text-xs text-muted-foreground mb-1">Phone</p>
                     <a
-                      href="tel:+2347049202634"
+                      href={`tel:${CONTACT_INFO.phone.primary.replace(/\s/g, '')}`}
                       className="text-xs md:text-sm font-semibold text-primary hover:underline block"
                     >
-                      +234 704 920 2634
+                      {CONTACT_INFO.phone.primary}
                     </a>
                   </div>
                   <div className="p-2.5 md:p-3 rounded-lg bg-muted/30 border border-border">
                     <p className="text-xs text-muted-foreground mb-1">Email</p>
                     <div className="space-y-1">
                       <a
-                        href="mailto:info@acoblighting.com"
+                        href={`mailto:${CONTACT_INFO.email.support}`}
                         className="text-xs md:text-sm font-semibold text-primary hover:underline block break-all"
                       >
-                        info@acoblighting.com
+                        {CONTACT_INFO.email.support}
                       </a>
                       <a
-                        href="mailto:infoacob@gmail.com"
+                        href={`mailto:${CONTACT_INFO.email.secondary}`}
                         className="text-xs md:text-sm font-semibold text-primary hover:underline block break-all"
                       >
-                        infoacob@gmail.com
+                        {CONTACT_INFO.email.secondary}
                       </a>
                     </div>
                   </div>

@@ -1,4 +1,5 @@
-import { Phone, Mail } from 'lucide-react';
+import { Phone, Mail, Monitor } from 'lucide-react';
+import { CONTACT_INFO } from '../constants/app.constants';
 
 export const supportMethods = [
   {
@@ -6,14 +7,21 @@ export const supportMethods = [
     title: 'Call Us',
     description:
       'For immediate assistance, please call our support lines during business hours.',
-    contacts: ['+234 704 920 2634', '+234 803 290 2825'],
+    contacts: [CONTACT_INFO.phone.primary, CONTACT_INFO.phone.secondary],
   },
   {
     icon: Mail,
     title: 'Email Us',
     description:
       'Send us an email with your detailed query, and we will get back to you within 24-48 hours.',
-    contacts: ['info@acoblighting.com', 'infoacob@gmail.com'],
+    contacts: [CONTACT_INFO.email.support, 'infoacob@gmail.com'],
+  },
+  {
+    icon: Monitor,
+    title: 'ICT Support',
+    description:
+      'For technical issues related to our digital platforms or ICT services.',
+    contacts: [CONTACT_INFO.email.ict],
   },
 ];
 

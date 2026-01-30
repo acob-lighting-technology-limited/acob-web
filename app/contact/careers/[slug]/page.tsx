@@ -14,6 +14,7 @@ import {
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import { getJobPosting } from '@/sanity/lib/client';
+import { CONTACT_INFO } from '@/lib/constants/app.constants';
 
 interface JobPostingPageProps {
   params: Promise<{
@@ -171,21 +172,21 @@ export default async function JobPostingPage({ params }: JobPostingPageProps) {
                     <p className="text-xs text-muted-foreground mb-2">Email</p>
                     <div className="space-y-2">
                       <a
-                        href="mailto:info@acoblighting.com"
+                        href={`mailto:${CONTACT_INFO.email.careers}`}
                         className="flex items-center gap-2 text-primary hover:text-primary/80 transition-colors"
                       >
                         <Mail className="h-4 w-4" />
                         <span className="text-sm font-medium break-all">
-                          info@acoblighting.com
+                          {CONTACT_INFO.email.careers}
                         </span>
                       </a>
                       <a
-                        href="mailto:infoacob@gmail.com"
+                        href={`mailto:${CONTACT_INFO.email.secondary}`}
                         className="flex items-center gap-2 text-primary hover:text-primary/80 transition-colors"
                       >
                         <Mail className="h-4 w-4" />
                         <span className="text-sm font-medium break-all">
-                          infoacob@gmail.com
+                          {CONTACT_INFO.email.secondary}
                         </span>
                       </a>
                     </div>
@@ -194,21 +195,21 @@ export default async function JobPostingPage({ params }: JobPostingPageProps) {
                     <p className="text-xs text-muted-foreground mb-2">Phone</p>
                     <div className="space-y-2">
                       <a
-                        href="tel:+2347049202634"
+                        href={`tel:${CONTACT_INFO.phone.primary.replace(/\s/g, '')}`}
                         className="flex items-center gap-2 text-primary hover:text-primary/80 transition-colors"
                       >
                         <Phone className="h-4 w-4" />
                         <span className="text-sm font-medium">
-                          +234 704 920 2634
+                          {CONTACT_INFO.phone.primary}
                         </span>
                       </a>
                       <a
-                        href="tel:+2348032902825"
+                        href={`tel:${CONTACT_INFO.phone.secondary.replace(/\s/g, '')}`}
                         className="flex items-center gap-2 text-primary hover:text-primary/80 transition-colors"
                       >
                         <Phone className="h-4 w-4" />
                         <span className="text-sm font-medium">
-                          +234 803 290 2825
+                          {CONTACT_INFO.phone.secondary}
                         </span>
                       </a>
                     </div>

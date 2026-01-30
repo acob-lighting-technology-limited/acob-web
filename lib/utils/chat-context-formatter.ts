@@ -3,6 +3,8 @@
  * Formats Sanity data into concise context for AI chatbot responses
  */
 
+import { CONTACT_INFO } from '../constants/app.constants';
+
 /**
  * Format projects data for chatbot context
  */
@@ -206,7 +208,7 @@ export function formatJobsContext(jobs: any[]): string {
     })
     .join('\n\n');
 
-  return `**Current Job Openings at ACOB (${jobs.length} positions):**\n\n${formattedJobs}\n\nTo apply, please visit our careers page or contact us at info@acoblighting.com`;
+  return `**Current Job Openings at ACOB (${jobs.length} positions):**\n\n${formattedJobs}\n\nTo apply, please visit our careers page or contact us at ${CONTACT_INFO.email.careers}`;
 }
 
 /**

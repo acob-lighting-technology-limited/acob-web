@@ -4,6 +4,7 @@ import { useEffect } from 'react';
 import { Button } from '@/components/ui/button';
 import { WifiOff, RefreshCw, Home } from 'lucide-react';
 import Link from 'next/link';
+import { CONTACT_INFO } from '@/lib/constants/app.constants';
 
 interface ErrorProps {
   error: Error & { digest?: string };
@@ -76,9 +77,9 @@ export default function Error({ error, reset }: ErrorProps) {
                         Contact Information
                       </h3>
                       <ul className="space-y-2 text-sm">
-                        <li>📞 +234 704 920 2634</li>
-                        <li>📧 info@acoblighting.com</li>
-                        <li>📧 infoacob@gmail.com</li>
+                        <li>📞 {CONTACT_INFO.phone.primary}</li>
+                        <li>📧 {CONTACT_INFO.email.support}</li>
+                        <li>📧 {CONTACT_INFO.email.secondary}</li>
                         <li>📍 Gwarinpa, FCT, Nigeria</li>
                       </ul>
                     </div>

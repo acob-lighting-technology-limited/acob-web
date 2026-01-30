@@ -5,6 +5,7 @@ import { useRouter } from 'next/navigation';
 import { Button } from '@/components/ui/button';
 import { Container } from '@/components/ui/container';
 import { Home, ArrowLeft, Search, MapPin, Phone, Mail } from 'lucide-react';
+import { CONTACT_INFO } from '@/lib/constants/app.constants';
 
 export default function NotFound() {
   const router = useRouter();
@@ -102,18 +103,18 @@ export default function NotFound() {
             <p className="text-muted-foreground text-sm mb-3">Need help?</p>
             <div className="flex flex-col sm:flex-row items-center justify-center gap-4 text-sm">
               <a
-                href="tel:+2348031234567"
+                href={`tel:${CONTACT_INFO.phone.primary.replace(/\s/g, '')}`}
                 className="flex items-center gap-2 text-primary hover:text-primary/80 transition-colors"
               >
                 <Phone className="w-4 h-4" />
-                +234 803 123 4567
+                {CONTACT_INFO.phone.primary}
               </a>
               <a
-                href="mailto:info@acoblighting.com"
+                href={`mailto:${CONTACT_INFO.email.support}`}
                 className="flex items-center gap-2 text-primary hover:text-primary/80 transition-colors"
               >
                 <Mail className="w-4 h-4" />
-                info@acoblighting.com
+                {CONTACT_INFO.email.support}
               </a>
             </div>
           </div>

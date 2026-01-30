@@ -11,6 +11,7 @@ import Link from 'next/link';
 import { toast } from 'sonner';
 import { FadeIn } from '@/components/animations/FadeIn';
 import { cn } from '@/lib/utils';
+import { CONTACT_INFO } from '@/lib/constants/app.constants';
 
 type ViewMode = 'map' | 'video';
 
@@ -168,16 +169,16 @@ export default function LocationsPage() {
                       <p className="text-xs text-muted-foreground">Phone</p>
                       <div className="flex flex-col gap-1">
                         <a
-                          href="tel:+2347049202634"
+                          href={`tel:${CONTACT_INFO.phone.primary.replace(/\s/g, '')}`}
                           className="text-sm font-medium text-primary hover:underline"
                         >
-                          +234 704 920 2634
+                          {CONTACT_INFO.phone.primary}
                         </a>
                         <a
-                          href="tel:+2348032902825"
+                          href={`tel:${CONTACT_INFO.phone.secondary.replace(/\s/g, '')}`}
                           className="text-sm font-medium text-primary hover:underline"
                         >
-                          +234 803 290 2825
+                          {CONTACT_INFO.phone.secondary}
                         </a>
                       </div>
                     </div>
@@ -188,16 +189,16 @@ export default function LocationsPage() {
                       <p className="text-xs text-muted-foreground">Email</p>
                       <div className="flex flex-col gap-1">
                         <Link
-                          href="mailto:info@acoblighting.com"
+                          href={`mailto:${CONTACT_INFO.email.general}`}
                           className="hover:underline text-primary text-sm font-medium"
                         >
-                          info@acoblighting.com
+                          {CONTACT_INFO.email.general}
                         </Link>
                         <Link
-                          href="mailto:infoacob@gmail.com"
+                          href={`mailto:${CONTACT_INFO.email.secondary}`}
                           className="hover:underline text-primary text-sm font-medium"
                         >
-                          infoacob@gmail.com
+                          {CONTACT_INFO.email.secondary}
                         </Link>
                       </div>
                     </div>
@@ -247,16 +248,16 @@ export default function LocationsPage() {
                       <p className="text-xs text-muted-foreground">Phone</p>
                       <div className="flex flex-col gap-1">
                         <a
-                          href="tel:+2347049202634"
+                          href={`tel:${CONTACT_INFO.phone.primary.replace(/\s/g, '')}`}
                           className="text-sm font-medium text-primary hover:underline"
                         >
-                          +234 704 920 2634
+                          {CONTACT_INFO.phone.primary}
                         </a>
                         <a
-                          href="tel:+2348032902825"
+                          href={`tel:${CONTACT_INFO.phone.secondary.replace(/\s/g, '')}`}
                           className="text-sm font-medium text-primary hover:underline"
                         >
-                          +234 803 290 2825
+                          {CONTACT_INFO.phone.secondary}
                         </a>
                       </div>
                     </div>
@@ -267,16 +268,16 @@ export default function LocationsPage() {
                       <p className="text-xs text-muted-foreground">Email</p>
                       <div className="flex flex-col gap-1">
                         <Link
-                          href="mailto:info@acoblighting.com"
+                          href={`mailto:${CONTACT_INFO.email.general}`}
                           className="hover:underline text-primary text-sm font-medium"
                         >
-                          info@acoblighting.com
+                          {CONTACT_INFO.email.general}
                         </Link>
                         <Link
-                          href="mailto:infoacob@gmail.com"
+                          href={`mailto:${CONTACT_INFO.email.secondary}`}
                           className="hover:underline text-primary text-sm font-medium"
                         >
-                          infoacob@gmail.com
+                          {CONTACT_INFO.email.secondary}
                         </Link>
                       </div>
                     </div>
