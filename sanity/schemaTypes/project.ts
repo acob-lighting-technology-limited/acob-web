@@ -227,25 +227,36 @@ export const projectType = defineType({
       title: 'Featured Project',
       type: 'boolean',
       description:
-        'Toggle to feature this project in the hero section (maximum 8 projects). Use "Featured Projects Order" in the sidebar to drag and reorder.',
+        'Toggle to feature this project in the hero section (Min 4, Max 10 projects). Use "Featured Projects Order" in the sidebar to drag and reorder.',
       initialValue: false,
       validation: Rule =>
         Rule.custom(async (value, context) => {
-          if (!value) {
+          if (value === undefined) {
             return true;
-          } // If not featured, no validation needed
+          }
 
           const { getClient } = context;
           const client = getClient({ apiVersion: '2024-01-01' });
 
-          // Count currently featured projects
-          const featuredCount = await client.fetch(
-            'count(*[_type == "project" && isFeatured == true && _id != $currentId])',
-            { currentId: context.document?._id },
+          const id = context.document?._id;
+          const publishedId = id?.replace(/^drafts\./, '');
+
+          const otherCount = await client.fetch(
+            'count(*[_type == "project" && isFeatured == true && !(_id in [$id, $publishedId, "drafts." + $publishedId])])',
+            { id, publishedId },
           );
 
-          if (featuredCount >= 8) {
-            return 'Maximum of 8 featured projects allowed. Please unfeature another project first.';
+          const totalAfterOperation = value ? otherCount + 1 : otherCount;
+
+          if (totalAfterOperation > 10) {
+            return `Maximum of 10 featured projects allowed. You currently have ${otherCount} others. Please unfeature one first.`;
+          }
+
+          if (totalAfterOperation < 4) {
+            return {
+              message: `Minimum of 4 featured projects recommended. You will have ${totalAfterOperation}.`,
+              level: 'warning',
+            } as any;
           }
 
           return true;
