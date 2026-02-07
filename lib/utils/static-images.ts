@@ -41,6 +41,20 @@ const FALLBACK_IMAGES: StaticImage[] = [
   },
 ];
 
+interface FetchableImage {
+  url?: string;
+  asset?: {
+    url: string;
+    description?: string;
+    metadata?: {
+      dimensions?: {
+        width: number;
+        height: number;
+      };
+    };
+  };
+}
+
 // Build-time function to get all available images
 export async function getAllProjectImages(): Promise<StaticImage[]> {
   try {
@@ -67,15 +81,15 @@ export async function getAllProjectImages(): Promise<StaticImage[]> {
         Array.isArray(project.images) &&
         project.images.length > 0
       ) {
-        project.images.forEach((image: any) => {
-          const imageUrl = (image as any)?.url || (image as any)?.asset?.url;
+        (project.images as any[]).forEach((image: FetchableImage) => {
+          const imageUrl = image?.url || image?.asset?.url;
           if (imageUrl) {
             allImages.push({
               url: imageUrl,
               alt: `${project.title} - ${project.location}`,
               projectTitle: project.title,
-              width: (image as any)?.metadata?.dimensions?.width || 400,
-              height: (image as any)?.metadata?.dimensions?.height || 300,
+              width: image?.asset?.metadata?.dimensions?.width || 400,
+              height: image?.asset?.metadata?.dimensions?.height || 300,
             });
           }
         });

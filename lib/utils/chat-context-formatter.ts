@@ -4,11 +4,21 @@
  */
 
 import { CONTACT_INFO } from '../constants/app.constants';
+import type { Project, UpdatePost, Product } from '@/lib/types';
+
+interface SanityJobPosting {
+  title: string;
+  department?: string;
+  location?: string;
+  employmentType?: string;
+  applicationDeadline?: string;
+  description: string;
+}
 
 /**
  * Format projects data for chatbot context
  */
-export function formatProjectsContext(projects: any[]): string {
+export function formatProjectsContext(projects: Project[]): string {
   if (!projects || projects.length === 0) {
     return 'No projects found matching the query.';
   }
@@ -32,17 +42,16 @@ export function formatProjectsContext(projects: any[]): string {
         parts.push(`   - Description: ${project.excerpt}`);
       }
 
-      // Add impact metrics if available
       if (project.impactMetrics) {
         const metrics: string[] = [];
-        if (project.impactMetrics.capacity) {
-          metrics.push(`${project.impactMetrics.capacity} capacity`);
+        if (project.impactMetrics.kwp) {
+          metrics.push(`${project.impactMetrics.kwp} kWp capacity`);
         }
         if (project.impactMetrics.beneficiaries) {
           metrics.push(`${project.impactMetrics.beneficiaries} beneficiaries`);
         }
-        if (project.impactMetrics.connections) {
-          metrics.push(`${project.impactMetrics.connections} connections`);
+        if (project.impactMetrics.systemType) {
+          metrics.push(`${project.impactMetrics.systemType} system`);
         }
         if (metrics.length > 0) {
           parts.push(`   - Impact: ${metrics.join(', ')}`);
@@ -59,7 +68,7 @@ export function formatProjectsContext(projects: any[]): string {
 /**
  * Format updates/news data for chatbot context
  */
-export function formatUpdatesContext(updates: any[]): string {
+export function formatUpdatesContext(updates: UpdatePost[]): string {
   if (!updates || updates.length === 0) {
     return 'No recent updates found.';
   }
@@ -96,7 +105,7 @@ export function formatUpdatesContext(updates: any[]): string {
 /**
  * Format products data for chatbot context
  */
-export function formatProductsContext(products: any[]): string {
+export function formatProductsContext(products: Product[]): string {
   if (!products || products.length === 0) {
     return 'No products found matching the query.';
   }
@@ -126,39 +135,50 @@ export function formatProductsContext(products: any[]): string {
       }
 
       // Add relevant specifications based on category
-      if (product.panelSpecifications) {
+      if (product.specifications?.panelSpecifications) {
         const specs: string[] = [];
-        if (product.panelSpecifications.wattage) {
-          specs.push(`${product.panelSpecifications.wattage}W`);
+        const panel = product.specifications.panelSpecifications;
+        if (panel.powerRatingWatts) {
+          specs.push(`${panel.powerRatingWatts} capacity`);
         }
-        if (product.panelSpecifications.efficiency) {
-          specs.push(`${product.panelSpecifications.efficiency}% efficiency`);
+        if (panel.efficiencyPercent) {
+          specs.push(`${panel.efficiencyPercent} efficiency`);
         }
         if (specs.length > 0) {
           parts.push(`   - Specs: ${specs.join(', ')}`);
         }
       }
 
-      if (product.batterySpecifications) {
+      if (product.specifications?.batterySpecifications) {
         const specs: string[] = [];
-        if (product.batterySpecifications.capacity) {
-          specs.push(`${product.batterySpecifications.capacity} capacity`);
+        const battery = product.specifications.batterySpecifications;
+        if (battery.capacityAhOrKwh) {
+          specs.push(`${battery.capacityAhOrKwh} capacity`);
         }
-        if (product.batterySpecifications.voltage) {
-          specs.push(`${product.batterySpecifications.voltage}V`);
+        if (battery.voltage) {
+          specs.push(`${battery.voltage}V`);
         }
         if (specs.length > 0) {
           parts.push(`   - Specs: ${specs.join(', ')}`);
         }
       }
 
-      if (product.inverterSpecifications) {
+      if (product.specifications?.inverterSpecifications) {
         const specs: string[] = [];
-        if (product.inverterSpecifications.power) {
-          specs.push(`${product.inverterSpecifications.power} power`);
+        const inverter = product.specifications.inverterSpecifications;
+        if (inverter.powerRatingKvaKw) {
+          specs.push(`${inverter.powerRatingKvaKw} power`);
         }
-        if (product.inverterSpecifications.voltage) {
-          specs.push(`${product.inverterSpecifications.voltage}V`);
+        // Handle input/output voltage
+        const voltages = [];
+        if (inverter.inputVoltage) {
+          voltages.push(inverter.inputVoltage);
+        }
+        if (inverter.outputVoltage) {
+          voltages.push(inverter.outputVoltage);
+        }
+        if (voltages.length > 0) {
+          specs.push(`${voltages.join('/')}V system`);
         }
         if (specs.length > 0) {
           parts.push(`   - Specs: ${specs.join(', ')}`);
@@ -175,7 +195,7 @@ export function formatProductsContext(products: any[]): string {
 /**
  * Format job postings data for chatbot context
  */
-export function formatJobsContext(jobs: any[]): string {
+export function formatJobsContext(jobs: SanityJobPosting[]): string {
   if (!jobs || jobs.length === 0) {
     return 'No active job openings at the moment. Please check back later or visit our careers page.';
   }

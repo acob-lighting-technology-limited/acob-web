@@ -16,7 +16,13 @@ interface ProductCardProps {
     slug: { current: string };
     sku?: string;
     availability: string;
-    productImage: any;
+    productImage: {
+      asset?: {
+        url: string;
+      };
+      alt?: string;
+      url?: string;
+    };
     category?: string;
   };
 }

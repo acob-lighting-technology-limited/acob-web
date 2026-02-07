@@ -8,6 +8,7 @@ import {
   handleApiError,
 } from '@/lib/utils/api-error-handler';
 import { RATE_LIMITS } from '@/lib/constants/ui';
+import type { Project, Product } from '@/lib/types';
 import {
   detectIntent,
   shouldFetchSanityData,
@@ -120,14 +121,14 @@ export async function POST(req: NextRequest) {
 
               if (intent.filters?.state) {
                 filteredProjects = filteredProjects.filter(
-                  (p: any) =>
+                  (p: Project) =>
                     p.state?.toLowerCase() ===
                     intent.filters!.state!.toLowerCase(),
                 );
               }
 
               if (intent.filters?.category) {
-                filteredProjects = filteredProjects.filter((p: any) =>
+                filteredProjects = filteredProjects.filter((p: Project) =>
                   p.category
                     ?.toLowerCase()
                     .includes(intent.filters!.category!.toLowerCase()),
@@ -140,7 +141,7 @@ export async function POST(req: NextRequest) {
                   .toLowerCase()
                   .split(',')
                   .map(s => s.trim());
-                filteredProjects = filteredProjects.filter((p: any) =>
+                filteredProjects = filteredProjects.filter((p: Project) =>
                   searchTerms.some(
                     term =>
                       p.title?.toLowerCase().includes(term) ||
@@ -165,7 +166,7 @@ export async function POST(req: NextRequest) {
               // Filter products if category detected
               let filteredProducts = products;
               if (intent.filters?.category) {
-                filteredProducts = filteredProducts.filter((p: any) =>
+                filteredProducts = filteredProducts.filter((p: Product) =>
                   p.category
                     ?.toLowerCase()
                     .includes(intent.filters!.category!.toLowerCase()),

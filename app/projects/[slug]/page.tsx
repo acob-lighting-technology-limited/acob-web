@@ -3,7 +3,11 @@ import { Container } from '@/components/ui/container';
 import { Button } from '@/components/ui/button';
 import { ArrowRight, ArrowLeft, MapPin, Calendar } from 'lucide-react';
 import { notFound } from 'next/navigation';
-import { getProjects, getProject } from '@/sanity/lib/client';
+import {
+  getProjects,
+  getProject,
+  getProjectsPaginated,
+} from '@/sanity/lib/client';
 import Link from 'next/link';
 import { Hero } from '@/components/ui/hero';
 import type { Project } from '@/lib/types';
@@ -11,6 +15,7 @@ import { Card, CardContent } from '@/components/ui/card';
 import { ShareCopy } from '@/components/updates/share-copy';
 import { ProjectContent } from './project-content';
 import { ImpactMetrics } from '@/components/projects/impact-metrics';
+import { StateProjectsView } from './state-projects-view';
 
 interface ProjectPageProps {
   params: Promise<{
@@ -18,17 +23,74 @@ interface ProjectPageProps {
   }>;
 }
 
+// Slug to Sanity state value mapping
+const stateMapping: Record<string, string> = {
+  abuja: 'FCT',
+  edo: 'Edo',
+  delta: 'Delta',
+  rivers: 'Rivers',
+  kogi: 'Kogi',
+  nasarawa: 'Nasarawa',
+  jigawa: 'Jigawa',
+  kaduna: 'Kaduna',
+  kano: 'Kano',
+  ogun: 'Ogun',
+  enugu: 'Enugu',
+  borno: 'Borno',
+  ondo: 'Ondo',
+};
+
+// Display name mapping
+const stateDisplayMapping: Record<string, string> = {
+  abuja: 'Abuja (FCT)',
+  edo: 'Edo State',
+  delta: 'Delta State',
+  rivers: 'Rivers State',
+  kogi: 'Kogi State',
+  nasarawa: 'Nasarawa State',
+  jigawa: 'Jigawa State',
+  kaduna: 'Kaduna State',
+  kano: 'Kano State',
+  ogun: 'Ogun State',
+  enugu: 'Enugu State',
+  borno: 'Borno State',
+  ondo: 'Ondo State',
+};
+
 export async function generateStaticParams() {
   const projects = await getProjects();
-  return projects.map((project: Project) => ({
+  const stateSlugs = Object.keys(stateMapping).map(state => ({ slug: state }));
+  const projectSlugs = projects.map((project: Project) => ({
     slug: project.slug.current,
   }));
+  return [...projectSlugs, ...stateSlugs];
 }
 
 export default async function ProjectPage({ params }: ProjectPageProps) {
   const { slug } = await params;
+
+  // 1. Try to fetch a single project
   const project = await getProject(slug);
+
+  // 2. If no project, check if it's a state slug
   if (!project) {
+    const sanityStateValue = stateMapping[slug.toLowerCase()];
+    const displayName = stateDisplayMapping[slug.toLowerCase()];
+
+    if (sanityStateValue) {
+      const { projects } = await getProjectsPaginated({
+        state: sanityStateValue,
+        limit: 100,
+      });
+
+      return (
+        <StateProjectsView
+          projects={projects}
+          displayName={displayName || slug}
+        />
+      );
+    }
+
     notFound();
   }
 
