@@ -81,18 +81,18 @@ export function Footer() {
   };
 
   return (
-    <footer
-      className="relative h-auto md:h-[60vh] bg-primary dark:bg-black/40 text-white border-t-[0.5px] border-border transition-colors duration-500 overflow-hidden md:[clip-path:polygon(0%_0,100%_0%,100%_100%,0_100%)]"
-      style={{
-        backgroundImage: 'url(/images/footer-pattern.png)',
-        backgroundRepeat: 'repeat',
-        backgroundSize: 'auto',
-      }}
-    >
+    <footer className="relative h-auto md:h-[60vh] bg-primary dark:bg-black/40 text-white border-t-[0.5px] border-border transition-colors duration-500 overflow-hidden md:[clip-path:polygon(0%_0,100%_0%,100%_100%,0_100%)]">
       <div className="relative md:fixed md:bottom-0 w-full h-auto md:h-[60vh]">
         {/* Color overlay to retain footer color */}
         <div className="absolute inset-0 bg-black/60 pointer-events-none transition-colors duration-500" />
-        <Container className="relative px-4 py-12 z-10">
+        <Container
+          className="relative px-4 py-12 z-10"
+          style={{
+            backgroundImage: 'url(/images/footer-pattern.png)',
+            backgroundRepeat: 'repeat',
+            backgroundSize: 'auto',
+          }}
+        >
           {/* Main Footer Content */}
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-12">
             {/* Company Info */}

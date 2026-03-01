@@ -5,9 +5,15 @@ interface ContainerProps {
   children: React.ReactNode;
   className?: string;
   noPadding?: boolean;
+  style?: React.CSSProperties;
 }
 
-export function Container({ children, className, noPadding }: ContainerProps) {
+export function Container({
+  children,
+  className,
+  noPadding,
+  style,
+}: ContainerProps) {
   return (
     <div
       className={cn(
@@ -15,6 +21,7 @@ export function Container({ children, className, noPadding }: ContainerProps) {
         !noPadding && 'py-16',
         className,
       )}
+      style={style}
     >
       {children}
     </div>
