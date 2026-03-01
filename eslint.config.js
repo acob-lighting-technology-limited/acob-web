@@ -187,4 +187,21 @@ export default [
       'no-constant-binary-expression': 'off',
     },
   },
+  {
+    // Service Worker files
+    files: ['public/sw.js'],
+    languageOptions: {
+      globals: {
+        self: 'readonly',
+        caches: 'readonly',
+        clients: 'readonly',
+        skipWaiting: 'readonly',
+        Request: 'readonly',
+        Cache: 'readonly',
+        CacheStorage: 'readonly',
+        FetchEvent: 'readonly',
+        ExtendableEvent: 'readonly',
+      },
+    },
+  },
 ];
