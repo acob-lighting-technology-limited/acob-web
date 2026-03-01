@@ -8,7 +8,7 @@
   "theme_color": "#000000",
   "orientation": "portrait-primary",
   "scope": "/",
-  "offline_url": "/offline",
+  "offline_url": "/offline.html",
   "lang": "en",
   "categories": [
     "business",

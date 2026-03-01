@@ -24,6 +24,7 @@ import {
 import { StructuredData } from '@/components/seo/structured-data';
 import { ImageProtectionProvider } from '@/components/providers/image-protection-provider';
 import { FaviconSwitcher } from '@/components/favicon-switcher';
+import { ServiceWorkerRegistration } from '@/components/providers/service-worker-registration';
 
 const plusJakarta = Plus_Jakarta_Sans({
   subsets: ['latin'],
@@ -112,6 +113,7 @@ export default async function RootLayout({
     <html lang="en" suppressHydrationWarning>
       <body className={`${plusJakarta.className} ${plusJakarta.variable}`}>
         <StructuredData />
+        <ServiceWorkerRegistration />
         <Providers>
           <FaviconSwitcher />
           <NProgressProvider>
