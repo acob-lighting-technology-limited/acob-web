@@ -28,6 +28,14 @@ const PartnersSection = dynamic(
   { ssr: true },
 );
 
+const NigeriaReachSection = dynamic(
+  () =>
+    import('@/components/sections/nigeria-reach-section').then(
+      mod => mod.NigeriaReachSection,
+    ),
+  { ssr: true },
+);
+
 // Revalidate every 5 minutes (300 seconds)
 export const revalidate = 300;
 
@@ -76,6 +84,7 @@ export default async function HomePage() {
       <ServicesSection />
       <ProjectsSection projects={projects} />
       <CompanySection />
+      <NigeriaReachSection projects={projects} />
       <UpdatesSection posts={posts} />
       <PartnersSection />
     </main>

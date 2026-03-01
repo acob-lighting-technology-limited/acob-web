@@ -7,6 +7,13 @@ export interface RandomImage {
   projectTitle: string;
 }
 
+interface FetchableImage {
+  url?: string;
+  asset?: {
+    url: string;
+  };
+}
+
 export async function getRandomProjectImages(
   count: number = 4,
 ): Promise<RandomImage[]> {
@@ -23,8 +30,8 @@ export async function getRandomProjectImages(
         Array.isArray(project.images) &&
         project.images.length > 0
       ) {
-        project.images.forEach((image: any) => {
-          const imageUrl = (image as any)?.url || (image as any)?.asset?.url;
+        (project.images as any[]).forEach((image: FetchableImage) => {
+          const imageUrl = image?.url || image?.asset?.url;
           if (imageUrl) {
             allImages.push({
               url: imageUrl,
@@ -81,8 +88,8 @@ export async function getRandomBackgroundImage(): Promise<string> {
         Array.isArray(project.images) &&
         project.images.length > 0
       ) {
-        project.images.forEach((image: any) => {
-          const imageUrl = (image as any)?.url || (image as any)?.asset?.url;
+        (project.images as any[]).forEach((image: FetchableImage) => {
+          const imageUrl = image?.url || image?.asset?.url;
           if (imageUrl) {
             allImages.push(imageUrl);
           }

@@ -295,9 +295,11 @@ export default async function ProductPage({ params }: ProductPageProps) {
 
 export async function generateStaticParams() {
   const query = '*[_type == "product"]{ "slug": slug.current }';
-  const products = await client.fetch(query);
+  const products = (await client.fetch(query)) || [];
 
-  return products.map((product: { slug: string }) => ({
-    slug: product.slug,
-  }));
+  return products
+    .filter((p: { slug?: string }) => p?.slug)
+    .map((product: { slug: string }) => ({
+      slug: product.slug,
+    }));
 }
