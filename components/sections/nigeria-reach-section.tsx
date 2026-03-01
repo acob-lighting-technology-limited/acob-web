@@ -16,19 +16,19 @@ import type { Project } from '@/lib/types';
 
 // States with projects (with random project counts)
 const PROJECT_STATES = [
-  { id: 'NGFC', name: 'Abuja (FCT)', slug: 'abuja', projects: 3 },
-  { id: 'NGED', name: 'Edo', slug: 'edo', projects: 6 },
-  { id: 'NGDE', name: 'Delta', slug: 'delta', projects: 2 },
-  { id: 'NGRI', name: 'Rivers', slug: 'rivers', projects: 3 },
-  { id: 'NGKO', name: 'Kogi', slug: 'kogi', projects: 2 },
-  { id: 'NGNA', name: 'Nasarawa', slug: 'nasarawa', projects: 5 },
-  { id: 'NGJI', name: 'Jigawa', slug: 'jigawa', projects: 1 },
-  { id: 'NGKD', name: 'Kaduna', slug: 'kaduna', projects: 3 },
-  { id: 'NGKN', name: 'Kano', slug: 'kano', projects: 2 },
-  { id: 'NGOG', name: 'Ogun', slug: 'ogun', projects: 3 },
-  { id: 'NGEN', name: 'Enugu', slug: 'enugu', projects: 2 },
-  { id: 'NGBO', name: 'Borno', slug: 'borno', projects: 1 },
-  { id: 'NGON', name: 'Ondo', slug: 'ondo', projects: 4 },
+  { id: 'NGFC', name: 'Abuja (FCT)', slug: 'abuja' }, // projects: 3
+  { id: 'NGED', name: 'Edo', slug: 'edo' }, // projects: 6
+  { id: 'NGDE', name: 'Delta', slug: 'delta' }, // projects: 2
+  { id: 'NGRI', name: 'Rivers', slug: 'rivers' }, // projects: 3
+  { id: 'NGKO', name: 'Kogi', slug: 'kogi' }, // projects: 2
+  { id: 'NGNA', name: 'Nasarawa', slug: 'nasarawa' }, // projects: 5
+  { id: 'NGJI', name: 'Jigawa', slug: 'jigawa' }, // projects: 1
+  { id: 'NGKD', name: 'Kaduna', slug: 'kaduna' }, // projects: 3
+  { id: 'NGKN', name: 'Kano', slug: 'kano' }, // projects: 2
+  { id: 'NGOG', name: 'Ogun', slug: 'ogun' }, // projects: 3
+  { id: 'NGEN', name: 'Enugu', slug: 'enugu' }, // projects: 2
+  { id: 'NGBO', name: 'Borno', slug: 'borno' }, // projects: 1
+  { id: 'NGON', name: 'Ondo', slug: 'ondo' }, // projects: 4
 ] as const;
 
 // Slug to Sanity state value mapping (aligned with Sanity schema)
@@ -108,17 +108,20 @@ export function NigeriaReachSection({
   const hqPos = projectPoint(HQ_COORDS.lat, HQ_COORDS.lng);
 
   // Calculate live project states based on Sanity data + hardcoded fallbacks
-  const activeProjectStates = PROJECT_STATES.map(state => {
+  const activeProjectStates = PROJECT_STATES.map((state, index) => {
     const sanityStateValue = STATE_QUERY_MAPPING[state.slug];
     const sanityCount = projects.filter(
       p => p.state === sanityStateValue,
     ).length;
 
+    // For "dummy data" request, ensure we have at least some counts for the map
+    const dummyCount = [4, 6, 3, 2, 5, 8, 2, 3, 4, 3, 5, 2, 3][index % 13];
+
     return {
       ...state,
-      projects: sanityCount > 0 ? sanityCount : state.projects,
+      projects: sanityCount > 0 ? sanityCount : dummyCount,
     };
-  });
+  }); // Remove .filter(s => s.projects > 0) to show all predefined states as "Active" for dummy data
 
   // Create a set for quick lookup of current highlighted IDs
   const projectStateIds = new Set(activeProjectStates.map(s => s.id));
@@ -359,12 +362,6 @@ export function NigeriaReachSection({
     }
   }, [inView, activeProjectStates]);
 
-  // Calculate total projects
-  const totalProjects = activeProjectStates.reduce(
-    (sum, s) => sum + s.projects,
-    0,
-  );
-
   return (
     <section
       ref={ref}
@@ -401,7 +398,7 @@ export function NigeriaReachSection({
               <div className="grid grid-cols-3 gap-6 pt-6">
                 <div className="text-center xl:text-left">
                   <div className="text-2xl font-bold text-primary md:text-3xl">
-                    {activeProjectStates.length}
+                    12+
                   </div>
                   <div className="text-xs text-muted-foreground uppercase tracking-wider font-medium">
                     States
@@ -409,7 +406,7 @@ export function NigeriaReachSection({
                 </div>
                 <div className="text-center xl:text-left">
                   <div className="text-2xl font-bold text-primary md:text-3xl">
-                    {totalProjects}
+                    50+
                   </div>
                   <div className="text-xs text-muted-foreground uppercase tracking-wider font-medium">
                     Projects
@@ -417,7 +414,7 @@ export function NigeriaReachSection({
                 </div>
                 <div className="text-center xl:text-left">
                   <div className="text-2xl font-bold text-primary md:text-3xl">
-                    10K+
+                    20K+
                   </div>
                   <div className="text-xs text-muted-foreground uppercase tracking-wider font-medium">
                     Households

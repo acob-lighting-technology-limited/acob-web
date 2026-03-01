@@ -1,5 +1,6 @@
 'use client';
 
+import { useState } from 'react';
 import { Container } from '@/components/ui/container';
 import { Hero } from '@/components/ui/hero';
 import { Breadcrumb } from '@/components/ui/breadcrumb';
@@ -11,6 +12,73 @@ import { partners } from '@/lib/data/partners-data';
 import { FadeIn } from '@/components/animations/FadeIn';
 import { getBlurDataURL } from '@/lib/utils/image-optimization';
 import { Handshake, Video } from 'lucide-react';
+import { cn } from '@/lib/utils';
+
+interface Partner {
+  slug: string;
+  name: string;
+  fullName?: string;
+  category: string;
+  logo: string;
+}
+
+function PartnerCard({ partner, index }: { partner: Partner; index: number }) {
+  const [isFlipped, setIsFlipped] = useState(false);
+
+  return (
+    <FadeIn delay={0.1 + index * 0.05} direction="up">
+      <div
+        className="group relative h-full min-h-[160px] perspective-1000 cursor-pointer w-full"
+        onClick={() => setIsFlipped(!isFlipped)}
+      >
+        <div
+          className={cn(
+            'relative w-full h-full transition-transform duration-700 transform-style-3d',
+            isFlipped ? 'rotate-y-180' : 'group-hover:rotate-y-180',
+          )}
+        >
+          {/* Front - Logo */}
+          <Card className="absolute inset-0 backface-hidden border border-border bg-card hover:border-primary/50 transition-colors duration-300 hover:shadow-lg">
+            <CardContent className="p-4 sm:p-6 flex items-center justify-center h-full">
+              <div className="relative w-full h-full flex items-center justify-center rounded-lg p-3">
+                <Image
+                  src={partner.logo}
+                  alt={partner.name}
+                  width={150}
+                  height={100}
+                  className="h-auto w-full max-w-[120px] object-contain opacity-90 group-hover:opacity-100 transition-opacity duration-300"
+                  loading="lazy"
+                  quality={75}
+                  placeholder="blur"
+                  blurDataURL={getBlurDataURL()}
+                />
+              </div>
+            </CardContent>
+          </Card>
+
+          {/* Back - Description */}
+          <Card className="absolute inset-0 backface-hidden rotate-y-180 border border-primary/50 bg-primary/5">
+            <CardContent className="p-3 sm:p-4 flex flex-col items-center justify-center h-full text-center gap-2">
+              <Badge className="text-[10px] px-2 py-0.5">
+                {partner.category}
+              </Badge>
+              <h3 className="font-semibold text-sm sm:text-base leading-tight text-foreground px-2">
+                {partner.fullName || partner.name}
+              </h3>
+              <Link
+                href={`/about/partners/${partner.slug}`}
+                className="text-xs text-primary font-medium mt-auto hover:underline p-1"
+                onClick={e => e.stopPropagation()}
+              >
+                Learn more →
+              </Link>
+            </CardContent>
+          </Card>
+        </div>
+      </div>
+    </FadeIn>
+  );
+}
 
 export default function PartnersPage() {
   const breadcrumbItems = [
@@ -127,54 +195,11 @@ export default function PartnersPage() {
 
             <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-4 sm:gap-6">
               {partners.map((partner, index) => (
-                <FadeIn
+                <PartnerCard
                   key={partner.slug}
-                  delay={0.1 + index * 0.05}
-                  direction="up"
-                >
-                  <Link
-                    href={`/about/partners/${partner.slug}`}
-                    className="block h-full"
-                  >
-                    <div className="group h-full perspective-1000 cursor-pointer">
-                      <div className="relative h-full min-h-[160px] transition-transform duration-700 transform-style-3d group-hover:rotate-y-180">
-                        {/* Front - Logo */}
-                        <Card className="absolute inset-0 backface-hidden border border-border bg-card hover:border-primary/50 transition-colors duration-300 hover:shadow-lg">
-                          <CardContent className="p-4 sm:p-6 flex items-center justify-center h-full">
-                            <div className="relative w-full h-full flex items-center justify-center rounded-lg p-3">
-                              <Image
-                                src={partner.logo}
-                                alt={partner.name}
-                                width={150}
-                                height={100}
-                                className="h-auto w-full max-w-[120px] object-contain opacity-90 group-hover:opacity-100 transition-opacity duration-300"
-                                loading="lazy"
-                                quality={75}
-                                placeholder="blur"
-                                blurDataURL={getBlurDataURL()}
-                              />
-                            </div>
-                          </CardContent>
-                        </Card>
-
-                        {/* Back - Description */}
-                        <Card className="absolute inset-0 backface-hidden rotate-y-180 border border-primary/50 bg-primary/5">
-                          <CardContent className="p-3 sm:p-4 flex flex-col items-center justify-center h-full text-center gap-2">
-                            <Badge className="text-[10px] px-2 py-0.5">
-                              {partner.category}
-                            </Badge>
-                            <h3 className="font-semibold text-sm sm:text-base leading-tight text-foreground px-2">
-                              {partner.fullName}
-                            </h3>
-                            <span className="text-xs text-primary font-medium mt-auto">
-                              Learn more →
-                            </span>
-                          </CardContent>
-                        </Card>
-                      </div>
-                    </div>
-                  </Link>
-                </FadeIn>
+                  partner={partner}
+                  index={index}
+                />
               ))}
             </div>
           </div>
