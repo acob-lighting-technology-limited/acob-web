@@ -72,8 +72,9 @@ export default function SiteRevealProvider({
 }) {
   const [revealed, setRevealed] = useState(introSkipped);
 
-  const finish = useCallback((panel: HTMLElement) => {
-    panel.classList.add('intro-leaving');
+  const finish = useCallback(() => {
+    const root = document.documentElement;
+    root.classList.add('intro-leaving');
 
     /*
      * The page's own CSS entrance animations are frozen by data-loader-active
@@ -87,10 +88,15 @@ export default function SiteRevealProvider({
       setRevealed(true);
     }, REVEAL_LEAD * 1000);
 
+    /*
+     * Hidden, not removed: the panel is React-owned markup, and pulling it out
+     * of the DOM by hand makes React throw when it later unmounts this subtree
+     * (e.g. navigating from the site to /studio).
+     */
     const done = window.setTimeout(() => {
-      panel.remove();
-      document.documentElement.classList.remove('intro-active');
-      document.documentElement.removeAttribute('data-loader-active');
+      root.classList.add('intro-done');
+      root.classList.remove('intro-active', 'intro-leaving');
+      root.removeAttribute('data-loader-active');
       setRevealed(true);
     }, EXIT_DURATION * 1000);
 
@@ -101,12 +107,13 @@ export default function SiteRevealProvider({
   }, []);
 
   useEffect(() => {
+    const root = document.documentElement;
     const panel = document.getElementById(INTRO_PANEL_ID);
 
-    /* Skipped, or already torn down by an earlier mount. */
-    if (!panel || introSkipped()) {
-      panel?.remove();
-      document.documentElement.classList.remove('intro-active');
+    /* Skipped, or already played by an earlier mount of this provider. */
+    if (!panel || introSkipped() || root.classList.contains('intro-done')) {
+      root.classList.add('intro-done');
+      root.classList.remove('intro-active');
       document.documentElement.removeAttribute('data-loader-active');
       setRevealed(true);
       return;
@@ -128,7 +135,7 @@ export default function SiteRevealProvider({
         return;
       }
       cancelled = true;
-      cleanupExit = finish(panel);
+      cleanupExit = finish();
     };
 
     /* Case 1: the page is ready first — hold for the rest of the build. */

@@ -43,9 +43,42 @@ window.__acobIntroStart=Date.now();
 }catch(e){}})();`;
 }
 
+/**
+ * Runs right after the panel is parsed, still before first paint.
+ *
+ * CSS can't animate to `width: auto`, so this measures each glyph's natural
+ * width (and Technology's height) and writes them as exact animation targets.
+ * Computed width is used rather than a bounding rect because the letters are
+ * mid-transform — scaled and rotated — at this point. The values go into an
+ * injected <style> rather than onto the elements, so React's hydration never
+ * sees markup it didn't render.
+ *
+ * Measured again once webfonts are in, since the fallback face has different
+ * metrics; and at build end the boxes are released to natural layout anyway.
+ */
+function measureScript(panelId: string, buildSeconds: number): string {
+  return `(function(){try{
+var h=document.documentElement;if(h.classList.contains('intro-skip'))return;
+var p=document.getElementById('${panelId}');if(!p)return;
+var st=document.createElement('style');document.head.appendChild(st);
+function px(el,prop){return parseFloat(getComputedStyle(el)[prop])||0}
+function measure(){var css='';
+p.querySelectorAll('[data-intro-i]').forEach(function(l){var c=l.firstElementChild;if(!c)return;
+css+='#${panelId} [data-intro-i="'+l.getAttribute('data-intro-i')+'"]{--intro-letter-cap:'+px(c,'width')+'px}';});
+var clip=p.querySelector('.intro-tech-clip'),tech=clip&&clip.firstElementChild;
+if(tech)css+='#${panelId} .intro-tech-clip{--intro-tech-cap:'+px(tech,'height')+'px}';
+st.textContent=css;}
+measure();
+if(document.fonts&&document.fonts.ready)document.fonts.ready.then(measure);
+setTimeout(function(){h.classList.add('intro-built')},${Math.round(buildSeconds * 1000)});
+}catch(e){}})();`;
+}
+
 type LetterProps = {
   char: React.ReactNode;
   delay: number;
+  /** Stable index the measure script keys each glyph's width on. */
+  index: number;
   className?: string;
 };
 
@@ -54,10 +87,11 @@ type LetterProps = {
  * re-centering, the inner swings out from its left edge — reading as the
  * letter emerging from behind its neighbour.
  */
-function Letter({ char, delay, className }: LetterProps) {
+function Letter({ char, delay, index, className }: LetterProps) {
   return (
     <span
       className="intro-letter"
+      data-intro-i={index}
       style={{ '--intro-delay': `${delay}s` } as React.CSSProperties}
     >
       <span className={className}>{char}</span>
@@ -99,6 +133,7 @@ export default function IntroPanel({
             {BRAND.split('').map((char, i) => (
               <Letter
                 key={`brand-${i}`}
+                index={i}
                 char={char}
                 delay={
                   i === 0 ? t.aStart : t.brandStart + t.brandStagger * (i - 1)
@@ -119,6 +154,7 @@ export default function IntroPanel({
             {LIGHTING.split('').map((char, i) => (
               <Letter
                 key={`lighting-${i}`}
+                index={BRAND.length + i}
                 char={char}
                 delay={t.lightingStart + t.lightingStagger * i}
                 className="intro-accent"
@@ -143,6 +179,7 @@ export default function IntroPanel({
                 <span className="intro-tech-word">Technology</span>
                 {showAnniversary && (
                   <Letter
+                    index={BRAND.length + LIGHTING.length}
                     delay={t.anniversaryStart}
                     className="intro-gold"
                     char={
@@ -167,6 +204,12 @@ export default function IntroPanel({
           </div>
         </div>
       </div>
+
+      <script
+        dangerouslySetInnerHTML={{
+          __html: measureScript(INTRO_PANEL_ID, build),
+        }}
+      />
     </>
   );
 }
