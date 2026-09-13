@@ -55,13 +55,9 @@ const MAX_LOADER_MS = 4000;
 /**
  * The pre-paint script in intro-panel.tsx has already settled whether the
  * intro runs at all (repeat visit within the session, or reduced motion). Read
- * its verdict rather than re-deriving it — and read it during render, so a
- * skipped intro never leaves the page held hidden for a frame.
+ * its verdict rather than re-deriving it.
  */
 function introSkipped(): boolean {
-  if (typeof document === 'undefined') {
-    return false;
-  }
   return document.documentElement.classList.contains('intro-skip');
 }
 
@@ -70,7 +66,14 @@ export default function SiteRevealProvider({
 }: {
   children: React.ReactNode;
 }) {
-  const [revealed, setRevealed] = useState(introSkipped);
+  /*
+   * Always start unrevealed, even when the intro was skipped. The server can't
+   * see the <html> classes, so it renders `false`; reading them during the
+   * hydrating render instead gives `true` there, and React does not patch the
+   * resulting attribute mismatch — the header kept the server's hidden class
+   * until something re-rendered it. The effect below flips this on mount.
+   */
+  const [revealed, setRevealed] = useState(false);
 
   const finish = useCallback(() => {
     const root = document.documentElement;
