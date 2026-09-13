@@ -169,7 +169,7 @@ export default function ProjectsClient({
 
       <Container className="px-4 py-8">
         {/* Breadcrumb + Search */}
-        <div className="mb-8 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+        <div className="mb-6 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between md:mb-8">
           <Breadcrumb items={breadcrumbItems} />
           <div className="relative flex w-full gap-2 sm:w-auto sm:min-w-[400px]">
             <div className="relative flex-1">
@@ -237,11 +237,11 @@ export default function ProjectsClient({
 
         {/* Grid */}
         {isLoading ? (
-          <div className="mt-10">
+          <div className="mt-8 md:mt-10">
             <CardSkeleton count={PAGE_LIMIT} />
           </div>
         ) : projects.length === 0 ? (
-          <div className="mt-10 border border-dashed border-border p-12 text-center">
+          <div className="mt-8 border border-dashed border-border p-12 text-center md:mt-10">
             <Search className="mx-auto mb-4 h-12 w-12 text-muted-foreground/50" />
             <h3 className="mb-2 text-2xl font-bold tracking-tight">
               No projects found
@@ -255,7 +255,7 @@ export default function ProjectsClient({
           </div>
         ) : (
           <>
-            <div className="mt-10 grid grid-cols-1 gap-4 sm:grid-cols-2 md:gap-6 xl:grid-cols-3">
+            <div className="mt-8 grid grid-cols-1 gap-4 sm:grid-cols-2 md:mt-10 md:gap-6 lg:grid-cols-3">
               {projects.map((project: Project, index: number) => (
                 <FadeIn
                   key={project._id}

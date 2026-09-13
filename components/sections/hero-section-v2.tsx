@@ -176,7 +176,7 @@ export const HeroSectionV2 = React.memo(function HeroSectionV2({
 
       {/* Content */}
       <div
-        className=" relative z-20 h-full flex items-end pb-6 lg:pb-6"
+        className="relative z-20 h-full flex items-end pb-6 short:pb-4"
         style={{
           backfaceVisibility: 'hidden',
           WebkitBackfaceVisibility: 'hidden',
@@ -184,12 +184,12 @@ export const HeroSectionV2 = React.memo(function HeroSectionV2({
           WebkitTransform: 'translateZ(0)',
         }}
       >
-        <div className=" px-4 sm:px-8 pb-6 sm:pb-2">
+        <div className="px-4 sm:px-8 pb-6 sm:pb-2">
           <div className="w-full">
             {/* Left Content */}
-            <div className="space-y-4 md:space-y-5 max-w-xl">
+            <div className="space-y-4 md:space-y-5 short:space-y-3 max-w-xl">
               {/* Badge - Shows FIRST */}
-              <div className="space-y-2 md:space-y-3">
+              <div className="space-y-2 md:space-y-3 short:space-y-2">
                 <div
                   className="opacity-0 animate-fade-in-up"
                   style={{
@@ -210,7 +210,7 @@ export const HeroSectionV2 = React.memo(function HeroSectionV2({
                     animationFillMode: 'forwards',
                   }}
                 >
-                  <h1 className="font-bold leading-tight text-3xl sm:text-4xl md:text-4xl lg:text-5xl text-white">
+                  <h1 className="font-bold leading-tight text-3xl sm:text-4xl lg:text-5xl short:text-3xl text-white">
                     Powering sustainable futures for homes, businesses, and
                     communities.
                   </h1>
@@ -225,7 +225,7 @@ export const HeroSectionV2 = React.memo(function HeroSectionV2({
                   animationFillMode: 'forwards',
                 }}
               >
-                <p className="max-w-xl text-sm md:text-base text-gray-200">
+                <p className="max-w-xl text-sm md:text-base short:text-sm text-gray-200">
                   {showAnniversary
                     ? 'For 10 remarkable years, ACOB Lighting Technology Limited has remained committed to lighting up communities, driving innovation, and creating lasting impact across Nigeria.'
                     : 'We deliver dependable solar, mini-grid, and energy storage solutions that unlock productivity and resilience for communities across Nigeria.'}
@@ -243,9 +243,9 @@ export const HeroSectionV2 = React.memo(function HeroSectionV2({
                 {heroMetrics.map(metric => (
                   <Card
                     key={metric.label}
-                    className="p-2 sm:p-2.5 bg-white/10 backdrop-blur-md border-white/20 hover:border-primary/50 transition-colors duration-300"
+                    className="p-2 sm:p-2.5 short:p-2 bg-white/10 backdrop-blur-md border-white/20 hover:border-primary/50 transition-colors duration-300"
                   >
-                    <div className="text-lg sm:text-xl md:text-2xl font-semibold text-white">
+                    <div className="text-lg sm:text-xl md:text-2xl short:text-lg font-semibold text-white">
                       <AnimatedCounter
                         end={metric.number}
                         suffix={metric.suffix}
@@ -297,14 +297,14 @@ export const HeroSectionV2 = React.memo(function HeroSectionV2({
 
       {/* Desktop Project Info Card - Bottom Right - Shows LAST */}
       <div
-        className="hidden lg:block absolute bottom-6 right-0 z-30 opacity-0 animate-fade-in-up"
+        className="hidden lg:block absolute bottom-6 short:bottom-4 right-0 z-30 opacity-0 animate-fade-in-up"
         style={{ animationDelay: '0.6s', animationFillMode: 'forwards' }}
       >
         <div className="2xl:container max-w-7xl mx-auto px-4">
           <div className="flex justify-end">
             {/* The one accepted change: a vertical accent line before the
                 location + title, replacing the previous plain padded box. */}
-            <div className="relative max-w-md mr-6 border-l-2 border-primary py-1 pl-4">
+            <div className="relative max-w-md mr-24 border-l-2 border-primary py-1 pl-4">
               <div
                 key={`project-info-${current}`}
                 className="space-y-2"
@@ -321,7 +321,7 @@ export const HeroSectionV2 = React.memo(function HeroSectionV2({
                     {allSlides[current].location}
                   </span>
                 </div>
-                <h2 className="text-xl font-semibold text-white line-clamp-2">
+                <h2 className="text-xl short:text-base font-semibold text-white line-clamp-2">
                   {formatHeroProjectTitle(allSlides[current].title)}
                 </h2>
               </div>

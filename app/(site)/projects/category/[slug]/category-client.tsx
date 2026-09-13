@@ -197,7 +197,7 @@ export default function CategoryClient({
           </div>
         ) : (
           <>
-            <div className="mt-10 grid grid-cols-1 gap-4 sm:grid-cols-2 md:gap-6 xl:grid-cols-3">
+            <div className="mt-10 grid grid-cols-1 gap-4 sm:grid-cols-2 md:gap-6 lg:grid-cols-3">
               {projects.map((project: Project, index: number) => (
                 <FadeIn
                   key={project._id}

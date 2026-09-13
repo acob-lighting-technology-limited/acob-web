@@ -18,19 +18,6 @@ const config: Config = {
       },
     },
     extend: {
-      // `xl` is lowered from Tailwind's default 1280px to 1200px.
-      //
-      // A 13.3" FHD laptop (Dell Latitude 5310 and similar) runs at Windows'
-      // 150% recommended scaling, giving a 1280px logical viewport. Minus the
-      // page scrollbar, the media-query width lands just under 1280px and
-      // misses `xl` by a few pixels — so `xl:grid-cols-3` / `xl:grid-cols-4`
-      // sections silently dropped a column on those machines.
-      //
-      // Kept in sync with the same override in the Matrix app
-      // (ACOB-Signature-Creator: app/globals.css `--breakpoint-xl`).
-      screens: {
-        xl: '1200px',
-      },
       backgroundImage: {
         // Radial gradient versions (commented out)
         // 'six-color-gradient':
