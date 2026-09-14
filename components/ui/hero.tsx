@@ -31,9 +31,9 @@ interface HeroProps {
 const DEFAULT_HERO_IMAGE = '/images/contact/office-location-hero.webp';
 
 const DESCRIPTION_CLASS: Record<'default' | 'display', string> = {
-  default: 'text-2xl sm:text-4xl md:text-4xl lg:text-5xl font-bold',
+  default: 'text-2xl sm:text-4xl lg:text-5xl short:text-4xl font-bold',
   display:
-    'text-xl sm:text-3xl md:text-4xl lg:text-5xl font-extrabold uppercase tracking-tight leading-[0.95]',
+    'text-xl sm:text-3xl md:text-4xl lg:text-5xl short:text-4xl font-extrabold uppercase tracking-tight leading-[0.95]',
 };
 
 export const Hero = React.memo(function Hero({
@@ -74,7 +74,7 @@ export const Hero = React.memo(function Hero({
     return (
       <div
         ref={heroRef}
-        className="relative w-full h-[calc(50vh+6rem)] md:h-[calc(45vh+6rem)] lg:h-[calc(60vh+6rem)] overflow-hidden"
+        className="relative w-full h-[calc(50vh+6rem)] md:h-[calc(45vh+6rem)] lg:h-[calc(60vh+6rem)] short:h-[calc(45vh+3rem)] overflow-hidden"
       >
         {/* Background Image */}
         <div className="absolute inset-0 bg-black">
@@ -98,7 +98,7 @@ export const Hero = React.memo(function Hero({
         </div>
 
         {/* Content Overlay */}
-        <div className="absolute inset-0 z-10 flex items-end pb-4 sm:pb-6 xl:pb-10">
+        <div className="absolute inset-0 z-10 flex items-end pb-4 sm:pb-6 xl:pb-10 short:pb-6">
           <div className="2xl:container max-w-7xl mx-auto px-4 w-full">
             <div className="text-white max-w-5xl space-y-3">
               <motion.div
@@ -297,7 +297,7 @@ const HeroCarousel = React.memo(function HeroCarousel({
   return (
     <div
       ref={heroRef}
-      className="relative w-full overflow-hidden touch-pan-y h-[calc(50vh+6rem)] md:h-[calc(45vh+6rem)] lg:h-[calc(60vh+6rem)]"
+      className="relative w-full overflow-hidden touch-pan-y h-[calc(50vh+6rem)] md:h-[calc(45vh+6rem)] lg:h-[calc(60vh+6rem)] short:h-[calc(45vh+3rem)]"
       onTouchStart={handleTouchStart}
       onTouchMove={handleTouchMove}
       onTouchEnd={handleTouchEnd}

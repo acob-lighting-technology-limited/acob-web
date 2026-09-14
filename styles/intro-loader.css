@@ -92,10 +92,15 @@ html.intro-skip #acob-intro {
 
 /*
  * Each letter is two nested spans: the outer opens up horizontally so the
- * line keeps re-centering, the inner swings out from its left edge. Framer
- * animated the outer to `width: auto`; CSS can't, so it animates max-width to
- * a cap wider than any glyph — same reveal, and the resting layout is the
- * element's natural width either way.
+ * line keeps re-centering, the inner swings out from its left edge.
+ *
+ * Framer animated the outer to `width: auto`, which CSS can't do. Animating
+ * toward a generous fixed cap instead is what made the port look stiff: a
+ * glyph ~0.6em wide reaches its real width in the first tenth of an ease-out
+ * toward 2em, so every letter snapped into its slot and the line stopped
+ * re-centering almost at once. The measure script in intro-panel.tsx writes
+ * each glyph's exact width into --intro-letter-cap before first paint, so the
+ * opening spans the full duration the way width:auto did.
  */
 .intro-letter {
   display: inline-block;
@@ -119,14 +124,16 @@ html.intro-skip #acob-intro {
     max-width: 0;
   }
   to {
-    max-width: var(--intro-letter-cap, 2em);
+    max-width: var(--intro-letter-cap, 0.8em);
   }
 }
 
 @keyframes intro-letter-in {
   from {
     opacity: 0;
-    transform: rotateY(-105deg) translateZ(-140px) scaleX(0.4);
+    /* Framer's order — translate, then scale, then rotate. Rotating first
+       pushes the letter along a tilted axis and flattens the swing. */
+    transform: translateZ(-140px) scaleX(0.4) rotateY(-105deg);
   }
   to {
     opacity: 1;
@@ -158,7 +165,7 @@ html.intro-skip #acob-intro {
 
 @keyframes intro-tech-clip {
   to {
-    max-height: 3em;
+    max-height: var(--intro-tech-cap, 2.2em);
   }
 }
 
@@ -195,6 +202,18 @@ html.intro-skip #acob-intro {
   padding-left: 0.42em;
 }
 
+/*
+ * Once the build has played out, hand the opened boxes back to normal layout.
+ * If the webfont lands after the measure, a stale cap would otherwise pinch
+ * the finished wordmark.
+ */
+html.intro-built #acob-intro .intro-letter,
+html.intro-built #acob-intro .intro-tech-clip {
+  animation: none;
+  max-width: none;
+  max-height: none;
+}
+
 /* The "@" bowl sits below the baseline in most sans faces; nudge it back up. */
 .intro-at {
   display: inline-block;
@@ -205,7 +224,16 @@ html.intro-skip #acob-intro {
  * Exit — the curtain lift. React adds this class when the page is ready and
  * the build has finished, then removes the node once it has played out.
  */
-#acob-intro.intro-leaving {
+/*
+ * State lives on <html>, never on the panel: the panel is React-owned markup,
+ * and removing or restyling it by hand breaks React the moment it reconciles
+ * or unmounts that subtree.
+ */
+html.intro-done #acob-intro {
+  display: none;
+}
+
+html.intro-leaving #acob-intro {
   transform: translateY(-100%);
   border-bottom-left-radius: 2.5rem;
   border-bottom-right-radius: 2.5rem;
@@ -215,8 +243,9 @@ html.intro-skip #acob-intro {
 }
 
 /* Drifts slower than the panel — a touch of parallax weight. */
-#acob-intro.intro-leaving .intro-wordmark {
-  animation: none;
+html.intro-leaving #acob-intro .intro-wordmark {
+  /* Freeze the breath where it is — dropping it would snap opacity to 1. */
+  animation-play-state: paused;
   transform: translateY(60px);
   transition: transform var(--intro-exit-duration) var(--intro-ease-quint);
 }

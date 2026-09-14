@@ -33,7 +33,7 @@ export default function AboutPage() {
       />
 
       <Container className="px-4 py-8">
-        <Breadcrumb items={breadcrumbItems} className="mb-8 md:mb-12" />
+        <Breadcrumb items={breadcrumbItems} className="mb-6 md:mb-8" />
 
         {/* ── Standfirst ─────────────────────────────────────── */}
         <div className="max-w-[68ch]">
@@ -56,7 +56,7 @@ export default function AboutPage() {
         </div>
 
         {/* ── Card grid ──────────────────────────────────────── */}
-        <section className="mt-14 md:mt-20">
+        <section className="mt-8 md:mt-12">
           <span className="text-[0.72rem] font-bold uppercase tracking-[0.28em] text-primary">
             Discover More
           </span>
@@ -64,7 +64,7 @@ export default function AboutPage() {
             Dive deeper
           </h2>
 
-          <div className="mt-8 grid grid-cols-2 gap-4 md:grid-cols-3 md:gap-6 xl:grid-cols-4">
+          <div className="mt-8 grid grid-cols-2 gap-4 md:grid-cols-3 md:gap-6 lg:grid-cols-4">
             {aboutSections.map((section, i) => (
               <FadeIn key={section.href} delay={i * 0.06} className="h-full">
                 <Link
@@ -78,7 +78,7 @@ export default function AboutPage() {
                         alt={section.title}
                         fill
                         className="object-cover transition-transform duration-500 group-hover:scale-105"
-                        sizes="(max-width: 768px) 50vw, (max-width: 1280px) 33vw, 25vw"
+                        sizes="(max-width: 768px) 50vw, (max-width: 1024px) 33vw, 25vw"
                       />
                       <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent" />
                       <span className="absolute left-3 top-3 text-sm font-extrabold tabular-nums leading-none text-white">

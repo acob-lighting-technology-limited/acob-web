@@ -42,7 +42,7 @@ function ShimmerSkeleton({
 // bottom-left anchored title-pill + heading so the page doesn't jump on mount.
 function PageHeroSkeleton() {
   return (
-    <div className="relative h-[calc(50vh+6rem)] w-full overflow-hidden bg-muted md:h-[calc(45vh+6rem)] lg:h-[calc(60vh+6rem)]">
+    <div className="relative h-[calc(50vh+6rem)] w-full overflow-hidden bg-muted md:h-[calc(45vh+6rem)] lg:h-[calc(60vh+6rem)] short:h-[calc(45vh+3rem)]">
       <div className="absolute inset-0 flex items-end pb-4 sm:pb-6 xl:pb-10">
         <div className="mx-auto w-full max-w-7xl px-4 2xl:container">
           <div className="max-w-5xl space-y-3">

@@ -1,6 +1,15 @@
 @import 'tailwindcss';
 @config '../tailwind.config.ts';
 
+/*
+ * `short:` — a wide but vertically cramped viewport. Breakpoints only measure
+ * width, so on their own they can't tell a 13" laptop at 150% scaling
+ * (1280×~590 usable) from a workstation. Use it to compact above-the-fold
+ * content (viewport-height heroes). Gated at md so portrait phones keep their
+ * own sizing; landscape phones and small laptops pick it up.
+ */
+@custom-variant short (@media (min-width: 48rem) and (max-height: 50rem));
+
 /* Font display optimization to prevent layout shifts */
 @layer base {
   * {

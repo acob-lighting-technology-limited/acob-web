@@ -78,7 +78,7 @@ export function TestimonialsSection() {
         </div>
 
         {/* Testimonials Section - Responsive layout */}
-        <div className="grid gap-4 sm:gap-6 md:gap-8 lg:gap-12 grid-cols-1 md:grid-cols-2 xl:grid-cols-3">
+        <div className="grid gap-4 sm:gap-6 md:gap-8 lg:gap-12 grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
           {testimonialHighlight.map((testimonial, index) => (
             <FadeIn key={testimonial.name} delay={index * 0.15} direction="up">
               <Card className="relative overflow-hidden border border-border bg-card/90 shadow-lg hover:shadow-xl transition-shadow duration-500 h-full">

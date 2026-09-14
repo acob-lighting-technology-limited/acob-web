@@ -53,7 +53,7 @@ export default function ContactPage() {
             Choose a path
           </h2>
 
-          <div className="mt-8 grid grid-cols-2 gap-4 md:grid-cols-3 md:gap-6 xl:grid-cols-4">
+          <div className="mt-8 grid grid-cols-2 gap-4 md:grid-cols-3 md:gap-6 lg:grid-cols-4">
             {contactSections.map((section, i) => (
               <FadeIn key={section.href} delay={i * 0.06} className="h-full">
                 <Link
@@ -67,7 +67,7 @@ export default function ContactPage() {
                         alt={section.title}
                         fill
                         className="object-cover transition-transform duration-500 group-hover:scale-105"
-                        sizes="(max-width: 768px) 50vw, (max-width: 1280px) 33vw, 25vw"
+                        sizes="(max-width: 768px) 50vw, (max-width: 1024px) 33vw, 25vw"
                       />
                       <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent" />
                       <span className="absolute left-3 top-3 text-sm font-extrabold tabular-nums leading-none text-white">
