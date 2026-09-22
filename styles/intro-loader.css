@@ -105,6 +105,17 @@ html.intro-skip #acob-intro {
 .intro-letter {
   display: inline-block;
   transform-style: preserve-3d;
+}
+
+/*
+ * The opening box is armed only once the measure script has written real caps
+ * (see intro-panel.tsx). If it ran before this stylesheet applied it would
+ * measure every glyph as 0 and, with the clamp already on, pin the whole
+ * wordmark into one overlapping heap for the length of the build. Unmeasured,
+ * the letters keep their natural width and just swing in — the effect loses
+ * its re-centering, nothing else.
+ */
+html.intro-measured #acob-intro .intro-letter {
   max-width: 0;
   animation: intro-letter-open var(--intro-letter-duration)
     var(--intro-ease-out) var(--intro-delay, 0s) both;
@@ -158,6 +169,9 @@ html.intro-skip #acob-intro {
 /* TECHNOLOGY slides down from underneath the line above. */
 .intro-tech-clip {
   overflow: hidden;
+}
+
+html.intro-measured #acob-intro .intro-tech-clip {
   max-height: 0;
   animation: intro-tech-clip var(--intro-tech-duration, 0.42s)
     var(--intro-ease-out) var(--intro-delay, 0s) both;

@@ -53,6 +53,19 @@ window.__acobIntroStart=Date.now();
  * injected <style> rather than onto the elements, so React's hydration never
  * sees markup it didn't render.
  *
+ * A measurement is only trusted once the loader stylesheet has actually
+ * applied. Run before that, every span is still a plain inline box whose
+ * computed width is the string `auto` — which used to land as a 0px cap on
+ * every letter and pile the whole wordmark up on one spot for the length of
+ * the build. So: confirm the panel is laid out by this stylesheet (its
+ * `position: fixed` comes from nowhere else — the letters' own `display`
+ * can't be used, they're flex items and read back blockified), require a
+ * positive width for each glyph, and retry on the next frame otherwise. Nothing is written
+ * until a whole pass is good, and `intro-measured` — which is what arms the
+ * width clamp in CSS — is only added then. Without it the letters simply sit
+ * at their natural width and swing in without the opening box, which is a far
+ * better failure than a heap of overlapping glyphs.
+ *
  * Measured again once webfonts are in, since the fallback face has different
  * metrics; and at build end the boxes are released to natural layout anyway.
  */
@@ -60,16 +73,26 @@ function measureScript(panelId: string, buildSeconds: number): string {
   return `(function(){try{
 var h=document.documentElement;if(h.classList.contains('intro-skip'))return;
 var p=document.getElementById('${panelId}');if(!p)return;
+var letters=[].slice.call(p.querySelectorAll('[data-intro-i]'));
+if(!letters.length)return;
+var clip=p.querySelector('.intro-tech-clip');
 var st=document.createElement('style');document.head.appendChild(st);
-function px(el,prop){return parseFloat(getComputedStyle(el)[prop])||0}
-function measure(){var css='';
-p.querySelectorAll('[data-intro-i]').forEach(function(l){var c=l.firstElementChild;if(!c)return;
-css+='#${panelId} [data-intro-i="'+l.getAttribute('data-intro-i')+'"]{--intro-letter-cap:'+px(c,'width')+'px}';});
-var clip=p.querySelector('.intro-tech-clip'),tech=clip&&clip.firstElementChild;
-if(tech)css+='#${panelId} .intro-tech-clip{--intro-tech-cap:'+px(tech,'height')+'px}';
-st.textContent=css;}
-measure();
-if(document.fonts&&document.fonts.ready)document.fonts.ready.then(measure);
+function px(el,prop){var v=parseFloat(getComputedStyle(el)[prop]);return v>0?v:0}
+function measure(){
+if(getComputedStyle(p).position!=='fixed')return false;
+var css='',i,c,w;
+for(i=0;i<letters.length;i++){c=letters[i].firstElementChild;if(!c)return false;
+w=px(c,'width');if(!w)return false;
+css+='#${panelId} [data-intro-i="'+letters[i].getAttribute('data-intro-i')+'"]{--intro-letter-cap:'+w+'px}';}
+var tech=clip&&clip.firstElementChild;
+if(tech){var th=px(tech,'height');if(!th)return false;
+css+='#${panelId} .intro-tech-clip{--intro-tech-cap:'+th+'px}';}
+st.textContent=css;h.classList.add('intro-measured');return true;}
+var tries=0;
+function attempt(){try{if(measure())return;
+if(++tries>90)return;requestAnimationFrame(attempt)}catch(e){}}
+attempt();
+if(document.fonts&&document.fonts.ready)document.fonts.ready.then(function(){try{measure()}catch(e){}});
 setTimeout(function(){h.classList.add('intro-built')},${Math.round(buildSeconds * 1000)});
 }catch(e){}})();`;
 }
