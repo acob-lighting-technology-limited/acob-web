@@ -95,7 +95,7 @@ export default async function UpdatePage({ params }: UpdatePageProps) {
       <Hero
         title={categoryTitle}
         description={post.title}
-        image={post.featuredImage}
+        image={post.featuredImage || post.coverImage}
         titleSize="display"
       />
 
@@ -181,6 +181,7 @@ export default async function UpdatePage({ params }: UpdatePageProps) {
                 }
 
                 const categoryLabel = formatCategoryName(item.category);
+                const imageSrc = item.featuredImage || item.coverImage;
 
                 return (
                   <Link
@@ -190,9 +191,9 @@ export default async function UpdatePage({ params }: UpdatePageProps) {
                   >
                     <article className="flex h-full flex-col overflow-hidden rounded-xl border border-border bg-card transition-all duration-500 group-hover:-translate-y-1 group-hover:border-primary/40 group-hover:shadow-lg">
                       <div className="relative aspect-[16/10] w-full overflow-hidden bg-muted">
-                        {item.featuredImage ? (
+                        {imageSrc ? (
                           <Image
-                            src={item.featuredImage}
+                            src={imageSrc}
                             alt={item.title ?? ''}
                             fill
                             sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"

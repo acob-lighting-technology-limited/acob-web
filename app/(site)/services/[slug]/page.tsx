@@ -52,9 +52,15 @@ export default async function ServicePage({ params }: ServicePageProps) {
 
   const relatedServices = servicesData.filter(s => s.slug !== slug).slice(0, 3);
 
-  let projects: Array<{ title: string; slug: { current: string } }> = [];
+  let projects: Array<{
+    title: string;
+    slug: { current: string };
+    coverImage?: string | null;
+  }> = [];
   try {
-    projects = await client.fetch('*[_type == "project"]{ title, slug }');
+    projects = await client.fetch(
+      '*[_type == "project"]{ title, slug, "coverImage": coalesce(coverImage.asset->url, projectImage.asset->url) }',
+    );
   } catch (e) {
     console.error(
       'Failed to fetch projects for service deployments matching:',
@@ -283,11 +289,11 @@ export default async function ServicePage({ params }: ServicePageProps) {
                     detail = proj.substring(colonIdx + 1).trim();
                   }
                   const matchingProject = findMatchingProject(name);
-                  // Cycle through the service's own gallery photos as
-                  // deployment thumbnails — there's no per-deployment image,
-                  // so each row borrows one of the service's carousel shots.
-                  const thumb =
-                    galleryImages.length > 0
+                  // Prioritize the matching project's own cover image;
+                  // otherwise fall back to cycling through the service's gallery.
+                  const thumb = matchingProject?.coverImage
+                    ? matchingProject.coverImage
+                    : galleryImages.length > 0
                       ? galleryImages[idx % galleryImages.length].split('?')[0]
                       : null;
 
@@ -297,7 +303,7 @@ export default async function ServicePage({ params }: ServicePageProps) {
                         <div className="relative aspect-[4/3] w-full shrink-0 overflow-hidden bg-muted rounded-lg">
                           <Image
                             src={thumb}
-                            alt=""
+                            alt={name}
                             fill
                             className="object-cover transition-transform duration-500 group-hover:scale-105"
                             sizes="120px"
