@@ -103,7 +103,7 @@ export const servicesData: ServiceData[] = [
     ],
     gallery: [
       '/images/services/captive-power-solutions.webp',
-      '/images/services/captive-power-solutions-2.webp',
+      'https://cdn.sanity.io/images/x16t7huo/production/a9940871fa5b8764700a2336ae56b81ef8839edd-421x383.jpg',
       'https://cdn.sanity.io/images/x16t7huo/production/2225c6206d34705a32bf448cf9154be006f833ab-492x565.jpg',
     ],
     category: 'Power Solutions',

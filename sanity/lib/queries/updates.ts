@@ -204,17 +204,7 @@ export async function getRelatedUpdatePosts(
     `
     *[_type == "updatePost" && $category in categories && slug.current != $currentSlug]
       | order(publishedAt desc)[0...$limit] {
-      _id,
-      title,
-      slug,
-      excerpt,
-      publishedAt,
-      author->{
-        _id,
-        name
-      },
-      categories,
-      "coverImage": coalesce(coverImage.asset->url, content[_type == "image"][0].asset->url) + "?w=800&h=600&fit=crop&auto=format&q=75"
+      ${UPDATE_POST_LISTING_FIELDS}
     }
   `,
     { category, currentSlug, limit },
