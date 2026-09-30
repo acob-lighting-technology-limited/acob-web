@@ -1,4 +1,4 @@
-import { CONTACT_INFO } from '@/lib/constants/app.constants';
+import { CONTACT_INFO, SOCIAL_MEDIA } from '@/lib/constants/app.constants';
 import {
   ANNIVERSARY_2026,
   isAnniversaryYear2026,
@@ -33,11 +33,7 @@ export function StructuredData() {
       contactType: 'customer service',
       email: CONTACT_INFO.email.support,
     },
-    sameAs: [
-      'https://www.linkedin.com/company/acob-lighting',
-      'https://www.facebook.com/acoblighting',
-      'https://twitter.com/acoblighting',
-    ],
+    sameAs: Object.values(SOCIAL_MEDIA).map(social => social.url),
     serviceArea: {
       '@type': 'Country',
       name: 'Nigeria',

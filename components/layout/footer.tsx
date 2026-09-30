@@ -70,6 +70,7 @@ export function Footer() {
     x: '#000000',
     facebook: '#1877F2',
     instagram: '#E4405F',
+    tiktok: '#000000',
   };
 
   // Get brand color for a social link
@@ -86,6 +87,9 @@ export function Footer() {
     }
     if (labelLower.includes('instagram')) {
       return brandColors.instagram;
+    }
+    if (labelLower.includes('tiktok')) {
+      return brandColors.tiktok;
     }
     return 'transparent';
   };

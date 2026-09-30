@@ -66,7 +66,8 @@ Social Media:
 - **Facebook:** https://www.facebook.com/acoblightingtechltd
 - **X (formerly Twitter):** https://x.com/acoblimited
 - **LinkedIn:** https://www.linkedin.com/company/acob-lighting-technology-limited/
-- **Instagram:** https://www.instagram.com/acob_lighting/?hl=en
+- **Instagram:** https://www.instagram.com/acob_lighting/
+- **TikTok:** https://www.tiktok.com/@acob_lighting
 
 ## PARTNERS & STRATEGIC RELATIONSHIPS
 
