@@ -92,10 +92,11 @@ This is the **official website repository** for ACOB Lighting Technology Limited
 
 ### Social Media
 
-- **LinkedIn:** [ACOB Lighting Technology](https://www.linkedin.com/company/acob-lighting-technology-limited)
-- **Facebook:** [ACOB Lighting](https://www.facebook.com/acoblighting)
-- **Instagram:** [@acoblighting](https://www.instagram.com/acoblighting)
-- **X (Twitter):** [@acoblighting](https://x.com/acoblighting)
+- **LinkedIn:** [ACOB Lighting Technology](https://www.linkedin.com/company/acob-lighting-technology-limited/)
+- **Facebook:** [@acoblightingtechltd](https://www.facebook.com/acoblightingtechltd)
+- **Instagram:** [@acob_lighting](https://www.instagram.com/acob_lighting/)
+- **X (Twitter):** [@acoblimited](https://x.com/acoblimited)
+- **TikTok:** [@acob_lighting](https://www.tiktok.com/@acob_lighting)
 
 ---
 

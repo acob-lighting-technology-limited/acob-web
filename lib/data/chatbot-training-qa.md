@@ -279,7 +279,10 @@ A: Yes. Find us at https://www.facebook.com/acoblightingtechltd
 A: Yes. Find us at https://x.com/acoblimited
 
 **Q: Is ACOB on Instagram?**
-A: Yes. Find us at https://www.instagram.com/acob_lighting/?hl=en
+A: Yes. Find us at https://www.instagram.com/acob_lighting/
+
+**Q: Is ACOB on TikTok?**
+A: Yes. Find us at https://www.tiktok.com/@acob_lighting
 
 **Q: What is ACOB's website?**
 A: www.acoblighting.com

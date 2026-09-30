@@ -1,5 +1,6 @@
 import { Facebook, Linkedin, Instagram } from 'lucide-react';
 import { XIcon } from '@/components/icons/x-icon';
+import { TikTokIcon } from '@/components/icons/tiktok-icon';
 import { CONTACT_INFO } from '../constants/app.constants';
 
 export const footerLinks = {
@@ -57,7 +58,7 @@ export const socialLinks = [
     label: 'Facebook',
   },
   {
-    href: 'https://x.com/acoblimited?s=21&t=NMnANy7CG_nzCYaBcUg6gw',
+    href: 'https://x.com/acoblimited',
     icon: XIcon,
     label: 'X',
   },
@@ -67,9 +68,14 @@ export const socialLinks = [
     label: 'LinkedIn',
   },
   {
-    href: 'https://www.instagram.com/acob_lighting/?hl=en',
+    href: 'https://www.instagram.com/acob_lighting/',
     icon: Instagram,
     label: 'Instagram',
+  },
+  {
+    href: 'https://www.tiktok.com/@acob_lighting',
+    icon: TikTokIcon,
+    label: 'TikTok',
   },
 ];
 

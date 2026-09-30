@@ -68,6 +68,10 @@ export const SOCIAL_MEDIA = {
     url: 'https://www.instagram.com/acob_lighting/',
     handle: '@acob_lighting',
   },
+  tiktok: {
+    url: 'https://www.tiktok.com/@acob_lighting',
+    handle: '@acob_lighting',
+  },
 } as const;
 
 // ============================================================================
