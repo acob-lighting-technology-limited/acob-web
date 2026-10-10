@@ -572,3 +572,23 @@ html[data-loader-active] .animate-slideInRight {
     outline: none;
   }
 }
+
+/* Home "Who we are" panel: a solar-panel cell grid that drifts slowly. */
+.about-solar-grid {
+  background-image:
+    linear-gradient(to right, #fff 1px, transparent 1px),
+    linear-gradient(to bottom, #fff 1px, transparent 1px);
+  background-size: 56px 34px;
+  transform: skewY(-6deg) scale(1.2);
+  animation: about-grid-drift 40s linear infinite;
+}
+@keyframes about-grid-drift {
+  to {
+    background-position: 56px 34px;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .about-solar-grid {
+    animation: none;
+  }
+}

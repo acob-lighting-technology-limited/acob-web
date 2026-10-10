@@ -7,6 +7,8 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { useInView } from 'react-intersection-observer';
 import { Container } from '@/components/ui/container';
 import { FadeIn } from '@/components/animations/FadeIn';
+import { MaskWords } from '@/components/animations/MaskWords';
+import { SectionEyebrow } from '@/components/animations/SectionEyebrow';
 import { cn } from '@/lib/utils';
 import type { Project } from '@/lib/types';
 
@@ -452,14 +454,12 @@ export function NigeriaReachSection({
           <FadeIn delay={0.1}>
             <div className="space-y-5 text-center xl:text-left">
               <div className="space-y-2">
-                <span className="text-[0.72rem] font-bold uppercase tracking-[0.28em] text-primary">
-                  Our Reach
-                </span>
-                <h2 className="text-3xl font-extrabold uppercase leading-[0.95] tracking-tight text-foreground md:text-3xl lg:text-4xl">
-                  Electrifying Progress
-                  <br />
-                  Across the Nation.
-                </h2>
+                <SectionEyebrow>Our Reach</SectionEyebrow>
+                <MaskWords
+                  as="h2"
+                  text="Electrifying Progress Across the Nation."
+                  className="max-w-sm text-3xl font-extrabold uppercase leading-[0.95] tracking-tight text-foreground mx-auto md:text-3xl lg:text-4xl xl:mx-0"
+                />
               </div>
 
               <p className="text-base text-muted-foreground md:text-lg max-w-md mx-auto xl:mx-0 leading-relaxed">

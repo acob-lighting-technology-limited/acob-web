@@ -222,7 +222,7 @@ export const HeroSectionV2 = React.memo(function HeroSectionV2({
                     starting as the intro curtain lifts. */}
                 <MaskWords
                   as="h1"
-                  delay={0.15}
+                  delay={0.05}
                   text="Powering sustainable futures for homes, businesses, and communities."
                   className="font-bold leading-tight text-3xl sm:text-4xl lg:text-5xl short:text-3xl text-white"
                 />
@@ -232,7 +232,7 @@ export const HeroSectionV2 = React.memo(function HeroSectionV2({
               <div
                 className="opacity-0 animate-fade-in-up"
                 style={{
-                  animationDelay: '0.3s',
+                  animationDelay: '0.45s',
                   animationFillMode: 'forwards',
                 }}
               >
@@ -247,7 +247,7 @@ export const HeroSectionV2 = React.memo(function HeroSectionV2({
               <div
                 className="opacity-0 animate-fade-in-up grid gap-2 sm:gap-2.5 grid-cols-3 max-w-xl"
                 style={{
-                  animationDelay: '0.4s',
+                  animationDelay: '0.9s',
                   animationFillMode: 'forwards',
                 }}
               >
@@ -274,7 +274,7 @@ export const HeroSectionV2 = React.memo(function HeroSectionV2({
               <div
                 className="opacity-0 animate-fade-in-up grid grid-cols-2 gap-3"
                 style={{
-                  animationDelay: '0.5s',
+                  animationDelay: '0.75s',
                   animationFillMode: 'forwards',
                 }}
               >
@@ -309,7 +309,7 @@ export const HeroSectionV2 = React.memo(function HeroSectionV2({
       {/* Desktop Project Info Card - Bottom Right - Shows LAST */}
       <div
         className="hidden lg:block absolute bottom-6 short:bottom-4 right-0 z-30 opacity-0 animate-fade-in-up"
-        style={{ animationDelay: '0.6s', animationFillMode: 'forwards' }}
+        style={{ animationDelay: '0.9s', animationFillMode: 'forwards' }}
       >
         <div className="2xl:container max-w-7xl mx-auto px-4">
           <div className="flex justify-end">

@@ -15,6 +15,8 @@ interface MaskWordsProps {
   delay?: number;
   /** Seconds between words. */
   stagger?: number;
+  /** Seconds each word takes to rise. */
+  duration?: number;
 }
 
 /**
@@ -30,7 +32,8 @@ export function MaskWords({
   as = 'h2',
   className,
   delay = 0,
-  stagger = 0.07,
+  stagger = 0.04,
+  duration = 0.75,
 }: MaskWordsProps) {
   const { revealed } = useSiteReveal();
   const reduce = useReducedMotion();
@@ -45,14 +48,16 @@ export function MaskWords({
         <span
           key={`${word}-${i}`}
           aria-hidden
-          className="inline-block overflow-hidden pb-[0.1em] align-top"
+          // The bottom padding keeps descenders (g, y, p) inside the clip; the
+          // matching negative margin stops it from adding to the line spacing.
+          className="-mb-[0.1em] inline-block overflow-hidden pb-[0.1em] align-top"
         >
           <motion.span
             className="inline-block will-change-transform"
             initial={reduce ? false : { y: '110%', rotate: 3 }}
             animate={play ? { y: '0%', rotate: 0 } : undefined}
             transition={{
-              duration: 0.95,
+              duration,
               ease: [0.22, 1, 0.36, 1],
               delay: delay + i * stagger,
             }}

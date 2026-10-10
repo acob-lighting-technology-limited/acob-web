@@ -9,6 +9,8 @@ import Image from 'next/image';
 import { partners } from '@/lib/data/partners-data';
 import { FadeIn } from '@/components/animations/FadeIn';
 import { getBlurDataURL } from '@/lib/utils/image-optimization';
+import { MaskWords } from '@/components/animations/MaskWords';
+import { SectionEyebrow } from '@/components/animations/SectionEyebrow';
 
 export function PartnersSectionV2() {
   const marqueeRef = useRef<HTMLDivElement>(null);
@@ -18,12 +20,12 @@ export function PartnersSectionV2() {
       <Container className="px-4">
         <FadeIn delay={0.1}>
           <div className="mb-10 text-center md:mb-14">
-            <span className="text-[0.72rem] font-bold uppercase tracking-[0.28em] text-primary">
-              Trusted Partnerships
-            </span>
-            <h2 className="mt-2 text-3xl font-extrabold uppercase leading-[0.95] tracking-tight text-foreground md:text-4xl lg:text-5xl">
-              Powering Progress Together
-            </h2>
+            <SectionEyebrow>Trusted Partnerships</SectionEyebrow>
+            <MaskWords
+              as="h2"
+              text="Powering Progress Together"
+              className="mt-3 text-3xl font-extrabold uppercase leading-[0.95] tracking-tight text-foreground md:text-4xl lg:text-5xl"
+            />
             <p className="mx-auto mt-3 max-w-2xl text-base text-muted-foreground md:text-lg">
               Collaborating with leading organizations and government agencies
               across Nigeria and beyond.
@@ -33,7 +35,10 @@ export function PartnersSectionV2() {
 
         <FadeIn delay={0.2}>
           <div className="space-y-16 border-y border-border py-10">
-            <div ref={marqueeRef} className="relative w-full overflow-hidden">
+            <div
+              ref={marqueeRef}
+              className="relative w-full overflow-hidden [mask-image:linear-gradient(90deg,transparent,#000_12%,#000_88%,transparent)]"
+            >
               <Marquee
                 speed={40}
                 gradient={false}
@@ -50,7 +55,7 @@ export function PartnersSectionV2() {
                       data-logo-index={idx}
                       className="flex items-center justify-center px-10 sm:px-16"
                     >
-                      <div className="relative opacity-80 transition-opacity duration-500 hover:opacity-100">
+                      <div className="relative opacity-70 grayscale transition-all duration-500 hover:scale-110 hover:opacity-100 hover:grayscale-0">
                         <Image
                           src={partner.logo}
                           alt={partner.name}
@@ -68,7 +73,7 @@ export function PartnersSectionV2() {
               </Marquee>
             </div>
 
-            <div className="relative w-full overflow-hidden">
+            <div className="relative w-full overflow-hidden [mask-image:linear-gradient(90deg,transparent,#000_12%,#000_88%,transparent)]">
               <Marquee
                 speed={40}
                 gradient={false}
@@ -85,7 +90,7 @@ export function PartnersSectionV2() {
                       data-logo-index={Math.ceil(partners.length / 2) + idx}
                       className="flex items-center justify-center px-10 sm:px-16"
                     >
-                      <div className="relative opacity-80 transition-opacity duration-500 hover:opacity-100">
+                      <div className="relative opacity-70 grayscale transition-all duration-500 hover:scale-110 hover:opacity-100 hover:grayscale-0">
                         <Image
                           src={partner.logo}
                           alt={partner.name}

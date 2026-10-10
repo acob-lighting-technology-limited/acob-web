@@ -5,6 +5,7 @@ import { AboutSectionV2 } from '@/components/sections/about-section-v2';
 import { ServicesSection } from '@/components/sections/services-section';
 import { ProjectsSection } from '@/components/sections/projects-section';
 import { UpdatesSection } from '@/components/sections/updates-section';
+import { ScrollProgress } from '@/components/ui/scroll-progress';
 import {
   getProjectsForListing,
   getFeaturedProjects,
@@ -110,6 +111,7 @@ export default async function HomePage() {
 
   return (
     <main role="main">
+      <ScrollProgress />
       <HeroSectionV2 projects={featuredProjects} />
       <AboutSectionV2 />
       <ServicesSection />
