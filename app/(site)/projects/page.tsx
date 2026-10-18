@@ -1,5 +1,3 @@
-import { Suspense } from 'react';
-import { ProjectsGridSkeleton } from '@/components/ui/projects-grid-skeleton';
 import { getProjectsPaginated } from '@/sanity/lib/queries';
 import ProjectsClient from './projects-client';
 
@@ -11,6 +9,7 @@ interface ProjectsPageProps {
     page?: string;
     search?: string;
     state?: string;
+    category?: string;
   }>;
 }
 
@@ -21,6 +20,7 @@ export default async function ProjectsPage({
   const page = parseInt(params.page || '1');
   const search = params.search || '';
   const state = params.state || '';
+  const category = params.category || '';
   const limit = 9;
 
   // Fetch projects with pagination
@@ -29,6 +29,7 @@ export default async function ProjectsPage({
     limit,
     search,
     state,
+    category,
   });
 
   const { projects, pagination } = result;
@@ -36,13 +37,12 @@ export default async function ProjectsPage({
   const breadcrumbItems = [{ label: 'Home', href: '/' }, { label: 'Projects' }];
 
   return (
-    <Suspense fallback={<ProjectsGridSkeleton />}>
-      <ProjectsClient
-        initialProjects={projects}
-        initialPagination={pagination}
-        currentSearch={search}
-        breadcrumbItems={breadcrumbItems}
-      />
-    </Suspense>
+    <ProjectsClient
+      initialProjects={projects}
+      initialPagination={pagination}
+      currentSearch={search}
+      currentCategory={category}
+      breadcrumbItems={breadcrumbItems}
+    />
   );
 }

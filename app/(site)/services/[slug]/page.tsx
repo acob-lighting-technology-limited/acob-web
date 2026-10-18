@@ -8,9 +8,10 @@ import Link from 'next/link';
 import { Hero } from '@/components/ui/hero';
 import { ServiceGallery } from '@/components/services/service-gallery';
 import { ShareCopy } from '@/components/updates/share-copy';
-import Image from 'next/image';
+import Image from '@/components/ui/image';
 import { FadeIn } from '@/components/animations/FadeIn';
 import { client } from '@/sanity/lib/queries';
+import { SectionEyebrow } from '@/components/animations/SectionEyebrow';
 
 interface ServicePageProps {
   params: Promise<{ slug: string }>;
@@ -157,9 +158,7 @@ export default async function ServicePage({ params }: ServicePageProps) {
 
         {/* Overview */}
         <div className="max-w-[72ch]">
-          <span className="text-[0.72rem] font-bold uppercase tracking-[0.3em] text-primary">
-            Service Overview
-          </span>
+          <SectionEyebrow>Service Overview</SectionEyebrow>
           <p className="mt-4 whitespace-pre-line text-lg leading-relaxed text-foreground/90 md:text-xl">
             {introText}
           </p>
@@ -168,13 +167,11 @@ export default async function ServicePage({ params }: ServicePageProps) {
         {/* At a glance — the system (features) vs the impact (outcomes) */}
         {hasGlance && (
           <FadeIn>
-            <section className="mt-12 grid gap-8 border-t-[3px] border-foreground pt-10 md:mt-16 md:grid-cols-[1fr_1.2fr] md:gap-10">
+            <section className="mt-12 grid gap-8 border-t border-border pt-10 md:mt-16 md:grid-cols-[1fr_1.2fr] md:gap-10">
               {/* The System — compact spec list */}
               {service.features && service.features.length > 0 && (
                 <div>
-                  <span className="text-[0.72rem] font-bold uppercase tracking-[0.28em] text-primary">
-                    The System
-                  </span>
+                  <SectionEyebrow>The System</SectionEyebrow>
                   <h2 className="mt-2 text-xl font-extrabold tracking-tight text-foreground md:text-2xl">
                     Key Features
                   </h2>
@@ -194,9 +191,7 @@ export default async function ServicePage({ params }: ServicePageProps) {
               {/* The Impact — tinted panel led by the standout metric */}
               {service.benefits && service.benefits.length > 0 && (
                 <div className="border border-primary/25 bg-primary/5 p-6 md:p-8 rounded-2xl">
-                  <span className="text-[0.72rem] font-bold uppercase tracking-[0.28em] text-primary">
-                    The Impact
-                  </span>
+                  <SectionEyebrow>The Impact</SectionEyebrow>
                   <h2 className="mt-2 text-xl font-extrabold tracking-tight text-foreground md:text-2xl">
                     Value &amp; Impact
                   </h2>
@@ -232,9 +227,7 @@ export default async function ServicePage({ params }: ServicePageProps) {
         {/* Applications */}
         {service.applications && service.applications.length > 0 && (
           <section className="mt-14 md:mt-16">
-            <span className="text-[0.72rem] font-bold uppercase tracking-[0.28em] text-primary">
-              Target Applications
-            </span>
+            <SectionEyebrow>Target Applications</SectionEyebrow>
             <div className="mt-4 flex flex-wrap gap-2">
               {service.applications.map((app, i) => (
                 <span
@@ -252,9 +245,7 @@ export default async function ServicePage({ params }: ServicePageProps) {
         {service.gallery && service.gallery.length > 0 && (
           <FadeIn>
             <section className="mt-14 md:mt-20">
-              <span className="text-[0.72rem] font-bold uppercase tracking-[0.28em] text-primary">
-                Portfolio
-              </span>
+              <SectionEyebrow>Portfolio</SectionEyebrow>
               <h2 className="mt-2 text-2xl font-extrabold uppercase tracking-tight text-foreground md:text-3xl">
                 Project gallery
               </h2>
@@ -272,9 +263,7 @@ export default async function ServicePage({ params }: ServicePageProps) {
         {completedProjects.length > 0 && (
           <FadeIn>
             <section className="mt-14 md:mt-20">
-              <span className="text-[0.72rem] font-bold uppercase tracking-[0.28em] text-primary">
-                Track record
-              </span>
+              <SectionEyebrow>Track record</SectionEyebrow>
               <h2 className="mt-2 text-2xl font-extrabold uppercase tracking-tight text-foreground md:text-3xl">
                 Key completed deployments
               </h2>
@@ -355,9 +344,7 @@ export default async function ServicePage({ params }: ServicePageProps) {
         {/* Why choose ACOB */}
         {service.whyChooseUs && service.whyChooseUs.length > 0 && (
           <section className="mt-14 border-t border-border pt-10 md:mt-20">
-            <span className="text-[0.72rem] font-bold uppercase tracking-[0.28em] text-primary">
-              The ACOB difference
-            </span>
+            <SectionEyebrow>The ACOB difference</SectionEyebrow>
             <h2 className="mt-2 text-2xl font-extrabold uppercase tracking-tight text-foreground md:text-3xl">
               Why choose us
             </h2>
@@ -390,9 +377,7 @@ export default async function ServicePage({ params }: ServicePageProps) {
           <section className="mt-16 md:mt-20">
             <div className="mb-8 flex items-end justify-between">
               <div>
-                <span className="text-[0.72rem] font-bold uppercase tracking-[0.28em] text-primary">
-                  Keep exploring
-                </span>
+                <SectionEyebrow>Keep exploring</SectionEyebrow>
                 <h2 className="mt-2 text-2xl font-extrabold uppercase tracking-tight text-foreground md:text-3xl">
                   Related services
                 </h2>

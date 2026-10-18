@@ -8,7 +8,7 @@ import { Container } from '@/components/ui/container';
 import { Hero } from '@/components/ui/hero';
 import { ArrowRight, Search, X, Calendar, User } from 'lucide-react';
 import Link from 'next/link';
-import Image from 'next/image';
+import Image from '@/components/ui/image';
 import type { UpdatePost, PaginationInfo } from '@/lib/types';
 import { formatDate } from '@/lib/utils';
 import { applySanityImagePreset } from '@/lib/utils/sanity-image';
@@ -23,6 +23,7 @@ import {
   PaginationPrevious,
 } from '@/components/ui/pagination';
 import { CardSkeleton, QueryError } from '@/components/ui/query-states';
+import { SectionEyebrow } from '@/components/animations/SectionEyebrow';
 
 const PAGE_LIMIT = 9;
 
@@ -218,9 +219,7 @@ export default function CategoryUpdatesClient({
 
         {/* Standfirst */}
         <div className="max-w-[62ch]">
-          <span className="text-[0.72rem] font-bold uppercase tracking-[0.3em] text-primary">
-            {categoryTitle}
-          </span>
+          <SectionEyebrow>{categoryTitle}</SectionEyebrow>
           <p className="mt-4 text-xl font-medium leading-relaxed text-foreground md:text-2xl">
             Latest {categoryTitle.toLowerCase()} updates and news from ACOB
             Lighting.

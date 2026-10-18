@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useMemo } from 'react';
-import Image from 'next/image';
+import Image from '@/components/ui/image';
 import {
   PortableText,
   type PortableTextBlock,
@@ -339,7 +339,7 @@ export function UpdateContent({ content }: UpdateContentProps) {
             href={href}
             target={isExternal ? '_blank' : undefined}
             rel={isExternal ? 'noopener noreferrer' : undefined}
-            className="!text-blue-600 dark:!text-blue-400 !underline !decoration-2 !underline-offset-2 hover:!text-blue-800 dark:hover:!text-blue-300 transition-colors duration-200 !font-semibold"
+            className="!font-semibold !text-primary !underline !decoration-primary/40 !decoration-2 !underline-offset-2 transition-colors duration-200 hover:!decoration-primary"
             style={{
               textDecoration: 'underline',
               textDecorationThickness: '2px',
@@ -349,7 +349,7 @@ export function UpdateContent({ content }: UpdateContentProps) {
             {children}
             {isExternal && (
               <span
-                className="inline-block ml-1 !text-blue-600 dark:!text-blue-400"
+                className="ml-1 inline-block !text-primary"
                 aria-label="(opens in new tab)"
               >
                 ↗

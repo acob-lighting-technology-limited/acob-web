@@ -1,6 +1,6 @@
 import { notFound } from 'next/navigation';
 import Link from 'next/link';
-import Image from 'next/image';
+import Image from '@/components/ui/image';
 import { ArrowLeft, ExternalLink, Handshake, CheckCircle2 } from 'lucide-react';
 
 import { Container } from '@/components/ui/container';
@@ -10,6 +10,7 @@ import { Button } from '@/components/ui/button';
 import { FadeIn } from '@/components/animations/FadeIn';
 import { partners } from '@/lib/data/partners-data';
 import { getBlurDataURL } from '@/lib/utils/image-optimization';
+import { SectionEyebrow } from '@/components/animations/SectionEyebrow';
 
 interface PartnerDetailPageProps {
   params: Promise<{
@@ -95,9 +96,7 @@ export default async function PartnerDetailPage({
               <section>
                 <div className="flex items-center gap-2">
                   <Handshake className="h-4 w-4 text-primary" />
-                  <span className="text-[0.72rem] font-bold uppercase tracking-[0.28em] text-primary">
-                    Partnership overview
-                  </span>
+                  <SectionEyebrow>Partnership overview</SectionEyebrow>
                 </div>
                 <p className="mt-4 max-w-[68ch] text-lg leading-relaxed text-foreground/90">
                   {partner.details?.overview}
@@ -109,9 +108,7 @@ export default async function PartnerDetailPage({
               partner.details.keyAchievements.length > 0 && (
                 <FadeIn>
                   <section>
-                    <span className="text-[0.72rem] font-bold uppercase tracking-[0.28em] text-primary">
-                      Track record
-                    </span>
+                    <SectionEyebrow>Track record</SectionEyebrow>
                     <h2 className="mt-2 text-2xl font-extrabold uppercase tracking-tight text-foreground md:text-3xl">
                       Key achievements
                     </h2>
@@ -138,7 +135,7 @@ export default async function PartnerDetailPage({
           {/* Sidebar */}
           <aside className="space-y-10 lg:sticky lg:top-24">
             <section>
-              <div className="border-t-2 border-foreground pt-4">
+              <div className="border-t border-border pt-4">
                 <span className="text-[0.66rem] font-bold uppercase tracking-[0.18em] text-muted-foreground">
                   {partner.category}
                 </span>
@@ -164,7 +161,7 @@ export default async function PartnerDetailPage({
             </section>
 
             {partner.details?.partnershipType && (
-              <section className="border-t-2 border-foreground pt-4">
+              <section className="border-t border-border pt-4">
                 <h4 className="text-[0.66rem] font-bold uppercase tracking-[0.18em] text-muted-foreground">
                   Partnership Type
                 </h4>
@@ -179,7 +176,7 @@ export default async function PartnerDetailPage({
                 href={partner.details.website}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="group flex items-center gap-2 border-t-2 border-foreground pt-4 text-sm font-semibold text-foreground transition-colors hover:text-primary"
+                className="group flex items-center gap-2 border-t border-border pt-4 text-sm font-semibold text-foreground transition-colors hover:text-primary"
               >
                 <ExternalLink className="h-4 w-4 text-primary" />
                 Visit Website
@@ -187,7 +184,7 @@ export default async function PartnerDetailPage({
             )}
 
             {relatedPartners.length > 0 && (
-              <section className="border-t-2 border-foreground pt-4">
+              <section className="border-t border-border pt-4">
                 <h4 className="text-[0.66rem] font-bold uppercase tracking-[0.18em] text-muted-foreground">
                   Related Partners
                 </h4>

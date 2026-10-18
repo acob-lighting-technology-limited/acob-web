@@ -2,6 +2,7 @@
 
 import { FadeIn } from '@/components/animations/FadeIn';
 import { coreValues } from '@/lib/data/mission-data';
+import { SectionEyebrow } from '@/components/animations/SectionEyebrow';
 
 const INTRO =
   'These values guide our engineering, community engagement, and partnership decisions — ensuring consistency, accountability, and positive impact.';
@@ -55,9 +56,7 @@ export function CoreValuesSection({
   // Editorial
   return (
     <section>
-      <span className="text-[0.72rem] font-bold uppercase tracking-[0.28em] text-primary">
-        Our Core Values — C·L·A·P
-      </span>
+      <SectionEyebrow>Our Core Values — C·L·A·P</SectionEyebrow>
       <h2 className="mt-2 text-3xl font-extrabold uppercase leading-[0.95] tracking-tight text-foreground md:text-4xl lg:text-5xl">
         Principles that steer every project
       </h2>

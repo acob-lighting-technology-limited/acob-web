@@ -9,6 +9,7 @@ import { Hero } from '@/components/ui/hero';
 import { getAboutSectionByHref, milestones } from '@/lib/data/about-data';
 import { FadeIn } from '@/components/animations/FadeIn';
 import { COMPANY_STATS } from '@/lib/constants/app.constants';
+import { SectionEyebrow } from '@/components/animations/SectionEyebrow';
 
 const MISSION_COMMITMENTS = [
   'To rapidly deploy mini-grids to underdeveloped and underserved populations in Nigeria, impacting the lives of over 5 million Nigerians by 2030.',
@@ -95,9 +96,7 @@ export default function MissionPage() {
 
         {/* ── Standfirst ─────────────────────────────────────── */}
         <div className="max-w-[62ch]">
-          <span className="text-[0.72rem] font-bold uppercase tracking-[0.3em] text-primary">
-            The mandate — by 2030
-          </span>
+          <SectionEyebrow>The mandate — by 2030</SectionEyebrow>
           <p className="mt-4 text-xl font-medium leading-relaxed text-foreground md:text-2xl">
             ACOB exists to close Nigeria&apos;s energy gap — deploying clean,
             bankable power to the communities the grid forgot.
@@ -105,20 +104,16 @@ export default function MissionPage() {
         </div>
 
         {/* ── Vision & Mission ───────────────────────────────── */}
-        <section className="mt-10 grid gap-10 border-t-[3px] border-foreground pt-10 md:mt-14 md:grid-cols-2 md:gap-14">
+        <section className="mt-10 grid gap-10 border-t border-border pt-10 md:mt-14 md:grid-cols-2 md:gap-14">
           <FadeIn>
-            <span className="text-[0.72rem] font-bold uppercase tracking-[0.28em] text-primary">
-              Our Vision
-            </span>
+            <SectionEyebrow>Our Vision</SectionEyebrow>
             <p className="mt-3 text-2xl font-extrabold leading-tight tracking-tight text-foreground md:text-3xl">
               To be a flagship renewable energy company in Nigeria, driven by
               innovation.
             </p>
           </FadeIn>
           <FadeIn delay={0.1}>
-            <span className="text-[0.72rem] font-bold uppercase tracking-[0.28em] text-primary">
-              Our Mission
-            </span>
+            <SectionEyebrow>Our Mission</SectionEyebrow>
             <p className="mt-3 text-2xl font-extrabold leading-tight tracking-tight text-foreground md:text-3xl">
               To deploy over 150 mini-grids, impacting the lives of over 5
               million Nigerians by 2030.
@@ -128,9 +123,7 @@ export default function MissionPage() {
 
         {/* ── Metrics stat band ──────────────────────────────── */}
         <section className="mt-16 border-y border-border py-10 md:mt-24 md:py-12">
-          <span className="text-[0.72rem] font-bold uppercase tracking-[0.28em] text-primary">
-            Targets by 2030
-          </span>
+          <SectionEyebrow>Targets by 2030</SectionEyebrow>
           <dl className="mt-6 grid grid-cols-2 gap-y-8 md:grid-cols-4">
             {MISSION_METRICS.map((metric, i) => (
               <FadeIn key={metric.label} delay={i * 0.08}>
@@ -149,9 +142,7 @@ export default function MissionPage() {
 
         {/* ── Mission statement (the commitments) ────────────── */}
         <section className="mt-16 md:mt-24">
-          <span className="text-[0.72rem] font-bold uppercase tracking-[0.28em] text-primary">
-            Our Mission Statement
-          </span>
+          <SectionEyebrow>Our Mission Statement</SectionEyebrow>
           <h2 className="mt-2 text-3xl font-extrabold uppercase leading-[0.95] tracking-tight text-foreground md:text-4xl lg:text-5xl">
             Seven commitments
           </h2>
@@ -176,9 +167,7 @@ export default function MissionPage() {
 
         {/* ── Strategic pillars ──────────────────────────────── */}
         <section className="mt-16 md:mt-24">
-          <span className="text-[0.72rem] font-bold uppercase tracking-[0.28em] text-primary">
-            Strategic Pillars
-          </span>
+          <SectionEyebrow>Strategic Pillars</SectionEyebrow>
           <h2 className="mt-2 text-3xl font-extrabold uppercase leading-[0.95] tracking-tight text-foreground md:text-4xl lg:text-5xl">
             How we deliver
           </h2>
@@ -218,9 +207,7 @@ export default function MissionPage() {
 
         {/* ── Milestones timeline ────────────────────────────── */}
         <section className="mt-16 md:mt-24">
-          <span className="text-[0.72rem] font-bold uppercase tracking-[0.28em] text-primary">
-            Strategic Inflection Points
-          </span>
+          <SectionEyebrow>Strategic Inflection Points</SectionEyebrow>
           <h2 className="mt-2 text-3xl font-extrabold uppercase leading-[0.95] tracking-tight text-foreground md:text-4xl lg:text-5xl">
             Milestones that shaped our growth
           </h2>

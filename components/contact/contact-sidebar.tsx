@@ -46,7 +46,7 @@ export function QuickContact({
 
   return (
     <section>
-      <div className="border-t-2 border-foreground pt-4">
+      <div className="border-t border-border pt-4">
         <h2 className="text-sm font-bold uppercase tracking-[0.18em] text-foreground">
           Quick Contact
         </h2>
@@ -120,7 +120,7 @@ export function MoreContactOptions({ excludeHref }: MoreContactOptionsProps) {
 
   return (
     <section>
-      <div className="border-t-2 border-foreground pt-4">
+      <div className="border-t border-border pt-4">
         <h2 className="text-sm font-bold uppercase tracking-[0.18em] text-foreground">
           More Contact Options
         </h2>

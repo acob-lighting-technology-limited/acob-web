@@ -10,6 +10,7 @@ export async function GET(request: NextRequest) {
     const limit = parseInt(searchParams.get('limit') || '9', 10);
     const search = searchParams.get('search') || '';
     const state = searchParams.get('state') || '';
+    const category = searchParams.get('category') || '';
 
     // Validate parameters
     if (isNaN(page) || page < 1) {
@@ -31,6 +32,7 @@ export async function GET(request: NextRequest) {
       limit,
       search,
       state,
+      category,
     });
 
     return NextResponse.json(result);

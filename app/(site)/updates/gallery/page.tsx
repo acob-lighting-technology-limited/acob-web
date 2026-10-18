@@ -5,6 +5,7 @@ import { GalleryClient } from './gallery-client';
 import { getProjects, urlFor } from '@/sanity/lib/queries';
 import type { Project } from '@/lib/types';
 import type { PortableTextBlock } from '@portabletext/types';
+import { SectionEyebrow } from '@/components/animations/SectionEyebrow';
 
 export default async function GalleryPage() {
   const breadcrumbItems = [
@@ -85,9 +86,7 @@ export default async function GalleryPage() {
 
         {/* Standfirst */}
         <div className="max-w-[62ch]">
-          <span className="text-[0.72rem] font-bold uppercase tracking-[0.3em] text-primary">
-            {allImages.length} images
-          </span>
+          <SectionEyebrow>{allImages.length} images</SectionEyebrow>
           <p className="mt-4 text-xl font-medium leading-relaxed text-foreground md:text-2xl">
             Browse through our collection of renewable energy projects across
             Nigeria.

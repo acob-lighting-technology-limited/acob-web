@@ -10,6 +10,7 @@ import { Hero } from '@/components/ui/hero';
 import { NigeriaReachSection } from '@/components/sections/nigeria-reach-section';
 import { COMPANY_STATS } from '@/lib/constants/app.constants';
 import { getProjectsForListing } from '@/sanity/lib/queries';
+import { SectionEyebrow } from '@/components/animations/SectionEyebrow';
 
 export const metadata: Metadata = {
   title: 'Our Reach | ACOB Lighting',
@@ -82,9 +83,7 @@ export default async function OurReachPage() {
 
         {/* Standfirst */}
         <div className="max-w-[68ch]">
-          <span className="text-[0.72rem] font-bold uppercase tracking-[0.3em] text-primary">
-            National footprint
-          </span>
+          <SectionEyebrow>National footprint</SectionEyebrow>
           <p className="mt-4 text-xl font-medium leading-relaxed text-foreground md:text-2xl">
             This map highlights the states where we are active, our project
             sites, and our headquarters — use it to explore the breadth of our
@@ -117,9 +116,7 @@ export default async function OurReachPage() {
 
         {/* What this shows */}
         <section className="mt-16 md:mt-24">
-          <span className="text-[0.72rem] font-bold uppercase tracking-[0.28em] text-primary">
-            Reading the map
-          </span>
+          <SectionEyebrow>Reading the map</SectionEyebrow>
           <h2 className="mt-2 text-3xl font-extrabold uppercase leading-[0.95] tracking-tight text-foreground md:text-4xl">
             What this shows
           </h2>

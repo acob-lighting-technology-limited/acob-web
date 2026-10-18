@@ -2,12 +2,13 @@ import { Breadcrumb } from '@/components/ui/breadcrumb';
 import { Container } from '@/components/ui/container';
 import { Button } from '@/components/ui/button';
 import { ArrowLeft, ArrowRight, MapPin } from 'lucide-react';
-import Image from 'next/image';
+import Image from '@/components/ui/image';
 import Link from 'next/link';
 import { Hero } from '@/components/ui/hero';
 import type { Project } from '@/lib/types';
 import { applySanityImagePreset } from '@/lib/utils/sanity-image';
 import { FadeIn } from '@/components/animations/FadeIn';
+import { SectionEyebrow } from '@/components/animations/SectionEyebrow';
 
 interface StateProjectsViewProps {
   projects: Project[];
@@ -58,9 +59,7 @@ export function StateProjectsView({
 
         {/* Standfirst */}
         <div className="max-w-[62ch]">
-          <span className="text-[0.72rem] font-bold uppercase tracking-[0.3em] text-primary">
-            Regional footprint
-          </span>
+          <SectionEyebrow>Regional footprint</SectionEyebrow>
           <p className="mt-4 text-xl font-medium leading-relaxed text-foreground md:text-2xl">
             Our impact and clean energy projects across {displayName}.
           </p>

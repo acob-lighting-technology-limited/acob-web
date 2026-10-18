@@ -6,6 +6,7 @@ import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Download } from 'lucide-react';
 import { ProductDetailClient } from './product-detail-client';
+import { SectionEyebrow } from '@/components/animations/SectionEyebrow';
 
 interface ProductPageProps {
   params: Promise<{
@@ -120,9 +121,9 @@ export default async function ProductPage({ params }: ProductPageProps) {
           <div>
             {/* Title and Description */}
             <div>
-              <span className="text-[0.72rem] font-bold uppercase tracking-[0.28em] text-primary">
+              <SectionEyebrow>
                 {getCategoryLabel(product.category)}
-              </span>
+              </SectionEyebrow>
               <h1 className="mt-2 text-3xl font-extrabold tracking-tight text-foreground sm:text-4xl">
                 {product.title}
               </h1>
@@ -132,10 +133,8 @@ export default async function ProductPage({ params }: ProductPageProps) {
             </div>
 
             {/* Product Details */}
-            <div className="mt-10 border-t-[3px] border-foreground pt-6">
-              <span className="text-[0.72rem] font-bold uppercase tracking-[0.28em] text-primary">
-                Specifications
-              </span>
+            <div className="mt-10 border-t border-border pt-6">
+              <SectionEyebrow>Specifications</SectionEyebrow>
               <h2 className="mt-2 mb-4 text-2xl font-extrabold uppercase tracking-tight text-foreground">
                 Product Details
               </h2>

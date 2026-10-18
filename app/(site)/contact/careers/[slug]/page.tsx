@@ -17,6 +17,7 @@ import { getJobPosting } from '@/sanity/lib/queries';
 import { urlFor } from '@/sanity/lib/image';
 import { CONTACT_INFO } from '@/lib/constants/app.constants';
 import { formatDate, isDeadlinePassed } from '@/lib/utils/date';
+import { SectionEyebrow } from '@/components/animations/SectionEyebrow';
 
 interface JobPostingPageProps {
   params: Promise<{
@@ -127,9 +128,7 @@ export default async function JobPostingPage({ params }: JobPostingPageProps) {
 
             {/* Description */}
             <div className="mt-8">
-              <span className="text-[0.72rem] font-bold uppercase tracking-[0.28em] text-primary">
-                The role
-              </span>
+              <SectionEyebrow>The role</SectionEyebrow>
               <h2 className="mt-2 text-2xl font-extrabold uppercase tracking-tight text-foreground md:text-3xl">
                 Job description
               </h2>
@@ -141,9 +140,7 @@ export default async function JobPostingPage({ params }: JobPostingPageProps) {
             {/* Key Duties & Responsibilities */}
             {job.keyDuties && job.keyDuties.length > 0 && (
               <div className="mt-12">
-                <span className="text-[0.72rem] font-bold uppercase tracking-[0.28em] text-primary">
-                  The Role
-                </span>
+                <SectionEyebrow>The Role</SectionEyebrow>
                 <h2 className="mt-2 text-2xl font-extrabold uppercase tracking-tight text-foreground md:text-3xl">
                   Key Duties & Responsibilities
                 </h2>
@@ -168,9 +165,7 @@ export default async function JobPostingPage({ params }: JobPostingPageProps) {
             {/* Requirements */}
             {job.requirements && job.requirements.length > 0 && (
               <div className="mt-12">
-                <span className="text-[0.72rem] font-bold uppercase tracking-[0.28em] text-primary">
-                  What we&apos;re looking for
-                </span>
+                <SectionEyebrow>What we&apos;re looking for</SectionEyebrow>
                 <h2 className="mt-2 text-2xl font-extrabold uppercase tracking-tight text-foreground md:text-3xl">
                   Requirements
                 </h2>
@@ -197,9 +192,7 @@ export default async function JobPostingPage({ params }: JobPostingPageProps) {
             {/* Skills & Competencies */}
             {job.skills && job.skills.length > 0 && (
               <div className="mt-12">
-                <span className="text-[0.72rem] font-bold uppercase tracking-[0.28em] text-primary">
-                  Professional Attributes
-                </span>
+                <SectionEyebrow>Professional Attributes</SectionEyebrow>
                 <h2 className="mt-2 text-2xl font-extrabold uppercase tracking-tight text-foreground md:text-3xl">
                   Skills & Competencies
                 </h2>
@@ -223,9 +216,7 @@ export default async function JobPostingPage({ params }: JobPostingPageProps) {
 
             {/* How to Apply */}
             <div className="mt-12 border-t border-border pt-8">
-              <span className="text-[0.72rem] font-bold uppercase tracking-[0.28em] text-primary">
-                Application Instructions
-              </span>
+              <SectionEyebrow>Application Instructions</SectionEyebrow>
               <h2 className="mt-2 text-2xl font-extrabold uppercase tracking-tight text-foreground md:text-3xl">
                 How to Apply
               </h2>
@@ -288,7 +279,7 @@ export default async function JobPostingPage({ params }: JobPostingPageProps) {
           {/* Sidebar */}
           <aside className="space-y-10 lg:sticky lg:top-24">
             <section>
-              <div className="border-t-2 border-foreground pt-4">
+              <div className="border-t border-border pt-4">
                 <h2 className="text-sm font-bold uppercase tracking-[0.18em] text-foreground">
                   {isClosed ? 'Position Status' : 'Apply for this Position'}
                 </h2>
@@ -343,7 +334,7 @@ export default async function JobPostingPage({ params }: JobPostingPageProps) {
             </section>
 
             <section>
-              <div className="border-t-2 border-foreground pt-4">
+              <div className="border-t border-border pt-4">
                 <h2 className="text-sm font-bold uppercase tracking-[0.18em] text-foreground">
                   Job Summary
                 </h2>

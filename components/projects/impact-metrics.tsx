@@ -14,6 +14,7 @@ import {
   Clock,
 } from 'lucide-react';
 import { motion } from 'framer-motion';
+import { SectionEyebrow } from '@/components/animations/SectionEyebrow';
 
 interface ImpactMetricsProps {
   metrics: ProjectImpactMetrics;
@@ -102,144 +103,129 @@ export function ImpactMetrics({ metrics }: ImpactMetricsProps) {
     return null;
   }
 
+  // One brand palette for every metric: the icon and number carry the
+  // meaning, so per-metric rainbow colours only added noise.
+  const TILE = 'bg-card border-border hover:border-primary/40';
+
   const metricsData = [
     {
       icon: (
-        <Users className="h-5 w-5 sm:h-6 sm:w-6 text-blue-600 dark:text-blue-400 group-hover:text-white transition-colors duration-500" />
+        <Users className="h-5 w-5 sm:h-6 sm:w-6 text-primary group-hover:text-white transition-colors duration-500" />
       ),
       label: 'Beneficiaries',
       value: metrics.beneficiaries,
-      color:
-        'bg-blue-50 dark:bg-blue-950/50 border-blue-200 dark:border-blue-800',
-      iconColor: 'bg-blue-600 dark:bg-blue-500',
-      textColor:
-        'text-blue-600 dark:text-blue-400 group-hover:text-blue-700 dark:group-hover:text-blue-300',
+      color: TILE,
+      iconColor: 'bg-primary',
+      textColor: 'text-primary',
       showPlus: true,
       show: !!metrics.beneficiaries,
     },
     {
       icon: (
-        <Briefcase className="h-5 w-5 sm:h-6 sm:w-6 text-green-600 dark:text-green-400 group-hover:text-white transition-colors duration-500" />
+        <Briefcase className="h-5 w-5 sm:h-6 sm:w-6 text-primary group-hover:text-white transition-colors duration-500" />
       ),
       label: 'Direct Jobs Created',
       value: metrics.jobsCreatedDirectly,
-      color:
-        'bg-green-50 dark:bg-green-950/50 border-green-200 dark:border-green-800',
-      iconColor: 'bg-green-600 dark:bg-green-500',
-      textColor:
-        'text-green-600 dark:text-green-400 group-hover:text-green-700 dark:group-hover:text-green-300',
+      color: TILE,
+      iconColor: 'bg-primary',
+      textColor: 'text-primary',
       showPlus: true,
       show: !!metrics.jobsCreatedDirectly,
     },
     {
       icon: (
-        <TrendingUp className="h-5 w-5 sm:h-6 sm:w-6 text-purple-600 dark:text-purple-400 group-hover:text-white transition-colors duration-500" />
+        <TrendingUp className="h-5 w-5 sm:h-6 sm:w-6 text-primary group-hover:text-white transition-colors duration-500" />
       ),
       label: 'Indirect Jobs Created',
       value: metrics.jobsCreatedIndirectly,
-      color:
-        'bg-purple-50 dark:bg-purple-950/50 border-purple-200 dark:border-purple-800',
-      iconColor: 'bg-purple-600 dark:bg-purple-500',
-      textColor:
-        'text-purple-600 dark:text-purple-400 group-hover:text-purple-700 dark:group-hover:text-purple-300',
+      color: TILE,
+      iconColor: 'bg-primary',
+      textColor: 'text-primary',
       showPlus: true,
       show: !!metrics.jobsCreatedIndirectly,
     },
     {
       icon: (
-        <Leaf className="h-5 w-5 sm:h-6 sm:w-6 text-emerald-600 dark:text-emerald-400 group-hover:text-white transition-colors duration-500" />
+        <Leaf className="h-5 w-5 sm:h-6 sm:w-6 text-primary group-hover:text-white transition-colors duration-500" />
       ),
       label: 'Annual CO₂ Reduction',
       value: metrics.annualCO2Reduction,
       unit: 't/yr',
-      color:
-        'bg-emerald-50 dark:bg-emerald-950/50 border-emerald-200 dark:border-emerald-800',
-      iconColor: 'bg-emerald-600 dark:bg-emerald-500',
-      textColor:
-        'text-emerald-600 dark:text-emerald-400 group-hover:text-emerald-700 dark:group-hover:text-emerald-300',
+      color: TILE,
+      iconColor: 'bg-primary',
+      textColor: 'text-primary',
       show: !!metrics.annualCO2Reduction,
     },
     {
       icon: (
-        <Zap className="h-5 w-5 sm:h-6 sm:w-6 text-amber-600 dark:text-amber-400 group-hover:text-white transition-colors duration-500" />
+        <Zap className="h-5 w-5 sm:h-6 sm:w-6 text-primary group-hover:text-white transition-colors duration-500" />
       ),
       label: 'Annual Energy Output',
       value: metrics.annualEnergyOutput,
       unit: 'kWh/yr',
-      color:
-        'bg-amber-50 dark:bg-amber-950/50 border-amber-200 dark:border-amber-800',
-      iconColor: 'bg-amber-600 dark:bg-amber-500',
-      textColor:
-        'text-amber-600 dark:text-amber-400 group-hover:text-amber-700 dark:group-hover:text-amber-300',
+      color: TILE,
+      iconColor: 'bg-primary',
+      textColor: 'text-primary',
       show: !!metrics.annualEnergyOutput,
     },
     {
       icon: (
-        <Battery className="h-5 w-5 sm:h-6 sm:w-6 text-indigo-600 dark:text-indigo-400 group-hover:text-white transition-colors duration-500" />
+        <Battery className="h-5 w-5 sm:h-6 sm:w-6 text-primary group-hover:text-white transition-colors duration-500" />
       ),
       label: 'Battery Storage (BESS)',
       value: metrics.bess,
       unit: 'kWh',
-      color:
-        'bg-indigo-50 dark:bg-indigo-950/50 border-indigo-200 dark:border-indigo-800',
-      iconColor: 'bg-indigo-600 dark:bg-indigo-500',
-      textColor:
-        'text-indigo-600 dark:text-indigo-400 group-hover:text-indigo-700 dark:group-hover:text-indigo-300',
+      color: TILE,
+      iconColor: 'bg-primary',
+      textColor: 'text-primary',
       show: !!metrics.bess,
     },
     {
       icon: (
-        <Fuel className="h-5 w-5 sm:h-6 sm:w-6 text-red-600 dark:text-red-400 group-hover:text-white transition-colors duration-500" />
+        <Fuel className="h-5 w-5 sm:h-6 sm:w-6 text-primary group-hover:text-white transition-colors duration-500" />
       ),
       label: 'Diesel Displacement',
       value: metrics.dieselReduc,
       unit: '%',
-      color: 'bg-red-50 dark:bg-red-950/50 border-red-200 dark:border-red-800',
-      iconColor: 'bg-red-600 dark:bg-red-500',
-      textColor:
-        'text-red-600 dark:text-red-400 group-hover:text-red-700 dark:group-hover:text-red-300',
+      color: TILE,
+      iconColor: 'bg-primary',
+      textColor: 'text-primary',
       show: !!metrics.dieselReduc,
     },
     {
       icon: (
-        <DollarSign className="h-5 w-5 sm:h-6 sm:w-6 text-yellow-600 dark:text-yellow-400 group-hover:text-white transition-colors duration-500" />
+        <DollarSign className="h-5 w-5 sm:h-6 sm:w-6 text-primary group-hover:text-white transition-colors duration-500" />
       ),
       label: 'Energy Cost Savings',
       value: metrics.costSavings,
       unit: '%',
-      color:
-        'bg-yellow-50 dark:bg-yellow-950/50 border-yellow-200 dark:border-yellow-800',
-      iconColor: 'bg-yellow-600 dark:bg-yellow-500',
-      textColor:
-        'text-yellow-600 dark:text-yellow-400 group-hover:text-yellow-700 dark:group-hover:text-yellow-300',
+      color: TILE,
+      iconColor: 'bg-primary',
+      textColor: 'text-primary',
       show: !!metrics.costSavings,
     },
     {
       icon: (
-        <Activity className="h-5 w-5 sm:h-6 sm:w-6 text-rose-600 dark:text-rose-400 group-hover:text-white transition-colors duration-500" />
+        <Activity className="h-5 w-5 sm:h-6 sm:w-6 text-primary group-hover:text-white transition-colors duration-500" />
       ),
       label: 'Patient Care Increment',
       value: metrics.patientCareInc,
       unit: '%',
-      color:
-        'bg-rose-50 dark:bg-rose-950/50 border-rose-200 dark:border-rose-800',
-      iconColor: 'bg-rose-600 dark:bg-rose-500',
-      textColor:
-        'text-rose-600 dark:text-rose-400 group-hover:text-rose-700 dark:group-hover:text-rose-300',
+      color: TILE,
+      iconColor: 'bg-primary',
+      textColor: 'text-primary',
       show: !!metrics.patientCareInc,
     },
     {
       icon: (
-        <Clock className="h-5 w-5 sm:h-6 sm:w-6 text-cyan-600 dark:text-cyan-400 group-hover:text-white transition-colors duration-500" />
+        <Clock className="h-5 w-5 sm:h-6 sm:w-6 text-primary group-hover:text-white transition-colors duration-500" />
       ),
       label: 'System Uptime',
       value: metrics.uptime,
       unit: '%',
-      color:
-        'bg-cyan-50 dark:bg-cyan-950/50 border-cyan-200 dark:border-cyan-800',
-      iconColor: 'bg-cyan-600 dark:bg-cyan-500',
-      textColor:
-        'text-cyan-600 dark:text-cyan-400 group-hover:text-cyan-700 dark:group-hover:text-cyan-300',
+      color: TILE,
+      iconColor: 'bg-primary',
+      textColor: 'text-primary',
       show: !!metrics.uptime,
     },
   ].filter(metric => metric.show);
@@ -251,9 +237,7 @@ export function ImpactMetrics({ metrics }: ImpactMetricsProps) {
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.4 }}
       >
-        <span className="text-[0.72rem] font-bold uppercase tracking-[0.28em] text-primary">
-          By the numbers
-        </span>
+        <SectionEyebrow>By the numbers</SectionEyebrow>
         <h2 className="mt-2 mb-4 text-2xl font-extrabold uppercase tracking-tight text-foreground sm:mb-6 sm:text-3xl">
           Project Impact
         </h2>

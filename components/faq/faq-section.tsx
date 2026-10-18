@@ -30,7 +30,7 @@ export function FAQSection() {
   return (
     <div>
       {/* Search and filter */}
-      <div className="flex flex-col items-center justify-between gap-4 border-t-[3px] border-foreground pt-8 md:flex-row">
+      <div className="flex flex-col items-center justify-between gap-4 border-t border-border pt-8 md:flex-row">
         <div className="relative w-full md:w-96">
           <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
           <Input

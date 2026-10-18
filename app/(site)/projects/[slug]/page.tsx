@@ -9,7 +9,7 @@ import {
   getProjectsPaginated,
 } from '@/sanity/lib/queries';
 import Link from 'next/link';
-import Image from 'next/image';
+import Image from '@/components/ui/image';
 import { Hero } from '@/components/ui/hero';
 import type { Project } from '@/lib/types';
 import { ShareCopy } from '@/components/updates/share-copy';
@@ -18,6 +18,7 @@ import { ImpactMetrics } from '@/components/projects/impact-metrics';
 import { StateProjectsView } from './state-projects-view';
 import { CATEGORY_INFO } from '@/lib/constants/project-categories';
 import { getCalculatedImpactMetrics } from '@/lib/utils';
+import { SectionEyebrow } from '@/components/animations/SectionEyebrow';
 
 interface ProjectPageProps {
   params: Promise<{
@@ -228,9 +229,7 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
           <section className="mt-16 md:mt-20">
             <div className="mb-8 flex items-end justify-between">
               <div>
-                <span className="text-[0.72rem] font-bold uppercase tracking-[0.28em] text-primary">
-                  Keep exploring
-                </span>
+                <SectionEyebrow>Keep exploring</SectionEyebrow>
                 <h2 className="mt-2 text-2xl font-extrabold uppercase tracking-tight text-foreground md:text-3xl">
                   Related projects
                 </h2>

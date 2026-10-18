@@ -3,6 +3,7 @@ import { Hero } from '@/components/ui/hero';
 import { Breadcrumb } from '@/components/ui/breadcrumb';
 import { FAQSection } from '@/components/faq/faq-section';
 import { CONTACT_INFO } from '@/lib/constants/app.constants';
+import { SectionEyebrow } from '@/components/animations/SectionEyebrow';
 
 export default function FAQPage() {
   const breadcrumbItems = [
@@ -25,9 +26,7 @@ export default function FAQPage() {
 
         {/* Standfirst */}
         <div className="max-w-[68ch]">
-          <span className="text-[0.72rem] font-bold uppercase tracking-[0.3em] text-primary">
-            Solar energy & company, explained
-          </span>
+          <SectionEyebrow>Solar energy & company, explained</SectionEyebrow>
           <p className="mt-4 text-xl font-medium leading-relaxed text-foreground md:text-2xl">
             Can&apos;t find your question? Contact our support team at{' '}
             <a
