@@ -10,6 +10,7 @@ import { toast } from 'sonner';
 import { cn } from '@/lib/utils';
 import { FadeIn } from '@/components/animations/FadeIn';
 import { CONTACT_INFO } from '@/lib/constants/app.constants';
+import { SectionEyebrow } from '@/components/animations/SectionEyebrow';
 
 type ViewMode = 'map' | 'video';
 
@@ -84,9 +85,7 @@ export default function LocationsPage() {
         <section className="mt-10 md:mt-14">
           <div className="mb-4 flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
             <div>
-              <span className="text-[0.72rem] font-bold uppercase tracking-[0.28em] text-primary">
-                Explore
-              </span>
+              <SectionEyebrow>Explore</SectionEyebrow>
               <h2 className="mt-1 text-2xl font-bold tracking-tight text-foreground md:text-3xl">
                 {viewMode === 'map' ? 'Locate the head office' : 'Take a tour'}
               </h2>
@@ -168,10 +167,8 @@ export default function LocationsPage() {
         </section>
 
         {/* ── Offices index ──────────────────────────────────── */}
-        <section className="mt-16 border-t-[3px] border-foreground pt-8 md:mt-24 md:pt-10">
-          <span className="text-[0.72rem] font-bold uppercase tracking-[0.28em] text-primary">
-            The addresses
-          </span>
+        <section className="mt-16 border-t border-border pt-8 md:mt-24 md:pt-10">
+          <SectionEyebrow>The addresses</SectionEyebrow>
 
           <div className="mt-8 border-t border-border">
             {OFFICES.map((office, i) => (

@@ -2,7 +2,7 @@
 
 import { useEffect, useRef, useState } from 'react';
 import Link from 'next/link';
-import Image from 'next/image';
+import Image from '@/components/ui/image';
 import { useTheme } from 'next-themes';
 import { motion, AnimatePresence, MotionConfig } from 'framer-motion';
 import {

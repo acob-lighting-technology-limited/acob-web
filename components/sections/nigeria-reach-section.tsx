@@ -7,6 +7,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { useInView } from 'react-intersection-observer';
 import { Container } from '@/components/ui/container';
 import { FadeIn } from '@/components/animations/FadeIn';
+import { SectionEyebrow } from '@/components/animations/SectionEyebrow';
 import { cn } from '@/lib/utils';
 import type { Project } from '@/lib/types';
 
@@ -42,10 +43,11 @@ const STATE_QUERY_MAPPING: Record<string, string> = {
   ondo: 'Ondo',
 };
 
-const INACTIVE_COLOR = '#E5E7EB';
+// Theme-aware: the variables are set on the map container (muted in dark mode).
+const INACTIVE_COLOR = 'var(--map-inactive)';
 const ACTIVE_COLOR = 'hsl(var(--primary))';
-const HOVER_COLOR = '#22c55e';
-const STROKE_COLOR = '#1f2937';
+const HOVER_COLOR = 'hsl(var(--primary-light))';
+const STROKE_COLOR = 'var(--map-stroke)';
 const PROJECT_DOT_COLOR = '#111111';
 const PROJECT_DOT_HOVER_COLOR = '#000000';
 
@@ -452,13 +454,9 @@ export function NigeriaReachSection({
           <FadeIn delay={0.1}>
             <div className="space-y-5 text-center xl:text-left">
               <div className="space-y-2">
-                <span className="text-[0.72rem] font-bold uppercase tracking-[0.28em] text-primary">
-                  Our Reach
-                </span>
-                <h2 className="text-3xl font-extrabold uppercase leading-[0.95] tracking-tight text-foreground md:text-3xl lg:text-4xl">
-                  Electrifying Progress
-                  <br />
-                  Across the Nation.
+                <SectionEyebrow>Our Reach</SectionEyebrow>
+                <h2 className="mx-auto max-w-sm text-3xl font-extrabold uppercase leading-[0.95] tracking-tight text-foreground lg:text-4xl xl:mx-0">
+                  Electrifying Progress Across the Nation.
                 </h2>
               </div>
 
@@ -504,7 +502,7 @@ export function NigeriaReachSection({
                 </div>
                 <div className="flex items-center gap-2">
                   <span
-                    className="h-3 w-3 rounded-full border border-gray-800"
+                    className="h-3 w-3 rounded-full border border-gray-800 dark:border-white/60"
                     style={{ backgroundColor: PROJECT_DOT_COLOR }}
                   />
                   <span>Project Site</span>
@@ -547,7 +545,10 @@ export function NigeriaReachSection({
                 transition={{ duration: 0.8, ease: 'easeOut' }}
                 className="w-full"
               >
-                <div ref={svgContainerRef} className="w-full h-auto" />
+                <div
+                  ref={svgContainerRef}
+                  className="h-auto w-full [--map-inactive:#E5E7EB] [--map-stroke:#1f2937] dark:[--map-inactive:#27272a] dark:[--map-stroke:#52525b]"
+                />
               </motion.div>
             </div>
           </FadeIn>

@@ -40,7 +40,7 @@ export default function TermsOfServicePage() {
         </div>
 
         {/* Clauses */}
-        <div className="mt-12 max-w-4xl border-t-[3px] border-foreground pt-4 md:mt-16">
+        <div className="mt-12 max-w-4xl border-t border-border pt-4 md:mt-16">
           {termsOfServiceSections.map((section, index) => (
             <section
               key={index}

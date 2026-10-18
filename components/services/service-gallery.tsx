@@ -1,8 +1,25 @@
 'use client';
 
 import { useState } from 'react';
-import Image from 'next/image';
+import Image from '@/components/ui/image';
 import { Lightbox } from '@/components/ui/lightbox';
+
+/**
+ * Width for each photo so no row is left with a lone image: phones lead with
+ * a full-width photo when the count is odd; desktop puts the remainder that
+ * doesn't fill a row of three into rows of two, ahead of the threes.
+ */
+function itemWidth(index: number, count: number) {
+  const mobile = count % 2 === 1 && index === 0 ? 'w-full' : 'w-1/2';
+  if (count === 1) {
+    return 'w-full';
+  }
+  const remainder = count % 3;
+  // 4 → 2+2, 5 → 2+3, 7 → 2+2+3: the first `halves` photos sit two per row.
+  const halves = remainder === 0 ? 0 : remainder === 2 ? 2 : 4;
+  const desktop = index < halves ? 'lg:w-1/2' : 'lg:w-1/3';
+  return `${mobile} ${desktop}`;
+}
 
 interface ServiceGalleryProps {
   images: string[];
@@ -35,10 +52,13 @@ export function ServiceGallery({ images, serviceTitle }: ServiceGalleryProps) {
         {images.map((image, index) => {
           const imageSrc = image.split('?')[0]; // Remove query params if any
           return (
-            <div key={index} className="inline-block w-1/2 lg:w-1/3 px-2 my-4">
+            <div
+              key={index}
+              className={`inline-block px-2 my-4 ${itemWidth(index, images.length)}`}
+            >
               <button
                 onClick={() => handleImageClick(index)}
-                className="group relative aspect-[4/3] w-full cursor-zoom-in overflow-hidden border border-border rounded-lg"
+                className={`group relative w-full cursor-zoom-in overflow-hidden rounded-lg border border-border ${images.length === 1 ? 'aspect-[16/9]' : 'aspect-[4/3]'}`}
               >
                 <Image
                   src={imageSrc}

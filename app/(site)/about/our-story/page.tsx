@@ -14,6 +14,7 @@ import {
   ANNIVERSARY_2026,
   isAnniversaryYear2026,
 } from '@/lib/constants/anniversary';
+import { SectionEyebrow } from '@/components/animations/SectionEyebrow';
 
 const ERAS = [
   {
@@ -69,9 +70,7 @@ export default function OurStoryPage() {
 
         {/* ── Standfirst (dek under the hero headline) ───────── */}
         <div className="max-w-[62ch]">
-          <span className="text-[0.72rem] font-bold uppercase tracking-[0.3em] text-primary">
-            Est. 2016 — Abuja, Nigeria
-          </span>
+          <SectionEyebrow>Est. 2016 — Abuja, Nigeria</SectionEyebrow>
           <p className="mt-4 text-xl font-medium leading-relaxed text-foreground md:text-2xl">
             A decade spent turning energy poverty into productive power — one
             community, one grid, one milestone at a time.
@@ -79,10 +78,8 @@ export default function OurStoryPage() {
         </div>
 
         {/* ── Timeline (chronological — dates carry meaning) ──── */}
-        <section className="mt-10 border-t-[3px] border-foreground pt-8 md:mt-14 md:pt-10">
-          <span className="text-[0.72rem] font-bold uppercase tracking-[0.28em] text-primary">
-            The arc so far
-          </span>
+        <section className="mt-10 border-t border-border pt-8 md:mt-14 md:pt-10">
+          <SectionEyebrow>The arc so far</SectionEyebrow>
           <div className="mt-8 border-t border-border">
             {ERAS.map((era, i) => (
               <FadeIn
@@ -152,9 +149,7 @@ export default function OurStoryPage() {
                 </span>
               </div>
               <div>
-                <span className="text-[0.72rem] font-bold uppercase tracking-[0.28em] text-primary">
-                  {ANNIVERSARY_2026.title}
-                </span>
+                <SectionEyebrow>{ANNIVERSARY_2026.title}</SectionEyebrow>
                 <p className="mt-3 max-w-[62ch] text-lg leading-relaxed text-muted-foreground md:text-xl">
                   {ANNIVERSARY_2026.extendedSummary}
                 </p>

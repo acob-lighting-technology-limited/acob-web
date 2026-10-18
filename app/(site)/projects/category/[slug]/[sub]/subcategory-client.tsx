@@ -5,7 +5,7 @@ import { Button } from '@/components/ui/button';
 import { Breadcrumb } from '@/components/ui/breadcrumb';
 import { Container } from '@/components/ui/container';
 import { Hero } from '@/components/ui/hero';
-import Image from 'next/image';
+import Image from '@/components/ui/image';
 import { MapPin, ArrowRight } from 'lucide-react';
 import Link from 'next/link';
 import type { Project, PaginationInfo } from '@/lib/types';
@@ -23,6 +23,7 @@ import {
 } from '@/components/ui/pagination';
 import { CardSkeleton, QueryError } from '@/components/ui/query-states';
 import { CategorySearch } from '../category-search';
+import { SectionEyebrow } from '@/components/animations/SectionEyebrow';
 
 const PAGE_LIMIT = 9;
 
@@ -175,9 +176,9 @@ export default function SubcategoryClient({
 
         {/* Standfirst */}
         <div className="max-w-[62ch]">
-          <span className="text-[0.72rem] font-bold uppercase tracking-[0.3em] text-primary">
+          <SectionEyebrow>
             {categoryTitle} — {subTitle}
-          </span>
+          </SectionEyebrow>
           <p className="mt-4 text-xl font-medium leading-relaxed text-foreground md:text-2xl">
             {subDescription}
           </p>

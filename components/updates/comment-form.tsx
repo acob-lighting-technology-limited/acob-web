@@ -68,7 +68,7 @@ function FormContent({ postId }: { postId: string }) {
 
   return (
     <>
-      <div className="mb-6 border-t-2 border-foreground pt-4">
+      <div className="mb-6 border-t border-border pt-4">
         <h3 className="text-sm font-bold uppercase tracking-[0.18em] text-foreground">
           Leave a Reply
         </h3>

@@ -6,11 +6,13 @@ import { Input } from '@/components/ui/input';
 import { Breadcrumb } from '@/components/ui/breadcrumb';
 import { Container } from '@/components/ui/container';
 import { Hero } from '@/components/ui/hero';
-import Image from 'next/image';
+import Image from '@/components/ui/image';
 import { MapPin, ArrowRight, Search, X } from 'lucide-react';
 import Link from 'next/link';
 import type { Project, PaginationInfo } from '@/lib/types';
 import { extractTextFromPortableText } from '@/lib/utils';
+import { CATEGORY_INFO } from '@/lib/constants/project-categories';
+import { SectionEyebrow } from '@/components/animations/SectionEyebrow';
 import { applySanityImagePreset } from '@/lib/utils/sanity-image';
 import { FadeIn } from '@/components/animations/FadeIn';
 import {
@@ -30,6 +32,7 @@ interface ProjectsClientProps {
   initialProjects: Project[];
   initialPagination: PaginationInfo;
   currentSearch: string;
+  currentCategory: string;
   breadcrumbItems: Array<{ label: string; href?: string }>;
 }
 
@@ -47,90 +50,111 @@ export default function ProjectsClient({
   initialProjects,
   initialPagination,
   currentSearch,
+  currentCategory,
   breadcrumbItems,
 }: ProjectsClientProps) {
   const [projects, setProjects] = useState<Project[]>(initialProjects);
   const [pagination, setPagination] =
     useState<PaginationInfo>(initialPagination);
   const [searchQuery, setSearchQuery] = useState(currentSearch);
+  const [category, setCategory] = useState(currentCategory);
   const [hasSearched, setHasSearched] = useState(!!currentSearch);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
   const searchTimeoutRef = useRef<NodeJS.Timeout | null>(null);
+  const gridTopRef = useRef<HTMLDivElement>(null);
   const abortControllerRef = useRef<AbortController | null>(null);
 
+  // From the first load only, so filtering doesn't swap the hero slides.
   const heroImages = useMemo(
     () =>
-      projects
+      initialProjects
         .filter(p => p.projectImage)
         .map(p => ({
           src: p.projectImage!,
           alt: p.title,
           href: `/projects/${p.slug.current}`,
         })),
-    [projects],
+    [initialProjects],
   );
 
-  const fetchPage = useCallback(async (search: string, page: number) => {
-    if (abortControllerRef.current) {
-      abortControllerRef.current.abort();
-    }
-    const controller = new AbortController();
-    abortControllerRef.current = controller;
+  const fetchPage = useCallback(
+    async (search: string, page: number, categorySlug: string) => {
+      if (abortControllerRef.current) {
+        abortControllerRef.current.abort();
+      }
+      const controller = new AbortController();
+      abortControllerRef.current = controller;
 
-    setIsLoading(true);
-    setError(null);
-    window.scrollTo({ top: 0, behavior: 'instant' });
+      setIsLoading(true);
+      setError(null);
+      // Keep the filters in view rather than jumping back above the hero.
+      gridTopRef.current?.scrollIntoView({
+        block: 'start',
+        behavior: 'instant',
+      });
 
-    const urlParams = new URLSearchParams();
-    if (search.trim()) {
-      urlParams.set('search', search);
-    }
-    if (page > 1) {
-      urlParams.set('page', page.toString());
-    }
-    const qs = urlParams.toString();
-    window.history.replaceState(null, '', qs ? `/projects?${qs}` : '/projects');
-
-    try {
-      const apiParams = new URLSearchParams();
+      const urlParams = new URLSearchParams();
       if (search.trim()) {
-        apiParams.set('search', search);
+        urlParams.set('search', search);
+      }
+      if (categorySlug) {
+        urlParams.set('category', categorySlug);
       }
       if (page > 1) {
-        apiParams.set('page', page.toString());
+        urlParams.set('page', page.toString());
       }
-      apiParams.set('limit', String(PAGE_LIMIT));
+      const qs = urlParams.toString();
+      window.history.replaceState(
+        null,
+        '',
+        qs ? `/projects?${qs}` : '/projects',
+      );
 
-      const res = await fetch(`/api/projects?${apiParams.toString()}`, {
-        signal: controller.signal,
-      });
-      if (!res.ok) {
-        throw new Error('Failed to fetch projects');
-      }
-      const result = await res.json();
+      try {
+        const apiParams = new URLSearchParams();
+        if (search.trim()) {
+          apiParams.set('search', search);
+        }
+        if (categorySlug) {
+          apiParams.set('category', categorySlug);
+        }
+        if (page > 1) {
+          apiParams.set('page', page.toString());
+        }
+        apiParams.set('limit', String(PAGE_LIMIT));
 
-      setProjects(result.projects);
-      setPagination(result.pagination);
-    } catch (err) {
-      if ((err as Error).name === 'AbortError') {
-        return;
+        const res = await fetch(`/api/projects?${apiParams.toString()}`, {
+          signal: controller.signal,
+        });
+        if (!res.ok) {
+          throw new Error('Failed to fetch projects');
+        }
+        const result = await res.json();
+
+        setProjects(result.projects);
+        setPagination(result.pagination);
+      } catch (err) {
+        if ((err as Error).name === 'AbortError') {
+          return;
+        }
+        setError('Could not load projects.');
+      } finally {
+        if (!controller.signal.aborted) {
+          setIsLoading(false);
+        }
       }
-      setError('Could not load projects.');
-    } finally {
-      if (!controller.signal.aborted) {
-        setIsLoading(false);
-      }
-    }
-  }, []);
+    },
+    [],
+  );
 
   const handleSearchSubmit = () => {
     if (searchTimeoutRef.current) {
       clearTimeout(searchTimeoutRef.current);
     }
     setHasSearched(true);
-    fetchPage(searchQuery, 1);
+    fetchPage(searchQuery, 1, category);
   };
 
   const handleKeyPress = (e: React.KeyboardEvent<HTMLInputElement>) => {
@@ -140,20 +164,35 @@ export default function ProjectsClient({
   };
 
   const handlePageChange = (page: number) => {
-    fetchPage(searchQuery, page);
+    fetchPage(searchQuery, page, category);
+  };
+
+  const handleShowAll = () => {
+    setSearchQuery('');
+    setHasSearched(false);
+    setCategory('');
+    fetchPage('', 1, '');
+  };
+
+  const handleCategoryChange = (slug: string) => {
+    if (slug === category) {
+      return;
+    }
+    setCategory(slug);
+    fetchPage(searchQuery, 1, slug);
   };
 
   const handleClearSearch = () => {
     setSearchQuery('');
     setHasSearched(false);
-    fetchPage('', 1);
+    fetchPage('', 1, category);
   };
 
   if (error) {
     return (
       <QueryError
         message={error}
-        onRetry={() => fetchPage(searchQuery, pagination.currentPage)}
+        onRetry={() => fetchPage(searchQuery, pagination.currentPage, category)}
       />
     );
   }
@@ -204,13 +243,43 @@ export default function ProjectsClient({
 
         {/* Standfirst */}
         <div className="max-w-[62ch]">
-          <span className="text-[0.72rem] font-bold uppercase tracking-[0.3em] text-primary">
-            Our Portfolio
-          </span>
+          <SectionEyebrow>Our Portfolio</SectionEyebrow>
           <p className="mt-4 text-xl font-medium leading-relaxed text-foreground md:text-2xl">
             Delivering reliable solar energy infrastructure across Nigeria —
             from hybrid mini-grids to street lighting and captive power.
           </p>
+        </div>
+
+        {/* Category filters — refilter the grid in place */}
+        <div
+          ref={gridTopRef}
+          role="group"
+          aria-label="Filter projects by category"
+          className="-mx-4 mt-8 flex scroll-mt-24 gap-2 overflow-x-auto px-4 pb-1 [scrollbar-width:none]"
+        >
+          {[
+            ['', 'All projects'] as const,
+            ...Object.entries(CATEGORY_INFO).map(
+              ([slug, info]) => [slug, info.title] as const,
+            ),
+          ].map(([slug, label]) => {
+            const active = category === slug;
+            return (
+              <button
+                key={slug || 'all'}
+                type="button"
+                aria-pressed={active}
+                onClick={() => handleCategoryChange(slug)}
+                className={
+                  active
+                    ? 'shrink-0 rounded-full bg-primary px-4 py-2 text-sm font-semibold text-primary-foreground'
+                    : 'shrink-0 rounded-full border border-border bg-card px-4 py-2 text-sm font-medium text-foreground transition-colors hover:border-primary hover:text-primary focus:outline-none focus-visible:ring-2 focus-visible:ring-primary'
+                }
+              >
+                {label}
+              </button>
+            );
+          })}
         </div>
 
         {/* Search result count */}
@@ -247,9 +316,9 @@ export default function ProjectsClient({
               No projects found
             </h3>
             <p className="mb-6 text-muted-foreground">
-              Try adjusting your search terms or browse all projects.
+              Try adjusting your search or filter, or browse all projects.
             </p>
-            <Button variant="outline" onClick={handleClearSearch}>
+            <Button variant="outline" onClick={handleShowAll}>
               View All Projects
             </Button>
           </div>

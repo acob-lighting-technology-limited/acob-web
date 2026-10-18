@@ -1,11 +1,16 @@
 import { Container } from '@/components/ui/container';
 import { Hero } from '@/components/ui/hero';
 import { Breadcrumb } from '@/components/ui/breadcrumb';
-import { ArrowRight } from 'lucide-react';
-import Image from 'next/image';
+import { ArrowUpRight } from 'lucide-react';
+import Image from '@/components/ui/image';
 import Link from 'next/link';
 import { FadeIn } from '@/components/animations/FadeIn';
+import { SectionEyebrow } from '@/components/animations/SectionEyebrow';
+import { cn } from '@/lib/utils';
 import { contactSections } from '@/lib/data/contact-data';
+
+// Two columns on desktop, filled column by column (01–03, then 04–05).
+const PATH_ROWS = Math.ceil(contactSections.length / 2);
 
 export default function ContactPage() {
   const breadcrumbItems = [
@@ -35,62 +40,82 @@ export default function ContactPage() {
 
         {/* Standfirst */}
         <div className="max-w-[68ch]">
-          <span className="text-[0.72rem] font-bold uppercase tracking-[0.3em] text-primary">
-            How can we help?
-          </span>
+          <SectionEyebrow>How can we help?</SectionEyebrow>
           <p className="mt-4 text-xl font-medium leading-relaxed text-foreground md:text-2xl">
             Whether you have a question, need support, or are looking for a
             career opportunity — we&apos;re ready to connect.
           </p>
         </div>
 
-        {/* Card grid */}
-        <section className="mt-14 md:mt-20">
-          <span className="text-[0.72rem] font-bold uppercase tracking-[0.28em] text-primary">
-            Get in Touch
-          </span>
-          <h2 className="mt-2 text-3xl font-extrabold uppercase leading-[0.95] tracking-tight text-foreground md:text-4xl lg:text-5xl">
+        {/* Paths — the same numbered index as the home Services section */}
+        <section
+          aria-labelledby="contact-paths"
+          className="mt-14 pb-12 md:mt-20 md:pb-20"
+        >
+          <SectionEyebrow>Get in touch</SectionEyebrow>
+          <h2
+            id="contact-paths"
+            className="mt-3 text-3xl font-extrabold uppercase leading-[0.95] tracking-tight text-foreground md:text-4xl lg:text-5xl"
+          >
             Choose a path
           </h2>
 
-          <div className="mt-8 grid grid-cols-2 gap-4 md:grid-cols-3 md:gap-6 lg:grid-cols-4">
+          <ul
+            className="mt-8 grid lg:auto-cols-fr lg:grid-flow-col lg:grid-rows-[repeat(var(--rows),auto)] lg:gap-x-14"
+            style={{ '--rows': PATH_ROWS } as React.CSSProperties}
+          >
             {contactSections.map((section, i) => (
-              <FadeIn key={section.href} delay={i * 0.06} className="h-full">
-                <Link
-                  href={section.href}
-                  className="group block h-full focus:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-background"
-                >
-                  <article className="flex h-full flex-col overflow-hidden rounded-xl border border-border bg-surface transition-all duration-500 group-hover:-translate-y-1 group-hover:border-primary/40 group-hover:shadow-lg">
-                    <div className="relative aspect-[16/10] w-full overflow-hidden">
+              <li
+                key={section.href}
+                className={cn(
+                  'border-b border-border',
+                  i === 0 && 'border-t',
+                  // Top rule on the first row of the second column.
+                  i === PATH_ROWS && 'lg:border-t',
+                )}
+              >
+                <FadeIn delay={i * 0.06}>
+                  <Link
+                    href={section.href}
+                    className="group relative grid grid-cols-[1.75rem_4.5rem_minmax(0,1fr)_auto] items-center gap-4 py-5 focus:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-background sm:grid-cols-[2.5rem_6rem_minmax(0,1fr)_auto] sm:gap-5"
+                  >
+                    {/* Fill sweeping in from the left on hover */}
+                    <span
+                      aria-hidden
+                      className="pointer-events-none absolute inset-0 origin-left scale-x-0 bg-primary/[0.06] transition-transform duration-500 ease-out group-hover:scale-x-100"
+                    />
+                    <span className="relative text-sm font-extrabold tabular-nums text-muted-foreground transition-colors duration-300 group-hover:text-primary">
+                      {String(i + 1).padStart(2, '0')}
+                    </span>
+                    {/* Mini card — decorative; the title carries the meaning. */}
+                    <span
+                      aria-hidden
+                      className="relative block aspect-[4/3] w-full overflow-hidden rounded-lg bg-muted ring-1 ring-border transition-all duration-500 group-hover:-rotate-2 group-hover:shadow-lg group-hover:ring-primary/40"
+                    >
                       <Image
                         src={section.image || '/placeholder.svg'}
-                        alt={section.title}
+                        alt=""
                         fill
-                        className="object-cover transition-transform duration-500 group-hover:scale-105"
-                        sizes="(max-width: 768px) 50vw, (max-width: 1024px) 33vw, 25vw"
+                        sizes="6rem"
+                        className="object-cover transition-transform duration-700 ease-out group-hover:scale-110"
                       />
-                      <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent" />
-                      <span className="absolute left-3 top-3 text-sm font-extrabold tabular-nums leading-none text-white">
-                        {String(i + 1).padStart(2, '0')}
-                      </span>
-                    </div>
-                    <div className="flex flex-1 flex-col p-4 md:p-5">
-                      <h3 className="text-base font-extrabold tracking-tight text-foreground md:text-lg">
+                    </span>
+                    <span className="relative min-w-0">
+                      <span className="block text-base font-extrabold uppercase leading-tight tracking-tight text-foreground transition-all duration-500 group-hover:translate-x-1 group-hover:text-primary lg:text-lg">
                         {section.title}
-                      </h3>
-                      <p className="mt-2 flex-1 text-xs leading-relaxed text-muted-foreground line-clamp-3 md:text-sm">
-                        {section.description}
-                      </p>
-                      <span className="mt-4 inline-flex items-center gap-1.5 text-xs font-bold text-primary md:text-sm">
-                        Learn more
-                        <ArrowRight className="h-3.5 w-3.5 transition-transform duration-300 group-hover:translate-x-1 md:h-4 md:w-4" />
                       </span>
-                    </div>
-                  </article>
-                </Link>
-              </FadeIn>
+                      <span className="mt-1 text-sm text-muted-foreground line-clamp-2">
+                        {section.description}
+                      </span>
+                    </span>
+                    <span className="relative flex h-9 w-9 items-center justify-center rounded-full border border-border text-foreground transition-all duration-500 group-hover:rotate-45 group-hover:border-primary group-hover:bg-primary group-hover:text-primary-foreground sm:h-10 sm:w-10">
+                      <ArrowUpRight className="h-4 w-4" aria-hidden />
+                    </span>
+                  </Link>
+                </FadeIn>
+              </li>
             ))}
-          </div>
+          </ul>
         </section>
       </Container>
     </>

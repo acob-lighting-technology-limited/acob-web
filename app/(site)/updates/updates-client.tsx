@@ -6,13 +6,14 @@ import { Input } from '@/components/ui/input';
 import { Breadcrumb } from '@/components/ui/breadcrumb';
 import { Container } from '@/components/ui/container';
 import { Hero } from '@/components/ui/hero';
-import { ArrowRight, Search, X, Calendar, User } from 'lucide-react';
+import { ArrowRight, Search, X, Calendar } from 'lucide-react';
 import Link from 'next/link';
-import Image from 'next/image';
+import Image from '@/components/ui/image';
 import type { UpdatePost, PaginationInfo } from '@/lib/types';
 import { formatDate } from '@/lib/utils';
 import { applySanityImagePreset } from '@/lib/utils/sanity-image';
 import { FadeIn } from '@/components/animations/FadeIn';
+import { SectionEyebrow } from '@/components/animations/SectionEyebrow';
 import {
   Pagination,
   PaginationContent,
@@ -30,104 +31,134 @@ interface UpdatesClientProps {
   initialPosts: UpdatePost[];
   initialPagination: PaginationInfo;
   currentSearch: string;
+  currentCategory: string;
   breadcrumbItems: Array<{ label: string; href?: string }>;
 }
 
-function authorName(author: UpdatePost['author']): string {
-  if (typeof author === 'string') {
-    return author;
-  }
-  return (author as { name?: string })?.name || 'ACOB Lighting';
+// Same order as the Updates & Media nav menu.
+const UPDATE_CATEGORY_LABELS: Record<string, string> = {
+  announcements: 'Announcements',
+  'case-studies': 'Case Studies',
+  'press-releases': 'Press Releases',
+  events: 'Events',
+  celebrations: 'Celebrations',
+};
+
+function categoryLabel(slug: string) {
+  return (
+    UPDATE_CATEGORY_LABELS[slug] ||
+    slug
+      .split('-')
+      .map(word => word.charAt(0).toUpperCase() + word.slice(1))
+      .join(' ')
+  );
 }
 
 export default function UpdatesClient({
   initialPosts,
   initialPagination,
   currentSearch,
+  currentCategory,
   breadcrumbItems,
 }: UpdatesClientProps) {
   const [posts, setPosts] = useState<UpdatePost[]>(initialPosts);
   const [pagination, setPagination] =
     useState<PaginationInfo>(initialPagination);
   const [searchQuery, setSearchQuery] = useState(currentSearch);
+  const [category, setCategory] = useState(currentCategory);
   const [hasSearched, setHasSearched] = useState(!!currentSearch);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
   const searchTimeoutRef = useRef<NodeJS.Timeout | null>(null);
+  const gridTopRef = useRef<HTMLDivElement>(null);
   const abortControllerRef = useRef<AbortController | null>(null);
 
+  // From the first load only, so filtering doesn't swap the hero slides.
   const heroImages = useMemo(
     () =>
-      posts
+      initialPosts
         .filter(p => p.featuredImage)
         .map(p => ({
           src: p.featuredImage!,
           alt: p.title,
           href: `/updates/${p.slug.current}`,
         })),
-    [posts],
+    [initialPosts],
   );
 
-  const fetchPage = useCallback(async (search: string, page: number) => {
-    if (abortControllerRef.current) {
-      abortControllerRef.current.abort();
-    }
-    const controller = new AbortController();
-    abortControllerRef.current = controller;
+  const fetchPage = useCallback(
+    async (search: string, page: number, categorySlug: string) => {
+      if (abortControllerRef.current) {
+        abortControllerRef.current.abort();
+      }
+      const controller = new AbortController();
+      abortControllerRef.current = controller;
 
-    setIsLoading(true);
-    setError(null);
-    window.scrollTo({ top: 0, behavior: 'instant' });
+      setIsLoading(true);
+      setError(null);
+      // Keep the filters in view rather than jumping back above the hero.
+      gridTopRef.current?.scrollIntoView({
+        block: 'start',
+        behavior: 'instant',
+      });
 
-    const urlParams = new URLSearchParams();
-    if (search.trim()) {
-      urlParams.set('search', search);
-    }
-    if (page > 1) {
-      urlParams.set('page', page.toString());
-    }
-    const qs = urlParams.toString();
-    window.history.replaceState(null, '', qs ? `/updates?${qs}` : '/updates');
-
-    try {
-      const apiParams = new URLSearchParams();
+      const urlParams = new URLSearchParams();
       if (search.trim()) {
-        apiParams.set('search', search);
+        urlParams.set('search', search);
+      }
+      if (categorySlug) {
+        urlParams.set('category', categorySlug);
       }
       if (page > 1) {
-        apiParams.set('page', page.toString());
+        urlParams.set('page', page.toString());
       }
-      apiParams.set('limit', String(PAGE_LIMIT));
+      const qs = urlParams.toString();
+      window.history.replaceState(null, '', qs ? `/updates?${qs}` : '/updates');
 
-      const res = await fetch(`/api/updates?${apiParams.toString()}`, {
-        signal: controller.signal,
-      });
-      if (!res.ok) {
-        throw new Error('Failed to fetch updates');
-      }
-      const result = await res.json();
+      try {
+        const apiParams = new URLSearchParams();
+        if (search.trim()) {
+          apiParams.set('search', search);
+        }
+        if (categorySlug) {
+          apiParams.set('category', categorySlug);
+        }
+        if (page > 1) {
+          apiParams.set('page', page.toString());
+        }
+        apiParams.set('limit', String(PAGE_LIMIT));
 
-      setPosts(result.posts);
-      setPagination(result.pagination);
-    } catch (err) {
-      if ((err as Error).name === 'AbortError') {
-        return;
+        const res = await fetch(`/api/updates?${apiParams.toString()}`, {
+          signal: controller.signal,
+        });
+        if (!res.ok) {
+          throw new Error('Failed to fetch updates');
+        }
+        const result = await res.json();
+
+        setPosts(result.posts);
+        setPagination(result.pagination);
+      } catch (err) {
+        if ((err as Error).name === 'AbortError') {
+          return;
+        }
+        setError('Could not load updates.');
+      } finally {
+        if (!controller.signal.aborted) {
+          setIsLoading(false);
+        }
       }
-      setError('Could not load updates.');
-    } finally {
-      if (!controller.signal.aborted) {
-        setIsLoading(false);
-      }
-    }
-  }, []);
+    },
+    [],
+  );
 
   const handleSearchSubmit = () => {
     if (searchTimeoutRef.current) {
       clearTimeout(searchTimeoutRef.current);
     }
     setHasSearched(true);
-    fetchPage(searchQuery, 1);
+    fetchPage(searchQuery, 1, category);
   };
 
   const handleKeyPress = (e: React.KeyboardEvent<HTMLInputElement>) => {
@@ -137,20 +168,35 @@ export default function UpdatesClient({
   };
 
   const handlePageChange = (page: number) => {
-    fetchPage(searchQuery, page);
+    fetchPage(searchQuery, page, category);
+  };
+
+  const handleCategoryChange = (slug: string) => {
+    if (slug === category) {
+      return;
+    }
+    setCategory(slug);
+    fetchPage(searchQuery, 1, slug);
+  };
+
+  const handleShowAll = () => {
+    setSearchQuery('');
+    setHasSearched(false);
+    setCategory('');
+    fetchPage('', 1, '');
   };
 
   const handleClearSearch = () => {
     setSearchQuery('');
     setHasSearched(false);
-    fetchPage('', 1);
+    fetchPage('', 1, category);
   };
 
   if (error) {
     return (
       <QueryError
         message={error}
-        onRetry={() => fetchPage(searchQuery, pagination.currentPage)}
+        onRetry={() => fetchPage(searchQuery, pagination.currentPage, category)}
       />
     );
   }
@@ -201,13 +247,41 @@ export default function UpdatesClient({
 
         {/* Standfirst */}
         <div className="max-w-[62ch]">
-          <span className="text-[0.72rem] font-bold uppercase tracking-[0.3em] text-primary">
-            News &amp; Announcements
-          </span>
+          <SectionEyebrow>News &amp; Announcements</SectionEyebrow>
           <p className="mt-4 text-xl font-medium leading-relaxed text-foreground md:text-2xl">
             Project milestones, press releases, and stories from the field —
             straight from the ACOB team.
           </p>
+        </div>
+
+        {/* Category filters — refilter the grid in place */}
+        <div
+          ref={gridTopRef}
+          role="group"
+          aria-label="Filter updates by category"
+          className="-mx-4 mt-8 flex scroll-mt-24 gap-2 overflow-x-auto px-4 pb-1 [scrollbar-width:none]"
+        >
+          {[
+            ['', 'All updates'] as const,
+            ...Object.entries(UPDATE_CATEGORY_LABELS),
+          ].map(([slug, label]) => {
+            const active = category === slug;
+            return (
+              <button
+                key={slug || 'all'}
+                type="button"
+                aria-pressed={active}
+                onClick={() => handleCategoryChange(slug)}
+                className={
+                  active
+                    ? 'shrink-0 rounded-full bg-primary px-4 py-2 text-sm font-semibold text-primary-foreground'
+                    : 'shrink-0 rounded-full border border-border bg-card px-4 py-2 text-sm font-medium text-foreground transition-colors hover:border-primary hover:text-primary focus:outline-none focus-visible:ring-2 focus-visible:ring-primary'
+                }
+              >
+                {label}
+              </button>
+            );
+          })}
         </div>
 
         {/* Search result count */}
@@ -244,9 +318,9 @@ export default function UpdatesClient({
               No updates found
             </h3>
             <p className="mb-6 text-muted-foreground">
-              Try adjusting your search terms or browse all updates.
+              Try adjusting your search or filter, or browse all updates.
             </p>
-            <Button onClick={handleClearSearch}>
+            <Button onClick={handleShowAll}>
               <X className="mr-2 h-4 w-4" />
               View All Updates
             </Button>
@@ -275,7 +349,8 @@ export default function UpdatesClient({
                             )}
                             alt={post.title}
                             fill
-                            className="object-cover transition-transform duration-500 group-hover:scale-105"
+                            // Flyers carry their headline at the top.
+                            className="object-cover object-top transition-transform duration-500 group-hover:scale-105"
                             sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
                           />
                         ) : (
@@ -287,20 +362,14 @@ export default function UpdatesClient({
                         )}
                         <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
                         {post.category && (
-                          <span className="absolute bottom-3 left-3 text-[0.65rem] font-bold uppercase tracking-[0.16em] text-white/90">
-                            {post.category}
+                          <span className="absolute bottom-3 left-3 rounded-full bg-black/65 px-3 py-1 text-[0.65rem] font-bold uppercase tracking-[0.14em] text-white backdrop-blur-sm">
+                            {categoryLabel(post.category)}
                           </span>
                         )}
                       </div>
 
                       <div className="flex flex-1 flex-col p-4 md:p-5">
                         <div className="mb-2 flex flex-wrap items-center gap-x-3 gap-y-1 text-[0.7rem] text-muted-foreground">
-                          {post.author && (
-                            <span className="flex items-center gap-1">
-                              <User className="h-3 w-3" />
-                              {authorName(post.author)}
-                            </span>
-                          )}
                           {post.publishedAt && (
                             <span className="flex items-center gap-1">
                               <Calendar className="h-3 w-3" />

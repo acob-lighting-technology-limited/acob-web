@@ -9,6 +9,7 @@ import { Hero } from '@/components/ui/hero';
 import { Container } from '@/components/ui/container';
 import { Search, X } from 'lucide-react';
 import { useParams } from 'next/navigation';
+import { SectionEyebrow } from '@/components/animations/SectionEyebrow';
 
 interface Product {
   _id: string;
@@ -192,10 +193,10 @@ export default function ShopCategoryPage() {
         ) : (
           <>
             <div className="mb-6 border-t border-border pt-6">
-              <span className="text-[0.72rem] font-bold uppercase tracking-[0.28em] text-primary">
+              <SectionEyebrow>
                 {filteredProducts.length} product
                 {filteredProducts.length !== 1 ? 's' : ''} found
-              </span>
+              </SectionEyebrow>
               <h2 className="mt-2 text-2xl font-extrabold uppercase tracking-tight text-foreground">
                 {info.title}
               </h2>

@@ -5,6 +5,7 @@ import { Button } from '@/components/ui/button';
 import { Container } from '@/components/ui/container';
 import { Hero } from '@/components/ui/hero';
 import { Breadcrumb } from '@/components/ui/breadcrumb';
+import { SectionEyebrow } from '@/components/animations/SectionEyebrow';
 
 export default function CompanyProfilePage() {
   const breadcrumbItems = [
@@ -53,9 +54,7 @@ export default function CompanyProfilePage() {
 
         {/* Standfirst */}
         <div className="max-w-[68ch]">
-          <span className="text-[0.72rem] font-bold uppercase tracking-[0.3em] text-primary">
-            Company profile
-          </span>
+          <SectionEyebrow>Company profile</SectionEyebrow>
           <p className="mt-4 text-xl font-medium leading-relaxed text-foreground md:text-2xl">
             Discover ACOB Lighting Technology — powering Nigeria&apos;s future
             with clean energy.

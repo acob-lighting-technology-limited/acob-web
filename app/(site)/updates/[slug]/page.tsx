@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import Image from 'next/image';
+import Image from '@/components/ui/image';
 
 import {
   getUpdatePosts,
@@ -24,6 +24,7 @@ import { CommentForm } from '@/components/updates/comment-form';
 import { Hero } from '@/components/ui/hero';
 import { UpdateContent } from './update-content';
 import { formatDate } from '@/lib/utils/date';
+import { SectionEyebrow } from '@/components/animations/SectionEyebrow';
 
 interface UpdatePageProps {
   params: Promise<{
@@ -154,9 +155,7 @@ export default async function UpdatePage({ params }: UpdatePageProps) {
           <section className="mt-16 md:mt-20">
             <div className="mb-8 flex items-end justify-between">
               <div>
-                <span className="text-[0.72rem] font-bold uppercase tracking-[0.28em] text-primary">
-                  Keep reading
-                </span>
+                <SectionEyebrow>Keep reading</SectionEyebrow>
                 <h2 className="mt-2 text-2xl font-extrabold uppercase tracking-tight text-foreground md:text-3xl">
                   Related updates
                 </h2>
@@ -262,7 +261,7 @@ export default async function UpdatePage({ params }: UpdatePageProps) {
         </div>
 
         {/* Discussion */}
-        <section className="mt-4 border-t-[3px] border-foreground pt-10">
+        <section className="mt-4 border-t border-border pt-10">
           <div className="mb-6 flex items-center gap-2">
             <MessageSquare className="h-5 w-5 text-primary" />
             <h2 className="text-xl font-extrabold uppercase tracking-tight sm:text-2xl">

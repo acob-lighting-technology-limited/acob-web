@@ -16,6 +16,7 @@ import {
   QuickContact,
   MoreContactOptions,
 } from '@/components/contact/contact-sidebar';
+import { SectionEyebrow } from '@/components/animations/SectionEyebrow';
 
 export const revalidate = 300;
 
@@ -53,9 +54,7 @@ export default async function CareersPage() {
 
         {/* Standfirst */}
         <div className="max-w-[68ch]">
-          <span className="text-[0.72rem] font-bold uppercase tracking-[0.3em] text-primary">
-            Join the team
-          </span>
+          <SectionEyebrow>Join the team</SectionEyebrow>
           <p className="mt-4 text-xl font-medium leading-relaxed text-foreground md:text-2xl">
             Our people are our greatest asset — a mission-driven team at the
             forefront of Nigeria&apos;s clean energy revolution.
@@ -68,15 +67,13 @@ export default async function CareersPage() {
           </p>
         </div>
 
-        <div className="mt-12 grid grid-cols-1 items-start gap-10 border-t-[3px] border-foreground pt-10 lg:grid-cols-[1fr_300px] lg:gap-14 md:mt-16">
+        <div className="mt-12 grid grid-cols-1 items-start gap-10 border-t border-border pt-10 lg:grid-cols-[1fr_300px] lg:gap-14 md:mt-16">
           {/* Main column */}
           <div className="space-y-14 md:space-y-20">
             {/* Openings */}
             <section id="openings" className="scroll-mt-28">
               <div className="flex flex-wrap items-center gap-3">
-                <span className="text-[0.72rem] font-bold uppercase tracking-[0.28em] text-primary">
-                  Opportunities
-                </span>
+                <SectionEyebrow>Opportunities</SectionEyebrow>
                 {jobPostings.length > 0 && (
                   <span className="bg-primary px-2.5 py-1 text-[0.68rem] font-bold uppercase tracking-[0.14em] text-primary-foreground">
                     {jobPostings.length} open{' '}
@@ -176,9 +173,7 @@ export default async function CareersPage() {
 
             {/* Why work here */}
             <section>
-              <span className="text-[0.72rem] font-bold uppercase tracking-[0.28em] text-primary">
-                Our culture
-              </span>
+              <SectionEyebrow>Our culture</SectionEyebrow>
               <h2 className="mt-2 text-2xl font-extrabold uppercase tracking-tight text-foreground md:text-3xl">
                 Why work at ACOB Lighting?
               </h2>

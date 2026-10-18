@@ -115,11 +115,14 @@ export async function getProjectsPaginated({
   limit = PAGINATION.PROJECTS_PER_PAGE,
   search = '',
   state = '',
+  category = '',
 }: {
   page?: number;
   limit?: number;
   search?: string;
   state?: string;
+  /** A category slug; `categories` is a multi-select array on the project. */
+  category?: string;
 } = {}): Promise<PaginatedResponse<Project>> {
   try {
     const offset = (page - 1) * limit;
@@ -144,6 +147,12 @@ export async function getProjectsPaginated({
       params.state = state;
     }
 
+    // Category filter
+    if (category.trim()) {
+      query += ' && $category in categories';
+      params.category = category;
+    }
+
     query += `] | order(publishedAt desc, _createdAt desc)[${offset}...${offset + limit}] {
       ${PROJECT_LISTING_FIELDS}
     }`;
@@ -159,6 +168,9 @@ export async function getProjectsPaginated({
     }
     if (state.trim()) {
       countQuery += ' && state == $state';
+    }
+    if (category.trim()) {
+      countQuery += ' && $category in categories';
     }
     countQuery += '])';
 

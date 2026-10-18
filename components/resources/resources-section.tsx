@@ -7,6 +7,7 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Search } from 'lucide-react';
 import { CONTACT_INFO } from '@/lib/constants/app.constants';
+import { SectionEyebrow } from '@/components/animations/SectionEyebrow';
 
 export function ResourcesSection() {
   const [selectedCategory, setSelectedCategory] = useState<string>('all');
@@ -29,7 +30,7 @@ export function ResourcesSection() {
   return (
     <div>
       {/* Search and filter */}
-      <div className="flex flex-col items-center justify-between gap-4 border-t-[3px] border-foreground pt-8 md:flex-row">
+      <div className="flex flex-col items-center justify-between gap-4 border-t border-border pt-8 md:flex-row">
         <div className="relative w-full md:w-96">
           <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
           <Input
@@ -66,9 +67,7 @@ export function ResourcesSection() {
       {/* Featured resources */}
       {featuredResources.length > 0 && selectedCategory === 'all' && (
         <div className="mt-12">
-          <span className="text-[0.72rem] font-bold uppercase tracking-[0.28em] text-primary">
-            Highlighted
-          </span>
+          <SectionEyebrow>Highlighted</SectionEyebrow>
           <h3 className="mt-2 text-2xl font-extrabold uppercase tracking-tight text-foreground">
             Featured Resources
           </h3>

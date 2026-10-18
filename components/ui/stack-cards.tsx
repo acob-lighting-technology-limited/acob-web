@@ -10,7 +10,7 @@ import {
 import { Button } from './button';
 import { ArrowRight, MapPin } from 'lucide-react';
 import Link from 'next/link';
-import Image from 'next/image';
+import Image from '@/components/ui/image';
 import { applySanityImagePreset } from '@/lib/utils/sanity-image';
 
 interface CardProps {

@@ -2,7 +2,7 @@
 
 import { Card, CardContent } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
-import Image from 'next/image';
+import Image from '@/components/ui/image';
 import { ArrowRight } from 'lucide-react';
 
 export interface BeforeAfterData {

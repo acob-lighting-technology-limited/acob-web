@@ -17,6 +17,7 @@ import {
   QuickContact,
   MoreContactOptions,
 } from '@/components/contact/contact-sidebar';
+import { SectionEyebrow } from '@/components/animations/SectionEyebrow';
 
 export default function SupportPage() {
   const breadcrumbItems = [
@@ -39,9 +40,7 @@ export default function SupportPage() {
 
         {/* Standfirst */}
         <div className="max-w-[68ch]">
-          <span className="text-[0.72rem] font-bold uppercase tracking-[0.3em] text-primary">
-            How can we help?
-          </span>
+          <SectionEyebrow>How can we help?</SectionEyebrow>
           <p className="mt-4 text-xl font-medium leading-relaxed text-foreground md:text-2xl">
             Whether you have a technical question, need assistance with an
             installation, or require maintenance — our team is ready to help.
@@ -53,14 +52,12 @@ export default function SupportPage() {
           </p>
         </div>
 
-        <div className="mt-12 grid grid-cols-1 items-start gap-10 border-t-[3px] border-foreground pt-10 lg:grid-cols-[1fr_300px] lg:gap-14 md:mt-16">
+        <div className="mt-12 grid grid-cols-1 items-start gap-10 border-t border-border pt-10 lg:grid-cols-[1fr_300px] lg:gap-14 md:mt-16">
           {/* Main column */}
           <div className="space-y-14 md:space-y-20">
             {/* Contact methods */}
             <section>
-              <span className="text-[0.72rem] font-bold uppercase tracking-[0.28em] text-primary">
-                Get in touch
-              </span>
+              <SectionEyebrow>Get in touch</SectionEyebrow>
               <h2 className="mt-2 text-2xl font-extrabold uppercase tracking-tight text-foreground md:text-3xl">
                 Contact our support team
               </h2>
@@ -130,9 +127,7 @@ export default function SupportPage() {
 
             {/* FAQs */}
             <section>
-              <span className="text-[0.72rem] font-bold uppercase tracking-[0.28em] text-primary">
-                FAQ
-              </span>
+              <SectionEyebrow>FAQ</SectionEyebrow>
               <h2 className="mt-2 text-2xl font-extrabold uppercase tracking-tight text-foreground md:text-3xl">
                 Frequently asked questions
               </h2>

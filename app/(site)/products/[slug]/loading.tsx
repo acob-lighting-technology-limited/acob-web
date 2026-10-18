@@ -53,7 +53,7 @@ export default function Loading() {
               />
             </div>
 
-            <div className="space-y-3 border-t-[3px] border-foreground/20 pt-6">
+            <div className="space-y-3 border-t border-border/20 pt-6">
               <ShimmerSkeleton className="h-3 w-32" />
               <ShimmerSkeleton
                 className="h-6 w-1/2"

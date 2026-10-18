@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useState, useEffect, useMemo, useRef } from 'react';
-import Image from 'next/image';
+import Image from '@/components/ui/image';
 import Link from 'next/link';
 import { motion, useScroll, useTransform } from 'framer-motion';
 import { cn } from '@/lib/utils';
@@ -36,6 +36,20 @@ const DESCRIPTION_CLASS: Record<'default' | 'display', string> = {
     'text-xl sm:text-3xl md:text-4xl lg:text-5xl short:text-4xl font-extrabold uppercase tracking-tight leading-[0.95]',
 };
 
+/** Past this many characters a display title would run to four lines. */
+const LONG_TITLE_CHARS = 60;
+
+// Long titles (full project names) step down a size so they sit in two or
+// three lines instead of covering the photo.
+const LONG_DISPLAY_CLASS =
+  'text-lg sm:text-2xl md:text-3xl lg:text-4xl short:text-3xl font-extrabold uppercase tracking-tight leading-[1.02] max-w-4xl';
+
+function titleClass(titleSize: 'default' | 'display', text: string) {
+  return titleSize === 'display' && text.length > LONG_TITLE_CHARS
+    ? LONG_DISPLAY_CLASS
+    : DESCRIPTION_CLASS[titleSize];
+}
+
 export const Hero = React.memo(function Hero({
   title,
   description,
@@ -43,6 +57,41 @@ export const Hero = React.memo(function Hero({
   imagePosition = 'middle',
   titleSize = 'default',
 }: HeroProps) {
+  const imageToUse = image || DEFAULT_HERO_IMAGE;
+
+  // Each variant owns its scroll parallax, so useScroll only ever targets an
+  // element that is actually rendered.
+  if (typeof imageToUse !== 'string') {
+    return (
+      <HeroCarousel
+        images={imageToUse}
+        title={title}
+        description={description}
+        titleSize={titleSize}
+      />
+    );
+  }
+
+  return (
+    <HeroStatic
+      title={title}
+      description={description}
+      image={imageToUse}
+      imagePosition={imagePosition}
+      titleSize={titleSize}
+    />
+  );
+});
+
+Hero.displayName = 'Hero';
+
+function HeroStatic({
+  title,
+  description,
+  image,
+  imagePosition,
+  titleSize,
+}: Required<Omit<HeroProps, 'image'>> & { image: string }) {
   const { revealed } = useSiteReveal();
   const heroRef = useRef<HTMLDivElement>(null);
   // Slow-exit parallax: as the Hero scrolls from fully in view to fully
@@ -57,84 +106,63 @@ export const Hero = React.memo(function Hero({
   });
   const imageY = useTransform(scrollYProgress, [0, 1], ['0%', '35%']);
 
-  // Use default image if not provided
-  const imageToUse = image || DEFAULT_HERO_IMAGE;
+  const positionClass = {
+    top: 'object-top',
+    middle: 'object-center',
+    bottom: 'object-bottom',
+  }[imagePosition];
 
-  // Determine if we have a single image or carousel
-  const isSingleImage = typeof imageToUse === 'string';
+  return (
+    <div
+      ref={heroRef}
+      className="relative w-full h-[calc(50vh+6rem)] md:h-[calc(45vh+6rem)] lg:h-[calc(60vh+6rem)] short:h-[calc(45vh+3rem)] overflow-hidden"
+    >
+      {/* Background Image */}
+      <div className="absolute inset-0 bg-black">
+        <motion.div
+          className="absolute inset-0 overflow-hidden"
+          style={{ y: imageY }}
+        >
+          <Image
+            src={image}
+            alt={title || description || 'Hero image'}
+            fill
+            className={cn('object-cover hero-slide-zoom', positionClass)}
+            priority
+            quality={85}
+            sizes="100vw"
+            placeholder="blur"
+            blurDataURL={getBlurDataURL()}
+          />
+        </motion.div>
+        <div className="absolute inset-0 bg-black/60" />
+      </div>
 
-  if (isSingleImage) {
-    // Static Hero
-    const positionClass = {
-      top: 'object-top',
-      middle: 'object-center',
-      bottom: 'object-bottom',
-    }[imagePosition];
-
-    return (
-      <div
-        ref={heroRef}
-        className="relative w-full h-[calc(50vh+6rem)] md:h-[calc(45vh+6rem)] lg:h-[calc(60vh+6rem)] short:h-[calc(45vh+3rem)] overflow-hidden"
-      >
-        {/* Background Image */}
-        <div className="absolute inset-0 bg-black">
-          <motion.div
-            className="absolute inset-0 overflow-hidden"
-            style={{ y: imageY }}
-          >
-            <Image
-              src={imageToUse}
-              alt={title || description || 'Hero image'}
-              fill
-              className={cn('object-cover hero-slide-zoom', positionClass)}
-              priority
-              quality={85}
-              sizes="100vw"
-              placeholder="blur"
-              blurDataURL={getBlurDataURL()}
-            />
-          </motion.div>
-          <div className="absolute inset-0 bg-black/60" />
-        </div>
-
-        {/* Content Overlay */}
-        <div className="absolute inset-0 z-10 flex items-end pb-4 sm:pb-6 xl:pb-10 short:pb-6">
-          <div className="2xl:container max-w-7xl mx-auto px-4 w-full">
-            <div className="text-white max-w-5xl space-y-3">
-              <motion.div
-                className="inline-block"
-                initial={{ opacity: 0, y: 16 }}
-                animate={revealed ? { opacity: 1, y: 0 } : {}}
-                transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
-              >
-                <p className="text-sm md:text-base font-semibold text-white bg-primary/90 px-4 py-2 rounded-md uppercase tracking-wider backdrop-blur-sm">
-                  {title}
-                </p>
-              </motion.div>
-              <div>
-                <MaskText className={DESCRIPTION_CLASS[titleSize]}>
-                  {description}
-                </MaskText>
-              </div>
+      {/* Content Overlay */}
+      <div className="absolute inset-0 z-10 flex items-end pb-4 sm:pb-6 xl:pb-10 short:pb-6">
+        <div className="2xl:container max-w-7xl mx-auto px-4 w-full">
+          <div className="text-white max-w-5xl space-y-3">
+            <motion.div
+              className="inline-block"
+              initial={{ opacity: 0, y: 16 }}
+              animate={revealed ? { opacity: 1, y: 0 } : {}}
+              transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
+            >
+              <p className="text-sm md:text-base font-semibold text-white bg-primary/90 px-4 py-2 rounded-md uppercase tracking-wider backdrop-blur-sm">
+                {title}
+              </p>
+            </motion.div>
+            <div>
+              <MaskText className={titleClass(titleSize, description)}>
+                {description}
+              </MaskText>
             </div>
           </div>
         </div>
       </div>
-    );
-  }
-
-  // Carousel Hero
-  return (
-    <HeroCarousel
-      images={imageToUse as Array<{ src: string; alt: string; href?: string }>}
-      title={title}
-      description={description}
-      titleSize={titleSize}
-    />
+    </div>
   );
-});
-
-Hero.displayName = 'Hero';
+}
 
 // Internal Carousel Component
 interface HeroCarouselProps {
@@ -441,7 +469,7 @@ const HeroCarousel = React.memo(function HeroCarousel({
                 WebkitTransform: 'translateZ(0)',
               }}
             >
-              <MaskText className={DESCRIPTION_CLASS[titleSize]}>
+              <MaskText className={titleClass(titleSize, description)}>
                 {description}
               </MaskText>
             </div>

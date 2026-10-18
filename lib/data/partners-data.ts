@@ -3,6 +3,8 @@ export interface Partner {
   fullName: string;
   slug: string;
   logo: string;
+  /** Logo artwork is white/light, so it sits on a dark tile instead of white. */
+  logoOnDark?: boolean;
   category:
     | 'Financial'
     | 'Government'
@@ -127,6 +129,7 @@ export const partners: Partner[] = [
     fullName: 'Federal Ministry of Power',
     slug: 'federal-ministry-of-power',
     logo: '/images/partners/federal-ministry-of-power.png?height=60&width=120',
+    logoOnDark: true,
     category: 'Government',
     description:
       'Government partner for national energy policy and infrastructure',
@@ -262,6 +265,7 @@ export const partners: Partner[] = [
     fullName: 'Kogi State Government',
     slug: 'kogi-confluence',
     logo: '/images/partners/kogi-confluence.png?height=60&width=120',
+    logoOnDark: true,
     category: 'Government',
     description: 'State government partner for regional energy development',
     details: {
@@ -290,6 +294,7 @@ export const partners: Partner[] = [
     fullName: 'Odyssey Energy Solutions',
     slug: 'odyssey',
     logo: '/images/partners/odyssey.png?height=60&width=120',
+    logoOnDark: true,
     category: 'Technology',
     description: 'Energy technology and solutions provider',
     details: {

@@ -5,13 +5,14 @@ import { Container } from '@/components/ui/container';
 import { Hero } from '@/components/ui/hero';
 import { Breadcrumb } from '@/components/ui/breadcrumb';
 import { Card, CardContent } from '@/components/ui/card';
-import Image from 'next/image';
+import Image from '@/components/ui/image';
 import Link from 'next/link';
 import { partners } from '@/lib/data/partners-data';
 import { FadeIn } from '@/components/animations/FadeIn';
 import { getBlurDataURL } from '@/lib/utils/image-optimization';
 import { Handshake, Video } from 'lucide-react';
 import { cn } from '@/lib/utils';
+import { SectionEyebrow } from '@/components/animations/SectionEyebrow';
 
 interface Partner {
   slug: string;
@@ -19,6 +20,7 @@ interface Partner {
   fullName?: string;
   category: string;
   logo: string;
+  logoOnDark?: boolean;
 }
 
 function PartnerCard({ partner, index }: { partner: Partner; index: number }) {
@@ -37,14 +39,22 @@ function PartnerCard({ partner, index }: { partner: Partner; index: number }) {
           )}
         >
           {/* Front — logo */}
-          <div className="absolute inset-0 flex h-full items-center justify-center rounded-lg border border-border bg-card backface-hidden transition-colors duration-300 hover:border-primary/50">
+          {/* Same tiles as the home page: white, or dark for white-ink logos */}
+          <div
+            className={cn(
+              'absolute inset-0 flex h-full items-center justify-center rounded-lg border backface-hidden transition-colors duration-300 hover:border-primary/50',
+              partner.logoOnDark
+                ? 'border-white/10 bg-zinc-900'
+                : 'border-border bg-white',
+            )}
+          >
             <div className="relative flex h-full w-full items-center justify-center p-3">
               <Image
                 src={partner.logo}
                 alt={partner.name}
                 width={150}
                 height={100}
-                className="h-auto w-full max-w-[120px] object-contain opacity-90 transition-opacity duration-300 group-hover:opacity-100"
+                className="h-auto w-full max-w-[120px] object-contain"
                 loading="lazy"
                 quality={75}
                 placeholder="blur"
@@ -98,9 +108,7 @@ export default function PartnersPage() {
 
         {/* Standfirst */}
         <div className="max-w-[68ch]">
-          <span className="text-[0.72rem] font-bold uppercase tracking-[0.3em] text-primary">
-            Strategic collaborations
-          </span>
+          <SectionEyebrow>Strategic collaborations</SectionEyebrow>
           <p className="mt-4 text-xl font-medium leading-relaxed text-foreground md:text-2xl">
             We collaborate with leading organizations, government agencies, and
             technology providers to deliver sustainable energy solutions across
@@ -133,9 +141,7 @@ export default function PartnersPage() {
                   </div>
 
                   <div className="order-1 flex flex-col justify-center p-6 sm:p-8 lg:order-2 lg:p-10">
-                    <span className="text-[0.7rem] font-bold uppercase tracking-[0.2em] text-primary">
-                      Featured Partnership
-                    </span>
+                    <SectionEyebrow>Featured Partnership</SectionEyebrow>
                     <div className="relative mb-6 mt-4 h-16 w-auto">
                       <Image
                         src={infraCreditPartner.logo}
@@ -171,9 +177,7 @@ export default function PartnersPage() {
 
         {/* All partners */}
         <section className="mt-16 md:mt-24">
-          <span className="text-[0.72rem] font-bold uppercase tracking-[0.28em] text-primary">
-            Trusted collaborators
-          </span>
+          <SectionEyebrow>Trusted collaborators</SectionEyebrow>
           <h2 className="mt-2 text-3xl font-extrabold uppercase leading-[0.95] tracking-tight text-foreground md:text-4xl">
             Partners &amp; alliances
           </h2>

@@ -15,6 +15,7 @@ import {
   QueryError,
   EmptyState,
 } from '@/components/ui/query-states';
+import { SectionEyebrow } from '@/components/animations/SectionEyebrow';
 
 interface Product {
   _id: string;
@@ -132,9 +133,7 @@ export function ProductCatalog({ breadcrumbItems }: ProductCatalogProps) {
 
         {/* Standfirst */}
         <div className="max-w-[62ch]">
-          <span className="text-[0.72rem] font-bold uppercase tracking-[0.3em] text-primary">
-            Solar equipment
-          </span>
+          <SectionEyebrow>Solar equipment</SectionEyebrow>
           <p className="mt-4 text-xl font-medium leading-relaxed text-foreground md:text-2xl">
             A comprehensive range of high-quality solar equipment and
             components.
