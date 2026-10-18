@@ -2,7 +2,7 @@
 
 import { useState, useMemo } from 'react';
 import { Button } from '@/components/ui/button';
-import Image from 'next/image';
+import Image from '@/components/ui/image';
 import { Lightbox } from '@/components/ui/lightbox';
 import { applySanityImagePreset } from '@/lib/utils/sanity-image';
 import { cn } from '@/lib/utils';
