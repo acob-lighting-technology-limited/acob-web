@@ -5,27 +5,54 @@ import Link from 'next/link';
 import Marquee from 'react-fast-marquee';
 import { ArrowRight } from 'lucide-react';
 import { Container } from '@/components/ui/container';
-import Image from 'next/image';
-import { partners } from '@/lib/data/partners-data';
+import Image from '@/components/ui/image';
+import { partners, type Partner } from '@/lib/data/partners-data';
+import { cn } from '@/lib/utils';
 import { FadeIn } from '@/components/animations/FadeIn';
-import { getBlurDataURL } from '@/lib/utils/image-optimization';
-import { MaskWords } from '@/components/animations/MaskWords';
 import { SectionEyebrow } from '@/components/animations/SectionEyebrow';
+import { getBlurDataURL } from '@/lib/utils/image-optimization';
+
+/**
+ * Every logo sits on its own tile so it reads in both themes: white by default,
+ * dark for the few logos drawn in white.
+ */
+function LogoTile({ partner }: { partner: Partner }) {
+  return (
+    <div
+      className={cn(
+        'flex h-20 w-44 items-center justify-center rounded-xl px-5 ring-1 transition-shadow duration-300 hover:shadow-md sm:h-24 sm:w-52',
+        partner.logoOnDark
+          ? 'bg-zinc-900 ring-white/10'
+          : 'bg-white ring-black/5 dark:ring-white/10',
+      )}
+    >
+      <Image
+        src={partner.logo}
+        alt={partner.name}
+        width={120}
+        height={60}
+        className="max-h-12 w-auto object-contain sm:max-h-14"
+        loading="lazy"
+        quality={75}
+        placeholder="blur"
+        blurDataURL={getBlurDataURL()}
+      />
+    </div>
+  );
+}
 
 export function PartnersSectionV2() {
   const marqueeRef = useRef<HTMLDivElement>(null);
 
   return (
-    <section className="border-b border-border-[0.5px] bg-muted/30 py-12 transition-all duration-500 sm:py-16 lg:py-20 xl:py-24">
+    <section className="bg-muted/30 py-12 transition-all duration-500 sm:py-16 lg:py-20 xl:py-24">
       <Container className="px-4">
         <FadeIn delay={0.1}>
           <div className="mb-10 text-center md:mb-14">
             <SectionEyebrow>Trusted Partnerships</SectionEyebrow>
-            <MaskWords
-              as="h2"
-              text="Powering Progress Together"
-              className="mt-3 text-3xl font-extrabold uppercase leading-[0.95] tracking-tight text-foreground md:text-4xl lg:text-5xl"
-            />
+            <h2 className="mt-3 text-3xl font-extrabold uppercase leading-[0.95] tracking-tight text-foreground md:text-4xl lg:text-5xl">
+              Powering Progress Together
+            </h2>
             <p className="mx-auto mt-3 max-w-2xl text-base text-muted-foreground md:text-lg">
               Collaborating with leading organizations and government agencies
               across Nigeria and beyond.
@@ -34,11 +61,8 @@ export function PartnersSectionV2() {
         </FadeIn>
 
         <FadeIn delay={0.2}>
-          <div className="space-y-16 border-y border-border py-10">
-            <div
-              ref={marqueeRef}
-              className="relative w-full overflow-hidden [mask-image:linear-gradient(90deg,transparent,#000_12%,#000_88%,transparent)]"
-            >
+          <div className="space-y-5 border-y border-border py-10">
+            <div ref={marqueeRef} className="relative w-full overflow-hidden">
               <Marquee
                 speed={40}
                 gradient={false}
@@ -53,27 +77,15 @@ export function PartnersSectionV2() {
                     <div
                       key={idx}
                       data-logo-index={idx}
-                      className="flex items-center justify-center px-10 sm:px-16"
+                      className="flex items-center justify-center px-3 sm:px-4"
                     >
-                      <div className="relative opacity-70 grayscale transition-all duration-500 hover:scale-110 hover:opacity-100 hover:grayscale-0">
-                        <Image
-                          src={partner.logo}
-                          alt={partner.name}
-                          width={100}
-                          height={75}
-                          className="h-12 w-auto sm:h-14 md:h-16"
-                          loading="lazy"
-                          quality={75}
-                          placeholder="blur"
-                          blurDataURL={getBlurDataURL()}
-                        />
-                      </div>
+                      <LogoTile partner={partner} />
                     </div>
                   ))}
               </Marquee>
             </div>
 
-            <div className="relative w-full overflow-hidden [mask-image:linear-gradient(90deg,transparent,#000_12%,#000_88%,transparent)]">
+            <div className="relative w-full overflow-hidden">
               <Marquee
                 speed={40}
                 gradient={false}
@@ -88,21 +100,9 @@ export function PartnersSectionV2() {
                     <div
                       key={`second-half-${idx}`}
                       data-logo-index={Math.ceil(partners.length / 2) + idx}
-                      className="flex items-center justify-center px-10 sm:px-16"
+                      className="flex items-center justify-center px-3 sm:px-4"
                     >
-                      <div className="relative opacity-70 grayscale transition-all duration-500 hover:scale-110 hover:opacity-100 hover:grayscale-0">
-                        <Image
-                          src={partner.logo}
-                          alt={partner.name}
-                          width={100}
-                          height={75}
-                          className="h-12 w-auto sm:h-14 md:h-16"
-                          loading="lazy"
-                          quality={75}
-                          placeholder="blur"
-                          blurDataURL={getBlurDataURL()}
-                        />
-                      </div>
+                      <LogoTile partner={partner} />
                     </div>
                   ))}
               </Marquee>

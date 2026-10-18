@@ -1,7 +1,7 @@
 'use client';
 
 import Link from 'next/link';
-import Image from 'next/image';
+import Image from '@/components/ui/image';
 import { ArrowRight, ArrowUpRight } from 'lucide-react';
 import { motion } from 'framer-motion';
 import { Container } from '@/components/ui/container';
@@ -16,7 +16,6 @@ import { FadeIn } from '@/components/animations/FadeIn';
 import type { UpdatePost } from '@/lib/types';
 import { formatDate } from '@/lib/utils/date';
 import { cn } from '@/lib/utils';
-import { MaskWords } from '@/components/animations/MaskWords';
 import { SectionEyebrow } from '@/components/animations/SectionEyebrow';
 
 interface UpdatesSectionProps {
@@ -174,17 +173,17 @@ export function UpdatesSection({ posts }: UpdatesSectionProps) {
   }
 
   return (
-    <section className="py-16 sm:py-20 lg:py-24 xl:py-28 bg-white dark:bg-zinc-950 transition-colors duration-500">
+    <section className="py-16 sm:py-20 lg:py-24 xl:py-28 bg-background transition-colors duration-500">
       <Container className="px-4">
         {/* Header */}
         <div className="mb-10 flex flex-col items-start justify-between gap-6 md:mb-14 md:flex-row md:items-end">
           <div>
             <SectionEyebrow>News &amp; Announcements</SectionEyebrow>
-            <MaskWords
-              as="h2"
-              text="Recent Updates."
-              className="mt-3 text-3xl font-extrabold uppercase leading-[0.95] tracking-tight text-foreground md:text-4xl lg:text-5xl"
-            />
+            <FadeIn delay={0.1}>
+              <h2 className="mt-3 text-3xl font-extrabold uppercase leading-[0.95] tracking-tight md:text-4xl lg:text-5xl text-foreground">
+                Recent Updates.
+              </h2>
+            </FadeIn>
           </div>
           <FadeIn delay={0.2} className="hidden md:block">
             <Link
@@ -225,15 +224,18 @@ export function UpdatesSection({ posts }: UpdatesSectionProps) {
 
         {/* Phones: swipeable cards */}
         <div className="md:hidden">
-          <Carousel opts={{ containScroll: false }}>
+          <Carousel
+            opts={{ align: 'start', containScroll: 'trimSnaps' }}
+            className="-mr-4"
+          >
             <CarouselContent className="-ml-4">
               {latestPosts.map(post => (
-                <CarouselItem key={post._id} className="basis-[85%] pl-4">
+                <CarouselItem key={post._id} className="basis-[82%] pl-4">
                   <UpdateCard post={post} />
                 </CarouselItem>
               ))}
             </CarouselContent>
-            <CarouselDots className="mt-6" />
+            <CarouselDots className="mt-4 pr-4" />
           </Carousel>
           <div className="mt-10 text-center">
             <Link href="/updates">

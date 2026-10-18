@@ -1,25 +1,18 @@
 'use client';
 
 import React, { useState, useEffect, useMemo, useRef } from 'react';
-import {
-  AnimatePresence,
-  motion,
-  useReducedMotion,
-  useScroll,
-  useTransform,
-} from 'framer-motion';
+import { motion, useScroll, useTransform } from 'framer-motion';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { Card } from '@/components/ui/card';
 import { ArrowRight, MapPin } from 'lucide-react';
 import Link from 'next/link';
-import Image from 'next/image';
+import Image from '@/components/ui/image';
 import { stats } from '@/lib/data/transition-data';
 import { AnimatedCounter } from '../ui/animated-counter';
 import { cn } from '@/lib/utils';
 import { getBlurDataURL } from '@/lib/utils/image-optimization';
 import { isAnniversaryYear2026 } from '@/lib/constants/anniversary';
-import { MaskWords } from '@/components/animations/MaskWords';
 
 interface HeroSectionProps {
   projects: Array<{
@@ -78,10 +71,6 @@ export const HeroSectionV2 = React.memo(function HeroSectionV2({
     offset: ['start start', 'end start'],
   });
   const imageY = useTransform(scrollYProgress, [0, 1], ['0%', '35%']);
-  // Copy lifts and fades as the hero scrolls away, so the next section takes over cleanly.
-  const contentY = useTransform(scrollYProgress, [0, 1], ['0%', '-22%']);
-  const contentOpacity = useTransform(scrollYProgress, [0, 0.55], [1, 0]);
-  const reduceMotion = useReducedMotion();
 
   // Auto-advance slides
   useEffect(() => {
@@ -195,12 +184,7 @@ export const HeroSectionV2 = React.memo(function HeroSectionV2({
           WebkitTransform: 'translateZ(0)',
         }}
       >
-        <motion.div
-          className="px-4 sm:px-8 pb-6 sm:pb-2"
-          style={
-            reduceMotion ? undefined : { y: contentY, opacity: contentOpacity }
-          }
-        >
+        <div className="px-4 sm:px-8 pb-6 sm:pb-2">
           <div className="w-full">
             {/* Left Content */}
             <div className="space-y-4 md:space-y-5 short:space-y-3 max-w-xl">
@@ -218,21 +202,26 @@ export const HeroSectionV2 = React.memo(function HeroSectionV2({
                   </Badge>
                 </div>
 
-                {/* Main Headline - Shows SECOND: each word rises out of a mask,
-                    starting as the intro curtain lifts. */}
-                <MaskWords
-                  as="h1"
-                  delay={0.05}
-                  text="Powering sustainable futures for homes, businesses, and communities."
-                  className="font-bold leading-tight text-3xl sm:text-4xl lg:text-5xl short:text-3xl text-white"
-                />
+                {/* Main Headline - Shows SECOND */}
+                <div
+                  className="opacity-0 animate-fade-in-up"
+                  style={{
+                    animationDelay: '0.2s',
+                    animationFillMode: 'forwards',
+                  }}
+                >
+                  <h1 className="font-bold leading-tight text-3xl sm:text-4xl lg:text-5xl short:text-3xl text-white">
+                    Powering sustainable futures for homes, businesses, and
+                    communities.
+                  </h1>
+                </div>
               </div>
 
               {/* Description - Shows THIRD */}
               <div
                 className="opacity-0 animate-fade-in-up"
                 style={{
-                  animationDelay: '0.45s',
+                  animationDelay: '0.3s',
                   animationFillMode: 'forwards',
                 }}
               >
@@ -247,7 +236,7 @@ export const HeroSectionV2 = React.memo(function HeroSectionV2({
               <div
                 className="opacity-0 animate-fade-in-up grid gap-2 sm:gap-2.5 grid-cols-3 max-w-xl"
                 style={{
-                  animationDelay: '0.9s',
+                  animationDelay: '0.4s',
                   animationFillMode: 'forwards',
                 }}
               >
@@ -274,7 +263,7 @@ export const HeroSectionV2 = React.memo(function HeroSectionV2({
               <div
                 className="opacity-0 animate-fade-in-up grid grid-cols-2 gap-3"
                 style={{
-                  animationDelay: '0.75s',
+                  animationDelay: '0.5s',
                   animationFillMode: 'forwards',
                 }}
               >
@@ -303,39 +292,39 @@ export const HeroSectionV2 = React.memo(function HeroSectionV2({
               </div>
             </div>
           </div>
-        </motion.div>
+        </div>
       </div>
 
       {/* Desktop Project Info Card - Bottom Right - Shows LAST */}
       <div
         className="hidden lg:block absolute bottom-6 short:bottom-4 right-0 z-30 opacity-0 animate-fade-in-up"
-        style={{ animationDelay: '0.9s', animationFillMode: 'forwards' }}
+        style={{ animationDelay: '0.6s', animationFillMode: 'forwards' }}
       >
         <div className="2xl:container max-w-7xl mx-auto px-4">
           <div className="flex justify-end">
             {/* The one accepted change: a vertical accent line before the
                 location + title, replacing the previous plain padded box. */}
             <div className="relative max-w-md mr-24 border-l-2 border-primary py-1 pl-4">
-              <AnimatePresence mode="wait" initial={false}>
-                <motion.div
-                  key={`project-info-${current}`}
-                  className="space-y-2"
-                  initial={{ opacity: 0, y: 14, filter: 'blur(6px)' }}
-                  animate={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
-                  exit={{ opacity: 0, y: -10, filter: 'blur(6px)' }}
-                  transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
-                >
-                  <div className="flex items-start gap-2 text-sm text-gray-200">
-                    <MapPin className="h-4 w-4 flex-shrink-0 mt-0.5 text-primary" />
-                    <span className="line-clamp-1">
-                      {allSlides[current].location}
-                    </span>
-                  </div>
-                  <h2 className="text-xl short:text-base font-semibold text-white line-clamp-2">
-                    {formatHeroProjectTitle(allSlides[current].title)}
-                  </h2>
-                </motion.div>
-              </AnimatePresence>
+              <div
+                key={`project-info-${current}`}
+                className="space-y-2"
+                style={{
+                  backfaceVisibility: 'hidden',
+                  WebkitBackfaceVisibility: 'hidden',
+                  transform: 'translateZ(0)',
+                  WebkitTransform: 'translateZ(0)',
+                }}
+              >
+                <div className="flex items-start gap-2 text-sm text-gray-200">
+                  <MapPin className="h-4 w-4 flex-shrink-0 mt-0.5 text-primary" />
+                  <span className="line-clamp-1">
+                    {allSlides[current].location}
+                  </span>
+                </div>
+                <h2 className="text-xl short:text-base font-semibold text-white line-clamp-2">
+                  {formatHeroProjectTitle(allSlides[current].title)}
+                </h2>
+              </div>
             </div>
           </div>
         </div>
@@ -355,28 +344,13 @@ export const HeroSectionV2 = React.memo(function HeroSectionV2({
                 }
               }}
               className={cn(
-                'relative h-1 overflow-hidden rounded-full transition-all duration-300',
+                'h-1 rounded-full transition-all duration-300',
                 index === current
-                  ? 'w-10 bg-white/25'
+                  ? 'w-8 bg-primary'
                   : 'w-4 bg-white/30 hover:bg-white/50',
               )}
               aria-label={`Go to slide ${index + 1}`}
-              aria-current={index === current}
-            >
-              {/* The active pill fills over the 7s until the next slide. */}
-              {index === current && (
-                <motion.span
-                  key={`fill-${current}`}
-                  className="absolute inset-y-0 left-0 rounded-full bg-primary"
-                  initial={{ width: reduceMotion ? '100%' : '0%' }}
-                  animate={{ width: '100%' }}
-                  transition={{
-                    duration: reduceMotion ? 0 : 7,
-                    ease: 'linear',
-                  }}
-                />
-              )}
-            </button>
+            />
           ))}
         </div>
       </div>

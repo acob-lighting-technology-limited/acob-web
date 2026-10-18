@@ -5,7 +5,6 @@ import { AboutSectionV2 } from '@/components/sections/about-section-v2';
 import { ServicesSection } from '@/components/sections/services-section';
 import { ProjectsSection } from '@/components/sections/projects-section';
 import { UpdatesSection } from '@/components/sections/updates-section';
-import { ScrollProgress } from '@/components/ui/scroll-progress';
 import {
   getProjectsForListing,
   getFeaturedProjects,
@@ -17,14 +16,6 @@ import {
 } from '@/lib/constants/anniversary';
 
 // Lazy load below-the-fold sections
-const CompanySectionV2 = dynamic(
-  () =>
-    import('@/components/sections/company-section-v2').then(
-      mod => mod.CompanySectionV2,
-    ),
-  { ssr: true },
-);
-
 const PartnersSectionV2 = dynamic(
   () =>
     import('@/components/sections/partners-section-v2').then(
@@ -111,12 +102,10 @@ export default async function HomePage() {
 
   return (
     <main role="main">
-      <ScrollProgress />
       <HeroSectionV2 projects={featuredProjects} />
       <AboutSectionV2 />
       <ServicesSection />
       <ProjectsSection projects={projects} />
-      <CompanySectionV2 />
       <NigeriaReachSection projects={projects} showMoreLink />
       <UpdatesSection posts={posts} />
       <PartnersSectionV2 />

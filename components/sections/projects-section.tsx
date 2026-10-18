@@ -1,7 +1,7 @@
 'use client';
 
 import Link from 'next/link';
-import Image from 'next/image';
+import Image from '@/components/ui/image';
 import { ArrowRight, ArrowUpRight, MapPin } from 'lucide-react';
 import {
   motion,
@@ -14,7 +14,7 @@ import {
 import { useLayoutEffect, useRef, useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { Container } from '@/components/ui/container';
-import { MaskWords } from '@/components/animations/MaskWords';
+import { SectionEyebrow } from '@/components/animations/SectionEyebrow';
 import type { Project } from '@/lib/types';
 import { addSanityImageParams } from '@/lib/utils/sanity-image';
 import { cn } from '@/lib/utils';
@@ -30,9 +30,9 @@ const EASE = [0.22, 1, 0.36, 1] as const;
  * scroll): the intro holds before the strip moves, and the last project holds
  * centred before the section unpins, so nothing arrives or leaves abruptly.
  */
-const HOLD_START = 0.12;
-const HOLD_END = 0.14;
-const MAX_PROJECTS = 6;
+const HOLD_START = 0.08;
+const HOLD_END = 0.08;
+const MAX_PROJECTS = 4;
 
 function projectLocation(project: Project) {
   const state =
@@ -75,7 +75,9 @@ function ProjectFrame({
       className={cn('group relative shrink-0', className)}
       initial="hidden"
       whileInView="show"
-      viewport={{ once: true, amount: 0.25 }}
+      // Low threshold: on phones the next card only peeks (~18% visible), and
+      // it has to reveal for the peek to show at all.
+      viewport={{ once: true, amount: 0.1 }}
     >
       <Link
         href={`/projects/${project.slug?.current}`}
@@ -169,17 +171,13 @@ function Intro() {
         show: { transition: { staggerChildren: 0.12, delayChildren: 0.1 } },
       }}
     >
-      <motion.span
+      <SectionEyebrow>Our portfolio</SectionEyebrow>
+      <motion.h2
         variants={item}
-        className="text-[0.72rem] font-bold uppercase tracking-[0.28em] text-primary"
+        className="mt-3 text-3xl font-extrabold uppercase leading-[0.95] tracking-tight md:text-4xl lg:text-5xl text-foreground"
       >
-        Our portfolio
-      </motion.span>
-      <MaskWords
-        as="h2"
-        text="Selected Energy Deployments."
-        className="mt-2 text-3xl font-extrabold uppercase leading-[0.95] tracking-tight text-foreground md:text-5xl"
-      />
+        Selected Energy Deployments.
+      </motion.h2>
       <motion.p
         variants={item}
         className="mt-4 text-base text-muted-foreground md:text-lg"
@@ -188,21 +186,96 @@ function Intro() {
         operations, and measurable socio-economic impact for communities across
         Nigeria.
       </motion.p>
-      <motion.div variants={item} className="mt-8">
-        <Link href="/projects">
-          <Button className="px-8 py-3">
-            View All Projects
-            <ArrowRight className="ml-2 h-4 w-4" />
-          </Button>
-        </Link>
-      </motion.div>
     </motion.div>
+  );
+}
+
+/**
+ * Closes the strip: a full-height card the size of a project frame, so the
+ * strip ends on content rather than a lone button in empty space.
+ */
+function SeeMoreFrame({ className }: { className?: string }) {
+  return (
+    <motion.div
+      className={cn('shrink-0', className)}
+      initial={{ opacity: 0, y: 24 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, amount: 0.4 }}
+      transition={{ duration: 0.9, ease: EASE }}
+    >
+      <Link
+        href="/projects"
+        className="group relative flex h-full flex-col justify-end overflow-hidden rounded-2xl border border-border bg-muted/50 p-6 transition-colors duration-500 hover:border-primary/60 focus:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-background sm:p-8"
+      >
+        <div
+          aria-hidden
+          className="pointer-events-none absolute -right-16 -top-16 h-56 w-56 rounded-full bg-primary/15 blur-3xl transition-transform duration-700 group-hover:scale-125"
+        />
+        <span className="relative text-[0.65rem] font-bold uppercase tracking-[0.24em] text-primary">
+          Full portfolio
+        </span>
+        <p className="relative mt-3 text-2xl font-extrabold uppercase leading-[0.95] tracking-tight text-foreground sm:text-3xl">
+          See every deployment.
+        </p>
+        <p className="relative mt-3 text-sm text-muted-foreground">
+          Mini-grids, hospitals, streetlights, and commercial solar across
+          Nigeria.
+        </p>
+        <span className="relative mt-6 inline-flex w-fit items-center gap-2 rounded-md bg-primary px-5 py-3 text-sm font-semibold text-primary-foreground transition-all group-hover:gap-3">
+          See more projects
+          <ArrowRight className="h-4 w-4" aria-hidden />
+        </span>
+      </Link>
+    </motion.div>
+  );
+}
+
+/**
+ * Phone strip card, matched to the Embla carousels (82% slide minus its 16px
+ * gutter), snapping to the 16px content edge.
+ */
+const STRIP_CARD =
+  'aspect-[4/5] w-[calc(82vw-16px)] max-w-sm shrink-0 snap-start';
+
+/** Dots matching the shadcn carousel's CarouselDots, for the native strip. */
+function StripDots({
+  count,
+  active,
+  onSelect,
+}: {
+  count: number;
+  active: number;
+  onSelect: (index: number) => void;
+}) {
+  return (
+    <div className="mt-4 flex items-center justify-center">
+      {Array.from({ length: count }).map((_, index) => (
+        <button
+          key={index}
+          type="button"
+          onClick={() => onSelect(index)}
+          aria-label={`Go to slide ${index + 1}`}
+          aria-current={index === active}
+          // Dot is 8px tall but the button is a 32px touch target.
+          className="flex h-8 w-6 items-center justify-center"
+        >
+          <span
+            className={cn(
+              'h-2 rounded-full transition-all duration-300',
+              index === active
+                ? 'w-6 bg-primary'
+                : 'w-2 bg-muted-foreground/40',
+            )}
+          />
+        </button>
+      ))}
+    </div>
   );
 }
 
 function EmptyState() {
   return (
-    <section className="border-b border-border-[0.5px] bg-background py-12 sm:py-16 lg:py-20 xl:py-24">
+    <section className="bg-background py-12 sm:py-16 lg:py-20 xl:py-24">
       <Container className="px-4">
         <div className="mx-auto flex max-w-3xl flex-col items-center text-center">
           <h2 className="text-3xl font-semibold md:text-4xl">
@@ -235,9 +308,10 @@ export function ProjectsSection({ projects = [] }: ProjectsSectionProps) {
   const [distance, setDistance] = useState(0);
   const [endPad, setEndPad] = useState(0);
   const [wide, setWide] = useState(false);
+  const [stripIndex, setStripIndex] = useState(0);
 
   // Measure how far the strip travels; pin only on wide screens. Right padding
-  // is sized so the last project comes to rest centred, not against the edge.
+  // matches the left inset, so the end card comes to rest on the gutter.
   useLayoutEffect(() => {
     const measure = () => {
       setWide(window.matchMedia('(min-width: 768px)').matches);
@@ -246,7 +320,8 @@ export function ProjectsSection({ projects = [] }: ProjectsSectionProps) {
       if (!track || !last) {
         return;
       }
-      const pad = Math.max(32, (window.innerWidth - last.offsetWidth) / 2);
+      // End on the container gutter, mirroring the strip's left inset.
+      const pad = Math.max(24, (window.innerWidth - 1280) / 2 + 16);
       setEndPad(pad);
       // Measured to the last frame: Chrome leaves a flex container's end
       // padding out of scrollWidth, which would stop the strip short.
@@ -304,24 +379,50 @@ export function ProjectsSection({ projects = [] }: ProjectsSectionProps) {
       <section
         ref={sectionRef}
         aria-label="Selected energy deployments"
-        className="border-b border-border-[0.5px] bg-background py-12 sm:py-16"
+        className="bg-background py-12 sm:py-16"
       >
         <Container className="px-4">
           <Intro />
         </Container>
+        {/* Same strip as the Services and Updates carousels: first card on the
+            16px edge, cards ~82% wide so the next one clearly peeks. */}
         <div
           ref={trackRef}
-          className="mt-10 flex snap-x snap-mandatory gap-4 overflow-x-auto px-4 pb-4 [scrollbar-width:none]"
+          onScroll={e => {
+            const track = e.currentTarget;
+            const first = track.firstElementChild as HTMLElement | null;
+            if (first) {
+              setStripIndex(
+                Math.round(track.scrollLeft / (first.offsetWidth + 16)),
+              );
+            }
+          }}
+          className="mt-10 flex snap-x snap-mandatory scroll-pl-4 gap-4 overflow-x-auto px-4 [scrollbar-width:none]"
         >
           {displayProjects.map((project, i) => (
             <ProjectFrame
               key={project._id}
               project={project}
               index={i}
-              className="aspect-[4/5] w-[82vw] max-w-sm snap-center"
+              className={STRIP_CARD}
             />
           ))}
+          <SeeMoreFrame className={STRIP_CARD} />
         </div>
+        <StripDots
+          count={displayProjects.length + 1}
+          active={stripIndex}
+          onSelect={i => {
+            const track = trackRef.current;
+            const first = track?.firstElementChild as HTMLElement | null;
+            if (track && first) {
+              track.scrollTo({
+                left: i * (first.offsetWidth + 16),
+                behavior: 'smooth',
+              });
+            }
+          }}
+        />
       </section>
     );
   }
@@ -331,7 +432,7 @@ export function ProjectsSection({ projects = [] }: ProjectsSectionProps) {
       ref={sectionRef}
       aria-label="Selected energy deployments"
       style={{ height: `calc(100svh + ${runway}px)` }}
-      className="relative border-b border-border-[0.5px] bg-background"
+      className="relative bg-background"
     >
       <div className="sticky top-0 flex h-svh flex-col justify-center overflow-hidden">
         <motion.div
@@ -348,6 +449,7 @@ export function ProjectsSection({ projects = [] }: ProjectsSectionProps) {
               className={cn('h-full', frameShape(i))}
             />
           ))}
+          <SeeMoreFrame className="h-full w-[min(32vw,24rem)]" />
         </motion.div>
 
         {/* Progress rail */}
