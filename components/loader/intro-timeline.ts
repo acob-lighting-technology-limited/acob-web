@@ -80,20 +80,22 @@ export const LOADER_TIMELINES: Record<
   ReturnType<typeof buildTimeline>
 > = {
   /**
-   * Ships to the site. Same choreography, roughly half the wall time — an
-   * intro that gates every session should be over in a couple of seconds.
+   * Ships to the site. Same choreography, paced between the original and the
+   * earlier half-speed cut: about 3.7s with "@10" (4.7s with the curtain).
+   * The half-speed version read as rushed; the original made every first
+   * visit wait six seconds.
    */
   tight: buildTimeline({
-    aStart: 0.08,
-    brandStart: 0.32,
-    brandStagger: 0.15,
-    letterDuration: 0.4,
-    lightingLead: 0.24,
-    lightingStagger: 0.05,
-    techLead: 0.16,
-    techDuration: 0.42,
-    anniversaryBeat: 0.06,
-    restBeat: 0.18,
+    aStart: 0.12,
+    brandStart: 0.5,
+    brandStagger: 0.23,
+    letterDuration: 0.5,
+    lightingLead: 0.3,
+    lightingStagger: 0.075,
+    techLead: 0.25,
+    techDuration: 0.58,
+    anniversaryBeat: 0.09,
+    restBeat: 0.28,
   }),
 
   /** The original, slower pacing — kept for comparison in /try. */

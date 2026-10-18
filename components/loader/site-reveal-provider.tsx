@@ -49,8 +49,12 @@ export function useSiteReveal() {
 const REVEAL_LEAD = 0.35;
 /** Spacing between staggered elements once the reveal fires. */
 const REVEAL_STEP = 0.09;
-/** Never hold the loader longer than this, whatever the network is doing. */
-const MAX_LOADER_MS = 4000;
+/**
+ * Never hold the loader longer than this, whatever the network is doing.
+ * Keep it comfortably above the build length in intro-timeline.ts (~3.7s),
+ * or a slow hydration clips the wordmark mid-animation.
+ */
+const MAX_LOADER_MS = 5000;
 
 /**
  * The pre-paint script in intro-panel.tsx has already settled whether the
