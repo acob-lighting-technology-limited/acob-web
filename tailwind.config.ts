@@ -36,6 +36,16 @@ const config: Config = {
         'six-color-gradient-dark':
           'linear-gradient(-39deg, #ffffff 0% 15%, #15803d 15% 30%, #ffffff 30% 45%, #22c55e 45% 60%, #ffffff 60% 75%, #15803d 75% 90%, #ffffff 90% 100%)',
       },
+      // Green *text* reads from its own token so dark mode can lift it for
+      // contrast without lightening green fills behind white text.
+      textColor: {
+        primary: {
+          DEFAULT: 'hsl(var(--primary-text))',
+          foreground: 'hsl(var(--primary-foreground))',
+          dark: 'hsl(var(--primary-dark))',
+          light: 'hsl(var(--primary-light))',
+        },
+      },
       colors: {
         border: 'hsl(var(--border))',
         input: 'hsl(var(--input))',
@@ -46,6 +56,7 @@ const config: Config = {
           DEFAULT: 'hsl(var(--primary))',
           foreground: 'hsl(var(--primary-foreground))',
           dark: 'hsl(var(--primary-dark))',
+          light: 'hsl(var(--primary-light))',
         },
         secondary: {
           DEFAULT: 'hsl(var(--secondary))',

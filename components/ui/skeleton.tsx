@@ -40,18 +40,28 @@ function ShimmerSkeleton({
 
 // PageHero skeleton component — mirrors the real Hero's height and
 // bottom-left anchored title-pill + heading so the page doesn't jump on mount.
+// Light bars for dark hero blocks, in both themes.
+const SHIMMER_ON_DARK =
+  'bg-white/10 dark:bg-white/10 before:via-white/15 dark:before:via-white/15';
+
+// Dark in both themes: every page hero is a photo under a dark overlay, so a
+// theme-grey block flashed light before it snapped to dark.
 function PageHeroSkeleton() {
   return (
-    <div className="relative h-[calc(50vh+6rem)] w-full overflow-hidden bg-muted md:h-[calc(45vh+6rem)] lg:h-[calc(60vh+6rem)] short:h-[calc(45vh+3rem)]">
+    <div className="relative h-[calc(50vh+6rem)] w-full overflow-hidden bg-zinc-950 md:h-[calc(45vh+6rem)] lg:h-[calc(60vh+6rem)] short:h-[calc(45vh+3rem)]">
+      <div className="absolute inset-0 bg-gradient-to-t from-black via-zinc-950 to-zinc-900" />
       <div className="absolute inset-0 flex items-end pb-4 sm:pb-6 xl:pb-10">
         <div className="mx-auto w-full max-w-7xl px-4 2xl:container">
           <div className="max-w-5xl space-y-3">
             <ShimmerSkeleton
-              className="h-9 w-40 rounded-md"
+              className={cn('h-9 w-40 rounded-md', SHIMMER_ON_DARK)}
               style={{ animationDelay: '0.1s' } as React.CSSProperties}
             />
             <ShimmerSkeleton
-              className="h-12 w-full max-w-2xl rounded-lg md:h-14"
+              className={cn(
+                'h-12 w-full max-w-2xl rounded-lg md:h-14',
+                SHIMMER_ON_DARK,
+              )}
               style={{ animationDelay: '0.2s' } as React.CSSProperties}
             />
           </div>
@@ -158,4 +168,5 @@ export {
   PageHeroSkeleton,
   ContentSkeleton,
   SectionSkeleton,
+  SHIMMER_ON_DARK,
 };

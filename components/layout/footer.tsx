@@ -1,7 +1,7 @@
 'use client';
 
 import Link from 'next/link';
-import Image from 'next/image';
+import Image from '@/components/ui/image';
 import { Container } from '@/components/ui/container';
 import {
   footerLinks,
@@ -220,13 +220,13 @@ export function Footer() {
                   ))}
                   <a
                     href={`mailto:${contactInfo.email}`}
-                    className="block text-yellow-400 hover:text-yellow-300 transition-colors duration-500"
+                    className="block underline decoration-white/30 underline-offset-4 transition-colors duration-500 hover:text-white hover:decoration-white"
                   >
                     {contactInfo.email}
                   </a>
                   <a
                     href={`mailto:${contactInfo.additionalEmail}`}
-                    className="block text-yellow-400 hover:text-yellow-300 transition-colors duration-500"
+                    className="block underline decoration-white/30 underline-offset-4 transition-colors duration-500 hover:text-white hover:decoration-white"
                   >
                     {contactInfo.additionalEmail}
                   </a>

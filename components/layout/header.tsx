@@ -2,7 +2,7 @@
 
 import { useState, useRef, useEffect, useCallback } from 'react';
 import Link from 'next/link';
-import Image from 'next/image';
+import Image from '@/components/ui/image';
 import { useTheme } from 'next-themes';
 import { usePathname } from 'next/navigation';
 import { Container } from '@/components/ui/container';
@@ -949,7 +949,7 @@ export function Header() {
           ${showHeader && revealed ? 'translate-y-0' : '-translate-y-full'}
           ${
             hasSolidHeader
-              ? ' border-b border-border backdrop-blur-xl bg-background/95 shadow-lg '
+              ? ' border-b border-border/50 backdrop-blur-xl bg-background/95 shadow-sm '
               : ' border-b border-transparent bg-transparent '
           }
         `}
@@ -1000,11 +1000,15 @@ export function Header() {
                       className={`
                         relative flex items-center space-x-1 h-full font-medium transition-all duration-500 ease-out px-2
                         ${
-                          isActive
-                            ? 'text-primary'
-                            : hasSolidHeader
-                              ? 'text-foreground hover:text-primary'
-                              : 'text-white hover:text-primary'
+                          // Over a hero photo, green text has no contrast:
+                          // stay white and let the underline mark the page.
+                          hasSolidHeader
+                            ? isActive
+                              ? 'text-primary'
+                              : 'text-foreground hover:text-primary'
+                            : isActive
+                              ? 'text-white'
+                              : 'text-white hover:text-white/75'
                         }
                       `}
                     >

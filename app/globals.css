@@ -36,113 +36,103 @@
 
 @layer base {
   :root {
-    /* Primary Colors */
-    --primary: 120 100% 25%; /* green-700 */
+    /* Brand green (#008000). Every green in the UI derives from this hue:
+       the focus ring uses it directly, hovers use --primary-light. */
+    --primary: 120 100% 25%;
     --primary-foreground: 0 0% 100%; /* white */
-    --primary-dark: 120 100% 25%; /* green-800 */
+    --primary-dark: 120 100% 18%; /* deeper brand green */
+    --primary-light: 120 60% 38%; /* hover/highlight brand green */
+    --primary-text: 120 100% 25%; /* green text; same as brand on light */
 
-    /* Secondary Colors */
-    --secondary: 240 5% 96%; /* blue-100 */
+    /* Layering, lightest on top: card (white) > page (96%) > muted (92%).
+       muted, secondary and accent sit a step below the page so panels,
+       placeholders, skeletons and hover states stay visible on it. */
+    --secondary: 240 5% 92%;
     --secondary-foreground: 240 5% 4%; /* zinc-950 */
 
-    /* Muted Colors */
-    --muted: 240 4% 96%; /* zinc-50 */
+    --muted: 240 5% 92%;
     --muted-foreground: 240 4% 46%; /* zinc-500 */
 
-    /* Accent Colors */
-    --accent: 240 5% 96%; /* zinc-100 */
+    --accent: 240 5% 92%;
     --accent-foreground: 240 5% 4%; /* zinc-950 */
 
-    /* Destructive Colors */
     --destructive: 0 84% 60%; /* red-500 */
     --destructive-foreground: 0 0% 100%; /* white */
 
-    /* Border & Input Colors */
-    /* zinc-300 */
-    --border: 240 4.8% 85.9%; /* #d4d4d8 */
-    --input: 240 4.8% 85.9%; /* #d4d4d8 */
+    --border: 240 5% 84%; /* zinc-300 */
+    --input: 240 5% 84%; /* zinc-300 */
+    --ring: 120 100% 25%; /* brand green */
 
-    --ring: 142 76% 36%; /* green-600 */
-
-    /* Background Colors */
-    --background: 240 4% 96%; /* zinc-50 */
+    --background: 240 5% 96%; /* zinc-100 */
     --foreground: 240 5% 4%; /* zinc-950 */
-    --foreground-2: 0 0% 100%; /* zinc-300 */
+    --foreground-2: 240 4% 46%; /* zinc-500 */
 
-    /* Card Colors */
     --card: 0 0% 100%; /* white */
     --card-foreground: 240 5% 4%; /* zinc-950 */
 
-    /* Popover Colors */
     --popover: 0 0% 100%; /* white */
     --popover-foreground: 240 5% 4%; /* zinc-950 */
 
-    /* Additional Semantic Colors */
     --surface: 0 0% 100%; /* white */
     --surface-foreground: 240 5% 4%; /* zinc-950 */
-    --surface-muted: 240 4% 96%; /* zinc-50 */
+    --surface-muted: 240 5% 92%;
     --surface-muted-foreground: 240 4% 46%; /* zinc-500 */
 
     /* Intro loader — its own tokens so the wordmark can be tuned per theme
        without dragging the rest of the palette with it. */
-    --loader-surface: 0 0% 100%; /* white, cleaner than the page zinc-50 */
+    --loader-surface: 0 0% 100%; /* white, cleaner than the page */
     --loader-ink: 240 5% 4%; /* zinc-950 */
-    --loader-accent: 120 100% 25%; /* brand green-700 */
+    --loader-accent: 120 100% 25%; /* brand green */
     --loader-sub: 240 4% 46%; /* zinc-500 */
     --loader-gold: 40 68% 42%; /* deep gold, holds up on white */
 
-    /* Scrollbar colors for light mode */
-    --scroll-track: 240 4% 96%; /* zinc-50 */
+    --scroll-track: 240 5% 96%; /* zinc-100 */
     --scroll-thumb: 240 5% 4%; /* zinc-950 */
 
     --radius: 0.5rem;
   }
 
   .dark {
-    /* Primary Colors */
-    --primary: 120 100% 25%; /* green-700 */
+    --primary: 120 100% 25%; /* brand green */
     --primary-foreground: 0 0% 100%; /* white */
-    --primary-dark: 138 95% 15%; /* green-900 */
+    --primary-dark: 120 100% 15%; /* deeper brand green */
+    --primary-light: 120 55% 45%; /* lifted for dark surfaces */
+    --primary-text: 120 55% 45%; /* brand green text fails AA on dark cards */
 
-    /* Secondary Colors */
-    --secondary: 240 5% 20%; /* zinc-800 */
-    --secondary-foreground: 240 4% 96%; /* zinc-50 */
+    /* Layering, lightest on top: popover (13%) > card (8%) > page (4%);
+       muted/secondary/accent are raised fills above the card. */
+    --secondary: 240 4% 20%; /* zinc-800 */
+    --secondary-foreground: 240 5% 96%; /* zinc-100 */
 
-    /* Muted Colors */
-    --muted: 240 5% 16%; /* zinc-900 */
-    --muted-foreground: 240 5% 64%; /* zinc-400 */
+    /* One step above the 8% card: image placeholders and skeleton bars sit
+       on cards, so a lighter value read as a light-grey block. */
+    --muted: 240 4% 12%;
+    --muted-foreground: 240 5% 65%; /* zinc-400 */
 
-    /* Accent Colors */
     --accent: 240 5% 26%; /* zinc-700 */
-    --accent-foreground: 240 4% 96%; /* zinc-50 */
+    --accent-foreground: 240 5% 96%; /* zinc-100 */
 
-    /* Destructive Colors */
     --destructive: 0 63% 31%; /* red-800 */
-    --destructive-foreground: 240 4% 96%; /* zinc-50 */
+    --destructive-foreground: 240 5% 96%; /* zinc-100 */
 
-    /* Border & Input Colors */
-    --border: 240, 5.26%, 26.08%;
-    --input: 240, 5.26%, 26.08%; /* zinc-900 */
-    --ring: 142 76% 36%; /* green-600 */
+    --border: 240 5% 26%; /* zinc-700 */
+    --input: 240 5% 26%; /* zinc-700 */
+    --ring: 120 100% 25%; /* brand green */
 
-    /* Background Colors */
-    --background: 240 5% 4%; /* zinc-950 */
-    --foreground: 240 4% 96%; /* zinc-50 */
-    --foreground-2: ; /* zinc-400 */
+    --background: 240 6% 4%; /* zinc-950 */
+    --foreground: 240 5% 96%; /* zinc-100 */
+    --foreground-2: 240 5% 65%; /* zinc-400 */
 
-    /* Card Colors */
-    --card: 240 5% 11%; /* zinc-900 */
-    --card-foreground: 240 4% 96%; /* zinc-50 */
+    --card: 240 5% 8%; /* darker than zinc-900, by choice */
+    --card-foreground: 240 5% 96%; /* zinc-100 */
 
-    /* Popover Colors */
-    --popover: 240 6% 10%; /* zinc-950 */
-    --popover-foreground: 240 4% 96%; /* zinc-50 */
+    --popover: 240 5% 13%; /* above the card it opens over */
+    --popover-foreground: 240 5% 96%; /* zinc-100 */
 
-    /* Additional Semantic Colors */
-    --surface: 240 5% 11%; /* zinc-900 */
-    --surface-foreground: 240 4% 96%; /* zinc-50 */
-    --surface-muted: 240 5% 16%; /* zinc-900 */
-    --surface-muted-foreground: 240 5% 64%; /* zinc-400 */
+    --surface: 240 5% 8%;
+    --surface-foreground: 240 5% 96%; /* zinc-100 */
+    --surface-muted: 240 4% 12%;
+    --surface-muted-foreground: 240 5% 65%; /* zinc-400 */
 
     /* Intro loader — brand green-700 is far too dark to read against a
        zinc-950 panel, so dark mode gets a lifted, more luminous green. */
@@ -152,9 +142,8 @@
     --loader-sub: 240 5% 64%; /* zinc-400 */
     --loader-gold: 43 90% 62%; /* lifted gold for the dark panel */
 
-    /* Scrollbar colors for dark mode */
-    --scroll-track: 240 5% 4%; /* zinc-950 */
-    --scroll-thumb: 240 4% 96%; /* zinc-50 */
+    --scroll-track: 240 6% 4%; /* zinc-950 */
+    --scroll-thumb: 240 5% 96%; /* zinc-100 */
   }
 }
 
