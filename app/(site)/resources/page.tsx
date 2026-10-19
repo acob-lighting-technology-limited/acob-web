@@ -15,7 +15,7 @@ export default function ResourcesPage() {
       <Hero
         title="Resources & Downloads"
         description="Everything You Need."
-        image="/images/services/solar-installation.webp"
+        image="/images/services/captive-power-solutions.webp"
         titleSize="display"
       />
 

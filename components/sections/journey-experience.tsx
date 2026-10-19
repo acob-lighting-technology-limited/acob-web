@@ -353,8 +353,8 @@ export function JourneyExperience({ onClose }: { onClose: () => void }) {
   }, [active, started, finished, isMuted, isPlaying, lastIndex]);
 
   const logoSrc = isDark
-    ? '/images/acob-logo-dark-2026.png'
-    : '/images/acob-logo-light-2026.png';
+    ? '/images/acob-logo-dark-2026.webp'
+    : '/images/acob-logo-light-2026.webp';
 
   // Track which slide fills the viewport for the progress rail.
   useEffect(() => {
