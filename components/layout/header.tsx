@@ -686,20 +686,20 @@ export function Header() {
   // Default to hero-safe logo for SSR to prevent hydration mismatch
   const logoSrc = !mounted
     ? isChristmas
-      ? '/images/acob-logo-dark-christmas.png'
+      ? '/images/acob-logo-dark-christmas.webp'
       : use2026Logo
-        ? `/images/acob-logo-dark-2026.png?v=${LOGO_2026_VERSION}`
+        ? `/images/acob-logo-dark-2026.webp?v=${LOGO_2026_VERSION}`
         : '/images/acob-logo-dark.png'
     : isChristmas
       ? logoTheme === 'dark'
-        ? '/images/acob-logo-dark-christmas.png'
-        : '/images/acob-logo-light-christmas.png'
+        ? '/images/acob-logo-dark-christmas.webp'
+        : '/images/acob-logo-light-christmas.webp'
       : logoTheme === 'dark'
         ? use2026Logo
-          ? `/images/acob-logo-dark-2026.png?v=${LOGO_2026_VERSION}`
+          ? `/images/acob-logo-dark-2026.webp?v=${LOGO_2026_VERSION}`
           : '/images/acob-logo-dark.png'
         : use2026Logo
-          ? `/images/acob-logo-light-2026.png?v=${LOGO_2026_VERSION}`
+          ? `/images/acob-logo-light-2026.webp?v=${LOGO_2026_VERSION}`
           : '/images/acob-logo-light.png';
   const [showHeader, setShowHeader] = useState(true);
   const { revealed } = useSiteReveal();
