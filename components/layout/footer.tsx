@@ -59,9 +59,9 @@ export function Footer() {
   const use2026Logo = isTemporary2026LogoPeriod();
   const showAnniversary = isAnniversaryYear2026();
   const logoSrc = isChristmas
-    ? '/images/acob-logo-dark-christmas.png'
+    ? '/images/acob-logo-dark-christmas.webp'
     : use2026Logo
-      ? `/images/acob-logo-dark-2026.png?v=${LOGO_2026_VERSION}`
+      ? `/images/acob-logo-dark-2026.webp?v=${LOGO_2026_VERSION}`
       : '/images/acob-logo-dark.png';
 
   // Brand colors for social media platforms
