@@ -41,7 +41,7 @@ const CtaSectionV2 = dynamic(
 );
 
 // Revalidate every 5 minutes (300 seconds)
-export const revalidate = 300;
+export const revalidate = 86400;
 
 const isAnniversaryYear = isAnniversaryYear2026();
 

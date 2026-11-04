@@ -18,7 +18,7 @@ import {
 } from '@/components/contact/contact-sidebar';
 import { SectionEyebrow } from '@/components/animations/SectionEyebrow';
 
-export const revalidate = 300;
+export const revalidate = 86400;
 
 interface JobPosting {
   _id: string;

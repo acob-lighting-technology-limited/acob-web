@@ -42,7 +42,7 @@ export async function generateStaticParams() {
 }
 
 // Revalidate every 5 minutes (300 seconds) — balances freshness with API quota
-export const revalidate = 300;
+export const revalidate = 86400;
 
 function authorName(author: UpdatePost['author']): string {
   if (typeof author === 'string') {

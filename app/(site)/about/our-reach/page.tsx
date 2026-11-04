@@ -18,7 +18,7 @@ export const metadata: Metadata = {
     "Explore ACOB's project footprint, active project states, and community impact across Nigeria.",
 };
 
-export const revalidate = 300;
+export const revalidate = 86400;
 
 const reachHighlights = [
   {
