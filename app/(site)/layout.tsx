@@ -11,7 +11,7 @@ import SiteRevealProvider from '@/components/loader/site-reveal-provider';
 import IntroPanel from '@/components/loader/intro-panel';
 import { isAnniversaryYear2026 } from '@/lib/constants/anniversary';
 
-export const revalidate = 300;
+export const revalidate = 86400;
 
 export default function SiteLayout({ children }: { children: ReactNode }) {
   // Journey overlay mounts here so any /journey link opens it in place.

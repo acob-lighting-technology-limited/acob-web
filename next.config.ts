@@ -3,9 +3,11 @@
 const nextConfig = {
   outputFileTracingRoot: process.cwd(),
   images: {
-    formats: ['image/webp', 'image/avif'],
-    deviceSizes: [640, 750, 828, 1080, 1200, 1920, 2048, 3840],
-    qualities: [75, 80, 85, 90, 95, 100],
+    formats: ['image/webp'],
+    // Cache optimized images for 31 days so they are not regenerated/refetched.
+    minimumCacheTTL: 2678400,
+    deviceSizes: [640, 828, 1200, 1920],
+    qualities: [75, 80, 85, 90],
     remotePatterns: [
       {
         protocol: 'https',

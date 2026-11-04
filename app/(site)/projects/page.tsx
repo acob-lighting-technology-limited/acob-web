@@ -2,7 +2,7 @@ import { getProjectsPaginated } from '@/sanity/lib/queries';
 import ProjectsClient from './projects-client';
 
 // Revalidate every 10 minutes (600 seconds)
-export const revalidate = 600;
+export const revalidate = 86400;
 
 interface ProjectsPageProps {
   searchParams: Promise<{
