@@ -1,6 +1,11 @@
 import { useState, useEffect, useRef } from 'react';
 import { useChat } from 'ai/react';
 import { extractNavigationIntent } from '@/lib/utils/navigation';
+import {
+  readStorage,
+  writeStorage,
+  removeStorage,
+} from '@/lib/utils/safe-storage';
 
 const MESSAGE_LIMIT = 5;
 const RATE_LIMIT_KEY = 'acob_chat_messages';
@@ -22,8 +27,8 @@ export function useChatBot() {
 
   // Check rate limit on mount
   useEffect(() => {
-    const storedCount = localStorage.getItem(RATE_LIMIT_KEY);
-    const storedTimestamp = localStorage.getItem(RATE_LIMIT_TIMESTAMP_KEY);
+    const storedCount = readStorage(RATE_LIMIT_KEY);
+    const storedTimestamp = readStorage(RATE_LIMIT_TIMESTAMP_KEY);
 
     if (storedCount && storedTimestamp) {
       const timestamp = parseInt(storedTimestamp);
@@ -35,8 +40,8 @@ export function useChatBot() {
         setMessageCount(count);
         setRateLimitReached(count >= MESSAGE_LIMIT);
       } else {
-        localStorage.removeItem(RATE_LIMIT_KEY);
-        localStorage.removeItem(RATE_LIMIT_TIMESTAMP_KEY);
+        removeStorage(RATE_LIMIT_KEY);
+        removeStorage(RATE_LIMIT_TIMESTAMP_KEY);
         setMessageCount(0);
         setRateLimitReached(false);
       }
@@ -81,10 +86,10 @@ export function useChatBot() {
     const newCount = messageCount + 1;
     setMessageCount(newCount);
 
-    if (!localStorage.getItem(RATE_LIMIT_TIMESTAMP_KEY)) {
-      localStorage.setItem(RATE_LIMIT_TIMESTAMP_KEY, Date.now().toString());
+    if (!readStorage(RATE_LIMIT_TIMESTAMP_KEY)) {
+      writeStorage(RATE_LIMIT_TIMESTAMP_KEY, Date.now().toString());
     }
-    localStorage.setItem(RATE_LIMIT_KEY, newCount.toString());
+    writeStorage(RATE_LIMIT_KEY, newCount.toString());
 
     if (newCount >= MESSAGE_LIMIT) {
       setRateLimitReached(true);

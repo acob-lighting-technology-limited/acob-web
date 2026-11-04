@@ -46,7 +46,7 @@ export function InfoCard({
     return (
       <Card
         className={cn(
-          'group flex h-full flex-col justify-between rounded-3xl border border-border bg-card/80 p-6 shadow-sm transition-all duration-500 hover:-translate-y-1 hover:shadow-lg',
+          'group flex h-full flex-col justify-between rounded-3xl border border-border bg-card/80 p-6 shadow-sm transition duration-500 hover:-translate-y-1 hover:shadow-lg',
           className,
         )}
       >

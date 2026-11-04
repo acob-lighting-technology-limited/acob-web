@@ -139,7 +139,7 @@ function ProjectFrame({
               )}
               <span className="mt-4 inline-flex items-center gap-1.5 text-sm font-bold text-white">
                 View project
-                <span className="flex h-7 w-7 items-center justify-center rounded-full border border-white/30 transition-all duration-300 group-hover:rotate-45 group-hover:border-primary group-hover:bg-primary">
+                <span className="flex h-7 w-7 items-center justify-center rounded-full border border-white/30 transition duration-300 group-hover:rotate-45 group-hover:border-primary group-hover:bg-primary">
                   <ArrowUpRight className="h-3.5 w-3.5" aria-hidden />
                 </span>
               </span>
@@ -221,7 +221,7 @@ function SeeMoreFrame({ className }: { className?: string }) {
           Mini-grids, hospitals, streetlights, and commercial solar across
           Nigeria.
         </p>
-        <span className="relative mt-6 inline-flex w-fit items-center gap-2 rounded-md bg-primary px-5 py-3 text-sm font-semibold text-primary-foreground transition-all group-hover:gap-3">
+        <span className="relative mt-6 inline-flex w-fit items-center gap-2 rounded-md bg-primary px-5 py-3 text-sm font-semibold text-primary-foreground transition-[gap,color,border-color] group-hover:gap-3">
           See more projects
           <ArrowRight className="h-4 w-4" aria-hidden />
         </span>
@@ -261,7 +261,7 @@ function StripDots({
         >
           <span
             className={cn(
-              'h-2 rounded-full transition-all duration-300',
+              'h-2 rounded-full transition duration-300',
               index === active
                 ? 'w-6 bg-primary'
                 : 'w-2 bg-muted-foreground/40',
@@ -285,9 +285,9 @@ function EmptyState() {
             Our project portfolio is being refreshed. Check back soon or explore
             our full project stories.
           </p>
-          <Link href="/projects" className="mt-8">
-            <Button size="lg">View Projects Archive</Button>
-          </Link>
+          <Button asChild size="lg" className="mt-8">
+            <Link href="/projects">View Projects Archive</Link>
+          </Button>
         </div>
       </Container>
     </section>

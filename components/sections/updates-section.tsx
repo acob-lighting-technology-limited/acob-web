@@ -135,7 +135,7 @@ function UpdateCard({
             Read more
             <span
               className={cn(
-                'flex h-7 w-7 items-center justify-center rounded-full border transition-all duration-300 group-hover:rotate-45 group-hover:border-primary group-hover:bg-primary group-hover:text-primary-foreground',
+                'flex h-7 w-7 items-center justify-center rounded-full border transition duration-300 group-hover:rotate-45 group-hover:border-primary group-hover:bg-primary group-hover:text-primary-foreground',
                 featured ? 'border-white/40' : 'border-primary/40',
               )}
             >
@@ -188,7 +188,7 @@ export function UpdatesSection({ posts }: UpdatesSectionProps) {
           <FadeIn delay={0.2} className="hidden md:block">
             <Link
               href="/updates"
-              className="group inline-flex items-center gap-2 border-b-2 border-foreground pb-1 text-sm font-bold text-foreground transition-all hover:gap-3 hover:border-primary hover:text-primary"
+              className="group inline-flex items-center gap-2 border-b-2 border-foreground pb-1 text-sm font-bold text-foreground transition-[gap,color,border-color] hover:gap-3 hover:border-primary hover:text-primary"
             >
               View all updates
               <ArrowRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" />
@@ -238,12 +238,12 @@ export function UpdatesSection({ posts }: UpdatesSectionProps) {
             <CarouselDots className="mt-4 pr-4" />
           </Carousel>
           <div className="mt-10 text-center">
-            <Link href="/updates">
-              <Button className="px-8 py-3">
+            <Button asChild className="px-8 py-3">
+              <Link href="/updates">
                 View All Updates
                 <ArrowRight className="ml-2 h-4 w-4" />
-              </Button>
-            </Link>
+              </Link>
+            </Button>
           </div>
         </div>
       </Container>

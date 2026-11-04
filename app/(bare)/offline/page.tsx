@@ -108,12 +108,17 @@ export default function OfflinePage() {
                 Try Again
               </Button>
 
-              <Link href="/" className="flex-1">
-                <Button variant="outline" className="w-full" size="lg">
+              <Button
+                asChild
+                variant="outline"
+                className="flex-1 w-full"
+                size="lg"
+              >
+                <Link href="/">
                   <Home className="h-5 w-5 mr-2" />
                   Back to Home
-                </Button>
-              </Link>
+                </Link>
+              </Button>
             </div>
 
             <p className="text-sm text-muted-foreground">

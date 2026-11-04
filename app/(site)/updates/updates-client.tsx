@@ -161,7 +161,7 @@ export default function UpdatesClient({
     fetchPage(searchQuery, 1, category);
   };
 
-  const handleKeyPress = (e: React.KeyboardEvent<HTMLInputElement>) => {
+  const handleSearchKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === 'Enter') {
       handleSearchSubmit();
     }
@@ -217,13 +217,20 @@ export default function UpdatesClient({
           <div className="relative flex w-full gap-2 sm:w-auto sm:min-w-[400px]">
             <div className="relative flex-1">
               <Input
-                placeholder="Search updates..."
+                type="search"
+                name="search"
+                aria-label="Search updates"
+                autoComplete="off"
+                placeholder="Search updates…"
                 value={searchQuery}
                 onChange={e => setSearchQuery(e.target.value)}
-                onKeyPress={handleKeyPress}
-                className="h-11 border-2 bg-background pl-10 pr-10 transition-all duration-300 focus:border-primary"
+                onKeyDown={handleSearchKeyDown}
+                className="h-11 border-2 bg-background pl-10 pr-10 transition duration-300 focus:border-primary"
               />
-              <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
+              <Search
+                className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground"
+                aria-hidden="true"
+              />
               {searchQuery && (
                 <button
                   onClick={handleClearSearch}
@@ -299,6 +306,8 @@ export default function UpdatesClient({
             <button
               onClick={handleClearSearch}
               className="flex items-center gap-1 text-xs font-semibold transition-colors hover:text-primary"
+              type="button"
+              aria-label="Clear search"
             >
               <X className="h-3 w-3" />
               Clear
@@ -339,7 +348,7 @@ export default function UpdatesClient({
                     href={`/updates/${post.slug.current}`}
                     className="group block h-full focus:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-background"
                   >
-                    <article className="flex h-full flex-col overflow-hidden rounded-xl border border-border bg-card transition-all duration-500 group-hover:-translate-y-1 group-hover:border-primary/40 group-hover:shadow-lg">
+                    <article className="flex h-full flex-col overflow-hidden rounded-xl border border-border bg-card transition duration-500 group-hover:-translate-y-1 group-hover:border-primary/40 group-hover:shadow-lg">
                       <div className="relative aspect-[16/10] w-full overflow-hidden bg-muted">
                         {post.featuredImage ? (
                           <Image

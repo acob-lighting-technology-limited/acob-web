@@ -4,7 +4,10 @@
 import * as React from 'react';
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 
+import { Pause, Play } from 'lucide-react';
+
 import { cn } from '@/lib/utils';
+import { useAutoplayPause } from '@/hooks/use-autoplay-pause';
 
 interface AutoCarouselProps<T> {
   items: T[];
@@ -27,7 +30,6 @@ export function AutoCarousel<T>({
   const itemsCount = useMemo(() => items.length, [items.length]);
   const timerRef = useRef<NodeJS.Timeout | null>(null);
   const containerRef = useRef<HTMLDivElement>(null);
-  const isHoveredRef = useRef(false);
 
   const goTo = useCallback(
     (index: number) => {
@@ -44,26 +46,19 @@ export function AutoCarousel<T>({
     [currentIndex, goTo],
   );
 
+  // Pauses on hover and keyboard focus, when the visitor presses pause, and
+  // from the start under prefers-reduced-motion.
+  const autoplay = useAutoplayPause();
+  const paused = autoplay.stopped || (pauseOnHover && autoplay.paused);
+
   useEffect(() => {
-    if (!itemsCount) {
+    if (!itemsCount || paused) {
       return;
     }
 
-    const startTimer = () => {
-      if (timerRef.current) {
-        clearInterval(timerRef.current);
-      }
-
-      if (pauseOnHover && isHoveredRef.current) {
-        return;
-      }
-
-      timerRef.current = setInterval(() => {
-        setCurrentIndex(prev => (prev + 1) % itemsCount);
-      }, interval);
-    };
-
-    startTimer();
+    timerRef.current = setInterval(() => {
+      setCurrentIndex(prev => (prev + 1) % itemsCount);
+    }, interval);
 
     return () => {
       if (timerRef.current) {
@@ -71,37 +66,7 @@ export function AutoCarousel<T>({
         timerRef.current = null;
       }
     };
-  }, [itemsCount, interval, pauseOnHover]);
-
-  useEffect(() => {
-    const container = containerRef.current;
-    if (!container) {
-      return;
-    }
-
-    const handleMouseEnter = () => {
-      isHoveredRef.current = true;
-      if (timerRef.current) {
-        clearInterval(timerRef.current);
-      }
-    };
-
-    const handleMouseLeave = () => {
-      isHoveredRef.current = false;
-    };
-
-    if (pauseOnHover) {
-      container.addEventListener('mouseenter', handleMouseEnter);
-      container.addEventListener('mouseleave', handleMouseLeave);
-    }
-
-    return () => {
-      if (pauseOnHover) {
-        container.removeEventListener('mouseenter', handleMouseEnter);
-        container.removeEventListener('mouseleave', handleMouseLeave);
-      }
-    };
-  }, [pauseOnHover]);
+  }, [itemsCount, interval, paused]);
 
   if (!itemsCount) {
     return null;
@@ -111,16 +76,18 @@ export function AutoCarousel<T>({
     <div
       className={cn('relative flex flex-col gap-6', className)}
       ref={containerRef}
+      aria-roledescription="carousel"
+      {...autoplay.handlers}
     >
       <div className="grid gap-6 md:grid-cols-2 xl:grid-cols-3">
         {items.map((item, index) => (
           <div
             key={index}
             className={cn(
-              'transition-all duration-500',
+              'transition-opacity duration-500',
               index === currentIndex ? 'opacity-100' : 'opacity-40',
             )}
-            aria-hidden={index !== currentIndex}
+            aria-current={index === currentIndex}
           >
             {renderItem(item, index)}
           </div>
@@ -128,20 +95,37 @@ export function AutoCarousel<T>({
       </div>
 
       {showIndicators && itemsCount > 1 ? (
-        <div className="flex items-center justify-center gap-2">
+        <div className="flex items-center justify-center gap-1">
+          <button
+            type="button"
+            onClick={autoplay.toggle}
+            className="flex h-8 w-8 items-center justify-center rounded-full text-muted-foreground hover:bg-muted hover:text-foreground"
+            aria-label={autoplay.stopped ? 'Play Carousel' : 'Pause Carousel'}
+          >
+            {autoplay.stopped ? (
+              <Play className="h-3.5 w-3.5" aria-hidden="true" />
+            ) : (
+              <Pause className="h-3.5 w-3.5" aria-hidden="true" />
+            )}
+          </button>
           {items.map((_, index) => (
             <button
               key={index}
               type="button"
               onClick={() => goTo(index)}
-              className={cn(
-                'h-2 rounded-full transition-all duration-500',
-                index === currentIndex
-                  ? 'w-8 bg-primary'
-                  : 'w-3 bg-border hover:w-5 hover:bg-primary/70',
-              )}
+              className="group flex h-8 items-center px-1"
               aria-label={`Show carousel item ${index + 1}`}
-            />
+              aria-current={index === currentIndex}
+            >
+              <span
+                className={cn(
+                  'block h-2 rounded-full transition-[width,background-color] duration-500',
+                  index === currentIndex
+                    ? 'w-8 bg-primary'
+                    : 'w-3 bg-border group-hover:w-5 group-hover:bg-primary/70',
+                )}
+              />
+            </button>
           ))}
         </div>
       ) : null}

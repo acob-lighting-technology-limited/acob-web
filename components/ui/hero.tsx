@@ -8,6 +8,8 @@ import { cn } from '@/lib/utils';
 import { MaskText } from '../animations/MaskText';
 import { useSiteReveal } from '@/components/loader/site-reveal-provider';
 import { getBlurDataURL } from '@/lib/utils/image-optimization';
+import { useAutoplayPause } from '@/hooks/use-autoplay-pause';
+import { Pause, Play } from 'lucide-react';
 
 interface HeroProps {
   title: string;
@@ -153,7 +155,7 @@ function HeroStatic({
               </p>
             </motion.div>
             <div>
-              <MaskText className={titleClass(titleSize, description)}>
+              <MaskText as="h1" className={titleClass(titleSize, description)}>
                 {description}
               </MaskText>
             </div>
@@ -216,9 +218,14 @@ const HeroCarousel = React.memo(function HeroCarousel({
     setPrevious(0);
   }, [images]);
 
+  const autoplay = useAutoplayPause();
+  // Swiping pauses autoplay; it resumes a second after the finger lifts.
+  const [isTouching, setIsTouching] = useState(false);
+  const touchResumeRef = useRef<NodeJS.Timeout | null>(null);
+
   // Auto-advance slides
   useEffect(() => {
-    if (slides.length <= 1) {
+    if (slides.length <= 1 || autoplay.paused || isTouching) {
       return;
     }
 
@@ -237,7 +244,15 @@ const HeroCarousel = React.memo(function HeroCarousel({
         clearInterval(autoPlayTimerRef.current);
       }
     };
-  }, [current, slides.length]);
+  }, [current, slides.length, autoplay.paused, isTouching]);
+
+  useEffect(() => {
+    return () => {
+      if (touchResumeRef.current) {
+        clearTimeout(touchResumeRef.current);
+      }
+    };
+  }, []);
 
   const goToSlide = (index: number) => {
     if (index === current) {
@@ -273,9 +288,10 @@ const HeroCarousel = React.memo(function HeroCarousel({
     touchStartX.current = e.touches[0].clientX;
     hasSwiped.current = false;
     // Pause auto-play while user is interacting
-    if (autoPlayTimerRef.current) {
-      clearInterval(autoPlayTimerRef.current);
+    if (touchResumeRef.current) {
+      clearTimeout(touchResumeRef.current);
     }
+    setIsTouching(true);
   };
 
   const handleTouchMove = (e: React.TouchEvent) => {
@@ -309,17 +325,7 @@ const HeroCarousel = React.memo(function HeroCarousel({
     }
 
     // Restart auto-play after a delay
-    if (slides.length > 1) {
-      setTimeout(() => {
-        if (autoPlayTimerRef.current) {
-          clearInterval(autoPlayTimerRef.current);
-        }
-        autoPlayTimerRef.current = setInterval(() => {
-          setPrevious(current);
-          setCurrent(prev => (prev === slides.length - 1 ? 0 : prev + 1));
-        }, autoPlayInterval);
-      }, 1000); // Wait 1 second before restarting
-    }
+    touchResumeRef.current = setTimeout(() => setIsTouching(false), 1000);
   };
 
   return (
@@ -329,6 +335,9 @@ const HeroCarousel = React.memo(function HeroCarousel({
       onTouchStart={handleTouchStart}
       onTouchMove={handleTouchMove}
       onTouchEnd={handleTouchEnd}
+      aria-roledescription="carousel"
+      aria-label={title}
+      {...autoplay.handlers}
     >
       {/* Background Images with seamless carousel transition */}
       <motion.div className="absolute inset-0 bg-black" style={{ y: imageY }}>
@@ -356,11 +365,16 @@ const HeroCarousel = React.memo(function HeroCarousel({
                 backfaceVisibility: 'hidden',
                 WebkitBackfaceVisibility: 'hidden',
               }}
+              // Off-screen slides stay mounted for the transition; keep their
+              // links out of the Tab order and the accessibility tree.
+              aria-hidden={index !== current}
+              inert={index !== current}
             >
               <div className="absolute inset-0 overflow-hidden bg-black">
                 {slide.href ? (
                   <Link
                     href={slide.href}
+                    aria-label={slide.alt}
                     className="absolute inset-0 cursor-pointer z-10 block"
                     onClick={e => {
                       // Prevent navigation if user swiped
@@ -469,7 +483,7 @@ const HeroCarousel = React.memo(function HeroCarousel({
                 WebkitTransform: 'translateZ(0)',
               }}
             >
-              <MaskText className={titleClass(titleSize, description)}>
+              <MaskText as="h1" className={titleClass(titleSize, description)}>
                 {description}
               </MaskText>
             </div>
@@ -479,21 +493,41 @@ const HeroCarousel = React.memo(function HeroCarousel({
 
       {/* Dot Indicators - Only show if more than 1 image */}
       {slides.length > 1 && (
-        <div className="absolute bottom-6 left-0 right-0 z-30">
+        <div className="absolute bottom-[12px] left-0 right-0 z-30">
           <div className="2xl:container max-w-7xl mx-auto px-4">
-            <div className="flex gap-2 justify-center">
-              {slides.map((_, index) => (
+            <div className="flex items-center gap-1 justify-center">
+              <button
+                type="button"
+                onClick={autoplay.toggle}
+                aria-label={
+                  autoplay.stopped ? 'Play Slideshow' : 'Pause Slideshow'
+                }
+                className="flex h-8 w-8 items-center justify-center rounded-full text-white/70 transition-colors hover:bg-white/10 hover:text-white"
+              >
+                {autoplay.stopped ? (
+                  <Play className="h-3.5 w-3.5" aria-hidden="true" />
+                ) : (
+                  <Pause className="h-3.5 w-3.5" aria-hidden="true" />
+                )}
+              </button>
+              {slides.map((slide, index) => (
                 <button
                   key={index}
+                  type="button"
                   onClick={() => goToSlide(index)}
-                  className={cn(
-                    'h-2 rounded-full transition-all duration-300',
-                    index === current
-                      ? 'w-8 bg-primary'
-                      : 'w-2 bg-white/50 hover:bg-white/70',
-                  )}
-                  aria-label={`Go to slide ${index + 1}`}
-                />
+                  className="group flex h-8 items-center px-1"
+                  aria-label={`Go to slide ${index + 1}: ${slide.alt}`}
+                  aria-current={index === current}
+                >
+                  <span
+                    className={cn(
+                      'block h-2 rounded-full transition-[width,background-color] duration-300',
+                      index === current
+                        ? 'w-8 bg-primary'
+                        : 'w-2 bg-white/50 group-hover:bg-white/70',
+                    )}
+                  />
+                </button>
               ))}
             </div>
           </div>

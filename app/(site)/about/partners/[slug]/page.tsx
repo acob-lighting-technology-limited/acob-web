@@ -217,12 +217,12 @@ export default async function PartnerDetailPage({
         </div>
 
         <div className="mb-8 mt-16 text-center">
-          <Link href="/about/partners">
-            <Button variant="outline" className="group">
+          <Button asChild variant="outline" className="group">
+            <Link href="/about/partners">
               <ArrowLeft className="mr-2 h-4 w-4 transition-transform group-hover:-translate-x-1" />
               Back to All Partners
-            </Button>
-          </Link>
+            </Link>
+          </Button>
         </div>
       </Container>
     </>

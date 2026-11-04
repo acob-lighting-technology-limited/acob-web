@@ -93,12 +93,17 @@ export function ChatBot() {
           <Button
             size="icon"
             onClick={() => setIsOpen(!isOpen)}
-            className={`relative h-16 w-16 rounded-full border border-primary-foreground bg-primary hover:bg-primary/90 text-primary-foreground shadow-2xl hover:shadow-lg hover:scale-110 transition-all duration-500 ${
+            className={`relative h-16 w-16 rounded-full border border-primary-foreground bg-primary hover:bg-primary/90 text-primary-foreground shadow-2xl hover:shadow-lg hover:scale-110 transition-[opacity,transform,background-color,box-shadow] duration-500 ${
               isVisible
                 ? 'opacity-100 translate-y-0'
                 : 'opacity-0 translate-y-2 pointer-events-none'
             }`}
-            aria-label="Open chat"
+            aria-label={isOpen ? 'Close Chat' : 'Open Chat'}
+            aria-expanded={isOpen}
+            aria-haspopup="dialog"
+            // Faded out while the intro plays: keep it out of the Tab order too.
+            tabIndex={isVisible ? undefined : -1}
+            aria-hidden={isVisible ? undefined : true}
           >
             <motion.div
               animate={{ rotate: isOpen ? 180 : 0 }}
@@ -119,7 +124,7 @@ export function ChatBot() {
                 exit={{ scale: 0 }}
                 className="absolute -top-1 -right-1 flex h-5 w-5"
               >
-                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-red-400 opacity-75" />
+                <span className="motion-safe:animate-ping absolute inline-flex h-full w-full rounded-full bg-red-400 opacity-75" />
                 <span className="relative inline-flex rounded-full h-5 w-5 bg-red-500 items-center justify-center">
                   <span className="text-[10px] font-bold text-white">1</span>
                 </span>

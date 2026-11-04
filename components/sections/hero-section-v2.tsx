@@ -5,7 +5,7 @@ import { motion, useScroll, useTransform } from 'framer-motion';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { Card } from '@/components/ui/card';
-import { ArrowRight, MapPin } from 'lucide-react';
+import { ArrowRight, MapPin, Pause, Play } from 'lucide-react';
 import Link from 'next/link';
 import Image from '@/components/ui/image';
 import { stats } from '@/lib/data/transition-data';
@@ -13,6 +13,7 @@ import { AnimatedCounter } from '../ui/animated-counter';
 import { cn } from '@/lib/utils';
 import { getBlurDataURL } from '@/lib/utils/image-optimization';
 import { isAnniversaryYear2026 } from '@/lib/constants/anniversary';
+import { useAutoplayPause } from '@/hooks/use-autoplay-pause';
 
 interface HeroSectionProps {
   projects: Array<{
@@ -72,8 +73,13 @@ export const HeroSectionV2 = React.memo(function HeroSectionV2({
   });
   const imageY = useTransform(scrollYProgress, [0, 1], ['0%', '35%']);
 
+  const autoplay = useAutoplayPause();
+
   // Auto-advance slides
   useEffect(() => {
+    if (autoplay.paused || allSlides.length <= 1) {
+      return;
+    }
     const timer = setInterval(() => {
       if (!isAnimating) {
         handleNext();
@@ -81,7 +87,7 @@ export const HeroSectionV2 = React.memo(function HeroSectionV2({
     }, 7000); // Change slide every 7 seconds
 
     return () => clearInterval(timer);
-  }, [current, isAnimating, allSlides.length]);
+  }, [current, isAnimating, allSlides.length, autoplay.paused]);
 
   const handleNext = () => {
     if (isAnimating) {
@@ -123,6 +129,9 @@ export const HeroSectionV2 = React.memo(function HeroSectionV2({
     <section
       ref={heroRef}
       className="relative h-screen w-full overflow-hidden bg-black"
+      aria-roledescription="carousel"
+      aria-label="Featured projects"
+      {...autoplay.handlers}
     >
       {/* Background Images with Ken Burns Effect */}
       <motion.div className="absolute inset-0 bg-black" style={{ y: imageY }}>
@@ -267,28 +276,30 @@ export const HeroSectionV2 = React.memo(function HeroSectionV2({
                   animationFillMode: 'forwards',
                 }}
               >
-                <Link href="/services" className="w-full">
-                  <Button
-                    size="lg"
-                    className="w-full px-5 md:px-7 py-4 md:py-5 text-sm bg-primary hover:bg-primary/90"
-                  >
+                <Button
+                  asChild
+                  size="lg"
+                  className="w-full px-5 md:px-7 py-4 md:py-5 text-sm bg-primary hover:bg-primary/90"
+                >
+                  <Link href="/services">
                     <span className="hidden md:inline">View Our Services</span>
                     <span className="md:hidden">Services</span>
-                    <ArrowRight className="ml-2 h-4 w-4" />
-                  </Button>
-                </Link>
-                <Link href="/projects" className="w-full">
-                  <Button
-                    size="lg"
-                    variant="outline"
-                    className="w-full px-5 md:px-7 py-4 md:py-5 text-sm bg-white/10 backdrop-blur-sm border-white/30 text-white hover:bg-white/20 hover:text-white"
-                  >
+                    <ArrowRight className="ml-2 h-4 w-4" aria-hidden="true" />
+                  </Link>
+                </Button>
+                <Button
+                  asChild
+                  size="lg"
+                  variant="outline"
+                  className="w-full px-5 md:px-7 py-4 md:py-5 text-sm bg-white/10 backdrop-blur-sm border-white/30 text-white hover:bg-white/20 hover:text-white"
+                >
+                  <Link href="/projects">
                     <span className="hidden md:inline">
-                      Explore recent projects
+                      Explore Recent Projects
                     </span>
                     <span className="md:hidden">Projects</span>
-                  </Button>
-                </Link>
+                  </Link>
+                </Button>
               </div>
             </div>
           </div>
@@ -316,7 +327,10 @@ export const HeroSectionV2 = React.memo(function HeroSectionV2({
                 }}
               >
                 <div className="flex items-start gap-2 text-sm text-gray-200">
-                  <MapPin className="h-4 w-4 flex-shrink-0 mt-0.5 text-primary" />
+                  <MapPin
+                    className="h-4 w-4 flex-shrink-0 mt-0.5 text-primary"
+                    aria-hidden="true"
+                  />
                   <span className="line-clamp-1">
                     {allSlides[current].location}
                   </span>
@@ -330,30 +344,57 @@ export const HeroSectionV2 = React.memo(function HeroSectionV2({
         </div>
       </div>
 
+      {/* Pause/play for the auto-advancing slides (WCAG 2.2.2). Top-right,
+          clear of the CTAs and project caption crowding the bottom edge. */}
+      {allSlides.length > 1 && (
+        <button
+          type="button"
+          onClick={autoplay.toggle}
+          aria-label={autoplay.stopped ? 'Play Slideshow' : 'Pause Slideshow'}
+          className="absolute right-4 top-24 z-30 flex h-8 w-8 sm:right-8 items-center justify-center rounded-full text-white/70 transition-colors hover:bg-white/10 hover:text-white"
+        >
+          {autoplay.stopped ? (
+            <Play className="h-3.5 w-3.5" aria-hidden="true" />
+          ) : (
+            <Pause className="h-3.5 w-3.5" aria-hidden="true" />
+          )}
+        </button>
+      )}
+
       {/* Slide Indicators - Bottom Center */}
-      <div className="absolute bottom-6 left-1/2 -translate-x-1/2 z-30">
-        <div className="flex gap-2">
-          {allSlides.map((_, index) => (
-            <button
-              key={index}
-              onClick={() => {
-                if (!isAnimating) {
-                  setIsAnimating(true);
-                  setCurrent(index);
-                  setTimeout(() => setIsAnimating(false), 800);
-                }
-              }}
-              className={cn(
-                'h-1 rounded-full transition-all duration-300',
-                index === current
-                  ? 'w-8 bg-primary'
-                  : 'w-4 bg-white/30 hover:bg-white/50',
-              )}
-              aria-label={`Go to slide ${index + 1}`}
-            />
-          ))}
+      {allSlides.length > 1 && (
+        // Bars sit where they always have (centre, 26px up); each 4px bar is
+        // wrapped in a 32px-tall button so it is a real tap target.
+        <div className="absolute bottom-[10px] left-1/2 -translate-x-1/2 z-30 mb-[env(safe-area-inset-bottom)]">
+          <div className="relative flex items-center">
+            {allSlides.map((slide, index) => (
+              <button
+                key={slide.id}
+                type="button"
+                onClick={() => {
+                  if (!isAnimating) {
+                    setIsAnimating(true);
+                    setCurrent(index);
+                    setTimeout(() => setIsAnimating(false), 800);
+                  }
+                }}
+                className="group flex h-8 items-center px-1"
+                aria-label={`Go to slide ${index + 1}: ${slide.title}`}
+                aria-current={index === current}
+              >
+                <span
+                  className={cn(
+                    'block h-1 rounded-full transition-[width,background-color] duration-300',
+                    index === current
+                      ? 'w-8 bg-primary'
+                      : 'w-4 bg-white/30 group-hover:bg-white/50',
+                  )}
+                />
+              </button>
+            ))}
+          </div>
         </div>
-      </div>
+      )}
     </section>
   );
 });

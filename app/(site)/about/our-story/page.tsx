@@ -182,7 +182,7 @@ export default function OurStoryPage() {
                   Step into The Journey — a full-screen, twelve-chapter
                   cinematic retelling of our decade of impact.
                 </p>
-                <span className="mt-6 inline-flex items-center gap-2 border-b-2 border-primary-foreground pb-1 text-sm font-bold transition-all group-hover:gap-3">
+                <span className="mt-6 inline-flex items-center gap-2 border-b-2 border-primary-foreground pb-1 text-sm font-bold transition-[gap,color,border-color] group-hover:gap-3">
                   Enter the experience
                   <ArrowRight className="h-4 w-4" />
                 </span>
@@ -192,12 +192,12 @@ export default function OurStoryPage() {
         </FadeIn>
 
         <div className="mb-8 mt-12 text-center">
-          <Link href="/about">
-            <Button variant="outline" className="group">
+          <Button asChild variant="outline" className="group">
+            <Link href="/about">
               <ArrowLeft className="mr-2 h-4 w-4 transition-transform group-hover:-translate-x-1" />
               Back to About Overview
-            </Button>
-          </Link>
+            </Link>
+          </Button>
         </div>
       </Container>
     </>

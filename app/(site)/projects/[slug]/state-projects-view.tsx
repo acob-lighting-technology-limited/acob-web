@@ -49,12 +49,12 @@ export function StateProjectsView({
       <Container className="px-4 py-8">
         <div className="mb-8 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
           <Breadcrumb items={breadcrumbItems} />
-          <Link href="/projects">
-            <Button variant="outline" size="sm" className="group">
+          <Button asChild variant="outline" size="sm" className="group">
+            <Link href="/projects">
               <ArrowLeft className="mr-2 h-4 w-4 transition-transform group-hover:-translate-x-1" />
               All Projects
-            </Button>
-          </Link>
+            </Link>
+          </Button>
         </div>
 
         {/* Standfirst */}
@@ -74,9 +74,9 @@ export function StateProjectsView({
               We are currently updating our database with projects from this
               region. Please check back soon.
             </p>
-            <Link href="/projects">
-              <Button variant="outline">View All Projects</Button>
-            </Link>
+            <Button asChild variant="outline">
+              <Link href="/projects">View All Projects</Link>
+            </Button>
           </div>
         ) : (
           <div className="mt-10 grid grid-cols-1 gap-4 sm:grid-cols-2 md:gap-6 lg:grid-cols-3">
@@ -91,7 +91,7 @@ export function StateProjectsView({
                   href={`/projects/${project.slug.current}`}
                   className="group block h-full focus:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-background"
                 >
-                  <article className="flex h-full flex-col overflow-hidden rounded-xl border border-border bg-card transition-all duration-500 group-hover:-translate-y-1 group-hover:border-primary/40 group-hover:shadow-lg">
+                  <article className="flex h-full flex-col overflow-hidden rounded-xl border border-border bg-card transition duration-500 group-hover:-translate-y-1 group-hover:border-primary/40 group-hover:shadow-lg">
                     <div className="relative aspect-[16/10] w-full overflow-hidden bg-muted">
                       {project.projectImage ? (
                         <Image

@@ -105,23 +105,23 @@ export function AboutSectionV2() {
               </div>
 
               <div className="mt-6 flex flex-col gap-4 sm:flex-row">
-                <Link href="/about" className="inline-flex">
-                  <Button
-                    size="lg"
-                    className="w-full border-2 border-white/70 bg-transparent px-8 py-6 text-base font-semibold text-primary-foreground hover:bg-white hover:text-primary"
-                  >
-                    Learn about us
-                  </Button>
-                </Link>
-                <Link href="/contact" className="inline-flex">
-                  <Button
-                    size="lg"
-                    className="w-full bg-white px-8 py-6 text-base font-semibold text-primary hover:bg-white/90"
-                  >
+                <Button
+                  asChild
+                  size="lg"
+                  className="inline-flex w-full border-2 border-white/70 bg-transparent px-8 py-6 text-base font-semibold text-primary-foreground hover:bg-white hover:text-primary"
+                >
+                  <Link href="/about">Learn about us</Link>
+                </Button>
+                <Button
+                  asChild
+                  size="lg"
+                  className="inline-flex w-full bg-white px-8 py-6 text-base font-semibold text-primary hover:bg-white/90"
+                >
+                  <Link href="/contact">
                     Discuss your energy roadmap
                     <ArrowRight className="ml-2 h-4 w-4" />
-                  </Button>
-                </Link>
+                  </Link>
+                </Button>
               </div>
             </div>
           </FadeIn>

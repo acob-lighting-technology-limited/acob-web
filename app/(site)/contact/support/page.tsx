@@ -154,14 +154,13 @@ export default function SupportPage() {
               </Accordion>
 
               <div className="mt-8">
-                <Link href="/contact">
-                  <Button
-                    variant="outline"
-                    className="border-primary text-primary hover:bg-primary hover:text-primary-foreground"
-                  >
-                    Contact Us Directly
-                  </Button>
-                </Link>
+                <Button
+                  asChild
+                  variant="outline"
+                  className="border-primary text-primary hover:bg-primary hover:text-primary-foreground"
+                >
+                  <Link href="/contact">Contact Us Directly</Link>
+                </Button>
               </div>
             </section>
           </div>

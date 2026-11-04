@@ -87,12 +87,19 @@ export default function ServicesPage() {
           <Breadcrumb items={breadcrumbItems} />
           <div className="relative w-full sm:w-96">
             <Input
-              placeholder="Search services..."
+              type="search"
+              name="search"
+              aria-label="Search services"
+              autoComplete="off"
+              placeholder="Search services…"
               value={searchQuery}
               onChange={e => setSearchQuery(e.target.value)}
-              className="h-11 border-2 bg-background pl-10 pr-10 transition-all duration-300 focus:border-primary"
+              className="h-11 border-2 bg-background pl-10 pr-10 transition duration-300 focus:border-primary"
             />
-            <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
+            <Search
+              className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground"
+              aria-hidden="true"
+            />
             {searchQuery && (
               <button
                 onClick={handleClearSearch}
@@ -161,7 +168,7 @@ export default function ServicesPage() {
                   >
                     <article
                       className={cn(
-                        'flex h-full flex-col overflow-hidden rounded-xl border border-border bg-card transition-all duration-500 group-hover:-translate-y-1 group-hover:border-primary/40 group-hover:shadow-lg',
+                        'flex h-full flex-col overflow-hidden rounded-xl border border-border bg-card transition duration-500 group-hover:-translate-y-1 group-hover:border-primary/40 group-hover:shadow-lg',
                         wide.article,
                       )}
                     >

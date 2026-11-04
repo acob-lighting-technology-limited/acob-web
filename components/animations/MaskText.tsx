@@ -12,6 +12,12 @@ interface MaskTextProps {
   staggerDelay?: number;
   duration?: number;
   className?: string;
+  /**
+   * Element the whole text renders as. Defaults to a plain block; pass a
+   * heading level when the text is the section's or page's heading so it is
+   * exposed as one (lines then render as spans, which headings may contain).
+   */
+  as?: 'div' | 'h1' | 'h2' | 'h3' | 'p';
 }
 
 export const MaskText: FC<MaskTextProps> = ({
@@ -20,6 +26,7 @@ export const MaskText: FC<MaskTextProps> = ({
   staggerDelay = 0.08,
   duration = 0.6,
   className,
+  as: Tag = 'div',
 }) => {
   // Above-the-fold copy is "in view" from the first frame, so it would slide up
   // behind the loader and be finished before anyone saw it. Wait for the
@@ -39,11 +46,17 @@ export const MaskText: FC<MaskTextProps> = ({
     return Array.isArray(content) ? content : [content];
   }, [phrases, children]);
 
+  // Headings and paragraphs only allow phrasing content, so lines become
+  // block-level spans there instead of divs.
+  const isPhrasing = Tag !== 'div';
+  const Line = isPhrasing ? 'span' : 'div';
+  const MotionLine = isPhrasing ? motion.span : motion.div;
+
   return (
-    <div ref={ref}>
+    <Tag ref={ref}>
       {childrenArray.map((child, index) => (
-        <div key={index} className="overflow-hidden">
-          <motion.div
+        <Line key={index} className="block overflow-hidden">
+          <MotionLine
             initial={{ y: '100%' }}
             animate={
               inView && revealed
@@ -57,12 +70,12 @@ export const MaskText: FC<MaskTextProps> = ({
                   }
                 : {}
             }
-            className={`p-2 !pl-0  ${className}`}
+            className={`block p-2 !pl-0 text-balance ${className}`}
           >
             {child}
-          </motion.div>
-        </div>
+          </MotionLine>
+        </Line>
       ))}
-    </div>
+    </Tag>
   );
 };

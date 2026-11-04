@@ -69,9 +69,10 @@ export function CommentForm({ postId }: CommentFormProps) {
               <Input
                 id="blog-comment-name"
                 name="name"
+                autoComplete="name"
                 value={name}
                 onChange={e => setName(e.target.value)}
-                placeholder="Your name"
+                placeholder="e.g. Ada Okafor…"
                 className="bg-transparent border border-zinc-300 dark:border-white/10 focus-visible:ring-1 focus-visible:ring-primary/50 focus:border-primary/50 focus-visible:outline-none rounded-lg placeholder:text-zinc-400 transition-colors"
                 required
               />
@@ -82,9 +83,11 @@ export function CommentForm({ postId }: CommentFormProps) {
                 id="blog-comment-email"
                 name="email"
                 type="email"
+                autoComplete="email"
+                spellCheck={false}
                 value={email}
                 onChange={e => setEmail(e.target.value)}
-                placeholder="you@example.com"
+                placeholder="e.g. ada@example.com…"
                 className="bg-transparent border border-zinc-300 dark:border-white/10 focus-visible:ring-1 focus-visible:ring-primary/50 focus:border-primary/50 focus-visible:outline-none rounded-lg placeholder:text-zinc-400 transition-colors"
                 required
               />
@@ -98,21 +101,27 @@ export function CommentForm({ postId }: CommentFormProps) {
               value={comment}
               onChange={e => setComment(e.target.value)}
               rows={6}
-              placeholder="Write your comment..."
+              placeholder="Write your comment…"
               className="bg-transparent border border-zinc-300 dark:border-white/10 focus-visible:ring-1 focus-visible:ring-primary/50 focus:border-primary/50 focus-visible:outline-none rounded-lg placeholder:text-zinc-400 transition-colors"
               required
             />
           </div>
 
-          {error && <p className="text-red-500 text-sm">{error}</p>}
-          {success && <p className="text-green-500 text-sm">{success}</p>}
+          {/* Always mounted so screen readers announce the message when it
+              appears. */}
+          <div aria-live="polite" className="text-sm">
+            {error && <p className="text-destructive">{error}</p>}
+            {success && (
+              <p className="text-green-700 dark:text-green-400">{success}</p>
+            )}
+          </div>
 
           <Button
             type="submit"
             className="bg-primary hover:bg-primary/90 text-primary-foreground"
             disabled={loading}
           >
-            {loading ? 'Submitting...' : 'Post Comment'}
+            {loading ? 'Submitting…' : 'Post Comment'}
           </Button>
         </form>
       </CardContent>

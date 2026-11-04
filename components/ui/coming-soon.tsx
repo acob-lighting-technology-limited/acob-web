@@ -54,18 +54,18 @@ export function ComingSoon({
 
             {/* Never a dead end: a direct way to reach the team. */}
             <div className="mt-8 flex flex-wrap gap-3">
-              <a href={`mailto:${CONTACT_INFO.email.general}`}>
-                <Button size="lg">
-                  <Mail className="mr-2 h-4 w-4" />
-                  Email {CONTACT_INFO.email.general}
-                </Button>
-              </a>
-              <Link href={backHref}>
-                <Button variant="outline" size="lg" className="group">
+              <Button asChild size="lg">
+                <a href={`mailto:${CONTACT_INFO.email.general}`}>
+                  <Mail className="mr-2 h-4 w-4" aria-hidden="true" />
+                  Email <span translate="no">{CONTACT_INFO.email.general}</span>
+                </a>
+              </Button>
+              <Button asChild variant="outline" size="lg" className="group">
+                <Link href={backHref}>
                   <ArrowLeft className="mr-2 h-4 w-4 transition-transform group-hover:-translate-x-1" />
                   {backLabel}
-                </Button>
-              </Link>
+                </Link>
+              </Button>
             </div>
           </div>
         </FadeIn>

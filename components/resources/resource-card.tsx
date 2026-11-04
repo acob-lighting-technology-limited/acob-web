@@ -54,7 +54,7 @@ export function ResourceCard({ resource, featured }: ResourceCardProps) {
 
   return (
     <div
-      className={`group flex h-full flex-col border p-6 transition-all duration-300 hover:-translate-y-1 hover:border-primary/40 hover:shadow-lg ${
+      className={`group flex h-full flex-col border p-6 transition duration-300 hover:-translate-y-1 hover:border-primary/40 hover:shadow-lg ${
         featured ? 'border-2 border-primary' : 'border-border'
       }`}
     >

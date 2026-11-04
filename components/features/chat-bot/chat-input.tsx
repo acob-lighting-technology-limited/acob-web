@@ -42,14 +42,21 @@ export function ChatInput({
         topBorder ? 'border-t' : ''
       }`}
     >
+      <label htmlFor="chat-input" className="sr-only">
+        Message ACOBot
+      </label>
       <textarea
+        id="chat-input"
+        name="message"
+        data-autofocus
+        autoComplete="off"
         value={input}
         onChange={onInputChange}
         onKeyDown={handleKeyDown}
         rows={1}
         disabled={isLoading || rateLimitReached}
         placeholder={rateLimitReached ? 'Message limit reached' : 'Ask ACOBot…'}
-        className="bg-muted/50 focus:ring-primary/40 placeholder:text-muted-foreground text-foreground max-h-28 min-h-9 flex-1 resize-none rounded-full px-4 py-2 text-sm outline-none focus:ring-2"
+        className="bg-muted/50 focus-visible:ring-primary/40 placeholder:text-muted-foreground text-foreground max-h-28 min-h-9 flex-1 resize-none rounded-full px-4 py-2 text-sm outline-none focus-visible:ring-2"
         style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
       />
 
@@ -57,7 +64,7 @@ export function ChatInput({
         <button
           type="button"
           onClick={onStop}
-          aria-label="Stop"
+          aria-label="Stop Generating"
           className="bg-muted text-muted-foreground hover:bg-muted/80 flex h-9 w-9 shrink-0 items-center justify-center rounded-full transition-colors"
         >
           <Square className="h-4 w-4" />
@@ -66,7 +73,7 @@ export function ChatInput({
         <button
           type="submit"
           disabled={!input.trim() || rateLimitReached}
-          aria-label="Send"
+          aria-label="Send Message"
           className={`flex h-9 w-9 shrink-0 items-center justify-center rounded-full text-primary-foreground transition-colors ${
             input.trim() && !rateLimitReached
               ? 'bg-primary hover:bg-primary/90'

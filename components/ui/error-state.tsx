@@ -38,7 +38,7 @@ export function ErrorState({
               className="gap-2"
               aria-label="Try again"
             >
-              <RefreshCw className="h-4 w-4" />
+              <RefreshCw className="h-4 w-4" aria-hidden="true" />
               Try Again
             </Button>
           )}

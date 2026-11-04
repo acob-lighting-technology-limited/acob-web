@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useUrlParamState } from '@/hooks/use-url-param-state';
 import { Container } from '@/components/ui/container';
 import { Hero } from '@/components/ui/hero';
 import { Breadcrumb } from '@/components/ui/breadcrumb';
@@ -44,7 +44,8 @@ const OFFICES: Office[] = [
 ];
 
 export default function LocationsPage() {
-  const [viewMode, setViewMode] = useState<ViewMode>('map');
+  const [viewParam, setViewMode] = useUrlParamState('view', 'map');
+  const viewMode: ViewMode = viewParam === 'video' ? 'video' : 'map';
   const breadcrumbItems = [
     { label: 'Home', href: '/' },
     { label: 'Contact Us', href: '/contact' },
@@ -98,13 +99,13 @@ export default function LocationsPage() {
                 onClick={() => setViewMode('map')}
                 aria-pressed={viewMode === 'map'}
                 className={cn(
-                  'inline-flex items-center gap-2 rounded-full px-4 py-2 text-sm font-semibold transition-all duration-300',
+                  'inline-flex items-center gap-2 rounded-full px-4 py-2 text-sm font-semibold transition duration-300',
                   viewMode === 'map'
                     ? 'bg-primary text-primary-foreground shadow-sm'
                     : 'text-muted-foreground hover:text-foreground',
                 )}
               >
-                <Map className="h-4 w-4" />
+                <Map className="h-4 w-4" aria-hidden="true" />
                 Map View
               </button>
               <button
@@ -112,13 +113,13 @@ export default function LocationsPage() {
                 onClick={() => setViewMode('video')}
                 aria-pressed={viewMode === 'video'}
                 className={cn(
-                  'inline-flex items-center gap-2 rounded-full px-4 py-2 text-sm font-semibold transition-all duration-300',
+                  'inline-flex items-center gap-2 rounded-full px-4 py-2 text-sm font-semibold transition duration-300',
                   viewMode === 'video'
                     ? 'bg-primary text-primary-foreground shadow-sm'
                     : 'text-muted-foreground hover:text-foreground',
                 )}
               >
-                <Video className="h-4 w-4" />
+                <Video className="h-4 w-4" aria-hidden="true" />
                 Video Tour
               </button>
             </div>
@@ -243,7 +244,7 @@ export default function LocationsPage() {
                     href={office.directionsUrl}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="group mt-7 inline-flex items-center gap-2 border-b-2 border-foreground pb-1 text-sm font-bold text-foreground transition-all hover:gap-3 hover:border-primary hover:text-primary"
+                    className="group mt-7 inline-flex items-center gap-2 border-b-2 border-foreground pb-1 text-sm font-bold text-foreground transition-[gap,color,border-color] hover:gap-3 hover:border-primary hover:text-primary"
                   >
                     Get directions
                     <span aria-hidden className="transition-transform">

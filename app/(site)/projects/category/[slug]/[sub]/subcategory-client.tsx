@@ -196,9 +196,11 @@ export default function SubcategoryClient({
             <p className="mb-6 text-muted-foreground">
               No projects available in this sub-category yet.
             </p>
-            <Link href={`/projects/category/${categorySlug}`}>
-              <Button variant="outline">View All {categoryTitle}</Button>
-            </Link>
+            <Button asChild variant="outline">
+              <Link href={`/projects/category/${categorySlug}`}>
+                View All {categoryTitle}
+              </Link>
+            </Button>
           </div>
         ) : (
           <>
@@ -214,7 +216,7 @@ export default function SubcategoryClient({
                     href={`/projects/${project.slug.current}`}
                     className="group block h-full focus:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-background"
                   >
-                    <article className="flex h-full flex-col overflow-hidden rounded-xl border border-border bg-card transition-all duration-500 group-hover:-translate-y-1 group-hover:border-primary/40 group-hover:shadow-lg">
+                    <article className="flex h-full flex-col overflow-hidden rounded-xl border border-border bg-card transition duration-500 group-hover:-translate-y-1 group-hover:border-primary/40 group-hover:shadow-lg">
                       <div className="relative aspect-[16/10] w-full overflow-hidden bg-muted">
                         {project.projectImage ? (
                           <Image
@@ -255,7 +257,7 @@ export default function SubcategoryClient({
                             extractTextFromPortableText(
                               project.content || [],
                             ) ||
-                            'Project details coming soon...'}
+                            'Project details coming soon…'}
                         </p>
                         <span className="mt-4 inline-flex items-center gap-1.5 text-xs font-bold text-primary md:text-sm">
                           View project

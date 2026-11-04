@@ -25,7 +25,7 @@ export function ChatHeader({ isChatting, onClose }: ChatHeaderProps) {
       <button
         type="button"
         onClick={onClose}
-        aria-label="Close"
+        aria-label="Close Chat"
         className="hover:bg-primary-foreground/15 rounded-full p-1.5 transition-colors"
       >
         <X className="h-5 w-5" />

@@ -53,7 +53,7 @@ export function ProductCard({ product }: ProductCardProps) {
 
   return (
     <>
-      <div className="group flex h-full flex-col overflow-hidden rounded-xl border border-border transition-all duration-300 hover:-translate-y-1 hover:border-primary/40 hover:shadow-lg">
+      <div className="group flex h-full flex-col overflow-hidden rounded-xl border border-border transition duration-300 hover:-translate-y-1 hover:border-primary/40 hover:shadow-lg">
         <div className="relative h-48 w-full overflow-hidden bg-muted rounded-t">
           {imageUrl && imageUrl.trim() !== '' && (
             <Image

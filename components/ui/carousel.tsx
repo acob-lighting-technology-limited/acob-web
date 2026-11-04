@@ -282,7 +282,7 @@ function CarouselDots({ className, ...props }: React.ComponentProps<'div'>) {
         >
           <span
             className={cn(
-              'h-2 rounded-full transition-all duration-300',
+              'h-2 rounded-full transition-[width,background-color] duration-300',
               index === selected
                 ? 'w-6 bg-primary'
                 : 'w-2 bg-muted-foreground/40',

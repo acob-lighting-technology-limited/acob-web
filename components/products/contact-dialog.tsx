@@ -36,17 +36,10 @@ const TextOptionsDialog: React.FC<TextOptionsDialogProps> = ({
     ? `Hello, I'm interested in ${productName}`
     : 'Hello, I would like to inquire about your products';
 
-  const handleWhatsApp = () => {
-    const whatsappUrl = `https://wa.me/${primaryPhone}?text=${encodeURIComponent(message)}`;
-    window.open(whatsappUrl, '_blank');
-    onClose();
-  };
-
-  const handleSMS = () => {
-    const smsUrl = `sms:${primaryPhone}?body=${encodeURIComponent(message)}`;
-    window.location.href = smsUrl;
-    onClose();
-  };
+  // Real links (not buttons that set window.location) so they can be
+  // long-pressed, copied, or opened in a new tab like any other link.
+  const whatsappUrl = `https://wa.me/${primaryPhone}?text=${encodeURIComponent(message)}`;
+  const smsUrl = `sms:${primaryPhone}?body=${encodeURIComponent(message)}`;
 
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
@@ -65,21 +58,31 @@ const TextOptionsDialog: React.FC<TextOptionsDialogProps> = ({
             transition={{ delay: 0.1 }}
           >
             <Button
-              onClick={handleWhatsApp}
+              asChild
               className="w-full h-auto py-4 flex items-center justify-start gap-4 bg-green-600 hover:bg-green-700 text-white"
               size="lg"
             >
-              <div className="relative w-12 h-12 rounded-full overflow-hidden transition-all duration-500 flex items-center justify-center flex-shrink-0 bg-white/20 group-hover:scale-110">
-                {/* Animated fill effect */}
-                <div className="absolute inset-0 bg-white/30 transform scale-0 transition-transform duration-500 ease-out group-hover:scale-100 rounded-full origin-center" />
-                <div className="relative z-10 w-full h-full flex items-center justify-center">
-                  <MessageCircle className="h-6 w-6 transition-colors duration-500" />
+              <a
+                href={whatsappUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                onClick={onClose}
+              >
+                <div className="relative w-12 h-12 rounded-full overflow-hidden transition-transform duration-500 flex items-center justify-center flex-shrink-0 bg-white/20 group-hover:scale-110">
+                  {/* Animated fill effect */}
+                  <div className="absolute inset-0 bg-white/30 transform scale-0 transition-transform duration-500 ease-out group-hover:scale-100 rounded-full origin-center" />
+                  <div className="relative z-10 w-full h-full flex items-center justify-center">
+                    <MessageCircle
+                      className="h-6 w-6 transition-colors duration-500"
+                      aria-hidden="true"
+                    />
+                  </div>
                 </div>
-              </div>
-              <div className="flex-1 text-left">
-                <div className="font-semibold text-lg">WhatsApp</div>
-                <div className="text-sm text-white/80">Chat on WhatsApp</div>
-              </div>
+                <div className="flex-1 text-left">
+                  <div className="font-semibold text-lg">WhatsApp</div>
+                  <div className="text-sm text-white/80">Chat on WhatsApp</div>
+                </div>
+              </a>
             </Button>
           </motion.div>
 
@@ -89,24 +92,29 @@ const TextOptionsDialog: React.FC<TextOptionsDialogProps> = ({
             transition={{ delay: 0.2 }}
           >
             <Button
-              onClick={handleSMS}
+              asChild
               className="w-full h-auto py-4 flex items-center justify-start gap-4"
               variant="outline"
               size="lg"
             >
-              <div className="relative w-12 h-12 rounded-full overflow-hidden transition-all duration-500 flex items-center justify-center flex-shrink-0 bg-primary/10 group-hover:scale-110">
-                {/* Animated fill effect */}
-                <div className="absolute inset-0 bg-primary transform scale-0 transition-transform duration-500 ease-out group-hover:scale-100 rounded-full origin-center" />
-                <div className="relative z-10 w-full h-full flex items-center justify-center">
-                  <MessageCircle className="h-6 w-6 text-primary group-hover:text-white transition-colors duration-500" />
+              <a href={smsUrl} onClick={onClose}>
+                <div className="relative w-12 h-12 rounded-full overflow-hidden transition-transform duration-500 flex items-center justify-center flex-shrink-0 bg-primary/10 group-hover:scale-110">
+                  {/* Animated fill effect */}
+                  <div className="absolute inset-0 bg-primary transform scale-0 transition-transform duration-500 ease-out group-hover:scale-100 rounded-full origin-center" />
+                  <div className="relative z-10 w-full h-full flex items-center justify-center">
+                    <MessageCircle
+                      className="h-6 w-6 text-primary group-hover:text-white transition-colors duration-500"
+                      aria-hidden="true"
+                    />
+                  </div>
                 </div>
-              </div>
-              <div className="flex-1 text-left">
-                <div className="font-semibold text-lg">SMS</div>
-                <div className="text-sm text-muted-foreground">
-                  Send a text message
+                <div className="flex-1 text-left">
+                  <div className="font-semibold text-lg">SMS</div>
+                  <div className="text-sm text-muted-foreground">
+                    Send a text message
+                  </div>
                 </div>
-              </div>
+              </a>
             </Button>
           </motion.div>
         </div>
@@ -125,22 +133,15 @@ export function ContactDialog({
   const emails = [CONTACT_INFO.email.general, 'infoacob@gmail.com'];
   const phone = CONTACT_INFO.phone.primary;
 
-  const handleEmail = (email: string) => {
-    const subject = productName
-      ? `Inquiry about ${productName}`
-      : 'Product Inquiry';
-    const body = productName
-      ? `Hello,\n\nI'm interested in learning more about ${productName}.\n\nThank you.`
-      : 'Hello,\n\nI would like to inquire about your products.\n\nThank you.';
-
-    window.location.href = `mailto:${email}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
-    onClose();
-  };
-
-  const handleCall = () => {
-    window.location.href = `tel:${phone.replace(/\s/g, '')}`;
-    onClose();
-  };
+  const subject = productName
+    ? `Inquiry about ${productName}`
+    : 'Product Inquiry';
+  const body = productName
+    ? `Hello,\n\nI'm interested in learning more about ${productName}.\n\nThank you.`
+    : 'Hello,\n\nI would like to inquire about your products.\n\nThank you.';
+  const mailtoUrl = (email: string) =>
+    `mailto:${email}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+  const telUrl = `tel:${phone.replace(/\s/g, '')}`;
 
   const handleText = () => {
     onClose();
@@ -169,26 +170,31 @@ export function ContactDialog({
                 transition={{ delay: index * 0.1 }}
               >
                 <Button
-                  onClick={() => handleEmail(email)}
-                  className="w-full h-auto py-4 flex items-center justify-start gap-4 group hover:shadow-md transition-all"
+                  asChild
+                  className="w-full h-auto py-4 flex items-center justify-start gap-4 group hover:shadow-md"
                   variant="outline"
                   size="lg"
                 >
-                  <div className="relative w-12 h-12 rounded-full overflow-hidden transition-all duration-500 flex items-center justify-center flex-shrink-0 bg-primary/10 group-hover:scale-110">
-                    {/* Animated fill effect */}
-                    <div className="absolute inset-0 bg-primary transform scale-0 transition-transform duration-500 ease-out group-hover:scale-100 rounded-full origin-center" />
-                    <div className="relative z-10 w-full h-full flex items-center justify-center">
-                      <Mail className="h-6 w-6 text-primary group-hover:text-white transition-colors duration-500" />
+                  <a href={mailtoUrl(email)} onClick={onClose}>
+                    <div className="relative w-12 h-12 rounded-full overflow-hidden transition-transform duration-500 flex items-center justify-center flex-shrink-0 bg-primary/10 group-hover:scale-110">
+                      {/* Animated fill effect */}
+                      <div className="absolute inset-0 bg-primary transform scale-0 transition-transform duration-500 ease-out group-hover:scale-100 rounded-full origin-center" />
+                      <div className="relative z-10 w-full h-full flex items-center justify-center">
+                        <Mail
+                          className="h-6 w-6 text-primary group-hover:text-white transition-colors duration-500"
+                          aria-hidden="true"
+                        />
+                      </div>
                     </div>
-                  </div>
-                  <div className="flex-1 text-left min-w-0">
-                    <div className="font-semibold text-lg">
-                      Email {index === 0 ? '' : '(Alternative)'}
+                    <div className="flex-1 text-left min-w-0">
+                      <div className="font-semibold text-lg">
+                        Email {index === 0 ? '' : '(Alternative)'}
+                      </div>
+                      <div className="text-sm text-muted-foreground truncate">
+                        <span translate="no">{email}</span>
+                      </div>
                     </div>
-                    <div className="text-sm text-muted-foreground truncate">
-                      {email}
-                    </div>
-                  </div>
+                  </a>
                 </Button>
               </motion.div>
             ))}
@@ -199,22 +205,27 @@ export function ContactDialog({
               transition={{ delay: 0.2 }}
             >
               <Button
-                onClick={handleCall}
-                className="w-full h-auto py-4 flex items-center justify-start gap-4 group hover:shadow-md transition-all"
+                asChild
+                className="w-full h-auto py-4 flex items-center justify-start gap-4 group hover:shadow-md"
                 variant="outline"
                 size="lg"
               >
-                <div className="relative w-12 h-12 rounded-full overflow-hidden transition-all duration-500 flex items-center justify-center flex-shrink-0 bg-primary/10 group-hover:scale-110">
-                  {/* Animated fill effect */}
-                  <div className="absolute inset-0 bg-primary transform scale-0 transition-transform duration-500 ease-out group-hover:scale-100 rounded-full origin-center" />
-                  <div className="relative z-10 w-full h-full flex items-center justify-center">
-                    <Phone className="h-6 w-6 text-primary group-hover:text-white transition-colors duration-500" />
+                <a href={telUrl} onClick={onClose}>
+                  <div className="relative w-12 h-12 rounded-full overflow-hidden transition-transform duration-500 flex items-center justify-center flex-shrink-0 bg-primary/10 group-hover:scale-110">
+                    {/* Animated fill effect */}
+                    <div className="absolute inset-0 bg-primary transform scale-0 transition-transform duration-500 ease-out group-hover:scale-100 rounded-full origin-center" />
+                    <div className="relative z-10 w-full h-full flex items-center justify-center">
+                      <Phone
+                        className="h-6 w-6 text-primary group-hover:text-white transition-colors duration-500"
+                        aria-hidden="true"
+                      />
+                    </div>
                   </div>
-                </div>
-                <div className="flex-1 text-left">
-                  <div className="font-semibold text-lg">Call</div>
-                  <div className="text-sm text-muted-foreground">{phone}</div>
-                </div>
+                  <div className="flex-1 text-left">
+                    <div className="font-semibold text-lg">Call</div>
+                    <div className="text-sm text-muted-foreground">{phone}</div>
+                  </div>
+                </a>
               </Button>
             </motion.div>
 
@@ -225,15 +236,18 @@ export function ContactDialog({
             >
               <Button
                 onClick={handleText}
-                className="w-full h-auto py-4 flex items-center justify-start gap-4 group hover:shadow-md transition-all"
+                className="w-full h-auto py-4 flex items-center justify-start gap-4 group hover:shadow-md"
                 variant="outline"
                 size="lg"
               >
-                <div className="relative w-12 h-12 rounded-full overflow-hidden transition-all duration-500 flex items-center justify-center flex-shrink-0 bg-green-500/10 group-hover:scale-110">
+                <div className="relative w-12 h-12 rounded-full overflow-hidden transition-transform duration-500 flex items-center justify-center flex-shrink-0 bg-green-500/10 group-hover:scale-110">
                   {/* Animated fill effect */}
                   <div className="absolute inset-0 bg-green-600 dark:bg-green-500 transform scale-0 transition-transform duration-500 ease-out group-hover:scale-100 rounded-full origin-center" />
                   <div className="relative z-10 w-full h-full flex items-center justify-center">
-                    <MessageCircle className="h-6 w-6 text-green-600 dark:text-green-400 group-hover:text-white transition-colors duration-500" />
+                    <MessageCircle
+                      className="h-6 w-6 text-green-600 dark:text-green-400 group-hover:text-white transition-colors duration-500"
+                      aria-hidden="true"
+                    />
                   </div>
                 </div>
                 <div className="flex-1 text-left">

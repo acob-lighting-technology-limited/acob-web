@@ -45,7 +45,7 @@ export function PartnersSectionV2() {
   const marqueeRef = useRef<HTMLDivElement>(null);
 
   return (
-    <section className="bg-muted/30 py-12 transition-all duration-500 sm:py-16 lg:py-20 xl:py-24">
+    <section className="bg-muted/30 py-12 transition duration-500 sm:py-16 lg:py-20 xl:py-24">
       <Container className="px-4">
         <FadeIn delay={0.1}>
           <div className="mb-10 text-center md:mb-14">
@@ -114,7 +114,7 @@ export function PartnersSectionV2() {
           <div className="mt-8 text-center sm:mt-12">
             <Link
               href="/about/partners"
-              className="group inline-flex items-center gap-2 border-b-2 border-foreground pb-1 text-sm font-bold text-foreground transition-all hover:gap-3 hover:border-primary hover:text-primary"
+              className="group inline-flex items-center gap-2 border-b-2 border-foreground pb-1 text-sm font-bold text-foreground transition-[gap,color,border-color] hover:gap-3 hover:border-primary hover:text-primary"
             >
               View All Partners
               <ArrowRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" />

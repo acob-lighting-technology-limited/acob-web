@@ -98,7 +98,7 @@ const Card: React.FC<CardProps> = ({
               </p>
 
               <p className="flex gap-2 text-lg items-center">
-                <MapPin />
+                <MapPin aria-hidden="true" />
                 {location}
                 {state &&
                   `, ${state.toUpperCase() === 'FCT' ? 'FCT' : `${state} State.`}`}
@@ -106,14 +106,15 @@ const Card: React.FC<CardProps> = ({
             </div>
 
             <div className="sm:mt-auto pt-6">
-              <Link href={url}>
-                {' '}
-                {/* Use the passed URL */}
-                <Button className="bg-[#07F507]/70 text-lg py-6 !px-8 hover:bg-[#07F507]/60 text-white">
+              <Button
+                asChild
+                className="bg-[#07F507]/70 text-lg py-6 !px-8 hover:bg-[#07F507]/60 text-white"
+              >
+                <Link href={url}>
                   View Project
-                  <ArrowRight className="ml-2 h-4 w-4" />
-                </Button>
-              </Link>
+                  <ArrowRight className="ml-2 h-4 w-4" aria-hidden="true" />
+                </Link>
+              </Button>
             </div>
           </div>
 
@@ -133,6 +134,7 @@ const Card: React.FC<CardProps> = ({
                       )}
                       alt={title}
                       fill
+                      sizes="(min-width: 640px) 50vw, 100vw"
                       className="object-cover"
                     />
                   </div>
@@ -149,6 +151,7 @@ const Card: React.FC<CardProps> = ({
                         )}
                         alt={title}
                         fill
+                        sizes="(min-width: 640px) 25vw, 50vw"
                         className="object-cover"
                       />
                     </div>
@@ -160,6 +163,7 @@ const Card: React.FC<CardProps> = ({
                         )}
                         alt={title}
                         fill
+                        sizes="(min-width: 640px) 25vw, 50vw"
                         className="object-cover"
                       />
                     </div>
@@ -177,6 +181,7 @@ const Card: React.FC<CardProps> = ({
                         )}
                         alt={title}
                         fill
+                        sizes="(min-width: 640px) 50vw, 100vw"
                         className="object-cover"
                       />
                     </div>
@@ -188,6 +193,7 @@ const Card: React.FC<CardProps> = ({
                         )}
                         alt={title}
                         fill
+                        sizes="(min-width: 640px) 25vw, 50vw"
                         className="object-cover"
                       />
                     </div>
@@ -199,6 +205,7 @@ const Card: React.FC<CardProps> = ({
                         )}
                         alt={title}
                         fill
+                        sizes="(min-width: 640px) 25vw, 50vw"
                         className="object-cover"
                       />
                     </div>

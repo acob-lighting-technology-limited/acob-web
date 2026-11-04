@@ -46,7 +46,7 @@ export function AnimatedFillText({
   return (
     <div
       ref={ref}
-      className="relative inline-block m-1 transition-all duration-500"
+      className="relative inline-block m-1 transition duration-500"
     >
       <div
         className={`relative z-10 ${className} text-primary-foreground dark:text-primary-foreground p-2 w-fit h-fit`}
@@ -54,7 +54,7 @@ export function AnimatedFillText({
         {children}
       </div>
       <div
-        className={`absolute inset-0 bg-primary rounded-sm transition-all ease-out ${
+        className={`absolute inset-0 bg-primary rounded-sm transition-[width] ease-out ${
           isVisible ? 'w-full' : 'w-0'
         }`}
         style={{
