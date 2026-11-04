@@ -32,6 +32,45 @@
   body {
     min-height: 100vh;
   }
+
+  /* Even line lengths on headings, no one-word last lines in body copy. */
+  h1,
+  h2,
+  h3,
+  h4 {
+    text-wrap: balance;
+  }
+  p,
+  li {
+    text-wrap: pretty;
+  }
+
+  /* No 300ms double-tap-zoom delay on controls; a deliberate tap colour
+     instead of the default grey flash on mobile WebKit. */
+  a,
+  button,
+  input,
+  select,
+  textarea,
+  label,
+  summary,
+  [role='button'],
+  [role='link'] {
+    touch-action: manipulation;
+    -webkit-tap-highlight-color: hsl(var(--primary) / 0.15);
+  }
+
+  /* Search fields have their own clear button; hide the browser's. */
+  input[type='search']::-webkit-search-cancel-button,
+  input[type='search']::-webkit-search-decoration {
+    -webkit-appearance: none;
+    appearance: none;
+  }
+
+  /* Anchored sections land below the fixed header, not under it. */
+  [id] {
+    scroll-margin-top: 6rem;
+  }
 }
 
 @layer base {

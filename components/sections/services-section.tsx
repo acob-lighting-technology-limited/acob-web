@@ -61,25 +61,25 @@ const ServicesSection = React.memo(function ServicesSection() {
             className="flex flex-wrap gap-4 lg:justify-end"
           >
             <Magnetic>
-              <Link href="/services" className="inline-block min-h-[48px]">
-                <Button
-                  size="lg"
-                  className="group min-h-[48px] px-8 py-6 text-base"
-                >
+              <Button
+                asChild
+                size="lg"
+                className="group min-h-[48px] px-8 py-6 text-base"
+              >
+                <Link href="/services">
                   View all services
                   <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
-                </Button>
-              </Link>
-            </Magnetic>
-            <Link href="/contact" className="inline-block min-h-[48px]">
-              <Button
-                size="lg"
-                variant="outline"
-                className="min-h-[48px] px-8 py-6 text-base"
-              >
-                Partner with us
+                </Link>
               </Button>
-            </Link>
+            </Magnetic>
+            <Button
+              asChild
+              size="lg"
+              variant="outline"
+              className="min-h-[48px] px-8 py-6 text-base"
+            >
+              <Link href="/contact">Partner with us</Link>
+            </Button>
           </motion.div>
         </div>
 
@@ -146,7 +146,7 @@ const ServicesSection = React.memo(function ServicesSection() {
                     <span
                       aria-hidden
                       className={cn(
-                        'relative block aspect-[4/3] w-full overflow-hidden rounded-lg bg-muted ring-1 ring-border transition-all duration-500',
+                        'relative block aspect-[4/3] w-full overflow-hidden rounded-lg bg-muted ring-1 ring-border transition duration-500',
                         on ? '-rotate-2 shadow-lg ring-primary/40' : '',
                       )}
                     >
@@ -164,7 +164,7 @@ const ServicesSection = React.memo(function ServicesSection() {
                     <div className="relative min-w-0">
                       <h3
                         className={cn(
-                          'text-base font-extrabold uppercase leading-tight tracking-tight transition-all duration-500 line-clamp-2 lg:text-lg',
+                          'text-base font-extrabold uppercase leading-tight tracking-tight transition duration-500 line-clamp-2 lg:text-lg',
                           on ? 'translate-x-1 text-primary' : 'text-foreground',
                         )}
                       >
@@ -176,7 +176,7 @@ const ServicesSection = React.memo(function ServicesSection() {
                     </div>
                     <span
                       className={cn(
-                        'relative flex h-9 w-9 items-center justify-center rounded-full border transition-all duration-500 lg:h-10 lg:w-10',
+                        'relative flex h-9 w-9 items-center justify-center rounded-full border transition duration-500 lg:h-10 lg:w-10',
                         on
                           ? 'rotate-45 border-primary bg-primary text-primary-foreground'
                           : 'border-border text-foreground',

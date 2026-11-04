@@ -1,14 +1,36 @@
 // Consistent date formatting functions to prevent hydration mismatch
 
+// Every visitor and every server render sees the same calendar day: dates are
+// pinned to Nigeria's time zone rather than the runtime's (UTC on Vercel, the
+// visitor's own zone in the browser), which also keeps hydration in step.
+export const SITE_TIME_ZONE = 'Africa/Lagos';
+
+const numericDate = new Intl.DateTimeFormat('en-GB', {
+  day: '2-digit',
+  month: '2-digit',
+  year: 'numeric',
+  timeZone: SITE_TIME_ZONE,
+});
+
+const numericTime = new Intl.DateTimeFormat('en-GB', {
+  hour: '2-digit',
+  minute: '2-digit',
+  hour12: false,
+  timeZone: SITE_TIME_ZONE,
+});
+
+const readableDate = new Intl.DateTimeFormat('en-GB', {
+  day: 'numeric',
+  month: 'short',
+  year: 'numeric',
+  timeZone: SITE_TIME_ZONE,
+});
+
 /**
  * Format date in DD/MM/YYYY format (consistent across server and client)
  */
 export function formatDate(dateString: string): string {
-  const date = new Date(dateString);
-  const day = date.getDate().toString().padStart(2, '0');
-  const month = (date.getMonth() + 1).toString().padStart(2, '0');
-  const year = date.getFullYear();
-  return `${day}/${month}/${year}`;
+  return numericDate.format(new Date(dateString));
 }
 
 /**
@@ -16,12 +38,14 @@ export function formatDate(dateString: string): string {
  */
 export function formatDateTime(dateString: string): string {
   const date = new Date(dateString);
-  const day = date.getDate().toString().padStart(2, '0');
-  const month = (date.getMonth() + 1).toString().padStart(2, '0');
-  const year = date.getFullYear();
-  const hours = date.getHours().toString().padStart(2, '0');
-  const minutes = date.getMinutes().toString().padStart(2, '0');
-  return `${day}/${month}/${year} ${hours}:${minutes}`;
+  return `${numericDate.format(date)} ${numericTime.format(date)}`;
+}
+
+/**
+ * Format date as e.g. "5 Mar 2026" (consistent across server and client)
+ */
+export function formatReadableDate(dateString: string): string {
+  return readableDate.format(new Date(dateString));
 }
 
 /**
@@ -55,11 +79,7 @@ export function getRelativeTime(dateString: string): string {
  * Format current date for "Last updated" sections
  */
 export function getCurrentDate(): string {
-  const now = new Date();
-  const day = now.getDate().toString().padStart(2, '0');
-  const month = (now.getMonth() + 1).toString().padStart(2, '0');
-  const year = now.getFullYear();
-  return `${day}/${month}/${year}`;
+  return formatDate(new Date().toISOString());
 }
 
 /**

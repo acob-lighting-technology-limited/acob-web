@@ -176,10 +176,10 @@ export function ProjectContent({
                 width={800}
                 height={600}
                 sizes="(max-width: 1024px) 50vw, 33vw"
-                className="rounded-lg object-cover w-full h-full transition-all duration-300 group-hover:shadow-2xl group-hover:scale-[1.02]"
+                className="rounded-lg object-cover w-full h-full transition duration-300 group-hover:shadow-2xl group-hover:scale-[1.02]"
               />
               {/* Overlay hint */}
-              <div className="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-all duration-300 rounded-lg flex items-center justify-center">
+              <div className="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition duration-300 rounded-lg flex items-center justify-center">
                 <span className="text-white opacity-0 group-hover:opacity-100 transition-opacity duration-300 text-sm font-medium bg-black/50 px-4 py-2 rounded-full backdrop-blur-sm">
                   Click to expand
                 </span>
@@ -331,13 +331,13 @@ export function ProjectContent({
                       <>
                         <video
                           src={media.src}
-                          className="rounded-lg object-cover w-full h-full transition-all duration-300 group-hover:shadow-2xl group-hover:scale-[1.02]"
+                          className="rounded-lg object-cover w-full h-full transition duration-300 group-hover:shadow-2xl group-hover:scale-[1.02]"
                           controls={false}
                           muted
                           playsInline
                           aria-label={media.alt}
                         />
-                        <div className="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-all duration-300 rounded-lg flex items-center justify-center">
+                        <div className="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition duration-300 rounded-lg flex items-center justify-center">
                           <span className="text-white opacity-0 group-hover:opacity-100 transition-opacity duration-300 text-sm font-medium bg-black/50 px-4 py-2 rounded-full backdrop-blur-sm">
                             Click to expand
                           </span>
@@ -351,9 +351,9 @@ export function ProjectContent({
                           width={800}
                           height={600}
                           sizes="(max-width: 1024px) 50vw, 33vw"
-                          className="rounded-lg object-cover w-full h-full transition-all duration-300 group-hover:shadow-2xl group-hover:scale-[1.02]"
+                          className="rounded-lg object-cover w-full h-full transition duration-300 group-hover:shadow-2xl group-hover:scale-[1.02]"
                         />
-                        <div className="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-all duration-300 rounded-lg flex items-center justify-center">
+                        <div className="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition duration-300 rounded-lg flex items-center justify-center">
                           <span className="text-white opacity-0 group-hover:opacity-100 transition-opacity duration-300 text-sm font-medium bg-black/50 px-4 py-2 rounded-full backdrop-blur-sm">
                             Click to expand
                           </span>

@@ -256,22 +256,28 @@ export default async function JobPostingPage({ params }: JobPostingPageProps) {
 
             {/* Actions */}
             <div className="mt-10 flex flex-col gap-4 border-t border-border pt-8 sm:flex-row">
-              <Link href="/contact/careers">
-                <Button variant="outline" className="group w-full sm:w-auto">
+              <Button
+                asChild
+                variant="outline"
+                className="group w-full sm:w-auto"
+              >
+                <Link href="/contact/careers">
                   <ArrowLeft className="mr-2 h-4 w-4 transition-transform group-hover:-translate-x-1" />
                   Back to Careers
-                </Button>
-              </Link>
+                </Link>
+              </Button>
               {!isClosed && (
-                <a
-                  href={`mailto:jobs@acoblighting.com?subject=Application%20for%20${encodeURIComponent(job.title)}`}
-                  className="w-full sm:w-auto"
-                >
-                  <Button className="group w-full">
+                <Button asChild className="group w-full sm:w-auto">
+                  <a
+                    href={`mailto:jobs@acoblighting.com?subject=Application%20for%20${encodeURIComponent(job.title)}`}
+                  >
                     Apply Now
-                    <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
-                  </Button>
-                </a>
+                    <ArrowRight
+                      className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1"
+                      aria-hidden="true"
+                    />
+                  </a>
+                </Button>
               )}
             </div>
           </div>

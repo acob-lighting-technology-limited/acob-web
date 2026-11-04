@@ -1,6 +1,5 @@
 'use client';
 
-import { useState } from 'react';
 import { Container } from '@/components/ui/container';
 import { Hero } from '@/components/ui/hero';
 import { Breadcrumb } from '@/components/ui/breadcrumb';
@@ -24,20 +23,12 @@ interface Partner {
 }
 
 function PartnerCard({ partner, index }: { partner: Partner; index: number }) {
-  const [isFlipped, setIsFlipped] = useState(false);
-
   return (
     <FadeIn delay={0.05 + index * 0.03} direction="up">
-      <div
-        className="group relative h-full min-h-[160px] perspective-1000 cursor-pointer w-full"
-        onClick={() => setIsFlipped(!isFlipped)}
-      >
-        <div
-          className={cn(
-            'relative w-full h-full transition-transform duration-700 transform-style-3d',
-            isFlipped ? 'rotate-y-180' : 'group-hover:rotate-y-180',
-          )}
-        >
+      {/* Hover flips it; so does keyboard focus reaching the back-face link
+          (focus-within), and a tap on touch screens (which sets :hover). */}
+      <div className="group relative h-full min-h-[160px] perspective-1000 cursor-pointer w-full">
+        <div className="relative w-full h-full transition-transform duration-700 transform-style-3d group-hover:rotate-y-180 group-focus-within:rotate-y-180 motion-reduce:transition-none">
           {/* Front — logo */}
           {/* Same tiles as the home page: white, or dark for white-ink logos */}
           <div
@@ -74,7 +65,7 @@ function PartnerCard({ partner, index }: { partner: Partner; index: number }) {
             <Link
               href={`/about/partners/${partner.slug}`}
               className="mt-auto p-1 text-xs font-semibold text-primary hover:underline"
-              onClick={e => e.stopPropagation()}
+              aria-label={`Learn more about ${partner.fullName || partner.name}`}
             >
               Learn more →
             </Link>

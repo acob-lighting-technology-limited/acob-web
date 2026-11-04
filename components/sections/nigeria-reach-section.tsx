@@ -173,6 +173,32 @@ export function NigeriaReachSection({
         svg.style.width = '100%';
         svg.style.height = 'auto';
         svg.setAttribute('class', 'drop-shadow-xl');
+        svg.setAttribute('role', 'group');
+        svg.setAttribute(
+          'aria-label',
+          'Map of Nigeria showing states and sites with ACOB projects',
+        );
+
+        // The map is built from raw SVG, so give each clickable shape what a
+        // link would have: a Tab stop, a name, Enter to follow it, and the
+        // same tooltip on focus that the mouse gets on hover.
+        const makeKeyboardLink = (el: Element, label: string, href: string) => {
+          el.setAttribute('tabindex', '0');
+          el.setAttribute('role', 'link');
+          el.setAttribute('aria-label', label);
+          el.addEventListener('focus', () =>
+            el.dispatchEvent(new Event('mouseenter')),
+          );
+          el.addEventListener('blur', () =>
+            el.dispatchEvent(new Event('mouseleave')),
+          );
+          el.addEventListener('keydown', event => {
+            if ((event as KeyboardEvent).key === 'Enter') {
+              event.preventDefault();
+              router.push(href);
+            }
+          });
+        };
 
         const labelPoints = svg.querySelector('#label_points');
         if (labelPoints) {
@@ -233,6 +259,11 @@ export function NigeriaReachSection({
             pathElement.addEventListener('click', () => {
               router.push(`/projects/${projectData.slug}`);
             });
+            makeKeyboardLink(
+              pathElement,
+              `${stateName}: view projects`,
+              `/projects/${projectData.slug}`,
+            );
           }
         });
 
@@ -280,6 +311,11 @@ export function NigeriaReachSection({
           marker.addEventListener('click', () => {
             router.push(`/projects/${project.slug.current}`);
           });
+          makeKeyboardLink(
+            marker,
+            `${project.title}: view project`,
+            `/projects/${project.slug.current}`,
+          );
 
           svg.appendChild(marker);
         });
@@ -321,8 +357,11 @@ export function NigeriaReachSection({
         animateO.setAttribute('dur', '2s');
         animateO.setAttribute('repeatCount', 'indefinite');
 
-        pulseCircle.appendChild(animateR);
-        pulseCircle.appendChild(animateO);
+        // SMIL ignores the CSS reduced-motion rule; leave the ring static.
+        if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+          pulseCircle.appendChild(animateR);
+          pulseCircle.appendChild(animateO);
+        }
 
         const innerDot = document.createElementNS(
           'http://www.w3.org/2000/svg',
@@ -370,6 +409,11 @@ export function NigeriaReachSection({
         hqGroup.addEventListener('click', () => {
           router.push('/contact/locations');
         });
+        makeKeyboardLink(
+          hqGroup,
+          'ACOB Headquarters: view location',
+          '/contact/locations',
+        );
 
         svg.appendChild(hqGroup);
         setSvgReady(true);
@@ -509,7 +553,7 @@ export function NigeriaReachSection({
                 </div>
                 <div className="flex items-center gap-2">
                   <div className="relative flex h-3 w-3 items-center justify-center">
-                    <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-primary opacity-75"></span>
+                    <span className="absolute inline-flex h-full w-full motion-safe:animate-ping rounded-full bg-primary opacity-75"></span>
                     <span className="relative inline-flex h-2 w-2 rounded-full bg-primary border border-white"></span>
                   </div>
                   <span>Branch/Office</span>

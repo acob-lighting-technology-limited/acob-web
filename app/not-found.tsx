@@ -40,12 +40,12 @@ export default function NotFound() {
 
           {/* Action Buttons */}
           <div className="flex flex-col sm:flex-row gap-3 justify-center mb-8">
-            <Link href="/">
-              <Button size="lg" className="w-full sm:w-auto px-6 py-2">
+            <Button asChild size="lg" className="w-full sm:w-auto px-6 py-2">
+              <Link href="/">
                 <Home className="mr-2 w-4 h-4" />
                 Go Home
-              </Button>
-            </Link>
+              </Link>
+            </Button>
             <Button
               size="lg"
               variant="outline"

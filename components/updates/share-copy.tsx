@@ -106,7 +106,7 @@ export function ShareCopy({ className, title, url }: ShareCopyProps) {
         onClick={() => handleSocialShare(platform)}
         title={`Share on ${label}`}
         aria-label={`Share on ${label}`}
-        className="group relative inline-flex items-center justify-center rounded-md border border-input bg-transparent h-10 w-10 text-sm font-medium disabled:pointer-events-none disabled:opacity-50 cursor-pointer overflow-hidden transition-all duration-300"
+        className="group relative inline-flex items-center justify-center rounded-md border border-input bg-transparent h-10 w-10 text-sm font-medium disabled:pointer-events-none disabled:opacity-50 cursor-pointer overflow-hidden transition duration-300"
       >
         {/* Animated fill effect - fills entire button */}
         <div
@@ -114,7 +114,7 @@ export function ShareCopy({ className, title, url }: ShareCopyProps) {
           style={{ backgroundColor: brandColor }}
         />
         {/* Icon */}
-        <div className="relative z-10 w-full h-full flex items-center justify-center transition-all duration-500 group-hover:scale-110">
+        <div className="relative z-10 w-full h-full flex items-center justify-center transition duration-500 group-hover:scale-110">
           <Icon className="w-4 h-4 text-foreground group-hover:text-white transition-colors duration-500" />
         </div>
       </button>
@@ -129,7 +129,7 @@ export function ShareCopy({ className, title, url }: ShareCopyProps) {
         disabled={isSharing}
         title="Share this page"
         aria-label="Share this page"
-        className="group relative inline-flex items-center justify-center gap-2 rounded-md border border-input bg-transparent px-3 h-10 text-sm font-medium disabled:pointer-events-none disabled:opacity-50 cursor-pointer overflow-hidden transition-all duration-300"
+        className="group relative inline-flex items-center justify-center gap-2 rounded-md border border-input bg-transparent px-3 h-10 text-sm font-medium disabled:pointer-events-none disabled:opacity-50 cursor-pointer overflow-hidden transition duration-300"
       >
         {/* Animated fill effect */}
         <div

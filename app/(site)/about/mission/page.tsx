@@ -236,12 +236,12 @@ export default function MissionPage() {
         </section>
 
         <div className="mb-8 mt-16 text-center md:mt-20">
-          <Link href="/about">
-            <Button variant="outline" className="group">
+          <Button asChild variant="outline" className="group">
+            <Link href="/about">
               <ArrowLeft className="mr-2 h-4 w-4 transition-transform group-hover:-translate-x-1" />
               Back to About Overview
-            </Button>
-          </Link>
+            </Link>
+          </Button>
         </div>
       </Container>
     </>

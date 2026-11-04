@@ -12,6 +12,7 @@ import { navigationItems } from '@/lib/data/navigation-data';
 import { LucideIcons } from '@/lib/data/lucide-icons';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useSiteReveal } from '@/components/loader/site-reveal-provider';
+import { useDialogFocus } from '@/hooks/use-dialog-focus';
 import {
   isChristmasPeriod,
   isTemporary2026LogoPeriod,
@@ -48,6 +49,7 @@ interface NavigationItem {
 }
 
 interface DropdownMenuProps {
+  id: string;
   item: NavigationItem;
   isOpen: boolean;
   onClose: () => void;
@@ -61,6 +63,7 @@ interface MobileMenuProps {
 }
 
 const DropdownMenu: React.FC<DropdownMenuProps> = ({
+  id,
   item,
   isOpen,
   onClose,
@@ -133,6 +136,7 @@ const DropdownMenu: React.FC<DropdownMenuProps> = ({
       <AnimatePresence>
         {isOpen && (
           <motion.div
+            id={id}
             ref={panelRef}
             style={{ marginLeft: shiftX }}
             initial={{ opacity: 0, y: -10, scale: 0.98 }}
@@ -155,7 +159,7 @@ const DropdownMenu: React.FC<DropdownMenuProps> = ({
                       key={subItem.name}
                       href={subItem.href}
                       onClick={onClose}
-                      className={`group flex items-start gap-3 rounded-lg p-2.5 transition-all duration-200 ${
+                      className={`group flex items-start gap-3 rounded-lg p-2.5 transition duration-200 ${
                         isActive
                           ? 'bg-accent shadow-sm'
                           : 'hover:bg-accent hover:shadow-sm'
@@ -205,6 +209,7 @@ const DropdownMenu: React.FC<DropdownMenuProps> = ({
           animate={{ opacity: 1, y: 0, scale: 1 }}
           exit={{ opacity: 0, y: -10, scale: 0.98 }}
           transition={{ duration: 0.2, ease: 'easeOut' }}
+          id={id}
           ref={panelRef}
           style={{ marginLeft: shiftX }}
           className="absolute top-full left-2 mt-2 grid w-[720px] grid-cols-[300px_1fr] overflow-hidden rounded-xl border-[0.5px] border-border bg-popover shadow-2xl"
@@ -223,6 +228,7 @@ const DropdownMenu: React.FC<DropdownMenuProps> = ({
                   href={subItem.href}
                   onClick={onClose}
                   onMouseEnter={() => setActiveIndex(index)}
+                  onFocus={() => setActiveIndex(index)}
                   className={`group flex items-start gap-3 rounded-lg p-2.5 transition-colors duration-200 ${
                     isHighlighted ? 'bg-accent shadow-sm' : 'hover:bg-accent/60'
                   }`}
@@ -304,7 +310,7 @@ const DropdownMenu: React.FC<DropdownMenuProps> = ({
                           key={child.href}
                           href={child.href}
                           onClick={onClose}
-                          className={`group flex flex-col gap-2 rounded-xl border-[0.5px] p-3.5 transition-all duration-200 ${
+                          className={`group flex flex-col gap-2 rounded-xl border-[0.5px] p-3.5 transition duration-200 ${
                             childActive
                               ? 'border-primary bg-primary/5'
                               : 'border-border hover:-translate-y-0.5 hover:border-primary/50 hover:bg-primary/5 hover:shadow-md'
@@ -331,7 +337,7 @@ const DropdownMenu: React.FC<DropdownMenuProps> = ({
                   <Link
                     href={activeSub?.href ?? item.href}
                     onClick={onClose}
-                    className="group flex h-full flex-col justify-center gap-2 rounded-xl border-[0.5px] border-border p-5 transition-all duration-200 hover:border-primary/50 hover:bg-primary/5"
+                    className="group flex h-full flex-col justify-center gap-2 rounded-xl border-[0.5px] border-border p-5 transition duration-200 hover:border-primary/50 hover:bg-primary/5"
                   >
                     <div className="text-sm font-bold text-foreground group-hover:text-primary">
                       {activeSub?.description}
@@ -361,6 +367,8 @@ const MobileMenu: React.FC<MobileMenuProps> = ({
   const [expandedItems, setExpandedItems] = useState<Record<string, boolean>>(
     {},
   );
+  const panelRef = useRef<HTMLDivElement>(null);
+  useDialogFocus(panelRef, isOpen, onClose);
 
   // Lock body scroll when menu is open
   useEffect(() => {
@@ -415,15 +423,22 @@ const MobileMenu: React.FC<MobileMenuProps> = ({
             transition={{ duration: 0.2 }}
             className="absolute inset-0 bg-black/50 backdrop-blur-sm"
             onClick={onClose}
+            aria-hidden="true"
           />
 
           {/* Menu Panel */}
           <motion.div
+            ref={panelRef}
+            id="mobile-menu"
+            role="dialog"
+            aria-modal="true"
+            aria-label="Site menu"
+            tabIndex={-1}
             initial={{ x: '100%' }}
             animate={{ x: 0 }}
             exit={{ x: '100%' }}
             transition={{ type: 'spring', damping: 25, stiffness: 200 }}
-            className="absolute right-0 top-0 h-full w-80 bg-popover shadow-2xl border-l border-border transition-colors duration-500"
+            className="absolute right-0 top-0 h-full w-80 max-w-full overscroll-contain bg-popover shadow-2xl border-l border-border transition-colors duration-500 pb-[env(safe-area-inset-bottom)]"
           >
             <div className="flex flex-col h-full">
               {/* Header */}
@@ -456,7 +471,7 @@ const MobileMenu: React.FC<MobileMenuProps> = ({
                 </Link>
                 <button
                   onClick={onClose}
-                  className="p-2 hover:bg-destructive/10 hover:text-destructive rounded-full transition-all duration-500 hover:scale-110 active:scale-95"
+                  className="p-2 hover:bg-destructive/10 hover:text-destructive rounded-full transition-[background-color,color,transform] duration-500 hover:scale-110 active:scale-95"
                   aria-label="Close menu"
                 >
                   <X className="h-5 w-5" />
@@ -473,7 +488,7 @@ const MobileMenu: React.FC<MobileMenuProps> = ({
                     transition={{ delay: 0.1 + index * 0.05, duration: 0.3 }}
                   >
                     {/* Main Navigation Item */}
-                    <div className="flex items-center rounded-lg overflow-hidden border border-transparent hover:border-border/50 transition-all duration-500">
+                    <div className="flex items-center rounded-lg overflow-hidden border border-transparent hover:border-border/50 transition duration-500">
                       {/* Clickable main link */}
                       <Link
                         href={item.href}
@@ -489,7 +504,9 @@ const MobileMenu: React.FC<MobileMenuProps> = ({
                       <button
                         onClick={() => toggleExpanded(item.name)}
                         className="p-3 hover:bg-muted transition-colors duration-500 border-l border-border/20"
-                        aria-label={`${expandedItems[item.name] ? 'Collapse' : 'Expand'} ${item.name} menu`}
+                        aria-label={`${item.name} submenu`}
+                        aria-expanded={Boolean(expandedItems[item.name])}
+                        aria-controls={`mobile-submenu-${index}`}
                       >
                         <motion.div
                           animate={{
@@ -515,6 +532,7 @@ const MobileMenu: React.FC<MobileMenuProps> = ({
                           exit={{ height: 0, opacity: 0 }}
                           transition={{ duration: 0.3, ease: 'easeInOut' }}
                           className="overflow-hidden mt-2"
+                          id={`mobile-submenu-${index}`}
                         >
                           <div className="ml-4 space-y-1 border-l-2 border-primary/20 pl-4">
                             {item.subItems.map((subItem, subIndex) => {
@@ -530,7 +548,7 @@ const MobileMenu: React.FC<MobileMenuProps> = ({
                                   <Link
                                     href={subItem.href}
                                     onClick={onClose}
-                                    className={`group flex items-start gap-3 p-3 text-sm rounded-lg transition-all duration-500 ${
+                                    className={`group flex items-start gap-3 p-3 text-sm rounded-lg transition duration-500 ${
                                       isActive
                                         ? 'bg-gradient-to-r from-primary/10 to-primary/15 scale-[1.02] border-l-2 border-primary'
                                         : 'hover:bg-gradient-to-r hover:from-primary/5 hover:to-primary/10 hover:scale-[1.02]'
@@ -538,7 +556,7 @@ const MobileMenu: React.FC<MobileMenuProps> = ({
                                   >
                                     {IconComponent && (
                                       <div
-                                        className={`relative w-8 h-8 rounded-full p-1.5 overflow-hidden transition-all duration-500 flex items-center justify-center flex-shrink-0 ${
+                                        className={`relative w-8 h-8 rounded-full p-1.5 overflow-hidden transition duration-500 flex items-center justify-center flex-shrink-0 ${
                                           isActive
                                             ? 'bg-primary scale-110'
                                             : 'bg-primary/10 group-hover:bg-primary group-hover:scale-110'
@@ -592,7 +610,7 @@ const MobileMenu: React.FC<MobileMenuProps> = ({
                                               key={child.href}
                                               href={child.href}
                                               onClick={onClose}
-                                              className={`group/child relative flex items-center gap-2.5 rounded-md py-2.5 pl-3 pr-2 text-sm font-medium transition-all duration-300 ${
+                                              className={`group/child relative flex items-center gap-2.5 rounded-md py-2.5 pl-3 pr-2 text-sm font-medium transition duration-300 ${
                                                 childActive
                                                   ? 'bg-primary/10 text-primary'
                                                   : 'text-muted-foreground hover:bg-primary/5 hover:text-primary'
@@ -616,7 +634,7 @@ const MobileMenu: React.FC<MobileMenuProps> = ({
                                                 {child.name}
                                               </span>
                                               <ChevronRight
-                                                className={`h-4 w-4 shrink-0 transition-all duration-300 ${
+                                                className={`h-4 w-4 shrink-0 transition duration-300 ${
                                                   childActive
                                                     ? 'translate-x-0 opacity-100'
                                                     : 'opacity-40'
@@ -648,7 +666,7 @@ const MobileMenu: React.FC<MobileMenuProps> = ({
                 <Link
                   href="/products"
                   onClick={onClose}
-                  className="w-full bg-primary hover:bg-primary/90 text-primary-foreground font-medium py-3 px-4 rounded-lg transition-all duration-500 hover:shadow-lg hover:scale-[1.02] active:scale-[0.98] flex items-center justify-center group"
+                  className="w-full bg-primary hover:bg-primary/90 text-primary-foreground font-medium py-3 px-4 rounded-lg transition duration-500 hover:shadow-lg hover:scale-[1.02] active:scale-[0.98] flex items-center justify-center group"
                 >
                   <Package className="mr-2 h-4 w-4 group-hover:animate-pulse" />
                   Products
@@ -945,7 +963,7 @@ export function Header() {
       <header
         ref={headerRef}
         className={`
-          fixed inset-x-0 top-0 z-40 w-full transition-all duration-500 ease-out
+          fixed inset-x-0 top-0 z-40 w-full transition duration-500 ease-out
           ${showHeader && revealed ? 'translate-y-0' : '-translate-y-full'}
           ${
             hasSolidHeader
@@ -985,7 +1003,7 @@ export function Header() {
             </div>
 
             <nav className="hidden lg:flex items-center space-x-8 h-full">
-              {navigationItems.map(item => {
+              {navigationItems.map((item, index) => {
                 const isActive = isActiveRoute(item);
 
                 return (
@@ -994,11 +1012,36 @@ export function Header() {
                     className="relative h-full flex items-center"
                     onMouseEnter={() => handleMouseEnter(item.name)}
                     onMouseLeave={handleMouseLeave}
+                    onKeyDown={event => {
+                      if (
+                        event.key === 'Escape' &&
+                        activeDropdown === item.name
+                      ) {
+                        event.stopPropagation();
+                        handleDropdownClose();
+                        (
+                          event.currentTarget.querySelector(
+                            '[data-dropdown-trigger]',
+                          ) as HTMLElement | null
+                        )?.focus();
+                      }
+                    }}
+                    onBlur={event => {
+                      // Close once keyboard focus leaves this item and its panel.
+                      if (
+                        activeDropdown === item.name &&
+                        !event.currentTarget.contains(
+                          event.relatedTarget as Node | null,
+                        )
+                      ) {
+                        handleDropdownClose();
+                      }
+                    }}
                   >
                     <Link
                       href={item.href}
                       className={`
-                        relative flex items-center space-x-1 h-full font-medium transition-all duration-500 ease-out px-2
+                        relative flex items-center space-x-1 h-full font-medium transition duration-500 ease-out px-2
                         ${
                           // Over a hero photo, green text has no contrast:
                           // stay white and let the underline mark the page.
@@ -1013,24 +1056,43 @@ export function Header() {
                       `}
                     >
                       <span>{item.name}</span>
-                      <div
-                        className={`transition-transform duration-200 ${
-                          activeDropdown === item.name ? 'rotate-180' : ''
-                        }`}
-                      >
-                        <ChevronDown className="h-4 w-4" />
-                      </div>
 
                       <div
-                        className={`absolute bottom-0 left-0 right-0 h-0.5 bg-gradient-to-r from-primary to-primary/80 origin-center transition-all duration-300 ease-out ${
+                        className={`absolute bottom-0 left-0 right-0 h-0.5 bg-gradient-to-r from-primary to-primary/80 origin-center transition duration-300 ease-out ${
                           isActive
                             ? 'scale-x-100 opacity-100'
                             : 'scale-x-0 opacity-0'
                         }`}
                       />
                     </Link>
+                    <button
+                      type="button"
+                      data-dropdown-trigger
+                      aria-label={`${item.name} submenu`}
+                      aria-expanded={activeDropdown === item.name}
+                      aria-controls={`nav-dropdown-${index}`}
+                      onClick={() =>
+                        activeDropdown === item.name
+                          ? handleDropdownClose()
+                          : handleMouseEnter(item.name)
+                      }
+                      className={`-ml-1.5 flex h-8 w-6 items-center justify-center rounded-md ${
+                        hasSolidHeader
+                          ? isActive
+                            ? 'text-primary'
+                            : 'text-foreground hover:text-primary'
+                          : 'text-white hover:text-white/75'
+                      }`}
+                    >
+                      <ChevronDown
+                        className={`h-4 w-4 transition-transform duration-200 ${
+                          activeDropdown === item.name ? 'rotate-180' : ''
+                        }`}
+                      />
+                    </button>
 
                     <DropdownMenu
+                      id={`nav-dropdown-${index}`}
                       item={item}
                       isOpen={activeDropdown === item.name}
                       onClose={handleDropdownClose}
@@ -1041,11 +1103,12 @@ export function Header() {
             </nav>
 
             <div className="hidden lg:flex items-center space-x-4">
-              <Link href="/products">
-                <button className="bg-primary hover:bg-primary text-white font-medium py-2 px-4 rounded-lg hover:shadow-lg flex items-center transition-transform duration-200 hover:scale-105 active:scale-95">
-                  <Package className="mr-2 h-4 w-4" />
-                  Products
-                </button>
+              <Link
+                href="/products"
+                className="bg-primary hover:bg-primary/90 text-white font-medium py-2 px-4 rounded-lg hover:shadow-lg flex items-center transition-[transform,background-color,box-shadow] duration-200 hover:scale-105 active:scale-95"
+              >
+                <Package className="mr-2 h-4 w-4" aria-hidden="true" />
+                Products
               </Link>
               <div className={hasSolidHeader ? undefined : 'text-white'}>
                 <ThemeToggle />
@@ -1054,7 +1117,10 @@ export function Header() {
 
             <button
               onClick={() => setIsMobileMenuOpen(true)}
-              className={`lg:hidden p-2 rounded-lg transition-all duration-200 active:scale-90 ${
+              aria-expanded={isMobileMenuOpen}
+              aria-controls="mobile-menu"
+              aria-haspopup="dialog"
+              className={`lg:hidden p-2 rounded-lg transition duration-200 active:scale-90 ${
                 hasSolidHeader
                   ? 'hover:bg-muted'
                   : 'text-white hover:bg-white/10'

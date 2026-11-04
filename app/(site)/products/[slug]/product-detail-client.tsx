@@ -63,9 +63,13 @@ export function ProductDetailClient({
     }
   };
 
-  const copyToClipboard = (text: string) => {
-    navigator.clipboard.writeText(text);
-    toast.success('Link copied to clipboard!');
+  const copyToClipboard = async (text: string) => {
+    try {
+      await navigator.clipboard.writeText(text);
+      toast.success('Link copied to clipboard');
+    } catch {
+      toast.error('Couldn’t copy the link. Copy it from the address bar.');
+    }
   };
 
   const nextImage = () => {
@@ -138,8 +142,11 @@ export function ProductDetailClient({
                 return (
                   <button
                     key={index}
+                    type="button"
                     onClick={() => setSelectedImage(index)}
-                    className={`relative w-14 h-14 lg:w-16 lg:h-16 flex-shrink-0 overflow-hidden rounded-md border-2 transition-all ${
+                    aria-label={`Show ${mediaTitle}`}
+                    aria-current={selectedImage === index}
+                    className={`relative w-14 h-14 lg:w-16 lg:h-16 flex-shrink-0 overflow-hidden rounded-md border-2 transition-[border-color,box-shadow] ${
                       selectedImage === index
                         ? 'border-primary ring-2 ring-primary/20'
                         : 'border-transparent hover:border-muted-foreground/30'
@@ -151,15 +158,17 @@ export function ProductDetailClient({
                         className="object-cover w-full h-full rounded-lg"
                         muted
                         playsInline
-                        aria-label={mediaTitle}
+                        preload="metadata"
+                        aria-hidden="true"
+                        tabIndex={-1}
                       />
                     ) : (
                       <Image
                         src={image.asset?.url || '/placeholder.svg'}
-                        alt={mediaTitle}
+                        alt=""
                         fill
                         className="object-cover"
-                        sizes="56px"
+                        sizes="64px"
                       />
                     )}
                   </button>
@@ -200,22 +209,34 @@ export function ProductDetailClient({
 
                     if (isVideo) {
                       return (
-                        <video
-                          src={currentItem?.asset?.url}
-                          className="w-full h-full object-cover cursor-pointer rounded-lg"
+                        <button
+                          type="button"
                           onClick={openLightbox}
-                          controls={false}
-                          muted
-                          playsInline
-                          aria-label={mediaTitle}
-                        />
+                          aria-label={`Play ${mediaTitle} full screen`}
+                          className="block h-full w-full rounded-lg"
+                        >
+                          <video
+                            src={currentItem?.asset?.url}
+                            className="w-full h-full object-cover rounded-lg"
+                            controls={false}
+                            muted
+                            playsInline
+                            preload="metadata"
+                            aria-hidden="true"
+                            tabIndex={-1}
+                          />
+                        </button>
                       );
                     }
 
+                    // A background image (not <img>) drives the hover zoom, so
+                    // the button carries the accessible name instead of alt.
                     return (
-                      <div
-                        className="w-full h-full transition-transform duration-200 ease-out"
+                      <button
+                        type="button"
                         onClick={openLightbox}
+                        aria-label={`View ${mediaTitle} full screen`}
+                        className="block w-full h-full rounded-lg"
                         style={{
                           backgroundImage: `url(${currentItem?.asset?.url || '/placeholder.svg'})`,
                           backgroundSize:
@@ -228,7 +249,9 @@ export function ProductDetailClient({
                           cursor:
                             showZoom && isLargeScreen ? 'zoom-in' : 'pointer',
                         }}
-                      />
+                      >
+                        <span className="sr-only">{mediaTitle}</span>
+                      </button>
                     );
                   })()}
                 </motion.div>
@@ -238,18 +261,20 @@ export function ProductDetailClient({
               {images.length > 1 && (
                 <>
                   <button
+                    type="button"
                     onClick={prevImage}
                     className="absolute left-2 top-1/2 -translate-y-1/2 bg-background/80 backdrop-blur-sm p-2 rounded-full hover:bg-background transition-colors z-10"
                     aria-label="Previous image"
                   >
-                    <ChevronLeft className="h-5 w-5" />
+                    <ChevronLeft className="h-5 w-5" aria-hidden="true" />
                   </button>
                   <button
+                    type="button"
                     onClick={nextImage}
                     className="absolute right-2 top-1/2 -translate-y-1/2 bg-background/80 backdrop-blur-sm p-2 rounded-full hover:bg-background transition-colors z-10"
                     aria-label="Next image"
                   >
-                    <ChevronRight className="h-5 w-5" />
+                    <ChevronRight className="h-5 w-5" aria-hidden="true" />
                   </button>
                 </>
               )}
@@ -262,7 +287,7 @@ export function ProductDetailClient({
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5, delay: 0.3 }}
-          className="flex gap-3 lg:static fixed bottom-0 left-0 right-0 p-4 bg-background/95 backdrop-blur-sm border-t lg:border-t-0 lg:bg-transparent lg:backdrop-blur-none z-50 lg:z-auto"
+          className="flex gap-3 lg:static fixed bottom-0 left-0 right-0 p-4 pb-[max(1rem,env(safe-area-inset-bottom))] lg:pb-0 bg-background/95 backdrop-blur-sm border-t lg:border-t-0 lg:bg-transparent lg:backdrop-blur-none z-50 lg:z-auto"
         >
           <Button
             onClick={handleContactClick}
@@ -273,11 +298,16 @@ export function ProductDetailClient({
                 : ''
             }`}
           >
-            <Phone className="mr-2 h-5 w-5" />
+            <Phone className="mr-2 h-5 w-5" aria-hidden="true" />
             Contact Us
           </Button>
-          <Button onClick={handleShare} size="lg" variant="outline">
-            <Share2 className="h-5 w-5" />
+          <Button
+            onClick={handleShare}
+            size="lg"
+            variant="outline"
+            aria-label={`Share ${productTitle}`}
+          >
+            <Share2 className="h-5 w-5" aria-hidden="true" />
           </Button>
         </motion.div>
       </div>

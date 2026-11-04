@@ -66,9 +66,9 @@ export function ServiceGallery({ images, serviceTitle }: ServiceGalleryProps) {
                   width={800}
                   height={600}
                   sizes="(max-width: 1024px) 50vw, 33vw"
-                  className="h-full w-full object-cover transition-all duration-300 group-hover:scale-[1.02] group-hover:shadow-2xl rounded-lg"
+                  className="h-full w-full object-cover transition duration-300 group-hover:scale-[1.02] group-hover:shadow-2xl rounded-lg"
                 />
-                <div className="absolute inset-0 flex items-center justify-center bg-black/0 transition-all duration-300 group-hover:bg-black/20 rounded-lg">
+                <div className="absolute inset-0 flex items-center justify-center bg-black/0 transition duration-300 group-hover:bg-black/20 rounded-lg">
                   <span className="bg-black/50 px-4 py-2 text-sm font-medium text-white opacity-0 backdrop-blur-sm transition-opacity duration-300 group-hover:opacity-100 rounded-full">
                     Click to expand
                   </span>

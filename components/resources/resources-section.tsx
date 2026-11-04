@@ -1,6 +1,7 @@
 'use client';
 
 import { useState } from 'react';
+import { useUrlParamState } from '@/hooks/use-url-param-state';
 import { resourcesData, resourceCategories } from '@/lib/data/resources-data';
 import { ResourceCard } from './resource-card';
 import { Button } from '@/components/ui/button';
@@ -10,7 +11,10 @@ import { CONTACT_INFO } from '@/lib/constants/app.constants';
 import { SectionEyebrow } from '@/components/animations/SectionEyebrow';
 
 export function ResourcesSection() {
-  const [selectedCategory, setSelectedCategory] = useState<string>('all');
+  const [selectedCategory, setSelectedCategory] = useUrlParamState(
+    'category',
+    'all',
+  );
   const [searchQuery, setSearchQuery] = useState('');
 
   const filteredResources = resourcesData.filter(resource => {
@@ -32,13 +36,18 @@ export function ResourcesSection() {
       {/* Search and filter */}
       <div className="flex flex-col items-center justify-between gap-4 border-t border-border pt-8 md:flex-row">
         <div className="relative w-full md:w-96">
-          <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
+          <Search
+            className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground"
+            aria-hidden="true"
+          />
           <Input
-            type="text"
-            placeholder="Search resources..."
+            type="search"
+            name="search"
+            autoComplete="off"
+            placeholder="Search resources…"
             value={searchQuery}
             onChange={e => setSearchQuery(e.target.value)}
-            className="h-11 border-2 bg-background pl-10 transition-all duration-300 focus:border-primary"
+            className="h-11 border-2 bg-background pl-10 transition duration-300 focus:border-primary"
             aria-label="Search resources"
           />
         </div>
@@ -47,6 +56,7 @@ export function ResourcesSection() {
           <Button
             variant={selectedCategory === 'all' ? 'default' : 'outline'}
             onClick={() => setSelectedCategory('all')}
+            aria-pressed={selectedCategory === 'all'}
             size="sm"
           >
             All Resources
@@ -56,6 +66,7 @@ export function ResourcesSection() {
               key={category.id}
               variant={selectedCategory === category.id ? 'default' : 'outline'}
               onClick={() => setSelectedCategory(category.id)}
+              aria-pressed={selectedCategory === category.id}
               size="sm"
             >
               {category.name}

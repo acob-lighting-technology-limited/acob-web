@@ -3,7 +3,7 @@ import './globals.css';
 import '../styles/customShadow.css';
 import '../styles/animations.css';
 import '../styles/intro-loader.css';
-import type { Metadata } from 'next';
+import type { Metadata, Viewport } from 'next';
 import { Plus_Jakarta_Sans } from 'next/font/google';
 import { Providers } from '@/components/providers/session-provider';
 import { QueryProvider } from '@/providers/query-provider';
@@ -81,6 +81,15 @@ export const metadata: Metadata = {
   },
   // Google Search Console verification removed - using Vercel Analytics for site monitoring
   // If you need GSC verification later, add: verification: { google: 'your-actual-code' }
+};
+
+// Matches --background in globals.css so the mobile browser bar blends into
+// the page in each theme. (next-themes sets color-scheme on <html>.)
+export const viewport: Viewport = {
+  themeColor: [
+    { media: '(prefers-color-scheme: light)', color: '#f4f4f5' },
+    { media: '(prefers-color-scheme: dark)', color: '#09090b' },
+  ],
 };
 
 export default function RootLayout({

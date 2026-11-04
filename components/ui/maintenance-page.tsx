@@ -30,12 +30,12 @@ export function MaintenancePage({
             </p>
 
             <div className="pt-4">
-              <Link href="/">
-                <Button variant="outline" className="group w-full">
+              <Button asChild variant="outline" className="group w-full">
+                <Link href="/">
                   <ArrowLeft className="mr-2 h-4 w-4 transition-transform group-hover:-translate-x-1" />
                   Back to Home
-                </Button>
-              </Link>
+                </Link>
+              </Button>
             </div>
           </div>
         </CardContent>

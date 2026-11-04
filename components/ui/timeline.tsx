@@ -50,7 +50,7 @@ export function Timeline({ items, className }: TimelineProps) {
                   isEven ? 'pr-4 text-right' : 'pl-4 text-left',
                 )}
               >
-                <Card className="group hover:shadow-lg transition-all duration-500 border-l-4 border-l-primary/20 hover:border-l-primary">
+                <Card className="group hover:shadow-lg transition duration-500 border-l-4 border-l-primary/20 hover:border-l-primary">
                   <CardContent className="p-3">
                     <div
                       className={cn(
@@ -58,7 +58,7 @@ export function Timeline({ items, className }: TimelineProps) {
                         isEven ? 'justify-end' : 'justify-start',
                       )}
                     >
-                      <div className="relative w-6 h-6 bg-primary/10 rounded-full flex items-center justify-center overflow-hidden transition-all duration-500 group-hover:bg-primary group-hover:scale-110">
+                      <div className="relative w-6 h-6 bg-primary/10 rounded-full flex items-center justify-center overflow-hidden transition duration-500 group-hover:bg-primary group-hover:scale-110">
                         <div className="absolute inset-0 bg-primary transform scale-0 transition-transform duration-500 ease-out group-hover:scale-100 rounded-full origin-center" />
                         {IconComponent && (
                           <IconComponent className="w-3 h-3 relative z-10 text-muted-foreground transition-colors duration-500 group-hover:text-primary-foreground" />
@@ -117,10 +117,10 @@ export function TimelineMobile({ items, className }: TimelineProps) {
 
               {/* Content Card */}
               <div className="flex-1 ml-9">
-                <Card className="group hover:shadow-lg transition-all duration-500 border-l-4 border-l-primary/20 hover:border-l-primary">
+                <Card className="group hover:shadow-lg transition duration-500 border-l-4 border-l-primary/20 hover:border-l-primary">
                   <CardContent className="p-4">
                     <div className="flex items-center gap-2 mb-2">
-                      <div className="relative w-7 h-7 bg-primary/10 rounded-full flex items-center justify-center overflow-hidden transition-all duration-500 group-hover:bg-primary group-hover:scale-110">
+                      <div className="relative w-7 h-7 bg-primary/10 rounded-full flex items-center justify-center overflow-hidden transition duration-500 group-hover:bg-primary group-hover:scale-110">
                         <div className="absolute inset-0 bg-primary transform scale-0 transition-transform duration-500 ease-out group-hover:scale-100 rounded-full origin-center" />
                         <IconComponent className="w-3.5 h-3.5 relative z-10 text-muted-foreground transition-colors duration-500 group-hover:text-primary-foreground" />
                       </div>

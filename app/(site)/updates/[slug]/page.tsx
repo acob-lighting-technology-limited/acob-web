@@ -23,7 +23,7 @@ import { ShareCopy } from '@/components/updates/share-copy';
 import { CommentForm } from '@/components/updates/comment-form';
 import { Hero } from '@/components/ui/hero';
 import { UpdateContent } from './update-content';
-import { formatDate } from '@/lib/utils/date';
+import { formatDate, formatReadableDate } from '@/lib/utils/date';
 import { SectionEyebrow } from '@/components/animations/SectionEyebrow';
 
 interface UpdatePageProps {
@@ -162,7 +162,7 @@ export default async function UpdatePage({ params }: UpdatePageProps) {
               </div>
               <Link
                 href="/updates"
-                className="hidden items-center gap-1 text-sm font-semibold text-primary transition-all hover:gap-2 sm:flex"
+                className="hidden items-center gap-1 text-sm font-semibold text-primary transition-[gap,color,border-color] hover:gap-2 sm:flex"
               >
                 View all
                 <ArrowRight className="h-3.5 w-3.5" />
@@ -188,7 +188,7 @@ export default async function UpdatePage({ params }: UpdatePageProps) {
                     href={href}
                     className="group block h-full focus:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-background"
                   >
-                    <article className="flex h-full flex-col overflow-hidden rounded-xl border border-border bg-card transition-all duration-500 group-hover:-translate-y-1 group-hover:border-primary/40 group-hover:shadow-lg">
+                    <article className="flex h-full flex-col overflow-hidden rounded-xl border border-border bg-card transition duration-500 group-hover:-translate-y-1 group-hover:border-primary/40 group-hover:shadow-lg">
                       <div className="relative aspect-[16/10] w-full overflow-hidden bg-muted">
                         {imageSrc ? (
                           <Image
@@ -225,16 +225,7 @@ export default async function UpdatePage({ params }: UpdatePageProps) {
                         {item.publishedAt && (
                           <div className="mt-3 flex items-center gap-1.5 text-xs text-muted-foreground">
                             <Calendar className="h-3 w-3 shrink-0" />
-                            <span>
-                              {new Date(item.publishedAt).toLocaleDateString(
-                                undefined,
-                                {
-                                  year: 'numeric',
-                                  month: 'short',
-                                  day: 'numeric',
-                                },
-                              )}
-                            </span>
+                            <span>{formatReadableDate(item.publishedAt)}</span>
                           </div>
                         )}
                         <span className="mt-4 inline-flex items-center gap-1.5 text-xs font-bold text-primary md:text-sm">
@@ -252,12 +243,12 @@ export default async function UpdatePage({ params }: UpdatePageProps) {
 
         {/* Back */}
         <div className="mb-8 mt-16 text-center">
-          <Link href="/updates">
-            <Button variant="outline" className="group">
+          <Button asChild variant="outline" className="group">
+            <Link href="/updates">
               <ArrowLeft className="mr-2 h-4 w-4 transition-transform group-hover:-translate-x-1" />
               Back to Updates
-            </Button>
-          </Link>
+            </Link>
+          </Button>
         </div>
 
         {/* Discussion */}
@@ -278,10 +269,7 @@ export default async function UpdatePage({ params }: UpdatePageProps) {
             <div className="divide-y divide-border border-y border-border">
               {comments.map((comment: Comment) => {
                 const initial = (comment.name || '?').charAt(0).toUpperCase();
-                const dateStr = new Date(comment.createdAt).toLocaleDateString(
-                  undefined,
-                  { year: 'numeric', month: 'short', day: 'numeric' },
-                );
+                const dateStr = formatReadableDate(comment.createdAt);
                 return (
                   <div key={comment._id} className="flex gap-4 py-5">
                     <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-primary/10 font-semibold text-primary">

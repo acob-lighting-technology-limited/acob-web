@@ -119,13 +119,20 @@ export default function ShopCategoryPage() {
 
           <div className="relative w-full sm:w-96">
             <Input
-              placeholder="Search products..."
+              type="search"
+              name="search"
+              aria-label="Search products"
+              autoComplete="off"
+              placeholder="Search products…"
               value={searchQuery}
               onChange={e => setSearchQuery(e.target.value)}
-              className="h-11 border-2 bg-background pl-10 pr-10 transition-all duration-300 focus:border-primary"
+              className="h-11 border-2 bg-background pl-10 pr-10 transition duration-300 focus:border-primary"
               disabled={isLoading}
             />
-            <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
+            <Search
+              className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground"
+              aria-hidden="true"
+            />
             {searchQuery && (
               <button
                 onClick={handleClearSearch}
@@ -153,6 +160,8 @@ export default function ShopCategoryPage() {
             <button
               onClick={handleClearSearch}
               className="flex items-center gap-1 text-xs font-semibold transition-colors hover:text-primary"
+              type="button"
+              aria-label="Clear search"
             >
               <X className="h-3 w-3" />
               Clear

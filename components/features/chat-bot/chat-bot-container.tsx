@@ -11,6 +11,7 @@ import { TypingIndicator } from './typing-indicator';
 import { ChatInput } from './chat-input';
 import { SuggestedQuestions } from './suggested-questions';
 import { CONTACT_INFO } from '@/lib/constants/app.constants';
+import { useDialogFocus } from '@/hooks/use-dialog-focus';
 
 interface ChatBotContainerProps {
   isOpen: boolean;
@@ -42,20 +43,11 @@ export function ChatBotContainer({ isOpen, onClose }: ChatBotContainerProps) {
 
   const isChatting = isLoading;
   const scrollPositionRef = useRef(0);
+  const panelRef = useRef<HTMLDivElement>(null);
 
-  // Handle ESC key to close modal
-  useEffect(() => {
-    const handleEscapeKey = (event: KeyboardEvent) => {
-      if (event.key === 'Escape' && isOpen) {
-        onClose();
-      }
-    };
-
-    document.addEventListener('keydown', handleEscapeKey);
-    return () => {
-      document.removeEventListener('keydown', handleEscapeKey);
-    };
-  }, [isOpen, onClose]);
+  // Move focus into the panel, keep Tab inside it, close on Escape and hand
+  // focus back to the launcher on close.
+  useDialogFocus(panelRef, isOpen, onClose);
 
   // Prevent background scroll when modal is open
   useEffect(() => {
@@ -205,10 +197,16 @@ export function ChatBotContainer({ isOpen, onClose }: ChatBotContainerProps) {
             exit={{ opacity: 0 }}
             className="fixed inset-0 bg-black/20 z-40"
             onClick={onClose}
+            aria-hidden="true"
           />
 
           {/* Chat Container */}
           <motion.div
+            ref={panelRef}
+            role="dialog"
+            aria-modal="true"
+            aria-label="ACOBot chat"
+            tabIndex={-1}
             initial={{ opacity: 0, scale: 0.95, y: 20 }}
             animate={{ opacity: 1, scale: 1, y: 0 }}
             exit={{ opacity: 0, scale: 0.95, y: 20 }}
@@ -222,6 +220,10 @@ export function ChatBotContainer({ isOpen, onClose }: ChatBotContainerProps) {
             {/* Messages Area */}
             <div
               ref={messagesContainerRef}
+              role="log"
+              aria-live="polite"
+              aria-busy={isLoading}
+              aria-label="Conversation"
               className="flex-1 overflow-y-auto px-3.5 py-4 space-y-3 bg-muted/30 relative"
               style={{
                 touchAction: 'pan-y',
@@ -262,6 +264,7 @@ export function ChatBotContainer({ isOpen, onClose }: ChatBotContainerProps) {
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
                   className="flex justify-center my-4"
+                  role="status"
                 >
                   <div className="bg-amber-500/10 border border-amber-500/20 rounded-lg px-4 py-2 shadow-sm">
                     <p className="text-amber-700 dark:text-amber-400 text-sm text-center">
@@ -305,10 +308,12 @@ export function ChatBotContainer({ isOpen, onClose }: ChatBotContainerProps) {
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
                   className="flex justify-center my-4"
+                  role="alert"
                 >
                   <div className="bg-destructive/10 border border-destructive/20 rounded-lg px-4 py-2 shadow-sm">
                     <p className="text-destructive text-sm text-center">
-                      <strong>Message failed to send.</strong> Try again.
+                      <strong>Message failed to send.</strong> Check your
+                      connection and send it again.
                     </p>
                   </div>
                 </motion.div>

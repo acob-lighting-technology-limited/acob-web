@@ -31,6 +31,7 @@ import {
   Play,
 } from 'lucide-react';
 import { cn } from '@/lib/utils';
+import { useDialogFocus } from '@/hooks/use-dialog-focus';
 
 type MediaType = 'image' | 'video';
 
@@ -79,6 +80,7 @@ export function Lightbox({
   // Guard: ignore close calls that arrive within 300 ms of the lightbox opening
   // (prevents the opening click from immediately re-closing via event propagation)
   const justOpenedRef = useRef(false);
+  const dialogRef = useRef<HTMLDivElement>(null);
 
   // Normalise media items
   const items: MediaItem[] = media.map(m => ({
@@ -184,9 +186,8 @@ export function Lightbox({
       return;
     }
     const handler = (e: KeyboardEvent) => {
-      if (e.key === 'Escape') {
-        handleClose();
-      } else if (e.key === 'ArrowRight') {
+      // Escape is handled by useDialogFocus below.
+      if (e.key === 'ArrowRight') {
         goNext();
       } else if (e.key === 'ArrowLeft') {
         goPrev();
@@ -195,6 +196,9 @@ export function Lightbox({
     window.addEventListener('keydown', handler);
     return () => window.removeEventListener('keydown', handler);
   }, [canRender, handleClose, goNext, goPrev]);
+
+  // ── Focus: move in on open, trap Tab, Escape closes, restore on close ────
+  useDialogFocus(dialogRef, canRender, handleClose);
 
   // ── Zoom toggle ───────────────────────────────────────────────────────────
   const toggleZoom = () => {
@@ -286,7 +290,12 @@ export function Lightbox({
 
   const portal = (
     <div
-      className="fixed inset-0 z-[9999] bg-black"
+      ref={dialogRef}
+      role="dialog"
+      aria-modal="true"
+      aria-label={current.alt || 'Media viewer'}
+      tabIndex={-1}
+      className="fixed inset-0 z-[9999] bg-black overscroll-contain"
       onClick={e => {
         if (e.target === e.currentTarget) {
           handleClose();
@@ -382,6 +391,7 @@ export function Lightbox({
       <div
         className="absolute overflow-hidden"
         style={{
+          touchAction: 'none',
           top: TOPBAR_H,
           bottom: thumbbarH,
           left: arrowW,
@@ -454,13 +464,14 @@ export function Lightbox({
               key={i}
               onClick={() => setIndex(i)}
               className={cn(
-                'relative shrink-0 rounded overflow-hidden transition-all duration-200 border-2',
+                'relative shrink-0 rounded overflow-hidden transition-[opacity,transform,border-color,box-shadow] duration-200 border-2',
                 i === index
                   ? 'border-primary opacity-100 scale-110 shadow-lg'
                   : 'border-transparent opacity-50 hover:opacity-80 hover:scale-105',
               )}
               style={{ width: 56, height: 56 }}
               aria-label={`Go to item ${i + 1}`}
+              aria-current={i === index}
             >
               {item.type === 'video' ? (
                 <div className="w-full h-full bg-zinc-800 flex items-center justify-center">
@@ -470,6 +481,10 @@ export function Lightbox({
                 <img
                   src={item.src}
                   alt={item.alt}
+                  width={56}
+                  height={56}
+                  loading="lazy"
+                  decoding="async"
                   className="w-full h-full object-cover"
                 />
               )}

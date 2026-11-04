@@ -1,6 +1,7 @@
 'use client';
 
 import { useState } from 'react';
+import { useUrlParamState } from '@/hooks/use-url-param-state';
 import { faqData, faqCategories } from '@/lib/data/faq-data';
 import { Button } from '@/components/ui/button';
 import {
@@ -13,7 +14,10 @@ import { Input } from '@/components/ui/input';
 import { Search } from 'lucide-react';
 
 export function FAQSection() {
-  const [selectedCategory, setSelectedCategory] = useState<string>('All');
+  const [selectedCategory, setSelectedCategory] = useUrlParamState(
+    'category',
+    'All',
+  );
   const [searchQuery, setSearchQuery] = useState('');
 
   const filteredFAQs = faqData.filter(faq => {
@@ -32,13 +36,18 @@ export function FAQSection() {
       {/* Search and filter */}
       <div className="flex flex-col items-center justify-between gap-4 border-t border-border pt-8 md:flex-row">
         <div className="relative w-full md:w-96">
-          <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
+          <Search
+            className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground"
+            aria-hidden="true"
+          />
           <Input
-            type="text"
-            placeholder="Search FAQs..."
+            type="search"
+            name="search"
+            autoComplete="off"
+            placeholder="Search FAQs…"
             value={searchQuery}
             onChange={e => setSearchQuery(e.target.value)}
-            className="h-11 border-2 bg-background pl-10 transition-all duration-300 focus:border-primary"
+            className="h-11 border-2 bg-background pl-10 transition duration-300 focus:border-primary"
             aria-label="Search FAQs"
           />
         </div>
@@ -47,6 +56,7 @@ export function FAQSection() {
           <Button
             variant={selectedCategory === 'All' ? 'default' : 'outline'}
             onClick={() => setSelectedCategory('All')}
+            aria-pressed={selectedCategory === 'All'}
             size="sm"
           >
             All
@@ -56,6 +66,7 @@ export function FAQSection() {
               key={category}
               variant={selectedCategory === category ? 'default' : 'outline'}
               onClick={() => setSelectedCategory(category)}
+              aria-pressed={selectedCategory === category}
               size="sm"
             >
               {category}
@@ -65,7 +76,7 @@ export function FAQSection() {
       </div>
 
       {/* Result count */}
-      <div className="mt-6 text-sm text-muted-foreground">
+      <div className="mt-6 text-sm text-muted-foreground" aria-live="polite">
         Showing {filteredFAQs.length} question
         {filteredFAQs.length !== 1 && 's'}
         {selectedCategory !== 'All' && ` in ${selectedCategory}`}

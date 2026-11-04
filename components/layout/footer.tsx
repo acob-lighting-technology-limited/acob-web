@@ -35,11 +35,11 @@ function SocialIconButton({
       href={href}
       target="_blank"
       rel="noopener noreferrer"
-      className="group relative inline-flex items-center justify-center p-1 text-zinc-400 transition-all duration-300"
+      className="group relative inline-flex items-center justify-center p-1 text-zinc-400 transition duration-300"
       aria-label={label}
     >
       {/* Icon container with animated fill effect */}
-      <div className="relative w-10 h-10 rounded-full overflow-hidden flex items-center justify-center transition-all duration-500 group-hover:scale-110">
+      <div className="relative w-10 h-10 rounded-full overflow-hidden flex items-center justify-center transition duration-500 group-hover:scale-110">
         {/* Animated fill effect */}
         <div
           className="absolute inset-0 transform scale-0 transition-transform duration-500 ease-out group-hover:scale-100 rounded-full origin-center"
@@ -123,9 +123,12 @@ export function Footer() {
                 />
               </Link>
               <p className="text-sm text-zinc-400 leading-relaxed transition-colors duration-500">
+                {showAnniversary && 'Celebrating 10 years of impact, '}
+                {/* Keep the company name intact under browser auto-translate. */}
+                <span translate="no">ACOB Lighting Technology Limited</span>
                 {showAnniversary
-                  ? 'Celebrating 10 years of impact, ACOB Lighting Technology Limited delivers sustainable power solutions across Nigeria through mini-grid systems, solar installations, and energy storage solutions that empower homes, businesses, and communities with reliable, clean energy.'
-                  : 'ACOB Lighting Technology Limited delivers sustainable power solutions across Nigeria. We specialize in mini-grid systems, solar installations, and energy storage solutions that empower homes, businesses, and communities with reliable, clean energy.'}
+                  ? ' delivers sustainable power solutions across Nigeria through mini-grid systems, solar installations, and energy storage solutions that empower homes, businesses, and communities with reliable, clean energy.'
+                  : ' delivers sustainable power solutions across Nigeria. We specialize in mini-grid systems, solar installations, and energy storage solutions that empower homes, businesses, and communities with reliable, clean energy.'}
               </p>
               {/* Social Links */}
               <div className="flex">

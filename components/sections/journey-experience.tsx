@@ -643,15 +643,16 @@ export function JourneyExperience({ onClose }: { onClose: () => void }) {
                   >
                     <RotateCcw className="mr-2 h-4 w-4" /> Restart
                   </Button>
-                  <Link href="/projects" onClick={stopAndClose}>
-                    <Button
-                      size="lg"
-                      className="px-8 py-6 text-base font-semibold"
-                    >
+                  <Button
+                    asChild
+                    size="lg"
+                    className="px-8 py-6 text-base font-semibold"
+                  >
+                    <Link href="/projects" onClick={stopAndClose}>
                       Explore our projects
                       <ArrowRight className="ml-2 h-4 w-4" />
-                    </Button>
-                  </Link>
+                    </Link>
+                  </Button>
                 </div>
                 <button
                   onClick={stopAndClose}
@@ -806,7 +807,7 @@ export function JourneyExperience({ onClose }: { onClose: () => void }) {
             >
               <span
                 className={cn(
-                  'text-[10px] uppercase tracking-[0.2em] transition-all duration-300',
+                  'text-[10px] uppercase tracking-[0.2em] transition duration-300',
                   active === i
                     ? 'text-primary opacity-100'
                     : 'text-zinc-500 opacity-0 group-hover:opacity-100 dark:text-white/50',
@@ -816,7 +817,7 @@ export function JourneyExperience({ onClose }: { onClose: () => void }) {
               </span>
               <span
                 className={cn(
-                  'block rounded-full transition-all duration-300',
+                  'block rounded-full transition-[width,height,background-color] duration-300',
                   active === i
                     ? 'h-5 w-1.5 bg-primary'
                     : 'h-1.5 w-1.5 bg-zinc-400/50 group-hover:bg-zinc-500 dark:bg-white/30 dark:group-hover:bg-white/60',
@@ -1068,24 +1069,26 @@ export function JourneyExperience({ onClose }: { onClose: () => void }) {
             </Rise>
             <Rise delay={1.2} className="mt-10">
               <div className="flex flex-col items-center justify-center gap-3 sm:flex-row">
-                <Link href="/projects" onClick={stopAndClose}>
-                  <Button
-                    size="lg"
-                    className="w-full px-8 py-6 text-base font-semibold sm:w-auto"
-                  >
+                <Button
+                  asChild
+                  size="lg"
+                  className="w-full px-8 py-6 text-base font-semibold sm:w-auto"
+                >
+                  <Link href="/projects" onClick={stopAndClose}>
                     Explore our projects
                     <ArrowRight className="ml-2 h-4 w-4" />
-                  </Button>
-                </Link>
-                <Link href="/contact" onClick={stopAndClose}>
-                  <Button
-                    size="lg"
-                    variant="outline"
-                    className="w-full border-white/40 bg-white/10 px-8 py-6 text-base font-semibold text-white backdrop-blur-sm hover:bg-white hover:text-zinc-950 sm:w-auto"
-                  >
+                  </Link>
+                </Button>
+                <Button
+                  asChild
+                  size="lg"
+                  variant="outline"
+                  className="w-full border-white/40 bg-white/10 px-8 py-6 text-base font-semibold text-white backdrop-blur-sm hover:bg-white hover:text-zinc-950 sm:w-auto"
+                >
+                  <Link href="/contact" onClick={stopAndClose}>
                     Partner with us
-                  </Button>
-                </Link>
+                  </Link>
+                </Button>
               </div>
             </Rise>
             <Rise delay={1.4} className="mt-12">

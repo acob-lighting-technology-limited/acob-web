@@ -162,7 +162,7 @@ export default async function CareersPage() {
                   </p>
                   <Link
                     href="/contact"
-                    className="group mt-6 inline-flex items-center gap-2 border-b-2 border-foreground pb-1 text-sm font-bold text-foreground transition-all hover:gap-3 hover:border-primary hover:text-primary"
+                    className="group mt-6 inline-flex items-center gap-2 border-b-2 border-foreground pb-1 text-sm font-bold text-foreground transition-[gap,color,border-color] hover:gap-3 hover:border-primary hover:text-primary"
                   >
                     Contact us
                     <ArrowRight className="h-4 w-4" />

@@ -51,11 +51,11 @@ const MetricBadge = ({
       className="w-full sm:flex-1"
     >
       <div
-        className={`group relative rounded-xl border-2 ${color} ${textColor} p-4 sm:p-5 transition-all duration-300 hover:-translate-y-1 hover:shadow-lg`}
+        className={`group relative rounded-xl border-2 ${color} ${textColor} p-4 sm:p-5 transition duration-300 hover:-translate-y-1 hover:shadow-lg`}
       >
         <div className="flex items-center gap-3 sm:gap-4">
           {/* Icon */}
-          <div className="relative flex h-10 w-10 flex-shrink-0 items-center justify-center overflow-hidden rounded-full bg-background/50 p-2 transition-all duration-500 group-hover:scale-110 sm:h-12 sm:w-12">
+          <div className="relative flex h-10 w-10 flex-shrink-0 items-center justify-center overflow-hidden rounded-full bg-background/50 p-2 transition duration-500 group-hover:scale-110 sm:h-12 sm:w-12">
             {/* Animated fill effect */}
             <div
               className={`absolute inset-0 origin-center scale-0 rounded-full transform transition-transform duration-500 ease-out group-hover:scale-100 ${iconColor}`}
@@ -74,7 +74,9 @@ const MetricBadge = ({
               <span
                 className={`text-xl sm:text-2xl font-bold ${textColor} transition-colors duration-300`}
               >
-                {typeof value === 'number' ? value.toLocaleString() : value}
+                {typeof value === 'number'
+                  ? new Intl.NumberFormat('en-NG').format(value)
+                  : value}
                 {showPlus ? '+' : ''}
               </span>
               {unit && (

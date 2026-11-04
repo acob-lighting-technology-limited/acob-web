@@ -1,6 +1,7 @@
 'use client';
 
 import { useState, useMemo } from 'react';
+import { useUrlParamState } from '@/hooks/use-url-param-state';
 import { Button } from '@/components/ui/button';
 import Image from '@/components/ui/image';
 import { Lightbox } from '@/components/ui/lightbox';
@@ -18,7 +19,10 @@ interface GalleryClientProps {
 }
 
 export function GalleryClient({ images }: GalleryClientProps) {
-  const [selectedCategory, setSelectedCategory] = useState<string>('All');
+  const [selectedCategory, setSelectedCategory] = useUrlParamState(
+    'category',
+    'All',
+  );
   const [lightboxOpen, setLightboxOpen] = useState(false);
   const [selectedImageIndex, setSelectedImageIndex] = useState(0);
 
@@ -49,6 +53,7 @@ export function GalleryClient({ images }: GalleryClientProps) {
             variant={selectedCategory === category ? 'default' : 'outline'}
             size="sm"
             onClick={() => setSelectedCategory(category)}
+            aria-pressed={selectedCategory === category}
             className={cn(
               'rounded-none',
               selectedCategory === category ? '' : 'border-border',
@@ -67,7 +72,9 @@ export function GalleryClient({ images }: GalleryClientProps) {
         {filteredImages.map((image, index) => (
           <button
             key={index}
+            type="button"
             onClick={() => openLightbox(index)}
+            aria-label={`View ${image.alt} full screen`}
             className="group relative aspect-[4/3] overflow-hidden border border-border bg-muted transition-colors duration-300 hover:border-primary/50 rounded-lg"
           >
             <Image

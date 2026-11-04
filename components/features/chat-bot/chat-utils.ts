@@ -49,11 +49,11 @@ export function formatMessage(content: string): string {
  * @returns Formatted time string (e.g., "2:30 PM")
  */
 export function getCurrentTime(): string {
-  return new Date().toLocaleTimeString('en-US', {
+  // The visitor's own locale and clock: this labels their chat messages.
+  return new Intl.DateTimeFormat(undefined, {
     hour: 'numeric',
     minute: '2-digit',
-    hour12: true,
-  });
+  }).format(new Date());
 }
 
 /**

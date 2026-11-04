@@ -90,7 +90,7 @@ export default function ContactPage() {
                     {/* Mini card — decorative; the title carries the meaning. */}
                     <span
                       aria-hidden
-                      className="relative block aspect-[4/3] w-full overflow-hidden rounded-lg bg-muted ring-1 ring-border transition-all duration-500 group-hover:-rotate-2 group-hover:shadow-lg group-hover:ring-primary/40"
+                      className="relative block aspect-[4/3] w-full overflow-hidden rounded-lg bg-muted ring-1 ring-border transition duration-500 group-hover:-rotate-2 group-hover:shadow-lg group-hover:ring-primary/40"
                     >
                       <Image
                         src={section.image || '/placeholder.svg'}
@@ -101,14 +101,14 @@ export default function ContactPage() {
                       />
                     </span>
                     <span className="relative min-w-0">
-                      <span className="block text-base font-extrabold uppercase leading-tight tracking-tight text-foreground transition-all duration-500 group-hover:translate-x-1 group-hover:text-primary lg:text-lg">
+                      <span className="block text-base font-extrabold uppercase leading-tight tracking-tight text-foreground transition duration-500 group-hover:translate-x-1 group-hover:text-primary lg:text-lg">
                         {section.title}
                       </span>
                       <span className="mt-1 text-sm text-muted-foreground line-clamp-2">
                         {section.description}
                       </span>
                     </span>
-                    <span className="relative flex h-9 w-9 items-center justify-center rounded-full border border-border text-foreground transition-all duration-500 group-hover:rotate-45 group-hover:border-primary group-hover:bg-primary group-hover:text-primary-foreground sm:h-10 sm:w-10">
+                    <span className="relative flex h-9 w-9 items-center justify-center rounded-full border border-border text-foreground transition duration-500 group-hover:rotate-45 group-hover:border-primary group-hover:bg-primary group-hover:text-primary-foreground sm:h-10 sm:w-10">
                       <ArrowUpRight className="h-4 w-4" aria-hidden />
                     </span>
                   </Link>

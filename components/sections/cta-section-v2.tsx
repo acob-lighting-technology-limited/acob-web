@@ -49,20 +49,21 @@ function CtaContent() {
 
         <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-center">
           <Magnetic>
-            <Link href="/contact">
-              <Button
-                size="lg"
-                variant="secondary"
-                className="group w-full px-8 py-6 text-base font-semibold sm:w-auto"
-              >
+            <Button
+              asChild
+              size="lg"
+              variant="secondary"
+              className="group w-full px-8 py-6 text-base font-semibold sm:w-auto"
+            >
+              <Link href="/contact">
                 Get in touch
                 <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
-              </Button>
-            </Link>
+              </Link>
+            </Button>
           </Magnetic>
           <Link
             href="/projects"
-            className="group inline-flex items-center justify-center gap-2 border-b-2 border-primary-foreground/50 pb-1 text-base font-semibold text-primary-foreground transition-all hover:gap-3 hover:border-primary-foreground"
+            className="group inline-flex items-center justify-center gap-2 border-b-2 border-primary-foreground/50 pb-1 text-base font-semibold text-primary-foreground transition-[gap,color,border-color] hover:gap-3 hover:border-primary-foreground"
           >
             View our projects
             <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />

@@ -75,7 +75,10 @@ function FormContent({ postId }: { postId: string }) {
       </div>
 
       {isSuccess ? (
-        <div className="flex flex-col items-center justify-center gap-3 border border-dashed border-primary/30 bg-primary/5 py-10 text-center rounded-xl">
+        <div
+          role="status"
+          className="flex flex-col items-center justify-center gap-3 border border-dashed border-primary/30 bg-primary/5 py-10 text-center rounded-xl"
+        >
           <CheckCircle2 className="h-10 w-10 text-primary" />
           <p className="font-semibold text-foreground">Comment received!</p>
           <p className="text-sm text-muted-foreground">
@@ -90,9 +93,10 @@ function FormContent({ postId }: { postId: string }) {
               <Input
                 id="update-comment-name"
                 name="name"
+                autoComplete="name"
                 value={name}
                 onChange={e => setName(e.target.value)}
-                placeholder="Your name"
+                placeholder="e.g. Ada Okafor…"
                 className={fieldClass}
                 required
               />
@@ -103,9 +107,11 @@ function FormContent({ postId }: { postId: string }) {
                 id="update-comment-email"
                 name="email"
                 type="email"
+                autoComplete="email"
+                spellCheck={false}
                 value={email}
                 onChange={e => setEmail(e.target.value)}
-                placeholder="you@example.com"
+                placeholder="e.g. ada@example.com…"
                 className={fieldClass}
                 required
               />
@@ -120,7 +126,7 @@ function FormContent({ postId }: { postId: string }) {
               value={comment}
               onChange={e => setComment(e.target.value)}
               rows={5}
-              placeholder="Share your thoughts..."
+              placeholder="Share your thoughts…"
               className={fieldClass}
               required
             />
@@ -134,8 +140,11 @@ function FormContent({ postId }: { postId: string }) {
             >
               {isPending ? (
                 <>
-                  <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                  Submitting...
+                  <Loader2
+                    className="mr-2 h-4 w-4 motion-safe:animate-spin"
+                    aria-hidden="true"
+                  />
+                  Submitting…
                 </>
               ) : (
                 'Post Comment'

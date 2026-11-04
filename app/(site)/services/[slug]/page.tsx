@@ -317,7 +317,7 @@ export default async function ServicePage({ params }: ServicePageProps) {
                         )}
                       </div>
                       {matchingProject && (
-                        <ArrowRight className="h-5 w-5 shrink-0 text-primary opacity-0 transition-all duration-300 group-hover:translate-x-1 group-hover:opacity-100" />
+                        <ArrowRight className="h-5 w-5 shrink-0 text-primary opacity-0 transition duration-300 group-hover:translate-x-1 group-hover:opacity-100" />
                       )}
                     </div>
                   );
@@ -384,7 +384,7 @@ export default async function ServicePage({ params }: ServicePageProps) {
               </div>
               <Link
                 href="/services"
-                className="hidden items-center gap-1 text-sm font-semibold text-primary transition-all hover:gap-2 sm:flex"
+                className="hidden items-center gap-1 text-sm font-semibold text-primary transition-[gap,color,border-color] hover:gap-2 sm:flex"
               >
                 View all
                 <ArrowRight className="h-3.5 w-3.5" />
@@ -398,7 +398,7 @@ export default async function ServicePage({ params }: ServicePageProps) {
                   href={`/services/${relatedService.slug}`}
                   className="group block h-full focus:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-background"
                 >
-                  <article className="flex h-full flex-col overflow-hidden rounded-xl border border-border bg-card transition-all duration-500 group-hover:-translate-y-1 group-hover:border-primary/40 group-hover:shadow-lg">
+                  <article className="flex h-full flex-col overflow-hidden rounded-xl border border-border bg-card transition duration-500 group-hover:-translate-y-1 group-hover:border-primary/40 group-hover:shadow-lg">
                     <div className="relative aspect-[16/10] w-full overflow-hidden bg-muted">
                       <Image
                         src={relatedService.image}
@@ -431,12 +431,12 @@ export default async function ServicePage({ params }: ServicePageProps) {
 
         {/* Back */}
         <div className="mb-8 mt-16 text-center">
-          <Link href="/services">
-            <Button variant="outline" className="group">
+          <Button asChild variant="outline" className="group">
+            <Link href="/services">
               <ArrowLeft className="mr-2 h-4 w-4 transition-transform group-hover:-translate-x-1" />
               Back to Services
-            </Button>
-          </Link>
+            </Link>
+          </Button>
         </div>
       </Container>
     </>
